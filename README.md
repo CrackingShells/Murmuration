@@ -2,19 +2,53 @@
 
 [![License](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
 
-A multi-agent research team for Claude Code: a principal investigator that follows what does not add up, and colleagues who explore, prove, measure and check each other's work.
+A research team for Claude Code: a principal investigator that follows what does not add up, and
+colleagues who explore, prove, measure and check each other's work.
 
-A murmuration is a flock of starlings that moves as one with no bird in command: each bird watches a few neighbours, and a turn noticed at the edge travels through the whole flock. Murmuration aims at the same property for a research team. Peers talk to each other directly, and a puzzle one agent cannot let go of reaches everyone, the investigator included. Inside, the instruments are the parts of a Roman balance. `libripens`, the scale-holder, keeps the stores: what the team spent (`expensa`), the state of the work (`statera`), the weight each claim can bear (`pondus`), the peer reviews (`examen`), and the small residues that do not add up (`scrupuli`). Murmuration is part of the Cracking Shells family of repositories, alongside [Nest](https://github.com/CrackingShells/Nest), the org's plugin marketplace.
+A murmuration is a flock of starlings that moves as one with no bird in command: each bird watches
+a few neighbours, and a turn noticed at the edge travels through the whole flock. Murmuration aims
+at the same property for a research team. Authors and verifiers talk to each other directly, every
+member records the puzzles it cannot let go of, and the principal investigator decides which of
+them change what the team does next. Murmuration is part of the Cracking Shells family of
+repositories, alongside [Nest](https://github.com/CrackingShells/Nest), the org's plugin
+marketplace.
 
-## Status
+## The team
 
-Design stage. Nothing is installable yet.
+| Role | Model | Does |
+|:--|:--|:--|
+| research-pi | Opus, main session | Frames the question, plans waves, decides which hunches become claims, writes the synthesis |
+| explorer | Sonnet | Probes an open direction or surveys prior work; returns raw material and puzzles |
+| author | Sonnet | Turns a hunch into a labelled claim by proof or experiment |
+| reproducer | Sonnet | Verifies empirical claims independently, then questions the author |
+| proof-adversary | Sonnet | Verifies proofs and exact claims independently, then questions the author |
 
-| Where | What |
+## Install
+
+Murmuration is not yet published to a marketplace. To try it, load it from a local clone:
+
+```bash
+git clone https://github.com/CrackingShells/Murmuration.git
+claude --plugin-dir /path/to/Murmuration
+```
+
+## Use
+
+1. In the folder of your research project, run `/lab <your question>`. It creates the lab files
+   and writes `.claude/settings.local.json`, which makes the next session open as the principal
+   investigator and denies process kills by name pattern.
+2. Start a new Claude Code session in that folder and ask it to begin.
+3. Run `/lab-status` at any time to see open puzzles, the current label of every claim, and token
+   spend per agent.
+
+`/lab` creates:
+
+| Path | Holds |
 |:--|:--|
-| [`__design__/`](__design__/README.md) | Points to the build reference (architecture v4) and states the decisions it fixes |
-| [`__roadmap__/murmuration/`](__roadmap__/murmuration/README.md) | The build roadmap, planned one wave at a time |
-| [`__reports__/genesis/`](__reports__/genesis/README.md) | How the design came about: retrospective of a real study, outside reviews, benchmark survey, naming |
+| `__design__/framing.md` | The question, notation, scope and rules for the team |
+| `__statera__/` | Your words (recorded automatically), one note per wave, and the synthesis |
+| `__pondus__/` | One file per claim, with each verifier's verdict |
+| `__scrupuli__/` | Each agent's puzzles |
 
 ## Requirements
 
@@ -28,16 +62,18 @@ named below are used when present and skipped when absent.
 
 | Role | Built-in tools | MCP servers |
 |:--|:--|:--|
-| research-pi (Opus, main thread) | all | all |
-| explorer (Sonnet) | Read, Glob, Grep, Bash, Write, Edit, WebFetch, WebSearch, Skill, ToolSearch | WolframToolkit, colgrep, arxiv, context7 |
-| author (Sonnet) | Read, Glob, Grep, Bash, Write, Edit, Skill, ToolSearch, SendMessage | WolframToolkit, colgrep, arxiv |
-| reproducer, proof-adversary (Sonnet) | Read, Glob, Grep, Bash, Write, Edit, Skill, ToolSearch, SendMessage | WolframToolkit, colgrep |
+| research-pi | all | all |
+| explorer | Read, Glob, Grep, Bash, Write, Edit, WebFetch, WebSearch, Skill, ToolSearch | WolframToolkit, colgrep, arxiv, context7 |
+| author | Read, Glob, Grep, Bash, Write, Edit, Skill, ToolSearch, SendMessage | WolframToolkit, colgrep, arxiv |
+| reproducer, proof-adversary | Read, Glob, Grep, Bash, Write, Edit, Skill, ToolSearch, SendMessage | WolframToolkit, colgrep |
 
 To use another server, add its `mcp__<server>__*` entry to the agent file's `tools` line.
 
 ## Contributing
 
-Questions and suggestions go to the issue tracker once the repository is published.
+Design records for contributors are in [`__reports__/`](__reports__/) and the build plan in
+[`__roadmap__/`](__roadmap__/). Questions and suggestions go to the issue tracker once the
+repository is published.
 
 ## License
 
