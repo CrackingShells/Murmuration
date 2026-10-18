@@ -39,3 +39,9 @@ Gitignored SQLite index with per-segment byte watermarks; `query`, `rebuild`, `b
 **Deliverables**: `libripens/src/mcp.rs` (tools `append`, `query`, `measure`); `.github/workflows/libripens.yml`
 **Consistency Checks**: `cargo test --manifest-path libripens/Cargo.toml mcp` (expected: PASS)
 **Commit**: `feat(libripens): expose the stores over MCP and build every platform`
+
+
+## Amendment A1 (wave 1)
+- Step 1: `__scrupuli__` gets `mention` and `follow` events; `__pondus__` accepts `research-pi` as author.
+- Step 3: `classify_prompt` for UserPromptSubmit (wrappers `<cross-session-message `, `<task-notification>`, `<agent-message from=`); hand-backs by two paths (`SubagentStop.last_assistant_message`, or `PostToolUse(SubagentHandback)` in auto mode); runs are `(agent_id, n)` per resume; ignore `agent_type: ""`; FileChanged as an `asyncRewake` command; `command` at SessionStart(startup/resume) and SessionEnd.
+- Step 4: the MCP server answers synchronously in milliseconds and serves concurrent calls (`async` is ignored on `mcp_tool`). Source: `__reports__/platform_probes/01-findings_v1.md`.

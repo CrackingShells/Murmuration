@@ -19,8 +19,8 @@ Ship Murmuration as an installable Claude Code plugin whose pilot shows judgemen
 ```mermaid
 graph TD
     repository[Local repository scaffold]:::done
-    platform_probes[Platform probes]:::inprogress
-    instrument_validation[Instrument validation on the genesis study]:::inprogress
+    platform_probes[Platform probes]:::done
+    instrument_validation[Instrument validation on the genesis study]:::done
     build[Build]:::planned
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
@@ -33,13 +33,14 @@ graph TD
 | Node | Type | Status |
 |:-----|:-----|:-------|
 | `repository.md` | 📄 Leaf Task | ✅ Done |
-| `platform_probes.md` | 📄 Leaf Task | 🔄 In Progress |
-| `instrument_validation.md` | 📄 Leaf Task | 🔄 In Progress |
+| `platform_probes.md` | 📄 Leaf Task | ✅ Done |
+| `instrument_validation.md` | 📄 Leaf Task | ✅ Done |
 | `build/` | 📁 Directory | ⬜ Planned |
 
 ## Amendment Log
 | ID | Date | Source | Nodes Added | Rationale |
 |:---|:-----|:-------|:------------|:----------|
+| A1 | 2026-10-18 | __reports__/pi_decisions/00-wave1_note_v0.md | [] | Wave 1 consequences folded into existing build nodes (no new nodes): probe-verified hook behavior, PI claims in pondus, mention/follow, pilot reconciliations |
 
 ## Progress
 | Node | Branch | Commits | Notes |

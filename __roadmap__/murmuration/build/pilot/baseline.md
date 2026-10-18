@@ -33,3 +33,13 @@ One external benchmark run with ledger metrics; the pilot knowledge-transfer rep
 **Deliverables**: `__reports__/baseline/01-knowledge_transfer_v0.md`
 **Consistency Checks**: `test -f __reports__/baseline/01-knowledge_transfer_v0.md` (expected: PASS)
 **Commit**: `docs(baseline): report the pilot baseline and retrospective`
+
+
+## Amendment A1 (wave 1)
+Add to the pilot:
+- replicate experiment B with 3–5 runs per arm;
+- reconcile the ledger with the sum of SubagentStop transcripts over resumes;
+- reconcile each `__examen__` thread with its PostToolUse(SendMessage) sequence;
+- run the Agent Teams manual probe;
+- hand-label uptake (`follow`) for the replay.
+Sources: `__reports__/instrument_validation/00-findings_v0.md`; `__reports__/platform_probes/01-findings_v1.md`.

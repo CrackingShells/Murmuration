@@ -40,3 +40,9 @@ Manifests and hooks.json via spawning-agent-plugins; local install test; a Nest 
 **Deliverables**: `.claude-plugin/plugin.json` (id `murmuration`); `hooks/hooks.json`; `.mcp.json`
 **Consistency Checks**: `test -f .claude-plugin/plugin.json` (expected: PASS)
 **Commit**: `feat(plugin): package Murmuration for local install`
+
+
+## Amendment A1 (wave 1)
+- Step 1: `research-loop` restores the default-prompt blocks the `agent` setting drops (parallel dispatch, faithful outcome reports, confirmation before outward-facing actions, memory); the first brief carries the repository state.
+- Step 3: scoped matchers `murmuration:lab`, `murmuration:lab-status`.
+- Step 4: scoped agent types in hook matchers; no frontmatter hooks, permissionMode or mcpServers; pair briefs name both agents; short SubagentStart context (paid per resume); minimum Claude Code 2.1.271; never set the Agent Teams variable. Source: `__reports__/platform_probes/01-findings_v1.md`.
