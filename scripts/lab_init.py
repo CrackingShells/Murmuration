@@ -4,7 +4,8 @@
 The question is read from stdin (so any text is safe to pass).
 
     lab_init.py [--project DIR]   initialize the lab if `__statera__/` is missing, otherwise
-                                  append the question to `__statera__/user_words.md`
+                                  append the question to `__statera__/user_words.md` and restore
+                                  any missing settings in `.claude/settings.local.json`
     lab_init.py --selftest        check the script on a temporary project
 
 The project directory is --project, else CLAUDE_PROJECT_DIR, else the current directory.
@@ -175,13 +176,42 @@ def enclosing_lab(root):
             return folder
 
 
+def restore_settings(root):
+    """Merge the lab's settings into `.claude/settings.local.json` if anything is missing.
+
+    Returns notes about what changed or was kept; empty when the file already has everything.
+    Raises ValueError when the file is not a JSON object.
+    """
+    path = os.path.join(root, LOCAL_SETTINGS)
+    settings = read_settings(path)
+    try:
+        shared = read_settings(os.path.join(root, SHARED_SETTINGS))
+    except ValueError:
+        shared = {}
+    before = json.dumps(settings, sort_keys=True)
+    notes = merge_settings(settings, shared)
+    if json.dumps(settings, sort_keys=True) != before:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump(settings, fh, indent=2)
+            fh.write("\n")
+    return [".claude/settings.local.json: " + n for n in notes]
+
+
 def run(root, question):
-    """Initialize or append. Returns (mode, what was done). Raises NestedLab inside another lab."""
+    """Initialize or append. Returns (mode, what was done). Raises NestedLab inside another lab.
+
+    With a lab already present the question is appended and any missing personal settings are
+    restored (a clone of the project, or a deleted settings file, has none).
+    """
     if os.path.isdir(os.path.join(root, "__statera__")):
+        notes = restore_settings(root)  # before writing anything: invalid settings stop here
         if user_words.last_entry(root) == question.strip():
-            return "append", ["the question is already the newest entry in __statera__/user_words.md; not repeated"]
-        user_words.append_words(root, question)
-        return "append", ["appended the question to __statera__/user_words.md"]
+            done = ["the question is already the newest entry in __statera__/user_words.md; not repeated"]
+        else:
+            user_words.append_words(root, question)
+            done = ["appended the question to __statera__/user_words.md"]
+        return "append", done + notes
     parent = enclosing_lab(root)
     if parent:
         raise NestedLab(parent)
@@ -239,6 +269,33 @@ def selftest():
         assert load(os.path.join(proj, "__statera__", "user_words.md")) == words and "not repeated" in done[0], done
         # Merging again is idempotent.
         assert merge_settings(json.loads(load(os.path.join(proj, LOCAL_SETTINGS)))) == []
+        # An existing lab with no personal settings (a clone, or a deleted file): appending restores them.
+        os.remove(os.path.join(proj, LOCAL_SETTINGS))
+        _, done = run(proj, "a question after the clone")
+        restored = json.loads(load(os.path.join(proj, LOCAL_SETTINGS)))
+        assert restored["agent"] == AGENT and restored["permissions"]["deny"] == DENY, restored
+        assert any('set "agent"' in d for d in done) and any("added permissions.deny" in d for d in done), done
+        before_text = load(os.path.join(proj, LOCAL_SETTINGS))
+        _, done = run(proj, "and another one")
+        assert load(os.path.join(proj, LOCAL_SETTINGS)) == before_text and not any("settings" in d for d in done), done
+        # A different agent is kept and reported on append too; invalid settings stop before the append.
+        with open(os.path.join(proj, LOCAL_SETTINGS), "w") as fh:
+            json.dump({"agent": "mine"}, fh)
+        _, done = run(proj, "with another agent")
+        assert json.loads(load(os.path.join(proj, LOCAL_SETTINGS)))["agent"] == "mine"
+        assert any("kept the existing" in d for d in done), done
+        assert json.loads(load(os.path.join(proj, LOCAL_SETTINGS)))["permissions"]["deny"] == DENY
+        words_before = load(os.path.join(proj, "__statera__", "user_words.md"))
+        with open(os.path.join(proj, LOCAL_SETTINGS), "w") as fh:
+            fh.write("{broken")
+        try:
+            run(proj, "never recorded")
+            raise AssertionError("invalid settings must stop the append")
+        except ValueError:
+            pass
+        assert load(os.path.join(proj, "__statera__", "user_words.md")) == words_before
+        with open(os.path.join(proj, LOCAL_SETTINGS), "w") as fh:
+            json.dump({"agent": AGENT, "permissions": {"deny": list(DENY)}}, fh)
         # A different `agent`, in either settings file, is kept and reported.
         other = os.path.join(tmp, "other")
         os.makedirs(os.path.join(other, ".claude"))
