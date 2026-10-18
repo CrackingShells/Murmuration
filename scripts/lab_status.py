@@ -20,7 +20,8 @@ What it reads
                            containing "disposition", only the lines under it count.)
     __pondus__/<id>.md     claims: a head (`# <id>: <statement>`, `label:`, optional `supersedes:`),
                            then one section per verifier, from `## verdict: <name>` to the next such
-                           heading, whose first `verdict:` line (bold and case tolerated) counts.
+                           heading, whose first `verdict:` line counts when it is exactly a verdict
+                           (case, bold and a trailing period tolerated; extra text warns).
     ~/.claude/projects/<project-path>/   Claude Code's transcripts for this project (the main
                            thread and every subagent); `usage` fields are summed. Set
                            CLAUDE_CONFIG_DIR to use another configuration directory.
@@ -258,12 +259,20 @@ def parse_claim(text):
 
 
 def normalise_verdict(raw):
-    """The recognised verdict at the start of `raw` (longest match), else the raw text upper-cased."""
-    upper = re.sub(r"[\s_\-]+", " ", clean_value(raw).upper())
+    """Match `raw` exactly against the verdict vocabulary: (verdict, extra).
+
+    Case, bold, backticks, a trailing period and runs of spaces are ignored. `verdict` is the
+    vocabulary entry when the text is exactly that phrase, else None. `extra` is the text found
+    after a vocabulary phrase (longest phrase first), or None: "SOUND with a gap" gives
+    (None, "with a gap"), because it is not the verdict SOUND.
+    """
+    upper = re.sub(r"[\s_]+", " ", clean_value(raw).upper())
+    if upper in VERDICTS:
+        return upper, None
     for name in sorted(VERDICTS, key=len, reverse=True):
-        if upper == name or re.match(re.escape(name) + r"(?:\s|:|\(|$)", upper):
-            return name
-    return upper
+        if upper.startswith(name) and not upper[len(name):len(name) + 1].isalnum():
+            return None, clean_value(raw)[len(name):].strip(" :-\u2013\u2014,;(") or clean_value(raw)
+    return None, None
 
 
 def claim_state(label, standing):
@@ -304,8 +313,13 @@ def current_label(text):
         if value is None:
             warnings.append("verdict section '%s' has no `verdict:` line" % name)
             continue
-        verdict = normalise_verdict(value)
-        if verdict not in VERDICTS:
+        verdict, extra = normalise_verdict(value)
+        if verdict is None and extra is not None:
+            warnings.append("verdict section '%s': '%s' has text after the verdict phrase, so it is not counted; "
+                            "write only the verdict on the `verdict:` line and the explanation on `reason:`"
+                            % (name, clean_value(value)))
+            continue
+        if verdict is None:
             warnings.append("verdict section '%s': '%s' is not a recognised verdict" % (name, clean_value(value)))
             continue
         standing[name] = verdict  # a later section by the same verifier replaces an earlier one
@@ -661,11 +675,21 @@ def selftest():
             assert got["current"] == state and got["warnings"] == [], (name, got)
         # Tolerated spellings and layouts of the verdict line.
         for line in ("**verdict:** SUPPORTED", "**verdict**: **SUPPORTED**", "Verdict: supported.", "VERDICT:SUPPORTED",
-                     "- verdict: Supported (rerun at quick scale)"):
+                     "verdict:  `Supported`", "> verdict: SUPPORTED"):
             text = ("# w01-c20: s\n\nlabel: MEASURED\n\n## verdict: verifier-w01-1\n\n### independent result\nx\n\n"
                     "%s\nreason: r\n" % line)
             got = current_label(text)
             assert got["current"] == "MEASURED" and not got["warnings"], (line, got)
+        # Extra text after a verdict phrase is a warning and the verdict is not read: "SOUND with a gap"
+        # is not SOUND, and a longer phrase beats its shorter prefix.
+        for value in ("SOUND with a gap in step 3", "SOUND - LABEL TOO WEAK", "SUPPORTED but OVERSTATED",
+                      "OVERSTATED (true but stronger than the evidence)", "SOUND WITH GAP, see below"):
+            got = current_label("# w01-c40: s\n\nlabel: THEOREM\n\n## verdict: v1\n\nverdict: %s\n" % value)
+            assert got["current"] == "unverified THEOREM", (value, got)
+            assert "has text after the verdict phrase" in got["warnings"][0], (value, got)
+        assert normalise_verdict("sound with gap.") == ("SOUND WITH GAP", None)
+        assert normalise_verdict("Label  too   weak") == ("LABEL TOO WEAK", None)
+        assert normalise_verdict("SOUNDLY") == (None, None) and normalise_verdict("maybe") == (None, None)
         # The verdict may follow other level-2 headings inside the section; the first verdict line counts.
         text = ("# w01-c21: s\n\nlabel: CHECKED\n\n## verdict: v1\n\nverdict: OVERSTATED\n\n## notes\n\nverdict: SUPPORTED\n")
         assert current_label(text)["current"] == "below CHECKED: restate"
