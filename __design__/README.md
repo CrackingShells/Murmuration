@@ -1,6 +1,6 @@
 # Design
 
-The build reference is [`../__reports__/genesis/11-architecture_v4.md`](../__reports__/genesis/11-architecture_v4.md). It stays in the genesis folder, where its links to the reviews and reports that justify it still resolve. A revision is written there as a new round, never edited in place.
+The build reference is [`../__reports__/genesis/12-architecture_v5.md`](../__reports__/genesis/12-architecture_v5.md). It stays in the genesis folder, where its links to the reviews and reports that justify it still resolve. A revision is written there as a new round, never edited in place.
 
 ## Decisions fixed by the PI
 
@@ -14,3 +14,4 @@ The build reference is [`../__reports__/genesis/11-architecture_v4.md`](../__rep
 | Information instruments inform and never gate; agents never see them | `08-information_counsel_v0.md` |
 | Repository name Murmuration | `10-naming_repo_v0.md` |
 | Model policy: the PI is the only Opus agent; every other agent is Sonnet by default | `11-architecture_v4.md` |
+| The PI's factual claims are `pondus` claims; scrupuli distinguish `mention` (seen) from `follow` (taken up); only coverage of the PI's notes enters the brief; hooks follow measured platform behavior | `12-architecture_v5.md`, `../pi_decisions/00-wave1_note_v0.md` |

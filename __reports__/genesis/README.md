@@ -9,7 +9,7 @@ Links that leave this folder (to `notebook/`, `__design__/problem_framing.md`, o
 | Round | Report | Role |
 |:--|:--|:--|
 | 00–03 | `00`–`03-knowledge_transfer_v*.md` | Retrospective of the study, revised four times; **v3** is the consolidated one: exploration (attention) vs hardening (mechanics), and the cut back-flow of anomalies |
-| 03, 05, 07, 09, 11 | `*-architecture_v*.md` | Design versions; **v4 (`11-…`) is the build reference** |
+| 03, 05, 07, 09, 11 | `*-architecture_v*.md` | Design versions; **v5 (`12-…`) is the build reference**; v5 was written in Murmuration after wave 1 |
 | 04 | `04-design_review_v0.md` | Outside review (Fable 5.1): lifecycle holes, pair protocol, platform facts, positive failure-mode instructions |
 | 04 | `04-benchmarks_findings_v0.md` | Benchmark survey for a behavioral baseline; puzzle-following is the gap |
 | 06 | `06-stores_umbod_sustainability_v0.md` | umbod reuse, store schemas, files vs databases, Rust, sustainability |
