@@ -1,7 +1,7 @@
 # Build
 
 ## Context
-Second level of the Murmuration roadmap: runs after wave 1 (platform probes, instrument validation), whose findings may amend these nodes. Produces the `libripens` binary and the plugin's agents, skills and commands.
+Second level of the Murmuration roadmap: runs after wave 1 (platform probes, instrument validation), whose findings may amend these nodes. Produces the plugin: agents, skills, commands, two hooks and the status script (architecture v6).
 
 ## Goal
 Build the mechanical layer and the team, then pilot them.
@@ -11,15 +11,16 @@ Build the mechanical layer and the team, then pilot them.
 - [ ] `instrument_validation` done: the list of instruments allowed in the brief is decided
 
 ## Success Gates
-- ✅ `libripens` and the plugin install locally and pass their self-tests
+- ✅ The plugin installs locally; its hooks and status script pass their self-tests
 - ✅ The pilot node is done
 
 ## Status
 ```mermaid
 graph TD
-    libripens_core[libripens core]:::planned
-    agents_and_skills[Agents, skills and commands]:::planned
+    libripens_core[libripens core]:::blocked
+    agents_and_skills[Agents, skills and commands]:::inprogress
     pilot[Pilot]:::planned
+    minimal_lab[Minimal lab: scripts, hooks, lab commands, packaging]:::amendment
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
     classDef planned    fill:#374151,color:#e5e7eb
@@ -30,13 +31,15 @@ graph TD
 ## Nodes
 | Node | Type | Status |
 |:-----|:-----|:-------|
-| `libripens_core.md` | 📄 Leaf Task | ⬜ Planned |
-| `agents_and_skills.md` | 📄 Leaf Task | ⬜ Planned |
+| `libripens_core.md` | 📄 Leaf Task | 🚫 Blocked |
+| `agents_and_skills.md` | 📄 Leaf Task | 🔄 In Progress |
 | `pilot/` | 📁 Directory | ⬜ Planned |
+| `minimal_lab.md` | 📄 Leaf Task | 🔵 Amendment |
 
 ## Amendment Log
 | ID | Date | Source | Nodes Added | Rationale |
 |:---|:-----|:-------|:------------|:----------|
+| A2 | 2026-10-19 | __reports__/genesis/13-architecture_v6.md | ["minimal_lab.md"] | Both reviews judged v5 overbuilt; the PI chose the minimal lab and reflective runs; libripens_core is blocked (superseded), revivable by a reflective-run proposal |
 
 ## Progress
 | Node | Branch | Commits | Notes |
