@@ -5,42 +5,46 @@ from what this one finds.
 
 ## Opening a wave
 
-Write `__statera__/wave-NN.md` from [`../templates/wave.md`](../templates/wave.md). It opens with
-the sentence of the user's (quoted from `user_words.md`) that this wave serves, then what does not
-add up and why it is worth this wave. That is the reason for the wave, in plain words, not a task
-list.
+Write `__statera__/wave-NN.md` from the template
+(`${CLAUDE_PLUGIN_ROOT}/skills/research-loop/templates/wave.md`). The first wave note already
+exists after `/lab`; replace its placeholder text. A note opens with the sentence of the user's
+(quoted from `__statera__/user_words.md`) that this wave serves, then what does not add up and why
+it is worth this wave: the reason for the wave in plain words, not a task list.
 
 ## During a wave
 
 - **Explore with a portfolio.** When you cannot tell which direction is promising, send several
-  explorers with loose briefs and small turn limits, in parallel, rather than one large bet.
-- **Read raw material yourself.** For every agent that returns, open at least one of the raw
-  artifacts it points to (a figure, a table, a log, its puzzle file), not only its summary.
-- **Turn a hunch into a claim** when you judge it worth hardening. Dispatch an author and a
-  verifier as a pair (see [`briefs.md`](briefs.md)): name both, tell each the other's name, and
-  give both the claim id. The verifier works independently first, then they talk directly; you do
-  not relay.
+  explorers in parallel with small, well-scoped briefs rather than one large bet. Give each a
+  unique name (`explorer-w03-a`, `explorer-w03-b`, …). An explorer that reaches its turn limit
+  returns partial work and can be resumed with a message.
+- **Read raw material yourself.** For every agent that returns, open at least one raw artifact it
+  points to (a figure, a table, a log, its puzzle file), not only its summary.
+- **Turn a hunch into a claim** when you judge it worth hardening. Assign the claim id
+  (`wNN-cK`), dispatch the author, then the verifier, in the order given in the research-loop
+  skill ("Author and verifier, in order"). You do not relay their conversation; it is logged in
+  the claim file.
 - **Use warm agents for corrections, fresh agents for checks.** Send a correction to the agent that
-  did the work (`SendMessage`), since it has the context. A check always goes to an agent that did
-  not do the work.
+  did the work (`SendMessage` to its name). A check always goes to an agent that did not do the
+  work.
 - **Your own facts are claims.** When your note states a result, a number or what an earlier wave
-  established, give it a claim id and a source like any other claim.
+  established, file it as a claim (`wNN-cK`, `author: research-pi`) with its source. Give it to a
+  verifier when later work depends on it.
 
 ## Closing a wave
 
-1. Read the open puzzles (`/lab-status`): every puzzle raised so far that no closed wave has
-   disposed of.
-2. In the wave note, give each one a disposition:
+1. Run `/lab-status` and read the open puzzles: every puzzle raised so far that no closed wave
+   has disposed of.
+2. In the wave note's disposition table, give each one a disposition:
    - `followed: <brief or claim id>` when it changed what the team does next;
    - `parked: <reason>` when you set it aside, with the reason in a sentence.
    Mentioning a puzzle is not following it.
-3. List the claims of the wave with their current labels.
-4. End the note with the line `closed: YYYY-MM-DD`, using the real date. A note counts as closed
-   only when that line carries a date; `/lab-status` treats any other note as still open. Closed
-   notes are not edited again; corrections go into the next wave's note.
+3. List the claims of the wave with their current labels from `/lab-status`.
+4. Replace the template's last line with `closed: YYYY-MM-DD`, using the real date. A note counts
+   as closed only when that line carries a real date; `/lab-status` treats any other note as still
+   open. Closed notes are not edited again; corrections go into the next wave's note.
 
 ## Before the final synthesis
 
 Show the user the open puzzles and what budget remains, and ask where the remaining effort should
-go. Closing the story is their call. Then write the synthesis with every claim at its current
-label, never above it.
+go. Closing the story is their call. Then write `__statera__/synthesis.md`: the answer to the
+user's question, every claim at its current label (never above it), and the puzzles still open.

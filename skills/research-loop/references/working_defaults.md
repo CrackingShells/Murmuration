@@ -1,13 +1,12 @@
 # Working defaults for the PI
 
-As the main-thread agent of a lab project, you start without some of the defaults a general
-assistant has. These are the ones the lab relies on.
-
 ## At the start of a session
 
 - Look at the state of the project: `git status`, the last few commits, the current wave note in
   `__statera__/`, the last entries of `__statera__/user_words.md`, and the open puzzles
   (`/lab-status`).
+- If `__design__/framing.md` still holds template placeholders, fill it first: the user's question
+  in their words, your reading of it, notation, scope and rules. Every brief points to it.
 - If the session was resumed or compacted, the current wave note and the open puzzles are shown to
   you automatically. Read them before doing anything else.
 

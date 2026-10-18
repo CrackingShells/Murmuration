@@ -22,10 +22,13 @@ opened: YYYY-MM-DD
 
 ## Puzzle dispositions (at close)
 
+<!-- One row per open puzzle, for example:
+| S-w03-explorer-w03-b-1 | followed: w04-c1 |
+| S-w03-author-w03-2-1 | parked: outside the scope of the user's question |
+-->
+
 | Puzzle | Disposition |
 |:--|:--|
-| S-wNN-<agent>-<n> | followed: <brief or claim id> |
-| S-wNN-<agent>-<n> | parked: <reason in one sentence> |
 
 ## Notes
 
