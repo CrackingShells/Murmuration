@@ -19,7 +19,7 @@ them.
 
 | Role | Add to the brief |
 |:--|:--|
-| explorer | The direction, deliberately loose; a turn limit (`maxTurns`) suited to a cheap probe; "if you leave the brief, say where and why in your first line" |
+| explorer | The direction, deliberately loose, scoped so that it fits the explorer's turn limit (an explorer that runs out of turns returns partial work and can be resumed); "if you leave the brief, say where and why in your first line" |
 | author | The claim id; the hunch to harden; proof or experiment; the verifier's name |
 | reproducer / proof-adversary | The claim id; the author's name; "produce your own result before reading the author's explanations" |
 

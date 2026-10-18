@@ -35,8 +35,9 @@ list.
    - `parked: <reason>` when you set it aside, with the reason in a sentence.
    Mentioning a puzzle is not following it.
 3. List the claims of the wave with their current labels.
-4. Mark the note `closed:` with the date. Closed notes are not edited again; corrections go into
-   the next wave's note.
+4. End the note with the line `closed: YYYY-MM-DD`, using the real date. A note counts as closed
+   only when that line carries a date; `/lab-status` treats any other note as still open. Closed
+   notes are not edited again; corrections go into the next wave's note.
 
 ## Before the final synthesis
 

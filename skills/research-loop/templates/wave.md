@@ -31,4 +31,4 @@ opened: YYYY-MM-DD
 
 <Decisions and their reasons. Factual statements carry a claim id or a source.>
 
-closed: YYYY-MM-DD
+<!-- At close, replace this comment with: closed: YYYY-MM-DD (the real date). -->
