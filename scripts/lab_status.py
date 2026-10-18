@@ -9,6 +9,8 @@ Read-only. Python standard library only.
 The project directory is CLAUDE_PROJECT_DIR, else the current directory.
 
 What it reads
+    Markdown files are read without their HTML comments (`<!-- ... -->`).
+
     __scrupuli__/wave-NN-<name>.md   puzzles: `## S-wNN-<name>-<n>` headings (characters a-z 0-9 -).
                            Puzzles are kept per (file, id); duplicate ids and headings that are
                            not puzzle ids produce a warning line, never silence.
@@ -18,7 +20,8 @@ What it reads
                            containing "disposition", only the lines under it count.)
     __pondus__/<id>.md     claims: a head (`# <id>: <statement>`, `label:`, optional `supersedes:`),
                            then one section per verifier, from `## verdict: <name>` to the next such
-                           heading, whose first `verdict:` line (bold and case tolerated) counts.
+                           heading, whose first `verdict:` line counts when it is exactly a verdict
+                           (case, bold and a trailing period tolerated; extra text warns).
     ~/.claude/projects/<project-path>/   Claude Code's transcripts for this project (the main
                            thread and every subagent); `usage` fields are summed. Set
                            CLAUDE_CONFIG_DIR to use another configuration directory.
@@ -59,7 +62,14 @@ VERDICTS = {
     "WRONG": "withdraw",
     "ESCALATE": "escalate",
 }
-# The state shown is decided by the weakest standing verdict; an escalation comes first because
+LABELS = ["THEOREM", "CHECKED", "MEASURED", "ESTIMATE", "CONJECTURE", "CITED"]
+# What each kind of verifier may say; the kind is recognised by its name (`reproducer-w03-2`).
+ROLE_VERDICTS = {
+    "reproducer": ["SUPPORTED", "OVERSTATED", "UNSUPPORTED", "ESCALATE"],
+    "proof-adversary": ["SOUND", "SOUND WITH GAP", "WRONG", "LABEL TOO STRONG", "LABEL TOO WEAK", "ESCALATE"],
+}
+
+# The state shown is decided by the weakest standing verdict; any escalation comes first because
 # it needs a person whatever the other verifiers said.
 WEAKNESS = ["escalate", "withdraw", "lower", "gap", "accept", "higher"]
 # Two standing verdicts disagree when one stands behind the claim (accept, gap, higher) and
@@ -76,9 +86,19 @@ def natural(path):
     return [int(t) if t.isdigit() else t for t in re.split(r"(\d+)", path)]
 
 
+COMMENT_RE = re.compile(r"<!--.*?-->", re.S)
+
+
+def strip_comments(text):
+    """Remove HTML comments (`<!-- ... -->`, also across lines), keeping the line count."""
+    return COMMENT_RE.sub(lambda m: "\n" * m.group(0).count("\n"), text)
+
+
 def read(path):
+    """The file's text; markdown files come back without their HTML comments, which are not content."""
     with open(path, encoding="utf-8", errors="replace") as fh:
-        return fh.read()
+        text = fh.read()
+    return strip_comments(text) if path.endswith(".md") else text
 
 
 # ---------------------------------------------------------------- waves and puzzles
@@ -139,7 +159,14 @@ def scan_puzzles(root):
     for path in sorted(glob.glob(os.path.join(root, "__scrupuli__", "*.md")), key=natural):
         rel = os.path.relpath(path, root)
         current = None
-        for line in read(path).splitlines():
+        text = read(path)
+        before = len(puzzles)
+        for line in text.splitlines():
+            other = re.match(r"^(#(?!#)|#{3,6})\s+(.*?)\s*$", line)
+            if other and PUZZLE_RE.search(other.group(2)):
+                warnings.append("%s: '%s' is a level-%d heading, so the puzzle under it is not tracked; "
+                                "a puzzle starts with a level-2 heading `## S-wNN-<agent name>-<n>`"
+                                % (rel, line.strip(), len(other.group(1))))
             level2 = re.match(r"^##(?!#)\s+(.*?)\s*$", line)
             if level2:
                 heading = re.sub(r"[*`]", "", level2.group(1)).strip()
@@ -160,6 +187,9 @@ def scan_puzzles(root):
                 puzzles.append(current)
             elif current is not None:
                 current["lines"].append(line)
+        if text.strip() and len(puzzles) == before and not any(w.startswith(rel + ":") for w in warnings):
+            warnings.append("%s: has text but no `## S-wNN-<agent name>-<n>` heading, so no puzzle in it is "
+                            "tracked" % rel)
     for p in puzzles:
         body = [l.strip() for l in p.pop("lines") if l.strip() and not l.strip().lower().startswith("refs:")]
         p["text"] = " ".join(body)
@@ -187,13 +217,19 @@ def puzzle_warnings(root):
 
 def report_puzzles(root):
     puzzles = open_puzzles(root)
+    warnings = puzzle_warnings(root)
     out = ["## Open puzzles (%d)" % len(puzzles)]
     if not puzzles:
-        out.append("none: every raised puzzle has a disposition in a closed wave note")
+        if warnings:
+            out.append("none among the puzzles that could be read: see the warnings below")
+        elif raised_puzzles(root):
+            out.append("none: every raised puzzle has a disposition in a closed wave note")
+        else:
+            out.append("none raised: `__scrupuli__/` holds no puzzles")
     for p in puzzles:
         text = p["text"] if len(p["text"]) <= 160 else p["text"][:157] + "..."
         out.append("- %s (%s) %s" % (p["id"], p["file"], text))
-    out += ["! " + w for w in puzzle_warnings(root)]
+    out += ["! " + w for w in warnings]
     return out
 
 
@@ -246,12 +282,20 @@ def parse_claim(text):
 
 
 def normalise_verdict(raw):
-    """The recognised verdict at the start of `raw` (longest match), else the raw text upper-cased."""
-    upper = re.sub(r"[\s_\-]+", " ", clean_value(raw).upper())
+    """Match `raw` exactly against the verdict vocabulary: (verdict, extra).
+
+    Case, bold, backticks, a trailing period and runs of spaces are ignored. `verdict` is the
+    vocabulary entry when the text is exactly that phrase, else None. `extra` is the text found
+    after a vocabulary phrase (longest phrase first), or None: "SOUND with a gap" gives
+    (None, "with a gap"), because it is not the verdict SOUND.
+    """
+    upper = re.sub(r"[\s_]+", " ", clean_value(raw).upper())
+    if upper in VERDICTS:
+        return upper, None
     for name in sorted(VERDICTS, key=len, reverse=True):
-        if upper == name or re.match(re.escape(name) + r"(?:\s|:|\(|$)", upper):
-            return name
-    return upper
+        if upper.startswith(name) and not upper[len(name):len(name) + 1].isalnum():
+            return None, clean_value(raw)[len(name):].strip(" :-\u2013\u2014,;(") or clean_value(raw)
+    return None, None
 
 
 def claim_state(label, standing):
@@ -259,6 +303,8 @@ def claim_state(label, standing):
     if not standing:
         return "unverified %s" % label
     families = [VERDICTS[v] for v in standing.values()]
+    if "escalate" in families:
+        return "escalated: PI decides"  # whatever the other verifiers said
     if len({STANCE[f] for f in families if f in STANCE}) > 1:
         return "disputed: PI decides"
     weakest = next(f for f in WEAKNESS if f in families)
@@ -286,16 +332,27 @@ def current_label(text):
     if not label:
         warnings.append("no `label:` line in the claim head")
         label = "(no label)"
+    elif label.split()[0].upper().strip("*`") not in LABELS:
+        warnings.append("label '%s' is not one of %s" % (label, ", ".join(LABELS)))
     standing = {}
     for name, lines in claim["sections"]:
         value = next((m.group(1) for m in map(VERDICT_RE.match, lines) if m), None)
         if value is None:
             warnings.append("verdict section '%s' has no `verdict:` line" % name)
             continue
-        verdict = normalise_verdict(value)
-        if verdict not in VERDICTS:
+        verdict, extra = normalise_verdict(value)
+        if verdict is None and extra is not None:
+            warnings.append("verdict section '%s': '%s' has text after the verdict phrase, so it is not counted; "
+                            "write only the verdict on the `verdict:` line and the explanation on `reason:`"
+                            % (name, clean_value(value)))
+            continue
+        if verdict is None:
             warnings.append("verdict section '%s': '%s' is not a recognised verdict" % (name, clean_value(value)))
             continue
+        for role, allowed in ROLE_VERDICTS.items():
+            if role in name.lower() and verdict not in allowed:
+                warnings.append("verdict section '%s': %s is not in the %s's vocabulary (%s); counted anyway"
+                                % (name, verdict, role, ", ".join(allowed)))
         standing[name] = verdict  # a later section by the same verifier replaces an earlier one
     return {"id": claim["id"], "statement": claim["statement"], "label": label,
             "supersedes": claim["supersedes"], "verdicts": standing, "warnings": warnings,
@@ -581,7 +638,8 @@ def selftest():
         for bad in ("## Puzzle 1", "## S-w01-Explorer-1", "## S-w01-author.v2-1"):
             assert "heading '%s' is not a puzzle id" % bad in joined, (bad, joined)
         assert "disposes of S-w09-nobody-1, which no file" in joined, joined
-        assert len(warnings) == 6, warnings
+        assert "wave-02-author-w02-1.md: '### S-w02-author-w02-1-2' is a level-3 heading" in joined, joined
+        assert len(warnings) == 7, warnings
         assert current_wave(root)[0] == 2
         _write(os.path.join(root, "__statera__", "wave-02.md"),
                "# Wave 02\n\nopened: 2026-01-10\n\n## Puzzle dispositions (at close)\n\n"
@@ -591,6 +649,45 @@ def selftest():
         assert current_wave(root)[0] == 2  # all closed: the latest
         text = report(root)
         assert "## Open puzzles (4)" in text and "! " in text and "other explorer's puzzle" in text, text
+
+        # HTML comments are not content: example rows in a comment dispose of nothing, and ids,
+        # headings and closing dates inside one do not count.
+        _write(os.path.join(scrupuli, "wave-03-explorer-w03-b.md"),
+               "<!-- ## S-w03-explorer-w03-z-1\nnot a puzzle -->\n## S-w03-explorer-w03-b-1\nreal one\n")
+        _write(os.path.join(scrupuli, "wave-03-only-a-comment.md"), "<!-- nothing here yet -->\n")
+        _write(os.path.join(root, "__statera__", "wave-03.md"),
+               "# Wave 03\n\nopened: 2026-02-01\n\n## Puzzle dispositions (at close)\n\n"
+               "<!-- One row per puzzle, for example:\n| S-w03-explorer-w03-b-1 | followed: w04-c1 |\n"
+               "closed: 2026-02-02\n-->\n\n| Puzzle | Disposition |\n|:--|:--|\n\nclosed: YYYY-MM-DD\n")
+        ids = [p["id"] for p in open_puzzles(root)]
+        assert "S-w03-explorer-w03-b-1" in ids and "S-w03-explorer-w03-z-1" not in ids, ids
+        assert current_wave(root)[0] == 3, "a closing date inside a comment must not close the note"
+        assert not any("wave-03" in w for w in puzzle_warnings(root)), puzzle_warnings(root)
+        os.remove(os.path.join(root, "__statera__", "wave-03.md"))
+        os.remove(os.path.join(scrupuli, "wave-03-explorer-w03-b.md"))
+        os.remove(os.path.join(scrupuli, "wave-03-only-a-comment.md"))
+        assert current_wave(root)[0] == 2
+
+        # A puzzle file with no puzzle heading warns, and the report never claims "none" then.
+        lonely = os.path.join(tmp, "lonely")
+        os.makedirs(os.path.join(lonely, "__statera__"))
+        assert "none raised" in report_puzzles(lonely)[1]
+        _write(os.path.join(lonely, "__scrupuli__", "wave-01-explorer-w01-a.md"),
+               "1. the rows vanish\n2. figure two has a kink\n\n### S-w01-explorer-w01-a-1\nnot level two\n"
+               "# S-w01-explorer-w01-a-2\nnor level one\n")
+        lines = report_puzzles(lonely)
+        joined = "\n".join(lines)
+        assert "none:" not in joined and "none among the puzzles that could be read" in joined, joined
+        assert "'### S-w01-explorer-w01-a-1' is a level-3 heading" in joined, joined
+        assert "'# S-w01-explorer-w01-a-2' is a level-1 heading" in joined, joined
+        _write(os.path.join(lonely, "__scrupuli__", "wave-02-explorer-w02-a.md"), "just prose, no headings\n")
+        assert "wave-02-explorer-w02-a.md: has text but no `## S-wNN" in "\n".join(report_puzzles(lonely))
+        # A fully disposed lab with no warnings says so.
+        _write(os.path.join(lonely, "__scrupuli__", "wave-01-explorer-w01-a.md"), "## S-w01-explorer-w01-a-1\nx\n")
+        os.remove(os.path.join(lonely, "__scrupuli__", "wave-02-explorer-w02-a.md"))
+        _write(os.path.join(lonely, "__statera__", "wave-01.md"),
+               "## Puzzle dispositions\n| S-w01-explorer-w01-a-1 | parked: r |\n\nclosed: 2026-01-01\n")
+        assert "none: every raised puzzle has a disposition" in report_puzzles(lonely)[1]
 
         # ---- Claims
         def claim(cid, label, *verdicts, extra="", head=""):
@@ -625,17 +722,37 @@ def selftest():
              "THEOREM"),
             ("escalate beats reject", claim("w01-c16", "MEASURED", ("v1", "ESCALATE"), ("v2", "OVERSTATED")),
              "escalated: PI decides"),
+            ("escalate beats a dispute", claim("w01-c17", "MEASURED", ("v1", "ESCALATE"), ("v2", "SUPPORTED"),
+                                               ("v3", "OVERSTATED")), "escalated: PI decides"),
         ]
         for name, text, state in cases:
             got = current_label(text)
             assert got["current"] == state and got["warnings"] == [], (name, got)
         # Tolerated spellings and layouts of the verdict line.
         for line in ("**verdict:** SUPPORTED", "**verdict**: **SUPPORTED**", "Verdict: supported.", "VERDICT:SUPPORTED",
-                     "- verdict: Supported (rerun at quick scale)"):
+                     "verdict:  `Supported`", "> verdict: SUPPORTED"):
             text = ("# w01-c20: s\n\nlabel: MEASURED\n\n## verdict: verifier-w01-1\n\n### independent result\nx\n\n"
                     "%s\nreason: r\n" % line)
             got = current_label(text)
             assert got["current"] == "MEASURED" and not got["warnings"], (line, got)
+        # Extra text after a verdict phrase is a warning and the verdict is not read: "SOUND with a gap"
+        # is not SOUND, and a longer phrase beats its shorter prefix.
+        for value in ("SOUND with a gap in step 3", "SOUND - LABEL TOO WEAK", "SUPPORTED but OVERSTATED",
+                      "OVERSTATED (true but stronger than the evidence)", "SOUND WITH GAP, see below"):
+            got = current_label("# w01-c40: s\n\nlabel: THEOREM\n\n## verdict: v1\n\nverdict: %s\n" % value)
+            assert got["current"] == "unverified THEOREM", (value, got)
+            assert "has text after the verdict phrase" in got["warnings"][0], (value, got)
+        assert normalise_verdict("sound with gap.") == ("SOUND WITH GAP", None)
+        assert normalise_verdict("Label  too   weak") == ("LABEL TOO WEAK", None)
+        assert normalise_verdict("SOUNDLY") == (None, None) and normalise_verdict("maybe") == (None, None)
+        # A label outside the table, and a verdict outside its verifier's own vocabulary, warn (and still count).
+        got = current_label("# w01-c41: s\n\nlabel: FOO\n")
+        assert got["current"] == "unverified FOO" and "label 'FOO' is not one of THEOREM" in got["warnings"][0], got
+        assert current_label("# w01-c42: s\n\nlabel: cited UNVERIFIED\n")["warnings"] == []
+        got = current_label("# w01-c43: s\n\nlabel: MEASURED\n\n## verdict: reproducer-w01-1\n\nverdict: SOUND\n")
+        assert got["current"] == "MEASURED" and "not in the reproducer's vocabulary" in got["warnings"][0], got
+        got = current_label("# w01-c44: s\n\nlabel: THEOREM\n\n## verdict: proof-adversary-w01-1\n\nverdict: SUPPORTED\n")
+        assert "not in the proof-adversary's vocabulary" in got["warnings"][0], got
         # The verdict may follow other level-2 headings inside the section; the first verdict line counts.
         text = ("# w01-c21: s\n\nlabel: CHECKED\n\n## verdict: v1\n\nverdict: OVERSTATED\n\n## notes\n\nverdict: SUPPORTED\n")
         assert current_label(text)["current"] == "below CHECKED: restate"

@@ -46,9 +46,10 @@ def brief(root):
     for p in puzzles:
         text = p["text"] if len(p["text"]) <= 300 else p["text"][:297] + "..."
         out.append("- %s (%s): %s" % (p["id"], p["file"], text))
+    warnings = lab_status.puzzle_warnings(root)
     if not puzzles:
-        out.append("none")
-    out += ["! " + w for w in lab_status.puzzle_warnings(root)]
+        out.append("none among the puzzles that could be read: see the warnings below" if warnings else "none")
+    out += ["! " + w for w in warnings]
     out += ["", "Claim labels and spend: run `/lab-status`."]
     return "\n".join(out)
 
@@ -89,6 +90,11 @@ def selftest():
             fh.write("## Puzzle without an id\nbody\n\n## S-w02-explorer-w02-a-1\nsecond explorer\n")
         out = run()
         assert "S-w02-explorer-w02-a-1" in out and "! " in out and "'## Puzzle without an id' is not a puzzle id" in out, out
+        with open(os.path.join(tmp, "__scrupuli__", "wave-02-explorer-w02-a.md"), "w") as fh:
+            fh.write("1. numbered prose, no heading\n")
+        os.remove(os.path.join(tmp, "__scrupuli__", "wave-01-explorer.md"))
+        out = run()
+        assert "none among the puzzles that could be read" in out and "has text but no `## S-wNN" in out, out
         assert run({"CLAUDE_PROJECT_DIR": os.path.join(tmp, "elsewhere")}) == ""
         proc = subprocess.run([sys.executable, os.path.abspath(__file__)], input="not json",
                               capture_output=True, text=True, cwd=tmp, env={**os.environ, "CLAUDE_PROJECT_DIR": ""})

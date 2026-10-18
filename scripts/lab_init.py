@@ -4,7 +4,8 @@
 The question is read from stdin (so any text is safe to pass).
 
     lab_init.py [--project DIR]   initialize the lab if `__statera__/` is missing, otherwise
-                                  append the question to `__statera__/user_words.md`
+                                  append the question to `__statera__/user_words.md` and restore
+                                  any missing settings in `.claude/settings.local.json`
     lab_init.py --selftest        check the script on a temporary project
 
 The project directory is --project, else CLAUDE_PROJECT_DIR, else the current directory.
@@ -19,15 +20,18 @@ Initializing creates, without overwriting anything that exists:
 and merges into `.claude/settings.local.json` (personal settings; not for version control):
     "agent": "murmuration:research-pi"      new sessions in the folder open as the research PI
     permissions.deny: Bash(pkill:*), Bash(killall:*)
+If a folder above the project already holds `__statera__/`, no nested lab is created.
 An `agent` setting that names something else, in that file or in `.claude/settings.json`, is left
 alone and reported. Shared settings are never written.
 
-Exit status: 0 done, 2 no question given, 3 `.claude/settings.local.json` exists but is not a JSON object.
+Exit status: 0 done, 2 no question given, 3 `.claude/settings.local.json` exists but is not a JSON object,
+4 a folder above the project already holds a lab (nothing is created).
 """
 import datetime
 import json
 import os
 import re
+import shlex
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -40,11 +44,35 @@ AGENT = "murmuration:research-pi"
 DENY = ["Bash(pkill:*)", "Bash(killall:*)"]
 LOCAL_SETTINGS = os.path.join(".claude", "settings.local.json")
 SHARED_SETTINGS = os.path.join(".claude", "settings.json")
-NEXT_STEPS = [
-    "Next: start a new Claude Code session in this folder (run `claude` here). It opens as the research PI.",
-    "Then ask it to begin, for example: Let's begin.",
-]
+FIRST_PROMPT = "Frame my question and plan the first wave."
 STORES = ["__statera__", "__pondus__", "__scrupuli__", "__design__"]
+
+
+def config_dir():
+    return os.environ.get("CLAUDE_CONFIG_DIR") or os.path.join(os.path.expanduser("~"), ".claude")
+
+
+def plugin_is_installed(plugin_root=PLUGIN_ROOT):
+    """True when the plugin sits in Claude Code's plugin store (installed), not in a folder loaded by path."""
+    store = os.path.realpath(os.path.join(config_dir(), "plugins"))
+    root = os.path.realpath(plugin_root)
+    return root == store or root.startswith(store + os.sep)
+
+
+def next_steps(plugin_root=PLUGIN_ROOT):
+    """The lines telling the user how to start the research PI, with the plugin loaded as it is now."""
+    if plugin_is_installed(plugin_root):
+        command = "claude"
+        how = ""
+    else:
+        command = "claude --plugin-dir %s" % shlex.quote(os.path.abspath(plugin_root))
+        how = (" The plugin is loaded from that folder in this session, so the new session needs the same "
+               "flag; once it is installed, plain `claude` is enough.")
+    return [
+        "Next: start a new Claude Code session in this folder with `%s`. It opens as the research PI.%s"
+        % (command, how),
+        "Then ask it to begin, for example: %s" % FIRST_PROMPT,
+    ]
 
 
 def project_root():
@@ -57,13 +85,16 @@ def template(name):
 
 
 def first_wave_note(question, today):
-    """The first wave note: the template with the number, date and the user's sentence filled in."""
+    """The first wave note: the template with the number, date and the user's sentence filled in.
+
+    The template's last line, `closed: YYYY-MM-DD`, stays as written: the note counts as closed
+    only when that line carries a real date.
+    """
     text = template("wave.md")
     text = text.replace("# Wave NN", "# Wave 01").replace("wNN", "w01")
     text = text.replace("opened: YYYY-MM-DD", "opened: %s" % today)
     quote = "\n".join("> " + line if line.strip() else ">" for line in question.splitlines())
     text = re.sub(r"^> <quoted from [^>]*>$", lambda _m: quote, text, count=1, flags=re.M)
-    text = re.sub(r"\n*closed: YYYY-MM-DD\s*$", "\n", text)  # added by the PI when the wave closes
     return text
 
 
@@ -153,13 +184,65 @@ def initialize(root, question, now=None):
     return done
 
 
+class NestedLab(Exception):
+    """Raised when a folder above the project already holds a lab."""
+
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.parent = parent
+
+
+def enclosing_lab(root):
+    """The nearest folder above `root` that holds `__statera__/`, or None."""
+    folder = os.path.abspath(root)
+    while True:
+        parent = os.path.dirname(folder)
+        if parent == folder:
+            return None
+        folder = parent
+        if os.path.isdir(os.path.join(folder, "__statera__")):
+            return folder
+
+
+def restore_settings(root):
+    """Merge the lab's settings into `.claude/settings.local.json` if anything is missing.
+
+    Returns notes about what changed or was kept; empty when the file already has everything.
+    Raises ValueError when the file is not a JSON object.
+    """
+    path = os.path.join(root, LOCAL_SETTINGS)
+    settings = read_settings(path)
+    try:
+        shared = read_settings(os.path.join(root, SHARED_SETTINGS))
+    except ValueError:
+        shared = {}
+    before = json.dumps(settings, sort_keys=True)
+    notes = merge_settings(settings, shared)
+    if json.dumps(settings, sort_keys=True) != before:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump(settings, fh, indent=2)
+            fh.write("\n")
+    return [".claude/settings.local.json: " + n for n in notes]
+
+
 def run(root, question):
-    """Initialize or append. Returns (mode, what was done)."""
+    """Initialize or append. Returns (mode, what was done). Raises NestedLab inside another lab.
+
+    With a lab already present the question is appended and any missing personal settings are
+    restored (a clone of the project, or a deleted settings file, has none).
+    """
     if os.path.isdir(os.path.join(root, "__statera__")):
+        notes = restore_settings(root)  # before writing anything: invalid settings stop here
         if user_words.last_entry(root) == question.strip():
-            return "append", ["the question is already the newest entry in __statera__/user_words.md; not repeated"]
-        user_words.append_words(root, question)
-        return "append", ["appended the question to __statera__/user_words.md"]
+            done = ["the question is already the newest entry in __statera__/user_words.md; not repeated"]
+        else:
+            user_words.append_words(root, question)
+            done = ["appended the question to __statera__/user_words.md"]
+        return "append", done + notes
+    parent = enclosing_lab(root)
+    if parent:
+        raise NestedLab(parent)
     return "init", initialize(root, question)
 
 
@@ -171,47 +254,78 @@ def selftest():
             return fh.read()
 
     with tempfile.TemporaryDirectory() as tmp:
+        proj = os.path.join(tmp, "proj")
+        os.makedirs(proj)
         question = "Why does the \"3-bit\" case $HOME break?\nSecond line with 'quotes' and `ticks`."
         # Shared settings are never written; pre-existing personal settings are merged, not replaced.
-        os.makedirs(os.path.join(tmp, ".claude"))
+        os.makedirs(os.path.join(proj, ".claude"))
         shared_text = json.dumps({"model": "opus", "permissions": {"allow": ["Read"]}})
-        with open(os.path.join(tmp, SHARED_SETTINGS), "w") as fh:
+        with open(os.path.join(proj, SHARED_SETTINGS), "w") as fh:
             fh.write(shared_text)
-        with open(os.path.join(tmp, LOCAL_SETTINGS), "w") as fh:
+        with open(os.path.join(proj, LOCAL_SETTINGS), "w") as fh:
             json.dump({"env": {"A": "1"}, "permissions": {"allow": ["Edit"], "deny": ["Bash(pkill:*)"]}}, fh)
-        mode, done = run(tmp, question)
+        mode, done = run(proj, question)
         assert mode == "init", mode
         for store in STORES:
-            assert os.path.isdir(os.path.join(tmp, store)), store
-        assert load(os.path.join(tmp, "__design__", "framing.md")) == template("framing.md")
-        words = load(os.path.join(tmp, "__statera__", "user_words.md"))
+            assert os.path.isdir(os.path.join(proj, store)), store
+        assert load(os.path.join(proj, "__design__", "framing.md")) == template("framing.md")
+        words = load(os.path.join(proj, "__statera__", "user_words.md"))
         assert question in words and re.search(r"^## \d{4}-\d{2}-\d{2} \d{2}:\d{2}$", words, re.M)
-        wave = load(os.path.join(tmp, "__statera__", "wave-01.md"))
+        wave = load(os.path.join(proj, "__statera__", "wave-01.md"))
         assert wave.startswith("# Wave 01") and "Why does the \"3-bit\" case $HOME break?" in wave
         assert "\n> Second line with 'quotes'" in wave
-        assert "YYYY" not in wave and "NN" not in wave and "closed:" not in wave
+        assert wave.rstrip().endswith("\nclosed: YYYY-MM-DD") and wave.count("YYYY") == 1, wave
+        assert "NN" not in wave.replace("closed", "")
         assert re.search(r"^opened: \d{4}-\d{2}-\d{2}$", wave, re.M)
-        assert load(os.path.join(tmp, SHARED_SETTINGS)) == shared_text, "shared settings must not change"
-        local = json.loads(load(os.path.join(tmp, LOCAL_SETTINGS)))
+        assert load(os.path.join(proj, SHARED_SETTINGS)) == shared_text, "shared settings must not change"
+        local = json.loads(load(os.path.join(proj, LOCAL_SETTINGS)))
         assert local["agent"] == AGENT and local["env"] == {"A": "1"}
         assert local["permissions"]["allow"] == ["Edit"]
         assert local["permissions"]["deny"] == ["Bash(pkill:*)", "Bash(killall:*)"], local
         assert any("settings.local.json holds personal settings" in d for d in done), done
         # The first wave note is open to the status scripts, and the lab is readable by them.
         import lab_status
-        assert lab_status.current_wave(tmp)[0] == 1 and lab_status.open_puzzles(tmp) == []
+        assert lab_status.current_wave(proj)[0] == 1 and lab_status.open_puzzles(proj) == []
+        assert not lab_status.CLOSED_RE.search(wave), "the placeholder must not count as a closing date"
         # A second call appends and leaves everything else alone.
-        before = load(os.path.join(tmp, "__statera__", "wave-01.md"))
-        mode, _ = run(tmp, "a later question")
+        before = load(os.path.join(proj, "__statera__", "wave-01.md"))
+        mode, _ = run(proj, "a later question")
         assert mode == "append"
-        assert load(os.path.join(tmp, "__statera__", "wave-01.md")) == before
-        words = load(os.path.join(tmp, "__statera__", "user_words.md"))
+        assert load(os.path.join(proj, "__statera__", "wave-01.md")) == before
+        words = load(os.path.join(proj, "__statera__", "user_words.md"))
         assert words.count("\n## ") == 2 and words.rstrip().endswith("a later question")
         # The same text twice in a row (the hook already recorded the user's answer) is kept once.
-        _, done = run(tmp, "a later question")
-        assert load(os.path.join(tmp, "__statera__", "user_words.md")) == words and "not repeated" in done[0], done
+        _, done = run(proj, "a later question")
+        assert load(os.path.join(proj, "__statera__", "user_words.md")) == words and "not repeated" in done[0], done
         # Merging again is idempotent.
-        assert merge_settings(json.loads(load(os.path.join(tmp, LOCAL_SETTINGS)))) == []
+        assert merge_settings(json.loads(load(os.path.join(proj, LOCAL_SETTINGS)))) == []
+        # An existing lab with no personal settings (a clone, or a deleted file): appending restores them.
+        os.remove(os.path.join(proj, LOCAL_SETTINGS))
+        _, done = run(proj, "a question after the clone")
+        restored = json.loads(load(os.path.join(proj, LOCAL_SETTINGS)))
+        assert restored["agent"] == AGENT and restored["permissions"]["deny"] == DENY, restored
+        assert any('set "agent"' in d for d in done) and any("added permissions.deny" in d for d in done), done
+        before_text = load(os.path.join(proj, LOCAL_SETTINGS))
+        _, done = run(proj, "and another one")
+        assert load(os.path.join(proj, LOCAL_SETTINGS)) == before_text and not any("settings" in d for d in done), done
+        # A different agent is kept and reported on append too; invalid settings stop before the append.
+        with open(os.path.join(proj, LOCAL_SETTINGS), "w") as fh:
+            json.dump({"agent": "mine"}, fh)
+        _, done = run(proj, "with another agent")
+        assert json.loads(load(os.path.join(proj, LOCAL_SETTINGS)))["agent"] == "mine"
+        assert any("kept the existing" in d for d in done), done
+        assert json.loads(load(os.path.join(proj, LOCAL_SETTINGS)))["permissions"]["deny"] == DENY
+        words_before = load(os.path.join(proj, "__statera__", "user_words.md"))
+        with open(os.path.join(proj, LOCAL_SETTINGS), "w") as fh:
+            fh.write("{broken")
+        try:
+            run(proj, "never recorded")
+            raise AssertionError("invalid settings must stop the append")
+        except ValueError:
+            pass
+        assert load(os.path.join(proj, "__statera__", "user_words.md")) == words_before
+        with open(os.path.join(proj, LOCAL_SETTINGS), "w") as fh:
+            json.dump({"agent": AGENT, "permissions": {"deny": list(DENY)}}, fh)
         # A different `agent`, in either settings file, is kept and reported.
         other = os.path.join(tmp, "other")
         os.makedirs(os.path.join(other, ".claude"))
@@ -248,18 +362,53 @@ def selftest():
         assert not os.path.exists(os.path.join(fresh, SHARED_SETTINGS))
         assert load(os.path.join(fresh, "__design__", "framing.md")) == "my own framing\n"
         assert any("kept the existing __design__/framing.md" in d for d in done), done
+        # A lab above the project: nothing is created below it.
+        deep = os.path.join(proj, "analysis", "sub")
+        os.makedirs(deep)
+        try:
+            run(deep, "q")
+            raise AssertionError("a nested lab must not be created")
+        except NestedLab as nested:
+            assert nested.parent == os.path.abspath(proj), nested.parent
+        assert not os.path.exists(os.path.join(deep, "__statera__"))
+        assert not os.path.exists(os.path.join(deep, ".claude"))
+        assert enclosing_lab(proj) is None and enclosing_lab(tmp) is None
         # The command line: question on stdin, next steps printed after an init, exit 2 without a question.
         import subprocess
         cli = os.path.join(tmp, "cli")
         os.makedirs(cli)
         env = {k: v for k, v in os.environ.items() if k != "CLAUDE_PROJECT_DIR"}
+        env["CLAUDE_CONFIG_DIR"] = os.path.join(tmp, "cfg0")  # so the plugin does not count as installed
         run_cli = lambda text: subprocess.run([sys.executable, os.path.abspath(__file__), "--project", cli],
                                               input=text, capture_output=True, text=True, env=env)
         out = run_cli("")
         assert out.returncode == 2 and not os.path.exists(os.path.join(cli, "__statera__"))
         out = run_cli("the question")
         assert out.returncode == 0 and "Lab initialized" in out.stdout, out
-        assert "start a new Claude Code session in this folder" in out.stdout and "Let's begin" in out.stdout, out.stdout
+        assert "start a new Claude Code session in this folder with `claude --plugin-dir " in out.stdout, out.stdout
+        assert shlex.quote(PLUGIN_ROOT) in out.stdout and FIRST_PROMPT in out.stdout, out.stdout
+        # Loaded from a folder: the same flag is needed. Installed (under the config's plugins/): plain claude.
+        save = os.environ.get("CLAUDE_CONFIG_DIR")
+        os.environ["CLAUDE_CONFIG_DIR"] = os.path.join(tmp, "cfg")
+        try:
+            assert not plugin_is_installed(PLUGIN_ROOT)
+            cached = os.path.join(tmp, "cfg", "plugins", "cache", "market", "murmuration", "0.1.0")
+            os.makedirs(cached)
+            assert plugin_is_installed(cached)
+            installed = next_steps(cached)
+            assert "with `claude`." in installed[0] and "--plugin-dir" not in " ".join(installed), installed
+            spaced = os.path.join(tmp, "my plugins", "Murmuration")
+            os.makedirs(spaced)
+            assert "claude --plugin-dir '%s'" % spaced in next_steps(spaced)[0]
+            assert not plugin_is_installed(os.path.join(tmp, "cfg", "plugins-other"))
+        finally:
+            if save is None:
+                os.environ.pop("CLAUDE_CONFIG_DIR", None)
+            else:
+                os.environ["CLAUDE_CONFIG_DIR"] = save
+        nest = subprocess.run([sys.executable, os.path.abspath(__file__), "--project", deep], input="q",
+                              capture_output=True, text=True, env=env)
+        assert nest.returncode == 4 and "a lab already exists in" in nest.stderr and nest.stdout == "", nest
         out = run_cli("another")
         assert out.returncode == 0 and "Question added" in out.stdout and "start a new" not in out.stdout, out
     print("PASS lab_init")
@@ -282,6 +431,11 @@ def main(argv):
         return 2
     try:
         mode, done = run(root, question)
+    except NestedLab as nested:
+        print("lab_init.py: a lab already exists in %s (it holds __statera__/), so no lab is created in %s. "
+              "Run /lab from %s, or start Claude Code there." % (nested.parent, os.path.abspath(root), nested.parent),
+              file=sys.stderr)
+        return 4
     except ValueError:
         print("lab_init.py: %s exists but is not a JSON object; fix it and run again"
               % os.path.join(root, LOCAL_SETTINGS), file=sys.stderr)
@@ -291,7 +445,7 @@ def main(argv):
         print("- " + line)
     if mode == "init":
         print()
-        for line in NEXT_STEPS:
+        for line in next_steps():
             print(line)
     return 0
 
