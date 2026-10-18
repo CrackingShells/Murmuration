@@ -1,0 +1,20 @@
+{
+  "name": "murmuration",
+  "displayName": "Murmuration",
+  "version": "0.1.0",
+  "description": "A research team for Claude Code: a principal investigator who follows what does not add up, and colleagues who explore, author claims and verify them independently.",
+  "author": {
+    "name": "Eliott Jacopin",
+    "email": "eliott.jacopin@riken.jp"
+  },
+  "homepage": "https://github.com/CrackingShells/Murmuration",
+  "repository": "https://github.com/CrackingShells/Murmuration",
+  "license": "AGPL-3.0-only",
+  "keywords": [
+    "research",
+    "agents",
+    "verification",
+    "multi-agent"
+  ],
+  "skills": "./skills/"
+}
