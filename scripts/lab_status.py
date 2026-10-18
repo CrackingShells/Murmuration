@@ -302,6 +302,20 @@ def subagent_type(path):
     return "subagent"
 
 
+def main_agent(path):
+    """The agent the session ran as (`agent-setting` record), else 'main thread'."""
+    with open(path, encoding="utf-8", errors="replace") as fh:
+        for line in fh:
+            if '"agent-setting"' in line:
+                try:
+                    rec = json.loads(line)
+                except ValueError:
+                    continue
+                if rec.get("type") == "agent-setting" and rec.get("agentSetting"):
+                    return "%s (main thread)" % rec["agentSetting"]
+    return "main thread"
+
+
 def spend(root):
     """Token usage per (agent, model) for this project's transcripts.
 
@@ -313,7 +327,7 @@ def spend(root):
     runs = collections.defaultdict(set)
     for folder in folders:
         for path in sorted(glob.glob(os.path.join(folder, "*.jsonl"))):
-            sources = [("main thread", path, None)]
+            sources = [(main_agent(path), path, None)]
             session = path[:-len(".jsonl")]
             for sub in sorted(glob.glob(os.path.join(session, "subagents", "**", "agent-*.jsonl"), recursive=True)):
                 sources.append((subagent_type(sub), sub, os.path.basename(sub)[:-len(".jsonl")]))
@@ -459,7 +473,8 @@ def selftest():
                 "cache_read_input_tokens": cr}}}) + "\n"
 
         _write(os.path.join(folder, "s1.jsonl"),
-               record("m1", "claude-opus-x", 1, 5, 100, 0) + record("m1", "claude-opus-x", 1, 50, 100, 0)
+               json.dumps({"type": "agent-setting", "agentSetting": "murmuration:research-pi"}) + "\n"
+               + record("m1", "claude-opus-x", 1, 5, 100, 0) + record("m1", "claude-opus-x", 1, 50, 100, 0)
                + record("m2", "claude-opus-x", 2, 20, 0, 100) + record("m3", "<synthetic>", 0, 0)
                + "not json\n" + record("u1", "claude-opus-x", 9, 9, kind="user"))
         sub = os.path.join(folder, "s1", "subagents")
@@ -469,7 +484,7 @@ def selftest():
         _write(os.path.join(sub, "agent-bbb.meta.json"), json.dumps({"agentType": "murmuration:explorer"}))
         rows, folders = spend(root)
         by = {(r["agent"], r["model"]): r for r in rows}
-        main = by[("main thread", "claude-opus-x")]
+        main = by[("murmuration:research-pi (main thread)", "claude-opus-x")]
         assert (main["messages"], main["input"], main["output"], main["cache_write"], main["cache_read"]) \
             == (2, 3, 70, 100, 100), main
         expl = by[("murmuration:explorer", "claude-sonnet-x")]
