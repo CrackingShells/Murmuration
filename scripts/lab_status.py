@@ -152,7 +152,14 @@ def scan_puzzles(root):
     for path in sorted(glob.glob(os.path.join(root, "__scrupuli__", "*.md")), key=natural):
         rel = os.path.relpath(path, root)
         current = None
-        for line in read(path).splitlines():
+        text = read(path)
+        before = len(puzzles)
+        for line in text.splitlines():
+            other = re.match(r"^(#(?!#)|#{3,6})\s+(.*?)\s*$", line)
+            if other and PUZZLE_RE.search(other.group(2)):
+                warnings.append("%s: '%s' is a level-%d heading, so the puzzle under it is not tracked; "
+                                "a puzzle starts with a level-2 heading `## S-wNN-<agent name>-<n>`"
+                                % (rel, line.strip(), len(other.group(1))))
             level2 = re.match(r"^##(?!#)\s+(.*?)\s*$", line)
             if level2:
                 heading = re.sub(r"[*`]", "", level2.group(1)).strip()
@@ -173,6 +180,9 @@ def scan_puzzles(root):
                 puzzles.append(current)
             elif current is not None:
                 current["lines"].append(line)
+        if text.strip() and len(puzzles) == before and not any(w.startswith(rel + ":") for w in warnings):
+            warnings.append("%s: has text but no `## S-wNN-<agent name>-<n>` heading, so no puzzle in it is "
+                            "tracked" % rel)
     for p in puzzles:
         body = [l.strip() for l in p.pop("lines") if l.strip() and not l.strip().lower().startswith("refs:")]
         p["text"] = " ".join(body)
@@ -200,13 +210,19 @@ def puzzle_warnings(root):
 
 def report_puzzles(root):
     puzzles = open_puzzles(root)
+    warnings = puzzle_warnings(root)
     out = ["## Open puzzles (%d)" % len(puzzles)]
     if not puzzles:
-        out.append("none: every raised puzzle has a disposition in a closed wave note")
+        if warnings:
+            out.append("none among the puzzles that could be read: see the warnings below")
+        elif raised_puzzles(root):
+            out.append("none: every raised puzzle has a disposition in a closed wave note")
+        else:
+            out.append("none raised: `__scrupuli__/` holds no puzzles")
     for p in puzzles:
         text = p["text"] if len(p["text"]) <= 160 else p["text"][:157] + "..."
         out.append("- %s (%s) %s" % (p["id"], p["file"], text))
-    out += ["! " + w for w in puzzle_warnings(root)]
+    out += ["! " + w for w in warnings]
     return out
 
 
@@ -609,7 +625,8 @@ def selftest():
         for bad in ("## Puzzle 1", "## S-w01-Explorer-1", "## S-w01-author.v2-1"):
             assert "heading '%s' is not a puzzle id" % bad in joined, (bad, joined)
         assert "disposes of S-w09-nobody-1, which no file" in joined, joined
-        assert len(warnings) == 6, warnings
+        assert "wave-02-author-w02-1.md: '### S-w02-author-w02-1-2' is a level-3 heading" in joined, joined
+        assert len(warnings) == 7, warnings
         assert current_wave(root)[0] == 2
         _write(os.path.join(root, "__statera__", "wave-02.md"),
                "# Wave 02\n\nopened: 2026-01-10\n\n## Puzzle dispositions (at close)\n\n"
@@ -637,6 +654,27 @@ def selftest():
         os.remove(os.path.join(scrupuli, "wave-03-explorer-w03-b.md"))
         os.remove(os.path.join(scrupuli, "wave-03-only-a-comment.md"))
         assert current_wave(root)[0] == 2
+
+        # A puzzle file with no puzzle heading warns, and the report never claims "none" then.
+        lonely = os.path.join(tmp, "lonely")
+        os.makedirs(os.path.join(lonely, "__statera__"))
+        assert "none raised" in report_puzzles(lonely)[1]
+        _write(os.path.join(lonely, "__scrupuli__", "wave-01-explorer-w01-a.md"),
+               "1. the rows vanish\n2. figure two has a kink\n\n### S-w01-explorer-w01-a-1\nnot level two\n"
+               "# S-w01-explorer-w01-a-2\nnor level one\n")
+        lines = report_puzzles(lonely)
+        joined = "\n".join(lines)
+        assert "none:" not in joined and "none among the puzzles that could be read" in joined, joined
+        assert "'### S-w01-explorer-w01-a-1' is a level-3 heading" in joined, joined
+        assert "'# S-w01-explorer-w01-a-2' is a level-1 heading" in joined, joined
+        _write(os.path.join(lonely, "__scrupuli__", "wave-02-explorer-w02-a.md"), "just prose, no headings\n")
+        assert "wave-02-explorer-w02-a.md: has text but no `## S-wNN" in "\n".join(report_puzzles(lonely))
+        # A fully disposed lab with no warnings says so.
+        _write(os.path.join(lonely, "__scrupuli__", "wave-01-explorer-w01-a.md"), "## S-w01-explorer-w01-a-1\nx\n")
+        os.remove(os.path.join(lonely, "__scrupuli__", "wave-02-explorer-w02-a.md"))
+        _write(os.path.join(lonely, "__statera__", "wave-01.md"),
+               "## Puzzle dispositions\n| S-w01-explorer-w01-a-1 | parked: r |\n\nclosed: 2026-01-01\n")
+        assert "none: every raised puzzle has a disposition" in report_puzzles(lonely)[1]
 
         # ---- Claims
         def claim(cid, label, *verdicts, extra="", head=""):
