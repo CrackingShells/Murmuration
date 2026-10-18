@@ -5,9 +5,9 @@ from what this one finds.
 
 ## Opening a wave
 
-Write `__statera__/wave-NN.md` from the template
-(`${CLAUDE_PLUGIN_ROOT}/skills/research-loop/templates/wave.md`). The first wave note already
-exists after `/lab`; replace its placeholder text. A note opens with the sentence of the user's
+Write `__statera__/wave-NN.md` from the wave template (its full path is listed in the
+research-loop skill, under "For the PI"). The first wave note already exists after `/lab`; replace
+its placeholder text. A note opens with the sentence of the user's
 (quoted from `__statera__/user_words.md`) that this wave serves, then what does not add up and why
 it is worth this wave: the reason for the wave in plain words, not a task list.
 
@@ -40,8 +40,9 @@ it is worth this wave: the reason for the wave in plain words, not a task list.
    Write the puzzle id followed by `followed:` or `parked:`; any other wording leaves the puzzle
    open. Mentioning a puzzle is not following it.
 3. List the claims of the wave with their current labels from `/lab-status`.
-4. Replace the template's last line with `closed: YYYY-MM-DD`, using the real date. A note counts
-   as closed only when that line carries a real date; `/lab-status` treats any other note as still
+4. End the note with the line `closed: YYYY-MM-DD`, using the real date (replace the template's
+   placeholder line if the note still has one). A note counts as closed only when that line
+   carries a real date; `/lab-status` treats any other note as still
    open. Closed notes are not edited again; corrections go into the next wave's note.
 
 ## Before the final synthesis

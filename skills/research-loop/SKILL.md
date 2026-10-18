@@ -142,6 +142,10 @@ No note, report or synthesis states a claim above its current label.
 6. The verifier escalates when the author wants to change what the claim states, or when the
    exchange stops converging.
 
+When the author is the PI (`author: research-pi`), the verifier sends its questions to `main`.
+If a message cannot be delivered or gets no answer, the verifier logs the question with "no answer"
+and gives the verdict the evidence supports.
+
 ## For the PI
 
 | When | Read |
