@@ -31,6 +31,7 @@ import datetime
 import json
 import os
 import re
+import shlex
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -43,11 +44,35 @@ AGENT = "murmuration:research-pi"
 DENY = ["Bash(pkill:*)", "Bash(killall:*)"]
 LOCAL_SETTINGS = os.path.join(".claude", "settings.local.json")
 SHARED_SETTINGS = os.path.join(".claude", "settings.json")
-NEXT_STEPS = [
-    "Next: start a new Claude Code session in this folder (run `claude` here). It opens as the research PI.",
-    "Then ask it to begin, for example: Let's begin.",
-]
+FIRST_PROMPT = "Frame my question and plan the first wave."
 STORES = ["__statera__", "__pondus__", "__scrupuli__", "__design__"]
+
+
+def config_dir():
+    return os.environ.get("CLAUDE_CONFIG_DIR") or os.path.join(os.path.expanduser("~"), ".claude")
+
+
+def plugin_is_installed(plugin_root=PLUGIN_ROOT):
+    """True when the plugin sits in Claude Code's plugin store (installed), not in a folder loaded by path."""
+    store = os.path.realpath(os.path.join(config_dir(), "plugins"))
+    root = os.path.realpath(plugin_root)
+    return root == store or root.startswith(store + os.sep)
+
+
+def next_steps(plugin_root=PLUGIN_ROOT):
+    """The lines telling the user how to start the research PI, with the plugin loaded as it is now."""
+    if plugin_is_installed(plugin_root):
+        command = "claude"
+        how = ""
+    else:
+        command = "claude --plugin-dir %s" % shlex.quote(os.path.abspath(plugin_root))
+        how = (" The plugin is loaded from that folder in this session, so the new session needs the same "
+               "flag; once it is installed, plain `claude` is enough.")
+    return [
+        "Next: start a new Claude Code session in this folder with `%s`. It opens as the research PI.%s"
+        % (command, how),
+        "Then ask it to begin, for example: %s" % FIRST_PROMPT,
+    ]
 
 
 def project_root():
@@ -353,13 +378,34 @@ def selftest():
         cli = os.path.join(tmp, "cli")
         os.makedirs(cli)
         env = {k: v for k, v in os.environ.items() if k != "CLAUDE_PROJECT_DIR"}
+        env["CLAUDE_CONFIG_DIR"] = os.path.join(tmp, "cfg0")  # so the plugin does not count as installed
         run_cli = lambda text: subprocess.run([sys.executable, os.path.abspath(__file__), "--project", cli],
                                               input=text, capture_output=True, text=True, env=env)
         out = run_cli("")
         assert out.returncode == 2 and not os.path.exists(os.path.join(cli, "__statera__"))
         out = run_cli("the question")
         assert out.returncode == 0 and "Lab initialized" in out.stdout, out
-        assert "start a new Claude Code session in this folder" in out.stdout and "Let's begin" in out.stdout, out.stdout
+        assert "start a new Claude Code session in this folder with `claude --plugin-dir " in out.stdout, out.stdout
+        assert shlex.quote(PLUGIN_ROOT) in out.stdout and FIRST_PROMPT in out.stdout, out.stdout
+        # Loaded from a folder: the same flag is needed. Installed (under the config's plugins/): plain claude.
+        save = os.environ.get("CLAUDE_CONFIG_DIR")
+        os.environ["CLAUDE_CONFIG_DIR"] = os.path.join(tmp, "cfg")
+        try:
+            assert not plugin_is_installed(PLUGIN_ROOT)
+            cached = os.path.join(tmp, "cfg", "plugins", "cache", "market", "murmuration", "0.1.0")
+            os.makedirs(cached)
+            assert plugin_is_installed(cached)
+            installed = next_steps(cached)
+            assert "with `claude`." in installed[0] and "--plugin-dir" not in " ".join(installed), installed
+            spaced = os.path.join(tmp, "my plugins", "Murmuration")
+            os.makedirs(spaced)
+            assert "claude --plugin-dir '%s'" % spaced in next_steps(spaced)[0]
+            assert not plugin_is_installed(os.path.join(tmp, "cfg", "plugins-other"))
+        finally:
+            if save is None:
+                os.environ.pop("CLAUDE_CONFIG_DIR", None)
+            else:
+                os.environ["CLAUDE_CONFIG_DIR"] = save
         nest = subprocess.run([sys.executable, os.path.abspath(__file__), "--project", deep], input="q",
                               capture_output=True, text=True, env=env)
         assert nest.returncode == 4 and "a lab already exists in" in nest.stderr and nest.stdout == "", nest
@@ -399,7 +445,7 @@ def main(argv):
         print("- " + line)
     if mode == "init":
         print()
-        for line in NEXT_STEPS:
+        for line in next_steps():
             print(line)
     return 0
 

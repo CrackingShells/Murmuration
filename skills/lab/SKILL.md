@@ -62,12 +62,15 @@ by hand, and never edit `__statera__/user_words.md` yourself.
 
 Report the script's output in a few lines, then:
 
-- **After an initialization,** tell the user exactly this: start a new Claude Code session in this
-  folder (exit this one, then run `claude` there). Settings are read when a session starts, so
-  only the new session opens as the research PI; this session does not become the PI. In the
-  new session, ask it to begin, for example: `Let's begin.` If the script reported that it kept a
-  different `agent` setting, say so and show the line that would open the lab as the PI. Mention
-  that `.claude/settings.local.json` holds personal settings and belongs out of version control.
+- **After an initialization,** tell the user exactly what the script printed under "Next:". In
+  short: start a new Claude Code session in this folder, with the plugin loaded the way it is
+  now (`claude --plugin-dir <path>` when the plugin is loaded from a folder, plain `claude` when it
+  is installed; the script prints the right one). Settings are read when a session starts, so
+  only the new session opens as the research PI; this session does not become the PI. In the new
+  session, the user asks it to begin, for example: `Frame my question and plan the first wave.`
+  If the script reported that it kept a different `agent` setting, say so and show the line that
+  would open the lab as the PI. Mention that `.claude/settings.local.json` holds personal
+  settings and belongs out of version control.
 - **After an append,** say the question is recorded, and what settings the script restored, if
   any (a restored `agent` takes effect in a new session). If you are the research PI (your
   instructions say you lead a Murmuration research team), read the new entry in
