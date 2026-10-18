@@ -48,6 +48,7 @@ def brief(root):
         out.append("- %s (%s): %s" % (p["id"], p["file"], text))
     if not puzzles:
         out.append("none")
+    out += ["! " + w for w in lab_status.puzzle_warnings(root)]
     out += ["", "Claim labels and spend: run `/lab-status`."]
     return "\n".join(out)
 
@@ -83,6 +84,11 @@ def selftest():
         out = run()
         assert "WAVE TWO BODY" in out and "WAVE ONE BODY" not in out, out
         assert "S-w01-explorer-1" in out and "odd rows" in out and "S-w01-explorer-2" not in out, out
+        assert "! " not in out, out
+        with open(os.path.join(tmp, "__scrupuli__", "wave-02-explorer-w02-a.md"), "w") as fh:
+            fh.write("## Puzzle without an id\nbody\n\n## S-w02-explorer-w02-a-1\nsecond explorer\n")
+        out = run()
+        assert "S-w02-explorer-w02-a-1" in out and "! " in out and "'## Puzzle without an id' is not a puzzle id" in out, out
         assert run({"CLAUDE_PROJECT_DIR": os.path.join(tmp, "elsewhere")}) == ""
         proc = subprocess.run([sys.executable, os.path.abspath(__file__)], input="not json",
                               capture_output=True, text=True, cwd=tmp, env={**os.environ, "CLAUDE_PROJECT_DIR": ""})
