@@ -49,6 +49,9 @@ The script decides by itself:
 - **`__statera__/` exists: it appends the question** to `__statera__/user_words.md` under a
   dated heading (unless it is already the newest entry) and changes nothing else.
 
+- **A folder above this one already holds a lab: it creates nothing** and says where that lab is.
+  Tell the user to run `/lab` from that folder, or start Claude Code there.
+
 If the script exits with an error, show the user the message and stop. Do not recreate its work
 by hand, and never edit `__statera__/user_words.md` yourself.
 
