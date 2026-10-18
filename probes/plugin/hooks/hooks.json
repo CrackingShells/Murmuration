@@ -1,0 +1,611 @@
+{
+  "description": "Probe hooks: log raw input of every event; mcp_tool handlers on the v4 events",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh SessionStart"
+          },
+          {
+            "type": "mcp_tool",
+            "server": "plugin:probe:stub",
+            "tool": "record",
+            "input": {
+              "event": "SessionStart",
+              "session_id": "${session_id}",
+              "extra": "${source}"
+            }
+          }
+        ]
+      }
+    ],
+    "Setup": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh Setup"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh UserPromptSubmit"
+          },
+          {
+            "type": "mcp_tool",
+            "server": "plugin:probe:stub",
+            "tool": "record",
+            "input": {
+              "event": "UserPromptSubmit",
+              "session_id": "${session_id}",
+              "prompt": "${prompt}",
+              "extra": "${prompt_id}"
+            }
+          }
+        ]
+      }
+    ],
+    "UserPromptExpansion": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh UserPromptExpansion"
+          },
+          {
+            "type": "mcp_tool",
+            "server": "plugin:probe:stub",
+            "tool": "record",
+            "input": {
+              "event": "UserPromptExpansion",
+              "session_id": "${session_id}",
+              "prompt": "${prompt}",
+              "extra": "${command_name}"
+            }
+          }
+        ]
+      },
+      {
+        "matcher": "probe-skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh UserPromptExpansion@probe-skill"
+          }
+        ]
+      },
+      {
+        "matcher": "probe:probe-skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh UserPromptExpansion@probe:probe-skill"
+          }
+        ]
+      },
+      {
+        "matcher": "^probe-skill$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh UserPromptExpansion@^probe-skill$"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh PreToolUse"
+          },
+          {
+            "type": "mcp_tool",
+            "server": "plugin:probe:stub",
+            "tool": "record",
+            "input": {
+              "event": "PreToolUse",
+              "session_id": "${session_id}",
+              "tool_name": "${tool_name}",
+              "extra": "${tool_input.prompt}"
+            }
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh PermissionRequest"
+          }
+        ]
+      }
+    ],
+    "PermissionDenied": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh PermissionDenied"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh PostToolUse"
+          },
+          {
+            "type": "mcp_tool",
+            "server": "plugin:probe:stub",
+            "tool": "record",
+            "input": {
+              "event": "PostToolUse",
+              "session_id": "${session_id}",
+              "tool_name": "${tool_name}",
+              "extra": "${tool_response.agentId}"
+            }
+          }
+        ]
+      },
+      {
+        "matcher": "SendMessage",
+        "hooks": [
+          {
+            "type": "mcp_tool",
+            "server": "plugin:probe:stub",
+            "tool": "record",
+            "input": {
+              "event": "PostToolUse@SendMessage",
+              "session_id": "${session_id}",
+              "tool_name": "${tool_name}",
+              "extra": "${tool_input.message}"
+            }
+          }
+        ]
+      },
+      {
+        "matcher": "Agent",
+        "hooks": [
+          {
+            "type": "mcp_tool",
+            "server": "plugin:probe:stub",
+            "tool": "record",
+            "input": {
+              "event": "PostToolUse@Agent",
+              "session_id": "${session_id}",
+              "tool_name": "${tool_name}",
+              "extra": "${tool_response.totalTokens}"
+            }
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh PostToolUseFailure"
+          }
+        ]
+      }
+    ],
+    "PostToolBatch": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh PostToolBatch"
+          },
+          {
+            "type": "mcp_tool",
+            "server": "plugin:probe:stub",
+            "tool": "record",
+            "input": {
+              "event": "PostToolBatch",
+              "session_id": "${session_id}",
+              "extra": "${tool_calls}"
+            }
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh Notification"
+          },
+          {
+            "type": "mcp_tool",
+            "server": "plugin:probe:stub",
+            "tool": "record",
+            "input": {
+              "event": "Notification",
+              "session_id": "${session_id}",
+              "extra": "${notification_type}"
+            }
+          }
+        ]
+      }
+    ],
+    "MessageDisplay": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh MessageDisplay"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh SubagentStart"
+          },
+          {
+            "type": "mcp_tool",
+            "server": "plugin:probe:stub",
+            "tool": "record",
+            "input": {
+              "event": "SubagentStart",
+              "session_id": "${session_id}",
+              "agent_id": "${agent_id}",
+              "agent_type": "${agent_type}"
+            }
+          }
+        ]
+      },
+      {
+        "matcher": "probe-author",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh SubagentStart@probe-author"
+          }
+        ]
+      },
+      {
+        "matcher": "probe:probe-author",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh SubagentStart@probe:probe-author"
+          }
+        ]
+      },
+      {
+        "matcher": "probe-verifier",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh SubagentStart@probe-verifier"
+          }
+        ]
+      },
+      {
+        "matcher": "probe:probe-verifier",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh SubagentStart@probe:probe-verifier"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh SubagentStop"
+          },
+          {
+            "type": "mcp_tool",
+            "server": "plugin:probe:stub",
+            "tool": "record",
+            "input": {
+              "event": "SubagentStop",
+              "session_id": "${session_id}",
+              "agent_id": "${agent_id}",
+              "agent_type": "${agent_type}",
+              "extra": "${agent_transcript_path}"
+            }
+          }
+        ]
+      },
+      {
+        "matcher": "probe-author",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh SubagentStop@probe-author"
+          }
+        ]
+      },
+      {
+        "matcher": "probe:probe-author",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh SubagentStop@probe:probe-author"
+          }
+        ]
+      },
+      {
+        "matcher": "probe-verifier",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh SubagentStop@probe-verifier"
+          }
+        ]
+      },
+      {
+        "matcher": "probe:probe-verifier",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh SubagentStop@probe:probe-verifier"
+          }
+        ]
+      }
+    ],
+    "TaskCreated": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh TaskCreated"
+          }
+        ]
+      }
+    ],
+    "TaskCompleted": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh TaskCompleted"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh Stop"
+          },
+          {
+            "type": "mcp_tool",
+            "server": "plugin:probe:stub",
+            "tool": "record",
+            "input": {
+              "event": "Stop",
+              "session_id": "${session_id}",
+              "extra": "${last_assistant_message}"
+            }
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh StopFailure"
+          }
+        ]
+      }
+    ],
+    "TeammateIdle": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh TeammateIdle"
+          }
+        ]
+      }
+    ],
+    "InstructionsLoaded": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh InstructionsLoaded"
+          }
+        ]
+      }
+    ],
+    "ConfigChange": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh ConfigChange"
+          }
+        ]
+      }
+    ],
+    "CwdChanged": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh CwdChanged"
+          }
+        ]
+      }
+    ],
+    "DirectoryAdded": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh DirectoryAdded"
+          }
+        ]
+      }
+    ],
+    "FileChanged": [
+      {
+        "matcher": "watched.txt|watched2.txt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh FileChanged"
+          }
+        ]
+      },
+      {
+        "matcher": "watched.txt|watched2.txt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../rewake.sh",
+            "asyncRewake": true
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh FileChanged@nomatcher"
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh FileChanged@star"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh PreCompact"
+          },
+          {
+            "type": "mcp_tool",
+            "server": "plugin:probe:stub",
+            "tool": "record",
+            "input": {
+              "event": "PreCompact",
+              "session_id": "${session_id}",
+              "extra": "${trigger}"
+            }
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh PostCompact"
+          },
+          {
+            "type": "mcp_tool",
+            "server": "plugin:probe:stub",
+            "tool": "record",
+            "input": {
+              "event": "PostCompact",
+              "session_id": "${session_id}",
+              "extra": "${compact_summary}"
+            }
+          }
+        ]
+      }
+    ],
+    "PreModelSwitch": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh PreModelSwitch"
+          }
+        ]
+      }
+    ],
+    "PostModelSwitch": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh PostModelSwitch"
+          }
+        ]
+      }
+    ],
+    "Elicitation": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh Elicitation"
+          }
+        ]
+      }
+    ],
+    "ElicitationResult": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh ElicitationResult"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh SessionEnd"
+          },
+          {
+            "type": "mcp_tool",
+            "server": "plugin:probe:stub",
+            "tool": "record",
+            "input": {
+              "event": "SessionEnd",
+              "session_id": "${session_id}",
+              "extra": "${reason}"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "probe",
+  "version": "0.0.1",
+  "description": "Throwaway Murmuration platform-probe plugin: logs raw hook inputs. Never shipped, never installed globally."
+}
