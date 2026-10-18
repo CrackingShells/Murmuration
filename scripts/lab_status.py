@@ -62,7 +62,7 @@ VERDICTS = {
     "WRONG": "withdraw",
     "ESCALATE": "escalate",
 }
-# The state shown is decided by the weakest standing verdict; an escalation comes first because
+# The state shown is decided by the weakest standing verdict; any escalation comes first because
 # it needs a person whatever the other verifiers said.
 WEAKNESS = ["escalate", "withdraw", "lower", "gap", "accept", "higher"]
 # Two standing verdicts disagree when one stands behind the claim (accept, gap, higher) and
@@ -280,6 +280,8 @@ def claim_state(label, standing):
     if not standing:
         return "unverified %s" % label
     families = [VERDICTS[v] for v in standing.values()]
+    if "escalate" in families:
+        return "escalated: PI decides"  # whatever the other verifiers said
     if len({STANCE[f] for f in families if f in STANCE}) > 1:
         return "disputed: PI decides"
     weakest = next(f for f in WEAKNESS if f in families)
@@ -669,6 +671,8 @@ def selftest():
              "THEOREM"),
             ("escalate beats reject", claim("w01-c16", "MEASURED", ("v1", "ESCALATE"), ("v2", "OVERSTATED")),
              "escalated: PI decides"),
+            ("escalate beats a dispute", claim("w01-c17", "MEASURED", ("v1", "ESCALATE"), ("v2", "SUPPORTED"),
+                                               ("v3", "OVERSTATED")), "escalated: PI decides"),
         ]
         for name, text, state in cases:
             got = current_label(text)
