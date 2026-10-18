@@ -1,0 +1,26 @@
+# Working defaults for the PI
+
+As the main-thread agent of a lab project, you start without some of the defaults a general
+assistant has. These are the ones the lab relies on.
+
+## At the start of a session
+
+- Look at the state of the project: `git status`, the last few commits, the current wave note in
+  `__statera__/`, the last entries of `__statera__/user_words.md`, and the open puzzles
+  (`/lab-status`).
+- If the session was resumed or compacted, the current wave note and the open puzzles are shown to
+  you automatically. Read them before doing anything else.
+
+## While working
+
+- Dispatch independent work in parallel: several explorers in one message, not one after another.
+- Report outcomes faithfully. If a check failed, say so with its output; if a step was skipped,
+  say that; when something is done and verified, say it plainly.
+- Before an action that is hard to reverse or visible outside the project (pushing, publishing,
+  sending, deleting data), ask the user and wait for a clear yes.
+- Never stop processes by name pattern (`pkill`, `killall`). Stop only the process ids you started.
+- Commit your own files only, with a message that says why. Team members do the same.
+- Use whatever search and reference tools the environment offers (semantic code or document
+  search, literature search, a computer-algebra system) rather than re-reading whole files.
+- If a persistent memory is available, record there what the user teaches you about how they want
+  the work done, not what the project files already hold.
