@@ -18,9 +18,9 @@ Build the mechanical layer and the team, then pilot them.
 ```mermaid
 graph TD
     libripens_core[libripens core]:::blocked
-    agents_and_skills[Agents, skills and commands]:::inprogress
+    agents_and_skills[Agents, skills and commands]:::done
     pilot[Pilot]:::planned
-    minimal_lab[Minimal lab: scripts, hooks, lab commands, packaging]:::amendment
+    minimal_lab[Minimal lab: scripts, hooks, lab commands, packaging]:::done
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
     classDef planned    fill:#374151,color:#e5e7eb
@@ -32,9 +32,9 @@ graph TD
 | Node | Type | Status |
 |:-----|:-----|:-------|
 | `libripens_core.md` | 📄 Leaf Task | 🚫 Blocked |
-| `agents_and_skills.md` | 📄 Leaf Task | 🔄 In Progress |
+| `agents_and_skills.md` | 📄 Leaf Task | ✅ Done |
 | `pilot/` | 📁 Directory | ⬜ Planned |
-| `minimal_lab.md` | 📄 Leaf Task | 🔵 Amendment |
+| `minimal_lab.md` | 📄 Leaf Task | ✅ Done |
 
 ## Amendment Log
 | ID | Date | Source | Nodes Added | Rationale |
