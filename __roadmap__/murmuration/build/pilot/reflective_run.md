@@ -15,3 +15,14 @@ Initialize a lab inside this repository with the question "how should Murmuratio
 **Deliverables**: `__statera__/`, `__pondus__/`, `__scrupuli__/` in this repository; `__reports__/pilot/01-reflective_run_v0.md`
 **Consistency Checks**: `test -f __reports__/pilot/01-reflective_run_v0.md` (expected: PASS)
 **Commit**: `docs(pilot): record the first reflective run and its decisions`
+
+## Tuning targets for the reflective run
+
+Measured from transcripts, each proposed as a claim:
+- Per-role tool allowlists: which listed tools and MCP servers each role actually called, and which it reached for and lacked.
+- `maxTurns` per role: turns used, and runs that hit the limit.
+- `effort` per role.
+- `omitClaudeMd` for workers: does the user's CLAUDE.md help or distract them?
+- `autoCompactWindow` and the `cacheTtl` key of `experimental` for long PI sessions.
+- Brief length vs the context injected by skills (redundancy).
+- Puzzle dispositions against what happened next: did `parked` puzzles come back?
