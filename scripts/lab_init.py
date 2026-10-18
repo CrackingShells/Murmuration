@@ -60,13 +60,16 @@ def template(name):
 
 
 def first_wave_note(question, today):
-    """The first wave note: the template with the number, date and the user's sentence filled in."""
+    """The first wave note: the template with the number, date and the user's sentence filled in.
+
+    The template's last line, `closed: YYYY-MM-DD`, stays as written: the note counts as closed
+    only when that line carries a real date.
+    """
     text = template("wave.md")
     text = text.replace("# Wave NN", "# Wave 01").replace("wNN", "w01")
     text = text.replace("opened: YYYY-MM-DD", "opened: %s" % today)
     quote = "\n".join("> " + line if line.strip() else ">" for line in question.splitlines())
     text = re.sub(r"^> <quoted from [^>]*>$", lambda _m: quote, text, count=1, flags=re.M)
-    text = re.sub(r"\n*closed: YYYY-MM-DD\s*$", "\n", text)  # added by the PI when the wave closes
     return text
 
 
@@ -246,7 +249,8 @@ def selftest():
         wave = load(os.path.join(proj, "__statera__", "wave-01.md"))
         assert wave.startswith("# Wave 01") and "Why does the \"3-bit\" case $HOME break?" in wave
         assert "\n> Second line with 'quotes'" in wave
-        assert "YYYY" not in wave and "NN" not in wave and "closed:" not in wave
+        assert wave.rstrip().endswith("\nclosed: YYYY-MM-DD") and wave.count("YYYY") == 1, wave
+        assert "NN" not in wave.replace("closed", "")
         assert re.search(r"^opened: \d{4}-\d{2}-\d{2}$", wave, re.M)
         assert load(os.path.join(proj, SHARED_SETTINGS)) == shared_text, "shared settings must not change"
         local = json.loads(load(os.path.join(proj, LOCAL_SETTINGS)))
@@ -257,6 +261,7 @@ def selftest():
         # The first wave note is open to the status scripts, and the lab is readable by them.
         import lab_status
         assert lab_status.current_wave(proj)[0] == 1 and lab_status.open_puzzles(proj) == []
+        assert not lab_status.CLOSED_RE.search(wave), "the placeholder must not count as a closing date"
         # A second call appends and leaves everything else alone.
         before = load(os.path.join(proj, "__statera__", "wave-01.md"))
         mode, _ = run(proj, "a later question")
