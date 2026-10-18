@@ -19,8 +19,8 @@ Ship Murmuration as an installable Claude Code plugin whose pilot shows judgemen
 ```mermaid
 graph TD
     repository[Local repository scaffold]:::done
-    platform_probes[Platform probes]:::planned
-    instrument_validation[Instrument validation on the genesis study]:::planned
+    platform_probes[Platform probes]:::inprogress
+    instrument_validation[Instrument validation on the genesis study]:::inprogress
     build[Build]:::planned
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
@@ -33,8 +33,8 @@ graph TD
 | Node | Type | Status |
 |:-----|:-----|:-------|
 | `repository.md` | 📄 Leaf Task | ✅ Done |
-| `platform_probes.md` | 📄 Leaf Task | ⬜ Planned |
-| `instrument_validation.md` | 📄 Leaf Task | ⬜ Planned |
+| `platform_probes.md` | 📄 Leaf Task | 🔄 In Progress |
+| `instrument_validation.md` | 📄 Leaf Task | 🔄 In Progress |
 | `build/` | 📁 Directory | ⬜ Planned |
 
 ## Amendment Log
