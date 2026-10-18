@@ -62,6 +62,13 @@ VERDICTS = {
     "WRONG": "withdraw",
     "ESCALATE": "escalate",
 }
+LABELS = ["THEOREM", "CHECKED", "MEASURED", "ESTIMATE", "CONJECTURE", "CITED"]
+# What each kind of verifier may say; the kind is recognised by its name (`reproducer-w03-2`).
+ROLE_VERDICTS = {
+    "reproducer": ["SUPPORTED", "OVERSTATED", "UNSUPPORTED", "ESCALATE"],
+    "proof-adversary": ["SOUND", "SOUND WITH GAP", "WRONG", "LABEL TOO STRONG", "LABEL TOO WEAK", "ESCALATE"],
+}
+
 # The state shown is decided by the weakest standing verdict; any escalation comes first because
 # it needs a person whatever the other verifiers said.
 WEAKNESS = ["escalate", "withdraw", "lower", "gap", "accept", "higher"]
@@ -325,6 +332,8 @@ def current_label(text):
     if not label:
         warnings.append("no `label:` line in the claim head")
         label = "(no label)"
+    elif label.split()[0].upper().strip("*`") not in LABELS:
+        warnings.append("label '%s' is not one of %s" % (label, ", ".join(LABELS)))
     standing = {}
     for name, lines in claim["sections"]:
         value = next((m.group(1) for m in map(VERDICT_RE.match, lines) if m), None)
@@ -340,6 +349,10 @@ def current_label(text):
         if verdict is None:
             warnings.append("verdict section '%s': '%s' is not a recognised verdict" % (name, clean_value(value)))
             continue
+        for role, allowed in ROLE_VERDICTS.items():
+            if role in name.lower() and verdict not in allowed:
+                warnings.append("verdict section '%s': %s is not in the %s's vocabulary (%s); counted anyway"
+                                % (name, verdict, role, ", ".join(allowed)))
         standing[name] = verdict  # a later section by the same verifier replaces an earlier one
     return {"id": claim["id"], "statement": claim["statement"], "label": label,
             "supersedes": claim["supersedes"], "verdicts": standing, "warnings": warnings,
@@ -732,6 +745,14 @@ def selftest():
         assert normalise_verdict("sound with gap.") == ("SOUND WITH GAP", None)
         assert normalise_verdict("Label  too   weak") == ("LABEL TOO WEAK", None)
         assert normalise_verdict("SOUNDLY") == (None, None) and normalise_verdict("maybe") == (None, None)
+        # A label outside the table, and a verdict outside its verifier's own vocabulary, warn (and still count).
+        got = current_label("# w01-c41: s\n\nlabel: FOO\n")
+        assert got["current"] == "unverified FOO" and "label 'FOO' is not one of THEOREM" in got["warnings"][0], got
+        assert current_label("# w01-c42: s\n\nlabel: cited UNVERIFIED\n")["warnings"] == []
+        got = current_label("# w01-c43: s\n\nlabel: MEASURED\n\n## verdict: reproducer-w01-1\n\nverdict: SOUND\n")
+        assert got["current"] == "MEASURED" and "not in the reproducer's vocabulary" in got["warnings"][0], got
+        got = current_label("# w01-c44: s\n\nlabel: THEOREM\n\n## verdict: proof-adversary-w01-1\n\nverdict: SUPPORTED\n")
+        assert "not in the proof-adversary's vocabulary" in got["warnings"][0], got
         # The verdict may follow other level-2 headings inside the section; the first verdict line counts.
         text = ("# w01-c21: s\n\nlabel: CHECKED\n\n## verdict: v1\n\nverdict: OVERSTATED\n\n## notes\n\nverdict: SUPPORTED\n")
         assert current_label(text)["current"] == "below CHECKED: restate"
