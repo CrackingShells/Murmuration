@@ -9,6 +9,8 @@ Read-only. Python standard library only.
 The project directory is CLAUDE_PROJECT_DIR, else the current directory.
 
 What it reads
+    Markdown files are read without their HTML comments (`<!-- ... -->`).
+
     __scrupuli__/wave-NN-<name>.md   puzzles: `## S-wNN-<name>-<n>` headings (characters a-z 0-9 -).
                            Puzzles are kept per (file, id); duplicate ids and headings that are
                            not puzzle ids produce a warning line, never silence.
@@ -76,9 +78,19 @@ def natural(path):
     return [int(t) if t.isdigit() else t for t in re.split(r"(\d+)", path)]
 
 
+COMMENT_RE = re.compile(r"<!--.*?-->", re.S)
+
+
+def strip_comments(text):
+    """Remove HTML comments (`<!-- ... -->`, also across lines), keeping the line count."""
+    return COMMENT_RE.sub(lambda m: "\n" * m.group(0).count("\n"), text)
+
+
 def read(path):
+    """The file's text; markdown files come back without their HTML comments, which are not content."""
     with open(path, encoding="utf-8", errors="replace") as fh:
-        return fh.read()
+        text = fh.read()
+    return strip_comments(text) if path.endswith(".md") else text
 
 
 # ---------------------------------------------------------------- waves and puzzles
@@ -591,6 +603,24 @@ def selftest():
         assert current_wave(root)[0] == 2  # all closed: the latest
         text = report(root)
         assert "## Open puzzles (4)" in text and "! " in text and "other explorer's puzzle" in text, text
+
+        # HTML comments are not content: example rows in a comment dispose of nothing, and ids,
+        # headings and closing dates inside one do not count.
+        _write(os.path.join(scrupuli, "wave-03-explorer-w03-b.md"),
+               "<!-- ## S-w03-explorer-w03-z-1\nnot a puzzle -->\n## S-w03-explorer-w03-b-1\nreal one\n")
+        _write(os.path.join(scrupuli, "wave-03-only-a-comment.md"), "<!-- nothing here yet -->\n")
+        _write(os.path.join(root, "__statera__", "wave-03.md"),
+               "# Wave 03\n\nopened: 2026-02-01\n\n## Puzzle dispositions (at close)\n\n"
+               "<!-- One row per puzzle, for example:\n| S-w03-explorer-w03-b-1 | followed: w04-c1 |\n"
+               "closed: 2026-02-02\n-->\n\n| Puzzle | Disposition |\n|:--|:--|\n\nclosed: YYYY-MM-DD\n")
+        ids = [p["id"] for p in open_puzzles(root)]
+        assert "S-w03-explorer-w03-b-1" in ids and "S-w03-explorer-w03-z-1" not in ids, ids
+        assert current_wave(root)[0] == 3, "a closing date inside a comment must not close the note"
+        assert not any("wave-03" in w for w in puzzle_warnings(root)), puzzle_warnings(root)
+        os.remove(os.path.join(root, "__statera__", "wave-03.md"))
+        os.remove(os.path.join(scrupuli, "wave-03-explorer-w03-b.md"))
+        os.remove(os.path.join(scrupuli, "wave-03-only-a-comment.md"))
+        assert current_wave(root)[0] == 2
 
         # ---- Claims
         def claim(cid, label, *verdicts, extra="", head=""):
