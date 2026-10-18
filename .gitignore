@@ -1,0 +1,18 @@
+# Packaged skill artifacts
+dist/
+
+# Node.js
+node_modules/
+
+# Python
+__pycache__/
+.venv/
+
+# macOS
+.DS_Store
+
+# libripens build output and derived indexes
+target/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
