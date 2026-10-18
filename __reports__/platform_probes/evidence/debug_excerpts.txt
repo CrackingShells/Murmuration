@@ -1,0 +1,82 @@
+### smoke1.debug.log lines 100,104
+2026-10-18T09:19:55.868Z [DEBUG] [event-loop-stall] detector started (interval=200ms, threshold=500ms)
+2026-10-18T09:19:55.874Z [WARN] Hooks: mcp_tool hook skipped — mcp_tool hooks are not available for the 'SessionStart' hook event (no MCP client context)
+2026-10-18T09:19:55.874Z [ERROR] "Hook SessionStart:startup (SessionStart) error: status code 1\nstderr:\nmcp_tool hooks are not available for the 'SessionStart' hook event (no MCP client context)"
+
+### smoke1.debug.log lines 266,270
+2026-10-18T09:19:56.331Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-10-18T09:19:56.335Z [DEBUG] Hooks: mcp_tool calling plugin:probe:stub/record with 4 arg(s)
+2026-10-18T09:19:56.344Z [DEBUG] Hook output does not start with {, treating as plain text
+
+### smoke1.debug.log lines 307,315
+2026-10-18T09:19:56.717Z [DEBUG] StopFailure:authentication_failed [bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh StopFailure] completed with status 1
+2026-10-18T09:19:56.717Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-10-18T09:19:56.739Z [DEBUG] Hooks: mcp_tool calling plugin:probe:stub/record with 3 arg(s)
+2026-10-18T09:19:56.739Z [DEBUG] MCP server "plugin:probe:stub": Starting connection with timeout of 30000ms
+2026-10-18T09:19:56.740Z [DEBUG] MCP server "plugin:probe:stub": Connection abandoned after 1ms (Claude Code is shutting down)
+2026-10-18T09:19:56.740Z [ERROR] Hooks: mcp_tool hook error: MCP server "plugin:probe:stub" is not connected
+2026-10-18T09:19:56.873Z [DEBUG] SessionEnd:other [bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh SessionEnd] completed with status 0
+
+### s1_watch.debug.log lines 127,131
+2026-10-18T09:22:52.249Z [DEBUG] "Hook SessionStart:startup (SessionStart) success:\n{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":\"PROBE-CONTEXT-SESSIONSTART: the codeword is MAGNOLIA.\",\"watchPaths\":[\"/Users/hacker/Documents/src/CrackingShells/Murmuration/probes/out/work/watched.txt\"]}}"
+2026-10-18T09:22:52.249Z [DEBUG] Hook SessionStart (bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh SessionStart) provided additionalContext (53 chars)
+2026-10-18T09:22:52.249Z [DEBUG] Hook SessionStart (bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh SessionStart) provided 1 watchPaths
+2026-10-18T09:22:52.250Z [DEBUG] FileChanged: watching 1 paths
+
+### s1_watch.debug.log lines 303,307
+2026-10-18T09:22:52.891Z [DEBUG] StopFailure:authentication_failed [bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh StopFailure] completed with status 0
+2026-10-18T09:22:52.891Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-10-18T09:22:54.949Z [DEBUG] FileChanged: change /Users/hacker/Documents/src/CrackingShells/Murmuration/probes/out/work/watched.txt
+2026-10-18T09:22:55.178Z [DEBUG] FileChanged [bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh FileChanged] completed with status 0
+2026-10-18T09:22:55.178Z [DEBUG] Hook output does not start with {, treating as plain text
+
+### s2_misc.debug.log lines 368,375
+2026-10-18T09:25:13.061Z [DEBUG] FileChanged: change /Users/hacker/Documents/src/CrackingShells/Murmuration/probes/out/work/watched.txt
+2026-10-18T09:25:13.307Z [DEBUG] Hooks: Checking first line for async: {"systemMessage":"PROBE-SYSMSG-FILECHANGED","hookSpecificOutput":{"hookEventName":"FileChanged","additionalContext":"PROBE-CTX-FILECHANGED"}}
+2026-10-18T09:25:13.307Z [DEBUG] Hooks: Parsed initial response: {"systemMessage":"PROBE-SYSMSG-FILECHANGED","hookSpecificOutput":{"hookEventName":"FileChanged","additionalContext":"PROBE-CTX-FILECHANGED"}}
+2026-10-18T09:25:13.307Z [DEBUG] Hooks: Initial response is not async, continuing normal processing
+2026-10-18T09:25:13.308Z [DEBUG] FileChanged [bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh FileChanged] completed with status 0
+2026-10-18T09:25:13.309Z [DEBUG] Successfully parsed and validated hook JSON output
+2026-10-18T09:25:13.309Z [DEBUG] Hook JSON output had unrecognized keys (ignored): hookSpecificOutput.additionalContext.
+2026-10-18T09:25:13.309Z [DEBUG] Invalidating session environment cache
+
+### s3_rewake.debug.log lines 305,314
+2026-10-18T09:26:03.468Z [DEBUG] FileChanged: change /Users/hacker/Documents/src/CrackingShells/Murmuration/probes/out/work/watched.txt
+2026-10-18T09:26:03.475Z [DEBUG] Hooks: Config-based async hook, backgrounding process async_hook_30555
+2026-10-18T09:26:03.476Z [DEBUG] FileChanged [bash ${CLAUDE_PLUGIN_ROOT}/../rewake.sh] completed with status 0
+2026-10-18T09:26:03.476Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-10-18T09:26:03.728Z [DEBUG] FileChanged [bash ${CLAUDE_PLUGIN_ROOT}/../logger.sh FileChanged] completed with status 0
+2026-10-18T09:26:03.728Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-10-18T09:26:03.729Z [DEBUG] Invalidating session environment cache
+2026-10-18T09:26:04.703Z [ERROR] "Hook FileChanged (FileChanged) error: status code 2\nstderr:\nPROBE-REWAKE: a new scrupulus was raised (stderr of an asyncRewake hook)."
+2026-10-18T09:26:04.716Z [DEBUG] Hooks: mcp_tool calling plugin:probe:stub/record with 4 arg(s)
+
+### x1_xsession.debug.log lines 297,300
+2026-10-18T09:24:25.691Z [DEBUG] [uds-messaging] Client disconnected
+2026-10-18T09:24:25.760Z [DEBUG] [uds-messaging] Client connected
+2026-10-18T09:24:25.763Z [DEBUG] [uds-messaging] Routed user message to queue (priority=next): <cross-session-message from="uds:/tmp/cc-socks/14489.sock" from-session="local_8
+
+### x1_xsession.debug.log lines 316,319
+2026-10-18T09:24:25.934Z [DEBUG] autocompact: tokens=[REDACTED] level=ok effectiveWindow=980000
+2026-10-18T09:24:25.936Z [DEBUG] Dynamic tool loading: 0/14 deferred tools included
+2026-10-18T09:24:25.936Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.296.5ec; cc_entrypoint=claude-desktop; cch=00000; cc_prompt_id=08a9a009-80ca-48ff-a32b-88c605693814; cc_turn_origin=peer; cc_prompt_index=0; cc_turn_index=2;
+2026-10-18T09:24:25.936Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+
+### a2_mcpasync_timing.debug.log lines 270,290
+2026-10-18T09:31:38.236Z [DEBUG] Hooks: mcp_tool calling plugin:probe:stub/record with 4 arg(s)
+2026-10-18T09:31:38.236Z [DEBUG] Hooks: mcp_tool calling plugin:probe:stub/record with 2 arg(s)
+2026-10-18T09:31:38.236Z [DEBUG] Hooks: mcp_tool calling plugin:probe:stub/record with 2 arg(s)
+2026-10-18T09:31:38.238Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-10-18T09:31:38.238Z [DEBUG] "Hook UserPromptSubmit (UserPromptSubmit) success:\nok"
+2026-10-18T09:31:38.370Z [DEBUG] Hooks: UserPromptSubmit [bash /Users/hacker/Documents/src/CrackingShells/Murmuration/probes/plugin/../logger.sh UserPromptSubmit] (plugin probe@inline) finished with status 0 (135ms)
+2026-10-18T09:31:38.370Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-10-18T09:31:42.241Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-10-18T09:31:42.241Z [DEBUG] "Hook UserPromptSubmit (UserPromptSubmit) success:\nok"
+2026-10-18T09:31:46.247Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-10-18T09:31:46.247Z [DEBUG] "Hook UserPromptSubmit (UserPromptSubmit) success:\nok"
+2026-10-18T09:31:46.252Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-10-18T09:31:46.253Z [DEBUG] [session-notices] advertise=false mode=bypassPermissions flag=true(disk) pollChannel=false ownEventsOnly=false remote=false remoteEnv=false nonInteractive=true
+2026-10-18T09:31:46.254Z [DEBUG] FileHistory: Added snapshot for 646d33dc-d8ad-424b-9d99-2f921ace1456, tracking 0 files
+2026-10-18T09:31:46.255Z [DEBUG] [engine] turn 1 start
+2026-10-18T09:31:46.256Z [DEBUG] hooks module cc-plugin-agents-md@builtin turn.start settled in 1.8ms (native link, next() included)
+

@@ -1,0 +1,15 @@
+### subagent a4b39e783a8705691
+{"agentType":"general-purpose","description":"Probe agent A (sender)","toolUseId":"toolu_01MWCYE277tHVsqgfFnwisr1","parentAgentId":"aff153770869d2a23","spawnDepth":2,"requestShape":"foreground","requestNonInteractive":true,"model":"sonnet"}
+{"tool":"SendMessage","input":{"to":"a5073b714db47c324","summary":"probe ping","message":"PING-FROM-A nonce=7731. Please reply to me, A, using SendMessage with the text PONG-FROM-B nonce=7731. My agent id is given in your <agent-message from=...> header.","type":"message","recipient":"a5073b714db47c324","recipient_kind":"agent","content":"PING-FROM-A nonce=7731. Please reply to me, A, us…"}}
+{"tool":"SubagentHandback","input":{"message":"{\"success\":true,\"message\":\"Resuming agent a5073b7\",\"resumedAgentId\":\"a5073b714db47c324\",\"pin\":{\"id\":\"a5073b714db47c324\",\"name\":\"a5073b714db47c324\",\"ref\":\"698cc5\"}}"}}
+{"tool":"SubagentHandback","input":{"message":"{\"success\":true,\"message\":\"Resuming agent a5073b7\",\"resumedAgentId\":\"a5073b714db47c324\",\"pin\":{\"id\":\"a5073b714db47c324\",\"name\":\"a5073b714db47c324\",\"ref\":\"698cc5\"}}\n\nNote: agent B later replied with \"PONG-FROM-B nonce=7731\". I also called ToolSearch once to load the deferred SendMessage schema."}}
+"You are a disposable test agent (\"A\") in a platform probe. Do exactly this and nothing else:\n1. Call the SendMessage tool with to: 'a5073b714db47c324' (that is agent B's id), summary: 'probe ping', message: 'PING-FROM-A nonce=7731. Please reply to me, A, using"
+"Another Claude session sent a message while you were working:\n<agent-message from=\"a5073b714db47c324\">\nPONG-FROM-B nonce=7731\n</agent-message>\n\nThat \"other Claude session\" is an agent working inside this same session — a subagent or teammate spawned on your us"
+
+### subagent a5073b714db47c324
+{"agentType":"general-purpose","description":"Probe agent B (receiver)","toolUseId":"toolu_01LYTpbZqNodHkxmp3Uui95g","parentAgentId":"aff153770869d2a23","spawnDepth":2,"requestShape":"foreground","requestNonInteractive":true,"model":"sonnet"}
+{"tool":"SubagentHandback","input":{"message":"B-READY"}}
+{"tool":"SendMessage","input":{"to":"a4b39e783a8705691","message":"PONG-FROM-B nonce=7731","summary":"Reply PONG to agent A","type":"message","recipient":"a4b39e783a8705691","recipient_kind":"agent","content":"PONG-FROM-B nonce=7731"}}
+{"tool":"SubagentHandback","input":{"message":"Replied to agent A (a4b39e783a8705691) with \"PONG-FROM-B nonce=7731\" via SendMessage; the send succeeded. Original task result remains: B-READY."}}
+"Another Claude session sent a message while you were working:\n<agent-message from=\"a4b39e783a8705691\">\nPING-FROM-A nonce=7731. Please reply to me, A, using SendMessage with the text PONG-FROM-B nonce=7731. My agent id is given in your <\\agent-message from=...>"
+
