@@ -1,0 +1,17 @@
+VERDICT: UNSUPPORTED
+NUMBERS: Trained binary rows = map "trained" (experiment binary, source bernoulli), 51 rows. Random binary rows = map "random" (123 rows, which also cover omega>8). They pair one-to-one on (omega,k,seed) for all 51 trained rows, with equal n_values. "Equal" means the eval-target distortion is exactly equal as a float (==). Allowing a tolerance of 1e-12 or 1e-9 gives the same count. Runs compared: 51. Equal: 40. Different: 11. The claim says 46 equal and 5 different.
+EXCEPTIONS: Differences are trained minus random distortion.
+(omega, k, seed): difference
+(2,1,2): -0.105988
+(3,2,1): -0.026078
+(3,2,2): -0.023835
+(5,4,1): -0.001709
+(7,1,1): -0.000275
+(8,1,0): -0.001114
+(8,1,1): -0.000305
+(8,1,2): +0.000168
+(8,2,0): -0.0000458
+(8,2,1): -0.000168
+(8,2,2): +0.000137
+Five of these are at omega <= 7 and six are at omega = 8. By omega, equal/different counts are 2:2/1, 3:4/2, 4:6/0, 5:8/1, 6:9/0, 7:8/1, 8:3/6.
+RATIONALE: Counting directly gives 40 identical and 11 different runs, not 46 and 5. The "all at omega <= 8" part is true only because trained rows exist for omega <= 8 and none above. The differences are mostly small, but three are visibly larger, and trained is better than random in 9 of the 11. "Fixed point" is an inference. The CSV records only distortions on a held-out target, not tables, so equal distortion shows the tables are probably the same but does not prove it. The code starts training from the random table, runs 4 Viterbi and majority iterations on a separate training target, and keeps the current bit on ties. The fixed-point reading fits 40 runs, but "identical in 46 of 51" does not match the committed data. The log is at /private/tmp/claude-501/-Users-hacker-Documents-explore-combinatorics-on-binary/82e8a947-1a0c-441c-bc39-df8e2e5fa743/scratchpad/runs/run1/check_log.md.
