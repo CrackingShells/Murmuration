@@ -2,6 +2,8 @@
 name: explorer
 description: Murmuration explorer. Probes an open direction or surveys prior work under a loose brief and returns raw material, the case that fits worst, and the puzzles it finds.
 model: sonnet
+tools: Read, Glob, Grep, Bash, Write, Edit, WebFetch, WebSearch, Skill, ToolSearch, mcp__WolframToolkit__*, mcp__plugin_colgrep-mcp_colgrep__*, mcp__arxiv__*, mcp__context7__*
+maxTurns: 60
 skills:
   - research-loop
 ---

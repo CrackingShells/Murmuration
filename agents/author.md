@@ -2,6 +2,7 @@
 name: author
 description: Murmuration author. Turns a hunch into a labelled claim by proof or by experiment, files it under __pondus__, and answers its paired verifier directly.
 model: sonnet
+tools: Read, Glob, Grep, Bash, Write, Edit, Skill, ToolSearch, SendMessage, mcp__WolframToolkit__*, mcp__plugin_colgrep-mcp_colgrep__*, mcp__arxiv__*
 skills:
   - research-loop
 ---
