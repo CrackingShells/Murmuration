@@ -16,6 +16,25 @@ Design stage. Nothing is installable yet.
 | [`__roadmap__/murmuration/`](__roadmap__/murmuration/README.md) | The build roadmap, planned one wave at a time |
 | [`__reports__/genesis/`](__reports__/genesis/README.md) | How the design came about: retrospective of a real study, outside reviews, benchmark survey, naming |
 
+## Requirements
+
+- Claude Code 2.1.271 or later.
+- Python 3 (standard library only) for the hooks and the status script.
+
+## Tools by role
+
+Each worker gets an explicit tool list; the principal investigator inherits everything. MCP servers
+named below are used when present and skipped when absent.
+
+| Role | Built-in tools | MCP servers |
+|:--|:--|:--|
+| research-pi (Opus, main thread) | all | all |
+| explorer (Sonnet) | Read, Glob, Grep, Bash, Write, Edit, WebFetch, WebSearch, Skill, ToolSearch | WolframToolkit, colgrep, arxiv, context7 |
+| author (Sonnet) | Read, Glob, Grep, Bash, Write, Edit, Skill, ToolSearch, SendMessage | WolframToolkit, colgrep, arxiv |
+| reproducer, proof-adversary (Sonnet) | Read, Glob, Grep, Bash, Write, Edit, Skill, ToolSearch, SendMessage | WolframToolkit, colgrep |
+
+To use another server, add its `mcp__<server>__*` entry to the agent file's `tools` line.
+
 ## Contributing
 
 Questions and suggestions go to the issue tracker once the repository is published.
