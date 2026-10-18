@@ -1,0 +1,15 @@
+document,coverage,hit,missing
+literature,0.58,problem bounds numbers sequences whole space idea,combinatorics expressed generative dumb naive
+foundations,0.42,problem bounds numbers sequences naive,combinatorics expressed generative whole space dumb idea
+atlas,0.42,problem bounds numbers generative sequences,combinatorics expressed whole space dumb naive idea
+laws,0.58,combinatorics problem bounds numbers expressed generative sequences,whole space dumb naive idea
+superstring,0.5,problem bounds numbers sequences whole space,combinatorics expressed generative dumb naive idea
+trellis,0.33,problem bounds numbers whole,combinatorics expressed generative sequences space dumb naive idea
+reproduction,0.25,problem bounds numbers,combinatorics expressed generative sequences whole space dumb naive idea
+naming,0.58,combinatorics problem numbers generative sequences whole space,bounds expressed dumb naive idea
+PI:00-wave2_plan_v0,0.5,problem bounds numbers generative space idea,combinatorics expressed sequences whole dumb naive
+PI:01-wave3_plan_v0,0.17,bounds generative,combinatorics problem numbers expressed sequences whole space dumb naive idea
+PI:02-q8_and_synthesis_v0,0.08,problem,combinatorics bounds numbers expressed generative sequences whole space dumb naive idea
+outline,0.5,problem bounds numbers generative space idea,combinatorics expressed sequences whole dumb naive
+notebook,0.92,combinatorics problem bounds numbers expressed generative sequences whole space naive idea,dumb
+framing §1,0.58,combinatorics problem bounds numbers expressed sequences idea,generative whole space dumb naive

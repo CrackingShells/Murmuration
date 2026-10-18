@@ -1,0 +1,395 @@
+{
+ "embedder": "all-MiniLM-L6-v2 (numpy)",
+ "n_bullets": 94,
+ "n_with_later_pi_doc": 83,
+ "n_cs_with_later_pi_doc": 31,
+ "groups": {
+  "missed_primary": [
+   {
+    "id": "atlas:CS:1",
+    "signal": "M2",
+    "reach": "MENTION",
+    "retention_pi": 0.083,
+    "retention_ext": 0.083,
+    "cooccur_pi": 0,
+    "sim_pi": 0.43,
+    "sim_pct_all": 0.25,
+    "sim_pct_cs": 0.31,
+    "user_terms_hit": 2
+   },
+   {
+    "id": "atlas:CS:4",
+    "signal": "M5",
+    "reach": "NONE",
+    "retention_pi": 0.286,
+    "retention_ext": 0.286,
+    "cooccur_pi": 0,
+    "sim_pi": 0.539,
+    "sim_pct_all": 0.75,
+    "sim_pct_cs": 0.76,
+    "user_terms_hit": 0
+   },
+   {
+    "id": "laws:CS:4",
+    "signal": "M3",
+    "reach": "MENTION",
+    "retention_pi": 0.333,
+    "retention_ext": 0.333,
+    "cooccur_pi": 0,
+    "sim_pi": 0.521,
+    "sim_pct_all": 0.7,
+    "sim_pct_cs": 0.69,
+    "user_terms_hit": 1
+   },
+   {
+    "id": "trellis:OBS:6",
+    "signal": "M4",
+    "reach": "MENTION",
+    "retention_pi": 0.077,
+    "retention_ext": 0.154,
+    "cooccur_pi": 0,
+    "sim_pi": 0.504,
+    "sim_pct_all": 0.6,
+    "sim_pct_cs": null,
+    "user_terms_hit": 0
+   }
+  ],
+  "missed_related": [
+   {
+    "id": "atlas:OBS:4",
+    "signal": "M2",
+    "reach": "MENTION",
+    "retention_pi": 0.133,
+    "retention_ext": 0.133,
+    "cooccur_pi": 1,
+    "sim_pi": 0.495,
+    "sim_pct_all": 0.52,
+    "sim_pct_cs": null,
+    "user_terms_hit": 1
+   },
+   {
+    "id": "atlas:OBS:5",
+    "signal": "M5",
+    "reach": "NONE",
+    "retention_pi": 0.294,
+    "retention_ext": 0.412,
+    "cooccur_pi": 1,
+    "sim_pi": 0.482,
+    "sim_pct_all": 0.42,
+    "sim_pct_cs": null,
+    "user_terms_hit": 1
+   },
+   {
+    "id": "laws:OBS:5",
+    "signal": "M3",
+    "reach": "MENTION",
+    "retention_pi": 0.25,
+    "retention_ext": 0.333,
+    "cooccur_pi": 0,
+    "sim_pi": 0.597,
+    "sim_pct_all": 0.91,
+    "sim_pct_cs": null,
+    "user_terms_hit": 1
+   },
+   {
+    "id": "superstring:OBS:3",
+    "signal": "M6",
+    "reach": "ACTED",
+    "retention_pi": 0.333,
+    "retention_ext": 0.333,
+    "cooccur_pi": 1,
+    "sim_pi": 0.577,
+    "sim_pct_all": 0.89,
+    "sim_pct_cs": null,
+    "user_terms_hit": 1
+   },
+   {
+    "id": "superstring:OBS:7",
+    "signal": "M6",
+    "reach": "ACTED",
+    "retention_pi": 0.143,
+    "retention_ext": 0.179,
+    "cooccur_pi": 0,
+    "sim_pi": 0.496,
+    "sim_pct_all": 0.54,
+    "sim_pct_cs": null,
+    "user_terms_hit": 1
+   },
+   {
+    "id": "trellis:CS:4",
+    "signal": "M4",
+    "reach": "NONE",
+    "retention_pi": 0.111,
+    "retention_ext": 0.333,
+    "cooccur_pi": 0,
+    "sim_pi": 0.551,
+    "sim_pct_all": 0.8,
+    "sim_pct_cs": 0.82,
+    "user_terms_hit": 0
+   },
+   {
+    "id": "reproduction:CS:2",
+    "signal": "M6",
+    "reach": "NONE",
+    "retention_pi": 0.0,
+    "retention_ext": 0.333,
+    "cooccur_pi": 0,
+    "sim_pi": "",
+    "sim_pct_all": null,
+    "sim_pct_cs": null,
+    "user_terms_hit": 0
+   },
+   {
+    "id": "reproduction:OBS:2",
+    "signal": "M6",
+    "reach": "NONE",
+    "retention_pi": 0.0,
+    "retention_ext": 0.062,
+    "cooccur_pi": 0,
+    "sim_pi": "",
+    "sim_pct_all": null,
+    "sim_pct_cs": null,
+    "user_terms_hit": 0
+   }
+  ],
+  "followed": [
+   {
+    "id": "foundations:CS:3",
+    "signal": "F",
+    "reach": "ACTED",
+    "retention_pi": 0.25,
+    "retention_ext": 0.25,
+    "cooccur_pi": 0,
+    "sim_pi": 0.573,
+    "sim_pct_all": 0.87,
+    "sim_pct_cs": 0.92,
+    "user_terms_hit": 2
+   }
+  ],
+  "followed_other": [
+   {
+    "id": "atlas:CS:2",
+    "signal": "F",
+    "reach": "ACTED",
+    "retention_pi": 0.286,
+    "retention_ext": 0.429,
+    "cooccur_pi": 0,
+    "sim_pi": 0.673,
+    "sim_pct_all": 0.96,
+    "sim_pct_cs": 0.98,
+    "user_terms_hit": 0
+   },
+   {
+    "id": "atlas:CS:5",
+    "signal": "F",
+    "reach": "ACTED",
+    "retention_pi": 0.833,
+    "retention_ext": 0.833,
+    "cooccur_pi": 1,
+    "sim_pi": 0.511,
+    "sim_pct_all": 0.63,
+    "sim_pct_cs": 0.6,
+    "user_terms_hit": 1
+   },
+   {
+    "id": "atlas:OBS:8",
+    "signal": "F",
+    "reach": "ACTED",
+    "retention_pi": 0.312,
+    "retention_ext": 0.688,
+    "cooccur_pi": 1,
+    "sim_pi": 0.511,
+    "sim_pct_all": 0.63,
+    "sim_pct_cs": null,
+    "user_terms_hit": 0
+   }
+  ]
+ },
+ "auto_vs_hand": {
+  "retention_pi>0": {
+   "tp": 44,
+   "fp": 28,
+   "fn": 4,
+   "tn": 7
+  },
+  "retention_ext>0": {
+   "tp": 46,
+   "fp": 32,
+   "fn": 2,
+   "tn": 3
+  }
+ },
+ "reach_counts": {
+  "NONE": 46,
+  "MENTION": 32,
+  "ACTED": 16
+ },
+ "reach_counts_cs": {
+  "NONE": 16,
+  "MENTION": 12,
+  "ACTED": 7
+ },
+ "auc_hand": {
+  "sim_pi: carried(MENTION+ACTED) vs NONE": 0.6860119047619048,
+  "retention_pi: carried vs NONE": 0.6607142857142857,
+  "sim_pi: ACTED vs rest": 0.7229477611940298,
+  "retention_pi: ACTED vs rest": 0.7406716417910447
+ },
+ "missed_vs_followed": {
+  "n_missed_primary": 4,
+  "n_followed": 4,
+  "sim_pi": {
+   "auc_followed_above_missed": 0.75,
+   "perm_p_one_sided": 0.15714285714285714,
+   "followed": [
+    0.573,
+    0.673,
+    0.511,
+    0.511
+   ],
+   "missed": [
+    0.43,
+    0.539,
+    0.521,
+    0.504
+   ]
+  },
+  "retention_pi": {
+   "auc_followed_above_missed": 0.71875,
+   "perm_p_one_sided": 0.2,
+   "followed": [
+    0.25,
+    0.286,
+    0.833,
+    0.312
+   ],
+   "missed": [
+    0.083,
+    0.286,
+    0.333,
+    0.077
+   ]
+  },
+  "user_terms_hit": {
+   "auc_followed_above_missed": 0.5,
+   "perm_p_one_sided": 0.6714285714285714,
+   "followed": [
+    2.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   "missed": [
+    2.0,
+    0.0,
+    1.0,
+    0.0
+   ]
+  }
+ },
+ "zero_retention_crosstab": {
+  "NONE": {
+   "retention_pi==0": 7,
+   "retention_pi>0": 28
+  },
+  "MENTION": {
+   "retention_pi==0": 4,
+   "retention_pi>0": 28
+  },
+  "ACTED": {
+   "retention_pi==0": 0,
+   "retention_pi>0": 16
+  }
+ },
+ "mean_sim_by_reach": {
+  "NONE": 0.448,
+  "MENTION": 0.496,
+  "ACTED": 0.549
+ },
+ "user_coverage_docs": [
+  {
+   "document": "literature",
+   "coverage": 0.58,
+   "hit": "problem bounds numbers sequences whole space idea",
+   "missing": "combinatorics expressed generative dumb naive"
+  },
+  {
+   "document": "foundations",
+   "coverage": 0.42,
+   "hit": "problem bounds numbers sequences naive",
+   "missing": "combinatorics expressed generative whole space dumb idea"
+  },
+  {
+   "document": "atlas",
+   "coverage": 0.42,
+   "hit": "problem bounds numbers generative sequences",
+   "missing": "combinatorics expressed whole space dumb naive idea"
+  },
+  {
+   "document": "laws",
+   "coverage": 0.58,
+   "hit": "combinatorics problem bounds numbers expressed generative sequences",
+   "missing": "whole space dumb naive idea"
+  },
+  {
+   "document": "superstring",
+   "coverage": 0.5,
+   "hit": "problem bounds numbers sequences whole space",
+   "missing": "combinatorics expressed generative dumb naive idea"
+  },
+  {
+   "document": "trellis",
+   "coverage": 0.33,
+   "hit": "problem bounds numbers whole",
+   "missing": "combinatorics expressed generative sequences space dumb naive idea"
+  },
+  {
+   "document": "reproduction",
+   "coverage": 0.25,
+   "hit": "problem bounds numbers",
+   "missing": "combinatorics expressed generative sequences whole space dumb naive idea"
+  },
+  {
+   "document": "naming",
+   "coverage": 0.58,
+   "hit": "combinatorics problem numbers generative sequences whole space",
+   "missing": "bounds expressed dumb naive idea"
+  },
+  {
+   "document": "PI:00-wave2_plan_v0",
+   "coverage": 0.5,
+   "hit": "problem bounds numbers generative space idea",
+   "missing": "combinatorics expressed sequences whole dumb naive"
+  },
+  {
+   "document": "PI:01-wave3_plan_v0",
+   "coverage": 0.17,
+   "hit": "bounds generative",
+   "missing": "combinatorics problem numbers expressed sequences whole space dumb naive idea"
+  },
+  {
+   "document": "PI:02-q8_and_synthesis_v0",
+   "coverage": 0.08,
+   "hit": "problem",
+   "missing": "combinatorics bounds numbers expressed generative sequences whole space dumb naive idea"
+  },
+  {
+   "document": "outline",
+   "coverage": 0.5,
+   "hit": "problem bounds numbers generative space idea",
+   "missing": "combinatorics expressed sequences whole dumb naive"
+  },
+  {
+   "document": "notebook",
+   "coverage": 0.92,
+   "hit": "combinatorics problem bounds numbers expressed generative sequences whole space naive idea",
+   "missing": "dumb"
+  },
+  {
+   "document": "framing §1",
+   "coverage": 0.58,
+   "hit": "combinatorics problem bounds numbers expressed sequences idea",
+   "missing": "generative whole space dumb naive"
+  }
+ ]
+}
