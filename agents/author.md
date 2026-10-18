@@ -32,5 +32,6 @@ evidence, point to the new artifact. If you need to change what the claim states
 verifier, which escalates to the principal investigator. You never write in a verifier's section
 and you cannot close the claim.
 
-Use the notation of `__design__/framing.md`. End with your puzzles in
+Use the notation of `__design__/framing.md`; define any new symbol in your puzzle file under
+`## symbols`, and the principal investigator adds it to the framing. End with your puzzles in
 `__scrupuli__/wave-NN-<your name>.md`, with no length limit.

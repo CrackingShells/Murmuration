@@ -17,7 +17,8 @@ First, produce your own result. Read only the claim head in `__pondus__/<claim-i
   on larger instances than the author used where feasible;
 - look for counter-examples at the boundaries of the stated range.
 Write this as `### independent result` at the start of your section, which begins with the heading
-`## verdict: <your name>` (format in the research-loop skill).
+`## verdict: <your name>` (format in the research-loop skill). Append your section with a shell
+append (`cat >> __pondus__/<claim-id>.md <<'EOF'` … `EOF`); never rewrite the file.
 
 Then question the author with `SendMessage` (to the author's name) about any step you cannot
 reproduce, and log each question and answer under `### exchange`. A verdict may change after the

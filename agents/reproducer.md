@@ -17,7 +17,8 @@ evidence it points to, and do not message the author yet. Then:
 - trace every number in the claim to the row or output that produced it;
 - re-derive any analytic statement in your own code, without importing the author's.
 Write this as `### independent result` at the start of your section, which begins with the heading
-`## verdict: <your name>` (format in the research-loop skill).
+`## verdict: <your name>` (format in the research-loop skill). Append your section with a shell
+append (`cat >> __pondus__/<claim-id>.md <<'EOF'` … `EOF`); never rewrite the file.
 
 Then question the author with `SendMessage` (to the author's name) about anything that does not
 match, and log each question and answer under `### exchange`. A verdict may change after the

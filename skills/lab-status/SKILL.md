@@ -29,6 +29,7 @@ A closed wave note disposes of a puzzle when its id is followed by `followed:` o
 | State | Meaning |
 |:--|:--|
 | `unverified <LABEL>` | No verifier has given a verdict yet |
+| `cited (not verified)` | A statement of prior work; CITED claims are not given to verifiers |
 | `<LABEL>` | Every standing verdict is SUPPORTED or SOUND |
 | `<LABEL> (gap)` | SOUND WITH GAP |
 | `below <LABEL>: restate` | OVERSTATED or LABEL TOO STRONG: the claim may not be used at its label; the author files a new claim at a lower label with `supersedes:` and it is verified again |

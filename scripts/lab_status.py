@@ -26,7 +26,7 @@ What it reads
                            thread and every subagent); `usage` fields are summed. Set
                            CLAUDE_CONFIG_DIR to use another configuration directory.
 
-Claim states shown: `unverified <LABEL>`, `<LABEL>`, `<LABEL> (gap)`, `below <LABEL>: restate`,
+Claim states shown: `unverified <LABEL>`, `cited (not verified)`, `<LABEL>`, `<LABEL> (gap)`, `below <LABEL>: restate`,
 `<LABEL> (may restate higher)`, `withdrawn`, `escalated: PI decides`, `disputed: PI decides`,
 `superseded by <id>`. Lines starting with `!` are warnings about files the script could not
 read as specified.
@@ -171,6 +171,9 @@ def scan_puzzles(root):
             if level2:
                 heading = re.sub(r"[*`]", "", level2.group(1)).strip()
                 match = PUZZLE_HEADING_RE.match(heading)
+                if not match and heading.lower() == "symbols":
+                    current = None  # new notation proposed to the PI; not a puzzle
+                    continue
                 if not match:
                     current = None
                     warnings.append("%s: heading '## %s' is not a puzzle id (form S-wNN-<agent name>-<n>, "
@@ -301,6 +304,8 @@ def normalise_verdict(raw):
 def claim_state(label, standing):
     """The state shown for a claim at `label` with these standing verdicts ({verifier: verdict})."""
     if not standing:
+        if label.split()[0].upper() == "CITED":
+            return "cited (not verified)"
         return "unverified %s" % label
     families = [VERDICTS[v] for v in standing.values()]
     if "escalate" in families:
@@ -701,6 +706,7 @@ def selftest():
 
         cases = [
             ("unverified", claim("w01-c1", "MEASURED"), "unverified MEASURED"),
+            ("cited", claim("w01-c40", "CITED"), "cited (not verified)"),
             ("supported", claim("w01-c2", "MEASURED", ("reproducer-w01-1", "SUPPORTED")), "MEASURED"),
             ("sound", claim("w01-c3", "THEOREM", ("proof-adversary-w01-1", "SOUND")), "THEOREM"),
             ("gap", claim("w01-c4", "THEOREM", ("v", "SOUND WITH GAP")), "THEOREM (gap)"),

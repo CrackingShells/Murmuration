@@ -71,7 +71,9 @@ reason: <one or two sentences>
 changed_by: <path of a new artifact, only if the verdict changed after the exchange>
 ```
 
-The author writes everything above the first `## verdict:` heading. Each verifier writes one
+The author writes everything above the first `## verdict:` heading. A verifier appends its section
+with a shell append (`cat >> __pondus__/<claim-id>.md <<'EOF'` … `EOF`), so it never rewrites the
+author's part or another verifier's. Each verifier writes one
 section that starts with `## verdict: <its name>` and uses `###` subheadings only. The first line
 of the section that starts with `verdict:` is the verdict, so no line under `### exchange` may start
 with `verdict:`.
@@ -84,7 +86,9 @@ with `verdict:`.
 refs: <paths to the raw artifacts: figure, table rows, log lines>
 ```
 
-Dispositions are not written here; the PI records them in the wave note when the wave closes.
+Number your puzzles in order within the file; when you are resumed, continue after your last
+number. Dispositions are not written here; the PI records them in the wave note when the wave
+closes.
 
 ## Labels
 
@@ -116,6 +120,7 @@ Each verifier's latest verdict is its standing verdict. The current label of a c
 | State | When |
 |:--|:--|
 | `unverified <LABEL>` | No verdict yet |
+| `cited (not verified)` | A CITED claim; it stands on its identifier |
 | `<LABEL>` | Every standing verdict is SUPPORTED or SOUND |
 | `<LABEL> (gap)` | SOUND WITH GAP |
 | `below <LABEL>: restate` | OVERSTATED or LABEL TOO STRONG. The claim may not be used at its label; the author files a new claim at a lower label with `supersedes:`, and it is verified again |

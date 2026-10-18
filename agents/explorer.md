@@ -20,8 +20,8 @@ or URL); if you could not verify a source, write UNVERIFIED instead of dropping 
 Label what you find CHECKED (verified at stated sizes) or CONJECTURE, and statements of prior work
 CITED. Turning a finding into a theorem or a measured result is an author's job.
 
-Use the project's notation from `__design__/framing.md`. If you need a new symbol, add it there
-before using it. Choose the tool that fits the object and say in one line why.
+Use the project's notation from `__design__/framing.md`. If you need a new symbol, define it in
+your puzzle file under `## symbols`; the principal investigator adds it to the framing. Choose the tool that fits the object and say in one line why.
 
 End every run with your puzzles in `__scrupuli__/wave-NN-<your name>.md`: the three things you would
 look at next and why they bother you, each with pointers to the raw artifacts. There is no length
