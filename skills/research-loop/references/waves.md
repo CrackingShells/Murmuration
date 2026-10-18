@@ -37,7 +37,8 @@ it is worth this wave: the reason for the wave in plain words, not a task list.
 2. In the wave note's disposition table, give each one a disposition:
    - `followed: <brief or claim id>` when it changed what the team does next;
    - `parked: <reason>` when you set it aside, with the reason in a sentence.
-   Mentioning a puzzle is not following it.
+   Write the puzzle id followed by `followed:` or `parked:`; any other wording leaves the puzzle
+   open. Mentioning a puzzle is not following it.
 3. List the claims of the wave with their current labels from `/lab-status`.
 4. Replace the template's last line with `closed: YYYY-MM-DD`, using the real date. A note counts
    as closed only when that line carries a real date; `/lab-status` treats any other note as still

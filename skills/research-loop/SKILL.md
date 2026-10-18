@@ -72,7 +72,9 @@ changed_by: <path of a new artifact, only if the verdict changed after the excha
 ```
 
 The author writes everything above the first `## verdict:` heading. Each verifier writes one
-section that starts with `## verdict: <its name>` and uses `###` subheadings only.
+section that starts with `## verdict: <its name>` and uses `###` subheadings only. The first line
+of the section that starts with `verdict:` is the verdict, so no line under `### exchange` may start
+with `verdict:`.
 
 ### Puzzle file
 
@@ -119,8 +121,8 @@ Each verifier's latest verdict is its standing verdict. The current label of a c
 | `below <LABEL>: restate` | OVERSTATED or LABEL TOO STRONG. The claim may not be used at its label; the author files a new claim at a lower label with `supersedes:`, and it is verified again |
 | `<LABEL> (may restate higher)` | LABEL TOO WEAK. The author may file a superseding claim at the higher label |
 | `withdrawn` | UNSUPPORTED or WRONG |
-| `escalated: PI decides` | ESCALATE. The PI reads the claim file, including its exchange, and decides |
-| `disputed: PI decides` | Two standing verdicts disagree |
+| `escalated: PI decides` | Any standing ESCALATE, whatever the other verdicts. The PI reads the claim file, including its exchange, and decides |
+| `disputed: PI decides` | Two standing verdicts disagree. LABEL TOO WEAK next to SUPPORTED or SOUND is not a disagreement |
 | `superseded by <id>` | A later claim restates this one |
 
 No note, report or synthesis states a claim above its current label.
