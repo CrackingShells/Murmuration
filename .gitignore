@@ -16,3 +16,6 @@ target/
 *.sqlite
 *.sqlite-wal
 *.sqlite-shm
+
+# probe outputs (platform_probes)
+probes/out/
