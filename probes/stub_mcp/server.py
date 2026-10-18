@@ -23,6 +23,12 @@ def log(kind, **kw):
         f.write(json.dumps(rec) + "\n")
 
 
+DECIDE = {
+    "name": "decide",
+    "description": "Probe tool: for a PreToolUse mcp_tool handler. Returns a deny decision as JSON text when PROBE_DENY=1, else 'ok'.",
+    "inputSchema": {"type": "object", "properties": {"event": {"type": "string"}, "tool_name": {"type": "string"}}, "additionalProperties": True},
+}
+
 TOOLS = [{
     "name": "record",
     "description": "Probe tool: append the given arguments to the probe log and return 'ok'.",
@@ -39,7 +45,7 @@ TOOLS = [{
         },
         "additionalProperties": True,
     },
-}]
+}, DECIDE]
 
 
 def reply(id_, result=None, error=None):
@@ -81,7 +87,11 @@ def main():
             if ex.startswith("sleep:"):  # timing probe: block this long before answering
                 time.sleep(float(ex[6:]))
                 log("slept", seconds=ex[6:])
-            reply(id_, {"content": [{"type": "text", "text": "ok"}], "isError": False})
+            text = "ok"
+            if p.get("name") == "decide" and os.environ.get("PROBE_DENY") == "1":
+                text = json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "deny",
+                                                          "permissionDecisionReason": "PROBE-DENY-FROM-MCP-TOOL"}})
+            reply(id_, {"content": [{"type": "text", "text": text}], "isError": False})
         elif method == "ping":
             reply(id_, {})
         elif id_ is not None:

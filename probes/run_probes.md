@@ -14,7 +14,7 @@ claude auth status        -> {"loggedIn": false, "authMethod": "none"}   (Bash t
 smoke1.debug.log:~310     -> API auth_error: OAuth refresh token is no longer valid; run /login to re-authenticate
 ```
 
-A person has to run `claude auth login`; an agent must not. So the runs below split into:
+A person has to run `claude auth login`; an agent must not. (Resolved after v0: the PI logged in, `claude auth status` reports `loggedIn: true`, `claude.ai`.) So the runs below split into:
 
 - **Ran without a model** (hooks that fire before the first request, plus session plumbing): section A.
 - **Ran through the host session** (two subagents messaging each other, a cross-session message into a probe
@@ -60,10 +60,11 @@ Also read offline: the transcript of each run under `~/.claude/projects/...-prob
 
 The host session's own hooks are not the probe's, so no `SubagentStart`/`SubagentStop` fields were captured there.
 
-## C. Prepared, not run (need a model)
+## C. Model runs (blocked in v0; run in v1 with tag `v1a`)
 
-Run `claude auth login` once, then `probes/run_model_probes.sh` and `probes/analyze.sh <tag>`. The prompts are in
-the script; in short:
+After the PI logged the CLI in, `probes/run_model_probes.sh v1a` ran all seven sessions (cost: M1 0.42, M2 0.15,
+M3 0.06 and 0.15, M4 0.01, M5 0.12, M6 0.15 USD; each under its 0.60 USD cap) and `probes/analyze.sh v1a` printed the
+verdict view. The prompts are in the script; in short:
 
 | Run | Flags | Prompt (abridged) | Answers |
 |:--|:--|:--|:--|
@@ -73,3 +74,13 @@ the script; in short:
 | `m4_compact_<tag>` | `run_stream.sh`, `PROBE_INJECT=1` | Two remember-a-word turns, `/compact`, a recall question | PostCompact `compact_summary`; SessionStart(compact); `mcp_tool` on both |
 | `m5_resume_<tag>` | sonnet | Spawn `v2`, then main-thread `SendMessage` to `v2` | Resume by name; hand-back as UserPromptSubmit |
 | `m6_auto_resume_<tag>` | `--permission-mode auto` | as M5 | `SubagentHandback` shape in auto mode (`last_assistant_message` is not the report) |
+
+## D. Extra sessions added in v1 (each answers one open puzzle of v0)
+
+| Run | Command (after `cd probes`) | Observes |
+|:--|:--|:--|
+| `x2_denymcp` | `PROBE_DENY=1 ./run.sh x2_denymcp --model haiku --max-budget-usd 0.30 -- 'Use the Write tool to create deny_test.txt in the current directory containing the word x. If the tool call is denied or blocked, reply DENIED and quote the reason verbatim; otherwise reply WRITTEN.'` with a PreToolUse `mcp_tool` entry (matcher `Write`, tool `decide`, which returns a `permissionDecision: deny` JSON text when `PROBE_DENY=1`) | A PreToolUse `mcp_tool` handler can deny the call |
+| `x3_rewake_midturn` | `PROBE_REWAKE=1 PROBE_WATCH=$PWD/out/work/watched.txt ./run_stream.sh x3_rewake_midturn --model haiku --max-budget-usd 0.40 -- 'msg "Use ToolSearch to load mcp__plugin_probe_stub__record, then call it once with extra set to sleep:30, then reply DONE-1."; sleep 14; echo a >> watched.txt; sleep 8; echo b >> watched.txt; sleep 45'` | What an `asyncRewake` hook does while the PI is in the middle of a long tool call |
+| `x4_frontmatter` | `./run.sh x4_frontmatter --model haiku --max-budget-usd 0.40 -- 'Call the Agent tool once, in the foreground: subagent_type "probe:probe-fm", prompt "Do your task.". Reply with its report verbatim.'` with `plugin/agents/probe-fm.md` (frontmatter `hooks`, `permissionMode: plan`, `mcpServers`) | Which frontmatter fields the plugin loader ignores |
+
+The stub server gained the tool `decide`; `plugin/hooks/hooks.json` gained the PreToolUse `Write` entry.

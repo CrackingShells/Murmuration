@@ -119,6 +119,20 @@
             }
           }
         ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "mcp_tool",
+            "server": "plugin:probe:stub",
+            "tool": "decide",
+            "input": {
+              "event": "PreToolUse@Write-decide",
+              "tool_name": "${tool_name}"
+            }
+          }
+        ]
       }
     ],
     "PermissionRequest": [
