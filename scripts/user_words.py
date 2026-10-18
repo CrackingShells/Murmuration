@@ -7,7 +7,8 @@ initialized lab (it has a `__statera__/` folder), appends the prompt to
 
 A prompt is the user's own unless it is text the platform injected on someone else's behalf:
 a message from another session, a task notification, or an agent message. Those are skipped, and
-so are the lab's own slash commands, which record the question themselves.
+so are the lab's own slash commands (which record the question themselves) and bare slash
+commands such as `/clear` or `/compact`, which carry no words.
 
 The script never blocks a prompt and always exits 0. Anything unexpected is dropped silently.
 
@@ -23,6 +24,7 @@ import sys
 
 NON_USER_PREFIXES = ("<cross-session-message ", "<task-notification>", "<agent-message from=")
 LAB_COMMAND = re.compile(r"^/(?:murmuration:)?lab(?:-status)?(?:\s|$)")
+BARE_COMMAND = re.compile(r"^/[A-Za-z][\w:.-]*\s*$")
 STORE = "__statera__"
 FILE_NAME = "user_words.md"
 HEADER = (
@@ -40,6 +42,11 @@ def is_genuine(prompt):
 def is_lab_command(prompt):
     """True for the lab's own slash commands (`/lab ...`, `/lab-status`)."""
     return bool(LAB_COMMAND.match(prompt.lstrip()))
+
+
+def is_bare_command(prompt):
+    """True for a slash command with no arguments (`/clear`, `/compact`): not the user's words."""
+    return bool(BARE_COMMAND.match(prompt.strip()))
 
 
 def project_root(event_cwd=None):
@@ -63,10 +70,20 @@ def append_words(root, text, when=None):
     return path
 
 
+def last_entry(root):
+    """The text of the newest entry in the project's user_words.md, or None."""
+    try:
+        with open(os.path.join(root, STORE, FILE_NAME), encoding="utf-8") as fh:
+            blocks = re.split(r"^## \d{4}-\d{2}-\d{2} \d{2}:\d{2}\n", fh.read(), flags=re.M)
+    except OSError:
+        return None
+    return blocks[-1].strip() if len(blocks) > 1 else None
+
+
 def handle(event):
     """Record the event's prompt if it is genuine and the project is a lab. Returns the path or None."""
     prompt = event.get("prompt")
-    if not is_genuine(prompt) or not prompt.strip() or is_lab_command(prompt):
+    if not is_genuine(prompt) or not prompt.strip() or is_lab_command(prompt) or is_bare_command(prompt):
         return None
     root = project_root(event.get("cwd"))
     if not os.path.isdir(os.path.join(root, STORE)):
@@ -85,6 +102,9 @@ def selftest():
     assert is_genuine("<task-notifications are fun>")
     assert is_lab_command("/lab why?") and is_lab_command("/murmuration:lab") and is_lab_command("/lab-status")
     assert not is_lab_command("/labrador") and not is_lab_command("lab")
+    assert is_bare_command("/clear") and is_bare_command("/compact ") and is_bare_command("/foo:bar")
+    assert not is_bare_command("/compact keep the proofs") and not is_bare_command("/home/me/data.csv looks odd")
+    assert not is_bare_command("hello /clear")
 
     def fire(project, prompt, cwd=None):
         env = dict(os.environ)
@@ -107,13 +127,18 @@ def selftest():
         fire(tmp, '<agent-message from="author">and me</agent-message>')
         fire(tmp, "/lab a new question")
         fire(tmp, "   ")
+        fire(tmp, "/clear")
+        fire(tmp, "/compact")
+        fire(tmp, "/home/me/data.csv has odd rows")
         fire(tmp, "second prompt")
         text = open(words, encoding="utf-8").read()
         assert "first words\nsecond line  with  spaces\n\n## not a heading of ours" in text
         assert "second prompt" in text
-        for skipped in ("ignore me", "and me", "a new question", "before the lab exists"):
+        assert "/home/me/data.csv has odd rows" in text
+        assert last_entry(tmp) == "second prompt" and last_entry(os.path.join(tmp, "nowhere")) is None
+        for skipped in ("ignore me", "and me", "a new question", "before the lab exists", "/clear", "/compact"):
             assert skipped not in text, skipped
-        assert len(re.findall(r"^## \d{4}-\d{2}-\d{2} \d{2}:\d{2}$", text, re.M)) == 2
+        assert len(re.findall(r"^## \d{4}-\d{2}-\d{2} \d{2}:\d{2}$", text, re.M)) == 3
         proc = subprocess.run([sys.executable, os.path.abspath(__file__)], input="not json",
                               capture_output=True, text=True)
         assert proc.returncode == 0
