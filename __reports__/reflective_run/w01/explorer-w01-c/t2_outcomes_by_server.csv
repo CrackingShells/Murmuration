@@ -1,0 +1,15 @@
+server,bash_nonzero_exit,classifier_denial,denied_or_failed,empty_result,hook_block,ok,other_error,path_missing,platform_block(sleep),server_host_dependency,size_overflow,timeout,upstream_403,upstream_429,wrong_arguments,wrong_order(arxiv read before download),total,non_ok,non_ok_pct
+Claude_Browser,0,0,1,0,0,6,1,0,0,0,0,0,0,0,0,0,8,2,25.0
+WolframToolkit,0,0,0,0,0,91,0,0,0,0,1,1,0,0,0,0,93,2,2.2
+arxiv,0,0,0,0,0,87,0,0,0,0,9,0,0,10,0,2,108,21,19.4
+builtin,56,2,0,0,3,1806,1,2,5,0,11,0,0,0,1,0,1887,81,4.3
+ccd_directory,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0.0
+ccd_session,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,9,0,0.0
+ccd_session_mgmt,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,3,0,0.0
+ccd_turn,0,0,0,0,0,87,0,0,0,0,0,0,0,0,0,0,87,0,0.0
+context7,0,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0,8,0,0.0
+ddg,0,0,0,23,0,86,0,0,0,0,0,0,2,0,0,0,111,25,22.5
+macOS_Calendar,0,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,22,0,0.0
+plugin_banyan_banyan-hpc,0,0,0,0,0,1,0,0,0,3,0,0,0,0,0,0,4,3,75.0
+plugin_colgrep-mcp_colgrep,0,0,0,0,0,18,0,0,0,0,0,0,0,0,0,0,18,0,0.0
+terminal,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,0.0

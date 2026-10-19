@@ -1,0 +1,30 @@
+session,agent,description,status,tokens,tool_uses,duration_ms
+genesis,a9a7413682b41f7f7,Literature map for sliding-window coding,completed,305238,77,549070
+genesis,a200b6a79312b3850,Foundations theory Q1 Q2 with Wolfram,completed,180854,51,884573
+genesis,a04ebecba85274ac9,Generative space atlas of fixed G,completed,300096,69,1171613
+genesis,a74632da2578bd7ff,Name the generative objects,completed,197846,38,509362
+genesis,a200b6a79312b3850,Foundations theory Q1 Q2 with Wolfram,completed,181649,51,2840799
+genesis,a3f3fa3fc477f4cd5,Trellis identity vs mapped reads,completed,225240,84,1944071
+genesis,a4ad7c71400d5bc3b,Regime A per-target superstring G,completed,208747,58,2212643
+genesis,a04ebecba85274ac9,Generative space atlas of fixed G,completed,529461,29,2312822
+genesis,a807fe2b5e7aa786f,Reproduce superstring and trellis results,completed,199738,45,929441
+genesis,a3f3fa3fc477f4cd5,Trellis identity vs mapped reads,completed,229578,3,35741
+genesis,a33a82c9a9409bebf,Adversarial review of generative-laws proofs,completed,251736,45,1175905
+genesis,a4ad7c71400d5bc3b,Regime A per-target superstring G,completed,229023,11,591701
+genesis,a2f3c738296d98cfc,Build final Wolfram notebook,completed,431004,107,1359857
+genesis,a5160f9a191c2d1b8,Counsel on publishability of the ω* law,completed,299537,71,568890
+design,a4a2cf879f4f4e154,Expert review of research-lab MAS design,completed,112874,18,405721
+design,adceb2615918f1538,Survey benchmarks for research MAS behavior,completed,290327,96,618143
+design,a1b61307c0917214a,Coin names: classical and technical register,completed,148537,18,599008
+design,ac93fc76807d4702f,Coin names: transmission and disputation traditions,completed,185684,28,888617
+design,add2d044c50a6123f,Counsel on information measures for MAS,completed,157576,40,444326
+design,a4c12d60bb3e76003,Wave 1: instrument validation,completed,322884,75,1178554
+design,aff153770869d2a23,Wave 1: platform probes,completed,310519,88,1183664
+design,aff153770869d2a23,Wave 1: platform probes,completed,403225,28,702256
+design,a806fafff3d414467,Candid review: wash or promise (Opus),completed,127076,13,140512
+design,af4a8695921b73e8a,Candid review: wash or promise (Fable),completed,128472,11,175576
+design,aff72ee628b60b2fb,"Build minimal lab scripts, hooks, packaging",completed,185270,43,542977
+design,ac43197c1b001ed92,Cold review of shipped Murmuration files,completed,134841,15,300657
+design,aff72ee628b60b2fb,"Build minimal lab scripts, hooks, packaging",completed,258749,23,422474
+design,a58d15f92e132db41,Second cold review of shipped files,completed,162676,22,361096
+design,aff72ee628b60b2fb,"Build minimal lab scripts, hooks, packaging",completed,306809,24,332942

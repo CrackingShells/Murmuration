@@ -1,0 +1,16 @@
+assumed_role,tool_not_in_allowlist,calls,role_total_calls
+explorer,ddg::search,88,867
+explorer,SubagentHandback,26,867
+explorer,ddg::fetch_content,20,867
+explorer,Monitor,14,867
+reproducer,SubagentHandback,6,175
+author,SubagentHandback,4,197
+reproducer,Monitor,3,175
+explorer,Agent,3,867
+explorer,SendMessage,3,867
+reproducer,Agent,2,175
+author,context7::query-docs,2,197
+proof-adversary,SubagentHandback,1,45
+explorer,terminal::run_in_terminal,1,867
+explorer,terminal::stop_terminal_tab,1,867
+author,context7::resolve-library-id,1,197

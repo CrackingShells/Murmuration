@@ -1,0 +1,31 @@
+session,line,description,name,chars,role,readfirst,task,rules,deliverable,commit,final
+genesis,163,Literature map for sliding-window coding,,3345,157,207,1559,1238,0,0,174
+genesis,164,Foundations theory Q1 Q2 with Wolfram,,3774,142,201,3233,0,0,0,186
+genesis,278,Generative space atlas of fixed G,,4641,133,266,2881,0,963,196,186
+genesis,399,Regime A per-target superstring G,,3515,139,687,2507,0,0,0,172
+genesis,400,Trellis identity vs mapped reads,,3364,139,667,2378,0,0,0,170
+genesis,401,Name the generative objects,,2643,142,628,821,445,494,0,101
+genesis,602,Reproduce superstring and trellis results,,3146,199,276,2007,0,558,0,98
+genesis,618,Adversarial review of generative-laws proofs,,3170,288,312,1961,0,490,0,107
+genesis,759,Build final Wolfram notebook,,5041,326,344,1584,2636,0,0,143
+genesis,1619,Counsel on publishability of the ω* law,,4321,243,0,3930,0,0,0,138
+design,1023,Survey benchmarks for research MAS behavior,,3324,114,767,1334,0,990,0,109
+design,1024,Expert review of research-lab MAS design,,3806,197,0,2842,0,655,0,102
+design,1135,Coin names: transmission and disputation traditions,,4392,174,406,2573,640,477,0,110
+design,1136,Coin names: classical and technical register,,4305,174,577,2279,680,473,0,110
+design,1240,Counsel on information measures for MAS,,4091,203,783,2399,0,567,0,129
+design,1241,Fetch Claude Code hooks reference,,1498,0,0,1492,0,0,0,0
+design,1527,Wave 1: platform probes,,3720,242,637,1917,0,514,193,205
+design,1528,Wave 1: instrument validation,,3859,206,626,2208,0,593,0,212
+design,1702,Candid review: wash or promise (Fable),,2854,419,487,1461,159,230,0,86
+design,1703,Candid review: wash or promise (Opus),,2901,419,487,1461,159,277,0,86
+design,1854,"Build minimal lab scripts, hooks, packaging",,5178,259,832,3360,396,0,185,136
+design,1895,Fetch subagent tools and MCP frontmatter rules,,1245,0,0,1245,0,0,0,0
+design,1981,Cold review of shipped Murmuration files,,3174,254,422,1812,0,580,0,96
+design,2114,Second cold review of shipped files,,2308,245,436,967,0,511,0,141
+thisrun,188,Spend and run profile probe,explorer-w01-a,2542,177,266,1219,397,0,0,473
+thisrun,189,Communication and parsing probe,explorer-w01-b,2324,177,298,1023,397,0,0,419
+thisrun,190,Tools and MCP usage probe,explorer-w01-c,2305,177,314,1002,397,0,0,405
+thisrun,191,Human interventions probe,explorer-w01-d,2452,177,270,1118,397,0,0,480
+thisrun,192,Human review UX probe,explorer-w01-e,2651,177,311,1352,402,0,0,399
+thisrun,193,Platform logging capabilities probe,explorer-w01-f,2794,177,266,1486,395,0,0,460

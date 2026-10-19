@@ -1,0 +1,40 @@
+group,session,agent_key,agent_desc,calls,toolsearch,select_form,keyword_form,empty_result,share_pct
+design/PI,design_82e8a947,main,,192,1,1,0,0,0.5
+design/worker(general-purpose),design_82e8a947,a1b61307c0917214a,Coin names: classical and technical register,18,1,1,0,0,5.6
+design/worker(general-purpose),design_82e8a947,a2e84d18efd7e49ed,Verifier run 2 (report first),10,0,0,0,0,0.0
+design/worker(general-purpose),design_82e8a947,a495c3be0f18d3a3f,Verify Claude Code MAS mechanisms,9,0,0,0,0,0.0
+design/worker(general-purpose),design_82e8a947,a4a2cf879f4f4e154,Expert review of research-lab MAS design,18,0,0,0,0,0.0
+design/worker(general-purpose),design_82e8a947,a4b39e783a8705691,Probe agent A (sender),4,1,1,0,0,25.0
+design/worker(general-purpose),design_82e8a947,a4c12d60bb3e76003,Wave 1: instrument validation,75,1,1,0,0,1.3
+design/worker(general-purpose),design_82e8a947,a5073b714db47c324,Probe agent B (receiver),4,1,1,0,0,25.0
+design/worker(general-purpose),design_82e8a947,a58d15f92e132db41,Second cold review of shipped files,22,0,0,0,0,0.0
+design/worker(general-purpose),design_82e8a947,a806fafff3d414467,Candid review: wash or promise (Opus),13,0,0,0,0,0.0
+design/worker(general-purpose),design_82e8a947,a8322cae8f52a1745,Verifier run 1 (independence first),8,0,0,0,0,0.0
+design/worker(general-purpose),design_82e8a947,aab206418653ed366,Fetch Claude Code hooks reference,8,0,0,0,0,0.0
+design/worker(general-purpose),design_82e8a947,ac43197c1b001ed92,Cold review of shipped Murmuration files,15,0,0,0,0,0.0
+design/worker(general-purpose),design_82e8a947,ac93fc76807d4702f,Coin names: transmission and disputation traditions,28,1,1,0,0,3.6
+design/worker(general-purpose),design_82e8a947,acbce33817773a098,Fetch subagent tools and MCP frontmatter rules,11,0,0,0,0,0.0
+design/worker(general-purpose),design_82e8a947,adceb2615918f1538,Survey benchmarks for research MAS behavior,96,1,1,0,0,1.0
+design/worker(general-purpose),design_82e8a947,add2d044c50a6123f,Counsel on information measures for MAS,40,1,0,1,0,2.5
+design/worker(general-purpose),design_82e8a947,af4a8695921b73e8a,Candid review: wash or promise (Fable),11,0,0,0,0,0.0
+design/worker(general-purpose),design_82e8a947,aff153770869d2a23,Wave 1: platform probes,116,4,4,0,0,3.4
+design/worker(general-purpose),design_82e8a947,aff72ee628b60b2fb,"Build minimal lab scripts, hooks, packaging",90,1,1,0,0,1.1
+genesis/PI,genesis_566fa912,main,,280,9,8,1,0,3.2
+genesis/worker(general-purpose),genesis_566fa912,a04ebecba85274ac9,Generative space atlas of fixed G,98,1,1,0,0,1.0
+genesis/worker(general-purpose),genesis_566fa912,a200b6a79312b3850,Foundations theory Q1 Q2 with Wolfram,51,1,1,0,0,2.0
+genesis/worker(general-purpose),genesis_566fa912,a2f3c738296d98cfc,Build final Wolfram notebook,107,1,1,0,0,0.9
+genesis/worker(general-purpose),genesis_566fa912,a33a82c9a9409bebf,Adversarial review of generative-laws proofs,45,1,1,0,0,2.2
+genesis/worker(general-purpose),genesis_566fa912,a3f3fa3fc477f4cd5,Trellis identity vs mapped reads,87,1,1,0,0,1.1
+genesis/worker(general-purpose),genesis_566fa912,a4ad7c71400d5bc3b,Regime A per-target superstring G,69,1,1,0,0,1.4
+genesis/worker(general-purpose),genesis_566fa912,a5160f9a191c2d1b8,Counsel on publishability of the ω* law,71,3,1,2,0,4.2
+genesis/worker(general-purpose),genesis_566fa912,a74632da2578bd7ff,Name the generative objects,38,2,2,0,0,5.3
+genesis/worker(general-purpose),genesis_566fa912,a807fe2b5e7aa786f,Reproduce superstring and trellis results,45,1,1,0,0,2.2
+genesis/worker(general-purpose),genesis_566fa912,a9a7413682b41f7f7,Literature map for sliding-window coding,77,2,1,1,0,2.6
+s2947f9dc/PI,s2947f9dc,main,,272,6,5,1,0,2.2
+thisrun/PI,thisrun_ab96c5ed,main,,34,0,0,0,0,0.0
+thisrun/explorer(shipped),thisrun_ab96c5ed,a1f4458ce75dacdec,explorer-w01-c,58,0,0,0,0,0.0
+thisrun/explorer(shipped),thisrun_ab96c5ed,a53e063b007b7a428,explorer-w01-e,57,1,1,0,0,1.8
+thisrun/explorer(shipped),thisrun_ab96c5ed,a6a6066b76cfb02ea,explorer-w01-f,55,1,1,0,0,1.8
+thisrun/explorer(shipped),thisrun_ab96c5ed,a996dba2994d53126,explorer-w01-d,35,0,0,0,0,0.0
+thisrun/explorer(shipped),thisrun_ab96c5ed,ac6c27171353e66ed,explorer-w01-b,52,0,0,0,0,0.0
+thisrun/explorer(shipped),thisrun_ab96c5ed,af01bccf4de2a3706,explorer-w01-a,42,0,0,0,0,0.0

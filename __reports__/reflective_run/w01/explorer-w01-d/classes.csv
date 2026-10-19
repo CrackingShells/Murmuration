@@ -1,0 +1,63 @@
+uuid8,phase,cls,who,agent_asked,note
+721d5438,G-A,ND,J,no,initial brief; states "I don't think there is anything in that project that will require my input"
+29aad9e7,G-A,MM,S,no,FYI repo not git-initialised; use writing-history (discoverable by the agent; repeated at D34)
+6ee68017,G-A,MM,S,no,"do not one-shot the plan, re-plan on findings (PI behaviour; the shipped skills/research-loop/references/waves.md is built around waves)"
+29e87874,G-A,ND,J,no,reads the framing doc; adds that rho depends on how G is chosen -> becomes Q8 and its own track
+24b8031f,G-A,ND,J,no,"says 'already feel like I am intervening too much'; redirects to enumerate G per window length -> the atlas, the most productive wave per KT v3"
+8af30fe6,G-A,CE,J,no,"challenges 'completeness only goes downward' with the 5+3 example; PI then defines compositional completeness"
+fa7c006d,G-A,CE,M,offer,rejects provisional name 'scroll'; names the skill to consult (coining-neologisms)
+a019d827,G-A,AP,J,ask,button 'Adopt imbrex'; naming is taste; 4 subagents still running so the system was not idle
+63f8fb70,G-A,STOP,J,no,"stops the study: open problems are edge cases, do not serve the application question; 36 min after wrap-up 'study complete'"
+9cd91bd9,G-B,CE,J,no,"QTIP headline misreads intent: LLM weights was an example, cold storage was the point"
+835df5bd,G-B,ND,J,no,between-version storage (git-diff analogy)
+b9d09057,G-B,AP,M,offer,"'GO ahead!' to agent's offer to measure; also asks the agent to decide where to run it (here, worktree or fork)"
+38205ded,G-B,MM,M,no,"mid-run: suggests own libraries (candle-mi, anamnesis); tool knowledge only the human held"
+b32ab3d7,G-B,AP,M,ask,button 'This repo only' (git pack window); local reversible config
+d10ebf86,G-B,RC,J,no,"cannot tell whether hypotheses were verified; reports had facts but no motivation or interpretation -> standing rule saved to memory"
+83e43ba0,G-B,CE,J,no,"'maybe an artifact of this model family?' confound the PI had not raised"
+98cbb48b,G-B,ND,M,no,mid-run reminder that weights alignment was not yet tested (the human tracking uptake of their own idea)
+bf53476b,G-B,UT,S,ask,"'check the default LM Studio directory': the agent had said nothing on disk and offered a 2.5 GB download; more models were local"
+fb06ac93,G-B,ND,J,no,in-between checkpoints
+7920d665,G-B,AP,S,text-q,"'Yes, move on to the download' + names /waiting-on-processes; second time the agent asked the same download question"
+939bea68,G-B,CE,J,no,"'I don't understand' the explanation for alignment saving nothing; asks why bit-level alignment fails"
+3959fc84,G-B,CE,J,no,"'I would have expected you to shotgun it first ... Don't take my word as orders, follow the low/weak signals'"
+9d8a4417,G-B,ND,M,no,asks for the rotation to be computed and nullified; also notation consistency (keep writing omega)
+87c07414,G-B,ND,M,no,"'almost worth trying to publish? Ask a Fable 5.1 counselor' + points to own org's repos"
+442c488c,G-B,ND,S,ask,"typed instead of clicking: 'Analyze the ULPack paper' (prior art the counsel had just surfaced) + PR idea; the PI could have read it unprompted"
+d446c3be,G-B,AP,J,ask,button 'Not yet; first measure real quantized pairs'
+05412e82,G-B,STOP,J,no,[Request interrupted by user] (interrupt marker)
+c16c48f6,G-B,STOP,J,no,stops the inquiry; resume in a dedicated session
+c5360c21,G-C,ADMIN,J,no,retroactive task logging in the user's own scheduler (outside the research)
+6ffdb47e,G-C,AP,W,ask,button 'Add it' (open follow-up task)
+d69c41ac,G-C,ADMIN,J,no,moves a task to Side Jobs
+b8f8b4c2,G-C,ADMIN,J,no,slash command /scheduling-work with the 5-hour estimate
+dd1a26b0,G-C,AP,J,ask,"button 'Write it' (the split of the human's own 5 h); writes about the user's time"
+3168e671,D-A,ND,J,no,forks the session for a knowledge-transfer report on how the research was driven
+8b8533e8,D-A,CE,M,no,"validator fixed upstream (agent ran a stale 1.0.0 cache) + design questions: PI agent, Wolfram vs Python, reassessment, doubt, perseverance"
+87831bbf,D-A,CE,J,no,"'disappointed ... you are trying to establish a rule ... that's not what a PI does' -> KT v2 'attention, not procedure'"
+b3822de3,D-A,AP,J,no,"endorses the reframing; states the exploration/hardening balance in his words"
+4efb86a5,D-A,AP,J,offer,"'Yes, update the KT report and then present exactly how you would package' (new task: package design)"
+e88c56b1,D-A,AP,W,ask,button 'Before building I want to revise' (decline default of 'Build it')
+96c47860,D-A,STOP,J,no,[Request interrupted by user]
+f5966b4c,D-A,RC,J,no,"five design-review comments: benchmark search, positive instructions vs DON'Ts, human-side trigger, loop box in diagram, why not agents discuss with their own reviewers"
+33a2540f,D-A,AP,W,ask,button 'More revisions' (architecture v1); the agent answered 'what would you like to change' and waited
+623236e7,D-A,RC,M,offer,"design review: compose with umbod, dispatch Sonnet agents to coin names, stores, Python vs Rust, sustainability"
+ae452525,D-A,AP,J,ask,button 'Latin weighing set' (the recommended set); naming taste
+5b683d15,D-A,AP,W,ask,button 'More revisions' (architecture v2)
+05f44db5,D-A,ND,J,text-q,"entropy / mutual information as hooks; used the pause the agent offered ('what would you like to change') for a new idea"
+742ac0ec,D-A,MM,M,text-q,"'dispatch another fresh agent for counsel'; 'hooks in v2 are classic, consult the docs, the list is huge' -> v3 grows to 25 hooks"
+85f8ec42,D-A,AP,W,ask,button 'More revisions' (architecture v3)
+69ca9e2b,D-A,ND,J,text-q,all agents Sonnet except PI; make the MAS a first-class repo; name via coining skill
+ef016b13,D-A,AP,J,ask,button 'Murmuration' (the recommended name)
+f70fd73b,D-A,AP,W,ask,button 'Create it locally' (+ do not create anything on GitHub); the human had already said 'make this a first-class repo'
+4b6b6b36,D-A,UT,M,ask,"typed instead of 'Start wave 1': 'you have tools for worktree move; do not disturb other sessions'"
+201e1cdd,D-A,UT,J,ask,"button 'Logged in, run them' (blocked: true); only the human could run claude auth login; budget cap 0.60 USD per session"
+038a7abe,D-A,AP,W,ask,button 'Review v5 first' (decline default of 'Start wave 2')
+ad3ad733,D-A,MM,M,offer,"'ask for a new review ... a wash or has promise?'; led to two independent reviews"
+3b472151,D-B,CE,J,offer,"328 min later (human away): 'hooks most overengineered; I know I asked to use them all, but not that many' + reflective run plan"
+f5e5a66e,D-B,AP,J,offer,"'Ok, let's go' + rule: no meta-discourse in plugin files"
+9b8f9ecb,D-B,MM,S,no,"mid-run: 'commit progressively ... consult writing-history (I am insisting)': the plan overview said commit only at the end"
+038667af,D-B,RC,J,no,"MCP servers must be named per agent, and optimised; 'include it as pointers for the system to work on itself'"
+c93476cc,D-C,AP,J,ask,"button 'Reflective run first'; 479 min after the question 'Which question should the first real study take?', which D32 had already answered"
+c3d595a8,D-C,UT,J,ask,"typed instead of 'Open it for me': prefers to run in the GUI"
+355d9ea5,D-C,ND,J,no,"quote-reply; the brief for this run: three axes (system itself, logging, UX for humans)"

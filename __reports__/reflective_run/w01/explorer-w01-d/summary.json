@@ -1,0 +1,173 @@
+{
+ "unique_rows": 62,
+ "by_channel": {
+  "A": 54,
+  "B": 5,
+  "interrupt": 2,
+  "slashcmd": 1
+ },
+ "genuine_prompts(excl interrupt,slashcmd)": 59,
+ "by_phase": {
+  "G-A": 9,
+  "G-B": 19,
+  "G-C": 5,
+  "D-A": 22,
+  "D-B": 4,
+  "D-C": 3
+ },
+ "by_cls": {
+  "ND": 13,
+  "MM": 6,
+  "CE": 9,
+  "AP": 19,
+  "STOP": 4,
+  "RC": 4,
+  "UT": 4,
+  "ADMIN": 3
+ },
+ "by_who": {
+  "J": 37,
+  "S": 6,
+  "M": 12,
+  "W": 7
+ },
+ "clicks": 15,
+ "clicks_by_session": {
+  "G": 5,
+  "D": 10
+ },
+ "by_state": {
+  "idle": 45,
+  "mid-run": 9,
+  "bg-subagents-running": 5
+ },
+ "cls_by_phase": {
+  "D-A": {
+   "ND": 3,
+   "CE": 2,
+   "AP": 10,
+   "STOP": 1,
+   "RC": 2,
+   "MM": 2,
+   "UT": 2
+  },
+  "D-B": {
+   "CE": 1,
+   "AP": 1,
+   "MM": 1,
+   "RC": 1
+  },
+  "D-C": {
+   "AP": 1,
+   "UT": 1,
+   "ND": 1
+  },
+  "G-A": {
+   "ND": 3,
+   "MM": 2,
+   "CE": 2,
+   "AP": 1,
+   "STOP": 1
+  },
+  "G-B": {
+   "CE": 4,
+   "ND": 6,
+   "AP": 4,
+   "MM": 1,
+   "RC": 1,
+   "UT": 1,
+   "STOP": 2
+  },
+  "G-C": {
+   "ADMIN": 3,
+   "AP": 2
+  }
+ },
+ "who_by_phase": {
+  "D-A": {
+   "J": 11,
+   "M": 5,
+   "W": 6
+  },
+  "D-B": {
+   "J": 3,
+   "S": 1
+  },
+  "D-C": {
+   "J": 3
+  },
+  "G-A": {
+   "J": 6,
+   "S": 2,
+   "M": 1
+  },
+  "G-B": {
+   "J": 10,
+   "M": 6,
+   "S": 3
+  },
+  "G-C": {
+   "J": 4,
+   "W": 1
+  }
+ },
+ "agent_asked": {
+  "no": 32,
+  "offer": 7,
+  "ask": 19,
+  "text-q": 4
+ },
+ "asks": 19,
+ "asks_by_class": {
+  "J": 5,
+  "R": 6,
+  "D": 1,
+  "G": 5,
+  "H": 2
+ },
+ "asks_by_session": {
+  "G": 7,
+  "D": 12
+ },
+ "ask_latency_median_by_class": {
+  "H": 9.8,
+  "R": 2.8,
+  "J": 6.4,
+  "G": 5.5,
+  "D": 545.4
+ },
+ "ask_latency_list_by_class": {
+  "H": [
+   2.8,
+   16.7
+  ],
+  "R": [
+   2.4,
+   0.0,
+   3.1,
+   2.3,
+   9.0,
+   479.3
+  ],
+  "J": [
+   0.5,
+   4.3,
+   7.1,
+   6.4,
+   10.1
+  ],
+  "G": [
+   13.1,
+   9.9,
+   0.2,
+   5.5,
+   3.2
+  ],
+  "D": [
+   545.4
+  ]
+ },
+ "asks_declined_default": 6,
+ "asks_taken_idx0": 9,
+ "asks_answered_typed_or_other": 4
+}

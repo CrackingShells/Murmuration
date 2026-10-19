@@ -1,0 +1,2 @@
+{"type": "user", "message": {"role": "user", "content": [{"type": "text", "text": "<system-reminder>\nrem one\n</system-reminder>\n\n"}, {"type": "text", "text": "say OK"}]}}
+{"type": "user", "message": {"role": "user", "content": [{"type": "text", "text": "<system-reminder>\nrem two\n</system-reminder>\n\n"}, {"type": "text", "text": "say OK again"}]}}
