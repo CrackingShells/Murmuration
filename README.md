@@ -80,8 +80,9 @@ does not carry the listing of every installed skill in its context.
 ## Running a lab headless
 
 `claude -p` stops background agents that are still running 10 minutes after the principal
-investigator's last turn, so a long worker can be cut off before the synthesis is written. For an
-unattended run, set `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0` (no ceiling) and cap the spend instead:
+investigator's last turn, so a worker that outlasts that wait is cut off and the synthesis may never
+be written. Runs whose workers finish sooner are not affected. For an unattended run, set
+`CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0` (no ceiling) and cap the spend instead:
 
 ```bash
 CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0 claude -p --agent murmuration:research-pi --max-budget-usd 20 "<your question>"

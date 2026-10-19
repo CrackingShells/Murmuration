@@ -295,19 +295,183 @@ def crit_B(s):
     return all_words(s, m) and windows_distinct(s, m + 1)
 
 
+# ------------------------------------------------------------------ B2-specific
+def run_intervals(ag):
+    """(start, hand-back time) of each run: a run starts at the first record, or at the first text user message after a hand-back."""
+    out_, start, pending = [], None, False
+    for e in jl(ag["path"]):
+        if not e.get("timestamp"):
+            continue
+        t = iso(e["timestamp"])
+        if start is None:
+            start = t
+        if e["type"] == "user" and pending and not e.get("isMeta"):
+            c = e["message"].get("content")
+            if isinstance(c, str) or any(isinstance(b, dict) and b.get("type") != "tool_result" for b in c or []):
+                start, pending = t, False
+        if e["type"] == "assistant":
+            for b in e["message"].get("content") or []:
+                if isinstance(b, dict) and b.get("type") == "tool_use" and b["name"] == "SubagentHandback":
+                    out_.append((start, t))
+                    pending = True
+    return out_
+
+
+def pi_gaps(a):
+    """PI turn ends in the main transcript (assistant message without a tool call) and the idle time until the next PI message,
+    with the worker runs active at the end of the turn and 600 s later."""
+    msgs = {}
+    for e in jl(a["main"]):
+        if e["type"] == "assistant" and e.get("timestamp"):
+            m = e["message"]
+            cur = msgs.setdefault(m.get("id") or e["uuid"], dict(t=iso(e["timestamp"]), tool=False, t0=iso(e["timestamp"])))
+            cur["t"] = max(cur["t"], iso(e["timestamp"]))
+            cur["tool"] = cur["tool"] or any(isinstance(b, dict) and b.get("type") == "tool_use" for b in m.get("content") or [])
+    seq = sorted(msgs.values(), key=lambda x: x["t0"])
+    runs = []
+    for g in a["workers"]:
+        if g["hb_points"]:
+            runs += run_intervals(g)
+        else:
+            runs.append((g["t0"], g["t1"] if g["finished"] else float("inf")))
+    gaps = []
+    for i, m in enumerate(seq):
+        if m["tool"]:
+            continue
+        nxt = seq[i + 1]["t0"] if i + 1 < len(seq) else float(a["end"])
+        gap = nxt - m["t"]
+        alive0 = sum(1 for (s0, s1) in runs if s0 <= m["t"] < s1)
+        alive600 = sum(1 for (s0, s1) in runs if s0 <= m["t"] + 600 < s1) if gap >= 600 else None
+        gaps.append(dict(t=m["t"] - a["start"], gap=gap, alive0=alive0, alive600=alive600, last=i + 1 >= len(seq)))
+    return gaps
+
+
+def b2_section(A, B, B2, bf, ev):
+    out("## Arm B2 (candidate plus time budget; `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0` per the protocol addendum [assumption: the variable is not recorded in any file I can read])")
+    out()
+    hp = os.path.join(B2["lab"], "__statera__", "harness.jsonl")
+    H = [json.loads(l) for l in open(hp) if l.strip()]
+    ev2 = collections.Counter(h["event"] for h in H)
+    out("B2 harness log events: %s. Events of kind note/stop/halt/deny: %d. stderr.txt: %r; exit code %s." % (
+        dict(ev2), sum(ev2.get(k, 0) for k in ("note", "stop", "halt", "deny")), B2["stderr"], B2["exit"]))
+    out()
+    # M3 for B2 explorers
+    tpl = open(os.path.join(B2["plugin"], "skills", "research-loop", "templates", "report_findings.md")).read()
+    tpl_h2 = re.findall(r"^## (.+)$", tpl, re.M)
+    tpl_keys = re.findall(r"^([a-z-]+): ", tpl.split("---")[1], re.M)
+    rows = []
+    for ag in sorted(B2["workers"], key=lambda g: g["t0"]):
+        if B2["role"][ag["aid"]] != "explorer":
+            continue
+        wave = re.sub(r"^.*?-w0(\d)-.*$", r"wave-0\1", ag["name"])
+        path = os.path.join("__reports__", wave, ag["name"], "00-findings_v0.md")
+        full = os.path.join(B2["lab"], path)
+        if not os.path.exists(full):
+            rows.append((ag["name"], path, "MISSING", "-", "-", "-"))
+            continue
+        txt = open(full).read()
+        fm = re.match(r"---\n(.*?)\n---\n", txt, re.S)
+        keys = re.findall(r"^([a-z-]+):", fm.group(1), re.M) if fm else []
+        h2 = re.findall(r"^## (.+)$", txt, re.M)
+        it = iter(h2)
+        in_order = all(any(x == h for h in it) for x in tpl_h2)
+        extras_ = [h for h in h2 if h not in tpl_h2]
+        first_hb = ag["hb_points"][0][1] if ag["hb_points"] else None
+        m0 = ag["mention_t"][0][0] if ag["mention_t"] else None
+        rows.append((ag["name"], path, "yes", "yes" if keys == tpl_keys else "NO %s" % keys,
+                     "exact" if h2 == tpl_h2 else ("in order, extra: %s" % extras_ if in_order else "NOT in order"),
+                     "%.1f s before the hand-back" % (first_hb - m0) if m0 and first_hb else "no tool call naming findings_v0 before the hand-back"))
+    table(("B2 explorer", "path", "at convention path", "front-matter keys as template", "six h2 headings", "report written"), rows)
+    # hand-backs saved
+    HEAD = re.compile(rb"^## hand-back (\d+) \| (\S+) \| agent_id=(\S+) type=(\S+) event=(\S+) status=(\S+) bytes=(\d+)", re.M)
+    sec = collections.defaultdict(list)
+    for p in glob.glob(os.path.join(B2["lab"], "__statera__", "handbacks", "*.md")):
+        for mm in HEAD.finditer(open(p, "rb").read()):
+            sec[mm.group(3).decode()].append(mm.group(6).decode())
+    out("B2 hand-back calls (murmuration workers) %d, (all agents) %d; sections saved %d; statuses %s." % (
+        sum(len(g["hb_points"]) for g in B2["workers"]), sum(len(g["hb_points"]) for g in B2["agents"]),
+        sum(len(v) for v in sec.values()), dict(collections.Counter(itertools.chain(*sec.values())))))
+    out()
+    # M4 with t_frac
+    out("### M4 for B2: USD and time fractions at hand-back (log values; `which` is the budget that decided)")
+    out()
+    BRIEF = re.compile(r"^Budget: USD (\d+(?:\.\d+)?)[ \t]*$", re.M)
+    TLINE = re.compile(r"^Time: min (\d+(?:\.\d+)?)[ \t]*$", re.M)
+    ags = {g["aid"]: g for g in B2["agents"]}
+    ends = [h for h in H if h["event"] == "end"]
+    rows = []
+    for aid in {h["agent_id"] for h in ends}:
+        hs = [h for h in ends if h["agent_id"] == aid]
+        ag = ags[aid]
+        runs, iv = runs_of(ag), run_intervals(ag)
+        bl, tl = BRIEF.search(ag["brief"]), TLINE.search(ag["brief"])
+        for i, (h, r, (t0_, t1_)) in enumerate(zip(hs, runs, iv)):
+            rows.append((h["name"], h["type"].split(":")[1], i + 1, h["B"], bl.group(1) if bl else "-", h["T"], tl.group(1) if tl else "-",
+                         h["frac"], r["est"] / h["B"], h["t_frac"], (t1_ - t0_) / 60.0 / h["T"], h["elapsed_s"], h["which"], h["noted"], h["stops"]))
+    rows.sort(key=lambda x: -x[9])
+    table(("agent", "role", "run", "B USD", "brief Budget line", "T min", "brief Time line", "frac (USD, log)", "frac (own, est. output)",
+           "t_frac (log)", "t_frac (own, first record to hand-back)", "elapsed_s (log)", "which", "noted", "stops"), rows)
+    out("Max over runs: USD frac %.3f, t_frac %.3f (note at 0.8, notice at 1.0). Runs %d; start lines %d; end lines %d. Notes/stops: none." % (
+        max(r[7] for r in rows), max(r[9] for r in rows), len(rows), ev2.get("start", 0), ev2.get("end", 0)))
+    n_start_time = 0
+    for g in B2["agents"]:
+        for e in jl(g["path"]):
+            if e["type"] == "attachment":
+                at = att(e)
+                if at.get("type") == "hook_additional_context" and any("your budget for this run" in str(c) and "minutes of wall time" in str(c) for c in at.get("content", [])):
+                    n_start_time += 1
+                    break
+    out("Start notes that name both budgets (USD and minutes): %d of %d B2 agent files (the other is the built-in web-fetch agent)." % (n_start_time, len(B2["agents"])))
+    out()
+    out("Counterfactual: wall time of each run (first record to hand-back, minutes) in A and B against the default T (explorer/author 20, reproducer/proof-adversary 15), runs above 0.5 T:")
+    out()
+    rows = []
+    for a in (A, B, B2):
+        for g in a["workers"]:
+            role = a["role"][g["aid"]]
+            T = 20.0 if role in ("explorer", "author") else 15.0
+            ivs = run_intervals(g) if g["hb_points"] else [(g["t0"], g["t1"])]
+            for i, (s0, s1) in enumerate(ivs):
+                if (s1 - s0) / 60.0 / T >= 0.5:
+                    rows.append((a["arm"], g["name"], i + 1, round((s1 - s0) / 60.0, 1), T, round((s1 - s0) / 60.0 / T, 2), "yes" if g["hb_points"] else "no hand-back (killed)"))
+    table(("arm", "agent", "run", "minutes", "default T", "minutes / T", "handed back"), rows)
+
+    out("### Ceiling: was any worker still running 10 minutes after a PI turn ended?")
+    out()
+    rows = []
+    for a in (A, B, B2):
+        gaps = pi_gaps(a)
+        long_ = [g for g in gaps if g["gap"] >= 600]
+        needed = [g for g in long_ if g["alive600"]]
+        top = sorted(gaps, key=lambda g: -g["gap"])[:3]
+        nbg = sum(1 for e in jl(a["stdout"]) if e.get("type") == "system" and e.get("subtype") == "task_started"
+                  and e.get("task_type") == "local_bash" and e.get("is_backgrounded"))
+        rows.append((a["arm"], len(gaps), nbg, "; ".join("%.0f s at %.0f s (%d workers active at turn end)" % (g["gap"], g["t"], g["alive0"]) for g in top),
+                     len(long_), len(needed), "Background tasks still running 10m" in a["stderr"]))
+    table(("arm", "PI turn ends", "PI background shell tasks (task_started local_bash, backgrounded)", "three longest idle gaps (turn end to next PI message or process exit)", "gaps >= 600 s",
+           "gaps >= 600 s with a worker run still active 600 s after the turn end", "stderr has the 'stopping them' line"), rows)
+    out("Reading: a worker is 'running' from its first record (or the first message after a hand-back) to its hand-back; no PI message inside the gap means no wake-up (a finished worker wakes the PI). Background shell commands of the PI are not counted as workers.")
+    out()
+    # per-turn-end list for B2
+    rows = [(round(g["t"]), round(g["gap"]), g["alive0"], g["alive600"] if g["alive600"] is not None else "-", "final" if g["last"] else "") for g in pi_gaps(B2)]
+    out("All B2 PI turn ends (seconds after start, idle gap to the next PI message, workers active at the turn end):")
+    out()
+    table(("turn end s", "idle gap s", "workers active", "active 600 s later", "note"), rows)
+
+
 # ------------------------------------------------------------------ report
 def main():
-    A, B = load_arm("A"), load_arm("B")
-    arms = (A, B)
+    A, B, B2 = load_arm("A"), load_arm("B"), load_arm("B2")
+    arms = (A, B, B2)
     for a in arms:
         main_info(a)
         a["agents"] = [scan_agent(ag) for ag in a["agents"]]
         a["workers"] = [ag for ag in a["agents"] if (ag["type"] or "").startswith("murmuration:")]
         a["role"] = {ag["aid"]: ag["type"].split(":")[1] for ag in a["workers"]}
 
-    out("# Wave 2, phase C: M1-M7 for arms A (shipped) and B (candidate)")
+    out("# Wave 2, phase C: M1-M7 for arms A (shipped), B (candidate) and B2 (candidate plus time budget, ceiling setting)")
     out()
-    out("Generated by `python3 -I measure_m1_m7.py`. Data read only. n = 1 per arm.")
+    out("Generated by `python3 -I measure_m1_m7.py`. Data read only. n = 1 per arm. Sections below cover A and B (and B2 where the loops run over all arms); section \"Arm B2\" at the end holds what is specific to B2. In sections written before B2 existed, \"B\" in a column header means arm B.")
     out()
 
     # ---------------------------------------------------------------- M1
@@ -327,7 +491,7 @@ def main():
                          v["cacheCreationInputTokens"]))
     table(("arm", "model", "cost-state costUSD", "input", "output", "cache read", "cache write"), rows)
 
-    out("### `lab_status.py --spend --project <lab>` against cost-state (script: this worktree's `scripts/lab_status.py`, identical to B's plugin copy)")
+    out("### `lab_status.py --spend --project <lab>` against cost-state (script: this worktree's `scripts/lab_status.py` at HEAD, for all three arms")
     out()
     rows = []
     for a in arms:
@@ -406,7 +570,7 @@ def main():
             else:
                 deliv = None
             if role == "explorer":
-                if a["arm"] == "B":
+                if a["arm"] != "A":
                     deliv = os.path.exists(os.path.join(a["lab"], "__reports__", re.sub(r"^.*?-w0(\d)-.*$", r"wave-0\1", ag["name"]),
                                                        ag["name"], "00-findings_v0.md"))
                 else:
@@ -642,7 +806,17 @@ def main():
         rows.append((n, cnt, a_tab.get(n, (None, None))[1], b_syn[n - 1] if n <= len(b_syn) else None,
                      b_syn_M[n - 1] if n <= len(b_syn_M) else None, best,
                      "ok" if a_tab.get(n, (0, None))[1] == cnt and (n > len(b_syn) or b_syn[n - 1] == cnt) and (n > len(b_syn_M) or b_syn_M[n - 1] == best) else "DIFF"))
-    table(("n", "brute N(n)", "A data/exhaustive_w01c3.csv N", "B synthesis N list", "B synthesis M list", "brute M", "agree"), rows)
+    syn2p = os.path.join(B2["lab"], "__statera__", "synthesis.md")
+    syn2 = open(syn2p).read() if os.path.exists(syn2p) else ""
+    m2 = re.search(r"The values for n = 1\.\.28 are ([\d, \n]+)\.", syn2)
+    n2 = re.search(r"OEIS A134457, CITED\):\s*\n\s*\n([\d, \n]+)\.", syn2)
+    b2_M = [int(x) for x in re.findall(r"\d+", m2.group(1))] if m2 else []
+    b2_N = [int(x) for x in re.findall(r"\d+", n2.group(1))] if n2 else []
+    rows = [r + (b2_N[r[0] - 1] if r[0] <= len(b2_N) else None, b2_M[r[0] - 1] if r[0] <= len(b2_M) else None,
+                 "ok" if (r[0] > len(b2_N) or b2_N[r[0] - 1] == r[1]) and (r[0] > len(b2_M) or b2_M[r[0] - 1] == r[5]) else "DIFF") for r in rows]
+    table(("n", "brute N(n)", "A data/exhaustive_w01c3.csv N", "B synthesis N list", "B synthesis M list", "brute M", "agree (A, B)",
+           "B2 synthesis N list", "B2 synthesis M list", "agree (B2)"), rows)
+    out("B2 synthesis lists: N %d values (n = 1..%d), M %d values; its n = 29..48 list is not brute-forced here." % (len(b2_N), len(b2_N), len(b2_M)))
     out("B data/derived/exhaustive.csv header: `%s`; rows %d; A csv rows %d; B synthesis lists: N %d values, M %d values." % (
         hdr, len(b_csv), len(a_tab), len(b_syn), len(b_syn_M)))
     out()
@@ -664,7 +838,7 @@ def main():
         verified = [l for l in lines if "<-" in l[1]]
         lab_cnt = collections.Counter(l[1].split("  <-")[0] for l in lines)
         syn_exists = os.path.exists(os.path.join(a["lab"], "__statera__", "synthesis.md"))
-        rows.append((a["arm"], head.group(1) if head else None, len(verified), dict(lab_cnt), syn_exists,
+        rows.append((a["arm"], "%s (%s warnings; %d heads without a label line)" % (head.group(1), head.group(3), sum(1 for l in lines if "no label" in l[1])) if head else None, len(verified), dict(lab_cnt), syn_exists,
                      "; ".join("%s %s" % l for l in lines)))
     table(("arm", "claims filed", "with a verifier verdict", "labels", "synthesis.md exists", "claim lines"), rows)
     # where each arm states the formula
@@ -734,6 +908,17 @@ def main():
         r += ["%.0f (%.0f%%)" % (mb - ma, 100 * (mb - ma) / ma)]
         rows.append(tuple(r))
     table(("role", "A tokens", "A brief chars", "B tokens", "B brief chars", "B minus A"), rows)
+    rows = []
+    for role in ("explorer", "author", "reproducer", "proof-adversary"):
+        v = summ[(role, "B2")]["tot"]
+        ma = sum(summ[(role, "A")]["tot"]) / len(summ[(role, "A")]["tot"])
+        mb = sum(summ[(role, "B")]["tot"]) / len(summ[(role, "B")]["tot"])
+        m2 = sum(v) / len(v)
+        rows.append((role, "%d (%d-%d), n=%d" % (m2, min(v), max(v), len(v)), "%d" % (sum(summ[(role, "B2")]["brief"]) / len(v)),
+                     "%.0f (%.0f%%)" % (m2 - ma, 100 * (m2 - ma) / ma), "%.0f" % (m2 - mb)))
+    out("B2 by role:")
+    out()
+    table(("role", "B2 tokens", "B2 brief chars", "B2 minus A", "B2 minus B"), rows)
     # skills listing present in subagents
     for a in arms:
         n_list = 0
@@ -755,6 +940,7 @@ def main():
         for name, v in sorted(a["own"].items(), key=lambda kv: -kv[1]):
             rows.append((a["arm"], name, v, a["own_est"][name], a["printed"].get(name)))
     table(("arm", "agent", "own USD (recorded output)", "own USD (estimated output)", "printed by lab_status.py (top 11)"), rows)
+    b2_section(A, B, B2, bf, ev)
 
 
 if __name__ == "__main__":

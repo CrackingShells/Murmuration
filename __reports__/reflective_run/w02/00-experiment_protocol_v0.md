@@ -92,3 +92,29 @@ Rules for B2:
 - **Ceiling advice (w02-c7):** B2 must end with a `synthesis.md` and with no "stopping them" line in
   stderr.
 - **No regression:** B2's synthesis must be correct against the brute force.
+
+## Addendum, arm B3: budget stress (written before the run, about 16:10 JST)
+
+In A, B and B2 no budget note fired at the default budgets (`w02/explorer-w02-c/01-findings_v0.md`).
+What no run has measured is whether, in a real study, a worker under budget pressure still delivers,
+and whether the answer gets worse. B3 forces the notes to fire.
+
+| Arm | Plugin | Difference from B2 |
+|:--|:--|:--|
+| B3 | the same commit as B2 (fe90bfd plus later docs-only changes, exported again) | The prompt also says: "Give every worker these two lines in its brief: `Budget: USD 0.40` and `Time: min 4`." |
+
+Ceiling setting as in B2. Same question, models, cap and mode.
+
+Rules for B3 (fixed now):
+- **Delivery under pressure:** every worker that gets a note or notice hands back a deliverable: an
+  explorer report, a claim head, or a verdict section. If one is lost to the budget path, the
+  budget does not land as shipped.
+- **Overshoot:** at hand-back, the deciding budget's fraction is at most 1.2 for at least 80% of
+  the workers that got a notice. The rest are reported individually.
+- **No anxiety:** at least 80% of workers that never reached the 0.8 note show the same tool use per
+  minute as the matching role in B2, within a factor of 2. This is a rough signal and is labelled
+  as one.
+- **Outcome:** the synthesis states the correct maximum (by brute force). If it does not, the budget
+  defaults must not be lowered, and the PI should not be told to set small budgets.
+- If B3 cannot be run or measured within the time left, the budget stays "inert insurance,
+  undecided".
