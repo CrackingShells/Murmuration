@@ -75,9 +75,9 @@ changed_by: <path of a new artifact, only if the verdict changed after the excha
 The author writes everything above the first `## verdict:` heading. A verifier appends its section
 with a shell append (`cat >> __pondus__/<claim-id>.md <<'EOF'` … `EOF`), so it never rewrites the
 author's part or another verifier's. Each verifier writes one
-section that starts with `## verdict: <its name>` and uses `###` subheadings only. The first line
-of the section that starts with `verdict:` is the verdict, so no line under `### exchange` may start
-with `verdict:`.
+section that starts with `## verdict: <its name>` and uses `###` subheadings only. The last line
+of the section that starts with `verdict:` is the verdict (a revision adds a new `verdict:` line and a
+`changed_by:` line below the earlier one), so no line under `### exchange` may start with `verdict:`.
 
 ### Puzzle file
 

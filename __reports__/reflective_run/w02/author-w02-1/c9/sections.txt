@@ -1,0 +1,2 @@
+w02-c4.md section reproducer-w02-4: 2 verdict lines: ['verdict: SUPPORTED', 'verdict: OVERSTATED']; changed_by below the earlier: True
+21 verdict sections read

@@ -21,8 +21,10 @@ What it reads
                            containing "disposition", only the lines under it count.)
     __pondus__/<id>.md     claims: a head (`# <id>: <statement>`, `label:`, optional `supersedes:`),
                            then one section per verifier, from `## verdict: <name>` to the next such
-                           heading, whose first `verdict:` line counts when it is exactly a verdict
-                           (case, bold and a trailing period tolerated; extra text warns).
+                           heading, whose last `verdict:` line counts when it is exactly a verdict
+                           (case, bold and a trailing period tolerated; extra text warns). A verifier that
+                           revises in place adds a new `verdict:` line and a `changed_by:` line below
+                           the earlier one; with no `changed_by:` the script warns.
     ~/.claude/projects/    Claude Code's transcripts. The sessions of the lab are those whose first
                            `cwd` is the project directory or below it, or is in another git worktree of
                            the same repository (needs `git`; without it only the project directory).
@@ -254,6 +256,7 @@ def field_re(name):
 
 
 LABEL_RE, SUPERSEDES_RE, VERDICT_RE = field_re("label"), field_re("supersedes"), field_re("verdict")
+CHANGED_BY_RE = field_re("changed_by")
 VERDICT_HEADING_RE = re.compile(r"^##(?!#)\s+(?:\*\*|__)?verdict\s*(?:\*\*|__)?\s*:\s*(.*?)\s*$", re.I)
 TITLE_RE = re.compile(r"^#(?!#)\s+(\S+?)\s*:\s*(.*?)\s*$")
 
@@ -351,10 +354,14 @@ def current_label(text):
         warnings.append("label '%s' is not one of %s" % (label, ", ".join(LABELS)))
     standing = {}
     for name, lines in claim["sections"]:
-        value = next((m.group(1) for m in map(VERDICT_RE.match, lines) if m), None)
-        if value is None:
+        hits = [(i, m.group(1)) for i, m in enumerate(map(VERDICT_RE.match, lines)) if m]
+        if not hits:
             warnings.append("verdict section '%s' has no `verdict:` line" % name)
             continue
+        value = hits[-1][1]  # a verifier that revises in place has the last `verdict:` line stand
+        if len(hits) > 1 and not any(CHANGED_BY_RE.match(l) for l in lines[hits[-2][0] + 1:]):
+            warnings.append("verdict section '%s' has %d `verdict:` lines and no `changed_by:` line below the earlier one; "
+                            "the last counts" % (name, len(hits)))
         verdict, extra = normalise_verdict(value)
         if verdict is None and extra is not None:
             warnings.append("verdict section '%s': '%s' has text after the verdict phrase, so it is not counted; "
@@ -885,8 +892,24 @@ def selftest():
         assert got["current"] == "MEASURED" and "not in the reproducer's vocabulary" in got["warnings"][0], got
         got = current_label("# w01-c44: s\n\nlabel: THEOREM\n\n## verdict: proof-adversary-w01-1\n\nverdict: SUPPORTED\n")
         assert "not in the proof-adversary's vocabulary" in got["warnings"][0], got
-        # The verdict may follow other level-2 headings inside the section; the first verdict line counts.
-        text = ("# w01-c21: s\n\nlabel: CHECKED\n\n## verdict: v1\n\nverdict: OVERSTATED\n\n## notes\n\nverdict: SUPPORTED\n")
+        # The verdict may follow other level-2 headings inside the section. One `verdict:` line counts.
+        # Two lines: the last stands; with a `changed_by:` below the earlier one that is a revision, else a warning.
+        head = "# w01-c21: s\n\nlabel: CHECKED\n\n## verdict: v1\n\n"
+        got = current_label(head + "verdict: OVERSTATED\nreason: r\n")
+        assert got["current"] == "below CHECKED: restate" and got["warnings"] == [], got
+        got = current_label(head + "verdict: SUPPORTED\n\n### after the exchange\nverdict: OVERSTATED\nreason: r\nchanged_by: new/file.md\n")
+        assert got["current"] == "below CHECKED: restate" and got["warnings"] == [] and got["verdicts"] == {"v1": "OVERSTATED"}, got
+        got = current_label(head + "verdict: SUPPORTED\nchanged_by: a.md\nverdict: OVERSTATED\nverdict: SUPPORTED\nchanged_by: b.md\n")
+        assert got["current"] == "CHECKED" and got["warnings"] == [], got  # three lines: the last stands
+        got = current_label(head + "verdict: SUPPORTED\n\nverdict: OVERSTATED\nreason: r\n")
+        assert got["current"] == "below CHECKED: restate" and "2 `verdict:` lines and no `changed_by:`" in got["warnings"][0] \
+            and len(got["warnings"]) == 1, got
+        got = current_label(head + "verdict: OVERSTATED\n\nverdict: SUPPORTED\nchanged_by: x\n")
+        assert got["current"] == "CHECKED" and got["warnings"] == [], got  # the last stands in either direction
+        # An earlier changed_by does not excuse a later revision.
+        got = current_label(head + "changed_by: z\nverdict: SUPPORTED\nverdict: OVERSTATED\n")
+        assert got["current"] == "below CHECKED: restate" and len(got["warnings"]) == 1, got
+        text = ("# w01-c21: s\n\nlabel: CHECKED\n\n## verdict: v1\n\nverdict: OVERSTATED\n\n## notes\n\nplain notes\n")
         assert current_label(text)["current"] == "below CHECKED: restate"
         text = "# w01-c22: s\n\nlabel: CHECKED\n\n## verdict: v1\n\n## notes\n\nverdict: SUPPORTED\n"
         assert current_label(text)["current"] == "CHECKED"  # level-2 headings do not end the section
