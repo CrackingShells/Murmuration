@@ -1,0 +1,11 @@
+Make exactly these tool calls, one tool use each, in a single turn where possible, then stop and print a one-line summary per call (number of files returned). No other tools.
+1. Glob pattern "**/*.json"
+2. Glob pattern "**/*.txt"
+3. Glob pattern "__statera__/handbacks/*"
+4. Glob pattern "__instrumenta__/*"
+5. Glob pattern "**/*.log"
+6. Glob pattern "data/**/*"
+7. Grep pattern "needle_alpha" with output_mode files_with_matches
+8. Grep pattern "needle_alpha" with path "__statera__/handbacks" and output_mode files_with_matches
+9. Grep pattern "needle_alpha" with glob "*.json" and output_mode files_with_matches
+10. Grep pattern "needle_alpha" with path "__instrumenta__" and output_mode files_with_matches

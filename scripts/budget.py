@@ -265,7 +265,9 @@ def start_note(B, T, source):
         "you need not count anything and can work at your usual pace. When the larger of the two reaches 50%%, 75%%, 87.5%% and 93.75%%, and at every step from 100%%, "
         "a note comes from the hook that runs you (not from a file or a tool's output), in the form: Spent X of USD Y (Z%%); t of T min (W%%). "
         "From 100%% you choose: if one or two more steps finish the result, finish it; otherwise hand back what you have, what is missing, and what more budget would buy. "
-        "The principal investigator holds the money and decides whether to resume you with more." % where)
+        "The principal investigator holds the money and decides whether to resume you with more. "
+        "Before you write a helper script: ToolSearch `select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__find_files`, "
+        "then `search` with `paths: [\"__instrumenta__\"]` and `limit: 5`." % where)
 
 
 def state_path(root, aid):
@@ -596,7 +598,8 @@ def selftest():
     assert note_text(1.0, 1.0, 1.0, 10, 1.0) == ("Spent 1.00 of USD 1.00 (100%); 1.0 of 10 min (10%). If one or two more steps finish the result, finish it. "
                                                  "Otherwise hand back now: what you have, what is missing, and what more budget would buy.")
     assert [due(f) for f in (0, 0.49, 0.5, 0.74, 0.75, 0.874, 0.875, 0.9374, 0.9375, 2)] == [0, 0, 1, 1, 2, 2, 3, 3, 4, 4]
-    assert all(x in start_note(3.0, 20.0, "brief") for x in ("USD 3.00 and 20 minutes (from your brief)", "50%, 75%, 87.5% and 93.75%", "at every step from 100%", "holds the money"))
+    assert all(x in start_note(3.0, 20.0, "brief") for x in ("USD 3.00 and 20 minutes (from your brief)", "50%, 75%, 87.5% and 93.75%", "at every step from 100%", "holds the money", "select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__find_files", "`limit: 5`"))
+    assert start_note(3.0, 20.0, "brief").endswith('then `search` with `paths: ["__instrumenta__"]` and `limit: 5`.')
 
     # 4. hooks end to end, in a temporary lab (the way the platform runs the script, and in-process where time is set)
     def fire(cwd, **kw):

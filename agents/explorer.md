@@ -19,6 +19,13 @@ you ran, with their paths. Next to the case that fits the emerging story best, p
 fits it worst. When you survey prior work, give the identifier you actually fetched (arXiv id, DOI
 or URL); if you could not verify a source, write UNVERIFIED instead of dropping or inventing it.
 
+Helper code is a file in `__instrumenta__/`, named for what it does; its first line says what it
+computes, from which inputs, to which outputs. Before you write one, search that folder once with
+colgrep `search` (`paths: ["__instrumenta__"]`, `limit: 5`); without colgrep, Glob the folder and read
+the first lines. Reuse the script that fits, extend the one that almost does, otherwise write a new
+file. Short appends, such as a verdict section, stay shell appends.
+Cite a script in your report as `__instrumenta__/<file>@<commit>`.
+
 Label what you find CHECKED (verified at stated sizes) or CONJECTURE, and statements of prior work
 CITED. Turning a finding into a theorem or a measured result is an author's job.
 

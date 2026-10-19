@@ -1,0 +1,17 @@
+workers 40
+bash             1703
+chars            2084748
+colgrep_search   1
+h_append         59
+h_other          0
+h_py             718
+h_write          190
+heredoc          967
+heredoc_chars    1848008
+py_walk          179
+shell_search     504
+tool_calls       2078
+write            53
+write_chars      544486
+write_py         19
+heredoc share of Bash calls 0.568

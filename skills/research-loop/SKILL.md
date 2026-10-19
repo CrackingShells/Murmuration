@@ -41,7 +41,8 @@ name is …"). Use the characters `a-z`, `0-9` and `-` only.
 | `__statera__/user_words.md` | The user's prompts, verbatim and dated. Written automatically; agents never edit it |
 | `__statera__/wave-NN.md` | One note per wave, written by the PI |
 | `__statera__/synthesis.md` | The final synthesis, written by the PI |
-| `__reports__/wave-NN/<agent name>/NN-<type>_vN.md` | An explorer's findings report (`NN-findings_vN.md`, from `templates/report_findings.md`), with its scripts and raw artifacts in the same folder |
+| `__reports__/wave-NN/<agent name>/NN-<type>_vN.md` | An explorer's findings report (`NN-findings_vN.md`, from `templates/report_findings.md`), with its raw artifacts in the same folder |
+| `__instrumenta__/<name>.<ext>` | A helper script, named for what it does; its first line says what it computes, from which inputs, to which outputs |
 | `__pondus__/<claim-id>.md` | One file per claim: the author's head, then one section per verifier |
 | `__scrupuli__/wave-NN-<agent name>.md` | That agent's puzzles for that wave |
 
@@ -54,7 +55,7 @@ Add to your own files; never edit another writer's file or section.
 
 label: MEASURED
 scope: <what this claim covers, in one sentence; and one thing it does not>
-evidence: code/run_all.py@3f2a1c9, data/derived/results.csv@3f2a1c9
+evidence: __instrumenta__/run_all.py@3f2a1c9, data/derived/results.csv@3f2a1c9
 method: <proof: path or inline argument | experiment: full command, quick command, seeds, cost>
 author: author-w03-2
 supersedes: <claim id, only when this claim restates an earlier one>

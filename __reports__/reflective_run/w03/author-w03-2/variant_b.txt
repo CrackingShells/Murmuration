@@ -1,0 +1,5 @@
+Code you run is a file in `__instrumenta__/`, named for what it does, and you run it from there; a
+`python3 -c` or a heredoc is for a short append only. Its first line says what it computes, from
+which inputs, to which outputs. Before you write one, search that folder once with colgrep `search`
+(`paths: ["__instrumenta__"]`, `limit: 5`); without colgrep, Glob the folder and read the first
+lines. Reuse the script that fits, extend the one that almost does, otherwise write a new file.

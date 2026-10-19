@@ -58,7 +58,9 @@ handing back past 100%, and a way for the PI to raise a budget on resume.
 | Agent | Role | Brief (one line) | Returned |
 |:--|:--|:--|:--|
 | author-w03-1 | author | w03-c1: build the budget hook v2 to the design above, probe `PostToolBatch` first | yes; claim filed MEASURED, tree left uncommitted; USD 3.43 + 0.29 by `total_cost_usd` (author's figure, from cost records) |
-| reproducer-w03-1 | reproducer | verify w03-c1 | |
+| reproducer-w03-1 | reproducer | verify w03-c1 | SUPPORTED, after one fix found in the exchange (parallel starts); USD 1.9 by `total_cost_usd`; landed as 7f98b1f |
+| author-w03-2 | author | w03-c2: helper scripts as files in `__instrumenta__/`, one scoped search before writing, index built at `/lab`, measured against the wave-2 baseline | yes; claim filed MEASURED (n = 1); inline Python fell to 0, scripts saved as files, but no search and no reuse was exercised; tree uncommitted |
+| reproducer-w03-2 | reproducer | verify w03-c2; main risk: `.ignore` may hide lab files from the Glob and Grep tools | ESCALATE; USD 1.52 by `total_cost_usd`; decided below |
 
 ## Claims of this wave
 
@@ -97,6 +99,28 @@ handing back past 100%, and a way for the PI to raise a budget on resume.
   such meta-discourse, but everything should point at this behavior emerging". Side finding: the
   colgrep shell-search hook denied a PI heredoc whose text merely named those commands (a false
   positive on heredoc content).
+- **PI decision on the ESCALATE of w03-c2** (reproducer-w03-2, which the author accepted):
+  - The head is restated in place to the verifier's figures: where scripts are saved (3 of 3 in
+    `__instrumenta__/` against 0 of 4 in a control at 7f98b1f, n = 1 per arm). Inline Python is 0
+    against 1, which shows no effect. The 715-against-0 contrast compares different tasks.
+  - `.ignore` is narrowed to folders (the hand-back copies, raw and run folders). Grep honours it,
+    and hiding `*.json` and `*.txt` hid derived tables and would hide `package.json` in a code project.
+  - The housekeeping line loses `colgrep clear`: in a lab folded into a parent's index, that command
+    clears the whole parent index.
+  - The search paragraph is kept in the agent files only.
+  - Search and reuse remain unexercised. They need a lab with many scripts.
+- **Parked for later, at the user's request: the hooks' own cost.** The user, on the 89–104 ms per
+  budget-hook run (w03-c1): "this is too long", and "the system itself must be frugal, and the
+  manifestation of the system running must also achieve results while being frugal. [...] there are
+  obvious parts where there is no reason to waste anything, so we don't do it: be lean. Don't tackle
+  that now, keep it for later". To look at:
+  - the hook is a Python process started on every tool call of every agent, the PI's included, and it
+    does nothing for the PI;
+  - it rescans the transcript on each call rather than reading only what was added;
+  - five registrations share one script;
+  - the same questions apply to `handback.py`, `user_words.py` and `lab_status.py`.
+
+  No measurement has been made yet.
 - Spend cap for this wave: about USD 15 for the build and its verification. A test on a harder
   question (about USD 10–20) is not part of this cap; the user decides it after the build.
 

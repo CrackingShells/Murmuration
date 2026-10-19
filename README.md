@@ -58,8 +58,14 @@ hands back without its findings report is asked once to write it.
 | `__design__/framing.md` | The question, notation, scope and rules for the team |
 | `__statera__/` | Your words (recorded automatically), one note per wave, the synthesis, saved hand-backs, the budget log and a log of the report check |
 | `__reports__/wave-NN/<agent>/` | Each explorer's findings report, from the research-loop template |
+| `__instrumenta__/` | Helper scripts, one file each, named for what it does |
 | `__pondus__/` | One file per claim, with each verifier's verdict |
 | `__scrupuli__/` | Each agent's puzzles |
+
+`/lab` also writes a `.ignore` and builds the colgrep index of the lab once. The `.ignore` hides the
+hand-back copies, `raw/`, `runs/` and `generated/` folders from Grep and colgrep (Glob still lists
+everything). Workers search `__instrumenta__/` for a script before writing one. A scratch lab you will
+delete: start Claude Code in it with `COLGREP_DATA_DIR=<folder>/.colgrep`.
 
 ## Requirements
 

@@ -24,6 +24,7 @@
   and 3 minutes.
 - Never stop processes by name pattern (`pkill`, `killall`). Stop only the process ids you started.
 - Commit your own files only, with a message that says why. Team members do the same.
+- A scratch lab you will delete: start Claude Code in it with `COLGREP_DATA_DIR=<folder>/.colgrep`.
 - Use whatever search and reference tools the environment offers (semantic code or document
   search, literature search, a computer-algebra system) rather than re-reading whole files.
 - If a persistent memory is available, record there what the user teaches you about how they want
