@@ -132,3 +132,13 @@ delivered, and was then resumed with that reply. The protocol says "if a message
 delivered or gets no answer, log 'no answer'", but a busy main thread is neither undelivered nor
 silent; it is just late. So PI claims get a weaker exchange than worker claims by construction.
 refs: __pondus__/w01-c11.md (verdict section: "no answer"); this run's transcript, the PI's SendMessage to reproducer-w01-11
+
+## S-w01-research-pi-16
+The PI's snapshot commits staged `__reports__/reflective_run/` wholesale, including author-w01-2's
+raw headless-run folders (422 files holding the user's email and organization id) before anyone
+looked inside them; author-w01-2 redacted the working copies only after the commit. The PI rebuilt
+the two local commits without those folders (now 8ffd44e on top of b497813; nothing was pushed);
+the superseded objects remain in the local reflog until garbage collection. Raw platform outputs
+(hook payload snapshots, OTLP bodies, init events) carry account identifiers by default, and
+nothing in the briefs or the lab tells workers that.
+refs: git reflog (efb8948, 892ec7e, 8c46b00 superseded); __reports__/reflective_run/w01/author-w01-2/.gitignore
