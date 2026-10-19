@@ -1,0 +1,33 @@
+# Lab status
+
+Current wave note: __statera__/wave-02.md
+
+## Open puzzles (1)
+- S-w02-research-pi-1 (__scrupuli__/wave-02-research-pi.md) The user's most consequential instructions of the study (how to decide, how to budget workers, what to keep, the new 6-hour budget) came through the Desktop ...
+
+## Claims (14, 0 disputed, 0 warnings)
+- w01-c1  superseded by w01-c14
+- w01-c2  escalated: PI decides  <- reproducer-w01-2: ESCALATE
+- w01-c3  MEASURED  <- reproducer-w01-3: SUPPORTED
+- w01-c4  superseded by w01-c10, w01-c9
+- w01-c5  superseded by w01-c8
+- w01-c6  below CONJECTURE: restate  <- reproducer-w01-6: OVERSTATED
+- w01-c7  below CONJECTURE: restate  <- reproducer-w01-7: OVERSTATED
+- w01-c8  escalated: PI decides  <- reproducer-w01-8: ESCALATE
+- w01-c9  below MEASURED: restate  <- reproducer-w01-9: OVERSTATED
+- w01-c10  below CONJECTURE: restate  <- reproducer-w01-10: OVERSTATED
+- w01-c11  superseded by w01-c12
+- w01-c12  superseded by w01-c13
+- w01-c13  CONJECTURE  <- reproducer-w01-11: SUPPORTED
+- w01-c14  MEASURED  <- reproducer-w01-1: SUPPORTED
+
+## Spend (tokens, from Claude Code's transcripts for this project)
+read: /Users/hacker/.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e
+agent                                  model              runs  msgs  input  cache-write   cache-read   output
+-------------------------------------  -----------------  ----  ----  -----  -----------  -----------  -------
+murmuration:author                     claude-sonnet-5-5     8   378    792    4,001,583   72,894,496  170,691
+murmuration:explorer                   claude-sonnet-5-5     8   350    700    1,833,768   53,993,994   95,283
+murmuration:reproducer                 claude-sonnet-5-5    11   377    758    1,833,626   39,153,237    9,298
+murmuration:research-pi (main thread)  claude-opus-5-5       1   145    318      711,242   59,004,792  160,054
+total                                                           1250  2,568    8,380,219  225,046,519  435,326
+runs = distinct sessions or subagent runs. Prices are not applied; multiply by your rates.

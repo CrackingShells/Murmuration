@@ -1,0 +1,30 @@
+PASS lab_status
+caught   detector: any record with a stop_reason counts, not the last
+caught   owner: charge a copy to the file's session, not the record's sessionId
+caught   discovery: ignore git worktrees
+caught   price: the 1 hour cache write is charged as 5 minutes
+caught   exact: ignore cost-state
+caught   discovery: a folder with the right name prefix is the lab's whatever its records' cwd say
+1. combinatorics: 4 sessions; sum of cost-state totalCostUSD 224.8516; script TOTAL 224.85; equal to the cent: True
+2. discovery: from the worktree 304 sessions, from the main checkout 304, same set: True
+   ended sessions (with a cost-state record): 40 of 304 (quick: first 40)
+3. 30 cells (session x model) with a transcript message and cost-state USD above 0.0005 (of 31 cells in cost-state)
+   detector says exact (no `+`) / USD within 0.05% of cost-state / output tokens equal  -> cells
+   True  / True  / True  -> 16
+   True  / False / False -> 1
+   False / False / False -> 13
+   cells the detector calls exact whose USD is off by more than 0.05%: 1
+     claude-haiku-5-5 transcript 0.0105 cost-state 0.0123 (msgs 3, out 387 vs 1630, cost-state input 7709)
+   cells with `+`: 13; their transcript USD / cost-state USD: min 0.043 max 0.994; any above 1.0: 0
+4. 60 subagent files: (exact by requestId, exact by message id) -> files: {(False, False): 51, (True, True): 9}
+   disagreements: 0
+5. F1 combinatorics list-price USD: per-file counting 250.44, owned by sessionId 207.89, cost-state 224.85
+   F2 first combinatorics session, Opus main-thread cell: table 60.70, with an Opus row of $5/$25 101.02 (x1.66)
+## Spend (USD: Claude Code's cost-state where a session has ended, else list price of 2026-10-19)
+TOTAL  USD 224.85   (exact, all sessions ended)
+
+where          sessions  agent files  USD     basis
+-------------  --------  -----------  ------  -----
+this checkout  4                  44  224.85  exact
+
+agent              model       msgs  list-price USD  output tokens

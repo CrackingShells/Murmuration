@@ -1,0 +1,7 @@
+caught   detector: any record with a stop_reason counts, not the last
+caught   owner: charge a copy to the file's session, not the record's sessionId
+caught   discovery: ignore git worktrees
+caught   price: the 1 hour cache write is charged as 5 minutes
+caught   no-git notice is never printed
+caught   exact: ignore cost-state
+caught   discovery: a folder with the right name prefix is the lab's whatever its records' cwd say

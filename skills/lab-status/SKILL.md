@@ -1,6 +1,6 @@
 ---
 name: lab-status
-description: Show the state of the Murmuration research lab in the current project: open puzzles, the current state of every claim, and token spend per agent and model. Run it as `/lab-status`.
+description: Show the state of the Murmuration research lab in the current project: open puzzles, the current state of every claim, and spend in USD. Run it as `/lab-status`.
 user-invocable: true
 allowed-tools: Bash(python3 *lab_status.py*)
 ---
@@ -8,7 +8,7 @@ allowed-tools: Bash(python3 *lab_status.py*)
 # /lab-status
 
 Prints what is open in the lab, what each claim currently stands at, and what the work has cost
-so far. It only reads files; it changes nothing.
+so far in USD. It only reads files; it changes nothing.
 
 Run it from the project folder (the one that holds `__statera__/`):
 
@@ -48,9 +48,16 @@ no `verdict:` line or with a value outside the verdict vocabulary, a claim with 
 `supersedes:` that names no claim, a transcript that could not be read. Fix the file named in
 the warning, or tell the user; do not ignore it.
 
-**Spend** is read from Claude Code's transcripts for this project: tokens per agent and model,
-with no prices applied. The `read:` line names the transcript folders used. If no transcripts
-are found the output says so; do not estimate.
+**Spend** is read from Claude Code's transcripts and is in USD. The sessions counted are those
+that ran in the project folder, below it, or in another git worktree of the same repository
+(without `git`, only the project folder). A session that has ended is counted at the cost Claude
+Code recorded for it (`exact`). A session still open is counted at list price from its
+transcript (`at least`: helper-model calls are left out). The `where` table groups the sessions;
+the agent table prices each agent's messages at list price, and a `+` after a figure means at
+least: some of that subagent's output tokens are stored at their start-of-stream value, so
+the figure is a lower bound. No `+` means every request of that agent was stored in full. If no
+transcripts are found the output says so; do not estimate. `--spend [--project DIR]` prints only
+this section, for a folder that is not a lab.
 
 If the project has no `__statera__/` folder the script says there is no lab; tell the user to
 start one with `/lab <question>`.

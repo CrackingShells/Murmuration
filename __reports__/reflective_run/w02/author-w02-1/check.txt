@@ -1,0 +1,15 @@
+1. combinatorics: 4 sessions; sum of cost-state totalCostUSD 224.8516; script TOTAL 224.85; equal to the cent: True
+2. discovery: from the worktree 304 sessions, from the main checkout 304, same set: True
+   ended sessions (with a cost-state record): 303 of 304
+3. 293 cells (session x model) with a transcript message and cost-state USD above 0.0005 (of 294 cells in cost-state)
+   detector says exact (no `+`) / USD within 0.05% of cost-state / output tokens equal  -> cells
+   True  / True  / True  -> 213
+   True  / False / False -> 1
+   False / False / False -> 79
+   cells the detector calls exact whose USD is off by more than 0.05%: 1
+     claude-haiku-5-5 transcript 0.0105 cost-state 0.0123 (msgs 3, out 387 vs 1630, cost-state input 7709)
+   cells with `+`: 79; their transcript USD / cost-state USD: min 0.043 max 0.998; any above 1.0: 0
+4. 314 subagent files: (exact by requestId, exact by message id) -> files: {(False, False): 117, (True, True): 197}
+   disagreements: 0
+5. F1 combinatorics list-price USD: per-file counting 250.44, owned by sessionId 207.89, cost-state 224.85
+   F2 first combinatorics session, Opus main-thread cell: table 60.70, with an Opus row of $5/$25 101.02 (x1.66)

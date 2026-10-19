@@ -4,7 +4,8 @@
 Read-only. Python standard library only.
 
     lab_status.py [--project DIR]   print the report for DIR (default: the project directory)
-    lab_status.py --selftest        check the three reports on a temporary project
+    lab_status.py --spend [--project DIR]   print only the spend section (DIR needs no `__statera__/`)
+    lab_status.py --selftest        check the reports on a temporary project
 
 The project directory is CLAUDE_PROJECT_DIR, else the current directory.
 
@@ -22,9 +23,15 @@ What it reads
                            then one section per verifier, from `## verdict: <name>` to the next such
                            heading, whose first `verdict:` line counts when it is exactly a verdict
                            (case, bold and a trailing period tolerated; extra text warns).
-    ~/.claude/projects/<project-path>/   Claude Code's transcripts for this project (the main
-                           thread and every subagent); `usage` fields are summed. Set
-                           CLAUDE_CONFIG_DIR to use another configuration directory.
+    ~/.claude/projects/    Claude Code's transcripts. The sessions of the lab are those whose first
+                           `cwd` is the project directory or below it, or is in another git worktree of
+                           the same repository (needs `git`; without it only the project directory).
+                           Each API message is counted once, for the session named in its own record
+                           (`sessionId`), so a forked session does not pay for its parent's messages.
+                           USD: the session's `cost-state` record where the session has ended, else
+                           list price (the table in this file). A subagent's output tokens are marked
+                           `+` (at least) unless the last record of every one of its requests has a
+                           `stop_reason`. Set CLAUDE_CONFIG_DIR to use another configuration directory.
 
 Claim states shown: `unverified <LABEL>`, `cited (not verified)`, `<LABEL>`, `<LABEL> (gap)`, `below <LABEL>: restate`,
 `<LABEL> (may restate higher)`, `withdrawn`, `escalated: PI decides`, `disputed: PI decides`,
@@ -32,10 +39,13 @@ Claim states shown: `unverified <LABEL>`, `cited (not verified)`, `<LABEL>`, `<L
 read as specified.
 """
 import collections
+import contextlib
 import glob
+import io
 import json
 import os
 import re
+import subprocess
 import sys
 import tempfile
 
@@ -399,174 +409,290 @@ def report_claims(root):
 
 # ---------------------------------------------------------------- spend
 
+# USD per million tokens: input, output, cache read, cache write for 5 minutes, cache write for 1 hour.
+# [source: https://platform.claude.com/docs/en/about-claude/pricing, "Model pricing" table, fetched 2026-10-19]
+# These rows reproduce the costUSD that Claude Code writes in its own `cost-state` record.
+PRICES = {
+    "claude-opus-5-5": (4.0, 20.0, 0.20, 5.0, 8.0),
+    "claude-sonnet-5-5": (2.0, 10.0, 0.10, 2.5, 4.0),
+    "claude-fable-5-1": (10.0, 50.0, 0.25, 12.5, 20.0),
+    "claude-haiku-5-5": (0.10, 0.50, 0.01, 0.125, 0.20),  # up to 100,000 prompt tokens
+}
+LONG_HAIKU = (0.50, 2.50, 0.05, 0.625, 1.0)  # Haiku 5.5 above 100,000 prompt tokens
+WEB_SEARCH_USD = 0.01  # $10 per 1,000 searches
+FAST_FACTOR = 2.0  # fast mode (`usage.speed == "fast"`) is billed at twice the price
+USAGE_FIELDS = ("input_tokens", "output_tokens", "cache_read_input_tokens", "cache_creation_input_tokens")
+
+
 def config_dir():
     return os.environ.get("CLAUDE_CONFIG_DIR") or os.path.join(os.path.expanduser("~"), ".claude")
 
 
-def project_folder_names(root):
-    """Names Claude Code gives a project's transcript folder: its path with every non-alphanumeric a dash."""
-    names = []
-    for path in (os.path.abspath(root), os.path.realpath(root)):
-        name = re.sub(r"[^A-Za-z0-9]", "-", path)
-        if name not in names:
-            names.append(name)
-    return names
+def encode(path):
+    """The name Claude Code gives a project's transcript folder: the path with every non-alphanumeric a dash."""
+    return re.sub(r"[^A-Za-z0-9]", "-", path)
 
 
-def records_have_cwd(folder, cwds, limit=200):
-    """True when an early record of one of the folder's transcripts says it ran in one of `cwds`."""
+def git_worktrees(root):
+    """Paths of the git worktrees of root's repository, the main checkout first (needs git; else empty)."""
     try:
-        files = sorted(glob.glob(os.path.join(folder, "*.jsonl")))[:5]
-        for path in files:
-            with open(path, encoding="utf-8", errors="replace") as fh:
-                for _, line in zip(range(limit), fh):
-                    if '"cwd"' in line:
-                        try:
-                            if json.loads(line).get("cwd") in cwds:
-                                return True
-                        except ValueError:
-                            pass
+        out = subprocess.run(["git", "-C", root, "worktree", "list", "--porcelain"], capture_output=True,
+                             text=True, timeout=10).stdout
+    except (OSError, subprocess.SubprocessError):
+        return []
+    return [line[9:] for line in out.splitlines() if line.startswith("worktree ")]
+
+
+def lab_roots(root):
+    """The lab's directory, its real path, and every git worktree of its repository (and their real paths)."""
+    roots = [os.path.abspath(root), os.path.realpath(root)]
+    for path in git_worktrees(root):
+        roots += [path, os.path.realpath(path)]
+    return list(dict.fromkeys(roots))
+
+
+def first_cwd(path, limit=300):
+    """The `cwd` of the first record of a transcript that has one."""
+    try:
+        with open(path, encoding="utf-8", errors="replace") as fh:
+            for _, line in zip(range(limit), fh):
+                if '"cwd"' in line:
+                    try:
+                        cwd = json.loads(line).get("cwd")
+                    except ValueError:
+                        continue
+                    if cwd:
+                        return cwd
     except OSError:
         pass
-    return False
+    return None
 
 
-def transcript_dirs(root):
-    """Transcript folders for a project: the folder named after its path, else (for paths too long
-    to be named in full) a folder sharing the start of that name whose records say they ran there."""
+def under(cwd, roots):
+    return bool(cwd) and any(cwd == r or cwd.startswith(r.rstrip("/") + "/") for r in roots)
+
+
+def find_sessions(roots):
+    """Main transcripts of every session whose `cwd` is a root or below it. A project folder is opened only
+    when its name starts with a root's encoded name (a cwd below a root gives such a name; names over about
+    200 characters are cut, hence the first 100)."""
     base = os.path.join(config_dir(), "projects")
-    names = project_folder_names(root)
-    found = [os.path.join(base, n) for n in names if os.path.isdir(os.path.join(base, n))]
-    if found:
-        return found
-    cwds = {os.path.abspath(root), os.path.realpath(root)}
+    prefixes = tuple(encode(r)[:100] for r in roots)
+    files = []
     try:
         entries = sorted(os.listdir(base))
     except OSError:
-        return []
-    prefixes = tuple(n[:100] for n in names)
-    near = [e for e in entries if e.startswith(prefixes)][:20]
-    return [os.path.join(base, e) for e in near if records_have_cwd(os.path.join(base, e), cwds)]
+        return files
+    for entry in entries:
+        folder = os.path.join(base, entry)
+        if entry.startswith(prefixes) and os.path.isdir(folder):
+            files += [f for f in sorted(glob.glob(os.path.join(folder, "*.jsonl"))) if under(first_cwd(f), roots)]
+    return files
 
 
-def usage_rows(path, agent, warnings):
-    """Yield (agent, model, usage dict) once per distinct assistant message id in a transcript file."""
-    last = {}
+def message_usd(model, use):
+    """USD of one API message from its usage block, at list price; None for a model with no price here."""
+    p = PRICES.get(re.sub(r"-\d{8}$", "", model or ""))
+    if p is None:
+        return None
+    cc = use.get("cache_creation") if isinstance(use.get("cache_creation"), dict) else {}
+    cw1, cw5 = int(cc.get("ephemeral_1h_input_tokens") or 0), int(cc.get("ephemeral_5m_input_tokens") or 0)
+    cw = int(use.get("cache_creation_input_tokens") or 0)
+    cw5 += max(0, cw - cw1 - cw5)  # a write with no recorded split is charged at the 5 minute rate
+    i, o, cr = (int(use.get(f) or 0) for f in ("input_tokens", "output_tokens", "cache_read_input_tokens"))
+    if model.startswith("claude-haiku-5-5") and i + cr + cw > 100000:
+        p = LONG_HAIKU
+    usd = (i * p[0] + o * p[1] + cr * p[2] + cw5 * p[3] + cw1 * p[4]) / 1e6
+    if use.get("speed") == "fast":
+        usd *= FAST_FACTOR
+    searches = use.get("server_tool_use") if isinstance(use.get("server_tool_use"), dict) else {}
+    return usd + WEB_SEARCH_USD * int(searches.get("web_search_requests") or 0)
+
+
+def merge_usage(into, use):
+    """A message id is one API call; its records (one per content block) repeat the usage while
+    `output_tokens` grows during the stream, so each field keeps its maximum."""
+    for f in USAGE_FIELDS:
+        into[f] = max(int(into.get(f) or 0), int(use.get(f) or 0))
+    if isinstance(use.get("cache_creation"), dict):
+        into["cache_creation"] = use["cache_creation"]
+
+
+def read_transcript(path, warnings):
+    """One transcript file: ({message id: message}, last `cost-state` record, `agent-setting` name).
+
+    A message is {model, usage, ts, sid, final}. `sid` is the `sessionId` of its record: a forked session
+    or a copied agent file holds copies that still name the session that made the call. `final` is whether
+    the message's last record in this file has a `stop_reason`: when it has none, the file holds the
+    output tokens as they were when the stream started, so the count is a lower bound."""
+    msgs, cost_state, setting = {}, None, None
     try:
         with open(path, encoding="utf-8", errors="replace") as fh:
             for line in fh:
+                if '"assistant"' not in line and '"cost-state"' not in line and '"agent-setting"' not in line:
+                    continue
                 try:
                     rec = json.loads(line)
                 except ValueError:
                     continue
-                msg = rec.get("message") if isinstance(rec, dict) else None
-                if rec.get("type") == "assistant" and isinstance(msg, dict) and isinstance(msg.get("usage"), dict):
-                    last[msg.get("id") or rec.get("uuid") or len(last)] = msg  # streamed copies: keep the last
+                if not isinstance(rec, dict):
+                    continue
+                kind, m = rec.get("type"), rec.get("message")
+                if kind == "cost-state" and rec.get("totalCostUSD") is not None:
+                    cost_state = rec
+                elif kind == "agent-setting" and rec.get("agentSetting") and not setting:
+                    setting = rec["agentSetting"]
+                elif kind == "assistant" and isinstance(m, dict) and isinstance(m.get("usage"), dict) \
+                        and m.get("model") != "<synthetic>":
+                    key = m.get("id") or rec.get("requestId") or rec.get("uuid") or len(msgs)
+                    msg = msgs.setdefault(key, {"model": m.get("model") or "unknown", "usage": {}, "ts": rec.get("timestamp"),
+                                                "sid": rec.get("sessionId")})
+                    merge_usage(msg["usage"], m["usage"])
+                    msg["final"] = bool(m.get("stop_reason"))
     except OSError as err:
         warnings.append("could not read %s: %s" % (path, err.strerror or err))
-    for msg in last.values():
-        model = msg.get("model") or "unknown"
-        if model != "<synthetic>":
-            yield agent, model, msg["usage"]
+    return msgs, cost_state, setting
 
 
-def subagent_type(path):
-    meta = path[:-len(".jsonl")] + ".meta.json"
+def agent_label(path):
+    """A subagent's name from its `.meta.json` (`name`, else `agentType`), else 'subagent <id>'."""
+    fallback = "subagent " + os.path.basename(path)[len("agent-"):-len(".jsonl")][:6]
     try:
-        value = json.loads(read(meta)).get("agentType")
-        if value:
-            return str(value)
+        with open(path[:-len(".jsonl")] + ".meta.json", encoding="utf-8") as fh:
+            meta = json.load(fh)
+        return str(meta.get("name") or meta.get("agentType") or fallback)
     except (OSError, ValueError, AttributeError):
-        pass
-    return "subagent"
+        return fallback
 
 
-def main_agent(path):
-    """The agent the session ran as (`agent-setting` record), else 'main thread'."""
-    try:
-        with open(path, encoding="utf-8", errors="replace") as fh:
-            for line in fh:
-                if '"agent-setting"' in line:
-                    try:
-                        rec = json.loads(line)
-                    except ValueError:
-                        continue
-                    if rec.get("type") == "agent-setting" and rec.get("agentSetting"):
-                        return "%s (main thread)" % rec["agentSetting"]
-    except OSError:
-        pass
-    return "main thread"
+def load_sessions(mains, warnings):
+    """Read the sessions and count each API message once, under the session named in its own record.
 
-
-def spend(root):
-    """Token usage per (agent, model) for this project's transcripts.
-
-    Returns (rows, folders, warnings): rows is a list of dicts with agent, model, runs, messages,
-    input, cache_write, cache_read, output; folders lists the transcript folders read (empty: none
-    found); warnings lists files that could not be read.
-    """
-    folders = transcript_dirs(root)
-    totals = collections.OrderedDict()
-    runs = collections.defaultdict(set)
-    warnings = []
-    for folder in folders:
-        try:
-            names = sorted(os.listdir(folder))
-        except OSError as err:
-            warnings.append("could not list %s: %s" % (folder, err.strerror or err))
+    Returns (sessions, copies): a session is {path, cost_state, agent_files, start, rows}; rows maps
+    (agent, model) to a Counter of msgs, output, usd, unpriced and lower (messages of a subagent whose
+    last record has no `stop_reason`). A message copied into a session from another session that is
+    not among `mains` is counted nowhere: that session did not pay for it."""
+    owned, sessions, copies = {}, {}, 0
+    for path in mains:
+        sid = os.path.basename(path)[:-len(".jsonl")]
+        msgs, cost_state, setting = read_transcript(path, warnings)
+        sources = [(setting + " (main thread)" if setting else "main thread", False, msgs)]
+        subs = sorted(glob.glob(os.path.join(path[:-len(".jsonl")], "subagents", "**", "agent-*.jsonl"), recursive=True))
+        sources += [(agent_label(f), True, read_transcript(f, warnings)[0]) for f in subs]
+        sessions[sid] = {"path": path, "cost_state": cost_state, "agent_files": len(subs), "start": None, "rows": {}}
+        for label, is_sub, found in sources:
+            for key, msg in found.items():
+                have = owned.get(key)
+                if have is None:
+                    owned[key] = dict(msg, label=label, sub=is_sub, own=(msg["sid"] == sid))
+                    continue
+                copies += 1
+                merge_usage(have["usage"], msg["usage"])
+                have["final"] = have["final"] or msg["final"]
+                if msg["sid"] == sid and not have["own"]:  # the copy in the owner's own file names the agent
+                    have.update(label=label, sub=is_sub, own=True)
+    for msg in owned.values():
+        s = sessions.get(msg["sid"])
+        if s is None:
             continue
-        for name in names:
-            if not name.endswith(".jsonl"):
-                continue
-            path = os.path.join(folder, name)
-            sources = [(main_agent(path), path, None)]
-            session = path[:-len(".jsonl")]
-            for sub in sorted(glob.glob(os.path.join(session, "subagents", "**", "agent-*.jsonl"), recursive=True)):
-                sources.append((subagent_type(sub), sub, os.path.basename(sub)[:-len(".jsonl")]))
-            for agent, file, run in sources:
-                for who, model, use in usage_rows(file, agent, warnings):
-                    row = totals.setdefault((who, model), collections.Counter())
-                    row["messages"] += 1
-                    row["input"] += int(use.get("input_tokens") or 0)
-                    row["cache_write"] += int(use.get("cache_creation_input_tokens") or 0)
-                    row["cache_read"] += int(use.get("cache_read_input_tokens") or 0)
-                    row["output"] += int(use.get("output_tokens") or 0)
-                    runs[(who, model)].add(run or path)
-    rows = []
-    for (who, model), c in totals.items():
-        rows.append({"agent": who, "model": model, "runs": len(runs[(who, model)]), **c})
-    rows.sort(key=lambda r: -(r["input"] + r["cache_write"] + r["output"]))
-    return rows, folders, warnings
+        row = s["rows"].setdefault((msg["label"], msg["model"]), collections.Counter())
+        row["msgs"] += 1
+        row["output"] += int(msg["usage"].get("output_tokens") or 0)
+        usd = message_usd(msg["model"], msg["usage"])
+        row["unpriced"] += usd is None
+        row["usd"] += usd or 0.0
+        row["lower"] += msg["sub"] and not msg["final"]
+        if msg["ts"] and (s["start"] is None or msg["ts"] < s["start"]):
+            s["start"] = msg["ts"]
+    return sorted(sessions.values(), key=lambda s: s["start"] or "9"), copies
+
+
+def table(rows):
+    widths = [max(len(r[i]) for r in rows) for i in range(len(rows[0]))]
+    lines = []
+    for n, r in enumerate(rows):
+        lines.append("  ".join(c.ljust(widths[i]) if i < 2 or not c[:1].isdigit() else c.rjust(widths[i])
+                               for i, c in enumerate(r)).rstrip())
+        if n == 0:
+            lines.append("  ".join("-" * w for w in widths))
+    return lines
 
 
 def report_spend(root):
-    rows, folders, warnings = spend(root)
-    out = ["## Spend (tokens, from Claude Code's transcripts for this project)"]
-    if not folders:
-        out.append("no transcripts found for %s under %s" % (os.path.abspath(root),
-                   os.path.join(config_dir(), "projects")))
+    """The spend section: USD per session group and per agent, exact where Claude Code recorded it."""
+    roots = lab_roots(root)
+    warnings = []
+    sessions, copies = load_sessions(find_sessions(roots), warnings)
+    out = ["## Spend (USD: Claude Code's cost-state where a session has ended, else list price of 2026-10-19)"]
+    if not git_worktrees(root):
+        out.append("! git is not available, or this folder is not in a git repository: only sessions started in this "
+                   "folder or below it were counted")
+    if not sessions:
+        out.append("no transcripts found for %s (looked for sessions whose cwd is the lab or one of its git worktrees, "
+                   "under %s)" % (os.path.abspath(root), os.path.join(config_dir(), "projects")))
         return out
-    out.append("read: " + ", ".join(folders))
-    if not rows:
-        out.append("no usage records in those transcripts")
+    here = os.path.realpath(root)
+    trees = git_worktrees(root)
+    main_checkout = os.path.realpath(trees[0]) if trees else None
+    groups, exact, listed, unpriced = collections.OrderedDict(), 0.0, 0.0, 0
+    for s in sessions:
+        cwd = first_cwd(s["path"]) or ""
+        base = next((r for r in sorted(roots, key=len, reverse=True) if under(cwd, [r])), None)
+        label = "(cwd unknown)" if base is None else "this checkout" if os.path.realpath(base) == here else \
+            "main checkout" if os.path.realpath(base) == main_checkout else "worktree " + os.path.basename(base.rstrip("/"))
+        if base is not None and cwd != base:
+            label += ", sessions started below it"
+        usd = sum(r["usd"] for r in s["rows"].values())
+        unpriced += sum(r["unpriced"] for r in s["rows"].values())
+        ended = s["cost_state"] is not None
+        if ended:
+            usd = s["cost_state"]["totalCostUSD"]
+            exact += usd
+        else:
+            listed += usd
+        g = groups.setdefault(label, {"n": 0, "agents": 0, "usd": 0.0, "ended": 0, "open": 0})
+        g["n"] += 1
+        g["agents"] += s["agent_files"]
+        g["usd"] += usd
+        g["ended" if ended else "open"] += 1
+    n_open = sum(g["open"] for g in groups.values())
+    if n_open:
+        out.append("TOTAL  USD %.2f at least   (%.2f exact + %.2f at list price for %d session%s still open)"
+                   % (exact + listed, exact, listed, n_open, "" if n_open == 1 else "s"))
+        out.append("A session still open has no cost-state yet. Its figure leaves out helper-model calls (such as web-fetch "
+                   "summaries) and counts a subagent's output tokens as they were when its stream started, so it is a lower bound.")
     else:
-        head = ("agent", "model", "runs", "msgs", "input", "cache-write", "cache-read", "output")
-
-        def fmt(n):
-            return "{:,}".format(n)
-
-        table = [head] + [(r["agent"], r["model"], str(r["runs"]), str(r["messages"]), fmt(r["input"]),
-                           fmt(r["cache_write"]), fmt(r["cache_read"]), fmt(r["output"])) for r in rows]
-        table.append(("total", "", "", str(sum(r["messages"] for r in rows)),
-                      fmt(sum(r["input"] for r in rows)), fmt(sum(r["cache_write"] for r in rows)),
-                      fmt(sum(r["cache_read"] for r in rows)), fmt(sum(r["output"] for r in rows))))
-        widths = [max(len(row[i]) for row in table) for i in range(len(head))]
-        for n, row in enumerate(table):
-            out.append("  ".join(cell.ljust(widths[i]) if i < 2 else cell.rjust(widths[i])
-                                 for i, cell in enumerate(row)))
-            if n == 0:
-                out.append("  ".join("-" * w for w in widths))
-        out.append("runs = distinct sessions or subagent runs. Prices are not applied; multiply by your rates.")
+        out.append("TOTAL  USD %.2f   (exact, all sessions ended)" % exact)
+    out.append("")
+    tab = [("where", "sessions", "agent files", "USD", "basis")]
+    for label, g in groups.items():
+        basis = "exact" if not g["open"] else "at least" if not g["ended"] else "%d exact, %d at least" % (g["ended"], g["open"])
+        tab.append((label, str(g["n"]), str(g["agents"]), "%.2f" % g["usd"], basis))
+    out += table(tab)
+    out.append("")
+    agents = collections.OrderedDict()
+    for s in sessions:
+        for (label, model), r in s["rows"].items():
+            agents.setdefault((label, model), collections.Counter()).update(r)
+    ranked = sorted(agents.items(), key=lambda kv: -kv[1]["usd"])
+    tab = [("agent", "model", "msgs", "list-price USD", "output tokens")]
+    for (label, model), a in ranked[:12]:
+        mark = "+" if a["lower"] else ""
+        tab.append((label, re.sub(r"^claude-", "", model), str(a["msgs"]), "%.2f%s" % (a["usd"], mark),
+                    "{:,}{}".format(a["output"], mark)))
+    if len(ranked) > 12:
+        rest = [a for _, a in ranked[12:]]
+        tab.append(("(%d more)" % len(rest), "", str(sum(a["msgs"] for a in rest)), "%.2f" % sum(a["usd"] for a in rest), ""))
+    out += table(tab)
+    out.append("`+` = at least: some of that agent's output tokens are stored at their start-of-stream value. Agent rows are priced "
+               "from transcripts at list price and add up to %.2f of the %.2f total above; the rest is what only cost-state records."
+               % (sum(a["usd"] for a in agents.values()), exact + listed))
+    if copies:
+        out.append("%d message record%s copied a message already counted (forked sessions, copied agent files); each is charged "
+                   "once, to the session named in its record." % (copies, "" if copies == 1 else "s"))
+    if unpriced:
+        out.append("%d message%s of a model with no price here, left out of the list-price figures."
+                   % (unpriced, " is" if unpriced == 1 else "s are"))
     out += ["! " + w for w in warnings]
     return out
 
@@ -793,67 +919,144 @@ def selftest():
         assert "## Claims (%d, 2 disputed, 2 warnings)" % len(by_id) in text, text
         assert "    ! verdict section 'v1': '???' is not a recognised verdict" in text, text
 
-        # ---- Spend: a main thread and two subagents, with streamed duplicates and a synthetic record.
-        # The folder is the project path with every non-alphanumeric character as a dash.
-        name = re.sub(r"[^A-Za-z0-9]", "-", os.path.realpath(root))  # Claude Code names it by the real path
-        assert name.endswith("my-project-x"), name
-        folder = os.path.join(cfg, "projects", name)
+        # ---- Spend. Records name their session and cwd; the folder is the cwd with every non-alphanumeric a dash.
+        real = os.path.realpath(root)
+        assert encode(real).endswith("my-project-x"), real
+        folder = os.path.join(cfg, "projects", encode(real))
 
-        def record(mid, model, i, o, cw=0, cr=0, kind="assistant", **extra):
-            rec = {"type": kind, "message": {"id": mid, "model": model, "usage": {
-                "input_tokens": i, "output_tokens": o, "cache_creation_input_tokens": cw,
-                "cache_read_input_tokens": cr}}}
+        def record(mid, model, i, o, cw=0, cr=0, stop="end_turn", sid="s1", cache_creation=None, **extra):
+            use = {"input_tokens": i, "output_tokens": o, "cache_creation_input_tokens": cw, "cache_read_input_tokens": cr}
+            if cache_creation:
+                use["cache_creation"] = cache_creation
+            rec = {"type": "assistant", "sessionId": sid, "message": {"id": mid, "model": model, "stop_reason": stop,
+                                                                      "usage": use}}
             rec.update(extra)
             return json.dumps(rec) + "\n"
 
+        def head(sid, cwd, setting=None):
+            text = json.dumps({"type": "user", "sessionId": sid, "cwd": cwd}) + "\n"
+            if setting:
+                text += json.dumps({"type": "agent-setting", "agentSetting": setting}) + "\n"
+            return text
+
+        def cost_state(sid, usd):
+            return json.dumps({"type": "cost-state", "sessionId": sid, "totalCostUSD": usd}) + "\n"
+
+        opus, sonnet = "claude-opus-5-5", "claude-sonnet-5-5"
+        # s1 has ended: its cost is cost-state's. A message streamed in two records is one message.
         _write(os.path.join(folder, "s1.jsonl"),
-               json.dumps({"type": "agent-setting", "agentSetting": "murmuration:research-pi"}) + "\n"
-               + record("m1", "claude-opus-x", 1, 5, 100, 0) + record("m1", "claude-opus-x", 1, 50, 100, 0)
-               + record("m2", "claude-opus-x", 2, 20, 0, 100) + record("m3", "<synthetic>", 0, 0)
-               + "not json\n" + record("u1", "claude-opus-x", 9, 9, kind="user"))
-        _write(os.path.join(folder, "s2.jsonl"), record("n1", "claude-opus-x", 1, 1))  # no agent-setting
+               head("s1", real, "murmuration:research-pi")
+               + record("m1", opus, 1, 5, stop=None) + record("m1", opus, 1, 50)
+               + record("m2", opus, 1000000, 0) + record("m3", "<synthetic>", 0, 0) + "not json\n"
+               + json.dumps({"type": "user", "message": {"id": "u1"}}) + "\n" + cost_state("s1", 7.5))
         sub = os.path.join(folder, "s1", "subagents")
-        _write(os.path.join(sub, "agent-aaa.jsonl"), record("a1", "claude-sonnet-x", 3, 30, 10, 10))
-        _write(os.path.join(sub, "agent-aaa.meta.json"), json.dumps({"agentType": "murmuration:explorer"}))
-        _write(os.path.join(sub, "agent-bbb.jsonl"), record("b1", "claude-sonnet-x", 4, 40, 0, 0))
+        _write(os.path.join(sub, "agent-aaa.jsonl"), record("a1", sonnet, 3, 30, 10, 10, stop=None))  # truncated stream
+        _write(os.path.join(sub, "agent-aaa.meta.json"), json.dumps({"agentType": "murmuration:explorer", "name": "explorer-w02-a"}))
+        _write(os.path.join(sub, "agent-bbb.jsonl"), record("b1", sonnet, 4, 40))  # final
         _write(os.path.join(sub, "agent-bbb.meta.json"), json.dumps({"agentType": "murmuration:explorer"}))
-        rows, folders, warns = spend(root)
-        by = {(r["agent"], r["model"]): r for r in rows}
-        main = by[("murmuration:research-pi (main thread)", "claude-opus-x")]
-        assert (main["messages"], main["input"], main["output"], main["cache_write"], main["cache_read"]) \
-            == (2, 3, 70, 100, 100), main
-        assert by[("main thread", "claude-opus-x")]["messages"] == 1
-        expl = by[("murmuration:explorer", "claude-sonnet-x")]
-        assert (expl["runs"], expl["messages"], expl["input"], expl["output"]) == (2, 2, 7, 70), expl
-        assert len(rows) == 3 and folders == [folder] and warns == [], (rows, folders, warns)
+        # Only the LAST record of a request counts: a final record followed by an unfinished one is not final.
+        _write(os.path.join(sub, "agent-ccc.jsonl"), record("c1", sonnet, 1, 2) + record("c1", sonnet, 1, 3, stop=None))
+        # s2 is still open: list price, with the 1 hour cache write rate, and a model with no price.
+        _write(os.path.join(folder, "s2.jsonl"),
+               head("s2", real) + record("n1", opus, 1000000, 0, cw=1000000, sid="s2",
+                                         cache_creation={"ephemeral_1h_input_tokens": 1000000, "ephemeral_5m_input_tokens": 0})
+               + record("n2", "claude-mystery-1", 5, 5, sid="s2"))
+        # s3 started below the lab and is a fork: it holds a copy of m2 (s1's) and of a message of a session outside the lab.
+        below = os.path.join(real, "sub")
+        _write(os.path.join(cfg, "projects", encode(below), "s3.jsonl"),
+               head("s3", below) + record("m2", opus, 1000000, 0, sid="s1") + record("g1", opus, 1000000, 0, sid="gone")
+               + record("f1", sonnet, 1000000, 0, sid="s3"))
+        # A session elsewhere is not the lab's.
+        _write(os.path.join(cfg, "projects", encode(os.path.join(tmp, "elsewhere")), "s5.jsonl"),
+               head("s5", os.path.join(tmp, "elsewhere")) + record("e1", opus, 1000000, 0, sid="s5"))
+
+        warns = []
+        sessions, copies = load_sessions(find_sessions(lab_roots(root)), warns)
+        by_sid = {os.path.basename(s["path"])[:-6]: s for s in sessions}
+        assert sorted(by_sid) == ["s1", "s2", "s3"] and warns == [], (sorted(by_sid), warns)
+        r1 = by_sid["s1"]["rows"]
+        main_row = r1[("murmuration:research-pi (main thread)", opus)]
+        assert (main_row["msgs"], main_row["output"]) == (2, 50) and abs(main_row["usd"] - (4.0 + (4 + 50 * 20) / 1e6)) < 1e-9, main_row
+        assert r1[("explorer-w02-a", sonnet)]["lower"] == 1 and r1[("explorer-w02-a", sonnet)]["output"] == 30
+        assert r1[("murmuration:explorer", sonnet)]["lower"] == 0, "a request whose last record has a stop_reason is exact"
+        assert r1[("subagent ccc", sonnet)]["lower"] == 1, "the last record of the request has no stop_reason"
+        assert list(by_sid["s3"]["rows"]) == [("main thread", sonnet)], by_sid["s3"]["rows"]  # m2 and g1 are not s3's
+        assert copies == 1, copies
+        n = by_sid["s2"]["rows"][("main thread", opus)]
+        assert abs(n["usd"] - (4.0 + 8.0)) < 1e-9, n  # 1M input at $4 + 1M cache write for 1 hour at $8
+        assert by_sid["s2"]["rows"][("main thread", "claude-mystery-1")]["unpriced"] == 1
+        assert abs(message_usd("claude-haiku-5-5", {"input_tokens": 200000}) - 0.5 * 0.2) < 1e-9  # long-prompt Haiku
+        assert abs(message_usd(opus, {"output_tokens": 1000000, "speed": "fast"}) - 40.0) < 1e-9
+        text = "\n".join(report_spend(root))
+        # exact 7.5 (s1) + list price 12.0 (s2) + 2.0 (s3: sonnet f1 only); s3 and s2 are open
+        assert "TOTAL  USD 21.50 at least   (7.50 exact + 14.00 at list price for 2 sessions still open)" in text, text
+        assert "this checkout, sessions started below it" in text and "1 exact, 1 at least" in text, text
+        assert "explorer-w02-a" in text and "30+" in text and "murmuration:explorer" in text, text
+        assert "1 message record copied a message already counted" in text and "1 message is of a model" in text, text
         # The same folder is found through a symlinked project path.
         link = os.path.join(tmp, "link")
         os.symlink(root, link)
-        assert spend(link)[1] == [folder]
+        assert [os.path.basename(f) for f in find_sessions(lab_roots(link))] == ["s1.jsonl", "s2.jsonl", "s3.jsonl"] \
+            and "TOTAL  USD 21.50 at least" in "\n".join(report_spend(link))
         # An unreadable transcript is reported, not silently counted as empty.
         locked = os.path.join(sub, "agent-bbb.jsonl")
         os.chmod(locked, 0)
         try:
             if not os.access(locked, os.R_OK):
-                rows2, _, warns2 = spend(root)
-                assert any("could not read" in w and "agent-bbb.jsonl" in w for w in warns2), warns2
+                seen = []
+                load_sessions(find_sessions(lab_roots(root)), seen)
+                assert any("could not read" in w and "agent-bbb.jsonl" in w for w in seen), seen
                 assert "! could not read" in report(root)
         finally:
             os.chmod(locked, 0o644)
         # A path too long to name in full: found by the start of its name plus the records' cwd.
         longroot = os.path.join(tmp, "x" * 210)
         os.makedirs(longroot)
-        longname = re.sub(r"[^A-Za-z0-9]", "-", os.path.realpath(longroot))
+        longname = encode(os.path.realpath(longroot))
         _write(os.path.join(cfg, "projects", longname[:200] + "-9f8e7d", "s9.jsonl"),
-               record("l1", "claude-opus-x", 1, 1, cwd=longroot))
+               head("s9", os.path.realpath(longroot)) + record("l1", opus, 1, 1, sid="s9"))
         _write(os.path.join(cfg, "projects", longname[:200] + "-000000", "s9.jsonl"),
-               record("l2", "claude-opus-x", 5, 5, cwd="/somewhere/else"))
-        assert [os.path.basename(f) for f in spend(longroot)[1]] == [longname[:200] + "-9f8e7d"]
+               head("s9", "/somewhere/else") + record("l2", opus, 5, 5, sid="s9"))
+        assert [os.path.basename(os.path.dirname(f)) for f in find_sessions(lab_roots(longroot))] == [longname[:200] + "-9f8e7d"]
+        # A session in another git worktree of the same repository belongs to the lab (needs git).
+        repo, wt = os.path.join(tmp, "repo"), os.path.join(tmp, "repo-wt")
+        try:
+            os.makedirs(repo)
+            for cmd in (["init", "-q"], ["-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "--allow-empty", "-m", "x"],
+                        ["worktree", "add", "-q", wt]):
+                subprocess.run(["git", "-C", repo] + cmd, check=True, capture_output=True, timeout=30)
+        except (OSError, subprocess.SubprocessError):
+            print("skipped: git worktree check (git is not usable here)")
+        else:
+            real_repo, real_wt = os.path.realpath(repo), os.path.realpath(wt)
+            _write(os.path.join(cfg, "projects", encode(real_repo), "r1.jsonl"),
+                   head("r1", real_repo) + record("r1m", opus, 1000000, 0, sid="r1"))
+            _write(os.path.join(cfg, "projects", encode(real_wt), "r2.jsonl"),
+                   head("r2", real_wt) + record("r2m", opus, 1000000, 0, sid="r2") + cost_state("r2", 3.0))
+            out = "\n".join(report_spend(repo))
+            assert "TOTAL  USD 7.00 at least   (3.00 exact + 4.00 at list price for 1 session still open)" in out, out
+            assert "this checkout " in out and "worktree repo-wt" in out, out
+            assert "main checkout" in "\n".join(report_spend(wt)), "from the worktree the repository's main checkout is named"
 
-        # The three reports together.
+        # git missing: the section says that only this folder's sessions were counted (a PATH with no git).
+        notice = "only sessions started in this folder or below it were counted"
+        assert notice in "\n".join(report_spend(root)), "a folder outside a repository gets the notice"
+        saved_path = os.environ.get("PATH", "")
+        os.environ["PATH"] = os.path.join(tmp, "no-such-dir")
+        try:
+            assert git_worktrees(repo) == [] and notice in "\n".join(report_spend(repo)), "git missing: notice"
+        finally:
+            os.environ["PATH"] = saved_path
+        if os.path.isdir(wt):
+            assert notice not in "\n".join(report_spend(repo)), "inside a repository there is no notice"
+
+        # The reports together, and the spend section alone for a folder that is no lab.
         text = report(root)
-        assert "## Spend" in text and "murmuration:explorer" in text and "claude-sonnet-x" in text
+        assert "## Spend" in text and "murmuration:explorer" in text and "claude-sonnet-5-5" not in text.split("## Spend")[0]
         assert "Current wave note: __statera__/wave-02.md" in text
+        with contextlib.redirect_stdout(io.StringIO()) as printed:
+            assert main(["--spend", "--project", os.path.join(tmp, "elsewhere")]) == 0
+        assert "TOTAL  USD 4.00 at least" in printed.getvalue(), printed.getvalue()
 
         # No transcripts: say so.
         os.environ["CLAUDE_CONFIG_DIR"] = os.path.join(tmp, "empty")
@@ -872,7 +1075,7 @@ def main(argv):
             print("lab_status.py: --project needs a directory", file=sys.stderr)
             return 2
         root = argv[i + 1]
-    print(report(root))
+    print("\n".join(report_spend(root)) if "--spend" in argv else report(root))
     return 0
 
 

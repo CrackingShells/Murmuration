@@ -1,0 +1,2 @@
+combinatorics sum of cost-state totalCostUSD = 224.8516
+sampled cells 60 unmarked & within 0.05%: 36, unmarked off: 0, marked: 24 (above cost-state: 0)

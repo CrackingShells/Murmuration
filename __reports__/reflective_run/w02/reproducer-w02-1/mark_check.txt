@@ -1,0 +1,18 @@
+subagent files 1448 usable 1448 expected marked 967 unmarked 481
+OK       expected=True  actual=True  msgs=4 agent-ad554b36aedf24db7.jsonl
+OK       expected=True  actual=True  msgs=87 agent-ad5817dac31a62a48.jsonl
+OK       expected=True  actual=True  msgs=113 agent-a63f1649c77823942.jsonl
+OK       expected=True  actual=True  msgs=118 agent-a515971dca5395a17.jsonl
+OK       expected=True  actual=True  msgs=197 agent-ad067c02cebf01aa7.jsonl
+OK       expected=True  actual=True  msgs=34 agent-af9e7bd9fc16716d5.jsonl
+OK       expected=True  actual=True  msgs=113 agent-a8c0c9df85cd7b12d.jsonl
+OK       expected=True  actual=True  msgs=21 agent-a301f0cc4e672d615.jsonl
+OK       expected=False actual=False msgs=37 agent-a0619d2804846a667.jsonl
+OK       expected=False actual=False msgs=5 agent-a4668abe500265683.jsonl
+OK       expected=False actual=False msgs=15 agent-a52b7362df9a5a532.jsonl
+OK       expected=False actual=False msgs=7 agent-a63ef47a52c793a89.jsonl
+OK       expected=False actual=False msgs=9 agent-ab15194e8bb4e5b9c.jsonl
+OK       expected=False actual=False msgs=26 agent-ae7444387202f1f97.jsonl
+OK       expected=False actual=False msgs=3 agent-a1ca543cddec1e1c2.jsonl
+OK       expected=False actual=False msgs=4 agent-a17e488427cb80453.jsonl
+mismatches 0 of 16

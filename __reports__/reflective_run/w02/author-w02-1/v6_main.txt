@@ -1,0 +1,13 @@
+# Lab status
+
+Current wave note: __statera__/wave-01.md
+
+## Open puzzles (0)
+none raised: `__scrupuli__/` holds no puzzles
+
+## Claims (0, 0 disputed, 0 warnings)
+none: `__pondus__/` holds no claim files
+
+## Spend (tokens, from Claude Code's transcripts for this project)
+read: /Users/hacker/.claude/projects/-Users-hacker-Documents-src-CrackingShells-Murmuration
+no usage records in those transcripts
