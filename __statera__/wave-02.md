@@ -83,6 +83,27 @@ wave at about 60 more (study total about 135) and checks spend at each phase.
 
 ## Notes
 
+- **Experiment, arms A and B (14:45 JST; measured by explorer-w02-c, `w02/explorer-w02-c/00-findings_v0.md`).**
+  Decisions by the pre-registered rules:
+  - w02-c4 (report template, lean workers): **lands**. Worker first-request context is 42–44% smaller
+    at every role (A 23.6–23.9k, B 13.3–13.8k tokens). Both explorer reports sit at the convention path
+    with the template's front-matter keys and its six headings in order. The PI reads "template's
+    shape" as the required headings in order, extra headings allowed; that is a reading, stated here.
+  - Hand-back saver (part of w02-c5): **lands**. 18 of 18 murmuration hand-backs were saved; the
+    built-in web-fetch agent's hand-back was saved too.
+  - Deny-once check: not exercised (0 denies; both explorers wrote the report first). It stays on
+    the strength of w02-c5's probe cells (13 of 13).
+  - Budget note and stop: **undecided at real B**. No note or stop fired; the highest use was 0.28 B.
+    The defaults (1.5–3 USD) are 3.5 to 150 times what the workers spent per run.
+  - Outcome: no regression. B's synthesis is correct by brute force; A's mathematics is correct too,
+    but A wrote no synthesis because the platform's 10-minute background ceiling killed its
+    wave-2 explorer (S-w02-research-pi-2).
+  - Not deciding at n = 1: B cost USD 6.47 against 4.88 and took 4540 s against 1269 s; 65% of B's
+    wall time is one explorer (2956 s at 0.28 B).
+  What does not add up: the spend budget never bound, while elapsed time did twice (A's explorer cut
+  at the ceiling; B's explorer ran 49 min on a quarter of its budget). The user named "token or time
+  budget". Next: add a time budget on the same note/stop path (w02-c6), then a second candidate run
+  (arm B2) to see the mechanism fire in a real study.
 - Plugin changes are now applied on the study branch `claude/murmuration-system-optimization-8cff9e`
   after a claim and a verdict, per the user's 12:50 answer. Nothing goes to `main`; the user merges.
 
