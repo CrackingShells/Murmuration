@@ -10,5 +10,10 @@ AGG exact worker USD / B, cells with hooks: min 0.99 median 1.56 max 1.93; contr
 AGG USD after the note on the hook's basis: median 0.0371, max 0.051; after the stop: median 0.0302
 AGG recorded share of exact: min 0.63 max 0.83; hook basis (est) share of exact: min 0.93 max 1.04 over 16 cells
 AGG hook processes per worker tool call: 1.28 (hook processes / worker calls, cells with hooks)
-AGG total USD of these cells (total_cost_usd): 1.987
-latency ms (median, max of 20) on the 91-request transcript of l1: {'budget.py PostToolUse': (63.0, 87.1), 'handback.py PreToolUse (explorer, first call: deny)': (53.7, 63.4), 'python3 -c pass': (47.2, 78.8)}
+AGG time cell m1 (Time: min 1): note at t_frac 0.8595 by time at 51.6s, stop notice at t_frac 1.0869 by time at 65.2s; reads after note 0, after stop 0; ended at t_frac 1.0919 (65.5s); hand-back saved True; exact worker USD / default B 0.022
+AGG time cell m2 (Time: min 1): note at t_frac 0.8152 by time at 48.9s, stop notice at t_frac 1.0591 by time at 63.5s; reads after note 0, after stop 0; ended at t_frac 1.1415 (68.5s); hand-back saved True; exact worker USD / default B 0.024
+AGG time cell m3 (Time: min 1): note at t_frac 0.8894 by time at 53.4s, stop notice at t_frac 1.0803 by time at 64.8s; reads after note 0, after stop 0; ended at t_frac 1.1496 (69.0s); hand-back saved True; exact worker USD / default B 0.022
+AGG time cell m4 (Time: min 1): note at t_frac None by None at Nones, stop notice at t_frac 1.0089 by time at 60.5s; reads after note None, after stop 0; ended at t_frac 1.2144 (72.9s); hand-back saved True; exact worker USD / default B 0.017
+AGG time cell m5 (Time: min 1): note at t_frac None by None at Nones, stop notice at t_frac 1.0394 by time at 62.4s; reads after note None, after stop 0; ended at t_frac 1.3077 (78.5s); hand-back saved True; exact worker USD / default B 0.022
+AGG total USD of these cells (total_cost_usd): 2.326
+latency ms (median, max of 20) on the 91-request transcript of l1: {'budget.py PostToolUse': (44.7, 69.7), 'handback.py PreToolUse (explorer, first call: deny)': (37.2, 39.3), 'python3 -c pass': (30.4, 31.9)}

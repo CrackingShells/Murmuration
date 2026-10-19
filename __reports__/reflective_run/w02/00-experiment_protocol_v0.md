@@ -68,3 +68,27 @@ recollection of a known result [assumption]; the brute force decides, not the re
   the user set aside, are not tested.
 - Both arms use the same machine and the same user's skills and MCP servers. The lean-worker
   change matters more for users with many skills, as this user has 90.
+
+## Addendum, arm B2 (written before the run, about 15:15 JST)
+
+Arms A and B left the budget rule undecided: no note or stop fired at real B (`w02/explorer-w02-c`).
+The candidate now also carries a time budget (w02-c6: defaults explorer 20, author 20, verifiers 15
+minutes; note at 0.8, hand-back notice at 1.0, whichever of USD or time crosses first).
+
+| Arm | Plugin | Difference from B |
+|:--|:--|:--|
+| B2 | the study branch at the commit made just before this run (B plus w02-c6) | time budget; `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0` set, to test the README advice of w02-c7 |
+
+Same question, prompt, models, `--max-budget-usd 15` and permission mode as A and B. B2 is not a
+fair comparison with B on cost or time, because the ceiling differs; it exists to see the budget
+mechanism in a real study and the ceiling advice in use.
+
+Rules for B2:
+- **Time/USD budget:** if any note or notice fires, the rule of the main protocol applies: every
+  worker that gets one hands back a deliverable, and the overshoot past 1.0 of the deciding budget
+  is at most 20% of that budget, in USD or minutes. If none fires, the budget stays on the branch
+  as inert insurance, at its measured cost of about 40 ms per tool call and one start note per
+  worker, and the rule stays undecided.
+- **Ceiling advice (w02-c7):** B2 must end with a `synthesis.md` and with no "stopping them" line in
+  stderr.
+- **No regression:** B2's synthesis must be correct against the brute force.

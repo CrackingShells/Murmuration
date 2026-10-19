@@ -93,3 +93,19 @@ w02-c5 came to USD 4.19 against the original cap of 4. The stop-alone design (no
 hand-back at all, since the 0.8 note normally makes the worker hand back first. If it does not, the 1.0 B notice is a rarely used
 path, and the evidence for it here stands on 5 cells with the note disabled.
 refs: `__pondus__/w02-c5.md`, `__reports__/reflective_run/w02/author-w02-3/summary.tsv`
+
+## S-w02-author-w02-3-12
+Three of arm B explorer-w02-a's six long Bash calls ran 581, 591 and 596 s, within 3 percent of 600 s. If that is the Bash tool's own
+timeout, the worker was running computations that the platform cut at the limit and then started again, 4 times in a row (1260 s to
+2856 s): 27 minutes of work that returned no more than the first one did. A time budget would have asked for the hand-back at the first
+return past 20 minutes; whether the repeated 10 minute runs were progressing, or the same step re-run, I did not read in the output
+(only the timing).
+refs: arm B transcripts (read only), `__pondus__/w02-c6.md` part 1
+
+## S-w02-author-w02-3-13
+The brief line for the time budget is read from the first `PostToolUse`, as the USD line is, but the `SubagentStart` text can only say
+"unless your brief has a line `Time: min <number>`". A worker given `Time: min 1` and told "20 minutes unless your brief says otherwise"
+did the right thing in m1 to m5, but a verifier that reads the first sentence only might plan for 20. The alternative is to have the
+PI's `PreToolUse(Agent)` hook (main thread) read the brief and register the budgets before the worker starts; I did not build it
+because it needs a second hook with state shared between two agents.
+refs: `scripts/budget.py` (`start_note`, `handle`)

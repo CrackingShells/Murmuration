@@ -37,7 +37,7 @@ def cell(name):
         lp = os.path.join(lab, "__statera__", "harness.jsonl")
         starts = [json.loads(x) for x in open(lp) if '"start"' in x] if os.path.exists(lp) else []
         B = starts[0]["B"] if starts else None
-    row = dict(cell=name, plugin=meta["plugin"], type=meta["type"], B=B, wall_s=meta["wall_s"], total_usd=meta["usd"],
+    row = dict(cell=name, time_min=meta.get("time") or None, plugin=meta["plugin"], type=meta["type"], B=B, wall_s=meta["wall_s"], total_usd=meta["usd"],
                worker_usd=meta["model_usd"].get("claude-sonnet-5-5"))
     log = []
     p = os.path.join(lab, "__statera__", "harness.jsonl")
@@ -57,10 +57,10 @@ def cell(name):
     # what the platform recorded as delivered to the worker (attachment records of its own transcript)
     att = [json.loads(l)["attachment"] for l in open(tx, encoding="utf-8", errors="replace") if '"attachment"' in l and "Lab harness" in l]
     row["note_delivered"] = sum(x.get("type") == "hook_additional_context" and "Lab harness note" in json.dumps(x) for x in att)
-    row["stop_delivered"] = sum(x.get("type") == "hook_blocking_error" and "budget is used" in json.dumps(x) for x in att)
+    row["stop_delivered"] = sum(x.get("type") == "hook_blocking_error" and "Call SubagentHandback now" in json.dumps(x) for x in att)
     recs_all = [json.loads(l) for l in open(tx, encoding="utf-8", errors="replace")]
     first_stop = next((i for i, x in enumerate(recs_all) if x.get("type") == "attachment" and x["attachment"].get("type") == "hook_blocking_error"
-                       and "budget is used" in json.dumps(x["attachment"])), None)
+                       and "Call SubagentHandback now" in json.dumps(x["attachment"])), None)
     if first_stop is not None:
         row["stop_before_handback"] = not any(b.get("type") == "tool_use" and b.get("name") == "SubagentHandback"
                                               for x in recs_all[:first_stop] if x.get("type") == "assistant" for b in x["message"]["content"])
@@ -106,6 +106,13 @@ def cell(name):
         for (basis, m), n in mark.items():
             row["%s_mark_%s_at_request" % (basis, m)] = n
     row["est_share_of_exact"] = round(seen["usd"] / row["worker_usd"], 3)
+    if ev["start"]:
+        row["T_min"] = ev["start"][0].get("T")
+    for k in ("note", "stop"):
+        if ev[k]:
+            row[k + "_which"], row[k + "_t_frac"] = ev[k][0].get("which"), ev[k][0].get("t_frac")
+    if ev["end"]:
+        row["end_elapsed_s"], row["end_t_frac"] = ev["end"][-1]["elapsed_s"], ev["end"][-1].get("t_frac")
     for k in ("note", "stop"):
         if ev[k]:
             e = ev[k][0]
@@ -170,6 +177,8 @@ if TSV:
 for r in rows:
     assert r.get("plugin", "").startswith("nohooks") or (r["note_delivered"] == r["n_note"] and r["stop_delivered"] == r["n_stop"]), \
         ("the log and the worker's transcript disagree", r["cell"], r["n_note"], r["note_delivered"], r["n_stop"], r["stop_delivered"])
+timed = [r for r in rows if r.get("time_min")]
+rows = [r for r in rows if not r.get("time_min")]   # the time cells have their own lines below
 quiet = [r for r in rows if r["plugin"] == "smallquiet"]   # start note and the platform's tracker, no notices
 hooked = [r for r in rows if not r["plugin"].startswith("nohooks") and r["plugin"] != "smallquiet"]
 def med(xs):
@@ -198,7 +207,13 @@ print("AGG recorded share of exact: min %.2f max %.2f; hook basis (est) share of
     min(r["recorded_share_of_exact"] for r in rows), max(r["recorded_share_of_exact"] for r in rows),
     min(r["est_share_of_exact"] for r in rows), max(r["est_share_of_exact"] for r in rows), len(rows)))
 print("AGG hook processes per worker tool call: %.2f (hook processes / worker calls, cells with hooks)" % (sum(r["hook_processes"] for r in hooked) / sum(r["worker_calls"] for r in hooked)))
-print("AGG total USD of these cells (total_cost_usd): %.3f" % sum(r["total_usd"] for r in rows))
+for r in timed:
+    print("AGG time cell %s (Time: min %s): note at t_frac %s by %s at %ss, stop notice at t_frac %s by %s at %ss; reads after note %s, after stop %s; "
+          "ended at t_frac %s (%ss); hand-back saved %s; exact worker USD / default B %s" % (
+              r["cell"], r["time_min"], r.get("note_t_frac"), r.get("note_which"), r.get("note_elapsed_s"), r.get("stop_t_frac"), r.get("stop_which"),
+              r.get("stop_elapsed_s"), r.get("reads_after_note"), r.get("reads_after_stop"), r.get("end_t_frac"), r.get("end_elapsed_s"),
+              r["handback_saved_verbatim"], r["exact_over_B"]))
+print("AGG total USD of these cells (total_cost_usd): %.3f" % sum(r["total_usd"] for r in rows + timed))
 
 # hook latency on a real transcript (the one with most requests), process start included, python3 as the hooks.json runs it
 if rows and "--no-latency" not in sys.argv:

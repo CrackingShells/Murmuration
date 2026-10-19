@@ -1,6 +1,6 @@
 #!/bin/sh
-# Full run: selftests, mutants, then 16 headless cells in four waves (about 12 minutes wall, about USD 1.9), then the table.
-# quick: the selftests, the mutants, and 2 cells (h1 with the hooks, n1 the control): about 3 minutes, about USD 0.3.
+# Full run: selftests, mutants, then 21 headless cells in five waves (about 15 minutes wall, about USD 2.3), then the table.
+# quick: the selftests, the mutants, and 3 cells (h1 with the hooks, n1 the control, m1 the time budget): about 3 minutes, about USD 0.3.
 # usage: run_all.sh <scratch dir> [quick]      (the scratch dir must be outside the worktree)
 set -e
 H="$(cd "$(dirname "$0")" && pwd)"; S="$1"; Q="$2"
@@ -12,6 +12,7 @@ D="python3 -I $H/drive.py $S"
 if [ "$Q" = quick ]; then
   $D n1 --plugin nohooks_wt --type explorer --budget none --B 0.06 &
   $D h1 --plugin small --type explorer --budget none &
+  $D m1 --plugin wt --type explorer --budget none --time 1 --sleep 3 --cap 0.4 &
   wait
 else
   # wave 1: the control (no hooks, no budget line: the worker knows no B), three explorers with the hooks and B = 0.06 by default,
@@ -35,6 +36,9 @@ else
   $D q1 --plugin smallquiet --type explorer --budget none &
   $D q2 --plugin smallquiet --type explorer --budget none &
   $D l1 --plugin large --type explorer --budget none --files 100 & wait
+  # wave 5: the time budget (w02-c6): `Time: min 1`, a task of 40 calls that each sleep 3 s; m1 to m3 with both notices, m4 and m5 with the 80 percent note off
+  for c in m1 m2 m3; do $D $c --plugin wt --type explorer --budget none --time 1 --sleep 3 --cap 0.4 & done
+  for c in m4 m5; do $D $c --plugin wtstop --type explorer --budget none --time 1 --sleep 3 --cap 0.4 & done; wait
 fi
 if [ "$Q" = quick ]; then OUT="$S/summary_quick.tsv"; else OUT="$H/summary.tsv"; fi   # a quick run never overwrites the tracked table
 python3 -I "$H/analyze.py" "$S" --tsv "$OUT"

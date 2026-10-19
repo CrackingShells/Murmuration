@@ -35,6 +35,15 @@ old = "NOTE_AT, STOP_AT, HARD_AT = 0.8, 1.0, 1.5"
 assert old in s
 open(p, "w").write(s.replace(old, "NOTE_AT, STOP_AT, HARD_AT = 9.0, 1.0, 1.5"))
 PY
+# the working tree's hooks with the 80 percent note switched off (the hand-back notice alone), for the time test
+cp -R "$S/plugin_wt" "$S/plugin_wtstop"
+python3 - "$S/plugin_wtstop/scripts/budget.py" <<'PY'
+import sys
+p = sys.argv[1]; s = open(p).read()
+old = "NOTE_AT, STOP_AT, HARD_AT = 0.8, 1.0, 1.5"
+assert old in s
+open(p, "w").write(s.replace(old, "NOTE_AT, STOP_AT, HARD_AT = 9.0, 1.0, 1.5"))
+PY
 # start note and tracker only: the note and the stop never fire
 cp -R "$S/plugin_small" "$S/plugin_smallquiet"
 python3 - "$S/plugin_smallquiet/scripts/budget.py" <<'PY'
