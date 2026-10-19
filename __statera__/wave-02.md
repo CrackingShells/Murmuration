@@ -5,7 +5,7 @@ opened: 2026-10-19
 ## The user's sentence this wave serves
 
 The user answered the PI's decision questions through the Desktop question dialog (`AskUserQuestion`,
-about 12:50 JST). These answers are not in `__statera__/user_words.md`, because they arrive as a
+12:26 JST by the transcript; the PI first wrote 12:50, corrected per author-w02-2). These answers are not in `__statera__/user_words.md`, because they arrive as a
 tool result and do not fire `UserPromptSubmit` (S-w02-research-pi-1). Quoted verbatim from the
 tool result in this run's transcript:
 
@@ -41,7 +41,7 @@ against the user's reading:
   ANALYSIS (w01-c14), and the round-versioned report names of the writing-reports convention
   (`NN-<type>_vN.md`) start with digits, so they may pass untouched. Not tested.
 
-Budget: about 6 hours of wall time from about 12:50 JST, set by the user. In USD the PI caps this
+Budget: about 6 hours of wall time from about 12:30 JST, set by the user. In USD the PI caps this
 wave at about 60 more (study total about 135) and checks spend at each phase.
 [assumption: the user gave hours, not USD; the cap keeps the wave at the size of wave 1]
 
@@ -62,10 +62,14 @@ wave at about 60 more (study total about 135) and checks spend at each phase.
 
 | Agent | Role | Brief (one line) | Returned |
 |:--|:--|:--|:--|
-| author-w02-1 | author | w02-c1: apply the measured `/lab-status` spend fix (w01-c3 + w01-c2 detector) to the shipped script | |
-| author-w02-2 | author | w02-c2: apply the prompt-text rule (w01-c9) to the shipped hook; prototype AskUserQuestion capture | |
-| explorer-w02-a | explorer | How a token/time budget can reach a running worker through hooks; presence gate; first look at "anxiety" | |
-| explorer-w02-b | explorer | Report names vs the Write refusal; loading writing-reports; skill-listing size; subagent cache lifetime | |
+| author-w02-1 | author | w02-c1: apply the measured `/lab-status` spend fix (w01-c3 + w01-c2 detector) to the shipped script | yes; landed as 2b8dda9 (SUPPORTED) |
+| author-w02-2 | author | w02-c2: apply the prompt-text rule (w01-c9) to the shipped hook; prototype AskUserQuestion capture | yes; landed as 9b96ac0 (SUPPORTED) |
+| reproducer-w02-1 | reproducer | verify w02-c1 | SUPPORTED |
+| reproducer-w02-2 | reproducer | verify w02-c2 | SUPPORTED |
+| explorer-w02-a | explorer | How a token/time budget can reach a running worker through hooks; presence gate; first look at "anxiety" | yes; USD 0.78, 82 headless haiku runs; wrote `00-findings_v0.md` itself (Write allowed) |
+| explorer-w02-b | explorer | Report names vs the Write refusal; loading writing-reports; skill-listing size; subagent cache lifetime | after a 60-turn stop and resume; USD 0.26 |
+| author-w02-3 | author | w02-c3: ship the budget hook (USD, 80% note, 100% stop) and the hand-back saver with a deny-once report check | |
+| author-w02-4 | author | w02-c4: report templates in research-loop; workers without `Skill`; maxTurns as fallback 150 | |
 
 ## Claims of this wave
 
