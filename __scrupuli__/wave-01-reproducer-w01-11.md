@@ -21,3 +21,11 @@ refs: __pondus__/w01-c11.md ### exchange
 ## S-w01-reproducer-w01-11-6
 Update to -5: the PI's answers did arrive, but after I had appended my verdict, so the first exchange log said "no answer" and a second block had to be appended. A verifier that closes before the PI's next turn writes a false "no answer" into an append-only file. Should the loop say to wait for the PI's reply (or poll once) before the verdict line is written, or allow a "late answers" subsection?
 refs: __pondus__/w01-c11.md (### exchange and ### exchange, late answers)
+
+## S-w01-reproducer-w01-11-7
+Each restatement round of the same CONJECTURE (c11, c12, c13) fixed what the verifier named and left one stale sentence elsewhere (c13's `scope:` still says "seven" for nine not-examined elements). Rewriting a whole table by hand under supersedes lets old wording drift in, and a verifier scoped to "the changes" does not read every line. Should a superseding claim list which sentences changed (a diff block), so the verifier can check changes against that list and not against the whole text?
+refs: __pondus__/w01-c13.md (`scope:`, SA3 row); __pondus__/w01-c12.md
+
+## S-w01-reproducer-w01-11-8
+"Examined" was defined only after the first verdict: c11 and c12 counted an element as examined if any wave-1 fact was named in its row, which let SA1 and SA2 pass with "no fact bears on" in the same row. A count in a title is only as good as the criterion for the counted class. Should a claim that counts a class state the membership rule in `scope:` in its first filing?
+refs: __pondus__/w01-c11.md (independent result, item 11); __pondus__/w01-c13.md (`scope:`)

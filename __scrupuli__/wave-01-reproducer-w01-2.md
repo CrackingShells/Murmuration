@@ -17,3 +17,7 @@ refs: __reports__/reflective_run/w01/author-w01-2/runs/otel-ins-auto/otel_events
 ## S-w01-reproducer-w01-2-5
 My 4 new runs added entries to ~/.claude/plugins/installed_plugins.json (not edited by me). Across the author's 199 runs and the other agents' runs this file may have grown by hundreds of entries. Is that bookkeeping pollution measured by anyone? It is a hidden cost of the headless-probe method.
 refs: ~/.claude/plugins/installed_plugins.json
+
+## S-w01-reproducer-w01-2-6
+The author redacted the user's email and account ids in 863 files under `runs/` after my question. The redaction rewrote the stored evidence in place, so the files no longer match what the harness wrote. Is a redacted copy still a valid artifact for a MEASURED claim? My analysis ran on the redacted stdout.jsonl and hooks.jsonl and gave the same sums, but a rule for redacting before commit would help.
+refs: __reports__/reflective_run/w01/author-w01-2/runs

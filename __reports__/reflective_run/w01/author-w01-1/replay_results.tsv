@@ -1,8 +1,36 @@
 agent	agent_id	verbatim_chars	file_in_lab	saved_report	saved_equals_verbatim	first_difference
+reproducer-w01-11	a14c1a51f2af8092b	3327	True	none		
+reproducer-w01-11	a14c1a51f2af8092b	3054	True	none		
 explorer-w01-c	a1f4458ce75dacdec	16166	True	__reports__/reflective_run/w01/explorer-w01-c/report.md	identical	
+reproducer-w01-8	a1fc18c8a5d480043	4044	True	none		
+reproducer-w01-4	a2ca20f214bf665d4	5053	True	none		
+reproducer-w01-10	a33f44eb9a534960c	3959	True	none		
+author-w01-2	a41c53b7f77ba2588	7128	True	none		
+author-w01-2	a41c53b7f77ba2588	3905	True	none		
+reproducer-w01-5	a492a8c08e69c24bf	4451	True	none		
 explorer-w01-e	a53e063b007b7a428	6385	True	__reports__/reflective_run/w01/explorer-w01-e/report.md		
+reproducer-w01-7	a5efc74c3a545b66c	4413	True	none		
 explorer-w01-f	a6a6066b76cfb02ea	17845	True	__reports__/reflective_run/w01/explorer-w01-f/report.md	equal_modulo_neutralization(saved has 8 '<\\' more)	pos 11972: saved='rom injected `<\\system-reminder>` blocks' verbatim='rom injected `<system-reminder>` blocks?'
+author-w01-3	a701db1323184fd9b	7550	True	none		
+author-w01-3	a701db1323184fd9b	1763	True	none		
+author-w01-4	a93c828c5c098ac3a	8059	True	none		
+author-w01-4	a93c828c5c098ac3a	2909	True	none		
+author-w01-4	a93c828c5c098ac3a	3656	True	none		
+author-w01-4	a93c828c5c098ac3a	4728	True	none		
+author-w01-4	a93c828c5c098ac3a	2003	True	none		
+author-w01-4	a93c828c5c098ac3a	1789	True	none		
 author-w01-5	a9745700ad92f7cee	7134	True	none		
+author-w01-5	a9745700ad92f7cee	2992	True	none		
+author-w01-5	a9745700ad92f7cee	2487	True	none		
+author-w01-5	a9745700ad92f7cee	1243	True	none		
+author-w01-5	a9745700ad92f7cee	2753	True	none		
+author-w01-5	a9745700ad92f7cee	1196	True	none		
+reproducer-w01-3	a982018b5dc8777dd	3685	True	none		
 explorer-w01-d	a996dba2994d53126	19661	True	__reports__/reflective_run/w01/explorer-w01-d/report.md	equal_modulo_neutralization(saved has 4 '<\\' more)	pos 2101: saved=' The leading `<\\system-reminder>` block ' verbatim=' The leading `<system-reminder>` block ('
+author-w01-6	aa70e320bd52db2dd	10337	True	none		
+author-w01-6	aa70e320bd52db2dd	5171	True	none		
+author-w01-1	ab6cc558229bad0e3	8533	True	none		
+reproducer-w01-9	abe8d9dc8f9133a34	4593	True	none		
 explorer-w01-b	ac6c27171353e66ed	15162	True	__reports__/reflective_run/w01/explorer-w01-b/report.md	equal_modulo_neutralization(saved has 7 '<\\' more)	pos 5748: saved='and-backs in `<\\agent-message from=...>`' verbatim='and-backs in `<agent-message from=...>` '
 explorer-w01-a	af01bccf4de2a3706	15093	True	__reports__/reflective_run/w01/explorer-w01-a/report.md	identical	
+reproducer-w01-6	af203d6362eab4e3f	3846	True	none		

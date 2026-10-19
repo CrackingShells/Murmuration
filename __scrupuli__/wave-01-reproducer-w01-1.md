@@ -17,3 +17,15 @@ refs: __reports__/reflective_run/w01/author-w01-1/scratch/p5_auto_bg_nasty/RAWLO
 ## S-w01-reproducer-w01-1-5
 The size figure "69 executable lines" did not reproduce by an AST count (84 statement lines outside the selftest; 72 without defs and imports; 93 non-blank non-comment non-docstring lines). Small, but a cost row in a proposal is read as a promise about maintenance; which counting rule was used, and should every proposal state one?
 refs: plugin/scripts/handback.py
+
+## S-w01-reproducer-w01-1-6
+A hook that "exits 0 with no output, anything unexpected is dropped" turned out to lose hand-backs silently in three ways within one hour of review (quoted header, lone surrogate; still: unwritable folder, confirmed with a read-only `handbacks/`). The first version's own checker could not see any of them because it compared the file with what the hook received. What is the smallest self-check that detects a lost hand-back without a second source of truth: the count of `subagents/agent-*.meta.json` against the count of delivered sections, computed by `/lab-status`? And is silence the right failure mode for a logging hook when the PI reads that log to recover work?
+refs: __reports__/reflective_run/w01/reproducer-w01-1/edge_v2.py (last line, read-only dir); plugin/scripts/handback.py `main()`
+
+## S-w01-reproducer-w01-1-7
+The `draft` label rests on `permission_mode == "auto"` plus text at a `SubagentStop`. It is observed in 2 of 3 resumed auto runs with haiku and the trivial agent, never in the first-delivery case. Would a real sonnet author in auto mode, with a long report, end a first turn in plain text just as often? If so the harness "send enforce" message appears in most auto runs and draft sections would be common noise; this run's own transcripts (auto mode) could be counted for `[handback-send-enforce]` user turns.
+refs: __reports__/reflective_run/w01/author-w01-1/scratch/p8_d299_auto_two/RAWLOG; ~/.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/subagents/*.jsonl (search for "handback-send-enforce")
+
+## S-w01-reproducer-w01-1-8
+Line counts are quoted as maintenance cost but changed 69 to 88 between versions while my AST counts are 72/84 and 101 for the same files. A cost of "lines to maintain" needs one counting rule, written next to the number.
+refs: plugin/scripts/handback.py (sha256 e79dc3e0d970), handback_v1_f6589f03c7dc.py

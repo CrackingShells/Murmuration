@@ -49,13 +49,194 @@ the user at 11:04 ("That's reasonable, actually.").
 
 ## Claims of this wave
 
-| Claim | Statement | Current label |
+| Claim | Statement (short) | Current label |
 |:--|:--|:--|
+| w01-c1 | Hand-back hook (first statement) | superseded by w01-c14 |
+| w01-c2 | Per-subagent output in transcripts is exact except in `auto`/`plan` modes (and rarely otherwise); detector; OTel exact | escalated → used at MEASURED by PI decision (statement restated, see Notes) |
+| w01-c3 | `/lab-status` spend: dedupe by sessionId, find worktree sessions, USD from cost-state; no hook needed (this machine, 2.1.299) | MEASURED |
+| w01-c4 | User-words capture fix (first statement) | superseded by w01-c9, w01-c10 |
+| w01-c5 | Turn-limit stops (first statement) | superseded by w01-c8 |
+| w01-c6 | Human-facing close-message contract | below CONJECTURE: restate (verifier: none clearly pre-empted; 3 of 55 at wave close) |
+| w01-c7 | Asking habit for the PI | below CONJECTURE: restate (verifier: removes 1–2 of 19 asks) |
+| w01-c8 | Turn-limit stops cost no cache rewrite when resumed within ~5 min; 0 of 38 notices waited > 300 s; per-role limits (CONJECTURE) | escalated → used at MEASURED by PI decision |
+| w01-c9 | User-words text rule: 72 typed prompts kept, 51 cleaned, 0 dropped | below MEASURED: restate (numbers reproduced; title broader than run) |
+| w01-c10 | User-words root rule (cwd first) | below CONJECTURE: restate (regression found; Desktop unobserved) |
+| w01-c11, w01-c12 | Set-aside verdict table, first two statements | superseded by w01-c13 |
+| w01-c13 | Set-aside verdict table: 8 examined, SA6 back if w01-c14 holds, SA3 changed shape, 6 stay out, 9 not examined | CONJECTURE (SUPPORTED) |
+| w01-c14 | Hand-back hook, headless, saves every hand-back verbatim, drafts/gaps marked; recovery aid only | MEASURED |
 
 ## Puzzle dispositions (at close)
 
 | Puzzle | Disposition |
 |:--|:--|
+| S-w01-author-w01-1-1 | followed: w01-c1 |
+| S-w01-author-w01-1-2 | followed: w01-c1 |
+| S-w01-author-w01-1-3 | followed: w01-c1 |
+| S-w01-author-w01-1-4 | followed: w01-c1 |
+| S-w01-author-w01-1-5 | followed: w01-c1 |
+| S-w01-author-w01-1-6 | followed: w01-c1 |
+| S-w01-author-w01-1-7 | parked: SA6's presence gate was not tested; no evidence for or against — open item |
+| S-w01-author-w01-1-8 | parked: leanness probe (can a plugin shorten the skill listing for workers?) not run in wave 1 for budget — open item |
+| S-w01-author-w01-1-9 | followed: w01-c1 |
+| S-w01-author-w01-1-10 | parked: cause found (the worktree's .claude/settings.local.json is picked up by headless runs below it); cleaning the registry is the user's call — open item |
+| S-w01-author-w01-1-11 | followed: w01-c1 |
+| S-w01-author-w01-2-1 | followed: w01-c2 |
+| S-w01-author-w01-2-2 | followed: w01-c2 |
+| S-w01-author-w01-2-3 | followed: w01-c2 |
+| S-w01-author-w01-2-4 | parked: cause found (the worktree's .claude/settings.local.json is picked up by headless runs below it); cleaning the registry is the user's call — open item |
+| S-w01-author-w01-2-5 | followed: w01-c2 |
+| S-w01-author-w01-2-6 | followed: w01-c2 |
+| S-w01-author-w01-3-1 | parked: subagent prompt-cache lifetime (5 min vs 1 h for the main thread) is the reflective_run tuning target `cacheTtl`; not tested — open item |
+| S-w01-author-w01-3-2 | followed: w01-c3 |
+| S-w01-author-w01-3-3 | followed: w01-c3 |
+| S-w01-author-w01-3-4 | followed: w01-c10 |
+| S-w01-author-w01-3-5 | followed: w01-c3 |
+| S-w01-author-w01-3-6 | followed: w01-c2 |
+| S-w01-author-w01-3-7 | followed: w01-c3 |
+| S-w01-author-w01-4-1 | followed: w01-c10 |
+| S-w01-author-w01-4-2 | parked: cause found (the worktree's .claude/settings.local.json is picked up by headless runs below it); cleaning the registry is the user's call — open item |
+| S-w01-author-w01-4-3 | followed: w01-c9 |
+| S-w01-author-w01-4-4 | followed: w01-c9 |
+| S-w01-author-w01-4-5 | followed: w01-c9 |
+| S-w01-author-w01-4-6 | followed: w01-c9 |
+| S-w01-author-w01-4-7 | followed: w01-c9 |
+| S-w01-author-w01-4-8 | parked: leanness probe (can a plugin shorten the skill listing for workers?) not run in wave 1 for budget — open item |
+| S-w01-author-w01-5-1 | followed: w01-c8 |
+| S-w01-author-w01-5-2 | parked: whether maxTurns restarts on resume is not testable from transcripts; needs a probe — open item |
+| S-w01-author-w01-5-3 | followed: w01-c8 |
+| S-w01-author-w01-5-4 | parked: subagent prompt-cache lifetime (5 min vs 1 h for the main thread) is the reflective_run tuning target `cacheTtl`; not tested — open item |
+| S-w01-author-w01-5-5 | parked: leanness probe (can a plugin shorten the skill listing for workers?) not run in wave 1 for budget — open item |
+| S-w01-author-w01-5-6 | followed: w01-c8 |
+| S-w01-author-w01-5-7 | parked: research-loop protocol proposal (claim-head versioning before verification; late PI answers; derived-table lossiness) not hardened in this study — open item |
+| S-w01-author-w01-5-8 | followed: w01-c2 |
+| S-w01-author-w01-5-9 | followed: w01-c8 |
+| S-w01-author-w01-6-1 | followed: w01-c6 |
+| S-w01-author-w01-6-2 | followed: w01-c6 |
+| S-w01-author-w01-6-3 | followed: w01-c7 |
+| S-w01-author-w01-6-4 | followed: w01-c7 |
+| S-w01-author-w01-6-5 | followed: w01-c7 |
+| S-w01-author-w01-6-6 | followed: w01-c7 |
+| S-w01-author-w01-6-7 | followed: w01-c6 |
+| S-w01-author-w01-6-8 | followed: w01-c6 |
+| S-w01-author-w01-6-9 | parked: where a rule that crosses labs lives (user scope vs lab framing) is a design question for the user — open item |
+| S-w01-explorer-w01-a-1 | followed: w01-c2 |
+| S-w01-explorer-w01-a-2 | followed: w01-c3 |
+| S-w01-explorer-w01-a-3 | followed: w01-c2 |
+| S-w01-explorer-w01-a-4 | followed: w01-c8 |
+| S-w01-explorer-w01-a-5 | followed: w01-c3 |
+| S-w01-explorer-w01-a-6 | parked: minor record-format oddities with no cost found in this study |
+| S-w01-explorer-w01-b-1 | followed: w01-c13 |
+| S-w01-explorer-w01-b-2 | parked: status-vs-verdict wording in hand-backs: no cost observed (the PI relayed correctly in case C) |
+| S-w01-explorer-w01-b-3 | followed: w01-c1 |
+| S-w01-explorer-w01-b-4 | followed: w01-c1 |
+| S-w01-explorer-w01-b-5 | parked: word limits exceeded without a cost observed; no proposal |
+| S-w01-explorer-w01-b-6 | followed: w01-c8 |
+| S-w01-explorer-w01-c-1 | followed: w01-c13 |
+| S-w01-explorer-w01-c-2 | followed: w01-c13 |
+| S-w01-explorer-w01-c-3 | followed: w01-c13 |
+| S-w01-explorer-w01-c-4 | followed: w01-c1 |
+| S-w01-explorer-w01-c-5 | followed: w01-c8 |
+| S-w01-explorer-w01-d-1 | followed: w01-c7 |
+| S-w01-explorer-w01-d-2 | followed: w01-c6 |
+| S-w01-explorer-w01-d-3 | followed: w01-c7 |
+| S-w01-explorer-w01-d-4 | followed: w01-c7 |
+| S-w01-explorer-w01-d-5 | followed: w01-c7 |
+| S-w01-explorer-w01-d-6 | followed: w01-c7 |
+| S-w01-explorer-w01-d-7 | followed: w01-c9 |
+| S-w01-explorer-w01-d-8 | followed: w01-c7 |
+| S-w01-explorer-w01-d-9 | followed: w01-c8 |
+| S-w01-explorer-w01-e-1 | followed: w01-c6 |
+| S-w01-explorer-w01-e-2 | followed: w01-c6 |
+| S-w01-explorer-w01-e-3 | followed: w01-c3 |
+| S-w01-explorer-w01-e-4 | followed: w01-c7 |
+| S-w01-explorer-w01-e-5 | followed: w01-c6 |
+| S-w01-explorer-w01-e-6 | followed: w01-c6 |
+| S-w01-explorer-w01-e-7 | followed: w01-c6 |
+| S-w01-explorer-w01-f-1 | parked: resolved: framing corrected (Desktop runs 2.1.299; CLI 2.1.302); all platform claims now name their binary |
+| S-w01-explorer-w01-f-2 | followed: w01-c2 |
+| S-w01-explorer-w01-f-3 | followed: w01-c9 |
+| S-w01-explorer-w01-f-4 | followed: w01-c3 |
+| S-w01-explorer-w01-f-5 | followed: w01-c13 |
+| S-w01-explorer-w01-f-6 | followed: w01-c13 |
+| S-w01-explorer-w01-f-7 | followed: w01-c13 |
+| S-w01-reproducer-w01-1-1 | followed: w01-c1 |
+| S-w01-reproducer-w01-1-2 | followed: w01-c1 |
+| S-w01-reproducer-w01-1-3 | parked: cause found (the worktree's .claude/settings.local.json is picked up by headless runs below it); cleaning the registry is the user's call — open item |
+| S-w01-reproducer-w01-1-4 | followed: w01-c1 |
+| S-w01-reproducer-w01-1-5 | followed: w01-c1 |
+| S-w01-reproducer-w01-1-6 | followed: w01-c1 |
+| S-w01-reproducer-w01-1-7 | followed: w01-c1 |
+| S-w01-reproducer-w01-1-8 | followed: w01-c1 |
+| S-w01-reproducer-w01-2-1 | followed: w01-c2 |
+| S-w01-reproducer-w01-2-2 | followed: w01-c2 |
+| S-w01-reproducer-w01-2-3 | followed: w01-c2 |
+| S-w01-reproducer-w01-2-4 | parked: handled: identifier-bearing run files untracked and local commits rebuilt (S-w01-research-pi-16); deleting runs/ is the user's call — open item |
+| S-w01-reproducer-w01-2-5 | parked: cause found (the worktree's .claude/settings.local.json is picked up by headless runs below it); cleaning the registry is the user's call — open item |
+| S-w01-reproducer-w01-2-6 | parked: handled: identifier-bearing run files untracked and local commits rebuilt (S-w01-research-pi-16); deleting runs/ is the user's call — open item |
+| S-w01-reproducer-w01-3-1 | followed: w01-c3 |
+| S-w01-reproducer-w01-3-2 | followed: w01-c3 |
+| S-w01-reproducer-w01-3-3 | followed: w01-c3 |
+| S-w01-reproducer-w01-3-4 | followed: w01-c3 |
+| S-w01-reproducer-w01-3-5 | followed: w01-c3 |
+| S-w01-reproducer-w01-4-1 | followed: w01-c9 |
+| S-w01-reproducer-w01-4-2 | followed: w01-c10 |
+| S-w01-reproducer-w01-4-3 | parked: auto-mode classifier refusal of a bypass launch: platform behaviour, no plugin change proposed |
+| S-w01-reproducer-w01-4-4 | parked: cause found (the worktree's .claude/settings.local.json is picked up by headless runs below it); cleaning the registry is the user's call — open item |
+| S-w01-reproducer-w01-4-5 | followed: w01-c9 |
+| S-w01-reproducer-w01-5-1 | parked: research-loop protocol proposal (claim-head versioning before verification; late PI answers; derived-table lossiness) not hardened in this study — open item |
+| S-w01-reproducer-w01-5-2 | followed: w01-c8 |
+| S-w01-reproducer-w01-5-3 | followed: w01-c8 |
+| S-w01-reproducer-w01-5-4 | followed: w01-c8 |
+| S-w01-reproducer-w01-5-5 | followed: w01-c8 |
+| S-w01-reproducer-w01-6-1 | followed: w01-c6 |
+| S-w01-reproducer-w01-6-2 | followed: w01-c6 |
+| S-w01-reproducer-w01-6-3 | followed: w01-c6 |
+| S-w01-reproducer-w01-6-4 | parked: research-loop protocol proposal (claim-head versioning before verification; late PI answers; derived-table lossiness) not hardened in this study — open item |
+| S-w01-reproducer-w01-6-5 | followed: w01-c6 |
+| S-w01-reproducer-w01-7-1 | followed: w01-c7 |
+| S-w01-reproducer-w01-7-2 | followed: w01-c7 |
+| S-w01-reproducer-w01-7-3 | followed: w01-c7 |
+| S-w01-reproducer-w01-7-4 | parked: research-loop protocol proposal (claim-head versioning before verification; late PI answers; derived-table lossiness) not hardened in this study — open item |
+| S-w01-reproducer-w01-7-5 | followed: w01-c7 |
+| S-w01-reproducer-w01-7-6 | followed: w01-c7 |
+| S-w01-reproducer-w01-8-1 | parked: research-loop protocol proposal (claim-head versioning before verification; late PI answers; derived-table lossiness) not hardened in this study — open item |
+| S-w01-reproducer-w01-8-2 | followed: w01-c8 |
+| S-w01-reproducer-w01-8-3 | followed: w01-c8 |
+| S-w01-reproducer-w01-8-4 | followed: w01-c8 |
+| S-w01-reproducer-w01-9-1 | followed: w01-c9 |
+| S-w01-reproducer-w01-9-2 | followed: w01-c9 |
+| S-w01-reproducer-w01-9-3 | followed: w01-c9 |
+| S-w01-reproducer-w01-9-4 | followed: w01-c9 |
+| S-w01-reproducer-w01-9-5 | followed: w01-c9 |
+| S-w01-reproducer-w01-9-6 | parked: auto-mode classifier denial of a transcript listing: platform behaviour, no plugin change proposed |
+| S-w01-reproducer-w01-10-1 | followed: w01-c10 |
+| S-w01-reproducer-w01-10-2 | followed: w01-c10 |
+| S-w01-reproducer-w01-10-3 | followed: w01-c10 |
+| S-w01-reproducer-w01-10-4 | followed: w01-c10 |
+| S-w01-reproducer-w01-11-1 | followed: w01-c13 |
+| S-w01-reproducer-w01-11-2 | followed: w01-c13 |
+| S-w01-reproducer-w01-11-3 | followed: w01-c13 |
+| S-w01-reproducer-w01-11-4 | parked: open-puzzle counts move as files are added; the close count is the one in this note |
+| S-w01-reproducer-w01-11-5 | parked: research-loop protocol proposal (claim-head versioning before verification; late PI answers; derived-table lossiness) not hardened in this study — open item |
+| S-w01-reproducer-w01-11-6 | parked: research-loop protocol proposal (claim-head versioning before verification; late PI answers; derived-table lossiness) not hardened in this study — open item |
+| S-w01-reproducer-w01-11-7 | parked: research-loop protocol proposal (claim-head versioning before verification; late PI answers; derived-table lossiness) not hardened in this study — open item |
+| S-w01-reproducer-w01-11-8 | parked: research-loop protocol proposal (claim-head versioning before verification; late PI answers; derived-table lossiness) not hardened in this study — open item |
+| S-w01-research-pi-1 | followed: w01-c9 |
+| S-w01-research-pi-2 | followed: w01-c10 |
+| S-w01-research-pi-3 | followed: w01-c3 |
+| S-w01-research-pi-4 | followed: w01-c8 |
+| S-w01-research-pi-5 | followed: w01-c10 |
+| S-w01-research-pi-6 | followed: w01-c2 |
+| S-w01-research-pi-7 | parked: resolved by explorer-w01-d's definition (31 genesis, 37 design); the PI's loose count of 69 is withdrawn |
+| S-w01-research-pi-8 | followed: w01-c8 |
+| S-w01-research-pi-9 | parked: leanness probe (can a plugin shorten the skill listing for workers?) not run in wave 1 for budget — open item |
+| S-w01-research-pi-10 | parked: cause found (the worktree's .claude/settings.local.json is picked up by headless runs below it); cleaning the registry is the user's call — open item |
+| S-w01-research-pi-11 | parked: research-loop protocol proposal (claim-head versioning before verification; late PI answers; derived-table lossiness) not hardened in this study — open item |
+| S-w01-research-pi-12 | followed: w01-c6 |
+| S-w01-research-pi-13 | followed: w01-c1 |
+| S-w01-research-pi-14 | followed: w01-c10 |
+| S-w01-research-pi-15 | parked: research-loop protocol proposal (claim-head versioning before verification; late PI answers; derived-table lossiness) not hardened in this study — open item |
+| S-w01-research-pi-16 | parked: handled: identifier-bearing run files untracked and local commits rebuilt (S-w01-research-pi-16); deleting runs/ is the user's call — open item |
 
 ## Notes
 
@@ -94,6 +275,16 @@ the user at 11:04 ("That's reasonable, actually.").
   clearly, 3 of 55 plausibly at wave close, 5 under the broad reading). Given the remaining budget
   (spent USD 43.19 at least, ESTIMATE about 55 at 12:1x) and the small effect, they go to the user
   at their current state rather than through another author–verifier round.
+- **PI decision on the ESCALATE of w01-c2** (reproducer-w01-2): the narrowed title is accepted as
+  the statement, because the verifier's independent result gives its figures (detector agrees in
+  199 of 199 cells; auto 29/29 and plan 10/10 inexact on output; other modes 4/160 inexact, all
+  background + short final message + thinking off; 4 new runs agree; this run's real subagent files
+  0 of 23 all-final). Scope stays headless haiku, one subagent at a time; the cause of the auto/plan
+  truncation is not found. w01-c2 is used at MEASURED with that statement.
+- **w01-c11 → w01-c12 → w01-c13** (PI's set-aside verdict table): two OVERSTATED rounds, then
+  SUPPORTED on w01-c13 (reproducer-w01-11).
+- **Commit hygiene:** two local commits that included 422 identifier-bearing raw run files were
+  rebuilt without them (S-w01-research-pi-16); nothing was pushed.
 - Token figures in the Returned column are the platform's `subagent_tokens`, which is the size of
   the last request, not spend (explorer-w01-f §3, explorer-w01-a §3); kept only as a size marker.
 - My puzzle S-w01-research-pi-6 read the notification's usage block as a free ledger line. That
@@ -103,4 +294,7 @@ the user at 11:04 ("That's reasonable, actually.").
   instead. Checked in the subagent transcripts by the PI. Reports a, b, c, f were saved from the
   hand-backs with `__reports__/reflective_run/tools/save_handback.py`.
 
-closed: YYYY-MM-DD
+- At close: 168 open puzzles, each disposed above. Spend: USD 60.56 at least, ESTIMATE about 75.65
+  (author-w01-3's `lab_spend.py`, 12:4x; open session at list price, subagent output a lower bound).
+
+closed: 2026-10-19
