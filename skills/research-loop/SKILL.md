@@ -16,7 +16,7 @@ touching each other's files.
 | Role | Agent type (for the Agent tool) | Writes |
 |:--|:--|:--|
 | PI | the main session (`murmuration:research-pi`) | `__design__/framing.md`, wave notes, its own claims and puzzles, the synthesis |
-| explorer | `murmuration:explorer` | its puzzle file; raw artifacts |
+| explorer | `murmuration:explorer` | its findings report and the raw artifacts beside it; its puzzle file |
 | author | `murmuration:author` | the head of a claim file; its puzzle file |
 | verifier of empirical claims | `murmuration:reproducer` | its verdict section in a claim file; its puzzle file |
 | verifier of proofs and exact claims | `murmuration:proof-adversary` | its verdict section in a claim file; its puzzle file |
@@ -41,6 +41,7 @@ name is …"). Use the characters `a-z`, `0-9` and `-` only.
 | `__statera__/user_words.md` | The user's prompts, verbatim and dated. Written automatically; agents never edit it |
 | `__statera__/wave-NN.md` | One note per wave, written by the PI |
 | `__statera__/synthesis.md` | The final synthesis, written by the PI |
+| `__reports__/wave-NN/<agent name>/NN-<type>_vN.md` | An explorer's findings report (`NN-findings_vN.md`, from `templates/report_findings.md`), with its scripts and raw artifacts in the same folder |
 | `__pondus__/<claim-id>.md` | One file per claim: the author's head, then one section per verifier |
 | `__scrupuli__/wave-NN-<agent name>.md` | That agent's puzzles for that wave |
 
@@ -89,6 +90,18 @@ refs: <paths to the raw artifacts: figure, table rows, log lines>
 Number your puzzles in order within the file; when you are resumed, continue after your last
 number. Dispositions are not written here; the PI records them in the wave note when the wave
 closes.
+
+### Report file
+
+An explorer's deliverable is one findings report plus a short hand-back message that points to it
+(the path, then what is not covered). Copy the template
+`${CLAUDE_PLUGIN_ROOT}/skills/research-loop/templates/report_findings.md`, drop its first comment
+line, and save it as `__reports__/wave-NN/<your name>/NN-findings_vN.md`, for example
+`__reports__/wave-03/explorer-w03-c/00-findings_v0.md`. `NN` counts your reports from `00`; `vN`
+counts rewrites of one report. The name must start with digits: the platform refuses a Write to a
+file whose name starts with `REPORT`, `SUMMARY`, `FINDINGS` or `ANALYSIS`. The report uses the
+labels below. Claims remain the author's deliverable and verdicts the verifier's; neither is a
+report.
 
 ## Labels
 

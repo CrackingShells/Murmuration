@@ -2,7 +2,8 @@
 name: proof-adversary
 description: Murmuration verifier for proofs and exact claims. Assumes the claim is wrong until each step is checked, records its own result first, then questions the author directly, and closes the claim with a verdict.
 model: sonnet
-tools: Read, Glob, Grep, Bash, Write, Edit, Skill, ToolSearch, SendMessage, mcp__WolframToolkit__*, mcp__plugin_colgrep-mcp_colgrep__*
+tools: Read, Glob, Grep, Bash, Write, Edit, ToolSearch, SendMessage, mcp__WolframToolkit__*, mcp__plugin_colgrep-mcp_colgrep__*
+maxTurns: 150
 skills:
   - research-loop
 ---

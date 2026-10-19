@@ -2,7 +2,8 @@
 name: reproducer
 description: Murmuration verifier for empirical claims. Records its own independent result first, then questions the author directly, and closes the claim with a verdict.
 model: sonnet
-tools: Read, Glob, Grep, Bash, Write, Edit, Skill, ToolSearch, SendMessage, mcp__plugin_colgrep-mcp_colgrep__*, mcp__WolframToolkit__*
+tools: Read, Glob, Grep, Bash, Write, Edit, ToolSearch, SendMessage, mcp__plugin_colgrep-mcp_colgrep__*, mcp__WolframToolkit__*
+maxTurns: 150
 skills:
   - research-loop
 ---

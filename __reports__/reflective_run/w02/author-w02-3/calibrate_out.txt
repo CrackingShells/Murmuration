@@ -1,0 +1,8 @@
+c1  exact output tokens  1819  recorded  287 (15%)  content chars  2064  chars per exact token 1.13
+c2  exact output tokens  2149  recorded  133 ( 6%)  content chars  3276  chars per exact token 1.52
+t1  exact output tokens  2594  recorded  188 ( 7%)  content chars  3213  chars per exact token 1.24
+t2  exact output tokens  2277  recorded  192 ( 8%)  content chars  2861  chars per exact token 1.26
+t3  exact output tokens  2798  recorded  242 ( 8%)  content chars  4105  chars per exact token 1.47
+t4  exact output tokens  1361  recorded  215 (15%)  content chars  1313  chars per exact token 0.96
+t5  exact output tokens  2964  recorded  318 (10%)  content chars  3894  chars per exact token 1.31
+median chars per exact token 1.26, range 0.96 to 1.52 over 7 runs
