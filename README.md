@@ -38,15 +38,21 @@ claude --plugin-dir /path/to/Murmuration
    and writes `.claude/settings.local.json`, which makes the next session open as the principal
    investigator and denies process kills by name pattern.
 2. Start a new Claude Code session in that folder and ask it to begin.
-3. Run `/lab-status` at any time to see open puzzles, the current label of every claim, and token
-   spend per agent.
+3. Run `/lab-status` at any time to see open puzzles, the current label of every claim, and spend
+   in USD per agent (a lower bound while a session is open).
+
+Each worker gets a budget in USD, set by a `Budget: USD <n>` line in its brief or a default per
+role. A hook tells the worker once when about 80% is used and asks it to hand back at 100%. Each
+worker's final report is also saved verbatim under `__statera__/handbacks/`. That copy is kept for
+you and the principal investigator to recover from; it is never fed back to agents.
 
 `/lab` creates:
 
 | Path | Holds |
 |:--|:--|
 | `__design__/framing.md` | The question, notation, scope and rules for the team |
-| `__statera__/` | Your words (recorded automatically), one note per wave, and the synthesis |
+| `__statera__/` | Your words (recorded automatically), one note per wave, the synthesis, saved hand-backs and the budget log |
+| `__reports__/wave-NN/<agent>/` | Each explorer's findings report, from the research-loop template |
 | `__pondus__/` | One file per claim, with each verifier's verdict |
 | `__scrupuli__/` | Each agent's puzzles |
 
@@ -63,11 +69,23 @@ named below are used when present and skipped when absent.
 | Role | Built-in tools | MCP servers |
 |:--|:--|:--|
 | research-pi | all | all |
-| explorer | Read, Glob, Grep, Bash, Write, Edit, WebFetch, WebSearch, Skill, ToolSearch | WolframToolkit, colgrep, arxiv, context7 |
-| author | Read, Glob, Grep, Bash, Write, Edit, Skill, ToolSearch, SendMessage | WolframToolkit, colgrep, arxiv |
-| reproducer, proof-adversary | Read, Glob, Grep, Bash, Write, Edit, Skill, ToolSearch, SendMessage | WolframToolkit, colgrep |
+| explorer | Read, Glob, Grep, Bash, Write, Edit, WebFetch, WebSearch, ToolSearch | WolframToolkit, colgrep, arxiv, context7 |
+| author | Read, Glob, Grep, Bash, Write, Edit, ToolSearch, SendMessage | WolframToolkit, colgrep, arxiv |
+| reproducer, proof-adversary | Read, Glob, Grep, Bash, Write, Edit, ToolSearch, SendMessage | WolframToolkit, colgrep |
 
-To use another server, add its `mcp__<server>__*` entry to the agent file's `tools` line.
+To use another server, add its `mcp__<server>__*` entry to the agent file's `tools` line. Workers
+do not get the `Skill` tool: the `research-loop` skill is preloaded, and without `Skill` a worker
+does not carry the listing of every installed skill in its context.
+
+## Running a lab headless
+
+`claude -p` stops background agents that are still running 10 minutes after the principal
+investigator's last turn, so a long worker can be cut off before the synthesis is written. For an
+unattended run, set `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0` (no ceiling) and cap the spend instead:
+
+```bash
+CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0 claude -p --agent murmuration:research-pi --max-budget-usd 20 "<your question>"
+```
 
 ## Contributing
 
