@@ -1,0 +1,8 @@
+agent	agent_id	verbatim_chars	file_in_lab	saved_report	saved_equals_verbatim	first_difference
+explorer-w01-c	a1f4458ce75dacdec	16166	True	__reports__/reflective_run/w01/explorer-w01-c/report.md	identical	
+explorer-w01-e	a53e063b007b7a428	6385	True	__reports__/reflective_run/w01/explorer-w01-e/report.md		
+explorer-w01-f	a6a6066b76cfb02ea	17845	True	__reports__/reflective_run/w01/explorer-w01-f/report.md	equal_modulo_neutralization(saved has 8 '<\\' more)	pos 11972: saved='rom injected `<\\system-reminder>` blocks' verbatim='rom injected `<system-reminder>` blocks?'
+author-w01-5	a9745700ad92f7cee	7134	True	none		
+explorer-w01-d	a996dba2994d53126	19661	True	__reports__/reflective_run/w01/explorer-w01-d/report.md	equal_modulo_neutralization(saved has 4 '<\\' more)	pos 2101: saved=' The leading `<\\system-reminder>` block ' verbatim=' The leading `<system-reminder>` block ('
+explorer-w01-b	ac6c27171353e66ed	15162	True	__reports__/reflective_run/w01/explorer-w01-b/report.md	equal_modulo_neutralization(saved has 7 '<\\' more)	pos 5748: saved='and-backs in `<\\agent-message from=...>`' verbatim='and-backs in `<agent-message from=...>` '
+explorer-w01-a	af01bccf4de2a3706	15093	True	__reports__/reflective_run/w01/explorer-w01-a/report.md	identical	

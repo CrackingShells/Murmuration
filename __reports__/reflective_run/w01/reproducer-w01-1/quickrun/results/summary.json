@@ -1,0 +1,9 @@
+{
+ "total_cost_usd": 0.0129,
+ "runs": 2,
+ "per_run": {
+  "p4_auto_two": 0.0059707,
+  "p4_default_two": 0.006955025000000001
+ },
+ "nolab_statera_dirs_created": []
+}

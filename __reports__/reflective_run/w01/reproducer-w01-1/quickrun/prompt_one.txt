@@ -1,0 +1,1 @@
+Call the Agent tool exactly once with subagent_type "hbtest:hb", name "author-w99-1", run_in_background false, description "hb test", and prompt "Your name is author-w99-1. Reply with exactly these three lines and nothing else: LINE-ONE alpha / LINE-TWO beta with \"quotes\" and <tag> / LINE-THREE gamma". Then reply with the single word DONE.

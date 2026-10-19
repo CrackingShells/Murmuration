@@ -1,0 +1,1 @@
+Call the Agent tool once with subagent_type "hbtest:hb", name "author-w99-4", run_in_background false, description "hb big", and this prompt: "Your name is author-w99-4. Your final message must be the integers from 1 to 2000, one per line, in order, and nothing else." Then reply with the single word DONE.

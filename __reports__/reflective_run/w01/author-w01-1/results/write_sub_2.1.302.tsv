@@ -1,0 +1,2 @@
+agent	type	tool	file_path	is_error	result_head
+ac71857bbe4f9ef6d	hbtest:hbw	Write	REPORT.md	True	<tool_use_error>Subagents should return findings as text, not write report files. Include this content in your

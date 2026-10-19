@@ -1,0 +1,6 @@
+explorer-w01-c turns 63 cw_total 288572 first_turn_cw 23492 spikes(>8k, not first) n=10 sum=138028 share_of_cw=0.48 skill_listing_attachments=9
+explorer-w01-b turns 62 cw_total 310463 first_turn_cw 23479 spikes(>8k, not first) n=11 sum=148966 share_of_cw=0.48 skill_listing_attachments=9
+explorer-w01-d turns 62 cw_total 298459 first_turn_cw 23470 spikes(>8k, not first) n=9 sum=132216 share_of_cw=0.44 skill_listing_attachments=8
+explorer-w01-a turns 52 cw_total 292674 first_turn_cw 23565 spikes(>8k, not first) n=9 sum=145623 share_of_cw=0.50 skill_listing_attachments=9
+explorer-w01-e turns 49 cw_total 212039 first_turn_cw 18703 spikes(>8k, not first) n=7 sum=90241 share_of_cw=0.43 skill_listing_attachments=7
+explorer-w01-f turns 46 cw_total 311493 first_turn_cw 23690 spikes(>8k, not first) n=13 sum=200692 share_of_cw=0.64 skill_listing_attachments=9

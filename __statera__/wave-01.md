@@ -37,9 +37,15 @@ the user at 11:04 ("That's reasonable, actually.").
 | explorer-w01-a | explorer | Spend and behaviour profile per agent run from transcripts; what a ledger (SA3, SA6) would hold that post-hoc parsing cannot || yes, 299k tok, 13 min; report saved by PI from hand-back (`w01/explorer-w01-a/report.md`) |
 | explorer-w01-b | explorer | Communication: briefs, hand-backs, pair messages, and what the PI did with returns (SA4, SA5, SA16; parsing of outputs) || after a 60-turn stop and resume; 317k tok; report saved by PI (`w01/explorer-w01-b/report.md`) |
 | explorer-w01-c | explorer | Tools and MCP servers: reached for, lacked, failed, discovery overhead, against the allowlists (SA15, SA8) || after a 60-turn stop and resume; 296k tok; report saved by PI (`w01/explorer-w01-c/report.md`) |
-| explorer-w01-d | explorer | Every human intervention: what it was, what triggered it, what the team would have needed to act alone (SA13, SA9) | |
+| explorer-w01-d | explorer | Every human intervention: what it was, what triggered it, what the team would have needed to act alone (SA13, SA9) | after a 60-turn stop and resume; 307k tok; report saved by PI (`w01/explorer-w01-d/report.md`) |
 | explorer-w01-e | explorer | Human review UX: what humans read, what confused them, established UX for reviewing agent runs (axis 3) || yes, 219k tok, 8 min; wrote `w01/explorer-w01-e/report.md` itself via Bash |
 | explorer-w01-f | explorer | Platform capabilities for logging and cost now (hooks on 2.1.302, OpenTelemetry, status line, transcripts) || yes, 319k tok, 12 min; report saved by PI (`w01/explorer-w01-f/report.md`) |
+| author-w01-1 | author | w01-c1: persist hand-backs by hook; stop asking workers for report files | |
+| author-w01-2 | author | w01-c2: which source gives exact per-subagent spend (explorers a and f disagree) | |
+| author-w01-3 | author | w01-c3: fix `/lab-status` spend (worktrees, forks, USD); hook run index or scan | |
+| author-w01-4 | author | w01-c4: fix user-words capture (system-reminder blocks; worktree root) | |
+| author-w01-5 | author | w01-c5: turn limits per role (3 of 6 explorers stopped at 60) | |
+| author-w01-6 | author | w01-c6: human-facing report contract; w01-c7: asking habit for the PI | |
 
 ## Claims of this wave
 
@@ -57,6 +63,37 @@ the user at 11:04 ("That's reasonable, actually.").
   `roadmap/reflective_run` (79fb6cf) so the lab is visible here (S-w01-research-pi-2). The hook keeps writing the user's prompts to the
   main checkout; the PI copies them over verbatim with `cp` until that is fixed (S-w01-research-pi-5).
 
+- explorer-w01-d's definition of a genuine prompt (`origin.kind == human`, not meta, not a tool
+  result; reminder blocks stripped) gives 31 (genesis) and 37 (design, 28 after the fork); the PI's 69
+  was a loose filter and is withdrawn (S-w01-research-pi-7).
+- **Budget unit corrected.** The "6 M tokens" budget was sized on the platform's `subagent_tokens`
+  figures (about 300 k per explorer), which are the size of a run's last request, not its spend
+  (explorer-w01-f §3; author-w01-3 puzzle -3). It has no checkable unit. Re-stated in USD, the unit
+  the user budgets in (explorer-w01-e §1.2): at 11:4x the study had spent USD 28.23 to 36.16 by
+  author-w01-3's prototype reader (`lab_spend.py --root .`; ESTIMATE for this open session: list
+  price, subagent output a lower bound), of which the PI is about 6.3. The same intent (three waves
+  of this size) is about **USD 70 to 90 in all**. Proposed to the user; not yet confirmed.
+- **PI decision on the ESCALATE of w01-c5** (reproducer-w01-5): w01-c5 is not used at its label.
+  As filed it states an ESTIMATE (the 0.65–0.70 USD exposure) and an inferred TTL rule as MEASURED,
+  and its Result 3 did not reproduce with its own command until fixed. The restatement the author
+  asked for is filed as w01-c8 (`supersedes: w01-c5`), now 0 of 32 notices after the reproducer's
+  second catch (genesis notices double-counted through the fork). w01-c8 stands or falls on
+  reproducer-w01-8's verdict.
+- **PI decision on the ESCALATE of w01-c8** (reproducer-w01-8): the substance reproduced; only the
+  title was stale. The author's pending restatement is accepted as the statement, because the
+  verifier's independent result gives exactly its figures (0 of 38 distinct worker notices over
+  300 s; of 17 resumes, cold in all 7 with gap ≥ 284.9 s and warm in all 10 with gap ≤ 282.0 s;
+  the 5-minute window CONJECTURE). w01-c8 is used at MEASURED with that statement; the per-role
+  `maxTurns` values inside it stay CONJECTURE.
+- **PI decision on the coming ESCALATE of w01-c4** (author's own proposal): split into w01-c9 (the
+  text rule, MEASURED) and w01-c10 (the root rule; headless facts MEASURED, Desktop CONJECTURE),
+  both `supersedes: w01-c4`. The PI added an observation for w01-c10: both prompts of this run were
+  written to the main checkout's lab while the session ran in the worktree.
+- **No further restatement rounds for w01-c6 and w01-c7.** Both are OVERSTATED (below CONJECTURE:
+  restate). Their verifiers' own re-ratings are recorded in their verdict sections (w01-c6: none
+  clearly, 3 of 55 plausibly at wave close, 5 under the broad reading). Given the remaining budget
+  (spent USD 43.19 at least, ESTIMATE about 55 at 12:1x) and the small effect, they go to the user
+  at their current state rather than through another author–verifier round.
 - Token figures in the Returned column are the platform's `subagent_tokens`, which is the size of
   the last request, not spend (explorer-w01-f §3, explorer-w01-a §3); kept only as a size marker.
 - My puzzle S-w01-research-pi-6 read the notification's usage block as a free ledger line. That

@@ -1,0 +1,7 @@
+uuid8,ts,chars,habit_removes,why
+bf53476b,2026-10-18T07:27:34.800Z,89,N,REVISED (was Y): the PI had already searched the disk; the LM Studio location was the human's knowledge; the habit does not find it
+442c488c,2026-10-18T09:26:45.931Z,249,N,REVISED (was cond): nothing shows the PI would have read the prior art unasked; the human's move was a specific skill call
+9b8f9ecb,2026-10-18T15:46:55.679Z,226,cond,"a rule stated once goes into the framing; needs the 03:22 ""use writing-history, commit as you go"" rule to have been written and the plan overview to be checked against it"
+29aad9e7,2026-10-18T03:22:53.827Z,151,N,"first statement of the rule; nothing earlier to find. A `git status` at session start would find ""not initialised"" but that is not the asking habit"
+6ee68017,2026-10-18T03:24:43.414Z,324,N,"first statement; the shipped waves.md already says ""plan only the current wave""; not an asking matter"
+7920d665,2026-10-18T07:51:26.889Z,82,cond,answers a second plain-text ask about the same download; under the habit the PI would take the default (a download into data/raw is reversible); conditional because ask 2 itself is now AT_RISK

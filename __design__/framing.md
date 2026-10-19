@@ -107,7 +107,9 @@ evidence comes from.
 - Changes to the plugin: every change to `agents/`, `skills/`, `scripts/`, `hooks/` or
   `.claude-plugin/` is a claim and a proposal to the user, never applied directly. A prototype may
   be written and run under `__reports__/reflective_run/`.
-- Platform: Claude Code is now 2.1.302; the probes ran on 2.1.296. Platform behaviour taken from the
+- Platform: the Desktop app that runs this lab is Claude Code 2.1.299 (its `CLAUDE_CODE_EXECPATH`;
+  every transcript record of this run); the `claude` on PATH is 2.1.302; the probes ran on 2.1.296
+  (corrected after S-w01-explorer-w01-f-1). Platform behaviour taken from the
   probes is CITED to the probe report unless a claim depends on it, in which case re-run it.
 - Tools: colgrep `search` for meaning-level search in this repository (shell `grep -r` is blocked);
   plain `grep` on one file and `cmd | grep` are allowed; `python3 -I` and `jq` for transcripts;

@@ -1,0 +1,119 @@
+compare.py: 59 project folders frozen at 2026-10-19 11:27:55 into a temporary configuration directory
+
+====================================================================================================
+(i-a) this run, from the worktree   root=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e
+
+---- v6 (scripts/lab_status.py), Spend section verbatim:
+## Spend (tokens, from Claude Code's transcripts for this project)
+read: /var/folders/nw/ddpd99c119j47w3s4gzv7sb00000gn/T/w01c3-_fuqyn3a/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e
+agent                                  model              runs  msgs  input  cache-write  cache-read   output
+-------------------------------------  -----------------  ----  ----  -----  -----------  ----------  -------
+murmuration:explorer                   claude-sonnet-5-5     6   334    668    1,713,700  53,349,608   95,108
+murmuration:author                     claude-sonnet-5-5     6   214    428    1,386,650  26,385,367   80,698
+murmuration:research-pi (main thread)  claude-opus-5-5       1    55    116      293,528  10,078,204   60,012
+total                                                            603  1,212    3,393,878  89,813,179  235,818
+runs = distinct sessions or subagent runs. Prices are not applied; multiply by your rates.
+
+---- lab_spend.py (prototype), Spend section verbatim:
+## Spend (USD; Claude Code's cost-state where a session has ended, else list price of 2026-10-19)
+TOTAL  USD 24.90 to 31.89   (1.83 exact + 23.06 to 30.06 estimated for sessions still open)
+An open session has no cost-state yet. Its estimate is at list price and is a LOWER BOUND: a subagent's output tokens are stored at their start-of-stream value. The upper figure scales Sonnet workers by 1.40 and Fable workers by 1.20 (what two ended sessions showed). Claude Code's /usage shows the main thread only.
+
+where                                     sessions  agent files  USD             basis
+----------------------------------------  --------  -----------  --------------  --------------------
+main checkout, sessions started below it  30                  6            1.11  exact
+this checkout                             1                  12  23.05 to 30.04  estimate
+this checkout, sessions started below it  62                 56            0.74  58 exact, 4 estimate
+
+agent                                  model       msgs  est. USD  output tokens  wake-ups
+-------------------------------------  ----------  ----  --------  -------------  --------
+murmuration:research-pi (main thread)  opus-5-5      55      5.56         60,012
+explorer-w01-b                         sonnet-5-5    62      2.01        17,694+         1
+explorer-w01-d                         sonnet-5-5    62      1.97        13,884+         1
+explorer-w01-c                         sonnet-5-5    63      1.95        26,238+         1
+explorer-w01-a                         sonnet-5-5    52      1.80        21,995+
+explorer-w01-f                         sonnet-5-5    46      1.75        14,520+
+author-w01-5                           sonnet-5-5    42      1.72        37,102+
+author-w01-3                           sonnet-5-5    42      1.41         8,533+
+author-w01-6                           sonnet-5-5    24      1.10        24,648+
+explorer-w01-e                         sonnet-5-5    49      1.09           777+
+author-w01-2                           sonnet-5-5    41      1.04         2,120+
+author-w01-4                           sonnet-5-5    39      0.90           730+
+(15 more)                                           322      2.58
+The agent rows add up to USD 24.88 of the 24.90 above; the rest is what only cost-state knows (subagent output beyond its start-of-stream value, helper calls).
+wake-ups = messages from the PI or a partner that reached the agent after it started (a resume or a note queued during a run: the transcript cannot tell them apart). `+` = a lower bound. Per-agent USD is always an estimate (cost-state has no per-agent split) and does not include helper calls (web fetch summaries), which only cost-state records.
+
+====================================================================================================
+(i-b) this run, from the main checkout   root=/Users/hacker/Documents/src/CrackingShells/Murmuration
+
+---- v6 (scripts/lab_status.py), Spend section verbatim:
+## Spend (tokens, from Claude Code's transcripts for this project)
+read: /var/folders/nw/ddpd99c119j47w3s4gzv7sb00000gn/T/w01c3-_fuqyn3a/projects/-Users-hacker-Documents-src-CrackingShells-Murmuration
+no usage records in those transcripts
+
+---- lab_spend.py (prototype), Spend section verbatim:
+## Spend (USD; Claude Code's cost-state where a session has ended, else list price of 2026-10-19)
+TOTAL  USD 24.90 to 31.89   (1.83 exact + 23.06 to 30.06 estimated for sessions still open)
+An open session has no cost-state yet. Its estimate is at list price and is a LOWER BOUND: a subagent's output tokens are stored at their start-of-stream value. The upper figure scales Sonnet workers by 1.40 and Fable workers by 1.20 (what two ended sessions showed). Claude Code's /usage shows the main thread only.
+
+where                                                                       sessions  agent files  USD             basis
+--------------------------------------------------------------------------  --------  -----------  --------------  --------------------
+this checkout, sessions started below it                                    30                  6            1.11  exact
+worktree murmuration-system-optimization-8cff9e                             1                  12  23.05 to 30.04  estimate
+worktree murmuration-system-optimization-8cff9e, sessions started below it  62                 56            0.74  58 exact, 4 estimate
+
+agent                                  model       msgs  est. USD  output tokens  wake-ups
+-------------------------------------  ----------  ----  --------  -------------  --------
+murmuration:research-pi (main thread)  opus-5-5      55      5.56         60,012
+explorer-w01-b                         sonnet-5-5    62      2.01        17,694+         1
+explorer-w01-d                         sonnet-5-5    62      1.97        13,884+         1
+explorer-w01-c                         sonnet-5-5    63      1.95        26,238+         1
+explorer-w01-a                         sonnet-5-5    52      1.80        21,995+
+explorer-w01-f                         sonnet-5-5    46      1.75        14,520+
+author-w01-5                           sonnet-5-5    42      1.72        37,102+
+author-w01-3                           sonnet-5-5    42      1.41         8,533+
+author-w01-6                           sonnet-5-5    24      1.10        24,648+
+explorer-w01-e                         sonnet-5-5    49      1.09           777+
+author-w01-2                           sonnet-5-5    41      1.04         2,120+
+author-w01-4                           sonnet-5-5    39      0.90           730+
+(15 more)                                           322      2.58
+The agent rows add up to USD 24.88 of the 24.90 above; the rest is what only cost-state knows (subagent output beyond its start-of-stream value, helper calls).
+wake-ups = messages from the PI or a partner that reached the agent after it started (a resume or a note queued during a run: the transcript cannot tell them apart). `+` = a lower bound. Per-agent USD is always an estimate (cost-state has no per-agent split) and does not include helper calls (web fetch summaries), which only cost-state records.
+
+====================================================================================================
+(ii) combinatorics project   root=/Users/hacker/Documents/explore/combinatorics_on_binary
+
+---- v6 (scripts/lab_status.py), Spend section verbatim:
+## Spend (tokens, from Claude Code's transcripts for this project)
+read: /var/folders/nw/ddpd99c119j47w3s4gzv7sb00000gn/T/w01c3-_fuqyn3a/projects/-Users-hacker-Documents-explore-combinatorics-on-binary
+agent              model              runs  msgs  input  cache-write   cache-read     output
+-----------------  -----------------  ----  ----  -----  -----------  -----------  ---------
+main thread        claude-opus-5-5       4   824  1,764   10,538,688  309,849,659  1,065,932
+general-purpose    claude-sonnet-5-5    21   853  1,726    6,649,484  163,185,275    399,759
+subagent           claude-sonnet-5-5     9   711  1,432    5,395,570  129,450,176    423,871
+general-purpose    claude-fable-5-1      4    44  1,258      694,309    5,060,312     56,258
+web-fetch          claude-opus-5-5       2    15     30      278,729      795,599        203
+general-purpose    claude-opus-5-5       1     9     18      126,156      803,443      4,664
+claude-code-guide  claude-haiku-5-5      1     3      6       71,381       73,303         16
+total                                       2459  6,234   23,754,317  609,217,767  1,950,703
+runs = distinct sessions or subagent runs. Prices are not applied; multiply by your rates.
+
+---- lab_spend.py (prototype), Spend section verbatim:
+## Spend (USD; Claude Code's cost-state where a session has ended, else list price of 2026-10-19)
+TOTAL  USD 224.85   (224.85 exact + 0.00 estimated)
+
+where          sessions  agent files  USD     basis
+-------------  --------  -----------  ------  -----
+this checkout  4                  44  224.85  exact
+
+agent              model       msgs  est. USD  output tokens  wake-ups
+-----------------  ----------  ----  --------  -------------  --------
+main thread        opus-5-5     677    155.72        893,591
+general-purpose    sonnet-5-5   853     36.94       399,759+         3
+general-purpose    fable-5-1     44     12.77        56,258+         3
+web-fetch          opus-5-5      15      1.56           203+
+general-purpose    opus-5-5       9      0.88         4,664+         3
+claude-code-guide  haiku-5-5      3      0.01            16+
+The agent rows add up to USD 207.89 of the 224.85 above; the rest is what only cost-state knows (subagent output beyond its start-of-stream value, helper calls).
+wake-ups = messages from the PI or a partner that reached the agent after it started (a resume or a note queued during a run: the transcript cannot tell them apart). `+` = a lower bound. Per-agent USD is always an estimate (cost-state has no per-agent split) and does not include helper calls (web fetch summaries), which only cost-state records.
+858 of 2459 message records were copies of a message already counted (forked sessions, copied agent files); 0 messages belong to sessions outside this lab and are not charged to it.

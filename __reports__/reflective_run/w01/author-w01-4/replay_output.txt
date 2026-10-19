@@ -1,0 +1,20 @@
+session   class            fired  current  new   differ  | reasons among differing
+566fa912  human               28       28   28      15  | {'leading_reminder': 15}
+566fa912  human_midturn        4        4    4       1  | {'leading_reminder': 1}
+566fa912  platform_notice      8        8    0       8  | {'leading_reminder+DROPPED(not user text)': 8}
+82e8a947  human               33       33   33      28  | {'leading_reminder': 28}
+82e8a947  human_midturn        4        4    4       0  | {}
+3ccc590f  human                5        5    5       0  | {}
+3ccc590f  human_midturn        3        3    3       0  | {}
+2947f9dc  human                6        6    6       5  | {'leading_reminder': 1, 'leading_reminder+view_context': 4}
+2947f9dc  human_midturn        2        2    2       2  | {'leading_reminder+view_context': 1, 'leading_reminder': 1}
+2947f9dc  scheduled            5        5    5       0  | {}
+2947f9dc  platform_notice      1        1    1       1  | {'leading_reminder': 1}
+ab96c5ed  human                2        2    2       1  | {'leading_reminder+pasted_wrapper': 1}
+
+human (typed: user records + mid-turn)                         fired  87  current stores  87  new stores  87  entries that differ  52  chars current   92389 new   57385
+non-human that fire the hook (scheduled + platform notice)     fired  14  current stores  14  new stores   6  entries that differ   9  chars current   29911 new   10948
+all                                                            fired 101  current stores 101  new stores  93  entries that differ  61  chars current  122300 new   68333
+typed turns whose current entry starts with a platform reminder: 52 of 87
+typed entries (new rule) that open with a '> ' quote block: 14; quote chars 1931 of 8264 chars in those entries
+fidelity (shipped rule on this run's records == bytes stored by the hook): [True, True]

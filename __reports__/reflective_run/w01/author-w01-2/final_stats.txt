@@ -1,0 +1,27 @@
+detector (all requests have stop_reason in final file) vs output exact: {(False, True): 152, (True, False): 40}
+('2.1.299', 'auto', 'cells') 13
+('2.1.299', 'auto', 'hook_differs_from_final') 0
+('2.1.299', 'auto', 'in_cache_inexact') 0
+('2.1.299', 'auto', 'out_inexact') 13
+('2.1.299', 'other-non-auto', 'cells') 78
+('2.1.299', 'other-non-auto', 'hook_differs_from_final') 7
+('2.1.299', 'other-non-auto', 'in_cache_inexact') 0
+('2.1.299', 'other-non-auto', 'out_inexact') 2
+('2.1.299', 'plan', 'cells') 5
+('2.1.299', 'plan', 'hook_differs_from_final') 2
+('2.1.299', 'plan', 'in_cache_inexact') 0
+('2.1.299', 'plan', 'out_inexact') 5
+('2.1.302', 'auto', 'cells') 13
+('2.1.302', 'auto', 'hook_differs_from_final') 1
+('2.1.302', 'auto', 'in_cache_inexact') 0
+('2.1.302', 'auto', 'out_inexact') 13
+('2.1.302', 'other-non-auto', 'cells') 78
+('2.1.302', 'other-non-auto', 'hook_differs_from_final') 10
+('2.1.302', 'other-non-auto', 'in_cache_inexact') 0
+('2.1.302', 'other-non-auto', 'out_inexact') 2
+('2.1.302', 'plan', 'cells') 5
+('2.1.302', 'plan', 'hook_differs_from_final') 0
+('2.1.302', 'plan', 'in_cache_inexact') 0
+('2.1.302', 'plan', 'out_inexact') 5
+cells 192 USD runs 2.7443
+otel cells USD 0.0290

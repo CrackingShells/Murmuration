@@ -1,0 +1,17 @@
+(a) lab_spend.py vs cost-state, 79 session x model cells
+   input       equal in 76 of 79 cells (cs count > 0 in 79)
+   cache read  equal in 78 of 79 cells (cs count > 0 in 77)
+   cache write equal in 78 of 79 cells (cs count > 0 in 78)
+   output      equal in 52 of 79 cells (cs count > 0 in 79)
+   cells where input/cache differ: [('566fa912', 'claude-haiku-5-5', '29584', '0', '0', '0'), ('82e8a947', 'claude-haiku-5-5', '930594', '6', '73303', '73303'), ('177147a0', 'claude-haiku-5-5', '7709', '6', '92153', '59243')]
+(b) vs explorer-w01-a mine_* (crosschecks.csv)
+   566fa912 claude-opus-5-5    explorer-a == lab_spend on all four token fields: True
+   566fa912 claude-sonnet-5-5  explorer-a == lab_spend on all four token fields: True
+   566fa912 claude-haiku-5-5   explorer-a == lab_spend on all four token fields: True
+   566fa912 claude-fable-5-1   explorer-a == lab_spend on all four token fields: True
+   82e8a947 claude-opus-5-5    explorer-a == lab_spend on all four token fields: True
+   82e8a947 claude-sonnet-5-5  explorer-a == lab_spend on all four token fields: True
+   82e8a947 claude-fable-5-1   explorer-a == lab_spend on all four token fields: True
+   82e8a947 claude-haiku-5-5   explorer-a == lab_spend on all four token fields: True
+   3ccc590f claude-opus-5-5    explorer-a == lab_spend on all four token fields: True
+   2947f9dc claude-opus-5-5    explorer-a == lab_spend on all four token fields: True

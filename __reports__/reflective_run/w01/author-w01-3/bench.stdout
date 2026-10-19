@@ -1,0 +1,8 @@
+B1 runtime, median of 5, seconds (live data)
+   find sessions only:   scan(this worktree) 0.111   scan(main checkout) 0.085   v6 folder lookup 0.0000
+   whole Spend section:  lab_spend(this worktree) 0.36   v6 report_spend(this worktree) 0.06
+   whole Spend section:  lab_spend(combinatorics) 0.50   v6 report_spend(combinatorics) 0.28
+B2 lines of code to find the sessions
+   v6 (one folder by path, long-path fallback): 33  {'project_folder_names': 6, 'records_have_cwd': 14, 'transcript_dirs': 13}
+   scan by cwd + git worktrees + ids:           56  {'git_worktrees': 6, 'git_roots': 4, 'first_cwd': 13, 'under': 1, 'main_files': 1, 'find_v6': 7, 'find_scan': 14, 'find_ids': 10}
+   run-index hook + reader (plus 3 hook entries in hooks.json, not counted): 34  {'lab_above': 7, 'main': 13, 'find_index': 14}

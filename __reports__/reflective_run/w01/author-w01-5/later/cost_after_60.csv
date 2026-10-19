@@ -1,0 +1,7 @@
+group,run_id,turns,usd_total,usd_after_turn_60,share_after_60,share_after_80
+genesis,a04ebecba,85,8.2279,4.699,0.571,0.068
+genesis,a2f3c7382,89,6.4281,2.54,0.395,0.123
+genesis,a3f3fa3fc,78,3.6717,1.354,0.369,
+design,a4c12d60b,65,3.6927,0.453,0.123,
+design,aff153770,103,6.1884,3.449,0.557,0.312
+design,aff72ee62,87,5.0524,2.172,0.43,0.088

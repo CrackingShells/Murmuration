@@ -1,0 +1,56 @@
+uuid8,ts,class_d,who_d,trouble,preempt,element,why
+721d5438,2026-10-18T03:21:49,ND,J,OPS,N,,initial brief
+29aad9e7,2026-10-18T03:22:53,MM,S,OPS,N,,git instruction (c7 matter)
+6ee68017,2026-10-18T03:24:43,MM,S,OPS,N,,plan-shape instruction before any report
+29e87874,2026-10-18T03:29:49,ND,J,INS,N,,read the framing file and added a dependency of rho on G: domain insight
+24b8031f,2026-10-18T03:36:26,ND,J,DIR,N,,redirect to enumerate G
+8af30fe6,2026-10-18T03:42:48,CE,J,SCO,P,E2,"PI said completeness only goes downward; true for single reads (the PI's own later admission, KT v1). A scope clause ""for single reads, not for concatenations"" would have shown the gap; the 5+3 counterexample is the human's"
+fa7c006d,2026-10-18T04:10:15,CE,M,INS,N,,"naming taste; PI already said ""provisional, you have the final say"""
+a019d827,2026-10-18T04:12:24,AP,J,GATE,N,,button
+63f8fb70,2026-10-18T06:02:06,STOP,J,DIR,N,,stop: open problems are edge cases
+9cd91bd9,2026-10-18T06:12:19,CE,J,LEG,P,E1,"PI headline ""Applications: the version that works is QTIP"" took an example (LLM weights) for the goal. Opening with the question in the human's words (""possible applications"") sets the PI's reading beside it; the correction might still be needed"
+835df5bd,2026-10-18T06:28:24,ND,J,DIR,N,,new question: in-between versions
+b9d09057,2026-10-18T06:43:35,AP,M,GATE,N,,go-ahead
+38205ded,2026-10-18T06:50:44,MM,M,INS,N,,tool knowledge only the human held
+b32ab3d7,2026-10-18T06:56:35,AP,M,GATE,N,,button
+d10ebf86,2026-10-18T07:02:30,RC,J,LEG,P,E1+E2,"REVISED after reproducer-w01-6 Q1 (was Y): the human reacted to the findings FILE, which no line of c6-contract.diff regulates. The contract would help only if the chat message announcing a report carried its verdicts, so he need not open the file. The PI answer 1 min later (hypothesis table with Confirmed/Refuted/Not tested) drew no further format complaint"
+83e43ba0,2026-10-18T07:25:18,CE,J,SCO,P,E2,"PI sentence extrapolated from one model family; a scope line ""one pair: gemma-2-2b / -it"" shows the single family; the PI had flagged ""prediction, not measurement"" which is part of the contract already"
+98cbb48b,2026-10-18T07:25:53,ND,M,DIR,N,,human tracks uptake of own idea
+bf53476b,2026-10-18T07:27:34,UT,S,OPS,N,,c7 matter
+fb06ac93,2026-10-18T07:49:27,ND,J,DIR,N,,next idea after a modest result
+7920d665,2026-10-18T07:51:26,AP,S,GATE,N,,c7 matter
+939bea68,2026-10-18T08:23:18,CE,J,LEG,P,E5,"""I don't understand"": explanation used ""internal bases"", ""rotation"", ""coordinates"". Gloss-on-first-use targets exactly that; the PI's explanation was also thin on mechanism, which a format does not fix"
+3959fc84,2026-10-18T08:30:57,CE,J,SCO,N,E2,"REVISED after reproducer-w01-6 Q3 (was P): the complaint is that the PI did not try the untried direction; a scope sentence only helps if the PI already knows what to name as outside, and a rule in context failed once (S-w01-explorer-w01-d-1)"
+9d8a4417,2026-10-18T08:58:39,ND,M,DIR,N,,next experiments
+87c07414,2026-10-18T09:11:51,ND,M,DIR,N,,publication idea
+442c488c,2026-10-18T09:26:45,ND,S,OPS,N,,c7 matter
+d446c3be,2026-10-18T09:37:11,AP,J,GATE,N,,button
+c16c48f6,2026-10-18T09:38:27,STOP,J,DIR,N,,stop and resume elsewhere
+3168e671,2026-10-18T06:07:46,ND,J,DIR,N,,fork for KT report
+8b8533e8,2026-10-18T06:20:40,CE,M,INS,N,,validator was fixed upstream (stale install); design questions
+87831bbf,2026-10-18T06:35:44,CE,J,INS,N,,"about how a PI should think, not about format"
+b3822de3,2026-10-18T06:49:31,AP,J,DIR,N,,endorsement and reframing
+4efb86a5,2026-10-18T06:55:38,AP,J,GATE,N,,go-ahead
+e88c56b1,2026-10-18T07:10:52,AP,W,GATE,N,,"button, hold (c7 matter)"
+f5966b4c,2026-10-18T07:21:54,RC,J,DIR,N,,design review comments
+33a2540f,2026-10-18T07:44:24,AP,W,GATE,N,,"button, hold (c7 matter)"
+623236e7,2026-10-18T07:48:32,RC,M,DIR,N,,design review comments
+ae452525,2026-10-18T08:11:38,AP,J,GATE,N,,button
+5b683d15,2026-10-18T08:13:12,AP,W,GATE,N,,"button, hold"
+05f44db5,2026-10-18T08:14:45,ND,J,DIR,N,,new idea: entropy as hooks
+742ac0ec,2026-10-18T08:28:17,MM,M,DIR,N,,more hooks
+85f8ec42,2026-10-18T08:43:21,AP,W,GATE,N,,"button, hold"
+69ca9e2b,2026-10-18T08:48:35,ND,J,DIR,N,,all agents Sonnet; first-class repo
+ef016b13,2026-10-18T09:00:44,AP,J,GATE,N,,button
+f70fd73b,2026-10-18T09:03:43,AP,W,GATE,N,,button
+4b6b6b36,2026-10-18T09:15:36,UT,M,OPS,N,,constraint only the human knew (c7 matter)
+201e1cdd,2026-10-18T09:40:07,UT,J,OPS,N,,login
+038a7abe,2026-10-18T09:57:05,AP,W,GATE,N,,"button, hold"
+ad3ad733,2026-10-18T10:03:09,MM,M,DIR,N,,ask for a new review
+3b472151,2026-10-18T15:35:27,CE,J,INS,N,,"hooks overbuilt; estimates optimistic: a judgement the format does not touch (the cost estimates would carry ESTIMATE and a source, which does not stop the disagreement)"
+f5e5a66e,2026-10-18T15:43:20,AP,J,OPS,N,,no meta-discourse rule
+9b8f9ecb,2026-10-18T15:46:55,MM,S,OPS,N,,c7 matter
+038667af,2026-10-18T15:49:18,RC,J,INS,N,,MCP servers per agent
+c93476cc,2026-10-19T00:24:46,AP,J,GATE,N,,button (c7 matter)
+c3d595a8,2026-10-19T00:42:48,UT,J,OPS,N,,GUI preference
+355d9ea5,2026-10-19T01:22:39,ND,J,DIR,N,,unneeded warning from the PI; brief for this run

@@ -1,0 +1,13 @@
+--- non-typed, shipped stores:
+u f3bb6ad5 null | patched: stored | '<system-reminder>\nLinked sessions now (status, not an instru' 4118
+u 6770f795 noorigin | patched: stored | '[Request interrupted by user]' 29
+u 05412e82 noorigin | patched: stored | '[Request interrupted by user]' 29
+u 0602bb1f null | patched: skipped | '<system-reminder>\nThe user\'s fork "Binary sliding window com' 2946
+u 056bede8 null | patched: skipped | '<system-reminder>\nThe session "Verify reference coding on re' 2771
+u 3d069e0d null | patched: skipped | '<system-reminder>\nThe session "Verify reference coding on re' 2147
+u d8492bb0 null | patched: skipped | '<system-reminder>\nThe session "Verify reference coding on re' 2148
+u e1d7ea7a null | patched: skipped | '<system-reminder>\nThe session "Verify reference coding on re' 2148
+u 706fd25c null | patched: skipped | '<system-reminder>\nThe session "Verify reference coding on re' 2148
+u 28fa4553 null | patched: skipped | '<system-reminder>\nThe session "Verify reference coding on re' 2147
+u f04c329b null | patched: skipped | '<system-reminder>\nThe session "Verify reference coding on re' 2147
+u 96c47860 noorigin | patched: stored | '[Request interrupted by user]' 29

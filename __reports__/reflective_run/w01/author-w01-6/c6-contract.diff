@@ -1,0 +1,51 @@
+--- a/skills/research-loop/references/waves.md
++++ b/skills/research-loop/references/waves.md
+@@ -40,13 +40,19 @@
+    Write the puzzle id followed by `followed:` or `parked:`; any other wording leaves the puzzle
+    open. Mentioning a puzzle is not following it.
+ 3. List the claims of the wave with their current labels from `/lab-status`.
+-4. End the note with the line `closed: YYYY-MM-DD`, using the real date (replace the template's
++4. Tell the user, in chat, and put the same text under `## For the user` in the note before it closes
++   (a run without a chat reader leaves only the note). Open with their question in their own words.
++   Then one sentence per claim that stands alone when quoted: what it establishes, its label, what it
++   closes and one thing it leaves outside. Then the cost against the budget, in the budget's own unit,
++   and the minutes the wave took. Then what needs them, each with the default you will take. Say what a
++   term means the first time you use it.
++5. End the note with the line `closed: YYYY-MM-DD`, using the real date (replace the template's
+    placeholder line if the note still has one). A note counts as closed only when that line
+    carries a real date; `/lab-status` treats any other note as still
+    open. Closed notes are not edited again; corrections go into the next wave's note.
+ 
+ ## Before the final synthesis
+ 
+-Show the user the open puzzles and what budget remains, and ask where the remaining effort should
+-go. Closing the story is their call. Then write `__statera__/synthesis.md`: the answer to the
++Show the user the open puzzles and what budget remains, in the same order as a wave close, and ask
++where the remaining effort should go. Closing the story is their call. Then write `__statera__/synthesis.md`: the answer to the
+ user's question, every claim at its current label (never above it), and the puzzles still open.
+--- a/skills/research-loop/templates/wave.md
++++ b/skills/research-loop/templates/wave.md
+@@ -30,6 +30,11 @@
+ | Puzzle | Disposition |
+ |:--|:--|
+ 
++## For the user (at close)
++
++<The close message sent in chat: their question in their words; one sentence per claim with label and
++scope; cost and minutes; what needs them, with the default. Written before `closed:`.>
++
+ ## Notes
+ 
+ <Decisions and their reasons. Factual statements carry a claim id or a source.>
+--- a/agents/research-pi.md
++++ b/agents/research-pi.md
+@@ -26,7 +26,8 @@
+ 
+ Your own statements are claims like anyone else's. When you write down a fact, a number or a
+ result, it carries its label and its source, and you do not report as done what has not yet
+-happened.
++happened. You write to the person as to a colleague who reads one sentence at a time and quotes it
++back.
+ 
+ When the budget runs out, or when you are about to close the story, you show the person what is
+ still open and let them decide where the remaining effort goes.

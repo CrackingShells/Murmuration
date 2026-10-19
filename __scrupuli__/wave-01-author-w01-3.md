@@ -1,0 +1,35 @@
+## symbols
+
+| Symbol | Meaning |
+|:--|:--|
+| `cost-state` | the record Claude Code appends to a session's main transcript at its end: `totalCostUSD` and, per model, the four token counts and `costUSD`. The only exact USD in any file |
+| owner session | the session named in a transcript record's own `sessionId`; a fork's or a copied agent file's records keep the original's |
+| uplift | the factor cost-state USD / transcript USD of a model's cell, measured on ended sessions; used for the upper figure of an open session |
+
+## S-w01-author-w01-3-1
+Every main thread writes its prompt cache with the 1 hour lifetime and every subagent, of all four models, with the 5 minute one. Over the combinatorics sessions and this run: main threads 10.85 M (Opus), 0.17 M (Sonnet), 1.27 M (Haiku) tokens at 1 h, 0 at 5 min; subagents 15.6 M (Sonnet), 0.69 M (Fable), 0.40 M (Opus), 1.23 M (Haiku) at 5 min, 0 at 1 h. `cost-state` prices subagent writes at the 5 minute rate (Sonnet and Fable cells reproduce `costUSD` exactly that way). So a worker that waits more than 5 minutes for its partner or the PI pays a full context re-write when it wakes, while the PI's own context stays cached for an hour. Is the lifetime a platform rule for subagents or something a plugin setting (an agent frontmatter field, an environment variable) can change? This looks like a larger cost lever for the pair loop than the SubagentStart context that v5 worried about, and I did not test it.
+refs: __reports__/reflective_run/w01/author-w01-3/validate_cells.csv (columns table_on_cs_5m, table_on_cs_1h); the TTL tally is the inline script in this run's transcript (author-w01-3), cache_creation.ephemeral_5m_input_tokens / ephemeral_1h_input_tokens in any usage block
+
+## S-w01-author-w01-3-2
+Two errors cancel in USD, so the wrong reading looked right. Counting each file alone (v6's rule) inflates tokens by x1.32 to x1.44 on the combinatorics project but, priced, gives USD 250.44 against the cost-state sum 224.85 (x1.114), because it also undercounts subagent output (Sonnet transcript USD is 71 to 74 percent of cost-state). The correct dedup alone gives 207.89, which is 7.5 percent under. A human who multiplied v6's token table by a price list would have seen a total about 11 percent high and had no reason to doubt it; fixing only one of the two faults would have made it worse in one direction. Which of the two does a verifier of any later spend claim check first?
+refs: __reports__/reflective_run/w01/author-w01-3/falsify.txt (F1); compare.csv row (ii)
+
+## S-w01-author-w01-3-3
+Whose spend is "the lab's"? The scan counts every session whose `cwd` is under the repository or one of its worktrees. From this worktree that is the PI session (USD 23 to 30), 63 sessions started in directories below it (USD 0.75, exact) and 30 probe sessions below the main checkout (USD 1.11, exact: the build of the plugin, one day earlier). The Murmuration design session (USD 68.08) sits under the combinatorics project and is in no scan of this repository. Nothing in a lab file says when a lab began or which sessions belong to it; `--since` is a patch. The PI's 6 M token budget (S-w01-research-pi, user_words 11:04) names no unit that a file can check: cache writes alone are 4.5 M at 11:28 and cache reads 83 M, while the same run is USD 25 to 32. Which tokens did the human agree to?
+refs: __reports__/reflective_run/w01/author-w01-3/compare.csv (rows i-a, i-b: mine_all_cache_write); human_worktree.txt; __statera__/user_words.md 11:04
+
+## S-w01-author-w01-3-4
+The hook-resolution fact I relied on is not clean. S-w01-research-pi-5 says the 11:04 prompt reached only the main checkout's `__statera__/user_words.md` because `scripts/user_words.py` takes `CLAUDE_PROJECT_DIR` first. At 11:35 both files carry the same three entries dated 2026-10-19 (`grep -c '^## 2026-10-19'` gives 3 in each), and the worktree's copy is an uncommitted edit of 6 inserted lines. Either the hook did write to both, or someone copied the entries. `CLAUDE_PROJECT_DIR` is empty in this agent's Bash environment, which says nothing about the hook's environment. My index-hook prototype resolves the lab from the input's `cwd` and never reads the variable, so the decision in w01-c3 does not depend on which is true, but a verifier who checks S-w01-research-pi-5 may find it already false.
+refs: scripts/user_words.py `project_root`; __statera__/user_words.md in the worktree and in /Users/hacker/Documents/src/CrackingShells/Murmuration; `git diff --stat -- __statera__/user_words.md` in the worktree
+
+## S-w01-author-w01-3-5
+The 63 sessions below this worktree each ended with a cost-state of USD 0.003 to 0.015 (Haiku, headless `claude -p` runs by explorers and authors probing the platform), but cost-state exists only for sessions that ended cleanly. 4 of the 63 had none at 11:28 (running, or killed): I cannot tell which. The same ambiguity v6 has for "in-flight runs" now reaches the main number's basis column ("59 exact, 4 estimate"). A session-start time with no later record for ten minutes is the only signal I found, and I did not build it.
+refs: __reports__/reflective_run/w01/author-w01-3/human_worktree.txt (row "this checkout, sessions started below it"); index_test.txt
+
+## S-w01-author-w01-3-6
+Subagent output is understated by the same mechanism that v5's ledger row would have inherited, and the gap is large for exactly the agents this study runs most. I measured the Sonnet worker's USD at 71 to 74 percent of cost-state, all of it output tokens (adding cost-state's output tokens to the transcript counts reproduces `costUSD` to four decimals in all four Sonnet and Fable cells). The explorers of this run write long reports; the genesis workers wrote code through tool calls. The uplift (x1.35 to x1.40, leave-one-out within 4 percent) comes from the second kind of worker. Whether this run's explorers sit near it will only be known when this session ends and its cost-state exists: `profile_runs.py` of explorer-w01-a will then fill the allocation, and `lab_spend.py --root <worktree>` will print the exact total next to the upper figure.
+refs: __reports__/reflective_run/w01/author-w01-3/validate_cells.csv; falsify.txt (F4); human_worktree.txt
+
+## S-w01-author-w01-3-7
+Fork ownership rests on one observed property and I could not find where it is documented. In the 4 combinatorics sessions every message id has exactly one `sessionId` across 5460 records, and a fork's copied records (also the copied agent files) keep the original session's id (`82e8a947`'s file holds 209 records naming `566fa912`). `cost-state` of the fork excludes them: input and cache counts match to the token only when the copies are charged to the original. If a later Claude Code version rewrites the id on fork, the scan would charge the fork twice again and the equality test in `crossref.py` is the one that would show it.
+refs: __reports__/reflective_run/w01/author-w01-3/crossref.txt; validate_cells.csv; inline check in this run's transcript (owners per message id)

@@ -1,0 +1,4 @@
+name,pi_turns_in_window,pi_tools,pi_cache_read,pi_cache_write,pi_out_recorded,pi_usd_list_opus_1h
+explorer-w01-c,2,ToolSearch;SendMessage,400902,13886,569,0.2027
+explorer-w01-d,1,SendMessage,264014,9578,462,0.1387
+explorer-w01-b,1,SendMessage,209682,882,345,0.0559

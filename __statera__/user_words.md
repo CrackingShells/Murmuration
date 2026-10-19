@@ -38,3 +38,9 @@ Three axes guide where to start, in this order of priority:
 
 Every change you propose to the plugin is a claim with evidence from the transcripts and files, a cost, and an independent verdict. I decide which ones land. Budget: [state it, e.g. tokens or hours]. Show me what is still open before you close the study.
 </pasted_content id="7df5">
+
+## 2026-10-19 11:04
+
+> I set a working budget of about 6 M tokens of team spend over at most three waves, because your prompt left the budget line blank. Tell me if you want a different figure.
+
+That's reasonable, actually.

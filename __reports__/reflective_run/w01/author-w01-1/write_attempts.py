@@ -5,10 +5,11 @@ Why python: JSONL joins of tool_use to tool_result by id."""
 import json, sys, glob, os
 d = sys.argv[1]
 print("agent\ttype\ttool\tfile_path\tis_error\tresult_head")
-for f in sorted(glob.glob(os.path.join(d, "agent-*.jsonl"))):
-    aid = os.path.basename(f)[6:-6]
+files = [d] if d.endswith(".jsonl") else sorted(glob.glob(os.path.join(d, "agent-*.jsonl")))   # a subagents dir, or one transcript (the main thread)
+for f in files:
+    aid = os.path.basename(f)[6:-6] if os.path.basename(f).startswith("agent-") else "main"
     meta = {}
-    try: meta = json.load(open(f[:-6] + ".meta.json"))
+    try: meta = json.load(open(f[:-6] + ".meta.json")) if aid != "main" else {"agentType": "main-thread"}
     except Exception: pass
     uses, res = {}, {}
     for line in open(f, encoding="utf-8"):

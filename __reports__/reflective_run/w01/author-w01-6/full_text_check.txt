@@ -1,0 +1,5 @@
+prompts 55 full text found 50 missing 5 longer than the csv text 18
+label or verdict words: [('721d5438', ['checked']), ('9cd91bd9', ['cited']), ('87831bbf', ['checked'])]
+cost unit words (usd, tokens, hours, minutes, budget, cost): [('721d5438', ['cost']), ('87831bbf', ['cost']), ('b3822de3', ['budget', 'cost']), ('05f44db5', ['cost']), ('201e1cdd', ['usd']), ('355d9ea5', ['cost'])]
+lab vocabulary (claim, puzzle, wave, hypothes, verdict): [('d10ebf86', ['hypothes']), ('87831bbf', ['hypothes', 'wave']), ('b3822de3', ['hypothes']), ('f5966b4c', ['puzzle']), ('623236e7', ['claim', 'puzzle']), ('ae452525', ['pondus', 'scrupul', 'statera']), ('038a7abe', ['wave'])]
+quote-replies start with ">": 11 ; contain a quoted line: 12

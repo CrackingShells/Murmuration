@@ -1,0 +1,87 @@
+session	class	current_stores	new_stores	differ	reason	current_chars	new_chars	prompt_head
+566fa912	human	True	True	False	other	6991	6991	We are Sunday. I just want to work on a topic, an idea I had
+566fa912	human_midturn	True	True	False	other	151	151	FYI: this repo is not git initialized but I recommend you to
+566fa912	human_midturn	True	True	False	other	308	308	I see you have the general plan:\n\n```\nDispatch theory, liter
+566fa912	human	True	True	False	other	715	715	I'm reading the problem framing, and generally you got it ri
+566fa912	human_midturn	True	True	False	other	1252	1252	already feel like I am intervening too much in your research
+566fa912	human	True	True	False	other	465	465	Are you sure about the completeness that only goes downward?
+566fa912	human	True	True	False	other	298	298	> I’m using “scroll” provisionally. \n\nScroll is a bit too cl
+566fa912	human	True	True	False	other	31	31	Adopt imbrex as the name for G.
+566fa912	human	True	True	True	leading_reminder	1512	204	<system-reminder>\nThe user forked this conversation from an 
+566fa912	human	True	True	True	leading_reminder	2306	932	<system-reminder>\nThe user forked this conversation at this 
+566fa912	human	True	True	True	leading_reminder	1674	514	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	human	True	True	True	leading_reminder	1919	759	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	human_midturn	True	True	True	leading_reminder	1503	343	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	human	True	True	False	other	75	75	Set pack.window=250 and pack.depth=50 in this repository's g
+566fa912	human	True	True	True	leading_reminder	1129	231	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	human	True	True	True	leading_reminder	1334	174	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	human	True	True	False	other	73	73	By the way, you have not yet tested the idea of weights alig
+566fa912	human	True	True	False	other	89	89	Check also the default LM studio directory for wieghts stori
+566fa912	human	True	True	True	leading_reminder	1317	158	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	human	True	True	True	leading_reminder	1242	82	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	human	True	True	True	leading_reminder	1823	663	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	human	True	True	False	other	382	382	> I tested it directly: aligning the raw bit sequences, the 
+566fa912	human	True	True	True	leading_reminder	1523	590	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	human	True	True	True	leading_reminder	1582	548	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	human	True	True	True	leading_reminder	1409	249	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	human	True	True	True	leading_reminder	1147	102	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	human	True	True	True	leading_reminder	1180	168	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	platform_notice	True	False	True	leading_reminder+DROPPED(not user text)	2946	0	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	human	True	True	False	other	366	366	For tracking my work and activity, I am usign /scheduling-wo
+566fa912	human	True	True	False	other	201	201	Yes, add an open Exploration task to review the anamnesis is
+566fa912	human	True	True	False	other	148	148	Actually, ou can move that one for to "Side Jobs" So is the 
+566fa912	human	True	True	False	other	162	162	/scheduling-work now we have to enter values in the ledger f
+566fa912	platform_notice	True	False	True	leading_reminder+DROPPED(not user text)	2771	0	<system-reminder>\nThe session "Verify reference coding on re
+566fa912	platform_notice	True	False	True	leading_reminder+DROPPED(not user text)	2147	0	<system-reminder>\nThe session "Verify reference coding on re
+566fa912	platform_notice	True	False	True	leading_reminder+DROPPED(not user text)	2148	0	<system-reminder>\nThe session "Verify reference coding on re
+566fa912	platform_notice	True	False	True	leading_reminder+DROPPED(not user text)	2148	0	<system-reminder>\nThe session "Verify reference coding on re
+566fa912	platform_notice	True	False	True	leading_reminder+DROPPED(not user text)	2148	0	<system-reminder>\nThe session "Verify reference coding on re
+566fa912	platform_notice	True	False	True	leading_reminder+DROPPED(not user text)	2147	0	<system-reminder>\nThe session "Verify reference coding on re
+566fa912	platform_notice	True	False	True	leading_reminder+DROPPED(not user text)	2147	0	<system-reminder>\nThe session "Verify reference coding on re
+566fa912	human	True	True	True	leading_reminder	1174	73	<system-reminder>\nThe user's fork "Binary sliding window com
+82e8a947	human	True	True	True	leading_reminder	799	514	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	1176	891	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	1633	1348	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	892	607	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	583	298	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	347	62	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	2028	1743	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	342	57	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	984	699	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	367	82	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	326	41	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	563	278	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	701	416	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	326	41	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	888	603	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	384	99	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	442	157	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	455	170	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	431	146	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	412	47	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	474	109	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	866	504	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	745	383	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human_midturn	True	True	False	other	226	226	commit progressively as expected by the roadmap. also consul
+82e8a947	human	True	True	True	leading_reminder	711	349	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	482	120	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	478	116	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	human	True	True	True	leading_reminder	2015	1653	<system-reminder>\nLinked sessions now (status, not an instru
+3ccc590f	human	True	True	False	other	1042	1042	This is a fork of the main conversation after we received th
+3ccc590f	human	True	True	False	other	739	739	To be completely honest, this idea that I reduced to uh, bin
+2947f9dc	platform_notice	True	True	True	leading_reminder	4118	3757	<system-reminder>\nLinked sessions now (status, not an instru
+2947f9dc	human	True	True	True	leading_reminder	880	518	<system-reminder>\nLinked sessions now (status, not an instru
+2947f9dc	human	True	True	True	leading_reminder+view_context	3476	2201	<system-reminder>\nLinked sessions now (status, not an instru
+2947f9dc	human	True	True	True	leading_reminder+view_context	1569	285	<system-reminder>\nLinked sessions now (status, not an instru
+2947f9dc	human_midturn	True	True	True	leading_reminder+view_context	1449	165	<system-reminder>\nLinked sessions now (status, not an instru
+2947f9dc	scheduled	True	True	False	other	829	829	Check-in on the v8 banyan campaign (anamnesis pitch work). R
+2947f9dc	scheduled	True	True	False	other	1324	1324	Check-in on the v8 banyan campaign (anamnesis pitch work). R
+2947f9dc	scheduled	True	True	False	other	1450	1450	Check-in on the v8 banyan campaign (anamnesis pitch work). R
+2947f9dc	scheduled	True	True	False	other	1814	1814	Check-in on the v8 banyan campaign (anamnesis pitch work). R
+2947f9dc	scheduled	True	True	False	other	1774	1774	Check-in on the v8 banyan campaign (anamnesis pitch work). R
+2947f9dc	human	True	True	True	leading_reminder+view_context	1623	339	<system-reminder>\nLinked sessions now (status, not an instru
+2947f9dc	human	True	True	True	leading_reminder+view_context	1376	130	<system-reminder>\nLinked sessions now (status, not an instru
+2947f9dc	human_midturn	True	True	True	leading_reminder	387	25	<system-reminder>\nLinked sessions now (status, not an instru
+2947f9dc	human	True	True	False	other	30	30	it's okay I confirmed your fix
+ab96c5ed	human	True	True	True	leading_reminder+pasted_wrapper	2454	2156	<system-reminder>\nYou are operating in a git worktree.\nWorkt
+ab96c5ed	human	True	True	False	other	202	202	> I set a working budget of about 6 M tokens of team spend o

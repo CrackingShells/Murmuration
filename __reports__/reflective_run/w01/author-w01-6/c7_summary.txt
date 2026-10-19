@@ -1,0 +1,44 @@
+prompts whose csv text was shorter than the transcript text: 18 of 62
+asks replayed 19
+verdicts (CONJECTURE) {'KEEP': 11, 'REMOVE': 2, 'AT_RISK': 2, 'SHORTEN': 4}
+outcomes (MEASURED)   {'default': 9, 'typed': 4, 'declined': 6}
+verdict x outcome     {('KEEP', 'default'): 6, ('REMOVE', 'default'): 2, ('AT_RISK', 'typed'): 2, ('KEEP', 'typed'): 2, ('KEEP', 'declined'): 3, ('SHORTEN', 'declined'): 3, ('SHORTEN', 'default'): 1}
+explorer-w01-d class vs my verdict {('J', 'KEEP'): 5, ('R', 'REMOVE'): 2, ('R', 'AT_RISK'): 2, ('R', 'KEEP'): 1, ('D', 'KEEP'): 1, ('G', 'KEEP'): 2, ('G', 'SHORTEN'): 3, ('R', 'SHORTEN'): 1, ('H', 'KEEP'): 2}
+REMOVE   n= 2  idle-minutes human present=   2.4  human away= 479.3
+SHORTEN  n= 4  idle-minutes human present=  11.2  human away=   0.0
+AT_RISK  n= 2  idle-minutes human present=   9.0  human away=   0.0
+KEEP     n=11  idle-minutes human present=  74.0  human away= 545.4
+
+keyword search as the finder (MEASURED): settling prompt rank among all prior prompts, by word overlap with the ask
+  ask 10 settle 33a2540f rank 4 (+6 tied) of 30  overlap 0.25  best 8b8533e8 0.5  prompts between 4  minutes between 28.6
+  ask 11 settle 5b683d15 rank 4 (+8 tied) of 35  overlap 0.25  best 8b8533e8 0.5  prompts between 4  minutes between 24.7
+  ask 13 settle 69ca9e2b rank 13 (+26 tied) of 39  overlap 0.0  best ef016b13 0.25  prompts between 2  minutes between 12.9
+  ask 16 settle 85f8ec42 rank 12 (+34 tied) of 46  overlap 0.0  best 87831bbf 0.43  prompts between 10  minutes between 70.5
+  ask 17 settle 3b472151 rank 4 (+10 tied) of 55  overlap 0.17  best 87831bbf 0.5  prompts between 3  minutes between 50.0
+keyword search false-positive pressure (MEASURED): highest overlap with ANY prior prompt for asks the habit must not suppress (KEEP/AT_RISK)
+  ask  0 KEEP    best overlap 0.2 with fa7c006d   Adopt "imbrex" as the name for G?
+  ask  2 AT_RISK best overlap 0.22 with b9d09057   Download two small base/instruct pairs (SmolLM2-135M, Qwen2.
+  ask  3 KEEP    best overlap 0.3 with 87c07414   Pursue the format result as a workshop paper, built on anamn
+  ask  4 KEEP    best overlap 0.22 with 87c07414   Draft an anamnesis issue proposing lossless reference storag
+  ask  5 KEEP    best overlap 0.33 with 87831bbf   Add an open task to review and post the anamnesis issue?
+  ask  6 KEEP    best overlap 0.17 with ef016b13   Write this split to the ledger as took events?
+  ask  7 KEEP    best overlap 0.17 with 8b8533e8   Turn the package design into a roadmap and build it?
+  ask  8 KEEP    best overlap 0.4 with 8b8533e8   Approve v1 and open the research_lab roadmap?
+  ask  9 KEEP    best overlap 0.2 with fa7c006d   Which naming set should architecture v2 use?
+  ask 12 KEEP    best overlap 0.25 with f5966b4c   Name the repository Murmuration?
+  ask 14 AT_RISK best overlap 0.33 with 87831bbf   Start wave 1 (platform probes and instrument validation)?
+  ask 15 KEEP    best overlap 0.25 with ef016b13   Log in the CLI so the remaining probes can run?
+  ask 18 KEEP    best overlap 0.5 with 87831bbf   Open the research-pi session in a terminal tab for you?
+
+S-class prompts (CONJECTURE verdicts)
+  bf53476b 10-18T07:27   89 chars  N    REVISED (was Y): the PI had already searched the disk; the LM Studio location was the human's knowledge; the habit does not find it
+  442c488c 10-18T09:26  249 chars  N    REVISED (was cond): nothing shows the PI would have read the prior art unasked; the human's move was a specific skill call
+  9b8f9ecb 10-18T15:46  226 chars  cond a rule stated once goes into the framing; needs the 03:22 "use writing-history, commit as you go" rule to have been written and the plan overview to be checked against it
+  29aad9e7 10-18T03:22  151 chars  N    first statement of the rule; nothing earlier to find. A `git status` at session start would find "not initialised" but that is not the asking habit
+  6ee68017 10-18T03:24  324 chars  N    first statement; the shipped waves.md already says "plan only the current wave"; not an asking matter
+  7920d665 10-18T07:51   82 chars  cond answers a second plain-text ask about the same download; under the habit the PI would take the default (a download into data/raw is reversible); conditional because ask 2 itself is now AT_RISK
+(asks 5 and 6 are answered by scheduler-bookkeeping prompts of phase G-C, outside the 55)
+
+research prompts 55; habit would remove 2 (['b32ab3d7', 'c93476cc']), plausibly 2 more (['7920d665', '9b8f9ecb']); shorten 4; at risk 2
+removed share 2/55 = 3.6%; with conditional 4/55 = 7.3%
+reading the whole user-words file at the end of the genesis+design sessions: 55 prompts, 27494 chars, 4717 words
