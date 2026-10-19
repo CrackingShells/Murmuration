@@ -88,9 +88,9 @@ nothing argued for them, not because the evidence ruled them out.
 
 ## Cost of the study
 
-The study's own sessions cost USD 108 at least, by `/lab-status` at 16:34. That is a lower bound,
+The study's own sessions cost USD 114 at least, by `/lab-status` at 16:41. That is a lower bound,
 because this session is still open. Headless runs outside the repository add about 32: the five
-arms (19.57) and the probes (about 12). The total is about USD 140.
+arms (19.57) and the probes (about 12). The total is about USD 146.
 
 The PI set itself a cap of about USD 60 for wave 2. Wave 2 spent about 78, so the PI overran its own
 cap by about 18. The USD 70–90 proposed for the whole study after wave 1 was never confirmed, and it
@@ -106,5 +106,5 @@ was overrun too. The user's budget for wave 2 was six hours. Wave 2 ran from 12:
 | 4 | The budget hook: keep it off, or re-enable it with a stated floor? It acts only between tool calls, so it cannot bound a budget smaller than a few requests (about USD 0.20 for Sonnet), and the overshoot rule was written without that floor | you | one commit |
 | 5 | Whether stated budgets make the PI plan a smaller team (B–B4): a dedicated test with several runs per arm | a further wave | about USD 20 |
 | 6 | Protocol: authors edited claim heads during verification; PI-authored claims get late answers; derived tables can truncate silently; proof files under `__pondus__/` are read as claims; the verdict-line rule now favours a stray quoted line | a protocol claim | — |
-| 7 | The budget hook also starts on each of the PI's own tool calls (about 35 ms each); hand-backs repeat most of the report; the platform's subagent prompt discourages report files (2 of 5 explorers skipped the template in one test) | small fixes | — |
+| 7 | Hand-backs repeat most of the report; the platform's subagent prompt discourages report files (2 of 5 explorers skipped the template in one test); one wave-2 puzzle file used a heading that `/lab-status` cannot track | small fixes | — |
 | 8 | The nine set-aside elements not examined, and the tuning targets not covered (`omitClaudeMd`, `autoCompactWindow`, a 1-hour cache for authors waiting on a verifier) | further waves | — |

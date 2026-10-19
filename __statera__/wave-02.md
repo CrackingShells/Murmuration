@@ -68,18 +68,135 @@ wave at about 60 more (study total about 135) and checks spend at each phase.
 | reproducer-w02-2 | reproducer | verify w02-c2 | SUPPORTED |
 | explorer-w02-a | explorer | How a token/time budget can reach a running worker through hooks; presence gate; first look at "anxiety" | yes; USD 0.78, 82 headless haiku runs; wrote `00-findings_v0.md` itself (Write allowed) |
 | explorer-w02-b | explorer | Report names vs the Write refusal; loading writing-reports; skill-listing size; subagent cache lifetime | after a 60-turn stop and resume; USD 0.26 |
-| author-w02-3 | author | w02-c3: ship the budget hook (USD, 80% note, 100% stop) and the hand-back saver with a deny-once report check | |
-| author-w02-4 | author | w02-c4: report templates in research-loop; workers without `Skill`; maxTurns as fallback 150 | |
+| author-w02-3 | author | w02-c3: ship the budget hook (USD, 80% note, 100% stop) and the hand-back saver with a deny-once report check; later w02-c5, w02-c6, and the switch-off | yes; w02-c3 superseded by w02-c5; w02-c5 and w02-c6 SUPPORTED; budget part switched off (b14130f) |
+| author-w02-4 | author | w02-c4: report templates in research-loop; workers without `Skill`; maxTurns as fallback 150; later w02-c10 | yes; w02-c4 OVERSTATED (restate); w02-c10 ESCALATE, decided below |
+| reproducer-w02-3 | reproducer | verify w02-c3 | OVERSTATED; restated as w02-c5 |
+| reproducer-w02-4 | reproducer | verify w02-c4 | SUPPORTED, then OVERSTATED with `changed_by:` |
+| reproducer-w02-5 | reproducer | verify w02-c5 | SUPPORTED |
+| reproducer-w02-6 | reproducer | verify w02-c6 | SUPPORTED |
+| explorer-w02-c | explorer | measure arms A, B, B2, B3, B4 by the pre-registered metrics (`w02/explorer-w02-c/`) | yes; four findings reports |
+| reproducer-w02-7 | reproducer | verify w02-c7 (README headless note; PI-authored) | OVERSTATED; head restated by PI decision |
+| reproducer-w02-8 | reproducer | verify w02-c8 (the experiment; PI-authored) | OVERSTATED; head restated by PI decision; its finding switched the budget hook off |
+| author-w02-1 (resumed) | author | w02-c9: `/lab-status` reads a verifier's latest verdict | yes; landed as b396fd1 |
+| reproducer-w02-9 | reproducer | verify w02-c9 | SUPPORTED |
+| reproducer-w02-10 | reproducer | verify w02-c10 | ESCALATE; narrowed by PI decision, landed as d4fb928 |
 
 ## Claims of this wave
 
 | Claim | Statement | Current label |
 |:--|:--|:--|
+| w02-c1 | `/lab-status` spend in USD, every session of the lab, each message once | MEASURED |
+| w02-c2 | prompt hook keeps only the user's text | MEASURED |
+| w02-c3 | budget and hand-back hooks, first filing | superseded by w02-c5 |
+| w02-c4 | report template, workers without `Skill`, `maxTurns` 150 | below MEASURED: restate |
+| w02-c5 | budget notes obeyed in probes; hand-backs saved verbatim; deny-once report request | MEASURED (budget part switched off by the experiment rule) |
+| w02-c6 | time budget on the same path; reaches background workers | MEASURED (switched off with the budget) |
+| w02-c7 | README note on the headless background ceiling | below MEASURED: restate; head restated by PI decision |
+| w02-c8 | the five-arm experiment | below MEASURED: restate; head restated by PI decision |
+| w02-c9 | `/lab-status` reads the latest verdict | MEASURED |
+| w02-c10 | spend figures only from the harness or `/lab-status` | escalated; MEASURED for the narrowed statement by PI decision |
 
 ## Puzzle dispositions (at close)
 
 | Puzzle | Disposition |
 |:--|:--|
+| S-w02-author-w02-1-1 | followed: w02-c1 |
+| S-w02-author-w02-1-2 | followed: w02-c1 |
+| S-w02-author-w02-1-3 | parked: accepted cost: the reader is +203 lines for exact USD and worktree discovery; leanness weighed in w02-c1 |
+| S-w02-author-w02-1-4 | parked: decided: no uplift estimate and no wake-ups column; the lower-bound mark is enough |
+| S-w02-author-w02-1-5 | parked: listed for the user as an open item in __statera__/synthesis.md |
+| S-w02-author-w02-1-6 | parked: minor display question; no evidence of confusion |
+| S-w02-author-w02-1-7 | parked: resolved: commits were staged by name |
+| S-w02-author-w02-2-1 | parked: resolved: the wave note now says 12:26 |
+| S-w02-author-w02-2-2 | parked: listed for the user as an open item in __statera__/synthesis.md |
+| S-w02-author-w02-2-3 | followed: w02-c2 |
+| S-w02-author-w02-2-4 | followed: w02-c2 |
+| S-w02-author-w02-2-5 | parked: listed for the user as an open item in __statera__/synthesis.md |
+| S-w02-author-w02-3-1 | followed: w02-c5 |
+| S-w02-author-w02-3-2 | followed: w02-c5 |
+| S-w02-author-w02-3-3 | followed: w02-c5 |
+| S-w02-author-w02-3-4 | followed: w02-c5 |
+| S-w02-author-w02-3-5 | parked: resolved: the budget hook is switched off (b14130f), so it no longer starts on main-thread calls |
+| S-w02-author-w02-3-6 | followed: w02-c5 |
+| S-w02-author-w02-3-7 | followed: w02-c5 |
+| S-w02-author-w02-3-8 | followed: w02-c5 |
+| S-w02-author-w02-3-9 | followed: w02-c5 |
+| S-w02-author-w02-3-10 | followed: w02-c5 |
+| S-w02-author-w02-3-11 | parked: budget overrun of USD 0.02 noted; no action |
+| S-w02-author-w02-3-12 | followed: w02-c6 |
+| S-w02-author-w02-3-13 | followed: w02-c6 |
+| S-w02-author-w02-4-1 | followed: w02-c4 |
+| S-w02-author-w02-4-2 | parked: listed for the user as an open item (hand-backs repeat the report) in __statera__/synthesis.md |
+| S-w02-author-w02-4-3 | parked: no guard on the Write tool is proposed, so heredoc writes do not matter |
+| S-w02-author-w02-4-4 | followed: w02-c5 |
+| S-w02-author-w02-4-5 | followed: w02-c8 |
+| S-w02-author-w02-4-6 | followed: w02-c10 |
+| S-w02-author-w02-4-7 | followed: w02-c10 |
+| S-w02-explorer-w02-a-1 | followed: w02-c5 |
+| S-w02-explorer-w02-a-2 | followed: w02-c5 |
+| S-w02-explorer-w02-a-3 | followed: w02-c5 |
+| S-w02-explorer-w02-b-1 | followed: w02-c4 |
+| S-w02-explorer-w02-b-2 | followed: w02-c4 |
+| S-w02-explorer-w02-b-3 | followed: w02-c8 |
+| S-w02-explorer-w02-c-1 | followed: w02-c8 |
+| S-w02-explorer-w02-c-2 | followed: w02-c8 |
+| S-w02-explorer-w02-c-3 | followed: w02-c8 |
+| S-w02-explorer-w02-c-4 | parked: listed for the user as an open item (proof files in __pondus__ read as claims) in __statera__/synthesis.md |
+| S-w02-explorer-w02-c-5 | followed: w02-c7 |
+| S-w02-explorer-w02-c-6 | followed: w02-c10 |
+| S-w02-explorer-w02-c-7 | parked: listed for the user as an open item (hook silent at three tool results in B4) in __statera__/synthesis.md |
+| S-w02-explorer-w02-c-8 | followed: w02-c8 |
+| S-w02-reproducer-w02-1-1 | followed: w02-c1 |
+| S-w02-reproducer-w02-1-2 | followed: w02-c1 |
+| S-w02-reproducer-w02-1-3 | followed: w02-c1 |
+| S-w02-reproducer-w02-1-4 | parked: expected: an open session's figure grows while it runs |
+| S-w02-reproducer-w02-1-5 | parked: process note: author addenda after a verdict are marked as such |
+| S-w02-reproducer-w02-2-1 | followed: w02-c2 |
+| S-w02-reproducer-w02-2-2 | followed: w02-c2 |
+| S-w02-reproducer-w02-2-3 | followed: w02-c2 |
+| S-w02-reproducer-w02-2-4 | followed: w02-c2 |
+| S-w02-reproducer-w02-2-5 | parked: process: claim heads edited after an independent result; see S-w01-research-pi-11 (open item) |
+| S-w02-reproducer-w02-3-1 | followed: w02-c5 |
+| S-w02-reproducer-w02-3-2 | followed: w02-c5 |
+| S-w02-reproducer-w02-3-3 | followed: w02-c5 |
+| S-w02-reproducer-w02-3-4 | parked: resolved: quick runs now write summary_quick.tsv |
+| S-w02-reproducer-w02-3-5 | parked: resolved: the hashes and commit are recorded in w02-c5 |
+| S-w02-reproducer-w02-3-6 | followed: w02-c5 |
+| S-w02-reproducer-w02-4-1 | followed: w02-c4 |
+| S-w02-reproducer-w02-4-2 | followed: w02-c4 |
+| S-w02-reproducer-w02-4-3 | followed: w02-c4 |
+| S-w02-reproducer-w02-4-4 | parked: process: late answers from authors; see S-w01-research-pi-15 (open item) |
+| S-w02-reproducer-w02-4-5 | parked: process: late answers from authors; see S-w01-research-pi-15 (open item) |
+| S-w02-reproducer-w02-4-6 | followed: w02-c8 |
+| S-w02-reproducer-w02-5-1 | followed: w02-c5 |
+| S-w02-reproducer-w02-5-2 | followed: w02-c5 |
+| S-w02-reproducer-w02-5-3 | followed: w02-c5 |
+| S-w02-reproducer-w02-5-4 | followed: w02-c5 |
+| S-w02-reproducer-w02-5-5 | parked: resolved: the evidence files were committed after the verdict (bb7f2ce) |
+| S-w02-reproducer-w02-6-1 | followed: w02-c6 |
+| S-w02-reproducer-w02-6-2 | followed: w02-c6 |
+| S-w02-reproducer-w02-6-3 | followed: w02-c6 |
+| S-w02-reproducer-w02-6-4 | followed: w02-c6 |
+| S-w02-reproducer-w02-6-5 | followed: w02-c6 |
+| S-w02-reproducer-w02-7-1 | followed: w02-c7 |
+| S-w02-reproducer-w02-7-2 | followed: w02-c7 |
+| S-w02-reproducer-w02-7-3 | followed: w02-c7 |
+| S-w02-reproducer-w02-8-1 | followed: w02-c8 |
+| S-w02-reproducer-w02-8-2 | followed: w02-c8 |
+| S-w02-reproducer-w02-8-3 | followed: w02-c8 |
+| S-w02-reproducer-w02-8-4 | followed: w02-c8 |
+| S-w02-reproducer-w02-8-5 | followed: w02-c8 |
+| S-w02-reproducer-w02-9-1 | parked: listed for the user as an open item (a verdict rule keyed on changed_by) in __statera__/synthesis.md |
+| S-w02-reproducer-w02-9-2 | parked: resolved: the PI's briefs now say 'last' |
+| S-w02-reproducer-w02-9-3 | parked: listed for the user as an open item (verdict template wording) in __statera__/synthesis.md |
+| S-w02-reproducer-w02-10-1 | followed: w02-c10 |
+| S-w02-reproducer-w02-10-2 | followed: w02-c10 |
+| S-w02-reproducer-w02-10-3 | followed: w02-c10 |
+| S-w02-research-pi-1 | parked: listed for the user as an open item (AskUserQuestion capture: prototype in w02-c2, Desktop test needed) in __statera__/synthesis.md |
+| S-w02-research-pi-2 | followed: w02-c7 |
+| S-w02-research-pi-3 | followed: w02-c9 |
+
+Also: `__scrupuli__/wave-02-explorer-w02-b.md` has a puzzle under the heading "What used my 60 turns", which `/lab-status` does not track. It was read: it is the 60-turn stop that w02-c4 answers (`maxTurns` 150, lean workers).
 
 ## Notes
 
@@ -110,7 +227,19 @@ wave at about 60 more (study total about 135) and checks spend at each phase.
   accurate; its effect is untested.
 - **PI decision on the ESCALATE of w02-c8/w02-c2-style restatements** applies only where the
   verifier's own independent result gives the restated figures.
+- **PI decision on w02-c7 and w02-c8** (both OVERSTATED, PI-authored): each head is restated to
+  the statement its verifier's own independent result supports (ad73b5b). They are not re-verified;
+  the synthesis states them as "below MEASURED: restate; restated by PI decision".
+- **Budget hook switched off (b14130f).** reproducer-w02-8 found that, by the rule as written, the
+  budget hook does not land: it fired only in B4 (USD 0.05), where both noticed workers delivered but
+  ended at 3.0 and 2.4 B by the hook's estimate (about 3.8 B exact), past the 1.2 B limit; at real
+  budgets it never fired. Earlier the PI had kept it on as "insurance"; that was a judgement outside
+  the pre-registered rule and is reverted. `scripts/budget.py` stays, unregistered; reverting one
+  commit switches it back on. The hand-back saver and the deny-once report request stay on.
+- **Spend.** Wave 2 cost about USD 78 against the PI's own cap of about 60 (`/lab-status` at 16:41:
+  study sessions USD 114 at least; plus about 32 for headless runs outside the repository). The
+  overrun is disclosed in the synthesis.
 - Plugin changes are now applied on the study branch `claude/murmuration-system-optimization-8cff9e`
-  after a claim and a verdict, per the user's 12:50 answer. Nothing goes to `main`; the user merges.
+  after a claim and a verdict, per the user's 12:26 answer. Nothing goes to `main`; the user merges.
 
-closed: YYYY-MM-DD
+closed: 2026-10-19
