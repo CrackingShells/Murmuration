@@ -1,0 +1,2 @@
+dialogs with answers: 5; answer texts: 12; found verbatim in the stored entry: 12
+list answers: 4; with 2 or more items: 1; of these with a comma inside an item (the comma-joined string cannot be split back): 0

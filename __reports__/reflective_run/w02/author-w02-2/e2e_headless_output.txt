@@ -1,0 +1,30 @@
+case single    run cost USD [0.0047245]
+case multi     run cost USD [0.0048591599999999995]
+case declined  run cost USD [0.0046807]
+hook events seen for AskUserQuestion: ['pre', 'post', 'pre', 'post', 'pre']
+  PostToolUse payload keys: ['cwd', 'duration_ms', 'effort', 'hook_event_name', 'permission_mode', 'prompt_id', 'scratchpad_dir', 'session_id', 'tool_input', 'tool_name', 'tool_response', 'tool_use_id', 'transcript_path']
+  tool_response keys: ['answers', 'questions'] | tool_input has answers: True
+  PostToolUse payload keys: ['cwd', 'duration_ms', 'effort', 'hook_event_name', 'permission_mode', 'prompt_id', 'scratchpad_dir', 'session_id', 'tool_input', 'tool_name', 'tool_response', 'tool_use_id', 'transcript_path']
+  tool_response keys: ['answers', 'questions'] | tool_input has answers: True
+--- __statera__/user_words.md written by ask_capture.py ---
+# The user's words
+
+Prompts as the user typed them, each under its date. Written by the lab's hook and by `/lab`. Read it; never edit it.
+
+## 2026-10-19 12:36
+
+(answer in the question dialog)
+Q: Which colour?
+A: blue
+
+## 2026-10-19 12:36
+
+(answer in the question dialog)
+Q: Which extras?
+A:
+- imatrix quants
+- another family, but more recent, 日本語 ok
+- FP8 pair
+Q: Where to?
+A: banyan
+

@@ -1,0 +1,11 @@
+unwrap the paste before the command tests            selftest FAILS (caught)
+never cut the leading blocks                         selftest FAILS (caught)
+cut the reminder anywhere, not only at the start     selftest FAILS (caught)
+cut a one-line reminder too                          selftest FAILS (caught)
+eat the indentation after a block                    selftest FAILS (caught)
+drop the third block                                 selftest FAILS (caught)
+cut one block only                                   selftest FAILS (caught)
+store a wrapper with nothing inside                  selftest FAILS (caught)
+ignore the closing id of the wrapper                 selftest FAILS (caught)
+trim the typed text                                  selftest FAILS (caught)
+unmutated file                                       PASS user_words
