@@ -1,0 +1,8 @@
+I1 hook fire: median 63.5 ms, max 110.2 ms over 50 runs (python3 -I start-up included)
+I2 replayed 13 hook inputs -> 13 index lines, 6246 bytes
+I3 through the index: 1 sessions, USD 23.33 to 30.36, 0.19 s
+I3 through the scan : 94 sessions, USD 25.18 to 32.22, 0.37 s
+   sessions only the scan finds: 93, USD 1.86 to 1.86 (7.4% of the scan's low figure)
+   scan group main checkout, sessions started below it      sessions  30  USD 1.11 to 1.11
+   scan group this checkout                                 sessions   1  USD 23.33 to 30.36
+   scan group this checkout, sessions started below it      sessions  63  USD 0.75 to 0.75

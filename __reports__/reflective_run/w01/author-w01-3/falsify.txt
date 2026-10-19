@@ -1,0 +1,10 @@
+F1 combinatorics, four sessions: cost-state total USD 224.85; lab_spend (dedup, owned) 207.89 (the 16.97 short of cost-state is the Haiku helper calls, which are in no transcript, and subagent output); per-file counting without cross-file dedup 250.44 = 1.114x cost-state
+   (per-file counting is v6's rule; v6 itself prints tokens only, the x1.32-1.44 factors are in compare.csv)
+F2 session 566fa912 Opus 5.5 cell with the Opus 5 price row: 96.98 / cost-state 58.77 = 1.650 (the right table gives 1.000)
+F2 session 3ccc590f Opus 5.5 cell with the Opus 5 price row: 0.67 / cost-state 0.46 = 1.469 (the right table gives 1.000)
+F2 session 2947f9dc Opus 5.5 cell with the Opus 5 price row: 101.02 / cost-state 60.70 = 1.664 (the right table gives 1.000)
+F3 scan from the main checkout: with git 93 sessions of which 63 are the worktree's; without git 30 sessions, 0 of the worktree's
+F4 claude-sonnet-5-5: uplift 1.350 from session 566fa912 predicts session 82e8a947 at USD 19.29; cost-state says 20.05 (-3.8%)
+F4 claude-sonnet-5-5: uplift 1.403 from session 82e8a947 predicts session 566fa912 at USD 31.78; cost-state says 30.59 (+3.9%)
+F4 claude-fable-5-1: uplift 1.176 from session 566fa912 predicts session 82e8a947 at USD 8.78; cost-state says 8.98 (-2.2%)
+F4 claude-fable-5-1: uplift 1.202 from session 82e8a947 predicts session 566fa912 at USD 6.38; cost-state says 6.24 (+2.2%)

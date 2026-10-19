@@ -1,0 +1,11 @@
+session,line,agent,purpose,note,chars,ts
+genesis,319,a04ebecba85274ac9,new_input,PI-verified fact from another agent (count law) relayed to the atlas agent,772,2026-10-18T03:41:31.348Z
+genesis,346,a04ebecba85274ac9,scope_addition,compositional completeness added after the PI defined it in the framing,1142,2026-10-18T03:43:22.685Z
+genesis,398,a04ebecba85274ac9,new_assignment,atlas accepted; next roadmap node assigned to the same warm agent,1538,2026-10-18T03:58:24.267Z
+genesis,677,a4ad7c71400d5bc3b,correction,verifier found overstated rows and 2 number slips; PI relays with fix instructions and file-naming rule,1118,2026-10-18T04:52:15.968Z
+genesis,678,a3f3fa3fc477f4cd5,correction,verifier found 4 number slips; PI relays,734,2026-10-18T04:52:19.100Z
+design,1616,aff153770869d2a23,unblock,CLI logged in; rerun the model-backed probes,1474,2026-10-18T09:40:25.306Z
+design,1880,aff72ee628b60b2fb,brief_omission,22 s after the brief: branch and commit rules the brief lacked (the human had just said so),782,2026-10-18T15:47:17.165Z
+design,2013,aff72ee628b60b2fb,correction,script fixes from cold review round 1,3216,2026-10-18T16:03:41.610Z
+design,2039,aff72ee628b60b2fb,spec_change,id format changed in SKILL.md after the brief,729,2026-10-18T16:04:28.903Z
+design,2131,aff72ee628b60b2fb,correction,"round 2 of fixes, new worktree path",2075,2026-10-18T16:17:49.498Z

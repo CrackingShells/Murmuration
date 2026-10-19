@@ -1,0 +1,90 @@
+session	class	before_chars	after_chars	no_side_chars	differ	prompt_head
+566fa912	typed	6991	6991	6991	0	We are Sunday. I just want to work on a topic, an idea I had
+566fa912	typed	151	151	151	0	FYI: this repo is not git initialized but I recommend you to
+566fa912	typed	308	308	308	0	I see you have the general plan:\n\n```\nDispatch theory, liter
+566fa912	typed	715	715	715	0	I'm reading the problem framing, and generally you got it ri
+566fa912	typed	1252	1252	1252	0	already feel like I am intervening too much in your research
+566fa912	typed	465	465	465	0	Are you sure about the completeness that only goes downward?
+566fa912	typed	298	298	298	0	> I’m using “scroll” provisionally. \n\nScroll is a bit too cl
+566fa912	typed	31	31	31	0	Adopt imbrex as the name for G.
+566fa912	typed	1512	204	204	1	<system-reminder>\nThe user forked this conversation from an 
+566fa912	typed	2306	932	932	1	<system-reminder>\nThe user forked this conversation at this 
+566fa912	typed	1674	514	514	1	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	typed	1919	759	759	1	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	typed	1503	343	343	1	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	typed	75	75	75	0	Set pack.window=250 and pack.depth=50 in this repository's g
+566fa912	typed	1129	231	231	1	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	typed	1334	174	174	1	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	typed	73	73	73	0	By the way, you have not yet tested the idea of weights alig
+566fa912	typed	89	89	89	0	Check also the default LM studio directory for wieghts stori
+566fa912	typed	1317	158	158	1	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	typed	1242	82	82	1	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	typed	1823	663	663	1	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	typed	382	382	382	0	> I tested it directly: aligning the raw bit sequences, the 
+566fa912	typed	1523	590	590	1	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	typed	1582	548	548	1	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	typed	1409	249	249	1	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	typed	1147	102	102	1	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	interrupt	29	29	29	0	[Request interrupted by user]
+566fa912	typed	1180	168	168	1	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	notice	2946	0	825	1	<system-reminder>\nThe user's fork "Binary sliding window com
+566fa912	typed	366	366	366	0	For tracking my work and activity, I am usign /scheduling-wo
+566fa912	typed	201	201	201	0	Yes, add an open Exploration task to review the anamnesis is
+566fa912	typed	148	148	148	0	Actually, ou can move that one for to "Side Jobs" So is the 
+566fa912	typed	162	162	162	0	/scheduling-work now we have to enter values in the ledger f
+566fa912	notice	2771	0	825	1	<system-reminder>\nThe session "Verify reference coding on re
+566fa912	notice	2147	0	825	1	<system-reminder>\nThe session "Verify reference coding on re
+566fa912	notice	2148	0	825	1	<system-reminder>\nThe session "Verify reference coding on re
+566fa912	notice	2148	0	825	1	<system-reminder>\nThe session "Verify reference coding on re
+566fa912	notice	2148	0	825	1	<system-reminder>\nThe session "Verify reference coding on re
+566fa912	notice	2147	0	825	1	<system-reminder>\nThe session "Verify reference coding on re
+566fa912	notice	2147	0	825	1	<system-reminder>\nThe session "Verify reference coding on re
+566fa912	typed	1174	73	73	1	<system-reminder>\nThe user's fork "Binary sliding window com
+82e8a947	typed	799	514	514	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	1176	891	891	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	1633	1348	1348	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	892	607	607	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	583	298	298	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	347	62	62	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	interrupt	29	29	29	0	[Request interrupted by user]
+82e8a947	typed	2028	1743	1743	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	342	57	57	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	984	699	699	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	367	82	82	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	326	41	41	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	563	278	278	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	701	416	416	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	326	41	41	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	888	603	603	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	384	99	99	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	442	157	157	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	455	170	170	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	431	146	146	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	412	47	47	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	474	109	109	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	866	504	504	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	745	383	383	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	226	226	226	0	commit progressively as expected by the roadmap. also consul
+82e8a947	typed	711	349	349	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	482	120	120	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	478	116	116	1	<system-reminder>\nLinked sessions now (status, not an instru
+82e8a947	typed	2015	1653	1653	1	<system-reminder>\nLinked sessions now (status, not an instru
+3ccc590f	typed	1042	1042	1042	0	This is a fork of the main conversation after we received th
+3ccc590f	typed	739	739	739	0	To be completely honest, this idea that I reduced to uh, bin
+2947f9dc	notice	4118	3757	3757	1	<system-reminder>\nLinked sessions now (status, not an instru
+2947f9dc	typed	880	518	518	1	<system-reminder>\nLinked sessions now (status, not an instru
+2947f9dc	typed	3476	2201	2201	1	<system-reminder>\nLinked sessions now (status, not an instru
+2947f9dc	typed	1569	285	285	1	<system-reminder>\nLinked sessions now (status, not an instru
+2947f9dc	typed	1449	165	165	1	<system-reminder>\nLinked sessions now (status, not an instru
+2947f9dc	scheduled	829	829	829	0	Check-in on the v8 banyan campaign (anamnesis pitch work). R
+2947f9dc	scheduled	1324	1324	1324	0	Check-in on the v8 banyan campaign (anamnesis pitch work). R
+2947f9dc	scheduled	1450	1450	1450	0	Check-in on the v8 banyan campaign (anamnesis pitch work). R
+2947f9dc	scheduled	1814	1814	1814	0	Check-in on the v8 banyan campaign (anamnesis pitch work). R
+2947f9dc	scheduled	1774	1774	1774	0	Check-in on the v8 banyan campaign (anamnesis pitch work). R
+2947f9dc	typed	1623	339	339	1	<system-reminder>\nLinked sessions now (status, not an instru
+2947f9dc	typed	1376	130	130	1	<system-reminder>\nLinked sessions now (status, not an instru
+2947f9dc	interrupt	29	29	29	0	[Request interrupted by user]
+2947f9dc	typed	387	25	25	1	<system-reminder>\nLinked sessions now (status, not an instru
+2947f9dc	typed	30	30	30	0	it's okay I confirmed your fix
+ab96c5ed	typed	2454	2156	2156	1	<system-reminder>\nYou are operating in a git worktree.\nWorkt
+ab96c5ed	typed	202	202	202	0	> I set a working budget of about 6 M tokens of team spend o

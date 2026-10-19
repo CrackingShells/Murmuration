@@ -1,0 +1,11 @@
+session	class	current_stores	new_stores	differ	reason	current_chars	new_chars	prompt_head
+3ccc590f	human	True	True	False	other	6991	6991	We are Sunday. I just want to work on a topic, an idea I had
+3ccc590f	human_midturn	True	True	False	other	151	151	FYI: this repo is not git initialized but I recommend you to
+3ccc590f	human_midturn	True	True	False	other	308	308	I see you have the general plan:\n\n```\nDispatch theory, liter
+3ccc590f	human	True	True	False	other	715	715	I'm reading the problem framing, and generally you got it ri
+3ccc590f	human_midturn	True	True	False	other	1252	1252	already feel like I am intervening too much in your research
+3ccc590f	human	True	True	False	other	465	465	Are you sure about the completeness that only goes downward?
+3ccc590f	human	True	True	False	other	1042	1042	This is a fork of the main conversation after we received th
+3ccc590f	human	True	True	False	other	739	739	To be completely honest, this idea that I reduced to uh, bin
+ab96c5ed	human	True	True	True	leading_reminder+pasted_wrapper	2454	2156	<system-reminder>\nYou are operating in a git worktree.\nWorkt
+ab96c5ed	human	True	True	False	other	202	202	> I set a working budget of about 6 M tokens of team spend o

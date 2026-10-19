@@ -1,0 +1,12 @@
+cell	plugin	type	B	wall_s	total_usd	worker_usd	n_start	n_note	n_stop	n_end	n_deny	requests	recorded_usd	est_usd	exact_over_B	recorded_share_of_exact	files_read	est_mark_note_at_request	est_mark_stop_at_request	rec_mark_note_at_request	rec_mark_stop_at_request	est_share_of_exact	note_at_request	note_frac	note_elapsed_s	reads_after_note	end_frac_recorded	handback_sections	handback_saved_verbatim	handback_mentions_gap	report_files	report_at_convention	files_named_in_handback_or_report	asked_files	hook_processes	hook_nonzero_exit	worker_calls	reads_after_stop	stop_at_request	stop_elapsed_s	stop_frac
+a1	small	author	0.06	62.4	0.06561216	0.062261899999999995	1	1	0	1	0	18	0.0497	0.0589	1.038	0.798	17	17		18		0.946	17	0.8026	45.0	0	0.9814	1	True	True	0	False	19	40	26	0	18				
+b1	wt	explorer	0.06	77.2	0.07135395	0.0681182	1	1	0	1	1	14	0.0438	0.0669	1.135	0.642	12	13	14			0.983	13	0.9985	60.0	0	1.1156	1	True	True	1	True	14	40	23	0	15				
+b2	wt	explorer	0.06	85.2	0.07250414	0.06954859999999999	1	0	1	0	1	15	0.0443	0.0665	1.159	0.637	14	14	15			0.956						0	False	True	1	True	16	40	19	0	16	0	15	72.4	1.1076
+g1	smallhead	explorer	0.06	59.3	0.07466610000000001	0.0713752	1	1	1	0	1	10	0.0535	0.0731	1.19	0.75	8	8	10	9		1.025	8	0.8007	32.3	0		1	True	True	1	True	10	40	17	0	11	0	10	46.3	1.2188
+g2	smallhead	explorer	0.06	53.5	0.07031617999999998	0.0667924	1	1	1	0	1	10	0.0536	0.0669	1.113	0.802	8	8	10	9		1.002	8	0.8014	31.9	0		0	False	True	1	True	10	40	14	0	10	0	10	41.9	1.1152
+h1	small	explorer	0.06	90.9	0.08536104000000001	0.08255600000000002	1	1	1	0	1	21	0.0554	0.0837	1.376	0.671	19	19	20	19		1.013	19	0.8262	64.9	0		0	False	True	1	True	21	40	24	0	21	0	21	79.5	1.3944
+h2	small	explorer	0.06	103.3	0.08466124	0.0817859	1	1	1	0	1	21	0.055	0.0821	1.363	0.673	19	19	20	19		1.004	19	0.825	75.0	0		0	False	True	1	True	21	40	24	0	21	0	21	91.6	1.3683
+h3	small	explorer	0.06	89.8	0.08081876000000002	0.07796180000000001	1	1	1	0	1	21	0.055	0.0766	1.299	0.706	19	19	20	19		0.983	19	0.8244	65.9	0		0	False	True	1	True	21	40	24	0	21	0	21	78.3	1.2769
+n1	nohooks_wt	explorer	0.06	153.1	0.13382921	0.12944809999999998	0	0	0	0	1	41	0.0977	0.1217	2.157	0.755	40	19	24	19	25	0.94						0	False	True	0	False	40	40	0	0	41				
+s1	smallstop	explorer	0.06	114.7	0.11690319	0.11095760000000002	2	0	1	1	1	27	0.0838	0.1127	1.849	0.756	25	19	24	19	25	1.016					0.8433	1	True	True	1	True	27	40	40	0	28	0	24	71.2	1.035
+s2	smallstop	explorer	0.06	84.7	0.07176052	0.06882570000000002	1	0	2	0	0	24	0.0591	0.0603	1.147	0.859	25	19	24	19		0.876						0	False	False	0	False	0	40	28	0	25	0	24	72.3	1.0053

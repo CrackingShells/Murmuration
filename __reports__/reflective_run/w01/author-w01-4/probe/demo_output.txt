@@ -1,0 +1,19 @@
+--- UPS + patched rule: __statera__/user_words.md
+# The user's words
+
+Prompts as the user typed them, each under its date. Written by the lab's hook and by `/lab`. Read it; never edit it.
+
+## 2026-10-19 11:30
+
+Load CronCreate with ToolSearch (select:CronCreate) and create a recurring job (* * * * *) with prompt 'CRON-TICK say hi'. Then run the shell command: sleep 12 . Then reply ONE.
+
+## 2026-10-19 11:30
+
+also reply TWO (typed while the turn runs)
+
+## 2026-10-19 11:31
+
+CRON-TICK say hi
+
+--- Stop prototype: stop_words.jsonl
+(nothing)

@@ -1,0 +1,52 @@
+{
+ "workers": {
+  "label": "baseline (workers)",
+  "agents": 40,
+  "totals": {
+   "tool_calls": 2078,
+   "tool_chars": 3320929,
+   "bash": 1703,
+   "bash_chars": 2084748,
+   "heredoc": 967,
+   "heredoc_append": 75,
+   "heredoc_write": 222,
+   "inline_py_base": 715,
+   "inline_py": 715,
+   "py_walk": 136,
+   "shell_search_pi": 558,
+   "py_walk_pi": 237,
+   "shell_search": 504,
+   "shell_search_pipe_only": 104,
+   "heredoc_chars": 1848008,
+   "inline_py_chars": 988858,
+   "text_chars": 17753,
+   "toolsearch": 36,
+   "Write": 53,
+   "write_py": 19,
+   "Edit": 36,
+   "toolsearch_colgrep": 1,
+   "colgrep_search": 1,
+   "colgrep_scoped_instr": 0
+  },
+  "heredoc_share_of_bash": 0.5678214914856137,
+  "inline_py_base_share_of_heredoc": 0.7394002068252327,
+  "inline_py_share_of_bash": 0.4198473282442748,
+  "heredoc_share_of_output_chars": 0.5535142310648333,
+  "bash_share_of_output_chars": 0.6244224517339477,
+  "instrument_files": [],
+  "instrument_files_n": 0,
+  "instrument_files_reused_by_second_agent": [],
+  "instrument_detail": {},
+  "colgrep_searches": [
+   {
+    "tool": "search",
+    "limit": 20,
+    "paths": [],
+    "scoped_instr": false
+   }
+  ],
+  "colgrep_search_limits": {
+   "20": 1
+  }
+ }
+}

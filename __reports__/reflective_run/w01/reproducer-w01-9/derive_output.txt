@@ -1,0 +1,9 @@
+typed distinct keys: 72  by kind: Counter({'u': 65, 'q': 7})
+other (non-typed, non-meta-tool) keys: 44 Counter({'{"kind": "task-notification", ': 16, 'null': 9, '{"kind": "peer", "from": "repr': 4, 'noorigin': 3, '{"kind": "task-notification"}': 3, '{"kind": "peer", "from": "expl': 3, '{"kind": "peer", "from": "auth': 3, '{"kind": "peer", "from": "aab2': 1, '{"kind": "peer", "from": "aff1': 1, '{"kind": "peer", "from": "acbc': 1})
+distinct texts among typed: 72
+changed 51 unchanged 21 dropped 0 chars shipped->patched [70893, 37197]
+non-typed: 44 shipped stores 12 patched stores 4 differ 9
+  still stored: ('u', 'f3bb6ad5-0876-4f8f-b4d2-623096f2d1f0') null '<system-reminder>\nLinked sessions now (status, not an instruction): bi'
+  still stored: ('u', '6770f795-8dfa-4cbb-a8e3-bef13e776e77') noorigin '[Request interrupted by user]'
+  still stored: ('u', '05412e82-0c30-44c8-a98f-89632d56857d') noorigin '[Request interrupted by user]'
+  still stored: ('u', '96c47860-15a9-4598-99bf-4d654cb13a2b') noorigin '[Request interrupted by user]'

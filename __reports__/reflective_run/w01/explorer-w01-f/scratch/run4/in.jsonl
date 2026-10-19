@@ -1,0 +1,1 @@
+{"type": "user", "message": {"role": "user", "content": [{"type": "text", "text": "<system-reminder>\nYou are operating in a git worktree.\nWorktree path: /tmp/x\n</system-reminder>\n\n"}, {"type": "text", "text": "\n\n<pasted_content id=\"ab12\">\nplease reply with the single word OK\n</pasted_content id=\"ab12\">"}]}}

@@ -19,3 +19,9 @@ target/
 
 # probe outputs (platform_probes)
 probes/out/
+
+# personal Claude Code settings written by /lab
+.claude/settings.local.json
+
+# local development marketplace (the published entry lives in Nest)
+.claude-plugin/marketplace.json

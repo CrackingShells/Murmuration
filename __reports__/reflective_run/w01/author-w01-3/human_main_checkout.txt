@@ -1,0 +1,27 @@
+## Spend (USD; Claude Code's cost-state where a session has ended, else list price of 2026-10-19)
+TOTAL  USD 25.24 to 32.30   (1.84 exact + 23.40 to 30.46 estimated for sessions still open)
+An open session has no cost-state yet. Its estimate is at list price and is a LOWER BOUND: a subagent's output tokens are stored at their start-of-stream value. The upper figure scales Sonnet workers by 1.40 and Fable workers by 1.20 (what two ended sessions showed). Claude Code's /usage shows the main thread only.
+
+where                                                                       sessions  agent files  USD             basis
+--------------------------------------------------------------------------  --------  -----------  --------------  --------------------
+this checkout, sessions started below it                                    30                  6            1.11  exact
+worktree murmuration-system-optimization-8cff9e                             1                  12  23.38 to 30.44  estimate
+worktree murmuration-system-optimization-8cff9e, sessions started below it  63                 58            0.75  59 exact, 4 estimate
+
+agent                                  model       msgs  est. USD  output tokens  wake-ups
+-------------------------------------  ----------  ----  --------  -------------  --------
+murmuration:research-pi (main thread)  opus-5-5      56      5.75         60,387
+explorer-w01-b                         sonnet-5-5    62      2.01        17,694+         1
+explorer-w01-d                         sonnet-5-5    62      1.97        13,884+         1
+explorer-w01-c                         sonnet-5-5    63      1.95        26,238+         1
+explorer-w01-a                         sonnet-5-5    52      1.80        21,995+
+explorer-w01-f                         sonnet-5-5    46      1.75        14,520+
+author-w01-5                           sonnet-5-5    42      1.72        37,102+
+author-w01-3                           sonnet-5-5    42      1.41         8,533+
+author-w01-6                           sonnet-5-5    26      1.15        24,670+
+explorer-w01-e                         sonnet-5-5    49      1.09           777+
+author-w01-2                           sonnet-5-5    42      1.06         2,124+
+author-w01-4                           sonnet-5-5    39      0.90           730+
+(15 more)                                           334      2.66
+The agent rows add up to USD 25.23 of the 25.24 above; the rest is what only cost-state knows (subagent output beyond its start-of-stream value, helper calls).
+wake-ups = messages from the PI or a partner that reached the agent after it started (a resume or a note queued during a run: the transcript cannot tell them apart). `+` = a lower bound. Per-agent USD is always an estimate (cost-state has no per-agent split) and does not include helper calls (web fetch summaries), which only cost-state records.

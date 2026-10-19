@@ -38,17 +38,34 @@ claude --plugin-dir /path/to/Murmuration
    and writes `.claude/settings.local.json`, which makes the next session open as the principal
    investigator and denies process kills by name pattern.
 2. Start a new Claude Code session in that folder and ask it to begin.
-3. Run `/lab-status` at any time to see open puzzles, the current label of every claim, and token
-   spend per agent.
+3. Run `/lab-status` at any time to see open puzzles, the current label of every claim, and spend
+   in USD per agent (a lower bound while a session is open).
+
+Each worker gets a budget in USD and in minutes, set by `Budget: USD <n>` and `Time: min <n>` lines
+in its brief or a default per role (never under USD 0.30 and 3 minutes). Hooks tell the worker its
+budgets at the start and send it `Spent X of USD Y (Z%); t of T min (W%)` at 50, 75, 87.5 and 93.75%
+and at every check from 100%. From 100% the worker finishes if one or two more steps do it, and
+otherwise hands back and asks the principal investigator, who holds the money, for more; the PI
+decides whether to resume it with a raise. The figures are in `__statera__/harness.jsonl`. Each
+worker's final report is also saved verbatim under `__statera__/handbacks/`. That copy is kept for
+you and the principal investigator to recover from; it is never fed back to agents. An explorer that
+hands back without its findings report is asked once to write it.
 
 `/lab` creates:
 
 | Path | Holds |
 |:--|:--|
 | `__design__/framing.md` | The question, notation, scope and rules for the team |
-| `__statera__/` | Your words (recorded automatically), one note per wave, and the synthesis |
+| `__statera__/` | Your words (recorded automatically), one note per wave, the synthesis, saved hand-backs, the budget log and a log of the report check |
+| `__reports__/wave-NN/<agent>/` | Each explorer's findings report, from the research-loop template |
+| `__instrumenta__/` | Helper scripts, one file each, named for what it does |
 | `__pondus__/` | One file per claim, with each verifier's verdict |
 | `__scrupuli__/` | Each agent's puzzles |
+
+`/lab` also writes a `.ignore` and builds the colgrep index of the lab once. The `.ignore` hides the
+hand-back copies, `raw/`, `runs/` and `generated/` folders from Grep and colgrep (Glob still lists
+everything). Workers search `__instrumenta__/` for a script before writing one. A scratch lab you will
+delete: start Claude Code in it with `COLGREP_DATA_DIR=<folder>/.colgrep`.
 
 ## Requirements
 
@@ -63,11 +80,24 @@ named below are used when present and skipped when absent.
 | Role | Built-in tools | MCP servers |
 |:--|:--|:--|
 | research-pi | all | all |
-| explorer | Read, Glob, Grep, Bash, Write, Edit, WebFetch, WebSearch, Skill, ToolSearch | WolframToolkit, colgrep, arxiv, context7 |
-| author | Read, Glob, Grep, Bash, Write, Edit, Skill, ToolSearch, SendMessage | WolframToolkit, colgrep, arxiv |
-| reproducer, proof-adversary | Read, Glob, Grep, Bash, Write, Edit, Skill, ToolSearch, SendMessage | WolframToolkit, colgrep |
+| explorer | Read, Glob, Grep, Bash, Write, Edit, WebFetch, WebSearch, ToolSearch | WolframToolkit, colgrep, arxiv, context7 |
+| author | Read, Glob, Grep, Bash, Write, Edit, ToolSearch, SendMessage | WolframToolkit, colgrep, arxiv |
+| reproducer, proof-adversary | Read, Glob, Grep, Bash, Write, Edit, ToolSearch, SendMessage | WolframToolkit, colgrep |
 
-To use another server, add its `mcp__<server>__*` entry to the agent file's `tools` line.
+To use another server, add its `mcp__<server>__*` entry to the agent file's `tools` line. Workers
+do not get the `Skill` tool: the `research-loop` skill is preloaded, and without `Skill` a worker
+does not carry the listing of every installed skill in its context.
+
+## Running a lab headless
+
+`claude -p` can stop background agents that are still running 10 minutes after the principal
+investigator's last turn; the worker is then cut off and the synthesis may never be written. This
+does not happen in every run, and runs whose workers finish sooner are not affected. For an unattended run, set
+`CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0` (no ceiling) and cap the spend instead:
+
+```bash
+CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0 claude -p --agent murmuration:research-pi --max-budget-usd 20 "<your question>"
+```
 
 ## Contributing
 

@@ -1,0 +1,15 @@
+USE Grep {"pattern": "needle_alpha", "path": ".", "output_mode": "files_with_matches"}
+  RES Found 2 files | __statera__/wave-01x.md | __instrumenta__/s.py
+USE Grep {"pattern": "needle_alpha", "path": "data", "output_mode": "files_with_matches"}
+  RES No files found
+USE Grep {"pattern": "needle_alpha", "type": "json", "output_mode": "files_with_matches"}
+  RES No files found
+USE Grep {"pattern": "needle_alpha", "glob": "**/raw/*", "output_mode": "files_with_matches"}
+  RES No files found
+USE Grep {"pattern": "needle_alpha", "path": "/tmp/reproducer-w03-2/lab", "output_mode": "files_with_matches"}
+  RES Found 2 files | /tmp/reproducer-w03-2/lab/__statera__/wave-01x.md | /tmp/reproducer-w03-2/lab/__instrumenta__/s.py
+USE Grep {"pattern": "needle_alpha", "output_mode": "count"}
+  RES __instrumenta__/s.py:1 | __statera__/wave-01x.md:1 |  | Found 2 total occurrences across 2 files.
+USE Glob {"pattern": "*", "path": "__statera__/handbacks"}
+  RES __statera__/handbacks/author-1.md
+total_cost_usd 0.0037284500000000003

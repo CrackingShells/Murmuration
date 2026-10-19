@@ -8,7 +8,10 @@ initialized lab (it has a `__statera__/` folder), appends the prompt to
 A prompt is the user's own unless it is text the platform injected on someone else's behalf:
 a message from another session, a task notification, or an agent message. Those are skipped, and
 so are the lab's own slash commands (which record the question themselves) and bare slash
-commands such as `/clear` or `/compact`, which carry no words.
+commands such as `/clear` or `/compact`, which carry no words. Platform blocks the app puts in
+front of the typed text (`<system-reminder>`, `<artifact-view-context>`, `<side-sessions-event>`)
+are cut first, and the app's `<pasted_content>` wrapper is removed around pasted text; what is
+left is stored.
 
 The script never blocks a prompt and always exits 0. Anything unexpected is dropped silently.
 
@@ -25,6 +28,14 @@ import sys
 NON_USER_PREFIXES = ("<cross-session-message ", "<task-notification>", "<agent-message from=")
 LAB_COMMAND = re.compile(r"^/(?:murmuration:)?lab(?:-status)?(?:\s|$)")
 BARE_COMMAND = re.compile(r"^/[A-Za-z][\w:.-]*\s*$")
+# Blocks the platform puts before the typed text, cut only at the start of the prompt. The
+# `<system-reminder>` form is the exact one seen: `<system-reminder>\n...\n</system-reminder>`.
+LEADING_BLOCKS = (
+    re.compile(r"\A\s*<system-reminder>\n.*?\n</system-reminder>(?:[ \t]*\n)*", re.S),
+    re.compile(r"\A\s*<artifact-view-context\b[^>]*>.*?</artifact-view-context>(?:[ \t]*\n)*", re.S),
+    re.compile(r"\A\s*<side-sessions-event>.*?</side-sessions-event>(?:[ \t]*\n)*", re.S),
+)
+PASTED = re.compile(r'<pasted_content id="([^"]*)">\n?(.*?)\n?</pasted_content id="\1">', re.S)
 STORE = "__statera__"
 FILE_NAME = "user_words.md"
 HEADER = (
@@ -47,6 +58,22 @@ def is_lab_command(prompt):
 def is_bare_command(prompt):
     """True for a slash command with no arguments (`/clear`, `/compact`): not the user's words."""
     return bool(BARE_COMMAND.match(prompt.strip()))
+
+
+def strip_leading(prompt):
+    """The prompt without the platform blocks in front of the typed text. The paste wrapper stays."""
+    changed = True
+    while changed:
+        changed = False
+        for block in LEADING_BLOCKS:
+            prompt, n = block.subn("", prompt, count=1)
+            changed = changed or bool(n)
+    return prompt
+
+
+def unwrap_pasted(text):
+    """The text with the paste wrapper removed, one level, and leading blank lines dropped."""
+    return re.sub(r"\A\s*\n", "", PASTED.sub(lambda m: m.group(2), text))
 
 
 def project_root(event_cwd=None):
@@ -83,12 +110,16 @@ def last_entry(root):
 def handle(event):
     """Record the event's prompt if it is genuine and the project is a lab. Returns the path or None."""
     prompt = event.get("prompt")
+    if not isinstance(prompt, str):
+        return None
+    prompt = strip_leading(prompt)  # the command tests below see the paste wrapper, so pasted `/lab ...` is kept
     if not is_genuine(prompt) or not prompt.strip() or is_lab_command(prompt) or is_bare_command(prompt):
         return None
+    words = unwrap_pasted(prompt)
     root = project_root(event.get("cwd"))
-    if not os.path.isdir(os.path.join(root, STORE)):
+    if not words.strip() or not os.path.isdir(os.path.join(root, STORE)):
         return None
-    return append_words(root, prompt)
+    return append_words(root, words)
 
 
 def selftest():
@@ -142,6 +173,61 @@ def selftest():
         proc = subprocess.run([sys.executable, os.path.abspath(__file__)], input="not json",
                               capture_output=True, text=True)
         assert proc.returncode == 0
+    # Platform blocks and the paste wrapper: what a prompt stores (None = nothing).
+    rem = "<system-reminder>\nLinked sessions now (status): a = local_1 (idle).\n</system-reminder>\n\n"
+    view = '<artifact-view-context artifact="x">\n{"context":{}}\n(not typed)\n</artifact-view-context>\n\n'
+    side = "<side-sessions-event>\nsession a finished a turn\n</side-sessions-event>\n\n"
+
+    def paste(i, body):
+        return '<pasted_content id="%s">\n%s\n</pasted_content id="%s">' % (i, body, i)
+
+    cases = [
+        (rem + "typed words", "typed words"),
+        (rem + "\n" + rem + "twice", "twice"),
+        (rem + view + "reply", "reply"),
+        (side + "words", "words"),
+        (rem + side, None),
+        (rem.rstrip(), None),
+        (rem + "/lab what next", None),
+        (rem + "/clear", None),
+        (rem + '<cross-session-message from="x">hi</cross-session-message>', None),
+        (rem + "<task-notification>done</task-notification>", None),
+        (paste("a", "line one\n\nline two"), "line one\n\nline two"),
+        (rem + paste("a", "pasted words"), "pasted words"),
+        ("see this:\n" + paste("a", "line"), "see this:\nline"),
+        (paste("a", "/lab inside a paste"), "/lab inside a paste"),
+        (paste("a", "/clear"), "/clear"),
+        (rem + paste("a", "/lab inside"), "/lab inside"),
+        ("/lab typed outside " + paste("a", "x"), None),
+        (paste("a", "  \n "), None),
+        ('<pasted_content id="a">\n\n</pasted_content id="a">', None),
+        (paste("a", "outer " + paste("b", "inner") + " end"), 'outer ' + paste("b", "inner") + ' end'),
+        # left untouched: not at the start, one-line, other line endings, unclosed, other id, quote, indentation
+        ("see <system-reminder>\nx\n</system-reminder> above", "see <system-reminder>\nx\n</system-reminder> above"),
+        ("<system-reminder>one line</system-reminder> is a tag", "<system-reminder>one line</system-reminder> is a tag"),
+        ("<system-reminder>\r\nx\r\n</system-reminder>\r\n\r\nhi", "<system-reminder>\r\nx\r\n</system-reminder>\r\n\r\nhi"),
+        ("<system-reminder>\nx\nhi", "<system-reminder>\nx\nhi"),
+        ('<pasted_content id="a">\nx\n</pasted_content id="b">', '<pasted_content id="a">\nx\n</pasted_content id="b">'),
+        (rem + "typed\n" + rem.rstrip(), "typed\n" + rem.rstrip()),
+        ("> quoted sentence\n\nthat is fine", "> quoted sentence\n\nthat is fine"),
+        ("  indented first line\nsecond", "  indented first line\nsecond"),
+        (rem + "\n    code line\nnext", "    code line\nnext"),
+        (rem + "  indented after a block", "  indented after a block"),
+        ("\n\nhi", "hi"),
+        # a typed block in the exact reminder form is cut like the platform's
+        ("<system-reminder>\nremember\n</system-reminder>\n\nmy question", "my question"),
+        ("<system-reminder>\nremember\n</system-reminder>", None),
+    ]
+    for prompt, want in cases:
+        with tempfile.TemporaryDirectory() as tmp:
+            os.makedirs(os.path.join(tmp, STORE))
+            fire(tmp, prompt)
+            path = os.path.join(tmp, STORE, FILE_NAME)
+            got = None
+            if os.path.exists(path):  # newline="" keeps a CRLF as stored
+                body = open(path, encoding="utf-8", newline="").read()
+                got = re.split(r"^## \d{4}-\d{2}-\d{2} \d{2}:\d{2}\n\n", body, flags=re.M)[-1][:-1]
+            assert got == want, (prompt, got, want)
     print("PASS user_words")
 
 

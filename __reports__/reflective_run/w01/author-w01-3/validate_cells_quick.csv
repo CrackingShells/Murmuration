@@ -1,0 +1,4 @@
+session,model,cs_usd,web_searches,cs_in,cs_out,cs_cr,cs_cw,tr_in,tr_out,tr_cr,tr_cw,tr_usd,tr_lower_bound_msgs,tr_msgs,table_on_cs_5m,table_on_cs_1h,table_on_cs_5m_ratio,table_on_cs_1h_ratio,tr_usd_ratio
+3ccc590f,claude-opus-5-5,0.4562,0,4,14878,400406,9821,4,14878,400406,9821,0.4562,0,2,0.4268,0.4562,0.9356,1.0,1.0
+2947f9dc,claude-opus-5-5,60.6973,0,492,320743,100584614,4270446,492,320743,100584614,4270446,60.6973,0,238,47.886,60.6973,0.7889,1.0,1.0
+177147a0,claude-haiku-5-5,0.0123,0,7709,1630,92153,49063,6,387,59243,48795,0.0105,0,3,0.0086,0.0123,0.6992,1.0,0.8537

@@ -1,0 +1,6 @@
+PASS handback
+{"run": "p4_auto_two", "files": ["wave-99-author-w99-1.md"], "sections": 3, "missing": 0, "expected_from_hook_payloads": 3, "file_equals_payloads": true, "transcript_texts": 3, "transcript_texts_found_in_file": true}
+{"run": "p4_default_two", "files": ["wave-99-author-w99-1.md"], "sections": 2, "missing": 0, "expected_from_hook_payloads": 2, "file_equals_payloads": true, "transcript_texts": 1, "transcript_texts_found_in_file": true}
+
+{"total_cost_usd": 0.0129, "runs": 2, "nolab_statera_dirs_created": []}
+./run_all.sh quick  4.08s user 1.46s system 12% cpu 45.893 total

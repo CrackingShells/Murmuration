@@ -1,0 +1,4 @@
+case,v6_folders,v6_sessions_seen,mine_sessions,v6_messages,v6_input,v6_cache_write,v6_cache_read,v6_output,mine_same_messages,mine_same_input,mine_same_cache_write,mine_same_cache_read,mine_same_output,v6_over_mine_same_cache_write,v6_over_mine_same_cache_read,v6_over_mine_same_output,mine_all_messages,mine_all_cache_write,mine_usd_low,mine_usd_high,mine_usd_exact_part
+"(i-a) this run, from the worktree",1,1,93,603,1212,3393878,89813179,235818,603,1212,3393878,89813179,235818,1.0,1.0,1.0,899,5535848,24.9,31.89,1.83
+"(i-b) this run, from the main checkout",1,0,93,0,0,0,0,0,0,0,0,0,0,,,,899,5535848,24.9,31.89,1.83
+(ii) combinatorics project,1,4,4,2459,6234,23754317,609217767,1950703,1601,4476,17959181,453573992,1354491,1.323,1.343,1.44,1601,17959181,224.85,224.85,224.85

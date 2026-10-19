@@ -1,0 +1,5 @@
+PI reaction latency design n 15 median 6.4 p90 14.0 max 33.7 n>300s 0
+PI reaction latency genesis n 14 median 4.2 p90 8.6 max 9.6 n>300s 0
+PI reaction latency other-3ccc n 2 median 264.3 p90 264.3 max 264.3 n>300s 0
+PI reaction latency this_run n 9 median 7.6 p90 17.3 max 29.0 n>300s 0
+snapshot 2026-10-19T02:24:30.000Z quick False runs 41 segments 53 stops 3 -> /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__reports__/reflective_run/w01/author-w01-5

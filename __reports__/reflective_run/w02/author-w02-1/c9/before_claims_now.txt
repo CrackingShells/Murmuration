@@ -1,0 +1,24 @@
+## Claims (22, 0 disputed, 1 warnings)
+- w01-c1  superseded by w01-c14
+- w01-c2  escalated: PI decides  <- reproducer-w01-2: ESCALATE
+- w01-c3  MEASURED  <- reproducer-w01-3: SUPPORTED
+- w01-c4  superseded by w01-c10, w01-c9
+- w01-c5  superseded by w01-c8
+- w01-c6  below CONJECTURE: restate  <- reproducer-w01-6: OVERSTATED
+- w01-c7  below CONJECTURE: restate  <- reproducer-w01-7: OVERSTATED
+- w01-c8  escalated: PI decides  <- reproducer-w01-8: ESCALATE
+- w01-c9  superseded by w02-c2
+- w01-c10  below CONJECTURE: restate  <- reproducer-w01-10: OVERSTATED
+- w01-c11  superseded by w01-c12
+- w01-c12  superseded by w01-c13
+- w01-c13  CONJECTURE  <- reproducer-w01-11: SUPPORTED
+- w01-c14  MEASURED  <- reproducer-w01-1: SUPPORTED
+- w02-c1  MEASURED  <- reproducer-w02-1: SUPPORTED
+- w02-c2  MEASURED  <- reproducer-w02-2: SUPPORTED
+- w02-c3  superseded by w02-c5
+- w02-c4  MEASURED  <- reproducer-w02-4: SUPPORTED
+- w02-c5  MEASURED  <- reproducer-w02-5: SUPPORTED
+- w02-c6  MEASURED  <- reproducer-w02-6: SUPPORTED
+- w02-c7  unverified MEASURED
+- w02-c9  unverified MEASURED
+    ! verdict section 'reproducer-w02-9' has no `verdict:` line

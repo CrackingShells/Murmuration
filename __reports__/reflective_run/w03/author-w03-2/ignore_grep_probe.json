@@ -1,0 +1,14 @@
+{
+ "ignore": "# Murmuration lab: left out of the colgrep index\n**/__statera__/handbacks/\n**/raw/\n**/runs/\n**/generated/\n",
+ "grep_calls": [
+  [
+   "Grep",
+   {
+    "pattern": "needle_alpha",
+    "output_mode": "files_with_matches"
+   }
+  ]
+ ],
+ "returned": "Found 6 files\n__reports__/w01/a/report.md\nrequirements.txt\npackage.json\nderived/notes.txt\nderived/table.json\n__instrumenta__/s.py",
+ "cost": 0.383832
+}

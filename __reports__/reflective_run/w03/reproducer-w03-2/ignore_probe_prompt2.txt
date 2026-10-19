@@ -1,0 +1,8 @@
+Make exactly these tool calls, in a single turn where possible, then stop and print a one-line summary per call (number of files returned). No other tools.
+1. Grep pattern "needle_alpha" with path "." and output_mode files_with_matches
+2. Grep pattern "needle_alpha" with path "data" and output_mode files_with_matches
+3. Grep pattern "needle_alpha" with type "json" and output_mode files_with_matches
+4. Grep pattern "needle_alpha" with glob "**/raw/*" and output_mode files_with_matches
+5. Grep pattern "needle_alpha" with path "/tmp/reproducer-w03-2/lab" and output_mode files_with_matches
+6. Grep pattern "needle_alpha" with output_mode count
+7. Glob pattern "*" with path "__statera__/handbacks"

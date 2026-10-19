@@ -1,0 +1,84 @@
+group,run_id,segment,starts_with,turns,in,cache_read,cache_write,out_recorded,span_s
+genesis,566fa912-700,1,launch,23,46,2791510,100110,30471,457
+genesis,566fa912-700,2,wake-up after stop,9,20,1368821,20211,14311,148
+genesis,566fa912-700,3,wake-up after stop,11,24,1889934,14542,8538,152
+genesis,566fa912-700,4,wake-up after stop,6,14,1117916,20552,13077,125
+genesis,566fa912-700,5,wake-up after stop,10,22,2087286,19005,9993,299
+genesis,566fa912-700,6,wake-up after stop,2,6,436619,1136,228,4
+genesis,566fa912-700,7,wake-up after stop,2,6,439573,3797,1730,13
+genesis,566fa912-700,8,wake-up after stop,4,10,902230,7234,4834,50
+genesis,566fa912-700,9,wake-up after stop,6,14,1420619,11440,8413,162
+genesis,566fa912-700,10,wake-up after stop,3,8,730587,4416,1804,18
+genesis,566fa912-700,11,wake-up after stop,2,6,492829,1786,400,2
+genesis,566fa912-700,12,wake-up after stop,3,8,747319,4495,2562,23
+genesis,566fa912-700,13,wake-up after stop,4,10,1016720,5093,3317,32
+genesis,566fa912-700,14,wake-up after stop,54,110,16882708,100938,56817,7429
+genesis,566fa912-700,15,wake-up after stop,15,32,5579895,35056,23659,1158
+genesis,566fa912-700,16,wake-up after stop,9,20,3578790,11994,7542,102
+genesis,566fa912-700,17,wake-up after stop,21,44,8844375,34034,25866,1921
+genesis,566fa912-700,18,wake-up after stop,10,22,4495463,30056,25113,953
+genesis,566fa912-700,19,wake-up after stop,11,24,5261792,24793,15019,687
+genesis,566fa912-700,20,wake-up after stop,62,128,33977049,3783011,50745,54784
+genesis,a04ebecba852,1,launch,56,112,11019922,263124,27735,1169
+genesis,a04ebecba852,2,wake-up after stop,29,60,12335734,968045,20120,2308
+genesis,a200b6a79312,1,launch,45,90,5515413,179744,19126,882
+genesis,a200b6a79312,2,wake-up after stop,1,4,34957,146568,62,0
+genesis,a3f3fa3fc477,1,launch,75,150,11610537,188663,29421,1940
+genesis,a3f3fa3fc477,2,wake-up after stop,3,8,486703,194299,32,24
+genesis,a4ad7c71400d,1,launch,49,98,6695508,451496,23791,2199
+genesis,a4ad7c71400d,2,wake-up after stop,11,24,2040230,383745,163,574
+design,82e8a947-1a0,1,launch,0,0,0,0,0,0
+design,82e8a947-1a0,2,wake-up after stop,0,0,0,0,0,0
+design,82e8a947-1a0,3,wake-up after stop,0,0,0,0,0,0
+design,82e8a947-1a0,4,wake-up after stop,0,0,0,0,0,0
+design,82e8a947-1a0,5,wake-up after stop,0,0,0,0,0,0
+design,82e8a947-1a0,6,wake-up after stop,0,0,0,0,0,0
+design,82e8a947-1a0,7,wake-up after stop,0,0,0,0,0,0
+design,82e8a947-1a0,8,wake-up after stop,0,0,0,0,0,0
+design,82e8a947-1a0,9,wake-up after stop,0,0,0,0,0,0
+design,82e8a947-1a0,10,wake-up after stop,0,0,0,0,0,0
+design,82e8a947-1a0,11,wake-up after stop,0,0,0,0,0,0
+design,82e8a947-1a0,12,wake-up after stop,0,0,0,0,0,0
+design,82e8a947-1a0,13,wake-up after stop,0,0,0,0,0,0
+design,82e8a947-1a0,14,wake-up after stop,21,42,6521242,55521,43620,4502
+design,82e8a947-1a0,15,wake-up after stop,2,6,690492,12629,784,9
+design,82e8a947-1a0,16,wake-up after stop,11,24,4065875,35798,25196,1094
+design,82e8a947-1a0,17,wake-up after stop,1,4,391657,2483,215,0
+design,82e8a947-1a0,18,wake-up after stop,0,0,0,0,0,0
+design,82e8a947-1a0,19,wake-up after stop,10,22,4059611,42122,25918,1690
+design,82e8a947-1a0,20,wake-up after stop,34,70,16103335,70707,44148,2421
+design,82e8a947-1a0,21,wake-up after stop,1,4,506969,1066,219,1
+design,82e8a947-1a0,22,wake-up after stop,7,16,3639599,18960,6615,235
+design,82e8a947-1a0,23,wake-up after stop,10,20,5511492,38397,14070,688
+design,82e8a947-1a0,24,wake-up after stop,1,4,565392,1203,271,3
+design,82e8a947-1a0,25,wake-up after stop,0,0,0,0,0,0
+design,82e8a947-1a0,26,wake-up after stop,18,38,10254444,578382,36385,20767
+design,82e8a947-1a0,27,wake-up after stop,8,18,5106628,18566,7635,82
+design,82e8a947-1a0,28,wake-up after stop,9,20,5927949,25206,19813,176
+design,82e8a947-1a0,29,wake-up after stop,4,10,2700402,8678,3514,34
+design,82e8a947-1a0,30,wake-up after stop,3,8,2047831,7144,3785,30
+design,82e8a947-1a0,31,wake-up after stop,30,62,20516087,708294,21343,32376
+design,a4b39e783a87,1,launch,3,6,168648,28099,210,5
+design,a4b39e783a87,2,wake-up after stop,2,8,135469,795,332,2
+design,a5073b714db4,1,launch,1,2,0,61845,24,0
+design,a5073b714db4,2,wake-up after stop,3,8,191608,5903,220,6
+design,aff153770869,1,launch,75,150,14583287,306526,17662,1180
+design,aff153770869,2,wake-up after stop,28,58,10016157,93200,9221,693
+design,aff72ee628b6,1,launch,40,80,5069434,182134,346,539
+design,aff72ee628b6,2,wake-up after stop,23,48,5092379,221320,190,417
+design,aff72ee628b6,3,wake-up after stop,24,50,6647953,269342,274,326
+other-3ccc,3ccc590f-018,1,launch,0,0,0,0,0,0
+other-3ccc,3ccc590f-018,2,wake-up after stop,0,0,0,0,0,0
+other-3ccc,3ccc590f-018,3,wake-up after stop,0,0,0,0,0,0
+other-3ccc,3ccc590f-018,4,wake-up after stop,0,0,0,0,0,0
+other-3ccc,3ccc590f-018,5,wake-up after stop,0,0,0,0,0,0
+other-3ccc,3ccc590f-018,6,wake-up after stop,2,4,400406,9821,14878,2531
+other-2947,2947f9dc-1c3,1,launch,161,322,53554939,1237199,230461,20749
+other-2947,2947f9dc-1c3,2,wake-up after stop,44,100,24676335,2339359,53147,18293
+other-2947,2947f9dc-1c3,3,wake-up after stop,3,8,1981881,2501,1004,17
+other-2947,2947f9dc-1c3,4,wake-up after stop,17,36,10919501,665193,30908,11663
+other-2947,2947f9dc-1c3,5,wake-up after stop,13,26,9451958,26194,5223,74
+this_run,ab96c5ed-ead,1,launch,26,52,3130051,176555,28637,497
+this_run,ab96c5ed-ead,2,wake-up after stop,3,6,560524,18080,1984,28
+this_run,ab96c5ed-ead,3,wake-up after stop,4,8,818420,15047,1423,22
+this_run,ab96c5ed-ead,4,wake-up after stop,2,6,420246,1347,467,9

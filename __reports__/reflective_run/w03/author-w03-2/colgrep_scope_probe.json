@@ -1,0 +1,68 @@
+{
+ "git, no ignore file": [
+  "__instrumenta__/walk_transcripts.py",
+  "__pondus__/w01-c1.md",
+  "__reports__/w01/a/00-findings_v0.md",
+  "__reports__/w01/a/rows.json",
+  "__reports__/w01/a/run.txt",
+  "__reports__/w01/a/walk.sh",
+  "__statera__/handbacks/author-x.md",
+  "__statera__/wave-01.md",
+  "data/derived/derive.py",
+  "data/raw/notes.md",
+  "data/raw/run_script.py",
+  "gen/generated.py",
+  "generated/g.py"
+ ],
+ "git + .gitignore": [
+  "__instrumenta__/walk_transcripts.py",
+  "__pondus__/w01-c1.md",
+  "__reports__/w01/a/00-findings_v0.md",
+  "__reports__/w01/a/rows.json",
+  "__reports__/w01/a/run.txt",
+  "__reports__/w01/a/walk.sh",
+  "__statera__/wave-01.md",
+  "generated/g.py"
+ ],
+ "no git + .gitignore": [
+  "__instrumenta__/walk_transcripts.py",
+  "__pondus__/w01-c1.md",
+  "__reports__/w01/a/00-findings_v0.md",
+  "__reports__/w01/a/rows.json",
+  "__reports__/w01/a/run.txt",
+  "__reports__/w01/a/walk.sh",
+  "__statera__/handbacks/author-x.md",
+  "__statera__/wave-01.md",
+  "data/derived/derive.py",
+  "data/raw/notes.md",
+  "data/raw/run_script.py",
+  "gen/generated.py",
+  "generated/g.py"
+ ],
+ "no git + .ignore (lab block)": [
+  "__instrumenta__/walk_transcripts.py",
+  "__pondus__/w01-c1.md",
+  "__reports__/w01/a/00-findings_v0.md",
+  "__reports__/w01/a/rows.json",
+  "__reports__/w01/a/run.txt",
+  "__reports__/w01/a/walk.sh",
+  "__statera__/wave-01.md",
+  "data/derived/derive.py",
+  "gen/generated.py"
+ ],
+ "no git + .colgrepignore": [
+  "__instrumenta__/walk_transcripts.py",
+  "__pondus__/w01-c1.md",
+  "__reports__/w01/a/00-findings_v0.md",
+  "__reports__/w01/a/rows.json",
+  "__reports__/w01/a/run.txt",
+  "__reports__/w01/a/walk.sh",
+  "__statera__/handbacks/author-x.md",
+  "__statera__/wave-01.md",
+  "data/derived/derive.py",
+  "data/raw/notes.md",
+  "data/raw/run_script.py",
+  "gen/generated.py",
+  "generated/g.py"
+ ]
+}

@@ -1,0 +1,19 @@
+## S-w02-author-w02-2-1
+The transcript puts the question and the answer of the AskUserQuestion dialog at 03:05:10Z and 03:26:57Z, that is 12:05 and 12:26 JST (lines 1472 and 1473 of ab96c5ed). The wave note and the brief say "about 12:50 JST". Either the 12:50 is the PI's estimate or the wave note quotes another clock; the user's answer is dated 12:26 in the record. Which clock should `user_words.md` and the wave notes use for a dialog answer: the hook's local time at the answer (what `ask_capture.py` would write) or the question's time?
+refs: ~/.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087.jsonl lines 1472-1473; __statera__/wave-02.md
+
+## S-w02-author-w02-2-2
+The model sees the dialog answers as one string, in which a multi-select list is joined by a bare comma, and whose wording changes with the content: "Your questions have been answered: … You can now continue with these answers in mind." when every answer is an option label (2 of 5 real dialogs, and the headless single-select run), "The user answered: … Read the answers carefully — they may request clarification, changes, or that you not proceed" when some answer is typed text (3 of 5, and the headless multi-select run). So the platform itself tells the agent to treat typed text as possibly a change of course, and only then. Nothing in the five transcripts has a comma inside a multi-select item, but the headless run shows the string is then ambiguous. Does the PI ever misread a typed comma list as several options? A cheap guard would be a line in the PI's contract: after a multi-select with free text, restate the parsed answers back to the user.
+refs: __reports__/reflective_run/w02/author-w02-2/e2e_headless_output.txt (multi case); replay_asks_output.txt; ab96c5ed lines 1473, 2947f9dc lines 114, 795, 871, 1083
+
+## S-w02-author-w02-2-3
+`<side-sessions-event>` is kept because it costs a line, but its only evidence is 8 notices that may never fire `UserPromptSubmit`. Nobody has dumped what the hook receives for a platform "finished a turn" notice (origin null, turnOrigin sdk). If a headless host can produce such a notice, one probe would settle whether the third block does anything, or whether the line should go.
+refs: __reports__/reflective_run/w02/author-w02-2/replay_output.txt (third block rows); __reports__/reflective_run/w01/reproducer-w01-9/side2.py
+
+## S-w02-author-w02-2-4
+The hook's `prompt` is rebuilt from the transcript record as text blocks joined with newline, and that is byte-checked on only 2 of 72 typed prompts. The Desktop's real payload for a prompt with an image, a paste or an attachment is never seen. The host-protocol driver I used for AskUserQuestion (`--permission-prompt-tool stdio`, `--input-format stream-json`) would also let a headless test send a message with a paste block and an image and dump the UserPromptSubmit payload, which would turn the replay's "would store" into "stored" for those shapes. Is that worth one more probe?
+refs: __reports__/reflective_run/w02/author-w02-2/drive_ask.py; __reports__/reflective_run/w02/author-w02-2/replay.py (hook_prompt)
+
+## S-w02-author-w02-2-5
+`ask_capture.py` appends the question and the answer under the same dated heading format as typed prompts, with a marker line "(answer in the question dialog)". The header of `user_words.md` says "Prompts as the user typed them". A dialog answer is typed text, but the question beside it is the PI's, not the user's. Should the question be stored (it makes a short answer such as "Neither for now" readable), or only the answer? I stored both; the user's rule about verbatim words says nothing about the PI's words next to them.
+refs: __reports__/reflective_run/w02/author-w02-2/ask_capture.py; __statera__/user_words.md header

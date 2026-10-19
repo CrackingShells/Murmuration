@@ -1,0 +1,66 @@
+(i-a) this run, from the worktree
+    v6_folders 1
+    v6_sessions_seen 1
+    mine_sessions 93
+    v6_messages 603
+    v6_input 1212
+    v6_cache_write 3393878
+    v6_cache_read 89813179
+    v6_output 235818
+    mine_same_messages 603
+    mine_same_input 1212
+    mine_same_cache_write 3393878
+    mine_same_cache_read 89813179
+    mine_same_output 235818
+    v6_over_mine_same_cache_write 1.0
+    v6_over_mine_same_cache_read 1.0
+    v6_over_mine_same_output 1.0
+    mine_all_messages 899
+    mine_all_cache_write 5535848
+    mine_usd_low 24.9
+    mine_usd_high 31.89
+    mine_usd_exact_part 1.83
+(i-b) this run, from the main checkout
+    v6_folders 1
+    v6_sessions_seen 0
+    mine_sessions 93
+    v6_messages 0
+    v6_input 0
+    v6_cache_write 0
+    v6_cache_read 0
+    v6_output 0
+    mine_same_messages 0
+    mine_same_input 0
+    mine_same_cache_write 0
+    mine_same_cache_read 0
+    mine_same_output 0
+    v6_over_mine_same_cache_write 
+    v6_over_mine_same_cache_read 
+    v6_over_mine_same_output 
+    mine_all_messages 899
+    mine_all_cache_write 5535848
+    mine_usd_low 24.9
+    mine_usd_high 31.89
+    mine_usd_exact_part 1.83
+(ii) combinatorics project
+    v6_folders 1
+    v6_sessions_seen 4
+    mine_sessions 4
+    v6_messages 2459
+    v6_input 6234
+    v6_cache_write 23754317
+    v6_cache_read 609217767
+    v6_output 1950703
+    mine_same_messages 1601
+    mine_same_input 4476
+    mine_same_cache_write 17959181
+    mine_same_cache_read 453573992
+    mine_same_output 1354491
+    v6_over_mine_same_cache_write 1.323
+    v6_over_mine_same_cache_read 1.343
+    v6_over_mine_same_output 1.44
+    mine_all_messages 1601
+    mine_all_cache_write 17959181
+    mine_usd_low 224.85
+    mine_usd_high 224.85
+    mine_usd_exact_part 224.85

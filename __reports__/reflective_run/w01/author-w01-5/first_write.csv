@@ -1,0 +1,13 @@
+name,turns,first_ok_deliverable_write_turn,deliverable_write_attempts,refused_by_harness
+explorer-w01-c,63,59,4,2
+author-w01-2,24,,0,0
+explorer-w01-e,49,48,1,0
+explorer-w01-f,46,45,2,1
+author-w01-3,30,,0,0
+author-w01-4,35,,0,0
+author-w01-5,31,,0,0
+explorer-w01-d,62,59,3,1
+author-w01-6,19,,0,0
+author-w01-1,23,,0,0
+explorer-w01-b,62,61,2,1
+explorer-w01-a,52,45,2,1

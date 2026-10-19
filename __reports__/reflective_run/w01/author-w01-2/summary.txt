@@ -1,0 +1,68 @@
+
+## by version x permission mode (all non-hookrace cells)
+group                                           n    out_exact in/cache_exact sub_out_trunc hook!=final
+('2.1.299', 'acceptEdits')                      1            1            1            0          0
+('2.1.299', 'auto')                            10            0           10           10          0
+('2.1.299', 'bypassPermissions')               13           13           13            0          1
+('2.1.299', 'default')                          1            1            1            0          0
+('2.1.299', 'dontAsk')                          1            1            1            0          0
+('2.1.299', 'plan')                             1            0            1            1          1
+('2.1.302', 'acceptEdits')                      1            1            1            0          0
+('2.1.302', 'auto')                            10            0           10           10          1
+('2.1.302', 'bypassPermissions')               13           12           13            1          3
+('2.1.302', 'default')                          1            1            1            0          0
+('2.1.302', 'dontAsk')                          1            1            1            0          0
+('2.1.302', 'plan')                             1            0            1            1          0
+
+## NON-auto cells by version x bg x thinking x length
+group                                           n    out_exact in/cache_exact sub_out_trunc hook!=final
+('2.1.299', 'bg=0', 'think=off', 'len=long')    1            1            1            0          0
+('2.1.299', 'bg=0', 'think=off', 'len=short')    1            1            1            0          0
+('2.1.299', 'bg=0', 'think=on', 'len=long')    10            9           10            1          2
+('2.1.299', 'bg=0', 'think=on', 'len=short')    1            1            1            0          0
+('2.1.299', 'bg=1', 'think=off', 'len=long')    1            1            1            0          0
+('2.1.299', 'bg=1', 'think=off', 'len=short')    1            1            1            0          0
+('2.1.299', 'bg=1', 'think=on', 'len=long')     1            1            1            0          0
+('2.1.299', 'bg=1', 'think=on', 'len=short')    1            1            1            0          0
+('2.1.302', 'bg=0', 'think=off', 'len=long')    1            1            1            0          1
+('2.1.302', 'bg=0', 'think=off', 'len=short')    1            1            1            0          0
+('2.1.302', 'bg=0', 'think=on', 'len=long')    10            9           10            1          1
+('2.1.302', 'bg=0', 'think=on', 'len=short')    1            1            1            0          0
+('2.1.302', 'bg=1', 'think=off', 'len=long')    1            1            1            0          1
+('2.1.302', 'bg=1', 'think=off', 'len=short')    1            0            1            1          0
+('2.1.302', 'bg=1', 'think=on', 'len=long')     1            1            1            0          0
+('2.1.302', 'bg=1', 'think=on', 'len=short')    1            1            1            0          0
+
+## AUTO cells by version x bg x thinking x length
+group                                           n    out_exact in/cache_exact sub_out_trunc hook!=final
+('2.1.299', 'bg=0', 'think=off', 'len=long')    1            0            1            1          0
+('2.1.299', 'bg=0', 'think=off', 'len=short')    1            0            1            1          0
+('2.1.299', 'bg=0', 'think=on', 'len=long')     3            0            3            3          0
+('2.1.299', 'bg=0', 'think=on', 'len=short')    1            0            1            1          0
+('2.1.299', 'bg=1', 'think=off', 'len=long')    1            0            1            1          0
+('2.1.299', 'bg=1', 'think=off', 'len=short')    1            0            1            1          0
+('2.1.299', 'bg=1', 'think=on', 'len=long')     1            0            1            1          0
+('2.1.299', 'bg=1', 'think=on', 'len=short')    1            0            1            1          0
+('2.1.302', 'bg=0', 'think=off', 'len=long')    1            0            1            1          0
+('2.1.302', 'bg=0', 'think=off', 'len=short')    1            0            1            1          0
+('2.1.302', 'bg=0', 'think=on', 'len=long')     3            0            3            3          1
+('2.1.302', 'bg=0', 'think=on', 'len=short')    1            0            1            1          0
+('2.1.302', 'bg=1', 'think=off', 'len=long')    1            0            1            1          0
+('2.1.302', 'bg=1', 'think=off', 'len=short')    1            0            1            1          0
+('2.1.302', 'bg=1', 'think=on', 'len=long')     1            0            1            1          0
+('2.1.302', 'bg=1', 'think=on', 'len=short')    1            0            1            1          0
+
+## hook-race set (non-auto, fg, long)
+group                                           n    out_exact in/cache_exact sub_out_trunc hook!=final
+('2.1.299', 'auto', 'pk')                       3            0            3            3          0
+('2.1.299', 'bypassPermissions', 'bc')         30           30           30            0          3
+('2.1.299', 'bypassPermissions', 'hr')         10           10           10            0          2
+('2.1.299', 'bypassPermissions', 'pk')         22           20           22            2          1
+('2.1.299', 'plan', 'pk')                       4            0            4            4          1
+('2.1.302', 'auto', 'pk')                       3            0            3            3          0
+('2.1.302', 'bypassPermissions', 'bc')         30           30           30            0          1
+('2.1.302', 'bypassPermissions', 'hr')         10           10           10            0          2
+('2.1.302', 'bypassPermissions', 'pk')         22           21           22            1          4
+('2.1.302', 'plan', 'pk')                       4            0            4            4          0
+
+total cells 192  total USD 2.7443

@@ -1,0 +1,20 @@
+session,wrap_up_ts_utc,ask,options,blocked,latency_to_next_human_prompt_min,verbatim_click,subagents_running,judgement_class,why
+G,2026-10-18T04:11:53.539Z,"Adopt ""imbrex"" as the name for G?",Adopt imbrex | Try Greek instead,False,0.5,0,4,J,naming of G is taste; human had asked for the coining skill
+G,2026-10-18T06:54:08.863Z,Raise git's pack window so versioned reports get delta-packed?,This repo only | Leave it,False,2.4,0,0,R,repo-local reversible git config; a standing policy (repo-local reversible: do it and report) would have settled it
+G,2026-10-18T07:25:51.178Z,"Download two small base/instruct pairs (SmolLM2-135M, Qwen2.5-0.5B, ~2.5 GB) to test it?","Yes, download them | No, just explain",False,0.0,,0,R,2.5 GB download; a resource policy plus a wider local search (LM Studio dir) made the question moot; asked again 07:49 in plain text
+G,2026-10-18T09:22:27.967Z,"Pursue the format result as a workshop paper, built on anamnesis?",Plan the paper | Tech note only,False,4.3,,0,J,publication ambition; the human answered with a different move (analyse the prior art first)
+G,2026-10-18T09:30:06.314Z,Draft an anamnesis issue proposing lossless reference storage across formats?,Draft the issue | Not yet,False,7.1,1,0,J,evidence bar for proposing externally; human chose 'Not yet; measure first'
+G,2026-10-18T15:13:25.213Z,Add an open task to review and post the anamnesis issue?,Add it | Not now,False,3.1,0,0,R,adding a follow-up task to the user's scheduler
+G,2026-10-18T15:28:59.992Z,Write this split to the ledger as took events?,Write it | Adjust first,False,545.4,0,0,D,writes estimates of the human's own time
+D,2026-10-18T06:57:48.870Z,Turn the package design into a roadmap and build it?,Build it | Revise design first,False,13.1,1,0,G,design gate; human wanted to revise before building
+D,2026-10-18T07:34:30.965Z,Approve v1 and open the research_lab roadmap?,"Approve, open roadmap | More revisions",False,9.9,1,0,G,design gate (architecture v1)
+D,2026-10-18T08:05:15.778Z,Which naming set should architecture v2 use?,Latin weighing set | Transmission set,False,6.4,0,0,J,naming set (agent recommended Latin; human followed)
+D,2026-10-18T08:13:01.334Z,Open the research_lab roadmap from v2?,Open roadmap | More revisions,False,0.2,1,0,G,design gate (architecture v2)
+D,2026-10-18T08:37:51.375Z,Open the research_lab roadmap from v3?,Open roadmap | More revisions,False,5.5,1,0,G,design gate (architecture v3)
+D,2026-10-18T08:50:37.204Z,Name the repository Murmuration?,Murmuration | Another name,False,10.1,0,0,J,repository name (agent recommended Murmuration; human followed)
+D,2026-10-18T09:01:27.889Z,Create the local Murmuration repository and open its roadmap?,Create it locally | More revisions,False,2.3,0,0,R,human had said 08:48 'make this MAS a first-class repo'; creating it locally was already authorised
+D,2026-10-18T09:06:35.763Z,Start wave 1 (platform probes and instrument validation)?,Start wave 1 | Not now,False,9.0,,0,R,roadmap opened; next step is start wave 1; the human's reply added a safety constraint (do not disturb other sessions)
+D,2026-10-18T09:37:18.105Z,Log in the CLI so the remaining probes can run?,"Logged in, run them | Write v5 now",True,2.8,0,1,H,claude auth login: only the human could do it; 'blocked: true'
+D,2026-10-18T09:53:51.421Z,"Start wave 2 (libripens core, agents and skills)?",Start wave 2 | Review v5 first,False,3.2,1,0,G,design gate (architecture v5); human declined the default
+D,2026-10-18T16:25:28.614Z,Which question should the first real study take?,Reflective run first | I'll pick a question,False,479.3,0,0,R,the human had said at 15:35 'once we have v1 I plan to run the agent system on itself'
+D,2026-10-19T00:26:05.872Z,Open the research-pi session in a terminal tab for you?,Open it for me | I'll start it myself,False,16.7,,0,H,GUI versus terminal session is the human's environment

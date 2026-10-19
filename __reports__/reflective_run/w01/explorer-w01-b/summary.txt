@@ -1,0 +1,17 @@
+T1 brief anatomy: N briefs = 30
+  genesis n=10 median chars 3439 range 2643-5041 share by class: {'role': 0.052, 'readfirst': 0.097, 'task': 0.619, 'rules': 0.117, 'deliverable': 0.068, 'commit': 0.005, 'final': 0.04}
+  design n=14 median chars 3522 range 1245-5178 share by class: {'role': 0.062, 'readfirst': 0.138, 'task': 0.586, 'rules': 0.044, 'deliverable': 0.126, 'commit': 0.008, 'final': 0.033}
+  thisrun n=6 median chars 2497 range 2305-2794 share by class: {'role': 0.07, 'readfirst': 0.114, 'task': 0.478, 'rules': 0.158, 'deliverable': 0.0, 'commit': 0.0, 'final': 0.175}
+T1b start context per subagent (chars; mean over runs)
+  genesis n=10 brief 3696 CLAUDE.md(instructions) 1737 skill_listing 29975 SubagentStart hook ctx 2051 system_prompt 2788 deferred_tools 14567 session_ctx 287 | brief share of start context 6.7%
+  design n=12 brief 3659 CLAUDE.md(instructions) 1892 skill_listing 29974 SubagentStart hook ctx 2051 system_prompt 2788 deferred_tools 14567 session_ctx 1182 | brief share of start context 6.5%
+  thisrun n=6 brief 2511 CLAUDE.md(instructions) 1737 skill_listing 29940 SubagentStart hook ctx 2051 system_prompt 2682 deferred_tools 1117 session_ctx 1024 | brief share of start context 6.1%
+T2 hand-backs (agent-message form), N = 30 (genesis+design, unique by enqueue line)
+  with a stated word limit in the brief: 20 ; over limit: 18 ; ratio median 1.27
+  words (excl. harness line): median 331, min 104, max 3527
+  without limit in brief: n=10 median words 1135
+  harness flag on first line: 8 of 30 ; reports with neutralised '<\' tags: 8
+  first-line class: {'result/verdict': 3, 'done/pass': 23, 'blocker': 2, 'other': 2}
+  reports naming >=1 absolute path: 20 ; >=1 relative path: 26 ; >=1 commit hash: 24
+  reports with table rows: 2 ; with bullets: 29 ; with # headers: 7
+  reports containing a label word (THEOREM/CHECKED/...): 18

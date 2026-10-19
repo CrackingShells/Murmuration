@@ -1,0 +1,68 @@
+# Lab status
+
+Current wave note: __statera__/wave-02.md
+
+## Open puzzles (18)
+- S-w02-author-w02-1-1 (__scrupuli__/wave-02-author-w02-1.md) Running the patched script with no `git` on PATH from the main checkout prints a clean section with USD 1.11 and 30 sessions, and says nothing about the 274 ...
+- S-w02-author-w02-1-2 (__scrupuli__/wave-02-author-w02-1.md) In `auto` mode every subagent request of this team is truncated (w01-c2), so every subagent row prints `+`. The detector is correct and the mark is uniform, ...
+- S-w02-author-w02-1-3 (__scrupuli__/wave-02-author-w02-1.md) `lab_status.py` grew from 880 to 1068 lines (spend section 174 to 287, its selftest 65 to 130), which is against the leanness aim of the framing. The prototy...
+- S-w02-author-w02-1-4 (__scrupuli__/wave-02-author-w02-1.md) I left out the n=2 "ESTIMATE about" uplift and the wake-ups column of the w01-c3 prototype. The first printed a second, higher figure for open sessions; with...
+- S-w02-author-w02-1-5 (__scrupuli__/wave-02-author-w02-1.md) The scan is by the first `cwd` of a session, so sessions of the plugin's own design (here, the design session under the combinatorics project) and the 12 scr...
+- S-w02-author-w02-1-6 (__scrupuli__/wave-02-author-w02-1.md) When `/lab-status` is run from the main checkout (`--project` the main path), the worktree session is labelled "worktree murmuration-system-optimization-8cff...
+- S-w02-author-w02-1-7 (__scrupuli__/wave-02-author-w02-1.md) `scripts/user_words.py` shows as modified in the worktree while I worked (89 changed lines) and I did not touch it. The PI commits my files; the commit hygie...
+- S-w02-author-w02-2-1 (__scrupuli__/wave-02-author-w02-2.md) The transcript puts the question and the answer of the AskUserQuestion dialog at 03:05:10Z and 03:26:57Z, that is 12:05 and 12:26 JST (lines 1472 and 1473 of...
+- S-w02-author-w02-2-2 (__scrupuli__/wave-02-author-w02-2.md) The model sees the dialog answers as one string, in which a multi-select list is joined by a bare comma, and whose wording changes with the content: "Your qu...
+- S-w02-author-w02-2-3 (__scrupuli__/wave-02-author-w02-2.md) `<side-sessions-event>` is kept because it costs a line, but its only evidence is 8 notices that may never fire `UserPromptSubmit`. Nobody has dumped what th...
+- S-w02-author-w02-2-4 (__scrupuli__/wave-02-author-w02-2.md) The hook's `prompt` is rebuilt from the transcript record as text blocks joined with newline, and that is byte-checked on only 2 of 72 typed prompts. The Des...
+- S-w02-author-w02-2-5 (__scrupuli__/wave-02-author-w02-2.md) `ask_capture.py` appends the question and the answer under the same dated heading format as typed prompts, with a marker line "(answer in the question dialog...
+- S-w02-reproducer-w02-1-1 (__scrupuli__/wave-02-reproducer-w02-1.md) The head's first sentence puts "equal to the sum of Claude Code's cost-state totals (224.85)" next to measured things, but for an ended session the script pr...
+- S-w02-reproducer-w02-1-2 (__scrupuli__/wave-02-reproducer-w02-1.md) The `+` is per (agent label, model) row, and two runs of one name merge into one row; the OR across copies (`have["final"] or msg["final"]`) can clear a mark...
+- S-w02-reproducer-w02-1-3 (__scrupuli__/wave-02-reproducer-w02-1.md) Without git, `/lab-status` prints a spend figure (1.11 against 65.3) with no notice, and `git_worktrees` returns [] both for "git absent" and "not a reposito...
+- S-w02-reproducer-w02-1-4 (__scrupuli__/wave-02-reproducer-w02-1.md) Spend 60.93 for the open PI session grew about 0.55 USD in the few minutes of my run; the claim's 64.77 and my 65.32 differ only by that. The claim states th...
+- S-w02-reproducer-w02-1-5 (__scrupuli__/wave-02-reproducer-w02-1.md) The author's added section landed after my verdict section and so sits under my `## verdict: reproducer-w02-1` heading; the research-loop format has no place...
+- S-w02-research-pi-1 (__scrupuli__/wave-02-research-pi.md) The user's most consequential instructions of the study (how to decide, how to budget workers, what to keep, the new 6-hour budget) came through the Desktop ...
+
+## Claims (16, 0 disputed, 0 warnings)
+- w01-c1  superseded by w01-c14
+- w01-c2  escalated: PI decides  <- reproducer-w01-2: ESCALATE
+- w01-c3  MEASURED  <- reproducer-w01-3: SUPPORTED
+- w01-c4  superseded by w01-c10, w01-c9
+- w01-c5  superseded by w01-c8
+- w01-c6  below CONJECTURE: restate  <- reproducer-w01-6: OVERSTATED
+- w01-c7  below CONJECTURE: restate  <- reproducer-w01-7: OVERSTATED
+- w01-c8  escalated: PI decides  <- reproducer-w01-8: ESCALATE
+- w01-c9  superseded by w02-c2
+- w01-c10  below CONJECTURE: restate  <- reproducer-w01-10: OVERSTATED
+- w01-c11  superseded by w01-c12
+- w01-c12  superseded by w01-c13
+- w01-c13  CONJECTURE  <- reproducer-w01-11: SUPPORTED
+- w01-c14  MEASURED  <- reproducer-w01-1: SUPPORTED
+- w02-c1  MEASURED  <- reproducer-w02-1: SUPPORTED
+- w02-c2  unverified MEASURED
+
+## Spend (USD: Claude Code's cost-state where a session has ended, else list price of 2026-10-19)
+TOTAL  USD 67.58 at least   (4.39 exact + 63.19 at list price for 1 session still open)
+A session still open has no cost-state yet. Its figure leaves out helper-model calls (such as web-fetch summaries) and counts a subagent's output tokens as they were when its stream started, so it is a lower bound.
+
+where                                     sessions  agent files  USD    basis
+----------------------------------------  --------  -----------  -----  --------
+main checkout, sessions started below it  30                  6   1.11  exact
+this checkout                             1                  29  63.19  at least
+this checkout, sessions started below it  273               264   3.28  exact
+
+agent                                  model       msgs  list-price USD  output tokens
+-------------------------------------  ----------  ----  --------------  -------------
+murmuration:research-pi (main thread)  opus-5-5     154           22.27        166,302
+author-w01-2                           sonnet-5-5    67           3.69+         3,114+
+author-w01-6                           sonnet-5-5    45           3.30+        69,443+
+author-w01-5                           sonnet-5-5    62           3.22+        37,294+
+author-w01-4                           sonnet-5-5    64           3.08+        16,185+
+author-w01-1                           sonnet-5-5    72           3.04+        25,381+
+author-w01-3                           sonnet-5-5    57           2.24+        18,210+
+explorer-w01-b                         sonnet-5-5    62           2.01+        17,694+
+explorer-w01-d                         sonnet-5-5    62           1.97+        13,884+
+explorer-w01-c                         sonnet-5-5    63           1.95+        26,238+
+explorer-w01-a                         sonnet-5-5    52           1.80+        21,995+
+explorer-w01-f                         sonnet-5-5    46           1.75+        14,520+
+(35 more)                                          2000           17.20
+`+` = at least: some of that agent's output tokens are stored at their start-of-stream value. Agent rows are priced from transcripts at list price and add up to 67.52 of the 67.58 total above; the rest is what only cost-state records.

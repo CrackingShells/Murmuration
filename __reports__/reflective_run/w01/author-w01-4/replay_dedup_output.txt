@@ -1,0 +1,4 @@
+class             fired(raw)  distinct  current stores  new stores  differ  dropped(typed)  chars current -> new
+typed (human + mid-turn)       87        72              72          72      51               0  70784 -> 37088
+not typed                      14        14              14           6       9               -  29911 -> 10948
+all                           101        86              86          78      60               -  100695 -> 48036

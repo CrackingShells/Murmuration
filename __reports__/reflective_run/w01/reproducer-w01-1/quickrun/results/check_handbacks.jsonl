@@ -1,0 +1,2 @@
+{"run": "p4_auto_two", "files": ["wave-99-author-w99-1.md"], "sections": 3, "missing": 0, "expected_from_hook_payloads": 3, "file_equals_payloads": true, "transcript_texts": 3, "transcript_texts_found_in_file": true}
+{"run": "p4_default_two", "files": ["wave-99-author-w99-1.md"], "sections": 2, "missing": 0, "expected_from_hook_payloads": 2, "file_equals_payloads": true, "transcript_texts": 1, "transcript_texts_found_in_file": true}

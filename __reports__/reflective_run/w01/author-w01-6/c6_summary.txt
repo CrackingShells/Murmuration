@@ -1,0 +1,29 @@
+research prompts 55
+pre-emption (CONJECTURE) {'N': 50, 'P': 5}
+by trouble x pre-emption {('OPS', 'N'): 10, ('INS', 'N'): 7, ('DIR', 'N'): 17, ('SCO', 'P'): 2, ('GATE', 'N'): 15, ('LEG', 'P'): 3, ('SCO', 'N'): 1}
+by explorer-w01-d class x pre-emption {('ND', 'N'): 13, ('MM', 'N'): 6, ('CE', 'P'): 4, ('CE', 'N'): 5, ('AP', 'N'): 17, ('STOP', 'N'): 2, ('RC', 'P'): 1, ('UT', 'N'): 4, ('RC', 'N'): 3}
+Y or P prompts: ['8af30fe6', '9cd91bd9', 'd10ebf86', '83e43ba0', '939bea68']
+contract element behind them: {'E2': 2, 'E1': 1, 'E1+E2': 1, 'E5': 1}
+quote-replies: start with ">" 12; contain a quoted line 12; of 9 CE prompts, starting with ">" 6, containing 6
+human prompts that use a plugin label or verdict word: [('721d5438', ['checked']), ('9cd91bd9', ['cited', 'cited']), ('87831bbf', ['checked'])]  (9cd91bd9 uses "cited" as an ordinary verb)
+prompts that mention a file or report they read: ['721d5438', '6ee68017', '29e87874', 'b9d09057', 'd10ebf86', '3168e671', '87831bbf', 'b3822de3', '4efb86a5', 'f5966b4c', '05f44db5', '742ac0ec']
+prompts that mention lab-file vocabulary (claim, puzzle, wave, hypothesis, verdict): [('d10ebf86', ['hypothes']), ('87831bbf', ['wave', 'hypothes', 'wave']), ('b3822de3', ['hypothes']), ('f5966b4c', ['puzzle']), ('623236e7', ['claim', 'puzzle']), ('ae452525', ['statera', 'pondus', 'scrupul']), ('038a7abe', ['wave'])]
+prompts that name a cost unit (usd, token, hour, minute, budget, cost): [('721d5438', ['cost', 'cost', 'cost', 'cost', 'cost', 'cost']), ('87831bbf', ['cost']), ('b3822de3', ['budget', 'cost']), ('05f44db5', ['cost']), ('201e1cdd', ['usd']), ('355d9ea5', ['cost'])]
+
+reacted-to PI message: words and contract-like features (MEASURED, regex)
+  8af30fe6 CE P words  298 features ['verdict', 'scope']
+  fa7c006d CE N words  186 features ['scope', 'needs']
+  9cd91bd9 CE P words  174 features ['label']
+  d10ebf86 RC P words  122 features ['scope']
+  83e43ba0 CE P words  356 features ['verdict', 'scope', 'question']
+  939bea68 CE P words  468 features ['verdict', 'scope', 'cost']
+  3959fc84 CE N words  337 features ['scope']
+  8b8533e8 CE N words  555 features ['label', 'scope', 'cost']
+  87831bbf CE N words  560 features ['label', 'scope', 'question']
+  f5966b4c RC N words  432 features ['verdict', 'scope', 'cost', 'needs']
+  623236e7 RC N words   70 features ['needs']
+  3b472151 CE N words  503 features ['verdict', 'scope', 'cost', 'needs']
+  038667af RC N words  130 features ['scope']
+median words of the reacted-to messages 337 n 13
+output tokens per displayed word, text-only PI messages >= 80 words: n=42 median 2.15 p10 1.93 p90 2.40
+model of a close message: 30 words (question) + 40 per claim + 15 (cost) + 30 (needs you); for the 7 claims of this wave: 355 words

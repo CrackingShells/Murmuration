@@ -1,0 +1,26 @@
+## Spend (USD: Claude Code's cost-state where a session has ended, else list price of 2026-10-19)
+TOTAL  USD 65.32 at least   (4.39 exact + 60.93 at list price for 1 session still open)
+A session still open has no cost-state yet. Its figure leaves out helper-model calls (such as web-fetch summaries) and counts a subagent's output tokens as they were when its stream started, so it is a lower bound.
+
+where                                     sessions  agent files  USD    basis
+----------------------------------------  --------  -----------  -----  --------
+main checkout, sessions started below it  30                  6   1.11  exact
+this checkout                             1                  28  60.93  at least
+this checkout, sessions started below it  273               264   3.28  exact
+
+agent                                  model       msgs  list-price USD  output tokens
+-------------------------------------  ----------  ----  --------------  -------------
+murmuration:research-pi (main thread)  opus-5-5     146           20.89        161,475
+author-w01-2                           sonnet-5-5    67           3.69+         3,114+
+author-w01-6                           sonnet-5-5    45           3.30+        69,443+
+author-w01-5                           sonnet-5-5    62           3.22+        37,294+
+author-w01-4                           sonnet-5-5    64           3.08+        16,185+
+author-w01-1                           sonnet-5-5    72           3.04+        25,381+
+author-w01-3                           sonnet-5-5    57           2.24+        18,210+
+explorer-w01-b                         sonnet-5-5    62           2.01+        17,694+
+explorer-w01-d                         sonnet-5-5    62           1.97+        13,884+
+explorer-w01-c                         sonnet-5-5    63           1.95+        26,238+
+explorer-w01-a                         sonnet-5-5    52           1.80+        21,995+
+explorer-w01-f                         sonnet-5-5    46           1.75+        14,520+
+(34 more)                                          1937           16.32
+`+` = at least: some of that agent's output tokens are stored at their start-of-stream value. Agent rows are priced from transcripts at list price and add up to 65.26 of the 65.32 total above; the rest is what only cost-state records.

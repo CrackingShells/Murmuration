@@ -1,0 +1,19 @@
+USE ToolSearch {"query": "select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__find_files", "max_results": 2}
+  RES [{'type': 'tool_reference', 'tool_name': 'mcp__plugin_colgrep-mcp_colgrep__search'}, {'type': 'tool_reference', 'tool_name': 'mcp__plugin_colgrep-mcp_colgrep__find_files'}]
+USE cg:find_files {"query": "all json files", "include": ["*.json"]}
+USE cg:find_files {"query": "all txt files", "include": ["*.txt"]}
+USE cg:find_files {"query": "files in handbacks", "paths": ["__statera__/handbacks"]}
+USE cg:find_files {"query": "files in instrumenta", "paths": ["__instrumenta__"]}
+  RES {"query":"all json files","pattern":null,"paths":["/private/tmp/reproducer-w03-2/lab"],"files":[],"truncated":false,"elapsed_ms":796}
+USE cg:search {"query": "needle_alpha", "pattern": "needle_alpha"}
+  RES {"query":"files in handbacks","pattern":null,"paths":["/private/tmp/reproducer-w03-2/lab/__statera__/handbacks"],"files":[],"truncated":false,"elapsed_ms":555}
+USE cg:search {"query": "needle_alpha", "pattern": "needle_alpha", "paths": ["__instrumenta__"]}
+  RES {"query":"all txt files","pattern":null,"paths":["/private/tmp/reproducer-w03-2/lab"],"files":[],"truncated":false,"elapsed_ms":1091}
+USE Grep {"pattern": "needle_alpha", "output_mode": "files_with_matches"}
+  RES {"query":"files in instrumenta","pattern":null,"paths":["/private/tmp/reproducer-w03-2/lab/__instrumenta__"],"files":[{"file":"/private/tmp/reproducer-w03-2/lab/__instrumenta__/s.py","best_score":1.2,"hits":1,"top_units":["raw_code_1"]}],"truncated":false,"elapsed_ms":775}
+USE Glob {"pattern": "**/*.json"}
+  RES .claude/settings.local.json | data.json | __instrumenta__/params.json
+  RES PreToolUse:Grep hook error: The built-in Grep tool is disabled by the colgrep-mcp plugin. Call the colgrep MCP server's `search` tool (natural-language `query`; add `pattern` for an identifier you know) or `find_files` for a file list, then `expand` the hits that matter. Looking files up by name is 
+  RES {"query":"needle_alpha","pattern":"needle_alpha","paths":["/private/tmp/reproducer-w03-2/lab"],"hits":[{"hit_id":"/private/tmp/reproducer-w03-2/lab/__statera__/wave-01x.md:1-1","file":"/private/tmp/reproducer-w03-2/lab/__statera__/wave-01x.md","line":1,"end_line":1,"name":"wave-01x","qualified_name"
+  RES {"query":"needle_alpha","pattern":"needle_alpha","paths":["/private/tmp/reproducer-w03-2/lab/__instrumenta__"],"hits":[{"hit_id":"/private/tmp/reproducer-w03-2/lab/__instrumenta__/s.py:1-2","file":"/private/tmp/reproducer-w03-2/lab/__instrumenta__/s.py","line":1,"end_line":2,"name":"raw_code_1","qua
+total_cost_usd 0.009702080000000002
