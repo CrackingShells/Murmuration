@@ -106,8 +106,9 @@ def cell(name):
         for (basis, m), n in mark.items():
             row["%s_mark_%s_at_request" % (basis, m)] = n
     row["est_share_of_exact"] = round(seen["usd"] / row["worker_usd"], 3)
-    if ev["start"]:
-        row["T_min"] = ev["start"][0].get("T")
+    later = [x for k in ("note", "stop", "halt", "end") for x in ev[k]]   # the `start` line carries the default: the brief is not readable yet
+    if later:
+        row["T_min"] = later[-1].get("T")
     for k in ("note", "stop"):
         if ev[k]:
             row[k + "_which"], row[k + "_t_frac"] = ev[k][0].get("which"), ev[k][0].get("t_frac")

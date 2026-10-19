@@ -63,6 +63,7 @@ import handback  # noqa: E402  (a sibling script: one place that finds the lab, 
 
 DEFAULT = {"explorer": 3.0, "author": 3.0, "reproducer": 2.0, "proof-adversary": 2.0}
 OTHER_ROLE = 2.0
+# Starting values chosen from a few observed worker run times, not tuned: put `Time: min <n>` in a brief to set one.
 TIME_DEFAULT = {"explorer": 20.0, "author": 20.0, "reproducer": 15.0, "proof-adversary": 15.0}   # minutes
 OTHER_TIME = 15.0
 TIME_LINE = re.compile(r"^Time: min (\d+(?:\.\d+)?)[ \t]*$", re.M)

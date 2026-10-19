@@ -16,3 +16,12 @@ to wait indefinitely." and the process exited 0. A lab run headless loses its en
 ceiling the plugin neither knows nor sets; nothing in the plugin tells a user to set it. Cost
 USD 4.88, 21 min wall.
 refs: scratchpad w02/expC/A/stderr.txt; A/stdout.jsonl (last result events); A/lab/__statera__/ (no synthesis.md)
+
+## S-w02-research-pi-3
+`/lab-status` shows w02-c4 as "MEASURED <- reproducer-w02-4: SUPPORTED", but that verifier later
+revised its verdict to OVERSTATED with `changed_by:` inside the same `## verdict:` section. The
+parser takes the first line starting `verdict:` in a section, so a verifier who revises in place
+(as the skill's `changed_by:` rule invites) leaves the lab showing the superseded verdict. The
+skill says the latest verdict is the standing one; the script and the file format disagree on which
+line that is.
+refs: __pondus__/w02-c4.md (two `verdict:` lines in one section); scripts/lab_status.py (verdict parsing); skills/research-loop/SKILL.md ("Each verifier's latest verdict is its standing verdict")

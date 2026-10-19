@@ -38,7 +38,7 @@ research-loop skill ("Author and verifier, in order").
 ## Limits
 
 The budget in the brief is the limit of a worker's run, in USD and in minutes; whichever is reached
-first sends the note. A single tool call that runs for many minutes cannot be interrupted, so give
+first sends the note. The defaults in the table are starting values, not tuned; the brief's lines override them. A single tool call that runs for many minutes cannot be interrupted, so give
 long computations their own limit in the command. `maxTurns: 150` in each worker's agent file
 is a fallback that stops a runaway, not the budget.
 
