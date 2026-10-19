@@ -20,3 +20,11 @@ refs: __reports__/reflective_run/w02/author-w02-4/ (run.sh dispatch prompt); e_n
 ## S-w02-author-w02-4-5
 With the worktree's hooks loaded, 2 of 5 lean explorer runs skipped the report template and wrote their own headings and no front matter (new_a, new_d), against 0 of 7 without hooks. The only added `SubagentStart` context in those runs came from the user's own global hooks, which are in every run, and the plugin's budget hook injected nothing visible. Chance is possible at this n. If the new hooks (or their `PostToolUse` handling) change how the worker reads its skill, the shape guarantee of the report is lost and I cannot yet say why.
 refs: __reports__/reflective_run/w02/author-w02-4/result_with_hooks.jsonl (`heads`, `read_template`); scratch folder author-w02-4-hooks
+
+## S-w02-author-w02-4-6
+The PI's message gave the hook's figure for the B3 author as "about 0.24 of B (about USD 0.20)". The `end` line says used 0.19777 USD, `frac` 0.4944 (USD) and `t_frac` 0.6017 (time) of B = 0.40. The 0.20 USD matches; 0.24 does not match either fraction, and I do not know which number it was meant to be. The explorer's table gives 0.494 and 0.602, as I do.
+refs: __reports__/reflective_run/w02/author-w02-4/b3_selfreport_out.md; B3 `lab/__statera__/harness.jsonl` (author-w01-1 `end`)
+
+## S-w02-author-w02-4-7
+The harness `used` for the seven workers sums to 0.900 USD against 0.8655 exact, 4% high, while the explorer's table says the output estimate is 108% of exact in tokens. So the hook's USD figure is a good estimate here (n = 1 arm), and the self-report is not. Does the self-report error come from the worker adding the PI's or other workers' spend, or from guessing from token counts? The hand-back does not say.
+refs: b3_selfreport_out.md; B3 handbacks/wave-01-author-w01-1.md line 29

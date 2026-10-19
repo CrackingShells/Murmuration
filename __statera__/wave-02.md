@@ -104,6 +104,12 @@ wave at about 60 more (study total about 135) and checks spend at each phase.
   at the ceiling; B's explorer ran 49 min on a quarter of its budget). The user named "token or time
   budget". Next: add a time budget on the same note/stop path (w02-c6), then a second candidate run
   (arm B2) to see the mechanism fire in a real study.
+- **PI decision on the ESCALATE of w02-c10** (reproducer-w02-10): the narrowed statement is
+  accepted (the one self-reported spend in B3 was the platform's session-wide counter read as the
+  worker's own; the PI quoted it). The 47-word text lands: it can only make reported spend more
+  accurate; its effect is untested.
+- **PI decision on the ESCALATE of w02-c8/w02-c2-style restatements** applies only where the
+  verifier's own independent result gives the restated figures.
 - Plugin changes are now applied on the study branch `claude/murmuration-system-optimization-8cff9e`
   after a claim and a verdict, per the user's 12:50 answer. Nothing goes to `main`; the user merges.
 

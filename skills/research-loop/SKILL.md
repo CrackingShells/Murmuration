@@ -119,6 +119,8 @@ Label by what was run, not by what is believed.
 CITED statements are not given to a verifier: they stand as cited, with their identifier or marked
 UNVERIFIED. Every factual statement in a note or report carries a source (`[source: path@commit]`)
 or a declared assumption (`[assumption: why]`).
+A spend figure shown to a worker is the whole session's, not its own, so a worker does not report spend or
+budget use; those come from `__statera__/harness.jsonl` or `/lab-status`.
 
 ### Verdicts and the current label
 

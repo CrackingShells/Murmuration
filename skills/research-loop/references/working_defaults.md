@@ -17,6 +17,8 @@
   say that; when something is done and verified, say it plainly.
 - Before an action that is hard to reverse or visible outside the project (pushing, publishing,
   sending, deleting data), ask the user and wait for a clear yes.
+- Quote spend and budget use only from `__statera__/harness.jsonl` or `/lab-status`, never from a worker's
+  own figure.
 - Never stop processes by name pattern (`pkill`, `killall`). Stop only the process ids you started.
 - Commit your own files only, with a message that says why. Team members do the same.
 - Use whatever search and reference tools the environment offers (semantic code or document
