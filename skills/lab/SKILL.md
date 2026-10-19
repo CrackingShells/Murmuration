@@ -39,7 +39,10 @@ MURMURATION_QUESTION
 The script decides by itself:
 
 - **No `__statera__/` folder: it initializes the lab.** It creates `__statera__/`, `__pondus__/`,
-  `__scrupuli__/` and `__design__/`; writes `__design__/framing.md` (a stub from the
+  `__scrupuli__/`, `__design__/` and `__instrumenta__/` (helper scripts); writes a `.ignore` (folders colgrep
+  and Grep leave out: saved hand-backs, `raw/`, `runs/`, `generated/`; added to a `.ignore` that
+  exists, never replacing it); builds the colgrep index once, and says so when `colgrep` is not installed;
+  writes `__design__/framing.md` (a stub from the
   `research-loop` template), `__statera__/user_words.md` (the question, dated) and
   `__statera__/wave-01.md` (the first wave note); and merges into `.claude/settings.local.json`
   (personal settings, not shared with the team) `"agent": "murmuration:research-pi"` and the deny
@@ -49,8 +52,8 @@ The script decides by itself:
 - **`__statera__/` exists: it appends the question** to `__statera__/user_words.md` under a
   dated heading (unless it is already the newest entry). It also restores anything missing from
   `.claude/settings.local.json` (`agent` and the deny rules), which a fresh clone of the project
-  does not have, and says what it restored; a different `agent` is kept and reported. Nothing else
-  changes.
+  does not have, and says what it restored; a different `agent` is kept and reported. It also creates
+  `__instrumenta__/` and the `.ignore` block when they are missing. Nothing else changes.
 
 - **A folder above this one already holds a lab: it creates nothing** and says where that lab is.
   Tell the user to run `/lab` from that folder, or start Claude Code there.

@@ -1,0 +1,21 @@
+USE Glob {"pattern": "**/*.json"}
+  RES .claude/settings.local.json | data.json | __instrumenta__/params.json
+USE Glob {"pattern": "**/*.txt"}
+  RES notes.txt | __instrumenta__/readme.txt
+USE Glob {"pattern": "__statera__/handbacks/*"}
+  RES __statera__/handbacks/author-1.md
+USE Glob {"pattern": "__instrumenta__/*"}
+  RES __instrumenta__/s.py | __instrumenta__/params.json | __instrumenta__/readme.txt
+USE Glob {"pattern": "**/*.log"}
+  RES run.log
+USE Glob {"pattern": "data/**/*"}
+  RES data/raw/r.csv | data/derived/t.csv
+USE Grep {"pattern": "needle_alpha", "output_mode": "files_with_matches"}
+  RES Found 2 files | __statera__/wave-01x.md | __instrumenta__/s.py
+USE Grep {"pattern": "needle_alpha", "path": "__statera__/handbacks", "output_mode": "files_with_matches"}
+  RES Found 1 file | __statera__/handbacks/author-1.md
+USE Grep {"pattern": "needle_alpha", "glob": "*.json", "output_mode": "files_with_matches"}
+  RES Found 2 files | __instrumenta__/params.json | data.json
+USE Grep {"pattern": "needle_alpha", "path": "__instrumenta__", "output_mode": "files_with_matches"}
+  RES Found 1 file | __instrumenta__/s.py
+total_cost_usd 0.009138450000000001

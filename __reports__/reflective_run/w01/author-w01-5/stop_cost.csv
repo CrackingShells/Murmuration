@@ -1,0 +1,4 @@
+name,turns_total,run_usd_list,stranded_s,extra_cache_write_usd_measured,pi_notice_usd_opus_list,pi_turns,wrapup_turns_after_resume,wrapup_segment_usd,exposure_if_cold_usd,usd_per_extra_turn_at_turn60_ctx
+explorer-w01-c,63,2.916,10.9,0.0,0.2027,2,3,0.2515,0.647,0.056
+explorer-w01-d,62,3.065,31.9,0.0,0.1387,1,2,0.1272,0.683,0.059
+explorer-w01-b,62,3.061,7.7,0.0,0.0559,1,2,0.2292,0.694,0.06

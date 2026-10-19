@@ -1,0 +1,17 @@
+## Spend (USD: Claude Code's cost-state where a session has ended, else list price of 2026-10-19)
+TOTAL  USD 224.85   (exact, all sessions ended)
+
+where          sessions  agent files  USD     basis
+-------------  --------  -----------  ------  -----
+this checkout  4                  44  224.85  exact
+
+agent              model       msgs  list-price USD  output tokens
+-----------------  ----------  ----  --------------  -------------
+main thread        opus-5-5     677          155.72        893,591
+general-purpose    sonnet-5-5   853          36.94+       399,759+
+general-purpose    fable-5-1     44          12.77+        56,258+
+web-fetch          opus-5-5      15           1.56+           203+
+general-purpose    opus-5-5       9           0.88+         4,664+
+claude-code-guide  haiku-5-5      3           0.01+            16+
+`+` = at least: some of that agent's output tokens are stored at their start-of-stream value. Agent rows are priced from transcripts at list price and add up to 207.89 of the 224.85 total above; the rest is what only cost-state records.
+858 message records copied a message already counted (forked sessions, copied agent files); each is charged once, to the session named in its record.

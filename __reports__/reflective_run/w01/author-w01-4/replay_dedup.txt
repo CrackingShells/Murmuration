@@ -1,0 +1,2 @@
+{'all': 87, 'distinct': 72, 'differ': 51, 'dropped_typed': 0, 'chars_old': 70784, 'chars_new': 37088, 'chars_old_unstripped': 70785}
+Counter({'n/murmuration-system-optimization-8cff9e': 390, 'Documents/src/CrackingShells/Murmuration': 49})

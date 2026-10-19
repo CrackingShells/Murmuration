@@ -1,0 +1,20 @@
+session,wrap_up_ts_utc,class,why
+G,2026-10-18T04:11:53,J,naming of G is taste; human had asked for the coining skill
+G,2026-10-18T06:54:08,R,repo-local reversible git config; a standing policy (repo-local reversible: do it and report) would have settled it
+G,2026-10-18T07:25:51,R,"2.5 GB download; a resource policy plus a wider local search (LM Studio dir) made the question moot; asked again 07:49 in plain text"
+G,2026-10-18T09:22:27,J,publication ambition; the human answered with a different move (analyse the prior art first)
+G,2026-10-18T09:30:06,J,evidence bar for proposing externally; human chose 'Not yet; measure first'
+G,2026-10-18T15:13:25,R,adding a follow-up task to the user's scheduler
+G,2026-10-18T15:28:59,D,writes estimates of the human's own time
+D,2026-10-18T06:57:48,G,design gate; human wanted to revise before building
+D,2026-10-18T07:34:30,G,design gate (architecture v1)
+D,2026-10-18T08:05:15,J,naming set (agent recommended Latin; human followed)
+D,2026-10-18T08:13:01,G,design gate (architecture v2)
+D,2026-10-18T08:37:51,G,design gate (architecture v3)
+D,2026-10-18T08:50:37,J,repository name (agent recommended Murmuration; human followed)
+D,2026-10-18T09:01:27,R,human had said 08:48 'make this MAS a first-class repo'; creating it locally was already authorised
+D,2026-10-18T09:06:35,R,roadmap opened; next step is start wave 1; the human's reply added a safety constraint (do not disturb other sessions)
+D,2026-10-18T09:37:18,H,claude auth login: only the human could do it; 'blocked: true'
+D,2026-10-18T09:53:51,G,design gate (architecture v5); human declined the default
+D,2026-10-18T16:25:28,R,the human had said at 15:35 'once we have v1 I plan to run the agent system on itself'
+D,2026-10-19T00:26:05,H,GUI versus terminal session is the human's environment

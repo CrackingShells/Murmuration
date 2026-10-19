@@ -1,0 +1,53 @@
+cell bash_calls files_covered used_at_handback fired(used,elapsed) bash_after_note mentions_budget_in_report report_chars usd
+anx-a-1 16 16 74170 None None False 637 0.0125
+anx-a-2 16 16 60736 None None False 999 0.0103
+anx-a-3 16 16 60138 None None False 637 0.0101
+anx-a-4 16 16 60096 None None False 712 0.0101
+anx-a-5 16 16 60042 None None False 932 0.0102
+anx-b-1 9 9 35833 (32438, 27.2) 0 True 687 0.0093
+anx-b-2 9 9 35832 (32437, 29.6) 0 True 615 0.0085
+anx-b-3 9 9 35838 (32443, 28.6) 0 True 641 0.0093
+anx-b-4 9 9 35883 (32485, 33.3) 0 True 768 0.011
+anx-b-5 10 10 36419 (33025, 29.6) 1 True 874 0.0121
+anx-c-1 16 16 60887 (32369, 30.1) 7 True 1262 0.0108
+anx-c-2 9 9 35704 (32317, 23.1) 0 True 978 0.0109
+anx-c-3 9 9 35672 (32284, 28.6) 0 True 1027 0.0098
+anx-c-4 10 10 37109 (33854, 32.6) 0 True 770 0.0097
+anx-c-5 9 9 35846 (32448, 26.1) 0 True 661 0.0116
+anx-d-1 16 16 60288 None None False 855 0.0102
+anx-d-2 16 16 60399 None None False 844 0.0102
+anx-d-3 16 16 60247 None None False 637 0.0101
+anx-e-1 12 12 46022 (42436, 35.6) 0 True 1106 0.0109
+anx-e-2 12 12 46035 (42441, 37.9) 0 True 1096 0.0114
+anx-e-3 12 12 46003 (42410, 41.7) 0 True 1121 0.011
+anx-f-1 9 9 35659 (32274, 29.0) 0 True 731 0.011
+anx-f-2 11 11 43601 (32981, 29.0) 2 True 1126 0.0114
+anx-f-3 11 11 43970 (33244, 29.1) 2 True 1050 0.0128
+anx-f-4 11 11 46395 (34651, 33.0) 2 True 1152 0.0139
+anx-f-5 12 12 46422 (32354, 29.5) 3 True 1063 0.0123
+anx-g-1 16 16 60451 None None False 973 0.0103
+anx-g-2 16 16 60332 None None False 637 0.0104
+anx-g-3 16 16 63822 None None False 637 0.0115
+anx-h-1 9 9 35695 (32274, 31.3) 0 True 661 0.0107
+anx-h-2 10 10 37133 (33844, 28.2) 0 True 1052 0.0098
+anx-h-3 9 9 35705 (32284, 27.5) 0 True 709 0.0095
+anx-h-4 9 9 35700 (32283, 32.1) 0 True 727 0.01
+anx-h-5 9 9 35840 (32410, 23.0) 0 True 653 0.0094
+anx-h-6 9 9 35720 (32302, 31.3) 0 True 1059 0.0096
+anx-h-bypassPermissions-1 4 0 None (34567, 15.5) 0 False 0 0.0075
+anx-h-default-1 4 0 None (32235, 14.3) 0 False 0 0.0153
+anx-h-default-2 4 0 None (34724, 15.7) 0 False 0 0.0077
+anx-t-1 12 12 41 (37, 37.1) 0 True 960 0.0102
+anx-t-2 16 16 40 (37, 36.9) 0 False 728 0.0105
+anx-t-3 16 16 44 (37, 37.3) 1 False 798 0.0102
+
+cond n  files_covered(list)  used_at_handback/B(40000) mean  bash_after_note(list)
+a 5 [16, 16, 16, 16, 16] 1.58 [None, None, None, None, None]
+b 5 [9, 9, 9, 9, 10] 0.9 [0, 0, 0, 0, 1]
+c 5 [9, 9, 9, 10, 16] 1.03 [7, 0, 0, 0, 0]
+d 3 [16, 16, 16] 1.51 [None, None, None]
+e 3 [12, 12, 12] 1.15 [0, 0, 0]
+f 5 [9, 11, 11, 11, 12] 1.08 [0, 2, 2, 2, 3]
+g 3 [16, 16, 16] 1.54 [None, None, None]
+h 6 [9, 9, 9, 9, 9, 10] 0.9 [0, 0, 0, 0, 0, 0]
+t 3 [12, 16, 16] 0.0 [0, 0, 1]

@@ -1,0 +1,39 @@
+compare.py: 133 project folders frozen at 2026-10-19 11:38:09 into a temporary configuration directory
+
+====================================================================================================
+(ii) combinatorics project   root=/Users/hacker/Documents/explore/combinatorics_on_binary
+
+---- v6 (scripts/lab_status.py), Spend section verbatim:
+## Spend (tokens, from Claude Code's transcripts for this project)
+read: /var/folders/nw/ddpd99c119j47w3s4gzv7sb00000gn/T/w01c3-07jyua35/projects/-Users-hacker-Documents-explore-combinatorics-on-binary
+agent              model              runs  msgs  input  cache-write   cache-read     output
+-----------------  -----------------  ----  ----  -----  -----------  -----------  ---------
+main thread        claude-opus-5-5       4   824  1,764   10,538,688  309,849,659  1,065,932
+general-purpose    claude-sonnet-5-5    21   853  1,726    6,649,484  163,185,275    399,759
+subagent           claude-sonnet-5-5     9   711  1,432    5,395,570  129,450,176    423,871
+general-purpose    claude-fable-5-1      4    44  1,258      694,309    5,060,312     56,258
+web-fetch          claude-opus-5-5       2    15     30      278,729      795,599        203
+general-purpose    claude-opus-5-5       1     9     18      126,156      803,443      4,664
+claude-code-guide  claude-haiku-5-5      1     3      6       71,381       73,303         16
+total                                       2459  6,234   23,754,317  609,217,767  1,950,703
+runs = distinct sessions or subagent runs. Prices are not applied; multiply by your rates.
+
+---- lab_spend.py (prototype), Spend section verbatim:
+## Spend (USD; Claude Code's cost-state where a session has ended, else list price of 2026-10-19)
+TOTAL  USD 224.85   (224.85 exact + 0.00 estimated)
+
+where          sessions  agent files  USD     basis
+-------------  --------  -----------  ------  -----
+this checkout  4                  44  224.85  exact
+
+agent              model       msgs  est. USD  output tokens  wake-ups
+-----------------  ----------  ----  --------  -------------  --------
+main thread        opus-5-5     677    155.72        893,591
+general-purpose    sonnet-5-5   853     36.94       399,759+         3
+general-purpose    fable-5-1     44     12.77        56,258+         3
+web-fetch          opus-5-5      15      1.56           203+
+general-purpose    opus-5-5       9      0.88         4,664+         3
+claude-code-guide  haiku-5-5      3      0.01            16+
+The agent rows add up to USD 207.89 of the 224.85 above; the rest is what only cost-state knows (subagent output beyond its start-of-stream value, helper calls).
+wake-ups = messages from the PI or a partner that reached the agent after it started (a resume or a note queued during a run: the transcript cannot tell them apart). `+` = a lower bound. Per-agent USD is always an estimate (cost-state has no per-agent split) and does not include helper calls (web fetch summaries), which only cost-state records.
+858 of 2459 message records were copies of a message already counted (forked sessions, copied agent files); 0 messages belong to sessions outside this lab and are not charged to it.

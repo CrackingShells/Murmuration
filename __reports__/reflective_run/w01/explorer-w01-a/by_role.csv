@@ -1,0 +1,16 @@
+group,agent_type,model,runs,turns_total,turns_mean,turns_max,in,out,cache_read,cache_write,new_tokens,wall_s_total,wall_s_max,tool_calls,tool_errors,usd_alloc_assumed
+genesis,main,claude-opus-5-5,1,267,267.0,267,574,304439,94062035,4233699,4538712,76393,76393,280,9,58.77
+genesis,general-purpose,claude-sonnet-5-5,9,488,54.2,89,984,282217,95489687,4112415,4395616,17984,3788,617,16,30.59
+genesis,general-purpose,claude-fable-5-1,1,17,17.0,17,514,18111,2646266,298494,317119,569,569,71,0,6.24
+design,main,claude-opus-5-5,1,170,170.0,170,368,253531,88609005,1625156,1879055,79275,79275,192,5,36.32
+design,(no meta) (copy: all messages owned elsewhere),,9,0,0.0,0,0,0,0,0,0,17984,3788,0,0,0.0
+design,general-purpose,claude-sonnet-5-5,12,365,30.4,103,742,117542,67695588,2537069,2655353,8413,2187,486,20,20.05
+design,claude-code-guide,claude-haiku-5-5,1,3,3.0,3,6,16,73303,71381,71403,81,81,9,0,0.22
+design,general-purpose,claude-fable-5-1,3,27,9.0,11,744,38147,2414046,395815,434706,1026,444,69,2,8.98
+design,general-purpose,claude-opus-5-5,1,9,9.0,9,18,4664,803443,126156,130838,140,140,13,0,0.95
+design,web-fetch,claude-opus-5-5,2,15,7.5,8,30,203,795599,278729,278962,295,175,19,0,1.56
+other-3ccc,main,claude-opus-5-5,1,2,2.0,2,4,14878,400406,9821,24703,5859,5859,0,0,0.46
+other-3ccc,(no meta) (copy: all messages owned elsewhere),,6,0,0.0,0,0,0,0,0,0,5143,1703,0,0,0.0
+other-2947,main,claude-opus-5-5,1,238,238.0,238,492,320743,100584614,4270446,4591681,54480,54480,272,9,60.7
+this_run,murmuration:research-pi,claude-opus-5-5,1,35,35.0,35,72,32511,4929241,211029,243612,986,986,38,5,0.0
+this_run,murmuration:explorer,claude-sonnet-5-5,6,314,52.3,63,628,66148,47764369,1654057,1720833,3857,689,346,14,0.0

@@ -1,0 +1,12 @@
+PASS handback
+{"run": "p4_auto_two", "files": ["wave-99-author-w99-1.md"], "sections": 2, "drafts": 0, "missing": 0, "expected_from_hook_payloads": 2, "file_equals_payloads": true, "transcript_texts": 3, "transcript_texts_found_in_file": true}
+{"run": "p4_default_two", "files": ["wave-99-author-w99-1.md"], "sections": 2, "drafts": 0, "missing": 0, "expected_from_hook_payloads": 2, "file_equals_payloads": true, "transcript_texts": 1, "transcript_texts_found_in_file": true}
+{"run": "p5_auto_bg_nasty", "files": ["wave-99-author-w99-2.md"], "sections": 1, "drafts": 0, "missing": 0, "expected_from_hook_payloads": 1, "file_equals_payloads": true, "transcript_texts": 1, "transcript_texts_found_in_file": true}
+{"run": "p5_default_bg_nasty", "files": ["wave-99-author-w99-2.md"], "sections": 1, "drafts": 0, "missing": 0, "expected_from_hook_payloads": 1, "file_equals_payloads": true, "transcript_texts": 1, "transcript_texts_found_in_file": true}
+{"run": "p6_auto_stoponly", "files": ["wave-99-author-w99-1.md"], "sections": 1, "drafts": 0, "missing": 1, "expected_from_hook_payloads": 1, "file_equals_payloads": false, "transcript_texts": 1, "transcript_texts_found_in_file": false}
+{"run": "p7_nolab_auto", "files": [], "sections": 0, "drafts": 0, "missing": 0, "expected_from_hook_payloads": 1, "file_equals_payloads": false, "transcript_texts": 1, "transcript_texts_found_in_file": false}
+{"run": "p8_d299_auto_two", "files": ["wave-99-author-w99-1.md"], "sections": 3, "drafts": 1, "missing": 0, "expected_from_hook_payloads": 2, "file_equals_payloads": false, "transcript_texts": 2, "transcript_texts_found_in_file": true}
+{"run": "p8_d299_default_two", "files": ["wave-99-author-w99-1.md"], "sections": 2, "drafts": 0, "missing": 0, "expected_from_hook_payloads": 2, "file_equals_payloads": true, "transcript_texts": 1, "transcript_texts_found_in_file": true}
+{"run": "p9_auto_big", "files": ["wave-99-author-w99-4.md"], "sections": 1, "drafts": 0, "missing": 0, "expected_from_hook_payloads": 1, "file_equals_payloads": true, "transcript_texts": 1, "transcript_texts_found_in_file": true}
+
+{"total_cost_usd": 0.077, "runs": 12, "nolab_statera_dirs_created": []}

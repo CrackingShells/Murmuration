@@ -1,0 +1,13 @@
+group,run_id,name,segment,gap_s,ctx_first_turn,first_turn_cw,first_turn_cr,first_turn_cw_share_of_ctx,cache_state,extra_cw_vs_warm,extra_usd_vs_warm
+design,a4b39e783,,1,3.2,67956,435,67517,0.006,warm,0,0.0
+this_run,ac6c27171,explorer-w01-b,1,9.1,301857,1798,300057,0.006,warm,0,0.0
+this_run,a1f4458ce,explorer-w01-c,1,12.8,281185,1256,279927,0.004,warm,0,0.0
+design,a5073b714,,1,12.9,62260,411,61845,0.007,warm,0,0.0
+this_run,a996dba29,explorer-w01-d,1,33.4,296922,1853,295067,0.006,warm,0,0.0
+genesis,a04ebecba,Generative space atlas of fixed G,1,115.9,300051,1966,298081,0.007,warm,0,0.0
+design,aff153770,Wave 1: platform probes,1,238.9,311175,4645,306526,0.015,warm,2372,0.0055
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",2,425.4,259608,224647,34957,0.865,cold (re-written),222914,0.5127
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",1,463.4,186615,151654,34957,0.813,cold (re-written),149921,0.3448
+genesis,a4ad7c714,Regime A per-target superstring G,1,983.7,208816,173855,34957,0.833,cold (re-written),171569.5,0.3946
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,1,1252.3,224945,189984,34957,0.845,cold (re-written),188995.5,0.4347
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,1,1950.6,181529,146568,34957,0.807,cold (re-written),144908.0,0.3333

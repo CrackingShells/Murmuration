@@ -15,8 +15,10 @@ it is worth this wave: the reason for the wave in plain words, not a task list.
 
 - **Explore with a portfolio.** When you cannot tell which direction is promising, send several
   explorers in parallel with small, well-scoped briefs rather than one large bet. Give each a
-  unique name (`explorer-w03-a`, `explorer-w03-b`, …). An explorer that reaches its turn limit
-  returns partial work and can be resumed with a message.
+  unique name (`explorer-w03-a`, `explorer-w03-b`, …). An explorer that reaches its budget
+  hands back what it covered, what it did not, and what more budget would buy. Read that request:
+  you hold the money, and you decide whether to resume the worker with a raise (`Budget:` and
+  `Time:` lines in the message; see `briefs.md`) or to let the hand-back stand.
 - **Read raw material yourself.** For every agent that returns, open at least one raw artifact it
   points to (a figure, a table, a log, its puzzle file), not only its summary.
 - **Turn a hunch into a claim** when you judge it worth hardening. Assign the claim id

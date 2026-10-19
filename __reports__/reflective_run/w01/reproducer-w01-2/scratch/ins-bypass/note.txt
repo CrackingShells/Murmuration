@@ -1,0 +1,1 @@
+Topic: why the number of subsets of an n-element set doubles each time n grows by one

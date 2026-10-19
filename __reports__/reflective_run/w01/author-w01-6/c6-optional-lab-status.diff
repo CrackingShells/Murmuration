@@ -1,0 +1,15 @@
+--- a/skills/lab-status/SKILL.md
++++ b/skills/lab-status/SKILL.md
+@@ -16,8 +16,10 @@
+ python3 "${CLAUDE_PLUGIN_ROOT}/scripts/lab_status.py"
+ ```
+ 
+-Show the output to the user as it is. Then add at most a few lines of your own: how many puzzles
+-are open and which, which claims need a decision, and anything printed on a `!` line.
++Show the output to the user as it is. Then add four lines, in this order: **Doing** (who is working);
++**Found** (each claim as one sentence with its state and the `scope:` of its head); **Cost** (the
++Spend totals against the budget, in the budget's unit); **Needs you** (open decisions, each with its
++default, and anything printed on a `!` line).
+ 
+ ## Reading the output
+ 

@@ -1,0 +1,12 @@
+## Spend (USD: Claude Code's cost-state where a session has ended, else list price of 2026-10-19)
+TOTAL  USD 1.11   (exact, all sessions ended)
+
+where                                     sessions  agent files  USD   basis
+----------------------------------------  --------  -----------  ----  -----
+this checkout, sessions started below it  30                  6  1.11  exact
+
+agent                             model       msgs  list-price USD  output tokens
+--------------------------------  ----------  ----  --------------  -------------
+main thread                       sonnet-5-5    21            0.49          2,566
+probe:probe-author (main thread)  sonnet-5-5     2            0.15            585
+verifier                          sonnet-5-5     4            0.11            377

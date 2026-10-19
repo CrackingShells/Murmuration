@@ -1,0 +1,13 @@
+## Spend (tokens, from Claude Code's transcripts for this project)
+read: /Users/hacker/.claude/projects/-Users-hacker-Documents-explore-combinatorics-on-binary
+agent              model              runs  msgs  input  cache-write   cache-read     output
+-----------------  -----------------  ----  ----  -----  -----------  -----------  ---------
+main thread        claude-opus-5-5       4   824  1,764   10,538,688  309,849,659  1,065,932
+general-purpose    claude-sonnet-5-5    21   853  1,726    6,649,484  163,185,275    399,759
+subagent           claude-sonnet-5-5     9   711  1,432    5,395,570  129,450,176    423,871
+general-purpose    claude-fable-5-1      4    44  1,258      694,309    5,060,312     56,258
+web-fetch          claude-opus-5-5       2    15     30      278,729      795,599        203
+general-purpose    claude-opus-5-5       1     9     18      126,156      803,443      4,664
+claude-code-guide  claude-haiku-5-5      1     3      6       71,381       73,303         16
+total                                       2459  6,234   23,754,317  609,217,767  1,950,703
+runs = distinct sessions or subagent runs. Prices are not applied; multiply by your rates.

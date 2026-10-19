@@ -1,0 +1,164 @@
+{
+ "A_shipped": [
+  {
+   "calls": 3,
+   "cost": 0.06023970000000001,
+   "sequence": [
+    [
+     "Bash",
+     "{\"command\": \"ls; ls __instrumenta__ __pondus__ __design__ __scrupuli__ 2>&1 | head -30; head -c 1500 __design__/framing.md\"}"
+    ],
+    [
+     "Bash",
+     "{\"command\": \"head -20 __instrumenta__/substring_max.py; echo ----; cat __pondus__/w03-c1.md; echo ----; cat __scrupuli__/wave-03-author-w03-"
+    ],
+    [
+     "Bash",
+     "{\"command\": \"git status --short; cat > __instrumenta__/brute_substr_table.py <<'EOF'\\n# Computes M(n) and the number of maximisers by brute "
+    ]
+   ],
+   "colgrep": 0,
+   "instr_listing": 1,
+   "inline_py": 0,
+   "wrote_instr": 2,
+   "ran_existing": 1
+  },
+  {
+   "calls": 4,
+   "cost": 0.0696774,
+   "sequence": [
+    [
+     "Bash",
+     "{\"command\": \"ls; ls __instrumenta__ __pondus__ __scrupuli__ __design__ 2>&1 | head -50; head -40 __design__/framing.md; git log --oneline | "
+    ],
+    [
+     "Bash",
+     "{\"command\": \"head -5 __instrumenta__/substring_max.py; echo ----; cat __pondus__/w03-c1.md; echo ----; cat __scrupuli__/wave-03-author-w03-p"
+    ],
+    [
+     "Bash",
+     "{\"command\": \"cat > __instrumenta__/brute_substr_table.py <<'EOF'\\n# Computes M(n) and the number of maximisers by enumerating every binary s"
+    ],
+    [
+     "Bash",
+     "{\"command\": \"sed -i '' 's/0\\\\.3 s, MEASURED/0.4 s on this run, MEASURED/; s/(commit hash to be added on commit)/(uncommitted; script written"
+    ]
+   ],
+   "colgrep": 0,
+   "instr_listing": 1,
+   "inline_py": 0,
+   "wrote_instr": 2,
+   "ran_existing": 1
+  },
+  {
+   "calls": 1,
+   "cost": 0.0425035,
+   "sequence": [
+    [
+     "Bash",
+     "{\"command\": \"ls __instrumenta__ 2>/dev/null | head; mkdir -p __instrumenta__ && cat > __instrumenta__/max_distinct_substrings_binary.py <<'E"
+    ]
+   ],
+   "colgrep": 0,
+   "instr_listing": 1,
+   "inline_py": 0,
+   "wrote_instr": 2,
+   "ran_existing": 0
+  }
+ ],
+ "B_variant": [
+  {
+   "calls": 3,
+   "cost": 0.05928800000000001,
+   "sequence": [
+    [
+     "Bash",
+     "{\"command\": \"ls; ls __instrumenta__ __pondus__ __design__ __scrupuli__ 2>&1 | head -30; head -1 __instrumenta__/* 2>/dev/null | head -20\"}"
+    ],
+    [
+     "Bash",
+     "{\"command\": \"cd /private/tmp/author-w03-2/lab1/__instrumenta__ && time python3 substring_max.py 14 2>&1 | tail -30; git log --oneline -1 -- "
+    ],
+    [
+     "Bash",
+     "{\"command\": \"cat > brute_substr_table.py <<'EOF'\\n# Computes M(n)=max over all binary strings of length n of the number of distinct non-empt"
+    ]
+   ],
+   "colgrep": 0,
+   "instr_listing": 2,
+   "inline_py": 0,
+   "wrote_instr": 0,
+   "ran_existing": 0
+  },
+  {
+   "calls": 6,
+   "cost": 0.08066019999999999,
+   "sequence": [
+    [
+     "ToolSearch",
+     "{\"query\": \"select:mcp__plugin_colgrep-mcp_colgrep__search,SendMessage\", \"max_results\": 5}"
+    ],
+    [
+     "Bash",
+     "{\"command\": \"ls; ls __instrumenta__ __pondus__ __scrupuli__ __design__ 2>&1 | head -50; git log --oneline | head -3\"}"
+    ],
+    [
+     "mcp__plugin_colgrep-mcp_colgrep__search",
+     "{\"query\": \"max distinct substrings over binary strings of length n brute force\", \"paths\": [\"__instrumenta__\"], \"limit\": 5}"
+    ],
+    [
+     "Read",
+     "{\"file_path\": \"/private/tmp/author-w03-2/lab1/__pondus__/w03-c1.md\"}"
+    ],
+    [
+     "Read",
+     "{\"file_path\": \"/private/tmp/author-w03-2/lab1/__instrumenta__/substring_max.py\"}"
+    ],
+    [
+     "Bash",
+     "{\"command\": \"cd /private/tmp/author-w03-2/lab1/__instrumenta__ && cat > brute_substr_table.py <<'EOF'\\n# Computes M(n)=max over all 2^n bina"
+    ]
+   ],
+   "colgrep": 1,
+   "instr_listing": 1,
+   "inline_py": 0,
+   "wrote_instr": 0,
+   "ran_existing": 0
+  },
+  {
+   "calls": 6,
+   "cost": 0.077606,
+   "sequence": [
+    [
+     "Bash",
+     "{\"command\": \"cd /private/tmp/author-w03-2/lab1; ls; ls __instrumenta__ __pondus__ __design__ __scrupuli__ 2>&1 | head -30; head -c 1500 __de"
+    ],
+    [
+     "Bash",
+     "{\"command\": \"cd /private/tmp/author-w03-2/lab1; head -20 __instrumenta__/substring_max.py; echo ----; cat __pondus__/w03-c1.md; echo ----; c"
+    ],
+    [
+     "Bash",
+     "{\"command\": \"cd /private/tmp/author-w03-2/lab1/__instrumenta__; cat > brute_substr_table.py <<'EOF'\\n# Computes M(n) and the number of maxim"
+    ],
+    [
+     "Bash",
+     "{\"command\": \"cd /private/tmp/author-w03-2/lab1/__pondus__; sed -i 's|evidence: .*|evidence: __instrumenta__/brute_substr_table.py (uncommitt"
+    ],
+    [
+     "Edit",
+     "{\"replace_all\": false, \"file_path\": \"/private/tmp/author-w03-2/lab1/__pondus__/w03-c1.md\", \"old_string\": \"evidence: __instrumenta__/brute_su"
+    ],
+    [
+     "Edit",
+     "{\"replace_all\": false, \"file_path\": \"/private/tmp/author-w03-2/lab1/__pondus__/w03-c1.md\", \"old_string\": \"0.4 s on this run\", \"new_string\": "
+    ]
+   ],
+   "colgrep": 0,
+   "instr_listing": 1,
+   "inline_py": 0,
+   "wrote_instr": 0,
+   "ran_existing": 2
+  }
+ ]
+}

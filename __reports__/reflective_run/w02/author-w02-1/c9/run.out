@@ -1,0 +1,14 @@
+PASS lab_status
+PASS lab_init
+PASS resume_brief
+PASS user_words
+caught  the first verdict line stands again
+caught  no warning when changed_by is missing
+caught  a changed_by anywhere excuses it (not only below the earlier verdict)
+w02-c4.md section reproducer-w02-4: 2 verdict lines: ['verdict: SUPPORTED', 'verdict: OVERSTATED']; changed_by below the earlier: True
+20 verdict sections read
+19c19
+< - w02-c4  MEASURED  <- reproducer-w02-4: SUPPORTED
+---
+> - w02-c4  below MEASURED: restate  <- reproducer-w02-4: OVERSTATED
+claim lines that differ: 1

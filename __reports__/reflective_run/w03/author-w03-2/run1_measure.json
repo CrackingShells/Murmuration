@@ -1,0 +1,150 @@
+{
+ "workers": {
+  "label": "run1 (workers)",
+  "agents": 3,
+  "totals": {
+   "tool_calls": 17,
+   "tool_chars": 21393,
+   "bash": 8,
+   "bash_chars": 15583,
+   "heredoc": 6,
+   "heredoc_append": 1,
+   "heredoc_write": 5,
+   "inline_py_base": 0,
+   "inline_py": 0,
+   "py_walk": 0,
+   "shell_search_pi": 0,
+   "py_walk_pi": 0,
+   "shell_search": 0,
+   "shell_search_pipe_only": 0,
+   "heredoc_chars": 15362,
+   "toolsearch": 1
+  },
+  "heredoc_share_of_bash": 0.75,
+  "inline_py_base_share_of_heredoc": 0.0,
+  "inline_py_share_of_bash": 0.0,
+  "heredoc_share_of_output_chars": 0.718085355022671,
+  "bash_share_of_output_chars": 0.7284158369560136,
+  "instrument_files": [
+   "check_w01c1.py",
+   "substring_max.py",
+   "verify_maxsubstr_independent.py"
+  ],
+  "instrument_files_n": 3,
+  "instrument_files_reused_by_second_agent": [],
+  "instrument_detail": {
+   "check_w01c1.py": {
+    "first_writer": "author-w01-1",
+    "used_by_other": [],
+    "extended_by_other": [],
+    "events": 3
+   },
+   "substring_max.py": {
+    "first_writer": "explorer-w01-a",
+    "used_by_other": [],
+    "extended_by_other": [],
+    "events": 3
+   },
+   "verify_maxsubstr_independent.py": {
+    "first_writer": "proof-adversary-w01-1",
+    "used_by_other": [],
+    "extended_by_other": [],
+    "events": 3
+   }
+  },
+  "colgrep_searches": [],
+  "colgrep_search_limits": {}
+ },
+ "main": {
+  "label": "run1 (main transcript)",
+  "agents": 1,
+  "totals": {
+   "tool_calls": 12,
+   "tool_chars": 13940,
+   "bash": 8,
+   "bash_chars": 8863,
+   "heredoc": 3,
+   "heredoc_append": 0,
+   "heredoc_write": 3,
+   "inline_py_base": 1,
+   "inline_py": 1,
+   "py_walk": 0,
+   "shell_search_pi": 0,
+   "py_walk_pi": 0,
+   "shell_search": 0,
+   "shell_search_pipe_only": 0,
+   "heredoc_chars": 8179,
+   "text_chars": 3309,
+   "inline_py_chars": 229
+  },
+  "heredoc_share_of_bash": 0.375,
+  "inline_py_base_share_of_heredoc": 0.3333333333333333,
+  "inline_py_share_of_bash": 0.125,
+  "heredoc_share_of_output_chars": 0.47417241579221986,
+  "bash_share_of_output_chars": 0.5138268885152762,
+  "instrument_files": [],
+  "instrument_files_n": 0,
+  "instrument_files_reused_by_second_agent": [],
+  "instrument_detail": {},
+  "colgrep_searches": [],
+  "colgrep_search_limits": {}
+ },
+ "all": {
+  "label": "run1 (workers and main)",
+  "agents": 4,
+  "totals": {
+   "tool_calls": 29,
+   "tool_chars": 35333,
+   "bash": 16,
+   "bash_chars": 24446,
+   "heredoc": 9,
+   "heredoc_append": 1,
+   "heredoc_write": 8,
+   "inline_py_base": 1,
+   "inline_py": 1,
+   "py_walk": 0,
+   "shell_search_pi": 0,
+   "py_walk_pi": 0,
+   "shell_search": 0,
+   "shell_search_pipe_only": 0,
+   "heredoc_chars": 23541,
+   "toolsearch": 1,
+   "text_chars": 3309,
+   "inline_py_chars": 229
+  },
+  "heredoc_share_of_bash": 0.5625,
+  "inline_py_base_share_of_heredoc": 0.1111111111111111,
+  "inline_py_share_of_bash": 0.0625,
+  "heredoc_share_of_output_chars": 0.6092075979504167,
+  "bash_share_of_output_chars": 0.6326277107810154,
+  "instrument_files": [
+   "check_w01c1.py",
+   "substring_max.py",
+   "verify_maxsubstr_independent.py"
+  ],
+  "instrument_files_n": 3,
+  "instrument_files_reused_by_second_agent": [],
+  "instrument_detail": {
+   "check_w01c1.py": {
+    "first_writer": "author-w01-1",
+    "used_by_other": [],
+    "extended_by_other": [],
+    "events": 3
+   },
+   "substring_max.py": {
+    "first_writer": "explorer-w01-a",
+    "used_by_other": [],
+    "extended_by_other": [],
+    "events": 3
+   },
+   "verify_maxsubstr_independent.py": {
+    "first_writer": "proof-adversary-w01-1",
+    "used_by_other": [],
+    "extended_by_other": [],
+    "events": 3
+   }
+  },
+  "colgrep_searches": [],
+  "colgrep_search_limits": {}
+ }
+}

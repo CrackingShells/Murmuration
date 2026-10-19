@@ -17,6 +17,9 @@ Initializing creates, without overwriting anything that exists:
     __pondus__/                  one file per claim
     __scrupuli__/                the puzzles each agent raises
     __design__/framing.md        the framing, from the research-loop template
+    __instrumenta__/             helper scripts, one file each, named for what it does
+    .ignore                      the folders colgrep, ripgrep and fd leave out: saved hand-backs, raw/, runs/, generated/
+and builds the colgrep index of the lab once (the `colgrep` command; skipped, with a line saying so, when it is absent),
 and merges into `.claude/settings.local.json` (personal settings; not for version control):
     "agent": "murmuration:research-pi"      new sessions in the folder open as the research PI
     permissions.deny: Bash(pkill:*), Bash(killall:*)
@@ -32,6 +35,8 @@ import json
 import os
 import re
 import shlex
+import shutil
+import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -45,7 +50,16 @@ DENY = ["Bash(pkill:*)", "Bash(killall:*)"]
 LOCAL_SETTINGS = os.path.join(".claude", "settings.local.json")
 SHARED_SETTINGS = os.path.join(".claude", "settings.json")
 FIRST_PROMPT = "Frame my question and plan the first wave."
-STORES = ["__statera__", "__pondus__", "__scrupuli__", "__design__"]
+STORES = ["__statera__", "__pondus__", "__scrupuli__", "__design__", "__instrumenta__"]
+IGNORE_FILE = ".ignore"
+IGNORE_MARK = "# Murmuration lab: left out of the colgrep index"
+IGNORE_BLOCK = IGNORE_MARK + """
+**/__statera__/handbacks/
+**/raw/
+**/runs/
+**/generated/
+"""
+INDEX_TIMEOUT = 90
 
 
 def config_dir():
@@ -143,8 +157,44 @@ def merge_settings(data, shared=None):
     return notes
 
 
-def initialize(root, question, now=None):
-    """Create the lab in `root`. Returns the list of what was done."""
+def ensure_ignore(root):
+    """Write `.ignore` with the lab's block, or append the block to the file that is there. Returns a note, or None.
+
+    colgrep reads `.ignore` in a folder that is not a git repository too (it reads `.gitignore` only in one),
+    and a `.gitignore` would hide the same paths from git's own view of what to commit.
+    """
+    path = os.path.join(root, IGNORE_FILE)
+    if not os.path.exists(path):
+        with open(path, "w", encoding="utf-8") as fh:
+            fh.write(IGNORE_BLOCK)
+        return "wrote %s (paths colgrep leaves out of the index)" % IGNORE_FILE
+    with open(path, encoding="utf-8") as fh:
+        text = fh.read()
+    if IGNORE_MARK in text:
+        return None
+    with open(path, "a", encoding="utf-8") as fh:
+        fh.write(("" if text.endswith("\n") or not text else "\n") + IGNORE_BLOCK)
+    return "added the lab's block to the existing %s" % IGNORE_FILE
+
+
+def build_index(root):
+    """Build the colgrep index of the lab once. Returns one line saying what happened; never raises."""
+    exe = shutil.which("colgrep")
+    if not exe:
+        return ("colgrep is not installed: no index built. Search `__instrumenta__/` with Glob and read the first line "
+                "of each file")
+    try:
+        out = subprocess.run([exe, "init", "-y", "--color", "never", os.path.abspath(root)], capture_output=True,
+                             text=True, timeout=INDEX_TIMEOUT)
+    except (OSError, subprocess.SubprocessError) as err:
+        return "colgrep index not built (%s); a first search builds it" % type(err).__name__
+    if out.returncode != 0:
+        return "colgrep index not built (exit %d); a first search builds it" % out.returncode
+    return "built the colgrep index (`colgrep init`), without the paths in .ignore"
+
+
+def initialize(root, question, now=None, index=True):
+    """Create the lab in `root`. Returns the list of what was done. `index=False` skips the colgrep build."""
     now = now or datetime.datetime.now()
     settings_path = os.path.join(root, LOCAL_SETTINGS)
     settings = read_settings(settings_path)  # fail before touching anything else
@@ -166,6 +216,9 @@ def initialize(root, question, now=None):
         with open(framing, "w", encoding="utf-8") as fh:
             fh.write(template("framing.md"))
         done.append("wrote __design__/framing.md (a stub for the PI to fill in)")
+    note = ensure_ignore(root)
+    if note:
+        done.append(note)
     user_words.append_words(root, question, now)
     done.append("recorded the question in __statera__/user_words.md")
     wave = os.path.join(root, "__statera__", "wave-01.md")
@@ -181,6 +234,8 @@ def initialize(root, question, now=None):
     local = ".claude/settings.local.json"
     done += ["%s: %s" % (local, n) for n in notes] or ["%s: already as the lab needs it" % local]
     done.append("%s holds personal settings: keep it out of version control" % local)
+    if index:
+        done.append(build_index(root))
     return done
 
 
@@ -226,7 +281,7 @@ def restore_settings(root):
     return [".claude/settings.local.json: " + n for n in notes]
 
 
-def run(root, question):
+def run(root, question, index=True):
     """Initialize or append. Returns (mode, what was done). Raises NestedLab inside another lab.
 
     With a lab already present the question is appended and any missing personal settings are
@@ -234,6 +289,12 @@ def run(root, question):
     """
     if os.path.isdir(os.path.join(root, "__statera__")):
         notes = restore_settings(root)  # before writing anything: invalid settings stop here
+        if not os.path.isdir(os.path.join(root, "__instrumenta__")):
+            os.makedirs(os.path.join(root, "__instrumenta__"))
+            notes.append("created __instrumenta__/")
+        note = ensure_ignore(root)
+        if note:
+            notes.append(note)
         if user_words.last_entry(root) == question.strip():
             done = ["the question is already the newest entry in __statera__/user_words.md; not repeated"]
         else:
@@ -243,7 +304,7 @@ def run(root, question):
     parent = enclosing_lab(root)
     if parent:
         raise NestedLab(parent)
-    return "init", initialize(root, question)
+    return "init", initialize(root, question, index=index)
 
 
 def selftest():
@@ -254,6 +315,7 @@ def selftest():
             return fh.read()
 
     with tempfile.TemporaryDirectory() as tmp:
+        os.environ["COLGREP_DATA_DIR"] = os.path.join(tmp, "colgrep-data")  # any index the test builds stays in tmp
         proj = os.path.join(tmp, "proj")
         os.makedirs(proj)
         question = "Why does the \"3-bit\" case $HOME break?\nSecond line with 'quotes' and `ticks`."
@@ -283,6 +345,37 @@ def selftest():
         assert local["permissions"]["allow"] == ["Edit"]
         assert local["permissions"]["deny"] == ["Bash(pkill:*)", "Bash(killall:*)"], local
         assert any("settings.local.json holds personal settings" in d for d in done), done
+        # The instruments folder and the ignore file are there; the index is built, or its absence is said.
+        assert os.path.isdir(os.path.join(proj, "__instrumenta__")) and load(os.path.join(proj, IGNORE_FILE)) == IGNORE_BLOCK
+        assert any(d.startswith("wrote .ignore") for d in done), done
+        assert any(d.startswith("built the colgrep index") for d in done) == bool(shutil.which("colgrep")), done
+        if shutil.which("colgrep"):
+            # what colgrep lists for the lab: instruments and the lab's own notes in; hand-backs, raw runs, tables out
+            for rel, text in (("__instrumenta__/walk_logs.py", '"""Walks log files and tallies lines per file."""\ndef walk(): pass\n'),
+                              ("__statera__/handbacks/a-1.md", "# hand-back\nWalks log files and tallies lines per file.\n"),
+                              ("data/raw/walk.py", '"""Walks log files and tallies lines per file."""\ndef walk2(): pass\n'),
+                              ("notes/check.txt", "walks log files and tallies lines per file\n"),
+                              ("data/derived/walk_table.py", '"""Walks log files and tallies lines per file."""\ndef walk3(): pass\n'),
+                              ("notes/walk_notes.md", "# notes\nWalks log files and tallies lines per file.\n")):
+                os.makedirs(os.path.dirname(os.path.join(proj, rel)), exist_ok=True)
+                with open(os.path.join(proj, rel), "w") as fh:
+                    fh.write(text)
+            hit = subprocess.run(["colgrep", "search", "walks log files and tallies lines per file", "-k", "50", "-l", "--color", "never", proj],
+                                 capture_output=True, text=True).stdout
+            listed = {os.path.relpath(x.strip(), os.path.realpath(proj)) for x in hit.splitlines() if x.strip()}
+            assert {"__instrumenta__/walk_logs.py", "notes/walk_notes.md", "data/derived/walk_table.py", "notes/check.txt"} <= listed, hit
+            assert not any(x.startswith(("__statera__/handbacks", "data/raw")) for x in listed), hit
+            subprocess.run(["colgrep", "clear", "--color", "never", proj], capture_output=True)
+            for rel in ("__statera__/handbacks", "data", "notes"):
+                shutil.rmtree(os.path.join(proj, rel))
+            os.remove(os.path.join(proj, "__instrumenta__", "walk_logs.py"))
+        # colgrep absent: no index, a line that says so, and the lab is made all the same
+        save_path = os.environ["PATH"]
+        os.environ["PATH"] = os.path.join(tmp, "empty-bin")
+        try:
+            assert "not installed" in build_index(proj) and "Glob" in build_index(proj)
+        finally:
+            os.environ["PATH"] = save_path
         # The first wave note is open to the status scripts, and the lab is readable by them.
         import lab_status
         assert lab_status.current_wave(proj)[0] == 1 and lab_status.open_puzzles(proj) == []
@@ -297,6 +390,18 @@ def selftest():
         # The same text twice in a row (the hook already recorded the user's answer) is kept once.
         _, done = run(proj, "a later question")
         assert load(os.path.join(proj, "__statera__", "user_words.md")) == words and "not repeated" in done[0], done
+        # An existing `.ignore` gets the block once; the folder and the file come back on append.
+        os.remove(os.path.join(proj, IGNORE_FILE))
+        os.rmdir(os.path.join(proj, "__instrumenta__"))
+        _, done = run(proj, "restore the instruments")
+        assert os.path.isdir(os.path.join(proj, "__instrumenta__")) and load(os.path.join(proj, IGNORE_FILE)) == IGNORE_BLOCK
+        assert "created __instrumenta__/" in done and any(d.startswith("wrote .ignore") for d in done), done
+        with open(os.path.join(proj, IGNORE_FILE), "w") as fh:
+            fh.write("mine/")
+        ensure_ignore(proj)
+        ensure_ignore(proj)
+        kept = load(os.path.join(proj, IGNORE_FILE))
+        assert kept == "mine/\n" + IGNORE_BLOCK and kept.count(IGNORE_MARK) == 1, kept
         # Merging again is idempotent.
         assert merge_settings(json.loads(load(os.path.join(proj, LOCAL_SETTINGS)))) == []
         # An existing lab with no personal settings (a clone, or a deleted file): appending restores them.
@@ -374,7 +479,6 @@ def selftest():
         assert not os.path.exists(os.path.join(deep, ".claude"))
         assert enclosing_lab(proj) is None and enclosing_lab(tmp) is None
         # The command line: question on stdin, next steps printed after an init, exit 2 without a question.
-        import subprocess
         cli = os.path.join(tmp, "cli")
         os.makedirs(cli)
         env = {k: v for k, v in os.environ.items() if k != "CLAUDE_PROJECT_DIR"}

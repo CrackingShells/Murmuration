@@ -1,0 +1,1421 @@
+group,run_id,name,turn,ctx_tokens,turn_usd,cum_usd
+genesis,a04ebecba,Generative space atlas of fixed G,1,58825,0.06674,0.0667
+genesis,a04ebecba,Generative space atlas of fixed G,2,63978,0.02482,0.0916
+genesis,a04ebecba,Generative space atlas of fixed G,3,70371,0.02894,0.1205
+genesis,a04ebecba,Generative space atlas of fixed G,4,74796,0.02549,0.146
+genesis,a04ebecba,Generative space atlas of fixed G,5,105819,0.09269,0.2387
+genesis,a04ebecba,Generative space atlas of fixed G,6,109178,0.02962,0.2683
+genesis,a04ebecba,Generative space atlas of fixed G,7,129106,0.07168,0.34
+genesis,a04ebecba,Generative space atlas of fixed G,8,130730,0.14883,0.4888
+genesis,a04ebecba,Generative space atlas of fixed G,9,143099,0.0571,0.5459
+genesis,a04ebecba,Generative space atlas of fixed G,10,147778,0.04036,0.5863
+genesis,a04ebecba,Generative space atlas of fixed G,11,148984,0.0326,0.6189
+genesis,a04ebecba,Generative space atlas of fixed G,12,150308,0.03318,0.6521
+genesis,a04ebecba,Generative space atlas of fixed G,13,153626,0.03844,0.6905
+genesis,a04ebecba,Generative space atlas of fixed G,14,155085,0.0344,0.7249
+genesis,a04ebecba,Generative space atlas of fixed G,15,158539,0.03982,0.7647
+genesis,a04ebecba,Generative space atlas of fixed G,16,159082,0.03327,0.798
+genesis,a04ebecba,Generative space atlas of fixed G,17,160090,0.03437,0.8324
+genesis,a04ebecba,Generative space atlas of fixed G,18,170456,0.05797,0.8903
+genesis,a04ebecba,Generative space atlas of fixed G,19,170947,0.03535,0.9257
+genesis,a04ebecba,Generative space atlas of fixed G,20,172017,0.03692,0.9626
+genesis,a04ebecba,Generative space atlas of fixed G,21,176631,0.04604,1.0086
+genesis,a04ebecba,Generative space atlas of fixed G,22,178967,0.04122,1.0499
+genesis,a04ebecba,Generative space atlas of fixed G,23,187411,0.05699,1.1068
+genesis,a04ebecba,Generative space atlas of fixed G,24,187917,0.03895,1.1458
+genesis,a04ebecba,Generative space atlas of fixed G,25,188326,0.03869,1.1845
+genesis,a04ebecba,Generative space atlas of fixed G,26,189209,0.03996,1.2244
+genesis,a04ebecba,Generative space atlas of fixed G,27,191284,0.04307,1.2675
+genesis,a04ebecba,Generative space atlas of fixed G,28,197406,0.05365,1.3212
+genesis,a04ebecba,Generative space atlas of fixed G,29,210318,0.07196,1.3931
+genesis,a04ebecba,Generative space atlas of fixed G,30,211264,0.04481,1.4379
+genesis,a04ebecba,Generative space atlas of fixed G,31,212174,0.04661,1.4846
+genesis,a04ebecba,Generative space atlas of fixed G,32,217602,0.06504,1.5496
+genesis,a04ebecba,Generative space atlas of fixed G,33,226822,0.0788,1.6284
+genesis,a04ebecba,Generative space atlas of fixed G,34,234444,0.06449,1.6929
+genesis,a04ebecba,Generative space atlas of fixed G,35,237733,0.05805,1.7509
+genesis,a04ebecba,Generative space atlas of fixed G,36,243272,0.06148,1.8124
+genesis,a04ebecba,Generative space atlas of fixed G,37,243995,0.05055,1.863
+genesis,a04ebecba,Generative space atlas of fixed G,38,248442,0.05995,1.9229
+genesis,a04ebecba,Generative space atlas of fixed G,39,250193,0.0541,1.977
+genesis,a04ebecba,Generative space atlas of fixed G,40,251270,0.05341,2.0304
+genesis,a04ebecba,Generative space atlas of fixed G,41,251673,0.05135,2.0818
+genesis,a04ebecba,Generative space atlas of fixed G,42,252404,0.0526,2.1344
+genesis,a04ebecba,Generative space atlas of fixed G,43,252919,0.05182,2.1862
+genesis,a04ebecba,Generative space atlas of fixed G,44,255138,0.05621,2.2424
+genesis,a04ebecba,Generative space atlas of fixed G,45,260416,0.06428,2.3067
+genesis,a04ebecba,Generative space atlas of fixed G,46,261751,0.05545,2.3621
+genesis,a04ebecba,Generative space atlas of fixed G,47,263085,0.05572,2.4179
+genesis,a04ebecba,Generative space atlas of fixed G,48,268050,0.0651,2.483
+genesis,a04ebecba,Generative space atlas of fixed G,49,272661,0.06522,2.5482
+genesis,a04ebecba,Generative space atlas of fixed G,50,274553,0.05935,2.6075
+genesis,a04ebecba,Generative space atlas of fixed G,51,278366,0.19094,2.7985
+genesis,a04ebecba,Generative space atlas of fixed G,52,291115,0.0876,2.8861
+genesis,a04ebecba,Generative space atlas of fixed G,53,294062,0.06579,2.9519
+genesis,a04ebecba,Generative space atlas of fixed G,54,295139,0.06154,3.0134
+genesis,a04ebecba,Generative space atlas of fixed G,55,296249,0.06211,3.0755
+genesis,a04ebecba,Generative space atlas of fixed G,56,298083,0.06387,3.1394
+genesis,a04ebecba,Generative space atlas of fixed G,57,300051,0.06456,3.2039
+genesis,a04ebecba,Generative space atlas of fixed G,58,302243,0.06554,3.2695
+genesis,a04ebecba,Generative space atlas of fixed G,59,323269,0.11305,3.3825
+genesis,a04ebecba,Generative space atlas of fixed G,60,355792,0.14604,3.5286
+genesis,a04ebecba,Generative space atlas of fixed G,61,441686,1.02384,4.5524
+genesis,a04ebecba,Generative space atlas of fixed G,62,442341,0.09006,4.6425
+genesis,a04ebecba,Generative space atlas of fixed G,63,447861,0.10233,4.7448
+genesis,a04ebecba,Generative space atlas of fixed G,64,449372,0.09343,4.8382
+genesis,a04ebecba,Generative space atlas of fixed G,65,451920,0.09628,4.9345
+genesis,a04ebecba,Generative space atlas of fixed G,66,454147,1.055,5.9895
+genesis,a04ebecba,Generative space atlas of fixed G,67,457810,0.10001,6.0895
+genesis,a04ebecba,Generative space atlas of fixed G,68,465392,0.11054,6.2
+genesis,a04ebecba,Generative space atlas of fixed G,69,467173,0.09759,6.2976
+genesis,a04ebecba,Generative space atlas of fixed G,70,468533,0.09691,6.3946
+genesis,a04ebecba,Generative space atlas of fixed G,71,471664,0.10254,6.4971
+genesis,a04ebecba,Generative space atlas of fixed G,72,473652,0.09939,6.5965
+genesis,a04ebecba,Generative space atlas of fixed G,73,474624,0.09816,6.6946
+genesis,a04ebecba,Generative space atlas of fixed G,74,476756,0.10033,6.795
+genesis,a04ebecba,Generative space atlas of fixed G,75,477376,0.09698,6.892
+genesis,a04ebecba,Generative space atlas of fixed G,76,478903,0.09933,6.9913
+genesis,a04ebecba,Generative space atlas of fixed G,77,492589,0.13003,7.1213
+genesis,a04ebecba,Generative space atlas of fixed G,78,493902,0.10183,7.2231
+genesis,a04ebecba,Generative space atlas of fixed G,79,495362,0.29963,7.5228
+genesis,a04ebecba,Generative space atlas of fixed G,80,515181,0.14865,7.6714
+genesis,a04ebecba,Generative space atlas of fixed G,81,519768,0.11456,7.786
+genesis,a04ebecba,Generative space atlas of fixed G,82,524105,0.11488,7.9009
+genesis,a04ebecba,Generative space atlas of fixed G,83,526072,0.10979,8.0107
+genesis,a04ebecba,Generative space atlas of fixed G,84,527961,0.11052,8.1212
+genesis,a04ebecba,Generative space atlas of fixed G,85,528334,0.10677,8.2279
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,1,58459,0.14624,0.1462
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,2,68443,0.03673,0.183
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,3,69998,0.01778,0.2007
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,4,72107,0.01933,0.2201
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,5,92808,0.06624,0.2863
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,6,93977,0.02152,0.3078
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,7,94751,0.02081,0.3286
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,8,96106,0.02242,0.3511
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,9,100459,0.03014,0.3812
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,10,101104,0.02179,0.403
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,11,102141,0.02302,0.426
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,12,104198,0.02565,0.4517
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,13,105973,0.02531,0.477
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,14,106737,0.02316,0.5001
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,15,109241,0.02766,0.5278
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,16,110877,0.02598,0.5538
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,17,116163,0.10427,0.658
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,18,123138,0.0407,0.6987
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,19,125134,0.02964,0.7284
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,20,125528,0.02605,0.7544
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,21,127009,0.02884,0.7833
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,22,128977,0.03038,0.8136
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,23,129854,0.02802,0.8417
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,24,131006,0.02891,0.8706
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,25,132647,0.03035,0.9009
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,26,133659,0.02914,0.9301
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,27,134404,0.02868,0.9588
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,28,136173,0.03136,0.9901
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,29,137869,0.03154,1.0216
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,30,138772,0.02991,1.0516
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,31,140387,0.03185,1.0834
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,32,142187,0.03353,1.1169
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,33,144703,0.03481,1.1517
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,34,146265,0.0338,1.1855
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,35,147944,0.03353,1.2191
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,36,149431,0.03426,1.2533
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,37,151244,0.0345,1.2878
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,38,158295,0.04796,1.3358
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,39,160934,0.03833,1.3741
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,40,161497,0.15039,1.5245
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,41,173273,0.06177,1.5863
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,42,175690,0.04075,1.627
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,43,177304,0.0392,1.6662
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,44,178635,0.03887,1.7051
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,45,179746,0.03877,1.7439
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,46,181529,0.37404,2.1179
+genesis,a2f3c7382,Build final Wolfram notebook,1,58889,0.07112,0.0711
+genesis,a2f3c7382,Build final Wolfram notebook,2,69491,0.03837,0.1095
+genesis,a2f3c7382,Build final Wolfram notebook,3,77119,0.03867,0.1482
+genesis,a2f3c7382,Build final Wolfram notebook,4,90390,0.0522,0.2004
+genesis,a2f3c7382,Build final Wolfram notebook,5,128479,0.11852,0.3189
+genesis,a2f3c7382,Build final Wolfram notebook,6,154896,0.09181,0.4107
+genesis,a2f3c7382,Build final Wolfram notebook,7,172229,0.0744,0.4851
+genesis,a2f3c7382,Build final Wolfram notebook,8,185619,0.068,0.5531
+genesis,a2f3c7382,Build final Wolfram notebook,9,186395,0.03911,0.5922
+genesis,a2f3c7382,Build final Wolfram notebook,10,189099,0.04412,0.6363
+genesis,a2f3c7382,Build final Wolfram notebook,11,191161,0.04303,0.6794
+genesis,a2f3c7382,Build final Wolfram notebook,12,192377,0.04136,0.7207
+genesis,a2f3c7382,Build final Wolfram notebook,13,199458,0.05626,0.777
+genesis,a2f3c7382,Build final Wolfram notebook,14,200878,0.04348,0.8205
+genesis,a2f3c7382,Build final Wolfram notebook,15,202703,0.04477,0.8652
+genesis,a2f3c7382,Build final Wolfram notebook,16,203600,0.04287,0.9081
+genesis,a2f3c7382,Build final Wolfram notebook,17,205107,0.04452,0.9526
+genesis,a2f3c7382,Build final Wolfram notebook,18,206162,0.04373,0.9963
+genesis,a2f3c7382,Build final Wolfram notebook,19,207472,0.04457,1.0409
+genesis,a2f3c7382,Build final Wolfram notebook,20,208225,0.04346,1.0844
+genesis,a2f3c7382,Build final Wolfram notebook,21,209414,0.04465,1.129
+genesis,a2f3c7382,Build final Wolfram notebook,22,210544,0.04477,1.1738
+genesis,a2f3c7382,Build final Wolfram notebook,23,211218,0.04388,1.2177
+genesis,a2f3c7382,Build final Wolfram notebook,24,221483,0.06797,1.2856
+genesis,a2f3c7382,Build final Wolfram notebook,25,222754,0.04754,1.3332
+genesis,a2f3c7382,Build final Wolfram notebook,26,224958,0.05009,1.3833
+genesis,a2f3c7382,Build final Wolfram notebook,27,225766,0.0471,1.4304
+genesis,a2f3c7382,Build final Wolfram notebook,28,227249,0.04892,1.4793
+genesis,a2f3c7382,Build final Wolfram notebook,29,228536,0.0487,1.528
+genesis,a2f3c7382,Build final Wolfram notebook,30,229714,0.04872,1.5767
+genesis,a2f3c7382,Build final Wolfram notebook,31,231586,0.05071,1.6274
+genesis,a2f3c7382,Build final Wolfram notebook,32,235897,0.05718,1.6846
+genesis,a2f3c7382,Build final Wolfram notebook,33,236530,0.04882,1.7334
+genesis,a2f3c7382,Build final Wolfram notebook,34,237546,0.04988,1.7833
+genesis,a2f3c7382,Build final Wolfram notebook,35,238273,0.04938,1.8327
+genesis,a2f3c7382,Build final Wolfram notebook,36,239721,0.0523,1.885
+genesis,a2f3c7382,Build final Wolfram notebook,37,242649,0.05535,1.9403
+genesis,a2f3c7382,Build final Wolfram notebook,38,243446,0.05093,1.9912
+genesis,a2f3c7382,Build final Wolfram notebook,39,243822,0.05002,2.0413
+genesis,a2f3c7382,Build final Wolfram notebook,40,246799,0.05624,2.0975
+genesis,a2f3c7382,Build final Wolfram notebook,41,249009,0.05497,2.1525
+genesis,a2f3c7382,Build final Wolfram notebook,42,249501,0.05112,2.2036
+genesis,a2f3c7382,Build final Wolfram notebook,43,250881,0.05343,2.257
+genesis,a2f3c7382,Build final Wolfram notebook,44,253400,0.05654,2.3136
+genesis,a2f3c7382,Build final Wolfram notebook,45,256193,0.05775,2.3713
+genesis,a2f3c7382,Build final Wolfram notebook,46,257247,0.05392,2.4252
+genesis,a2f3c7382,Build final Wolfram notebook,47,264524,0.50655,2.9318
+genesis,a2f3c7382,Build final Wolfram notebook,48,308303,0.16242,3.0942
+genesis,a2f3c7382,Build final Wolfram notebook,49,312245,0.07159,3.1658
+genesis,a2f3c7382,Build final Wolfram notebook,50,313005,0.06439,3.2302
+genesis,a2f3c7382,Build final Wolfram notebook,51,313370,0.06354,3.2937
+genesis,a2f3c7382,Build final Wolfram notebook,52,313737,0.06364,3.3573
+genesis,a2f3c7382,Build final Wolfram notebook,53,314327,0.06426,3.4216
+genesis,a2f3c7382,Build final Wolfram notebook,54,314729,0.0639,3.4855
+genesis,a2f3c7382,Build final Wolfram notebook,55,316630,0.06776,3.5533
+genesis,a2f3c7382,Build final Wolfram notebook,56,317097,0.06493,3.6182
+genesis,a2f3c7382,Build final Wolfram notebook,57,317555,0.06465,3.6828
+genesis,a2f3c7382,Build final Wolfram notebook,58,319732,0.06904,3.7519
+genesis,a2f3c7382,Build final Wolfram notebook,59,320320,0.06548,3.8174
+genesis,a2f3c7382,Build final Wolfram notebook,60,322772,0.07024,3.8876
+genesis,a2f3c7382,Build final Wolfram notebook,61,324543,0.06907,3.9567
+genesis,a2f3c7382,Build final Wolfram notebook,62,325505,0.06967,4.0263
+genesis,a2f3c7382,Build final Wolfram notebook,63,326684,0.06813,4.0945
+genesis,a2f3c7382,Build final Wolfram notebook,64,328266,0.06968,4.1641
+genesis,a2f3c7382,Build final Wolfram notebook,65,328680,0.06788,4.232
+genesis,a2f3c7382,Build final Wolfram notebook,66,328875,0.06742,4.2994
+genesis,a2f3c7382,Build final Wolfram notebook,67,329472,0.06986,4.3693
+genesis,a2f3c7382,Build final Wolfram notebook,68,352221,0.12283,4.4921
+genesis,a2f3c7382,Build final Wolfram notebook,69,353126,0.07277,4.5649
+genesis,a2f3c7382,Build final Wolfram notebook,70,354471,0.07574,4.6406
+genesis,a2f3c7382,Build final Wolfram notebook,71,368521,0.10606,4.7467
+genesis,a2f3c7382,Build final Wolfram notebook,72,369281,0.07569,4.8224
+genesis,a2f3c7382,Build final Wolfram notebook,73,404223,0.20504,5.0274
+genesis,a2f3c7382,Build final Wolfram notebook,74,408702,0.09208,5.1195
+genesis,a2f3c7382,Build final Wolfram notebook,75,409375,0.08349,5.203
+genesis,a2f3c7382,Build final Wolfram notebook,76,410389,0.08446,5.2875
+genesis,a2f3c7382,Build final Wolfram notebook,77,412553,0.08759,5.375
+genesis,a2f3c7382,Build final Wolfram notebook,78,414721,0.08796,5.463
+genesis,a2f3c7382,Build final Wolfram notebook,79,417119,0.08903,5.552
+genesis,a2f3c7382,Build final Wolfram notebook,80,417609,0.08504,5.6371
+genesis,a2f3c7382,Build final Wolfram notebook,81,418017,0.08574,5.7228
+genesis,a2f3c7382,Build final Wolfram notebook,82,418599,0.08514,5.808
+genesis,a2f3c7382,Build final Wolfram notebook,83,420034,0.08734,5.8953
+genesis,a2f3c7382,Build final Wolfram notebook,84,422101,0.08924,5.9845
+genesis,a2f3c7382,Build final Wolfram notebook,85,423947,0.08912,6.0737
+genesis,a2f3c7382,Build final Wolfram notebook,86,424876,0.08732,6.161
+genesis,a2f3c7382,Build final Wolfram notebook,87,426567,0.08924,6.2502
+genesis,a2f3c7382,Build final Wolfram notebook,88,427514,0.08773,6.3379
+genesis,a2f3c7382,Build final Wolfram notebook,89,429265,0.09013,6.4281
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,1,58267,0.06535,0.0653
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,2,63251,0.02757,0.0929
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,3,87048,0.0722,0.1651
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,4,113638,0.08396,0.2491
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,5,126027,0.08384,0.3329
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,6,132083,0.04076,0.3737
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,7,136056,0.03681,0.4105
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,8,146127,0.05243,0.4629
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,9,154567,0.05038,0.5133
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,10,158024,0.0396,0.5529
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,11,165935,0.05145,0.6043
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,12,167094,0.03616,0.6405
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,13,169369,0.03919,0.6797
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,14,174659,0.04716,0.7268
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,15,175260,0.28569,1.0125
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,16,200274,0.09779,1.1103
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,17,200932,0.04176,1.1521
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,18,201870,0.04262,1.1947
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,19,202589,0.04226,1.237
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,20,203565,0.04304,1.28
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,21,208531,0.05316,1.3332
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,22,210265,0.04612,1.3793
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,23,212071,0.04661,1.4259
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,24,213814,0.0468,1.4727
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,25,214496,0.04455,1.5172
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,26,215661,0.04602,1.5633
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,27,216808,0.04605,1.6093
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,28,224444,0.06262,1.6719
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,29,225546,0.04773,1.7197
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,30,227239,0.05035,1.77
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,31,229581,0.05133,1.8213
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,32,230167,0.0474,1.8687
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,33,231403,0.04917,1.9179
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,34,233491,0.12044,2.0383
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,35,242166,0.06846,2.1068
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,36,244245,0.05372,2.1605
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,37,246683,0.05498,2.2155
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,38,248016,0.05269,2.2682
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,39,249426,0.05321,2.3214
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,40,250566,0.053,2.3744
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,1,58269,0.07051,0.0705
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,2,71678,0.04558,0.1161
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,3,74570,0.02162,0.1377
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,4,78744,0.0254,0.1631
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,5,80328,0.01987,0.183
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,6,85002,0.02778,0.2108
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,7,102749,0.09961,0.3104
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,8,106664,0.03037,0.3408
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,9,107291,0.02295,0.3637
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,10,109426,0.02683,0.3905
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,11,111074,0.02609,0.4166
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,12,111497,0.02452,0.4411
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,13,111680,0.05247,0.4936
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,14,116970,0.13369,0.6273
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,15,126873,0.04824,0.6755
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,16,127751,0.0276,0.7031
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,17,128597,0.07096,0.7741
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,18,133557,0.03818,0.8123
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,19,133969,0.0279,0.8402
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,20,134385,0.02903,0.8692
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,21,134564,0.02736,0.8966
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,22,135015,0.02928,0.9259
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,23,135215,0.02754,0.9534
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,24,135418,0.02759,0.981
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,25,135901,0.02838,1.0094
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,26,136279,0.02816,1.0375
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,27,137234,0.02969,1.0672
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,28,139209,0.03243,1.0996
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,29,150401,0.05587,1.1555
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,30,151005,0.03168,1.1872
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,31,151504,0.03153,1.2187
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,32,151757,0.03102,1.2497
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,33,152754,0.03292,1.2827
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,34,153122,0.03163,1.3143
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,35,153332,0.03122,1.3455
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,36,154026,0.03256,1.3781
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,37,154362,0.03181,1.4099
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,38,154575,0.03149,1.4414
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,39,154909,0.03179,1.4732
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,40,156581,0.03525,1.5084
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,41,159907,0.03967,1.5481
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,42,160329,0.0331,1.5812
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,43,161467,0.03497,1.6162
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,44,162071,0.03387,1.65
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,45,162751,0.03428,1.6843
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,46,163158,0.03373,1.718
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,47,163396,0.03339,1.7514
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,48,165938,0.03909,1.7905
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,49,173252,0.05154,1.8421
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,50,174335,0.03739,1.8795
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,51,181796,0.05358,1.933
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,52,182282,0.0376,1.9706
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,53,184862,0.04295,2.0136
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,54,185382,0.03844,2.052
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,55,185600,0.03778,2.0898
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,56,187617,0.04225,2.1321
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,57,188683,0.04512,2.1772
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,58,194784,0.05302,2.2302
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,59,196077,0.04323,2.2734
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,60,198240,0.04471,2.3181
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,61,201485,0.04779,2.3659
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,62,202340,0.04247,2.4084
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,63,203156,0.04254,2.4509
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,64,207640,0.1159,2.5668
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,65,214146,0.05785,2.6247
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,66,217290,0.051,2.6757
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,67,218355,0.04628,2.722
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,68,218768,0.04487,2.7668
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,69,218960,0.0444,2.8112
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,70,219169,0.04448,2.8557
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,71,219361,0.04448,2.9002
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,72,220503,0.04675,2.9469
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,73,221749,0.0473,2.9942
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,74,222642,0.04679,3.041
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,75,223622,0.04724,3.0883
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,76,224945,0.48199,3.5703
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,77,226807,0.0497,3.62
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,78,229258,0.05173,3.6717
+genesis,a4ad7c714,Regime A per-target superstring G,1,58291,0.06539,0.0654
+genesis,a4ad7c714,Regime A per-target superstring G,2,63171,0.02733,0.0927
+genesis,a4ad7c714,Regime A per-target superstring G,3,70426,0.03095,0.1237
+genesis,a4ad7c714,Regime A per-target superstring G,4,73389,0.02166,0.1453
+genesis,a4ad7c714,Regime A per-target superstring G,5,78835,0.0299,0.1752
+genesis,a4ad7c714,Regime A per-target superstring G,6,80382,0.02004,0.1953
+genesis,a4ad7c714,Regime A per-target superstring G,7,82582,0.02166,0.2169
+genesis,a4ad7c714,Regime A per-target superstring G,8,86140,0.0255,0.2424
+genesis,a4ad7c714,Regime A per-target superstring G,9,105038,0.06456,0.307
+genesis,a4ad7c714,Regime A per-target superstring G,10,105704,0.13167,0.4386
+genesis,a4ad7c714,Regime A per-target superstring G,11,116692,0.04865,0.4873
+genesis,a4ad7c714,Regime A per-target superstring G,12,117524,0.02558,0.5129
+genesis,a4ad7c714,Regime A per-target superstring G,13,117981,0.02473,0.5376
+genesis,a4ad7c714,Regime A per-target superstring G,14,118874,0.14197,0.6796
+genesis,a4ad7c714,Regime A per-target superstring G,15,130578,0.05311,0.7327
+genesis,a4ad7c714,Regime A per-target superstring G,16,133703,0.03395,0.7666
+genesis,a4ad7c714,Regime A per-target superstring G,17,138646,0.03918,0.8058
+genesis,a4ad7c714,Regime A per-target superstring G,18,139027,0.02872,0.8345
+genesis,a4ad7c714,Regime A per-target superstring G,19,139321,0.02886,0.8634
+genesis,a4ad7c714,Regime A per-target superstring G,20,142728,0.03655,0.8999
+genesis,a4ad7c714,Regime A per-target superstring G,21,142995,0.0293,0.9292
+genesis,a4ad7c714,Regime A per-target superstring G,22,144997,0.03369,0.9629
+genesis,a4ad7c714,Regime A per-target superstring G,23,150533,0.04289,1.0058
+genesis,a4ad7c714,Regime A per-target superstring G,24,157359,0.04722,1.053
+genesis,a4ad7c714,Regime A per-target superstring G,25,159926,0.03796,1.091
+genesis,a4ad7c714,Regime A per-target superstring G,26,160293,0.03307,1.1241
+genesis,a4ad7c714,Regime A per-target superstring G,27,160548,0.03275,1.1568
+genesis,a4ad7c714,Regime A per-target superstring G,28,163522,0.03963,1.1964
+genesis,a4ad7c714,Regime A per-target superstring G,29,164175,0.03442,1.2309
+genesis,a4ad7c714,Regime A per-target superstring G,30,164618,0.03411,1.265
+genesis,a4ad7c714,Regime A per-target superstring G,31,165315,0.0347,1.2997
+genesis,a4ad7c714,Regime A per-target superstring G,32,165748,0.33413,1.6338
+genesis,a4ad7c714,Regime A per-target superstring G,33,166112,0.03422,1.668
+genesis,a4ad7c714,Regime A per-target superstring G,34,166863,0.03513,1.7031
+genesis,a4ad7c714,Regime A per-target superstring G,35,168108,0.03654,1.7397
+genesis,a4ad7c714,Regime A per-target superstring G,36,168505,0.03658,1.7763
+genesis,a4ad7c714,Regime A per-target superstring G,37,173464,0.04617,1.8224
+genesis,a4ad7c714,Regime A per-target superstring G,38,175206,0.03913,1.8616
+genesis,a4ad7c714,Regime A per-target superstring G,39,177196,0.04007,1.9016
+genesis,a4ad7c714,Regime A per-target superstring G,40,178661,0.03913,1.9408
+genesis,a4ad7c714,Regime A per-target superstring G,41,183799,0.04861,1.9894
+genesis,a4ad7c714,Regime A per-target superstring G,42,186927,0.387,2.3764
+genesis,a4ad7c714,Regime A per-target superstring G,43,189723,0.04596,2.4223
+genesis,a4ad7c714,Regime A per-target superstring G,44,192094,0.04396,2.4663
+genesis,a4ad7c714,Regime A per-target superstring G,45,198671,0.05489,2.5212
+genesis,a4ad7c714,Regime A per-target superstring G,46,204045,0.05325,2.5744
+genesis,a4ad7c714,Regime A per-target superstring G,47,205289,0.04399,2.6184
+genesis,a4ad7c714,Regime A per-target superstring G,48,206119,0.04319,2.6616
+genesis,a4ad7c714,Regime A per-target superstring G,49,207259,0.04434,2.7059
+genesis,a4ad7c714,Regime A per-target superstring G,50,208816,0.44174,3.1477
+genesis,a4ad7c714,Regime A per-target superstring G,51,211479,0.04852,3.1962
+genesis,a4ad7c714,Regime A per-target superstring G,52,212771,0.04573,3.2419
+genesis,a4ad7c714,Regime A per-target superstring G,53,216137,0.051,3.2929
+genesis,a4ad7c714,Regime A per-target superstring G,54,218982,0.05038,3.3433
+genesis,a4ad7c714,Regime A per-target superstring G,55,223762,0.05581,3.3991
+genesis,a4ad7c714,Regime A per-target superstring G,56,224743,0.04737,3.4465
+genesis,a4ad7c714,Regime A per-target superstring G,57,225114,0.04604,3.4925
+genesis,a4ad7c714,Regime A per-target superstring G,58,225972,0.48504,3.9776
+genesis,a4ad7c714,Regime A per-target superstring G,59,227674,0.04949,4.0271
+genesis,a4ad7c714,Regime A per-target superstring G,60,228549,0.04797,4.075
+genesis,a5160f9a1,Counsel on publishability of the ω* law,1,58505,0.14631,0.1463
+genesis,a5160f9a1,Counsel on publishability of the ω* law,2,66010,0.03065,0.177
+genesis,a5160f9a1,Counsel on publishability of the ω* law,3,72839,0.03053,0.2075
+genesis,a5160f9a1,Counsel on publishability of the ω* law,4,82557,0.04368,0.2512
+genesis,a5160f9a1,Counsel on publishability of the ω* law,5,92949,0.04258,0.2938
+genesis,a5160f9a1,Counsel on publishability of the ω* law,6,139959,0.1362,0.43
+genesis,a5160f9a1,Counsel on publishability of the ω* law,7,164236,0.08877,0.5187
+genesis,a5160f9a1,Counsel on publishability of the ω* law,8,167658,0.04148,0.5602
+genesis,a5160f9a1,Counsel on publishability of the ω* law,9,168497,0.03572,0.5959
+genesis,a5160f9a1,Counsel on publishability of the ω* law,10,170755,0.03943,0.6354
+genesis,a5160f9a1,Counsel on publishability of the ω* law,11,197104,0.1001,0.7355
+genesis,a5160f9a1,Counsel on publishability of the ω* law,12,218714,0.09352,0.829
+genesis,a5160f9a1,Counsel on publishability of the ω* law,13,236956,0.08943,0.9184
+genesis,a5160f9a1,Counsel on publishability of the ω* law,14,263329,0.11341,1.0318
+genesis,a5160f9a1,Counsel on publishability of the ω* law,15,265744,0.05878,1.0906
+genesis,a5160f9a1,Counsel on publishability of the ω* law,16,280936,0.26609,1.3567
+genesis,a5160f9a1,Counsel on publishability of the ω* law,17,298526,0.10094,1.4576
+genesis,a74632da2,Name the generative objects,1,57826,0.06875,0.0688
+genesis,a74632da2,Name the generative objects,2,74635,0.0538,0.1226
+genesis,a74632da2,Name the generative objects,3,78344,0.02436,0.1469
+genesis,a74632da2,Name the generative objects,4,92255,0.0505,0.1974
+genesis,a74632da2,Name the generative objects,5,106983,0.05535,0.2528
+genesis,a74632da2,Name the generative objects,6,132449,0.45405,0.7068
+genesis,a74632da2,Name the generative objects,7,170317,0.34563,1.0524
+genesis,a74632da2,Name the generative objects,8,174937,0.0457,1.0981
+genesis,a74632da2,Name the generative objects,9,178071,0.04287,1.141
+genesis,a74632da2,Name the generative objects,10,182811,0.04755,1.1886
+genesis,a74632da2,Name the generative objects,11,185233,0.15152,1.3401
+genesis,a74632da2,Name the generative objects,12,196329,0.06485,1.4049
+genesis,a74632da2,Name the generative objects,13,196952,0.04109,1.446
+genesis,a807fe2b5,Reproduce superstring and trellis results,1,58020,0.06473,0.0647
+genesis,a807fe2b5,Reproduce superstring and trellis results,2,68095,0.03685,0.1016
+genesis,a807fe2b5,Reproduce superstring and trellis results,3,69387,0.01702,0.1186
+genesis,a807fe2b5,Reproduce superstring and trellis results,4,81571,0.04437,0.163
+genesis,a807fe2b5,Reproduce superstring and trellis results,5,88621,0.03397,0.1969
+genesis,a807fe2b5,Reproduce superstring and trellis results,6,90062,0.02141,0.2183
+genesis,a807fe2b5,Reproduce superstring and trellis results,7,98000,0.0379,0.2563
+genesis,a807fe2b5,Reproduce superstring and trellis results,8,104102,0.03494,0.2912
+genesis,a807fe2b5,Reproduce superstring and trellis results,9,105842,0.02525,0.3164
+genesis,a807fe2b5,Reproduce superstring and trellis results,10,110638,0.03336,0.3498
+genesis,a807fe2b5,Reproduce superstring and trellis results,11,112177,0.10165,0.4515
+genesis,a807fe2b5,Reproduce superstring and trellis results,12,119837,0.04164,0.4931
+genesis,a807fe2b5,Reproduce superstring and trellis results,13,120840,0.04087,0.534
+genesis,a807fe2b5,Reproduce superstring and trellis results,14,125318,0.03554,0.5695
+genesis,a807fe2b5,Reproduce superstring and trellis results,15,125719,0.02609,0.5956
+genesis,a807fe2b5,Reproduce superstring and trellis results,16,127914,0.03071,0.6263
+genesis,a807fe2b5,Reproduce superstring and trellis results,17,129254,0.0291,0.6554
+genesis,a807fe2b5,Reproduce superstring and trellis results,18,129487,0.02648,0.6819
+genesis,a807fe2b5,Reproduce superstring and trellis results,19,135186,0.1956,0.8775
+genesis,a807fe2b5,Reproduce superstring and trellis results,20,151854,0.06906,0.9465
+genesis,a807fe2b5,Reproduce superstring and trellis results,21,152252,0.03145,0.978
+genesis,a807fe2b5,Reproduce superstring and trellis results,22,152625,0.03146,1.0094
+genesis,a807fe2b5,Reproduce superstring and trellis results,23,153569,0.03293,1.0424
+genesis,a807fe2b5,Reproduce superstring and trellis results,24,156332,0.03769,1.0801
+genesis,a807fe2b5,Reproduce superstring and trellis results,25,157542,0.03438,1.1144
+genesis,a807fe2b5,Reproduce superstring and trellis results,26,158303,0.03344,1.1479
+genesis,a807fe2b5,Reproduce superstring and trellis results,27,161006,0.03848,1.1864
+genesis,a807fe2b5,Reproduce superstring and trellis results,28,164188,0.04024,1.2266
+genesis,a807fe2b5,Reproduce superstring and trellis results,29,168944,0.04477,1.2714
+genesis,a807fe2b5,Reproduce superstring and trellis results,30,173619,0.04551,1.3169
+genesis,a807fe2b5,Reproduce superstring and trellis results,31,175355,0.03927,1.3562
+genesis,a807fe2b5,Reproduce superstring and trellis results,32,178152,0.04212,1.3983
+genesis,a807fe2b5,Reproduce superstring and trellis results,33,179580,0.03928,1.4376
+genesis,a807fe2b5,Reproduce superstring and trellis results,34,180095,0.03729,1.4748
+genesis,a807fe2b5,Reproduce superstring and trellis results,35,184353,0.04767,1.5225
+genesis,a807fe2b5,Reproduce superstring and trellis results,36,185536,0.03987,1.5624
+genesis,a807fe2b5,Reproduce superstring and trellis results,37,186023,0.03853,1.6009
+genesis,a807fe2b5,Reproduce superstring and trellis results,38,187980,0.04214,1.6431
+genesis,a807fe2b5,Reproduce superstring and trellis results,39,190619,0.04449,1.6875
+genesis,a807fe2b5,Reproduce superstring and trellis results,40,196420,0.05271,1.7402
+genesis,a807fe2b5,Reproduce superstring and trellis results,41,197466,0.0421,1.7824
+genesis,a807fe2b5,Reproduce superstring and trellis results,42,198654,0.04273,1.8251
+genesis,a9a741368,Literature map for sliding-window coding,1,58094,0.14531,0.1453
+genesis,a9a741368,Literature map for sliding-window coding,2,70646,0.04316,0.1885
+genesis,a9a741368,Literature map for sliding-window coding,3,94206,0.07311,0.2616
+genesis,a9a741368,Literature map for sliding-window coding,4,113142,0.0662,0.3278
+genesis,a9a741368,Literature map for sliding-window coding,5,119587,0.03882,0.3666
+genesis,a9a741368,Literature map for sliding-window coding,6,119990,0.02513,0.3917
+genesis,a9a741368,Literature map for sliding-window coding,7,121293,0.02729,0.419
+genesis,a9a741368,Literature map for sliding-window coding,8,129479,0.04476,0.4638
+genesis,a9a741368,Literature map for sliding-window coding,9,136683,0.04399,0.5078
+genesis,a9a741368,Literature map for sliding-window coding,10,138923,0.03774,0.5455
+genesis,a9a741368,Literature map for sliding-window coding,11,140741,0.03257,0.5781
+genesis,a9a741368,Literature map for sliding-window coding,12,144156,0.03673,0.6148
+genesis,a9a741368,Literature map for sliding-window coding,13,149590,0.04245,0.6573
+genesis,a9a741368,Literature map for sliding-window coding,14,151943,0.03632,0.6936
+genesis,a9a741368,Literature map for sliding-window coding,15,152735,0.03261,0.7262
+genesis,a9a741368,Literature map for sliding-window coding,16,153456,0.03244,0.7587
+genesis,a9a741368,Literature map for sliding-window coding,17,155416,0.03565,0.7943
+genesis,a9a741368,Literature map for sliding-window coding,18,172378,0.07357,0.8679
+genesis,a9a741368,Literature map for sliding-window coding,19,176040,0.04371,0.9116
+genesis,a9a741368,Literature map for sliding-window coding,20,184880,0.05739,0.969
+genesis,a9a741368,Literature map for sliding-window coding,21,185394,0.03847,1.0075
+genesis,a9a741368,Literature map for sliding-window coding,22,207507,0.0924,1.0999
+genesis,a9a741368,Literature map for sliding-window coding,23,235049,0.11039,1.2103
+genesis,a9a741368,Literature map for sliding-window coding,24,238000,0.05444,1.2647
+genesis,a9a741368,Literature map for sliding-window coding,25,252712,0.08442,1.3491
+genesis,a9a741368,Literature map for sliding-window coding,26,255202,0.05684,1.406
+genesis,a9a741368,Literature map for sliding-window coding,27,266911,0.08035,1.4863
+genesis,a9a741368,Literature map for sliding-window coding,28,276229,0.07676,1.5631
+genesis,a9a741368,Literature map for sliding-window coding,29,276649,0.05633,1.6194
+genesis,a9a741368,Literature map for sliding-window coding,30,277254,0.05834,1.6777
+genesis,a9a741368,Literature map for sliding-window coding,31,279748,0.06173,1.7395
+genesis,a9a741368,Literature map for sliding-window coding,32,298737,0.10353,1.843
+genesis,a9a741368,Literature map for sliding-window coding,33,302128,0.06831,1.9113
+genesis,a9a741368,Literature map for sliding-window coding,34,302892,0.06291,1.9742
+genesis,a9a741368,Literature map for sliding-window coding,35,303642,0.06272,2.0369
+design,a1b61307c,Coin names: classical and technical register,1,58758,0.14705,0.1471
+design,a1b61307c,Coin names: classical and technical register,2,76477,0.05612,0.2032
+design,a1b61307c,Coin names: classical and technical register,3,134902,0.25702,0.4602
+design,a1b61307c,Coin names: classical and technical register,4,138735,0.03661,0.4968
+design,a1b61307c,Coin names: classical and technical register,5,140845,0.09781,0.5946
+design,a1b61307c,Coin names: classical and technical register,6,147424,0.0447,0.6393
+design,a1b61307c,Coin names: classical and technical register,7,148012,0.0312,0.6705
+design,a2e84d18e,,1,57394,0.06437,0.0644
+design,a2e84d18e,,2,68005,0.03807,0.1024
+design,a2e84d18e,,3,68590,0.01513,0.1176
+design,a2e84d18e,,4,68846,0.01469,0.1323
+design,a2e84d18e,,5,69552,0.01595,0.1482
+design,a2e84d18e,,6,71302,0.01837,0.1666
+design,a2e84d18e,,7,73004,0.01868,0.1853
+design,a2e84d18e,,8,74394,0.01816,0.2034
+design,a2e84d18e,,9,75809,0.01869,0.2221
+design,a2e84d18e,,10,76707,0.01767,0.2398
+design,a495c3be0,,1,15891,0.03979,0.0398
+design,a495c3be0,,2,57416,0.10702,0.1468
+design,a495c3be0,,3,71383,0.04647,0.1933
+design,a4a2cf879,Expert review of research-lab MAS design,1,58570,0.14957,0.1496
+design,a4a2cf879,Expert review of research-lab MAS design,2,71899,0.04507,0.1946
+design,a4a2cf879,Expert review of research-lab MAS design,3,75045,0.02233,0.217
+design,a4a2cf879,Expert review of research-lab MAS design,4,79775,0.02691,0.2439
+design,a4a2cf879,Expert review of research-lab MAS design,5,82016,0.17239,0.4163
+design,a4a2cf879,Expert review of research-lab MAS design,6,102610,0.09946,0.5157
+design,a4a2cf879,Expert review of research-lab MAS design,7,106114,0.02931,0.545
+design,a4a2cf879,Expert review of research-lab MAS design,8,107806,0.02553,0.5706
+design,a4a2cf879,Expert review of research-lab MAS design,9,111045,0.02976,0.6003
+design,a4a2cf879,Expert review of research-lab MAS design,10,111625,0.02482,0.6251
+design,a4b39e783,,1,61997,0.06595,0.066
+design,a4b39e783,,2,67237,0.02574,0.0917
+design,a4b39e783,,3,67519,0.0144,0.1061
+design,a4b39e783,,4,67956,0.01768,0.1238
+design,a4b39e783,,5,68316,0.01474,0.1385
+design,a4c12d60b,Wave 1: instrument validation,1,58711,0.14686,0.1469
+design,a4c12d60b,Wave 1: instrument validation,2,67225,0.0332,0.1801
+design,a4c12d60b,Wave 1: instrument validation,3,70700,0.02217,0.2022
+design,a4c12d60b,Wave 1: instrument validation,4,80712,0.03933,0.2416
+design,a4c12d60b,Wave 1: instrument validation,5,81118,0.01736,0.2589
+design,a4c12d60b,Wave 1: instrument validation,6,86821,0.03054,0.2895
+design,a4c12d60b,Wave 1: instrument validation,7,90113,0.02568,0.3151
+design,a4c12d60b,Wave 1: instrument validation,8,93877,0.02752,0.3427
+design,a4c12d60b,Wave 1: instrument validation,9,98192,0.02965,0.3723
+design,a4c12d60b,Wave 1: instrument validation,10,109403,0.0477,0.42
+design,a4c12d60b,Wave 1: instrument validation,11,115241,0.03653,0.4565
+design,a4c12d60b,Wave 1: instrument validation,12,118831,0.03205,0.4886
+design,a4c12d60b,Wave 1: instrument validation,13,119713,0.02617,0.5148
+design,a4c12d60b,Wave 1: instrument validation,14,120062,0.02489,0.5396
+design,a4c12d60b,Wave 1: instrument validation,15,124079,0.03413,0.5738
+design,a4c12d60b,Wave 1: instrument validation,16,130445,0.04076,0.6145
+design,a4c12d60b,Wave 1: instrument validation,17,131055,0.04619,0.6607
+design,a4c12d60b,Wave 1: instrument validation,18,139542,0.04751,0.7082
+design,a4c12d60b,Wave 1: instrument validation,19,142362,0.03504,0.7433
+design,a4c12d60b,Wave 1: instrument validation,20,143803,0.03225,0.7755
+design,a4c12d60b,Wave 1: instrument validation,21,145170,0.03226,0.8078
+design,a4c12d60b,Wave 1: instrument validation,22,146991,0.03375,0.8415
+design,a4c12d60b,Wave 1: instrument validation,23,148234,0.03257,0.8741
+design,a4c12d60b,Wave 1: instrument validation,24,152405,0.06468,0.9388
+design,a4c12d60b,Wave 1: instrument validation,25,154955,0.03695,0.9757
+design,a4c12d60b,Wave 1: instrument validation,26,173036,0.07626,1.052
+design,a4c12d60b,Wave 1: instrument validation,27,180923,0.05436,1.1063
+design,a4c12d60b,Wave 1: instrument validation,28,183528,0.11271,1.2191
+design,a4c12d60b,Wave 1: instrument validation,29,190620,0.0545,1.2736
+design,a4c12d60b,Wave 1: instrument validation,30,191067,0.0393,1.3129
+design,a4c12d60b,Wave 1: instrument validation,31,194461,0.04678,1.3596
+design,a4c12d60b,Wave 1: instrument validation,32,197093,0.04552,1.4052
+design,a4c12d60b,Wave 1: instrument validation,33,200755,0.04864,1.4538
+design,a4c12d60b,Wave 1: instrument validation,34,202943,0.04569,1.4995
+design,a4c12d60b,Wave 1: instrument validation,35,211886,0.06299,1.5625
+design,a4c12d60b,Wave 1: instrument validation,36,212871,0.15668,1.7192
+design,a4c12d60b,Wave 1: instrument validation,37,224145,0.07081,1.79
+design,a4c12d60b,Wave 1: instrument validation,38,225158,0.0474,1.8374
+design,a4c12d60b,Wave 1: instrument validation,39,227455,0.05081,1.8882
+design,a4c12d60b,Wave 1: instrument validation,40,229138,0.04976,1.9379
+design,a4c12d60b,Wave 1: instrument validation,41,236803,0.06504,2.003
+design,a4c12d60b,Wave 1: instrument validation,42,249072,0.07814,2.0811
+design,a4c12d60b,Wave 1: instrument validation,43,249983,0.0522,2.1333
+design,a4c12d60b,Wave 1: instrument validation,44,250355,0.05122,2.1845
+design,a4c12d60b,Wave 1: instrument validation,45,254137,0.05961,2.2441
+design,a4c12d60b,Wave 1: instrument validation,46,258968,0.06299,2.3071
+design,a4c12d60b,Wave 1: instrument validation,47,262321,0.06023,2.3674
+design,a4c12d60b,Wave 1: instrument validation,48,266385,0.06271,2.4301
+design,a4c12d60b,Wave 1: instrument validation,49,268366,0.05826,2.4883
+design,a4c12d60b,Wave 1: instrument validation,50,269340,0.05616,2.5445
+design,a4c12d60b,Wave 1: instrument validation,51,272133,0.06093,2.6054
+design,a4c12d60b,Wave 1: instrument validation,52,274229,0.05975,2.6652
+design,a4c12d60b,Wave 1: instrument validation,53,275350,0.05772,2.7229
+design,a4c12d60b,Wave 1: instrument validation,54,288842,0.08883,2.8117
+design,a4c12d60b,Wave 1: instrument validation,55,289718,0.10379,2.9155
+design,a4c12d60b,Wave 1: instrument validation,56,294188,0.06932,2.9848
+design,a4c12d60b,Wave 1: instrument validation,57,294389,0.06133,3.0462
+design,a4c12d60b,Wave 1: instrument validation,58,297639,0.06708,3.1133
+design,a4c12d60b,Wave 1: instrument validation,59,299699,0.06475,3.178
+design,a4c12d60b,Wave 1: instrument validation,60,300333,0.06161,3.2396
+design,a4c12d60b,Wave 1: instrument validation,61,300821,0.06149,3.3011
+design,a4c12d60b,Wave 1: instrument validation,62,301446,0.06176,3.3629
+design,a4c12d60b,Wave 1: instrument validation,63,302208,0.16906,3.5319
+design,a4c12d60b,Wave 1: instrument validation,64,312995,0.08744,3.6194
+design,a4c12d60b,Wave 1: instrument validation,65,317257,0.07332,3.6927
+design,a5073b714,,1,61847,0.15486,0.1549
+design,a5073b714,,2,62260,0.01511,0.17
+design,a5073b714,,3,67509,0.02582,0.1958
+design,a5073b714,,4,67750,0.01436,0.2102
+design,a58d15f92,Second cold review of shipped files,1,58455,0.06583,0.0658
+design,a58d15f92,Second cold review of shipped files,2,62266,0.02143,0.0873
+design,a58d15f92,Second cold review of shipped files,3,76064,0.04698,0.1342
+design,a58d15f92,Second cold review of shipped files,4,85764,0.03953,0.1738
+design,a58d15f92,Second cold review of shipped files,5,86791,0.0224,0.1962
+design,a58d15f92,Second cold review of shipped files,6,98476,0.04939,0.2456
+design,a58d15f92,Second cold review of shipped files,7,115999,0.06359,0.3092
+design,a58d15f92,Second cold review of shipped files,8,128174,0.05384,0.363
+design,a58d15f92,Second cold review of shipped files,9,129760,0.02965,0.3926
+design,a58d15f92,Second cold review of shipped files,10,130428,0.02771,0.4204
+design,a58d15f92,Second cold review of shipped files,11,134428,0.03616,0.4565
+design,a58d15f92,Second cold review of shipped files,12,140041,0.04097,0.4975
+design,a58d15f92,Second cold review of shipped files,13,143972,0.03792,0.5354
+design,a58d15f92,Second cold review of shipped files,14,147326,0.03725,0.5727
+design,a58d15f92,Second cold review of shipped files,15,147777,0.03067,0.6033
+design,a58d15f92,Second cold review of shipped files,16,151503,0.1218,0.7251
+design,a58d15f92,Second cold review of shipped files,17,160008,0.05162,0.7767
+design,a58d15f92,Second cold review of shipped files,18,160690,0.03397,0.8107
+design,a806fafff,Candid review: wash or promise (Opus),1,58156,0.29088,0.2909
+design,a806fafff,Candid review: wash or promise (Opus),2,62404,0.03854,0.3294
+design,a806fafff,Candid review: wash or promise (Opus),3,80495,0.10856,0.438
+design,a806fafff,Candid review: wash or promise (Opus),4,112393,0.17576,0.6137
+design,a806fafff,Candid review: wash or promise (Opus),5,118816,0.05472,0.6685
+design,a806fafff,Candid review: wash or promise (Opus),6,120716,0.11397,0.7824
+design,a806fafff,Candid review: wash or promise (Opus),7,124851,0.04499,0.8274
+design,a806fafff,Candid review: wash or promise (Opus),8,125628,0.02946,0.8569
+design,a806fafff,Candid review: wash or promise (Opus),9,126158,0.02794,0.8848
+design,a8322cae8,,1,57394,0.06437,0.0644
+design,a8322cae8,,2,61355,0.02155,0.0859
+design,a8322cae8,,3,61882,0.01379,0.0997
+design,a8322cae8,,4,75672,0.04691,0.1466
+design,a8322cae8,,5,78155,0.02137,0.168
+design,a8322cae8,,6,80250,0.02107,0.1891
+design,aab206418,Fetch Claude Code hooks reference,1,3939,0.02003,0.02
+design,aab206418,Fetch Claude Code hooks reference,2,23140,0.09692,0.117
+design,aab206418,Fetch Claude Code hooks reference,3,39932,0.08908,0.206
+design,aab206418,Fetch Claude Code hooks reference,4,56595,0.09179,0.2978
+design,aab206418,Fetch Claude Code hooks reference,5,73081,0.09424,0.3921
+design,aab206418,Fetch Claude Code hooks reference,6,89843,0.09891,0.491
+design,aab206418,Fetch Claude Code hooks reference,7,106657,0.10253,0.5935
+design,aab206418,Fetch Claude Code hooks reference,8,119836,0.08729,0.6808
+design,ac43197c1,Cold review of shipped Murmuration files,1,58722,0.06649,0.0665
+design,ac43197c1,Cold review of shipped Murmuration files,2,62659,0.02176,0.0883
+design,ac43197c1,Cold review of shipped Murmuration files,3,68291,0.02668,0.1149
+design,ac43197c1,Cold review of shipped Murmuration files,4,76485,0.03423,0.1492
+design,ac43197c1,Cold review of shipped Murmuration files,5,98409,0.07015,0.2193
+design,ac43197c1,Cold review of shipped Murmuration files,6,114728,0.06065,0.28
+design,ac43197c1,Cold review of shipped Murmuration files,7,116328,0.02703,0.307
+design,ac43197c1,Cold review of shipped Murmuration files,8,117818,0.02707,0.3341
+design,ac43197c1,Cold review of shipped Murmuration files,9,118981,0.02655,0.3606
+design,ac43197c1,Cold review of shipped Murmuration files,10,119521,0.02523,0.3858
+design,ac43197c1,Cold review of shipped Murmuration files,11,120257,0.0258,0.4116
+design,ac43197c1,Cold review of shipped Murmuration files,12,124485,0.10701,0.5187
+design,ac43197c1,Cold review of shipped Murmuration files,13,131823,0.04328,0.5619
+design,ac43197c1,Cold review of shipped Murmuration files,14,132381,0.02802,0.59
+design,ac93fc768,Coin names: transmission and disputation traditions,1,58810,0.14718,0.1472
+design,ac93fc768,Coin names: transmission and disputation traditions,2,74234,0.0504,0.1976
+design,ac93fc768,Coin names: transmission and disputation traditions,3,76986,0.02178,0.2194
+design,ac93fc768,Coin names: transmission and disputation traditions,4,125902,0.31478,0.5341
+design,ac93fc768,Coin names: transmission and disputation traditions,5,131084,0.03821,0.5724
+design,ac93fc768,Coin names: transmission and disputation traditions,6,132953,0.03094,0.6033
+design,ac93fc768,Coin names: transmission and disputation traditions,7,134929,0.03157,0.6349
+design,ac93fc768,Coin names: transmission and disputation traditions,8,137970,0.03463,0.6695
+design,ac93fc768,Coin names: transmission and disputation traditions,9,165330,0.09607,0.7656
+design,ac93fc768,Coin names: transmission and disputation traditions,10,166697,0.03669,0.8023
+design,ac93fc768,Coin names: transmission and disputation traditions,11,169021,0.0392,0.8415
+design,ac93fc768,Coin names: transmission and disputation traditions,12,170477,0.03748,0.8789
+design,ac93fc768,Coin names: transmission and disputation traditions,13,175640,0.1309,1.0098
+design,ac93fc768,Coin names: transmission and disputation traditions,14,184131,0.05639,1.0662
+design,ac93fc768,Coin names: transmission and disputation traditions,15,185195,0.03973,1.106
+design,acbce3381,Fetch subagent tools and MCP frontmatter rules,1,4105,0.021,0.021
+design,acbce3381,Fetch subagent tools and MCP frontmatter rules,2,21783,0.08936,0.1104
+design,acbce3381,Fetch subagent tools and MCP frontmatter rules,3,37216,0.08163,0.192
+design,acbce3381,Fetch subagent tools and MCP frontmatter rules,4,81345,0.22826,0.4202
+design,acbce3381,Fetch subagent tools and MCP frontmatter rules,5,113793,0.17858,0.5988
+design,acbce3381,Fetch subagent tools and MCP frontmatter rules,6,144196,0.17482,0.7736
+design,acbce3381,Fetch subagent tools and MCP frontmatter rules,7,158897,0.10251,0.8762
+design,adceb2615,Survey benchmarks for research MAS behavior,1,58389,0.1498,0.1498
+design,adceb2615,Survey benchmarks for research MAS behavior,2,75535,0.05471,0.2045
+design,adceb2615,Survey benchmarks for research MAS behavior,3,78656,0.02299,0.2275
+design,adceb2615,Survey benchmarks for research MAS behavior,4,131288,0.14734,0.3748
+design,adceb2615,Survey benchmarks for research MAS behavior,5,153482,0.08179,0.4566
+design,adceb2615,Survey benchmarks for research MAS behavior,6,185912,0.11184,0.5685
+design,adceb2615,Survey benchmarks for research MAS behavior,7,188791,0.04446,0.6129
+design,adceb2615,Survey benchmarks for research MAS behavior,8,191932,0.04565,0.6586
+design,adceb2615,Survey benchmarks for research MAS behavior,9,195893,0.04832,0.7069
+design,adceb2615,Survey benchmarks for research MAS behavior,10,197040,0.04254,0.7495
+design,adceb2615,Survey benchmarks for research MAS behavior,11,201982,0.05182,0.8013
+design,adceb2615,Survey benchmarks for research MAS behavior,12,207149,0.05335,0.8546
+design,adceb2615,Survey benchmarks for research MAS behavior,13,213487,0.05738,0.912
+design,adceb2615,Survey benchmarks for research MAS behavior,14,215184,0.04702,0.959
+design,adceb2615,Survey benchmarks for research MAS behavior,15,216240,0.04576,1.0048
+design,adceb2615,Survey benchmarks for research MAS behavior,16,217288,0.04595,1.0507
+design,adceb2615,Survey benchmarks for research MAS behavior,17,222182,0.05577,1.1065
+design,adceb2615,Survey benchmarks for research MAS behavior,18,224522,0.05031,1.1568
+design,adceb2615,Survey benchmarks for research MAS behavior,19,228694,0.05542,1.2122
+design,adceb2615,Survey benchmarks for research MAS behavior,20,232862,0.05624,1.2685
+design,adceb2615,Survey benchmarks for research MAS behavior,21,237795,0.05899,1.3275
+design,adceb2615,Survey benchmarks for research MAS behavior,22,240652,0.05476,1.3822
+design,adceb2615,Survey benchmarks for research MAS behavior,23,242016,0.05157,1.4338
+design,adceb2615,Survey benchmarks for research MAS behavior,24,249010,0.06592,1.4997
+design,adceb2615,Survey benchmarks for research MAS behavior,25,264442,0.27108,1.7708
+design,adceb2615,Survey benchmarks for research MAS behavior,26,282815,0.09886,1.8697
+design,adceb2615,Survey benchmarks for research MAS behavior,27,283962,0.05949,1.9291
+design,adceb2615,Survey benchmarks for research MAS behavior,28,284668,0.05861,1.9878
+design,adceb2615,Survey benchmarks for research MAS behavior,29,286626,0.06191,2.0497
+design,adceb2615,Survey benchmarks for research MAS behavior,30,288192,0.06154,2.1112
+design,adceb2615,Survey benchmarks for research MAS behavior,31,288755,0.05931,2.1705
+design,add2d044c,Counsel on information measures for MAS,1,58675,0.14985,0.1498
+design,add2d044c,Counsel on information measures for MAS,2,73811,0.04964,0.1995
+design,add2d044c,Counsel on information measures for MAS,3,79107,0.02808,0.2276
+design,add2d044c,Counsel on information measures for MAS,4,94022,0.0532,0.2808
+design,add2d044c,Counsel on information measures for MAS,5,119832,0.08342,0.3642
+design,add2d044c,Counsel on information measures for MAS,6,123995,0.03445,0.3986
+design,add2d044c,Counsel on information measures for MAS,7,133857,0.04954,0.4482
+design,add2d044c,Counsel on information measures for MAS,8,137309,0.03548,0.4837
+design,add2d044c,Counsel on information measures for MAS,9,145845,0.14687,0.6305
+design,add2d044c,Counsel on information measures for MAS,10,155846,0.05426,0.6848
+design,add2d044c,Counsel on information measures for MAS,11,156565,0.0336,0.7184
+design,af4a86959,Candid review: wash or promise (Fable),1,58535,0.14947,0.1495
+design,af4a86959,Candid review: wash or promise (Fable),2,79723,0.06484,0.2143
+design,af4a86959,Candid review: wash or promise (Fable),3,113609,0.10075,0.315
+design,af4a86959,Candid review: wash or promise (Fable),4,118344,0.12322,0.4383
+design,af4a86959,Candid review: wash or promise (Fable),5,127304,0.04633,0.4846
+design,af4a86959,Candid review: wash or promise (Fable),6,127721,0.02718,0.5118
+design,aff153770,Wave 1: platform probes,1,58723,0.14689,0.1469
+design,aff153770,Wave 1: platform probes,2,68372,0.03623,0.1831
+design,aff153770,Wave 1: platform probes,3,70203,0.02212,0.2052
+design,aff153770,Wave 1: platform probes,4,84150,0.04907,0.2543
+design,aff153770,Wave 1: platform probes,5,88459,0.02769,0.282
+design,aff153770,Wave 1: platform probes,6,91999,0.0266,0.3086
+design,aff153770,Wave 1: platform probes,7,93190,0.02159,0.3302
+design,aff153770,Wave 1: platform probes,8,96091,0.0261,0.3563
+design,aff153770,Wave 1: platform probes,9,98834,0.02612,0.3824
+design,aff153770,Wave 1: platform probes,10,102621,0.02941,0.4118
+design,aff153770,Wave 1: platform probes,11,108850,0.03614,0.4479
+design,aff153770,Wave 1: platform probes,12,113411,0.03321,0.4812
+design,aff153770,Wave 1: platform probes,13,120450,0.04034,0.5215
+design,aff153770,Wave 1: platform probes,14,124816,0.03504,0.5565
+design,aff153770,Wave 1: platform probes,15,126459,0.02915,0.5857
+design,aff153770,Wave 1: platform probes,16,130493,0.03543,0.6211
+design,aff153770,Wave 1: platform probes,17,132487,0.03117,0.6523
+design,aff153770,Wave 1: platform probes,18,133814,0.02992,0.6822
+design,aff153770,Wave 1: platform probes,19,134969,0.02969,0.7119
+design,aff153770,Wave 1: platform probes,20,140619,0.0412,0.7531
+design,aff153770,Wave 1: platform probes,21,141304,0.03004,0.7831
+design,aff153770,Wave 1: platform probes,22,141533,0.02889,0.812
+design,aff153770,Wave 1: platform probes,23,148658,0.04615,0.8582
+design,aff153770,Wave 1: platform probes,24,159360,0.05652,0.9147
+design,aff153770,Wave 1: platform probes,25,162720,0.04036,0.9551
+design,aff153770,Wave 1: platform probes,26,168692,0.04753,1.0026
+design,aff153770,Wave 1: platform probes,27,170477,0.03823,1.0408
+design,aff153770,Wave 1: platform probes,28,171302,0.03636,1.0772
+design,aff153770,Wave 1: platform probes,29,174262,0.04169,1.1189
+design,aff153770,Wave 1: platform probes,30,176853,0.04141,1.1603
+design,aff153770,Wave 1: platform probes,31,180487,0.04449,1.2048
+design,aff153770,Wave 1: platform probes,32,183379,0.04336,1.2481
+design,aff153770,Wave 1: platform probes,33,200502,0.07952,1.3277
+design,aff153770,Wave 1: platform probes,34,202502,0.04534,1.373
+design,aff153770,Wave 1: platform probes,35,202860,0.0416,1.4146
+design,aff153770,Wave 1: platform probes,36,203479,0.04218,1.4568
+design,aff153770,Wave 1: platform probes,37,205296,0.04531,1.5021
+design,aff153770,Wave 1: platform probes,38,207834,0.04761,1.5497
+design,aff153770,Wave 1: platform probes,39,209321,0.04536,1.5951
+design,aff153770,Wave 1: platform probes,40,211664,0.04779,1.6428
+design,aff153770,Wave 1: platform probes,41,216896,0.05545,1.6983
+design,aff153770,Wave 1: platform probes,42,218367,0.04709,1.7454
+design,aff153770,Wave 1: platform probes,43,220612,0.04932,1.7947
+design,aff153770,Wave 1: platform probes,44,225959,0.05757,1.8523
+design,aff153770,Wave 1: platform probes,45,227507,0.04915,1.9014
+design,aff153770,Wave 1: platform probes,46,229691,0.05103,1.9525
+design,aff153770,Wave 1: platform probes,47,234139,0.05716,2.0096
+design,aff153770,Wave 1: platform probes,48,235488,0.05028,2.0599
+design,aff153770,Wave 1: platform probes,49,237433,0.05203,2.1119
+design,aff153770,Wave 1: platform probes,50,241161,0.05687,2.1688
+design,aff153770,Wave 1: platform probes,51,247144,0.06322,2.232
+design,aff153770,Wave 1: platform probes,52,248161,0.05205,2.2841
+design,aff153770,Wave 1: platform probes,53,248926,0.05158,2.3357
+design,aff153770,Wave 1: platform probes,54,249869,0.05224,2.3879
+design,aff153770,Wave 1: platform probes,55,250196,0.05099,2.4389
+design,aff153770,Wave 1: platform probes,56,256625,0.06616,2.505
+design,aff153770,Wave 1: platform probes,57,259760,0.0592,2.5642
+design,aff153770,Wave 1: platform probes,58,263859,0.06224,2.6265
+design,aff153770,Wave 1: platform probes,59,264846,0.05532,2.6818
+design,aff153770,Wave 1: platform probes,60,266589,0.05736,2.7392
+design,aff153770,Wave 1: platform probes,61,267554,0.0558,2.795
+design,aff153770,Wave 1: platform probes,62,268859,0.05686,2.8518
+design,aff153770,Wave 1: platform probes,63,272831,0.06391,2.9157
+design,aff153770,Wave 1: platform probes,64,274421,0.05862,2.9744
+design,aff153770,Wave 1: platform probes,65,276694,0.06062,3.035
+design,aff153770,Wave 1: platform probes,66,277743,0.05802,3.093
+design,aff153770,Wave 1: platform probes,67,280904,0.10362,3.1966
+design,aff153770,Wave 1: platform probes,68,285010,0.06652,3.2632
+design,aff153770,Wave 1: platform probes,69,286151,0.05994,3.3231
+design,aff153770,Wave 1: platform probes,70,289902,0.19112,3.5142
+design,aff153770,Wave 1: platform probes,71,302453,0.08944,3.6037
+design,aff153770,Wave 1: platform probes,72,304381,0.06539,3.669
+design,aff153770,Wave 1: platform probes,73,305567,0.06551,3.7346
+design,aff153770,Wave 1: platform probes,74,306242,0.06312,3.7977
+design,aff153770,Wave 1: platform probes,75,306528,0.06221,3.8599
+design,aff153770,Wave 1: platform probes,76,311175,0.07296,3.9328
+design,aff153770,Wave 1: platform probes,77,311670,0.06368,3.9965
+design,aff153770,Wave 1: platform probes,78,322512,0.08964,4.0862
+design,aff153770,Wave 1: platform probes,79,335957,0.0982,4.1844
+design,aff153770,Wave 1: platform probes,80,339425,0.07594,4.2603
+design,aff153770,Wave 1: platform probes,81,341751,0.07378,4.3341
+design,aff153770,Wave 1: platform probes,82,344772,0.07596,4.41
+design,aff153770,Wave 1: platform probes,83,347045,0.07467,4.4847
+design,aff153770,Wave 1: platform probes,84,349204,0.07487,4.5596
+design,aff153770,Wave 1: platform probes,85,352271,0.07759,4.6372
+design,aff153770,Wave 1: platform probes,86,354000,0.07483,4.712
+design,aff153770,Wave 1: platform probes,87,354918,0.07316,4.7852
+design,aff153770,Wave 1: platform probes,88,356596,0.07526,4.8604
+design,aff153770,Wave 1: platform probes,89,357439,0.0735,4.9339
+design,aff153770,Wave 1: platform probes,90,359626,0.07703,5.011
+design,aff153770,Wave 1: platform probes,91,360851,0.07504,5.086
+design,aff153770,Wave 1: platform probes,92,363844,0.0797,5.1657
+design,aff153770,Wave 1: platform probes,93,365676,0.07739,5.2431
+design,aff153770,Wave 1: platform probes,94,376752,0.10089,5.344
+design,aff153770,Wave 1: platform probes,95,377620,0.0776,5.4216
+design,aff153770,Wave 1: platform probes,96,380277,0.08222,5.5038
+design,aff153770,Wave 1: platform probes,97,384397,0.0864,5.5902
+design,aff153770,Wave 1: platform probes,98,385755,0.08032,5.6705
+design,aff153770,Wave 1: platform probes,99,386437,0.16923,5.8397
+design,aff153770,Wave 1: platform probes,100,395574,0.10017,5.9399
+design,aff153770,Wave 1: platform probes,101,396425,0.08131,6.0212
+design,aff153770,Wave 1: platform probes,102,397718,0.0826,6.1038
+design,aff153770,Wave 1: platform probes,103,399728,0.08462,6.1884
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",1,59544,0.14894,0.1489
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",2,65589,0.02719,0.1761
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",3,69744,0.02358,0.1997
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",4,74662,0.02641,0.2261
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",5,85999,0.04336,0.2695
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",6,94751,0.03915,0.3086
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",7,95522,0.02108,0.3297
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",8,96368,0.02132,0.351
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",9,99527,0.0272,0.3782
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",10,100920,0.02344,0.4017
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",11,101984,0.02308,0.4248
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",12,103195,0.02347,0.4482
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",13,104599,0.02435,0.4726
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",14,109296,0.03271,0.5053
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",15,110472,0.02484,0.5301
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",16,111188,0.02409,0.5542
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",17,113381,0.02778,0.582
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",18,114748,0.02618,0.6082
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",19,125523,0.04996,0.6581
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",20,135607,0.05035,0.7085
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",21,137988,0.03311,0.7416
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",22,138859,0.02983,0.7714
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",23,143918,0.04048,0.8119
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",24,147250,0.03716,0.8491
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",25,148987,0.03385,0.8829
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",26,150951,0.03473,0.9176
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",27,153947,0.03776,0.9554
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",28,155156,0.03402,0.9894
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",29,168491,0.06447,1.0539
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",30,170224,0.03811,1.092
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",31,170648,0.03519,1.1272
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",32,171656,0.03672,1.1639
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",33,172803,0.03722,1.2011
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",34,174239,0.03823,1.2394
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",35,175903,0.03908,1.2785
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",36,176727,0.03727,1.3157
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",37,177856,0.03822,1.354
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",38,179642,0.04007,1.394
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",39,181648,0.04103,1.435
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",40,182136,0.03779,1.4728
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",41,186615,0.3863,1.8591
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",42,194145,0.0562,1.9153
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",43,196583,0.04496,1.9603
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",44,206672,0.06461,2.0249
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",45,212427,0.05575,2.0807
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",46,215551,0.05034,2.131
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",47,224306,0.06507,2.1961
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",48,225342,0.04753,2.2436
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",49,233527,0.06557,2.3092
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",50,235691,0.05215,2.3613
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",51,236590,0.04943,2.4108
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",52,237573,0.04981,2.4606
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",53,237965,0.04858,2.5091
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",54,238683,0.04944,2.5586
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",55,240464,0.05227,2.6109
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",56,241066,0.04968,2.6605
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",57,243541,0.05484,2.7154
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",58,246685,0.05662,2.772
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",59,248786,0.05463,2.8266
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",60,250263,0.05353,2.8802
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",61,251501,0.05318,2.9334
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",62,253492,0.05535,2.9887
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",63,256279,0.05791,3.0466
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",64,259608,0.56882,3.6154
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",65,267670,0.07215,3.6876
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",66,271529,0.06323,3.7508
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",67,277248,0.06865,3.8195
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",68,278813,0.05945,3.8789
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",69,279738,0.05815,3.9371
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",70,281462,0.06032,3.9974
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",71,282639,0.05944,4.0568
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",72,285025,0.06258,4.1194
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",73,286200,0.06003,4.1794
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",74,287587,0.06079,4.2402
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",75,288782,0.06055,4.3008
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",76,291211,0.06421,4.365
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",77,291459,0.05893,4.4239
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",78,294179,0.06512,4.489
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",79,294601,0.05995,4.549
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",80,295310,0.0609,4.6099
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",81,296279,0.06152,4.6714
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",82,296992,0.06114,4.7325
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",83,299521,0.0658,4.7983
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",84,301076,0.06385,4.8622
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",85,302457,0.06406,4.9262
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",86,303658,0.06357,4.9898
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",87,304301,0.0626,5.0524
+this_run,a1f4458ce,explorer-w01-c,1,23494,0.05881,0.0588
+this_run,a1f4458ce,explorer-w01-c,2,31701,0.02538,0.0842
+this_run,a1f4458ce,explorer-w01-c,3,34671,0.01397,0.0982
+this_run,a1f4458ce,explorer-w01-c,4,36469,0.0115,0.1097
+this_run,a1f4458ce,explorer-w01-c,5,38249,0.01214,0.1218
+this_run,a1f4458ce,explorer-w01-c,6,40450,0.01319,0.135
+this_run,a1f4458ce,explorer-w01-c,7,58904,0.05426,0.1892
+this_run,a1f4458ce,explorer-w01-c,8,60861,0.01676,0.206
+this_run,a1f4458ce,explorer-w01-c,9,65129,0.02292,0.2289
+this_run,a1f4458ce,explorer-w01-c,10,68527,0.0216,0.2505
+this_run,a1f4458ce,explorer-w01-c,11,70525,0.04466,0.2952
+this_run,a1f4458ce,explorer-w01-c,12,73251,0.02112,0.3163
+this_run,a1f4458ce,explorer-w01-c,13,74595,0.01809,0.3344
+this_run,a1f4458ce,explorer-w01-c,14,77680,0.02272,0.3571
+this_run,a1f4458ce,explorer-w01-c,15,79620,0.02044,0.3776
+this_run,a1f4458ce,explorer-w01-c,16,84189,0.0274,0.405
+this_run,a1f4458ce,explorer-w01-c,17,85594,0.02039,0.4254
+this_run,a1f4458ce,explorer-w01-c,18,91986,0.03318,0.4585
+this_run,a1f4458ce,explorer-w01-c,19,95871,0.02818,0.4867
+this_run,a1f4458ce,explorer-w01-c,20,98692,0.02631,0.513
+this_run,a1f4458ce,explorer-w01-c,21,104762,0.03495,0.548
+this_run,a1f4458ce,explorer-w01-c,22,112219,0.03967,0.5876
+this_run,a1f4458ce,explorer-w01-c,23,126282,0.05768,0.6453
+this_run,a1f4458ce,explorer-w01-c,24,127908,0.02941,0.6747
+this_run,a1f4458ce,explorer-w01-c,25,129131,0.0287,0.7034
+this_run,a1f4458ce,explorer-w01-c,26,130550,0.02944,0.7329
+this_run,a1f4458ce,explorer-w01-c,27,131401,0.02844,0.7613
+this_run,a1f4458ce,explorer-w01-c,28,132813,0.02985,0.7912
+this_run,a1f4458ce,explorer-w01-c,29,134549,0.03099,0.8222
+this_run,a1f4458ce,explorer-w01-c,30,146913,0.10659,0.9288
+this_run,a1f4458ce,explorer-w01-c,31,151918,0.0421,0.9708
+this_run,a1f4458ce,explorer-w01-c,32,153441,0.03427,1.0051
+this_run,a1f4458ce,explorer-w01-c,33,156749,0.03899,1.0441
+this_run,a1f4458ce,explorer-w01-c,34,159845,0.03917,1.0833
+this_run,a1f4458ce,explorer-w01-c,35,186265,0.09809,1.1814
+this_run,a1f4458ce,explorer-w01-c,36,188052,0.04175,1.2231
+this_run,a1f4458ce,explorer-w01-c,37,189676,0.0417,1.2648
+this_run,a1f4458ce,explorer-w01-c,38,190394,0.03978,1.3046
+this_run,a1f4458ce,explorer-w01-c,39,191446,0.04091,1.3455
+this_run,a1f4458ce,explorer-w01-c,40,203895,0.0695,1.415
+this_run,a1f4458ce,explorer-w01-c,41,205225,0.04418,1.4592
+this_run,a1f4458ce,explorer-w01-c,42,208556,0.04946,1.5087
+this_run,a1f4458ce,explorer-w01-c,43,209314,0.04636,1.555
+this_run,a1f4458ce,explorer-w01-c,44,209720,0.04304,1.5981
+this_run,a1f4458ce,explorer-w01-c,45,210987,0.0452,1.6433
+this_run,a1f4458ce,explorer-w01-c,46,212355,0.04568,1.6889
+this_run,a1f4458ce,explorer-w01-c,47,224529,0.07299,1.7619
+this_run,a1f4458ce,explorer-w01-c,48,229163,0.05657,1.8185
+this_run,a1f4458ce,explorer-w01-c,49,232193,0.05344,1.8719
+this_run,a1f4458ce,explorer-w01-c,50,233832,0.05057,1.9225
+this_run,a1f4458ce,explorer-w01-c,51,235924,0.05207,1.9746
+this_run,a1f4458ce,explorer-w01-c,52,248788,0.07938,2.054
+this_run,a1f4458ce,explorer-w01-c,53,250036,0.05291,2.1069
+this_run,a1f4458ce,explorer-w01-c,54,252929,0.05732,2.1642
+this_run,a1f4458ce,explorer-w01-c,55,255486,0.06461,2.2288
+this_run,a1f4458ce,explorer-w01-c,56,256378,0.05349,2.2823
+this_run,a1f4458ce,explorer-w01-c,57,256647,0.05198,2.3343
+this_run,a1f4458ce,explorer-w01-c,58,268577,0.17143,2.5057
+this_run,a1f4458ce,explorer-w01-c,59,277680,0.09774,2.6034
+this_run,a1f4458ce,explorer-w01-c,60,279929,0.06123,2.6647
+this_run,a1f4458ce,explorer-w01-c,61,281185,0.05916,2.7238
+this_run,a1f4458ce,explorer-w01-c,62,282395,0.1203,2.8441
+this_run,a1f4458ce,explorer-w01-c,63,288574,0.072,2.9161
+this_run,a41c53b7f,author-w01-2,1,24316,0.05153,0.0515
+this_run,a41c53b7f,author-w01-2,2,30535,0.02057,0.0721
+this_run,a41c53b7f,author-w01-2,3,37715,0.02422,0.0963
+this_run,a41c53b7f,author-w01-2,4,47771,0.03275,0.1291
+this_run,a41c53b7f,author-w01-2,5,58418,0.03626,0.1653
+this_run,a41c53b7f,author-w01-2,6,59883,0.01543,0.1808
+this_run,a41c53b7f,author-w01-2,7,65974,0.02729,0.208
+this_run,a41c53b7f,author-w01-2,8,67798,0.01796,0.226
+this_run,a41c53b7f,author-w01-2,9,68376,0.01509,0.2411
+this_run,a41c53b7f,author-w01-2,10,72141,0.02314,0.2642
+this_run,a41c53b7f,author-w01-2,11,75155,0.02201,0.2862
+this_run,a41c53b7f,author-w01-2,12,88348,0.04805,0.3343
+this_run,a41c53b7f,author-w01-2,13,88842,0.03674,0.371
+this_run,a41c53b7f,author-w01-2,14,90754,0.02275,0.3938
+this_run,a41c53b7f,author-w01-2,15,92020,0.02142,0.4152
+this_run,a41c53b7f,author-w01-2,16,103788,0.04791,0.4631
+this_run,a41c53b7f,author-w01-2,17,109698,0.03559,0.4987
+this_run,a41c53b7f,author-w01-2,18,110450,0.0239,0.5226
+this_run,a41c53b7f,author-w01-2,19,124171,0.05643,0.579
+this_run,a41c53b7f,author-w01-2,20,126998,0.03195,0.611
+this_run,a41c53b7f,author-w01-2,21,138225,0.05351,0.6645
+this_run,a41c53b7f,author-w01-2,22,138598,0.02874,0.6932
+this_run,a41c53b7f,author-w01-2,23,139737,0.03077,0.724
+this_run,a41c53b7f,author-w01-2,24,142092,0.0339,0.7579
+this_run,a53e063b0,explorer-w01-e,1,23596,0.0478,0.0478
+this_run,a53e063b0,explorer-w01-e,2,30460,0.02204,0.0698
+this_run,a53e063b0,explorer-w01-e,3,35791,0.01958,0.0894
+this_run,a53e063b0,explorer-w01-e,4,44570,0.02914,0.1186
+this_run,a53e063b0,explorer-w01-e,5,46039,0.01262,0.1312
+this_run,a53e063b0,explorer-w01-e,6,57609,0.03822,0.1694
+this_run,a53e063b0,explorer-w01-e,7,61385,0.02105,0.1904
+this_run,a53e063b0,explorer-w01-e,8,65197,0.02185,0.2123
+this_run,a53e063b0,explorer-w01-e,9,69139,0.02294,0.2352
+this_run,a53e063b0,explorer-w01-e,10,73815,0.02556,0.2608
+this_run,a53e063b0,explorer-w01-e,11,76389,0.02128,0.2821
+this_run,a53e063b0,explorer-w01-e,12,81130,0.02719,0.3093
+this_run,a53e063b0,explorer-w01-e,13,85524,0.02729,0.3366
+this_run,a53e063b0,explorer-w01-e,14,87325,0.02168,0.3582
+this_run,a53e063b0,explorer-w01-e,15,89535,0.02303,0.3813
+this_run,a53e063b0,explorer-w01-e,16,91419,0.02265,0.4039
+this_run,a53e063b0,explorer-w01-e,17,93617,0.02386,0.4278
+this_run,a53e063b0,explorer-w01-e,18,96365,0.02568,0.4535
+this_run,a53e063b0,explorer-w01-e,19,98026,0.02346,0.4769
+this_run,a53e063b0,explorer-w01-e,20,99697,0.02382,0.5007
+this_run,a53e063b0,explorer-w01-e,21,100839,0.02285,0.5236
+this_run,a53e063b0,explorer-w01-e,22,103612,0.02718,0.5508
+this_run,a53e063b0,explorer-w01-e,23,104511,0.02317,0.574
+this_run,a53e063b0,explorer-w01-e,24,105486,0.02342,0.5974
+this_run,a53e063b0,explorer-w01-e,25,107543,0.02627,0.6236
+this_run,a53e063b0,explorer-w01-e,26,109310,0.02601,0.6497
+this_run,a53e063b0,explorer-w01-e,27,122967,0.05609,0.7057
+this_run,a53e063b0,explorer-w01-e,28,126742,0.03406,0.7398
+this_run,a53e063b0,explorer-w01-e,29,129600,0.03253,0.7723
+this_run,a53e063b0,explorer-w01-e,30,130921,0.02929,0.8016
+this_run,a53e063b0,explorer-w01-e,31,133433,0.03255,0.8342
+this_run,a53e063b0,explorer-w01-e,32,135854,0.03282,0.867
+this_run,a53e063b0,explorer-w01-e,33,139274,0.0358,0.9028
+this_run,a53e063b0,explorer-w01-e,34,150791,0.05668,0.9595
+this_run,a53e063b0,explorer-w01-e,35,152408,0.03837,0.9979
+this_run,a53e063b0,explorer-w01-e,36,153724,0.03402,1.0319
+this_run,a53e063b0,explorer-w01-e,37,156785,0.0386,1.0705
+this_run,a53e063b0,explorer-w01-e,38,157989,0.0344,1.1049
+this_run,a53e063b0,explorer-w01-e,39,160550,0.03808,1.143
+this_run,a53e063b0,explorer-w01-e,40,162582,0.03727,1.1802
+this_run,a53e063b0,explorer-w01-e,41,175254,0.06424,1.2445
+this_run,a53e063b0,explorer-w01-e,42,176037,0.03704,1.2815
+this_run,a53e063b0,explorer-w01-e,43,177897,0.0399,1.3214
+this_run,a53e063b0,explorer-w01-e,44,179050,0.03855,1.36
+this_run,a53e063b0,explorer-w01-e,45,180749,0.04014,1.4001
+this_run,a53e063b0,explorer-w01-e,46,182209,0.03985,1.44
+this_run,a53e063b0,explorer-w01-e,47,194559,0.06741,1.5074
+this_run,a53e063b0,explorer-w01-e,48,214255,0.08819,1.5955
+this_run,a53e063b0,explorer-w01-e,49,216932,0.04979,1.6453
+this_run,a6a6066b7,explorer-w01-f,1,23692,0.06479,0.0648
+this_run,a6a6066b7,explorer-w01-f,2,44455,0.05681,0.1216
+this_run,a6a6066b7,explorer-w01-f,3,52632,0.0295,0.1511
+this_run,a6a6066b7,explorer-w01-f,4,57240,0.02208,0.1732
+this_run,a6a6066b7,explorer-w01-f,5,74460,0.05458,0.2278
+this_run,a6a6066b7,explorer-w01-f,6,85297,0.04216,0.2699
+this_run,a6a6066b7,explorer-w01-f,7,91163,0.03178,0.3017
+this_run,a6a6066b7,explorer-w01-f,8,92186,0.02099,0.3227
+this_run,a6a6066b7,explorer-w01-f,9,96187,0.02848,0.3512
+this_run,a6a6066b7,explorer-w01-f,10,125407,0.09232,0.4435
+this_run,a6a6066b7,explorer-w01-f,11,128765,0.03368,0.4772
+this_run,a6a6066b7,explorer-w01-f,12,134783,0.04083,0.518
+this_run,a6a6066b7,explorer-w01-f,13,139229,0.03811,0.5561
+this_run,a6a6066b7,explorer-w01-f,14,141007,0.03236,0.5885
+this_run,a6a6066b7,explorer-w01-f,15,142922,0.03303,0.6215
+this_run,a6a6066b7,explorer-w01-f,16,154185,0.05683,0.6783
+this_run,a6a6066b7,explorer-w01-f,17,156943,0.0378,0.7161
+this_run,a6a6066b7,explorer-w01-f,18,163255,0.04723,0.7634
+this_run,a6a6066b7,explorer-w01-f,19,166368,0.04047,0.8038
+this_run,a6a6066b7,explorer-w01-f,20,172794,0.04941,0.8532
+this_run,a6a6066b7,explorer-w01-f,21,184964,0.06507,0.9183
+this_run,a6a6066b7,explorer-w01-f,22,185930,0.03961,0.9579
+this_run,a6a6066b7,explorer-w01-f,23,186808,0.03946,0.9974
+this_run,a6a6066b7,explorer-w01-f,24,189633,0.04448,1.0419
+this_run,a6a6066b7,explorer-w01-f,25,194194,0.04936,1.0912
+this_run,a6a6066b7,explorer-w01-f,26,195022,0.04094,1.1322
+this_run,a6a6066b7,explorer-w01-f,27,196223,0.04221,1.1744
+this_run,a6a6066b7,explorer-w01-f,28,208167,0.06919,1.2436
+this_run,a6a6066b7,explorer-w01-f,29,210255,0.04694,1.2905
+this_run,a6a6066b7,explorer-w01-f,30,211274,0.04464,1.3351
+this_run,a6a6066b7,explorer-w01-f,31,212493,0.04541,1.3805
+this_run,a6a6066b7,explorer-w01-f,32,225837,0.07592,1.4565
+this_run,a6a6066b7,explorer-w01-f,33,227450,0.04927,1.5057
+this_run,a6a6066b7,explorer-w01-f,34,256175,0.11739,1.6231
+this_run,a6a6066b7,explorer-w01-f,35,257337,0.05422,1.6774
+this_run,a6a6066b7,explorer-w01-f,36,259396,0.0567,1.7341
+this_run,a6a6066b7,explorer-w01-f,37,261137,0.05627,1.7903
+this_run,a6a6066b7,explorer-w01-f,38,273153,0.0823,1.8726
+this_run,a6a6066b7,explorer-w01-f,39,275880,0.06153,1.9341
+this_run,a6a6066b7,explorer-w01-f,40,278172,0.06099,1.9951
+this_run,a6a6066b7,explorer-w01-f,41,291949,0.09016,2.0853
+this_run,a6a6066b7,explorer-w01-f,42,295493,0.06728,2.1526
+this_run,a6a6066b7,explorer-w01-f,43,296691,0.06213,2.2147
+this_run,a6a6066b7,explorer-w01-f,44,297668,0.17338,2.3881
+this_run,a6a6066b7,explorer-w01-f,45,308904,0.11231,2.5004
+this_run,a6a6066b7,explorer-w01-f,46,311495,0.06833,2.5687
+this_run,a701db132,author-w01-3,1,24281,0.05144,0.0514
+this_run,a701db132,author-w01-3,2,53880,0.07907,0.1305
+this_run,a701db132,author-w01-3,3,57997,0.02127,0.1518
+this_run,a701db132,author-w01-3,4,61269,0.01998,0.1718
+this_run,a701db132,author-w01-3,5,68843,0.03127,0.203
+this_run,a701db132,author-w01-3,6,71274,0.01992,0.223
+this_run,a701db132,author-w01-3,7,76275,0.02684,0.2498
+this_run,a701db132,author-w01-3,8,82668,0.03132,0.2811
+this_run,a701db132,author-w01-3,9,84282,0.02065,0.3018
+this_run,a701db132,author-w01-3,10,85131,0.01901,0.3208
+this_run,a701db132,author-w01-3,11,88468,0.02545,0.3462
+this_run,a701db132,author-w01-3,12,90158,0.022,0.3682
+this_run,a701db132,author-w01-3,13,91259,0.02082,0.3891
+this_run,a701db132,author-w01-3,14,93183,0.0231,0.4121
+this_run,a701db132,author-w01-3,15,95667,0.02487,0.437
+this_run,a701db132,author-w01-3,16,99651,0.02914,0.4662
+this_run,a701db132,author-w01-3,17,115796,0.06038,0.5265
+this_run,a701db132,author-w01-3,18,118666,0.03042,0.557
+this_run,a701db132,author-w01-3,19,120245,0.02774,0.5847
+this_run,a701db132,author-w01-3,20,133415,0.05702,0.6417
+this_run,a701db132,author-w01-3,21,135690,0.03242,0.6741
+this_run,a701db132,author-w01-3,22,138672,0.11662,0.7908
+this_run,a701db132,author-w01-3,23,157562,0.07499,0.8657
+this_run,a701db132,author-w01-3,24,159459,0.0363,0.902
+this_run,a701db132,author-w01-3,25,171214,0.06131,0.9634
+this_run,a701db132,author-w01-3,26,187766,0.07568,1.039
+this_run,a701db132,author-w01-3,27,192886,0.05044,1.0895
+this_run,a701db132,author-w01-3,28,210382,0.08235,1.1718
+this_run,a701db132,author-w01-3,29,212200,0.0467,1.2185
+this_run,a701db132,author-w01-3,30,214280,0.04766,1.2662
+this_run,a93c828c5,author-w01-4,1,24371,0.05487,0.0549
+this_run,a93c828c5,author-w01-4,2,33770,0.02854,0.0834
+this_run,a93c828c5,author-w01-4,3,40903,0.02475,0.1082
+this_run,a93c828c5,author-w01-4,4,42072,0.01131,0.1195
+this_run,a93c828c5,author-w01-4,5,43431,0.0119,0.1314
+this_run,a93c828c5,author-w01-4,6,44087,0.01054,0.1419
+this_run,a93c828c5,author-w01-4,7,47117,0.0166,0.1585
+this_run,a93c828c5,author-w01-4,8,48587,0.01318,0.1717
+this_run,a93c828c5,author-w01-4,9,53355,0.02172,0.1934
+this_run,a93c828c5,author-w01-4,10,58170,0.02279,0.2162
+this_run,a93c828c5,author-w01-4,11,63416,0.02608,0.2423
+this_run,a93c828c5,author-w01-4,12,66927,0.02151,0.2638
+this_run,a93c828c5,author-w01-4,13,67466,0.01477,0.2785
+this_run,a93c828c5,author-w01-4,14,68164,0.01532,0.2939
+this_run,a93c828c5,author-w01-4,15,70255,0.01894,0.3128
+this_run,a93c828c5,author-w01-4,16,75373,0.02688,0.3397
+this_run,a93c828c5,author-w01-4,17,84923,0.03899,0.3787
+this_run,a93c828c5,author-w01-4,18,86268,0.02041,0.3991
+this_run,a93c828c5,author-w01-4,19,88445,0.02275,0.4218
+this_run,a93c828c5,author-w01-4,20,103202,0.05462,0.4765
+this_run,a93c828c5,author-w01-4,21,105449,0.02629,0.5028
+this_run,a93c828c5,author-w01-4,22,117365,0.05091,0.5537
+this_run,a93c828c5,author-w01-4,23,118044,0.02521,0.5789
+this_run,a93c828c5,author-w01-4,24,118996,0.02607,0.605
+this_run,a93c828c5,author-w01-4,25,123139,0.03424,0.6392
+this_run,a93c828c5,author-w01-4,26,125598,0.03088,0.6701
+this_run,a93c828c5,author-w01-4,27,125902,0.02596,0.696
+this_run,a93c828c5,author-w01-4,28,137517,0.05427,0.7503
+this_run,a93c828c5,author-w01-4,29,138999,0.03124,0.7815
+this_run,a93c828c5,author-w01-4,30,140145,0.0307,0.8122
+this_run,a93c828c5,author-w01-4,31,141535,0.03159,0.8438
+this_run,a93c828c5,author-w01-4,32,145648,0.03865,0.8825
+this_run,a93c828c5,author-w01-4,33,158080,0.06024,0.9427
+this_run,a93c828c5,author-w01-4,34,160260,0.03712,0.9799
+this_run,a93c828c5,author-w01-4,35,172163,0.06189,1.0417
+this_run,a9745700a,author-w01-5,1,24342,0.05159,0.0516
+this_run,a9745700a,author-w01-5,2,31985,0.02414,0.0757
+this_run,a9745700a,author-w01-5,3,41039,0.02921,0.1049
+this_run,a9745700a,author-w01-5,4,49161,0.02859,0.1335
+this_run,a9745700a,author-w01-5,5,53752,0.02134,0.1549
+this_run,a9745700a,author-w01-5,6,55828,0.01602,0.1709
+this_run,a9745700a,author-w01-5,7,58951,0.019,0.1899
+this_run,a9745700a,author-w01-5,8,60178,0.01494,0.2048
+this_run,a9745700a,author-w01-5,9,66805,0.02864,0.2335
+this_run,a9745700a,author-w01-5,10,73229,0.02945,0.2629
+this_run,a9745700a,author-w01-5,11,77883,0.02631,0.2892
+this_run,a9745700a,author-w01-5,12,83761,0.03036,0.3196
+this_run,a9745700a,author-w01-5,13,85104,0.02017,0.3398
+this_run,a9745700a,author-w01-5,14,86145,0.01965,0.3594
+this_run,a9745700a,author-w01-5,15,89746,0.02632,0.3857
+this_run,a9745700a,author-w01-5,16,131496,0.26147,0.6472
+this_run,a9745700a,author-w01-5,17,156098,0.08801,0.7352
+this_run,a9745700a,author-w01-5,18,157194,0.03404,0.7692
+this_run,a9745700a,author-w01-5,19,173549,0.10289,0.8721
+this_run,a9745700a,author-w01-5,20,179493,0.04965,0.9218
+this_run,a9745700a,author-w01-5,21,181726,0.04153,0.9633
+this_run,a9745700a,author-w01-5,22,183864,0.04177,1.0051
+this_run,a9745700a,author-w01-5,23,185377,0.04059,1.0457
+this_run,a9745700a,author-w01-5,24,198106,0.08139,1.1271
+this_run,a9745700a,author-w01-5,25,199527,0.04338,1.1705
+this_run,a9745700a,author-w01-5,26,200866,0.04332,1.2138
+this_run,a9745700a,author-w01-5,27,204576,0.10006,1.3138
+this_run,a9745700a,author-w01-5,28,220311,0.08033,1.3942
+this_run,a9745700a,author-w01-5,29,221271,0.04653,1.4407
+this_run,a9745700a,author-w01-5,30,222721,0.06277,1.5035
+this_run,a9745700a,author-w01-5,31,224324,0.04872,1.5522
+this_run,a996dba29,explorer-w01-d,1,23472,0.05876,0.0588
+this_run,a996dba29,explorer-w01-d,2,30472,0.02236,0.0811
+this_run,a996dba29,explorer-w01-d,3,32781,0.01207,0.0932
+this_run,a996dba29,explorer-w01-d,4,35906,0.01445,0.1076
+this_run,a996dba29,explorer-w01-d,5,43334,0.02578,0.1334
+this_run,a996dba29,explorer-w01-d,6,44818,0.01241,0.1458
+this_run,a996dba29,explorer-w01-d,7,56687,0.03867,0.1845
+this_run,a996dba29,explorer-w01-d,8,63449,0.02832,0.2128
+this_run,a996dba29,explorer-w01-d,9,65304,0.01736,0.2302
+this_run,a996dba29,explorer-w01-d,10,67299,0.01809,0.2483
+this_run,a996dba29,explorer-w01-d,11,68841,0.01734,0.2656
+this_run,a996dba29,explorer-w01-d,12,72925,0.02401,0.2896
+this_run,a996dba29,explorer-w01-d,13,79360,0.03074,0.3204
+this_run,a996dba29,explorer-w01-d,14,84867,0.02967,0.35
+this_run,a996dba29,explorer-w01-d,15,89651,0.02898,0.379
+this_run,a996dba29,explorer-w01-d,16,95116,0.03163,0.4106
+this_run,a996dba29,explorer-w01-d,17,99624,0.03033,0.441
+this_run,a996dba29,explorer-w01-d,18,104300,0.0317,0.4727
+this_run,a996dba29,explorer-w01-d,19,117401,0.05365,0.5263
+this_run,a996dba29,explorer-w01-d,20,120003,0.03007,0.5564
+this_run,a996dba29,explorer-w01-d,21,123299,0.0323,0.5887
+this_run,a996dba29,explorer-w01-d,22,126713,0.03322,0.6219
+this_run,a996dba29,explorer-w01-d,23,127436,0.02723,0.6491
+this_run,a996dba29,explorer-w01-d,24,130055,0.03206,0.6812
+this_run,a996dba29,explorer-w01-d,25,139946,0.05084,0.732
+this_run,a996dba29,explorer-w01-d,26,152784,0.06014,0.7922
+this_run,a996dba29,explorer-w01-d,27,154652,0.03526,0.8274
+this_run,a996dba29,explorer-w01-d,28,158052,0.03949,0.8669
+this_run,a996dba29,explorer-w01-d,29,185130,0.09934,0.9663
+this_run,a996dba29,explorer-w01-d,30,186058,0.03943,1.0057
+this_run,a996dba29,explorer-w01-d,31,202739,0.07894,1.0846
+this_run,a996dba29,explorer-w01-d,32,220102,0.084,1.1686
+this_run,a996dba29,explorer-w01-d,33,221323,0.04716,1.2158
+this_run,a996dba29,explorer-w01-d,34,223567,0.04992,1.2657
+this_run,a996dba29,explorer-w01-d,35,228240,0.05648,1.3222
+this_run,a996dba29,explorer-w01-d,36,241551,0.07901,1.4012
+this_run,a996dba29,explorer-w01-d,37,243168,0.05239,1.4536
+this_run,a996dba29,explorer-w01-d,38,246997,0.05825,1.5118
+this_run,a996dba29,explorer-w01-d,39,247866,0.05166,1.5635
+this_run,a996dba29,explorer-w01-d,40,248920,0.05225,1.6157
+this_run,a996dba29,explorer-w01-d,41,250526,0.05383,1.6696
+this_run,a996dba29,explorer-w01-d,42,251795,0.05332,1.7229
+this_run,a996dba29,explorer-w01-d,43,253266,0.05407,1.777
+this_run,a996dba29,explorer-w01-d,44,255302,0.05595,1.8329
+this_run,a996dba29,explorer-w01-d,45,256747,0.0559,1.8888
+this_run,a996dba29,explorer-w01-d,46,258212,0.05509,1.9439
+this_run,a996dba29,explorer-w01-d,47,260661,0.0578,2.0017
+this_run,a996dba29,explorer-w01-d,48,267298,0.06876,2.0704
+this_run,a996dba29,explorer-w01-d,49,268624,0.05682,2.1273
+this_run,a996dba29,explorer-w01-d,50,270212,0.05778,2.185
+this_run,a996dba29,explorer-w01-d,51,272883,0.0608,2.2458
+this_run,a996dba29,explorer-w01-d,52,274054,0.05756,2.3034
+this_run,a996dba29,explorer-w01-d,53,274765,0.05679,2.3602
+this_run,a996dba29,explorer-w01-d,54,275981,0.05808,2.4183
+this_run,a996dba29,explorer-w01-d,55,277668,0.05945,2.4777
+this_run,a996dba29,explorer-w01-d,56,279614,0.06046,2.5382
+this_run,a996dba29,explorer-w01-d,57,280449,0.05809,2.5963
+this_run,a996dba29,explorer-w01-d,58,281481,0.15875,2.755
+this_run,a996dba29,explorer-w01-d,59,291565,0.11532,2.8703
+this_run,a996dba29,explorer-w01-d,60,295069,0.06716,2.9375
+this_run,a996dba29,explorer-w01-d,61,296922,0.06369,3.0012
+this_run,a996dba29,explorer-w01-d,62,298461,0.06348,3.0647
+this_run,aa70e320b,author-w01-6,1,24701,0.05012,0.0501
+this_run,aa70e320b,author-w01-6,2,30879,0.0206,0.0707
+this_run,aa70e320b,author-w01-6,3,40212,0.02971,0.1004
+this_run,aa70e320b,author-w01-6,4,49866,0.03238,0.1328
+this_run,aa70e320b,author-w01-6,5,54256,0.02103,0.1538
+this_run,aa70e320b,author-w01-6,6,60540,0.02676,0.1806
+this_run,aa70e320b,author-w01-6,7,63725,0.02015,0.2008
+this_run,aa70e320b,author-w01-6,8,74733,0.04034,0.2411
+this_run,aa70e320b,author-w01-6,9,75784,0.01767,0.2588
+this_run,aa70e320b,author-w01-6,10,83776,0.03522,0.294
+this_run,aa70e320b,author-w01-6,11,89216,0.03044,0.3244
+this_run,aa70e320b,author-w01-6,12,93366,0.02826,0.3527
+this_run,aa70e320b,author-w01-6,13,109581,0.05924,0.4119
+this_run,aa70e320b,author-w01-6,14,112418,0.03122,0.4432
+this_run,aa70e320b,author-w01-6,15,125478,0.05518,0.4983
+this_run,aa70e320b,author-w01-6,16,143773,0.07086,0.5692
+this_run,aa70e320b,author-w01-6,17,145122,0.03218,0.6014
+this_run,aa70e320b,author-w01-6,18,147087,0.03402,0.6354
+this_run,aa70e320b,author-w01-6,19,158920,0.05903,0.6944
+this_run,ab6cc5582,author-w01-1,1,24492,0.05197,0.052
+this_run,ab6cc5582,author-w01-1,2,33701,0.02808,0.0801
+this_run,ab6cc5582,author-w01-1,3,49150,0.04541,0.1255
+this_run,ab6cc5582,author-w01-1,4,53176,0.01998,0.1454
+this_run,ab6cc5582,author-w01-1,5,56304,0.01856,0.164
+this_run,ab6cc5582,author-w01-1,6,57795,0.01507,0.1791
+this_run,ab6cc5582,author-w01-1,7,68913,0.03943,0.2185
+this_run,ab6cc5582,author-w01-1,8,69346,0.01507,0.2336
+this_run,ab6cc5582,author-w01-1,9,71616,0.01962,0.2532
+this_run,ab6cc5582,author-w01-1,10,72638,0.0169,0.2701
+this_run,ab6cc5582,author-w01-1,11,88984,0.05543,0.3255
+this_run,ab6cc5582,author-w01-1,12,92550,0.0268,0.3523
+this_run,ab6cc5582,author-w01-1,13,95812,0.02675,0.3791
+this_run,ab6cc5582,author-w01-1,14,108253,0.0503,0.4294
+this_run,ab6cc5582,author-w01-1,15,109054,0.0237,0.4531
+this_run,ab6cc5582,author-w01-1,16,109502,0.02313,0.4762
+this_run,ab6cc5582,author-w01-1,17,110476,0.02442,0.5006
+this_run,ab6cc5582,author-w01-1,18,112275,0.02668,0.5273
+this_run,ab6cc5582,author-w01-1,19,124428,0.05292,0.5802
+this_run,ab6cc5582,author-w01-1,20,125000,0.10001,0.6802
+this_run,ab6cc5582,author-w01-1,21,143062,0.07019,0.7504
+this_run,ab6cc5582,author-w01-1,22,144172,0.03145,0.7818
+this_run,ab6cc5582,author-w01-1,23,156862,0.06062,0.8425
+this_run,ac6c27171,explorer-w01-b,1,23481,0.05879,0.0588
+this_run,ac6c27171,explorer-w01-b,2,31003,0.02366,0.0825
+this_run,ac6c27171,explorer-w01-b,3,34048,0.01399,0.0964
+this_run,ac6c27171,explorer-w01-b,4,38027,0.01679,0.1132
+this_run,ac6c27171,explorer-w01-b,5,41487,0.01634,0.1296
+this_run,ac6c27171,explorer-w01-b,6,59073,0.05235,0.1819
+this_run,ac6c27171,explorer-w01-b,7,60960,0.01662,0.1985
+this_run,ac6c27171,explorer-w01-b,8,64861,0.02203,0.2206
+this_run,ac6c27171,explorer-w01-b,9,66006,0.01592,0.2365
+this_run,ac6c27171,explorer-w01-b,10,69737,0.02259,0.2591
+this_run,ac6c27171,explorer-w01-b,11,81955,0.04458,0.3036
+this_run,ac6c27171,explorer-w01-b,12,84748,0.02346,0.3271
+this_run,ac6c27171,explorer-w01-b,13,86294,0.0209,0.348
+this_run,ac6c27171,explorer-w01-b,14,88604,0.02311,0.3711
+this_run,ac6c27171,explorer-w01-b,15,91761,0.02568,0.3968
+this_run,ac6c27171,explorer-w01-b,16,92861,0.02118,0.418
+this_run,ac6c27171,explorer-w01-b,17,98493,0.03274,0.4507
+this_run,ac6c27171,explorer-w01-b,18,100249,0.02417,0.4749
+this_run,ac6c27171,explorer-w01-b,19,101714,0.11146,0.5863
+this_run,ac6c27171,explorer-w01-b,20,121178,0.06921,0.6555
+this_run,ac6c27171,explorer-w01-b,21,121415,0.0249,0.6804
+this_run,ac6c27171,explorer-w01-b,22,125062,0.03347,0.7139
+this_run,ac6c27171,explorer-w01-b,23,127169,0.0303,0.7442
+this_run,ac6c27171,explorer-w01-b,24,132601,0.03908,0.7833
+this_run,ac6c27171,explorer-w01-b,25,144847,0.05722,0.8405
+this_run,ac6c27171,explorer-w01-b,26,145796,0.03139,0.8719
+this_run,ac6c27171,explorer-w01-b,27,147687,0.03395,0.9058
+this_run,ac6c27171,explorer-w01-b,28,150637,0.037,0.9428
+this_run,ac6c27171,explorer-w01-b,29,152929,0.03591,0.9788
+this_run,ac6c27171,explorer-w01-b,30,157530,0.04212,1.0209
+this_run,ac6c27171,explorer-w01-b,31,165574,0.05168,1.0726
+this_run,ac6c27171,explorer-w01-b,32,183148,0.07707,1.1496
+this_run,ac6c27171,explorer-w01-b,33,185939,0.04369,1.1933
+this_run,ac6c27171,explorer-w01-b,34,188257,0.04308,1.2364
+this_run,ac6c27171,explorer-w01-b,35,191020,0.04459,1.281
+this_run,ac6c27171,explorer-w01-b,36,194185,0.04616,1.3271
+this_run,ac6c27171,explorer-w01-b,37,210415,0.07948,1.4066
+this_run,ac6c27171,explorer-w01-b,38,213930,0.0509,1.4575
+this_run,ac6c27171,explorer-w01-b,39,217633,0.05212,1.5096
+this_run,ac6c27171,explorer-w01-b,40,229703,0.07376,1.5834
+this_run,ac6c27171,explorer-w01-b,41,232492,0.05296,1.6364
+this_run,ac6c27171,explorer-w01-b,42,235973,0.05523,1.6916
+this_run,ac6c27171,explorer-w01-b,43,237082,0.05232,1.7439
+this_run,ac6c27171,explorer-w01-b,44,237433,0.0485,1.7924
+this_run,ac6c27171,explorer-w01-b,45,242285,0.0597,1.8521
+this_run,ac6c27171,explorer-w01-b,46,254845,0.07992,1.932
+this_run,ac6c27171,explorer-w01-b,47,261698,0.06815,2.0002
+this_run,ac6c27171,explorer-w01-b,48,265292,0.06137,2.0615
+this_run,ac6c27171,explorer-w01-b,49,266866,0.05708,2.1186
+this_run,ac6c27171,explorer-w01-b,50,279232,0.08436,2.203
+this_run,ac6c27171,explorer-w01-b,51,280543,0.05916,2.2621
+this_run,ac6c27171,explorer-w01-b,52,281702,0.05908,2.3212
+this_run,ac6c27171,explorer-w01-b,53,284040,0.06223,2.3834
+this_run,ac6c27171,explorer-w01-b,54,286438,0.06284,2.4463
+this_run,ac6c27171,explorer-w01-b,55,288155,0.06166,2.5079
+this_run,ac6c27171,explorer-w01-b,56,290738,0.06417,2.5721
+this_run,ac6c27171,explorer-w01-b,57,293458,0.06505,2.6372
+this_run,ac6c27171,explorer-w01-b,58,296285,0.0658,2.703
+this_run,ac6c27171,explorer-w01-b,59,297925,0.06344,2.7664
+this_run,ac6c27171,explorer-w01-b,60,300059,0.065,2.8314
+this_run,ac6c27171,explorer-w01-b,61,301857,0.14722,2.9786
+this_run,ac6c27171,explorer-w01-b,62,310465,0.08196,3.0606
+this_run,af01bccf4,explorer-w01-a,1,23567,0.06212,0.0621
+this_run,af01bccf4,explorer-w01-a,2,51934,0.0758,0.1379
+this_run,af01bccf4,explorer-w01-a,3,53866,0.01538,0.1533
+this_run,af01bccf4,explorer-w01-a,4,59578,0.02514,0.1784
+this_run,af01bccf4,explorer-w01-a,5,61957,0.0179,0.1963
+this_run,af01bccf4,explorer-w01-a,6,63713,0.01687,0.2132
+this_run,af01bccf4,explorer-w01-a,7,76722,0.0453,0.2585
+this_run,af01bccf4,explorer-w01-a,8,80395,0.02456,0.2831
+this_run,af01bccf4,explorer-w01-a,9,83038,0.02277,0.3058
+this_run,af01bccf4,explorer-w01-a,10,84608,0.02074,0.3266
+this_run,af01bccf4,explorer-w01-a,11,87403,0.02401,0.3506
+this_run,af01bccf4,explorer-w01-a,12,90094,0.02425,0.3748
+this_run,af01bccf4,explorer-w01-a,13,94350,0.0287,0.4035
+this_run,af01bccf4,explorer-w01-a,14,98657,0.02973,0.4333
+this_run,af01bccf4,explorer-w01-a,15,102312,0.0289,0.4622
+this_run,af01bccf4,explorer-w01-a,16,103299,0.02299,0.4852
+this_run,af01bccf4,explorer-w01-a,17,104289,0.02324,0.5084
+this_run,af01bccf4,explorer-w01-a,18,109780,0.03462,0.543
+this_run,af01bccf4,explorer-w01-a,19,113275,0.03073,0.5737
+this_run,af01bccf4,explorer-w01-a,20,125575,0.05349,0.6272
+this_run,af01bccf4,explorer-w01-a,21,126759,0.16965,0.7969
+this_run,af01bccf4,explorer-w01-a,22,151606,0.08767,0.8846
+this_run,af01bccf4,explorer-w01-a,23,152529,0.03271,0.9173
+this_run,af01bccf4,explorer-w01-a,24,155661,0.03842,0.9557
+this_run,af01bccf4,explorer-w01-a,25,159083,0.03979,0.9955
+this_run,af01bccf4,explorer-w01-a,26,172757,0.06608,1.0616
+this_run,af01bccf4,explorer-w01-a,27,174705,0.03945,1.101
+this_run,af01bccf4,explorer-w01-a,28,178648,0.04484,1.1458
+this_run,af01bccf4,explorer-w01-a,29,181201,0.04215,1.188
+this_run,af01bccf4,explorer-w01-a,30,193838,0.06791,1.2559
+this_run,af01bccf4,explorer-w01-a,31,196903,0.04651,1.3024
+this_run,af01bccf4,explorer-w01-a,32,198719,0.044,1.3464
+this_run,af01bccf4,explorer-w01-a,33,201254,0.04611,1.3925
+this_run,af01bccf4,explorer-w01-a,34,213411,0.07068,1.4632
+this_run,af01bccf4,explorer-w01-a,35,216418,0.05028,1.5135
+this_run,af01bccf4,explorer-w01-a,36,221416,0.05586,1.5694
+this_run,af01bccf4,explorer-w01-a,37,222653,0.04746,1.6168
+this_run,af01bccf4,explorer-w01-a,38,223533,0.04677,1.6636
+this_run,af01bccf4,explorer-w01-a,39,237853,0.08055,1.7441
+this_run,af01bccf4,explorer-w01-a,40,240625,0.05458,1.7987
+this_run,af01bccf4,explorer-w01-a,41,254937,0.08397,1.8827
+this_run,af01bccf4,explorer-w01-a,42,262231,0.06931,1.952
+this_run,af01bccf4,explorer-w01-a,43,264767,0.05882,2.0108
+this_run,af01bccf4,explorer-w01-a,44,265856,0.0557,2.0665
+this_run,af01bccf4,explorer-w01-a,45,269479,0.0623,2.1288
+this_run,af01bccf4,explorer-w01-a,46,275083,0.06799,2.1968
+this_run,af01bccf4,explorer-w01-a,47,277834,0.06193,2.2587
+this_run,af01bccf4,explorer-w01-a,48,280292,0.06178,2.3205
+this_run,af01bccf4,explorer-w01-a,49,281890,0.06014,2.3806
+this_run,af01bccf4,explorer-w01-a,50,284418,0.13432,2.515
+this_run,af01bccf4,explorer-w01-a,51,291656,0.07501,2.59
+this_run,af01bccf4,explorer-w01-a,52,292676,0.06112,2.6511

@@ -1,0 +1,26 @@
+{
+ "before": {
+  "files": 1190,
+  "by_kind": {
+   "raw/derived/runs/generated dir": 624,
+   "py": 207,
+   "txt": 126,
+   "md": 80,
+   "handbacks copy": 65,
+   "json": 64,
+   "sh": 24
+  }
+ },
+ "after": {
+  "files": 513,
+  "by_kind": {
+   "py": 205,
+   "md": 111,
+   "txt": 98,
+   "json": 55,
+   "sh": 24,
+   "raw/derived/runs/generated dir": 20
+  }
+ },
+ "note": "a non-git copy of __reports__/reflective_run, files listed by colgrep; after = with the .ignore block of lab_init.py at its root"
+}

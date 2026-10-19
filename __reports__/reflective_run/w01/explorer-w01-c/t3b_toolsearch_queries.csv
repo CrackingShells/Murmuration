@@ -1,0 +1,45 @@
+group,agent_key,agent_desc,ts,query,n_refs_returned
+genesis/PI,main,,2026-10-18T03:22:54.805Z,"select:mcp__WolframToolkit__WolframLanguageEvaluator,mcp__WolframToolkit__WriteNotebook,mcp__WolframToolkit__ReadNotebook,mcp__plugin_colgrep-mcp_colgrep__index_build,mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__index_status",6
+genesis/PI,main,,2026-10-18T03:41:25.609Z,select:SendMessage,1
+genesis/PI,main,,2026-10-18T04:11:05.800Z,select:mcp__ddg__search,1
+genesis/PI,main,,2026-10-18T05:26:10.798Z,select:mcp__ccd_session__start_session,1
+genesis/PI,main,,2026-10-18T08:02:37.829Z,"select:CronList,CronDelete",2
+genesis/PI,main,,2026-10-18T09:26:49.305Z,arxiv deep paper analysis,5
+genesis/PI,main,,2026-10-18T15:11:13.444Z,"select:mcp__macOS_Calendar___Reminders__list_calendars,mcp__macOS_Calendar___Reminders__create_reminders_batch,mcp__macOS_Calendar___Reminders__complete_reminder,mcp__macOS_Calendar___Reminders__search_reminders,mcp__macOS_Calendar___Reminders__create_calendar",5
+genesis/PI,main,,2026-10-18T15:11:31.429Z,"select:mcp__ccd_session_mgmt__list_sessions,mcp__ccd_session_mgmt__get_session",2
+genesis/PI,main,,2026-10-18T15:17:51.062Z,select:mcp__macOS_Calendar___Reminders__update_reminder,1
+genesis/worker(general-purpose),a04ebecba85274ac9,Generative space atlas of fixed G,2026-10-18T03:37:46.083Z,"select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__WolframToolkit__WolframLanguageEvaluator",2
+genesis/worker(general-purpose),a200b6a79312b3850,Foundations theory Q1 Q2 with Wolfram,2026-10-18T03:26:14.082Z,select:mcp__WolframToolkit__WolframLanguageEvaluator,1
+genesis/worker(general-purpose),a2f3c738296d98cfc,Build final Wolfram notebook,2026-10-18T05:02:45.762Z,"select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__expand,mcp__WolframToolkit__WolframLanguageEvaluator,mcp__WolframToolkit__WriteNotebook,mcp__WolframToolkit__ReadNotebook",5
+genesis/worker(general-purpose),a33a82c9a9409bebf,Adversarial review of generative-laws proofs,2026-10-18T04:41:11.992Z,"select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__expand,mcp__plugin_colgrep-mcp_colgrep__find_files,mcp__WolframToolkit__WolframLanguageEvaluator",4
+genesis/worker(general-purpose),a3f3fa3fc477f4cd5,Trellis identity vs mapped reads,2026-10-18T03:59:08.844Z,"select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__expand",2
+genesis/worker(general-purpose),a4ad7c71400d5bc3b,Regime A per-target superstring G,2026-10-18T03:59:22.404Z,select:mcp__plugin_colgrep-mcp_colgrep__search,1
+genesis/worker(general-purpose),a5160f9a191c2d1b8,Counsel on publishability of the ω* law,2026-10-18T09:12:45.142Z,+arxiv search,3
+genesis/worker(general-purpose),a5160f9a191c2d1b8,Counsel on publishability of the ω* law,2026-10-18T09:12:45.561Z,+ddg search,3
+genesis/worker(general-purpose),a5160f9a191c2d1b8,Counsel on publishability of the ω* law,2026-10-18T09:15:30.385Z,select:mcp__arxiv__read_paper,1
+genesis/worker(general-purpose),a74632da2578bd7ff,Name the generative objects,2026-10-18T03:59:08.307Z,"select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__expand,mcp__plugin_colgrep-mcp_colgrep__find_files",3
+genesis/worker(general-purpose),a74632da2578bd7ff,Name the generative objects,2026-10-18T04:04:52.171Z,"select:mcp__ddg__search,WebSearch",2
+genesis/worker(general-purpose),a807fe2b5e7aa786f,Reproduce superstring and trellis results,2026-10-18T04:39:17.615Z,select:Monitor,1
+genesis/worker(general-purpose),a9a7413682b41f7f7,Literature map for sliding-window coding,2026-10-18T03:26:14.933Z,+arxiv search,4
+genesis/worker(general-purpose),a9a7413682b41f7f7,Literature map for sliding-window coding,2026-10-18T03:27:24.307Z,"select:mcp__ddg__search,mcp__ddg__fetch_content",2
+design/PI,main,,2026-10-18T09:15:43.858Z,"select:mcp__ccd_directory__change_directory,mcp__ccd_session_mgmt__list_sessions",2
+design/worker(general-purpose),a1b61307c0917214a,Coin names: classical and technical register,2026-10-18T07:58:24.196Z,select:WebFetch,1
+design/worker(general-purpose),a4b39e783a8705691,Probe agent A (sender),2026-10-18T09:27:48.610Z,select:SendMessage,1
+design/worker(general-purpose),a4c12d60bb3e76003,Wave 1: instrument validation,2026-10-18T09:16:47.827Z,"select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__expand,mcp__plugin_colgrep-mcp_colgrep__find_files",3
+design/worker(general-purpose),a5073b714db47c324,Probe agent B (receiver),2026-10-18T09:27:54.353Z,select:SendMessage,1
+design/worker(general-purpose),ac93fc76807d4702f,Coin names: transmission and disputation traditions,2026-10-18T07:50:15.896Z,"select:WebSearch,WebFetch",2
+design/worker(general-purpose),adceb2615918f1538,Survey benchmarks for research MAS behavior,2026-10-18T07:22:43.417Z,"select:mcp__arxiv__search_papers,mcp__ddg__search,mcp__ddg__fetch_content,WebFetch,WebSearch",5
+design/worker(general-purpose),add2d044c50a6123f,Counsel on information measures for MAS,2026-10-18T08:29:13.828Z,+arxiv search,4
+design/worker(general-purpose),aff153770869d2a23,Wave 1: platform probes,2026-10-18T09:16:47.542Z,"select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__expand,mcp__plugin_colgrep-mcp_colgrep__find_files,SendMessage",4
+design/worker(general-purpose),aff153770869d2a23,Wave 1: platform probes,2026-10-18T09:17:24.954Z,select:WebFetch,1
+design/worker(general-purpose),aff153770869d2a23,Wave 1: platform probes,2026-10-18T09:20:48.279Z,"select:mcp__terminal__run_in_terminal,mcp__terminal__list_terminal_tabs,mcp__terminal__open_terminal_tab",3
+design/worker(general-purpose),aff153770869d2a23,Wave 1: platform probes,2026-10-18T09:35:50.331Z,select:mcp__terminal__stop_terminal_tab,1
+design/worker(general-purpose),aff72ee628b60b2fb,"Build minimal lab scripts, hooks, packaging",2026-10-18T15:47:12.555Z,select:mcp__plugin_colgrep-mcp_colgrep__search,1
+s2947f9dc/PI,main,,2026-10-18T10:49:53.512Z,select:mcp__arxiv__search_papers,1
+s2947f9dc/PI,main,,2026-10-18T10:52:12.281Z,select:mcp__ccd_session__start_session,1
+s2947f9dc/PI,main,,2026-10-18T13:29:54.295Z,"select:mcp__ccd_session__list_start_targets,mcp__plugin_banyan_banyan-hpc__get_facility,mcp__plugin_banyan_banyan-hpc__get_resources",3
+s2947f9dc/PI,main,,2026-10-18T13:40:56.515Z,+banyan hpc run command fs upload submit job status ls,7
+s2947f9dc/PI,main,,2026-10-18T21:27:43.037Z,select:CronList,1
+s2947f9dc/PI,main,,2026-10-19T00:48:32.240Z,select:TaskStop,1
+thisrun/explorer(shipped),a53e063b007b7a428,explorer-w01-e,2026-10-19T02:05:38.575Z,"select:WebFetch,WebSearch",2
+thisrun/explorer(shipped),a6a6066b76cfb02ea,explorer-w01-f,2026-10-19T02:01:50.118Z,"select:WebFetch,mcp__context7__resolve-library-id,mcp__context7__query-docs",3

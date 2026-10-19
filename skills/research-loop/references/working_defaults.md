@@ -17,8 +17,14 @@
   say that; when something is done and verified, say it plainly.
 - Before an action that is hard to reverse or visible outside the project (pushing, publishing,
   sending, deleting data), ask the user and wait for a clear yes.
+- Quote spend and budget use only from `__statera__/harness.jsonl` or `/lab-status`, never from a worker's
+  own figure.
+- A worker that asks for more budget in its hand-back is yours to decide: raise it by resuming it with
+  `Budget: USD <x>` / `Time: min <t>` lines, or let the hand-back stand. Briefs never go below USD 0.30
+  and 3 minutes.
 - Never stop processes by name pattern (`pkill`, `killall`). Stop only the process ids you started.
 - Commit your own files only, with a message that says why. Team members do the same.
+- A scratch lab you will delete: start Claude Code in it with `COLGREP_DATA_DIR=<folder>/.colgrep`.
 - Use whatever search and reference tools the environment offers (semantic code or document
   search, literature search, a computer-algebra system) rather than re-reading whole files.
 - If a persistent memory is available, record there what the user teaches you about how they want

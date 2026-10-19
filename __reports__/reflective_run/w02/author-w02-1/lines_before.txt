@@ -1,0 +1,4 @@
+     880 __reports__/reflective_run/w02/author-w02-1/v6_lab_status.py
+     880 scripts/lab_status.py
+      56 skills/lab-status/SKILL.md
+    1816 total

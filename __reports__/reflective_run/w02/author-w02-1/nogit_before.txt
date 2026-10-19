@@ -1,0 +1,28 @@
+# Lab status
+
+Current wave note: __statera__/wave-01.md
+
+## Open puzzles (0)
+none raised: `__scrupuli__/` holds no puzzles
+
+## Claims (0, 0 disputed, 0 warnings)
+none: `__pondus__/` holds no claim files
+
+## Spend (USD: Claude Code's cost-state where a session has ended, else list price of 2026-10-19)
+TOTAL  USD 1.11   (exact, all sessions ended)
+
+where                                     sessions  agent files  USD   basis
+----------------------------------------  --------  -----------  ----  -----
+this checkout, sessions started below it  30                  6  1.11  exact
+
+agent                             model       msgs  list-price USD  output tokens
+--------------------------------  ----------  ----  --------------  -------------
+main thread                       sonnet-5-5    21            0.49          2,566
+probe:probe-author (main thread)  sonnet-5-5     2            0.15            585
+verifier                          sonnet-5-5     4            0.11            377
+v2                                sonnet-5-5     4           0.11+            88+
+author                            sonnet-5-5     5            0.10            522
+solo                              sonnet-5-5     2            0.09            146
+probe:probe-fm                    sonnet-5-5     2            0.04            198
+main thread                       haiku-5-5     11            0.02          1,741
+`+` = at least: some of that agent's output tokens are stored at their start-of-stream value. Agent rows are priced from transcripts at list price and add up to 1.10 of the 1.11 total above; the rest is what only cost-state records.

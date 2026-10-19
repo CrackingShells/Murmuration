@@ -1,0 +1,13 @@
+session,uuid8,ts_utc,quoted_first_chars,found_in,agent_output_age_min,quote_len_chars,reply_len_chars_truncated_at_420
+G,fa7c006d,2026-10-18T04:10:15,I’m using “scroll” provisionally.,NOT FOUND,,33,302
+G,9cd91bd9,2026-10-18T06:12:19,Applications: the version that works is the scrambled-window trellis a,text,10.0,105,424
+G,835df5bd,2026-10-18T06:28:24,It is the lossless version of the “shared imbrex for a model family” o,NOT FOUND,,126,424
+G,b9d09057,2026-10-18T06:43:35,"You have both gemma-2-2b and gemma-2-2b-it in your Hugging Face cache,",text,14.6,241,428
+G,38205ded,2026-10-18T06:50:44,"The base model is stored in F32 while the instruct model is BF16, so I",NOT FOUND,,254,347
+G,83e43ba0,2026-10-18T07:25:18,checkpoints from one training run and adapters should benefit far more,text,21.8,117,178
+G,939bea68,2026-10-18T08:23:18,Why: the two models learn similar functions but not similar coordinate,text,20.3,281,424
+G,3959fc84,2026-10-18T08:30:57,"I tested it directly: aligning the raw bit sequences, the way genomes ",text,6.5,124,386
+G,87c07414,2026-10-18T09:11:51,"The law behind it: ω* = sign + exponent + min(mantissa bits, log₂(1/dr",text,8.6,160,428
+D,8b8533e8,2026-10-18T06:20:40,The roadmap validator only accepts conventional commit types.,text,10.9,61,428
+D,b3822de3,2026-10-18T06:49:31,"So the change is about attention, not procedure:",text,12.9,48,424
+D,355d9ea5,2026-10-19T01:22:39,Every new session in that folder opens as the PI. The `agent` setting ,text,38.7,134,428

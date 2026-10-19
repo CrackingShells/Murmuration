@@ -1,0 +1,8 @@
+group,Claude_Browser,WolframToolkit,arxiv,builtin,ccd_directory,ccd_session,ccd_session_mgmt,ccd_turn,context7,ddg,macOS_Calendar,plugin_banyan_banyan-hpc,plugin_colgrep-mcp_colgrep,terminal,total
+design/PI,0,0,0,160,1,0,1,29,0,0,0,0,1,0,192
+design/worker(general-purpose),0,0,43,493,0,0,0,0,8,46,0,0,4,2,596
+genesis/PI,0,4,3,201,0,4,2,39,0,3,22,0,2,0,280
+genesis/worker(general-purpose),0,89,60,466,0,0,0,0,0,62,0,0,11,0,688
+s2947f9dc/PI,8,0,2,237,0,4,0,17,0,0,0,4,0,0,272
+thisrun/PI,0,0,0,31,0,1,0,2,0,0,0,0,0,0,34
+thisrun/explorer(shipped),0,0,0,299,0,0,0,0,0,0,0,0,0,0,299

@@ -1,0 +1,2 @@
+ended sessions 307; rows (agent x model) 23; rows marked + by the shipped reader 12, by requestId rule 12
+rows where the mark differs: 0; rows where the count of unfinished requests differs: 0

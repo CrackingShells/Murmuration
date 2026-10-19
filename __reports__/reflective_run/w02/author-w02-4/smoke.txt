@@ -1,0 +1,4 @@
+new_author first_turn_ctx 12161 listing_chars [] preloaded True usd 0.0311
+new_reproducer first_turn_ctx 12029 listing_chars [] preloaded True usd 0.03
+new_proof-adversary first_turn_ctx 12056 listing_chars [] preloaded True usd 0.0302
+ctl_author first_turn_ctx 23284 listing_chars [29919] preloaded True usd 0.0574

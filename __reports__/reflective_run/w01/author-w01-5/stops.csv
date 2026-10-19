@@ -1,0 +1,4 @@
+name,run_id,notice_utc,resume_sent_utc,stranded_s_notice_to_resume,last_agent_record_to_resume_s,turns_before_stop,turns_after_resume,summary
+explorer-w01-c,a1f4458ce,02:11:59.923,02:12:10.798,10.9,12.8,60,3,"Agent ""Tools and MCP usage probe"" stopped at its 60-turn limit (partial result; SendMessag"
+explorer-w01-d,a996dba29,02:17:05.638,02:17:37.562,31.9,33.4,60,2,"Agent ""Human interventions probe"" stopped at its 60-turn limit (partial result; SendMessag"
+explorer-w01-b,ac6c27171,02:12:35.413,02:12:43.123,7.7,9.1,60,2,"Agent ""Communication and parsing probe"" stopped at its 60-turn limit (partial result; Send"

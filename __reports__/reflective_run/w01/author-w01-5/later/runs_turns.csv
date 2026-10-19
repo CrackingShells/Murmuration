@@ -1,0 +1,48 @@
+group,run_id,name,agent_type,role_analogue,model,turns,segments,turns_per_segment,tool_calls,bash_calls,bash_msgs,status,ended_by,hit_limit_notice,wall_s,last_record_utc,in,out,cache_read,cache_write,weighted_in_eq,usd_list
+design,a2e84d18e,,general-purpose,verifier-like,claude-sonnet-5-5,10,1,10,10,8,8,finished,handback,0,57,09:21:02,20,300,661835,41748,119888,0.24
+design,a495c3be0,,claude-code-guide,other,claude-haiku-5-5,3,1,3,9,0,0,finished,handback,0,81,07:24:34,6,16,73303,71381,96643,0.193
+design,a4b39e783,,general-purpose,other,claude-sonnet-5-5,5,2,3/2,4,0,0,finished,handback,0,20,09:28:04,14,542,304117,28894,69253,0.139
+design,a5073b714,,general-purpose,other,claude-sonnet-5-5,4,2,1/3,4,0,0,finished,handback,0,28,09:28:01,10,244,191608,67748,105076,0.21
+design,a8322cae8,,general-purpose,verifier-like,claude-sonnet-5-5,6,1,6,8,5,5,finished,handback,0,49,09:20:54,12,194,369405,45291,94536,0.189
+design,aff72ee62,"Build minimal lab scripts, hooks, packaging",general-purpose,author-like,claude-sonnet-5-5,87,3,40/23/24,90,81,80,finished,handback,0,2187,16:23:23,178,810,16809766,672796,2526200,5.052
+design,af4a86959,Candid review: wash or promise (Fable),general-purpose,other,claude-fable-5-1,6,1,6,11,3,3,finished,handback,0,176,10:06:32,162,9275,497385,127689,255887,0.512
+design,a806fafff,Candid review: wash or promise (Opus),general-purpose,other,claude-opus-5-5,9,1,9,13,5,5,finished,handback,0,140,10:05:57,18,4664,803443,126156,261377,0.885
+design,a1b61307c,Coin names: classical and technical register,general-purpose,other,claude-sonnet-5-5,7,1,7,18,4,4,finished,handback,0,599,08:00:07,14,6554,655611,189528,335255,0.671
+design,ac93fc768,Coin names: transmission and disputation traditions,general-purpose,other,claude-sonnet-5-5,15,1,15,28,11,10,finished,handback,0,889,08:04:57,30,8502,1827152,262177,552976,1.106
+design,ac43197c1,Cold review of shipped Murmuration files,general-purpose,verifier-like,claude-sonnet-5-5,14,1,14,15,13,12,finished,handback,0,301,16:02:18,28,7366,1363438,97422,294979,0.59
+design,add2d044c,Counsel on information measures for MAS,general-purpose,other,claude-fable-5-1,11,1,11,40,8,8,finished,handback,0,444,08:36:24,322,10201,1122009,156533,359194,0.718
+design,a4a2cf879,Expert review of research-lab MAS design,general-purpose,other,claude-fable-5-1,10,1,10,18,7,6,finished,handback,0,406,07:29:24,260,18671,794652,111593,312571,0.625
+design,aab206418,Fetch Claude Code hooks reference,web-fetch,other,claude-opus-5-5,8,1,8,8,0,0,finished,handback,0,175,08:31:54,16,146,393173,119834,189856,0.681
+design,acbce3381,Fetch subagent tools and MCP frontmatter rules,web-fetch,other,claude-opus-5-5,7,1,7,11,0,0,finished,handback,0,120,15:51:40,14,57,402426,158895,239160,0.876
+design,a58d15f92,Second cold review of shipped files,general-purpose,verifier-like,claude-sonnet-5-5,18,1,18,22,15,14,finished,handback,0,361,16:17:23,36,8988,2032155,125731,405355,0.811
+design,adceb2615,Survey benchmarks for research MAS behavior,general-purpose,explorer-like,claude-sonnet-5-5,31,1,31,96,13,13,finished,handback,0,618,07:32:56,62,18919,6296626,288753,1085261,2.171
+design,a4c12d60b,Wave 1: instrument validation,general-purpose,author-like,claude-sonnet-5-5,65,1,65,75,55,54,finished,handback,0,1179,09:36:22,130,38240,12584431,317255,1846342,3.693
+design,aff153770,Wave 1: platform probes,general-purpose,explorer-like,claude-sonnet-5-5,103,2,75/28,116,89,89,finished,handback,0,2125,09:52:08,208,26883,24599444,399726,3094225,6.188
+genesis,a33a82c9a,Adversarial review of generative-laws proofs,general-purpose,verifier-like,claude-sonnet-5-5,40,1,40,45,32,31,finished,handback,0,1176,04:57:33,80,35612,7395567,215607,1187205,2.374
+genesis,a2f3c7382,Build final Wolfram notebook,general-purpose,author-like,claude-sonnet-5-5,89,1,89,107,12,12,finished,handback,0,1360,05:25:22,178,51736,24623003,394306,3214041,6.428
+genesis,a5160f9a1,Counsel on publishability of the ω* law,general-purpose,other,claude-fable-5-1,17,1,17,71,16,8,finished,handback,0,569,09:21:50,514,18111,2646266,298494,728813,1.458
+genesis,a200b6a79,Foundations theory Q1 Q2 with Wolfram,general-purpose,author-like,claude-sonnet-5-5,46,2,45/1,51,27,27,finished,text/thinking,0,2841,04:13:31,94,19188,5550370,326312,1058961,2.118
+genesis,a04ebecba,Generative space atlas of fixed G,general-purpose,author-like,claude-sonnet-5-5,85,2,56/29,98,70,70,finished,handback,0,3600,04:37:36,172,47855,23355656,1231169,4113974,8.228
+genesis,a9a741368,Literature map for sliding-window coding,general-purpose,explorer-like,claude-sonnet-5-5,35,1,35,77,10,10,finished,handback,0,549,03:35:20,70,1014,6337722,303640,1018462,2.037
+genesis,a74632da2,Name the generative objects,general-purpose,other,claude-sonnet-5-5,13,1,13,38,2,2,finished,handback,0,509,04:07:32,26,48373,1567633,259483,723008,1.446
+genesis,a4ad7c714,Regime A per-target superstring G,general-purpose,author-like,claude-sonnet-5-5,60,2,49/11,69,48,47,finished,handback,0,3788,05:02:11,122,23954,8735738,835241,2037517,4.075
+genesis,a807fe2b5,Reproduce superstring and trellis results,general-purpose,verifier-like,claude-sonnet-5-5,42,1,42,45,36,33,finished,handback,0,929,04:52:06,84,25032,5826758,163695,912539,1.825
+genesis,a3f3fa3fc,Trellis identity vs mapped reads,general-purpose,author-like,claude-sonnet-5-5,78,2,75/3,87,54,54,finished,handback,0,3232,04:52:55,158,29453,12097240,382962,1835850,3.672
+this_run,ab6cc5582,author-w01-1,murmuration:author,author-like,claude-sonnet-5-5,42,1,42,44,42,40,in flight at snapshot,tool_use,0,1285,02:38:54,84,15156,5995890,287520,1034853,2.07
+this_run,a41c53b7f,author-w01-2,murmuration:author,author-like,claude-sonnet-5-5,48,1,48,50,47,46,in flight at snapshot,tool_use,0,1053,02:35:03,96,2157,6270547,448688,1198796,2.398
+this_run,a701db132,author-w01-3,murmuration:author,author-like,claude-sonnet-5-5,57,2,52/5,63,53,51,finished,handback,0,1178,02:37:08,116,18210,11217803,375840,1682746,3.365
+this_run,a93c828c5,author-w01-4,murmuration:author,author-like,claude-sonnet-5-5,47,1,47,61,44,42,finished,handback,0,1006,02:34:16,94,4725,5787673,306598,985734,1.971
+this_run,a9745700a,author-w01-5,murmuration:author,author-like,claude-sonnet-5-5,55,4,42/6/3/4,58,43,41,limit-stopped,handback,4,1185,02:37:14,116,37218,10344315,604422,1976165,3.952
+this_run,aa70e320b,author-w01-6,murmuration:author,author-like,claude-sonnet-5-5,40,2,35/5,51,25,24,finished,tool_use,0,1170,02:38:50,82,64413,6864220,649524,1820474,3.641
+this_run,af01bccf4,explorer-w01-a,murmuration:explorer,explorer-like,claude-sonnet-5-5,52,1,52,55,49,48,finished,handback,0,789,02:14:44,104,21995,8496325,292674,1325554,2.651
+this_run,ac6c27171,explorer-w01-b,murmuration:explorer,explorer-like,claude-sonnet-5-5,62,2,60/2,68,61,58,"limit-stopped, resumed, finished",handback,1,769,02:14:24,124,17694,10536293,310463,1530302,3.061
+this_run,a1f4458ce,explorer-w01-c,murmuration:explorer,explorer-like,claude-sonnet-5-5,63,2,60/3,65,55,55,"limit-stopped, resumed, finished",handback,1,720,02:13:35,126,26238,9660371,288572,1458068,2.916
+this_run,a996dba29,explorer-w01-d,murmuration:explorer,explorer-like,claude-sonnet-5-5,62,2,60/2,63,59,58,"limit-stopped, resumed, finished",handback,1,1023,02:18:38,124,13884,10897180,298459,1532336,3.065
+this_run,a53e063b0,explorer-w01-e,murmuration:explorer,explorer-like,claude-sonnet-5-5,49,1,49,57,43,42,finished,handback,0,468,02:09:22,98,777,5536354,212039,822667,1.645
+this_run,a6a6066b7,explorer-w01-f,murmuration:explorer,explorer-like,claude-sonnet-5-5,46,1,46,62,39,39,finished,handback,0,719,02:13:34,92,14520,8223085,311493,1284367,2.569
+this_run,a982018b5,reproducer-w01-3,murmuration:reproducer,verifier-like,claude-sonnet-5-5,40,1,40,45,41,38,in flight at snapshot,tool_use,0,430,02:38:54,80,1007,4121034,191963,657172,1.314
+this_run,a2ca20f21,reproducer-w01-4,murmuration:reproducer,verifier-like,claude-sonnet-5-5,22,1,22,24,22,22,in flight at snapshot,tool_use,0,260,02:38:57,44,216,1792041,130441,343379,0.687
+this_run,a492a8c08,reproducer-w01-5,murmuration:reproducer,verifier-like,claude-sonnet-5-5,38,1,38,41,34,34,limit-stopped,handback,1,563,02:37:35,76,545,4193496,188549,657837,1.316
+this_run,af203d636,reproducer-w01-6,murmuration:reproducer,verifier-like,claude-sonnet-5-5,33,1,33,34,30,30,in flight at snapshot,tool_use,0,313,02:38:32,66,1171,2905841,143009,475266,0.951
+this_run,a5efc74c3,reproducer-w01-7,murmuration:reproducer,verifier-like,claude-sonnet-5-5,24,1,24,26,22,22,in flight at snapshot,tool_use,0,303,02:38:22,48,964,2111710,150955,404733,0.809
+this_run,a1fc18c8a,reproducer-w01-8,murmuration:reproducer,verifier-like,claude-sonnet-5-5,19,1,19,22,19,18,in flight at snapshot,tool_use,0,190,02:38:59,38,400,1171667,96044,239260,0.479

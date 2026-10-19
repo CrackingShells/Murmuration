@@ -1,0 +1,9 @@
+Your name is explorer-w01-NAME.
+Read first: __design__/framing.md (a stub; skip it if empty) and data/measurements.csv.
+Question: which row of data/measurements.csv fits a straight line worst, and how much would the line change without it? Keep it small: one probe.
+Return: your findings report and a short hand-back message that points to it. Labels you may use: CHECKED, CONJECTURE, CITED.
+Create the report file with the Write tool (not with a shell redirect), and in your hand-back list the exact names of the tools you can call.
+Rules: work only inside this folder; no downloads; never stop processes by name pattern.
+Budget: USD 3
+The harness sends a single note at about 80% of the budget; when it comes, finish the item in hand, write or update your deliverable, and hand back what was not covered.
+End with your puzzles in `__scrupuli__/wave-01-explorer-w01-NAME.md`: what did not add up, with pointers to raw artifacts. No length limit.

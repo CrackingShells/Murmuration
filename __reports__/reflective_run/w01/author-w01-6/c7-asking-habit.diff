@@ -1,0 +1,19 @@
+--- a/skills/research-loop/references/working_defaults.md
++++ b/skills/research-loop/references/working_defaults.md
+@@ -23,3 +23,16 @@
+   search, literature search, a computer-algebra system) rather than re-reading whole files.
+ - If a persistent memory is available, record there what the user teaches you about how they want
+   the work done, not what the project files already hold.
++
++## Asking the user
++
++The rule above (hard to reverse, or visible outside the project: wait for a yes) also covers what the
++person owns beyond the project: their other sessions, accounts and schedules. For every other
++question:
++
++- First read the last entries of `__statera__/user_words.md` and the rules in the framing, and look at
++  what you can reach on the machine. Ask only what only the person can decide or do.
++- Ask in the middle of the work, not at its end: say which default you are taking, and carry on with
++  what does not depend on the answer.
++- When the person says how they want the work done, add it in their words to "Rules for the team" in
++  `__design__/framing.md` before you continue.

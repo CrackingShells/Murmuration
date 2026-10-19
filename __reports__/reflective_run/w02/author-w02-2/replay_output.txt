@@ -1,0 +1,12 @@
+files (lines read, sha256 prefix of those lines): 566fa912 2149 b5bd8ef66362, 82e8a947 2375 1a684a91ab18, 3ccc590f 467 af62f33255d7, 2947f9dc 1875 dfce400aa013, ab96c5ed 1527 76ccc36d1b36
+class                   fired distinct  before   after   differ   dropped chars before -> after
+typed                      87       72      72      72       51         0 70784 -> 37088
+not typed (notice+sched)     14       14      14       6        9         - 29911 -> 10948
+interrupt records           3        3       3       3        0         - 87 -> 87
+
+third block `<side-sessions-event>` changes the stored text of 8 prompts: classes {'notice': 8}
+   typed     distinct  72  stores without the third block  72  with it  72
+   notice    distinct   9  stores without the third block   9  with it   1
+   scheduled distinct   5  stores without the third block   5  with it   5
+typed entries whose stored 'after' text is one contiguous piece of the prompt: 72 of 72
+fidelity: the shipped rule on this run's first two typed records == the last two entries stored by the hook in the main checkout: [True, True]

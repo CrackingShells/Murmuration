@@ -1,0 +1,62 @@
+{
+ "hooks": {
+  "PostToolUse": [
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "bash -c 'cat >/dev/null; sleep 2; date +%s.%N >> /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__reports__/reflective_run/w01/explorer-w01-f/scratch/run5/async_posttool.txt'",
+      "timeout": 15,
+      "async": true
+     }
+    ]
+   }
+  ],
+  "Stop": [
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "bash -c 'cat >/dev/null; date +%s.%N >> /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__reports__/reflective_run/w01/explorer-w01-f/scratch/run5/sync_stop.txt'",
+      "timeout": 15
+     }
+    ]
+   },
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "bash -c 'cat >/dev/null; sleep 3; date +%s.%N >> /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__reports__/reflective_run/w01/explorer-w01-f/scratch/run5/async_stop.txt'",
+      "timeout": 15,
+      "async": true
+     }
+    ]
+   }
+  ],
+  "SessionEnd": [
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "bash -c 'cat >/dev/null; date +%s.%N >> /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__reports__/reflective_run/w01/explorer-w01-f/scratch/run5/sync_sessionend.txt'",
+      "timeout": 15
+     }
+    ]
+   },
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "bash -c 'cat >/dev/null; sleep 3; date +%s.%N >> /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__reports__/reflective_run/w01/explorer-w01-f/scratch/run5/slow_sessionend.txt'",
+      "timeout": 15,
+      "async": true
+     }
+    ]
+   }
+  ]
+ },
+ "statusLine": {
+  "type": "command",
+  "command": "bash -c 'cat > /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__reports__/reflective_run/w01/explorer-w01-f/scratch/run5/statusline_input.json; echo sl'"
+ }
+}

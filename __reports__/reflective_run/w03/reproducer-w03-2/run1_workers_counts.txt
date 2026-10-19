@@ -1,0 +1,16 @@
+workers 3
+bash             8
+chars            15583
+h_append         1
+h_other          0
+h_py             0
+h_write          5
+heredoc          6
+heredoc_chars    15362
+py_walk          0
+shell_search     0
+tool_calls       17
+heredoc share of Bash calls 0.750
+author-w01-1 3
+explorer-w01-a 3
+proof-adversary-w01-1 2

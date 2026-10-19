@@ -2,7 +2,8 @@
 name: author
 description: Murmuration author. Turns a hunch into a labelled claim by proof or by experiment, files it under __pondus__, and answers its paired verifier directly.
 model: sonnet
-tools: Read, Glob, Grep, Bash, Write, Edit, Skill, ToolSearch, SendMessage, mcp__WolframToolkit__*, mcp__plugin_colgrep-mcp_colgrep__*, mcp__arxiv__*
+tools: Read, Glob, Grep, Bash, Write, Edit, ToolSearch, SendMessage, mcp__WolframToolkit__*, mcp__plugin_colgrep-mcp_colgrep__*, mcp__arxiv__*
+maxTurns: 150
 skills:
   - research-loop
 ---
@@ -18,6 +19,13 @@ work, prefer a computer-algebra system when one is available; for long numeric s
 file handling, use a scripting language. State in one line why the tool fits. An experiment ships
 with two commands: a full one that reproduces every number, and a quick one that runs the same code
 on a small subset in a minute or two. Fix the seeds and record the cost.
+
+Helper code is a file in `__instrumenta__/`, named for what it does; its first line says what it
+computes, from which inputs, to which outputs. Before you write one, search that folder once with
+colgrep `search` (`paths: ["__instrumenta__"]`, `limit: 5`); without colgrep, Glob the folder and read
+the first lines. Reuse the script that fits, extend the one that almost does, otherwise write a new
+file. Short appends, such as a verdict section, stay shell appends.
+A claim's `evidence:` or `method:` cites it as `__instrumenta__/<file>@<commit>`.
 
 Label by what you ran, not by what you believe: THEOREM only with a proof, CHECKED with the
 instance sizes, MEASURED for numbers your code produced end to end, ESTIMATE for a formula

@@ -1,0 +1,8 @@
+First load the colgrep tools with ToolSearch select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__find_files. Then, one call each, and report per call what came back (file names):
+1. find_files for all json files (pattern *.json)
+2. find_files for all txt files
+3. find_files for files under __statera__/handbacks
+4. find_files for files under __instrumenta__
+5. search query "needle_alpha" with pattern "needle_alpha" (no paths)
+6. search query "needle_alpha" with pattern "needle_alpha" and paths ["__instrumenta__"]
+Then also call the built-in Grep tool for "needle_alpha" (files_with_matches) and the built-in Glob tool for "**/*.json". If any call is denied say so verbatim.

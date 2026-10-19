@@ -1,0 +1,4 @@
+c6-contract.diff: git apply --check rc=0 ; words added 216, removed 48, net 168; net per file {'skills/research-loop/references/waves.md': 111, 'skills/research-loop/templates/wave.md': 37, 'agents/research-pi.md': 20}
+c6-optional-lab-status.diff: git apply --check rc=0 ; words added 61, removed 38, net 23; net per file {'skills/lab-status/SKILL.md': 23}
+c7-asking-habit.diff: git apply --check rc=0 ; words added 127, removed 0, net 127; net per file {'skills/research-loop/references/working_defaults.md': 127}
+words in the touched files today: {'agents/research-pi.md': 330, 'skills/research-loop/SKILL.md': 1340, 'skills/research-loop/references/waves.md': 528, 'skills/research-loop/references/working_defaults.md': 260, 'skills/research-loop/templates/wave.md': 123, 'skills/lab-status/SKILL.md': 508}

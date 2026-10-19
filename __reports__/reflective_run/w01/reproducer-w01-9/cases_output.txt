@@ -1,0 +1,24 @@
+pasted /lab                                          rc=0 -> '/lab does this survive'
+pasted /clear                                        rc=0 -> '/clear'
+typed /lab outside wrapper + paste                   rc=0 -> None
+typed /lab, no wrapper                               rc=0 -> None
+whitespace-only wrapper                              rc=0 -> None
+empty wrapper                                        rc=0 -> None
+nested wrapper                                       rc=0 -> 'outer <pasted_content id="b">\ninner\n</pasted_content id="b"> end'
+reminder then /lab                                   rc=0 -> None
+reminder then plain words                            rc=0 -> 'plain words'
+reminder then paste                                  rc=0 -> 'pasted words'
+reminder then pasted /lab                            rc=0 -> '/lab inside'
+reminder only                                        rc=0 -> None
+reminder then /clear                                 rc=0 -> None
+user types a reminder tag (leading, exact form)      rc=0 -> 'and then my question'
+user types reminder tag leading, nothing after       rc=0 -> None
+user types reminder mid-text                         rc=0 -> 'look at this <system-reminder>\nx\n</system-reminder> tag'
+user types reminder one-line                         rc=0 -> '<system-reminder>x</system-reminder> hi'
+reminder CRLF form                                   rc=0 -> '<system-reminder>\nx\n</system-reminder>\n\nhi'
+unclosed reminder                                    rc=0 -> '<system-reminder>\nx\nhi'
+two reminders, second after typed text               rc=0 -> 'typed\n<system-reminder>\nLinked sessions now (status): a = local_1 (idle).\n</system-reminder>'
+paste wrapper mismatched id                          rc=0 -> '<pasted_content id="a">\nx\n</pasted_content id="b">'
+cross-session after reminder                         rc=0 -> None
+task-notification after reminder                     rc=0 -> None
+text before then paste                               rc=0 -> 'see this:\nline'

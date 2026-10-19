@@ -1,0 +1,31 @@
+session,delivery_line,agent,description,words,brief_limit,harness_flag,first_line_class,pi_followed_pointer,pi_sent_message,pi_dispatched_next,pi_own_check,pi_mentions_harness_flag
+genesis,229,a9a7413682b41f7f7,Literature map for sliding-window coding,319,250,0,STATUS,1,0,1,0,
+genesis,295,a200b6a79312b3850,Foundations theory Q1 Q2 with Wolfram,303,250,0,STATUS,1,1,0,1,
+genesis,367,a04ebecba85274ac9,Generative space atlas of fixed G,362,300,0,STATUS,1,0,0,1,
+genesis,426,a74632da2578bd7ff,Name the generative objects,204,200,0,RESULT,1,0,0,0,
+genesis,557,a3f3fa3fc477f4cd5,Trellis identity vs mapped reads,320,250,0,STATUS,1,0,0,1,
+genesis,583,a4ad7c71400d5bc3b,Regime A per-target superstring G,361,250,0,RESULT,1,0,1,1,
+genesis,615,a04ebecba85274ac9,Generative space atlas of fixed G,352,250,0,STATUS,0,0,1,0,
+genesis,674,a807fe2b5e7aa786f,Reproduce superstring and trellis results,255,200,0,STATUS,0,1,0,0,
+genesis,701,a3f3fa3fc477f4cd5,Trellis identity vs mapped reads,104,80,0,STATUS,0,0,0,0,
+genesis,720,a33a82c9a9409bebf,Adversarial review of generative-laws proofs,284,200,0,RESULT,0,0,0,0,
+genesis,746,a4ad7c71400d5bc3b,Regime A per-target superstring G,139,100,0,STATUS,0,0,1,0,
+genesis,774,a2f3c738296d98cfc,Build final Wolfram notebook,224,200,0,STATUS,1,0,0,1,
+genesis,1644,a5160f9a191c2d1b8,Counsel on publishability of the ω* law,282,250,0,RESULT,0,0,0,1,
+design,1048,a4a2cf879f4f4e154,Expert review of research-lab MAS design,379,300,0,PATH,0,0,0,1,
+design,1067,adceb2615918f1538,Survey benchmarks for research MAS behavior,249,250,0,PATH,0,0,1,0,
+design,1165,a1b61307c0917214a,Coin names: classical and technical register,163,150,0,RESULT,0,0,0,0,
+design,1173,ac93fc76807d4702f,Coin names: transmission and disputation traditions,124,150,0,RESULT,0,0,1,0,
+design,1255,aab206418653ed366,Fetch Claude Code hooks reference,3527,,1,HEADING,0,0,0,0,0
+design,1284,add2d044c50a6123f,Counsel on information measures for MAS,336,250,0,PATH,0,0,0,0,
+design,1567,a4c12d60bb3e76003,Wave 1: instrument validation,1552,,0,STATUS,1,1,0,1,
+design,1580,aff153770869d2a23,Wave 1: platform probes,1273,,1,HEADING,1,1,0,0,0
+design,1632,aff153770869d2a23,Wave 1: platform probes,1099,,1,STATUS,0,0,1,1,0
+design,1717,a806fafff3d414467,Candid review: wash or promise (Opus),326,200,0,RESULT,0,0,0,0,
+design,1726,af4a8695921b73e8a,Candid review: wash or promise (Fable),252,200,0,STATUS,0,1,1,1,
+design,1903,acbce33817773a098,Fetch subagent tools and MCP frontmatter rules,1630,,1,RESULT,1,0,0,0,0
+design,1928,aff72ee628b60b2fb,"Build minimal lab scripts, hooks, packaging",1172,,1,STATUS,1,0,1,0,0
+design,1997,ac43197c1b001ed92,Cold review of shipped Murmuration files,986,,1,STATUS,1,1,0,0,0
+design,2090,aff72ee628b60b2fb,"Build minimal lab scripts, hooks, packaging",1009,,1,STATUS,1,0,1,0,0
+design,2127,a58d15f92e132db41,Second cold review of shipped files,772,,0,STATUS,1,1,0,0,
+design,2157,aff72ee628b60b2fb,"Build minimal lab scripts, hooks, packaging",1036,,1,STATUS,1,0,0,0,0
