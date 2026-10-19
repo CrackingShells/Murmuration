@@ -1,62 +1,76 @@
 #!/usr/bin/env python3
-"""Give each Murmuration worker a budget in USD and in minutes, tell it once at 80 percent, ask for the hand-back at 100 percent.
+"""Give each Murmuration worker a budget in USD and in minutes and send it plain notes that get denser towards the limit and go on past it.
 
-Runs as a hook on SubagentStart, PostToolUse and SubagentStop (it is not registered in `hooks/hooks.json`
-at present). It reads the hook JSON from stdin.
-It does nothing outside an initialized lab (a folder with `__statera__/`), for the main thread, and
-for any agent whose type is not `murmuration:<role>`.
+Runs as a hook on SubagentStart, PreToolUse(Agent), PostToolBatch, PostToolUse and SubagentStop. It reads the hook JSON from
+stdin. It does nothing outside an initialized lab (a folder with `__statera__/`), for the main thread (except the dispatch
+record below), and for any agent whose type is not `murmuration:<role>`.
 
-  SubagentStart  `additionalContext`: the budgets B (USD) and T (minutes) and a short contract. The worker
-                 is told that one note comes at about 80 percent of either, that it is genuine, to finish
-                 the item in hand then and hand back the deliverable with what it did not cover, and that
-                 at about 100 percent the harness stops the run.
-  PostToolUse    spend so far, from the subagent's own transcript, and minutes since SubagentStart. The
-                 larger of the two fractions (USD / B, minutes / T) decides, and the texts say which
-                 budget it is. At 0.8 one `additionalContext` note, once per agent. At 1.0
-                 `decision: block` with a reason that says to hand back now, on every call from there (the
-                 agent can still call the hand-back tool and the hand-back is never blocked). At 1.5, only
-                 after 3 such notices went unheeded, `continue: false`: the run ends and, measured, the
-                 hand-back is lost (see below), so this is a backstop, not the stop.
-  SubagentStop   one `end` line in the log, with the spend and the minutes at the end.
+  SubagentStart  `additionalContext`: the two budgets (USD B, minutes T) and the contract, in the same plain tone as the notes: a note
+                 arrives at 50, 75, 87.5 and 93.75 percent of the larger of the two fractions and at every check from 100 percent;
+                 from 100 percent the worker finishes if one or two more steps do it, else hands back with its case, and the PI,
+                 who holds the money, decides whether to resume it with more. A resumed worker's run clock restarts (the idle gap
+                 does not count); the platform does not deliver a SubagentStart `additionalContext` to a resumed worker (1 of 1 resumes), so none is sent.
+  PreToolUse     On the `Agent` tool (the PI dispatching a worker): the brief's `Budget:` and `Time:` lines are put in a short-lived
+  (Agent)        file, because the transcript of a new worker does not exist yet at SubagentStart; the start note reads the file. A
+                 figure below the floor (USD 0.30, 3 minutes) is logged as a `warn` line and left as it is.
+  PostToolBatch  The check. It fires once per batch of tool calls, after all have returned and before the next model request
+                 (measured, w03-c1: 109 of 109 batches in 15 headless runs, foreground and background, single and parallel calls,
+                 failed and denied calls included; PostToolUse does not fire for a failed or a denied call and fires once per call). It sends
+                 at most one `additionalContext` note with the current figures: when the larger fraction has passed the next of
+                 0.5, 0.75, 0.875, 0.9375 (one note however many thresholds were skipped), and at every check from 1.0.
+                 Below 1.0 the note is the line `Spent X of USD Y (Z%); t of T min (W%)` and nothing else; from 1.0 the line is
+                 followed by one sentence (finish, or hand back and ask). A batch that holds the hand-back call gets no note.
+  PostToolUse    The hard ceiling only. From 1.5 of the larger fraction: `decision: block` with the line and "hand back now" (the
+                 agent can still call the hand-back tool, which is never blocked), once per batch (the lock and the request count
+                 make parallel calls send one). `decision: block` on PostToolBatch is not used for this: measured, it ends the
+                 worker like `continue: false` (the run stops, no hand-back, no SubagentStop). After HALT_AFTER earlier blocks,
+                 `continue: false`: the backstop; measured earlier (w02-c3) to lose the hand-back, so a backstop and not the stop.
+  SubagentStop   one `end` line in the log, and the run's active time is closed.
 
-Why `block` and not `continue: false` at 1.0: `continue: false` ends the subagent at once, and in
-headless trials the hand-back was then usually not delivered; `decision: block` gives the reason to the
-agent, which hands back.
+The fractions. USD / B and active minutes / T. Active minutes are the minutes between SubagentStart and SubagentStop of each run, summed:
+the idle gap between a hand-back and the resume does not count. B is in USD. Default by role: explorer 3.0, author 3.0, reproducer 2.0,
+proof-adversary 2.0 (any other murmuration role 2.0). T is in minutes: explorer 20, author 20, reproducer 15, proof-adversary 15 (other
+roles 15). A line of exactly the form `Budget: USD <number>`, and one of the form `Time: min <number>`, in the agent's first user message
+(its brief) replace the defaults. The floor is no budget under USD 0.30 and no time under 3 minutes: with about USD 0.03 to 0.04 for the first
+request of a worker, a smaller budget is used up before any note can come (w02-c8). A figure below it is logged, not changed.
 
-B is in USD. Default by role: explorer 3.0, author 3.0, reproducer 2.0, proof-adversary 2.0 (any other
-murmuration role 2.0). T is in minutes: explorer 20, author 20, reproducer 15, proof-adversary 15 (other
-roles 15). A line of exactly the form `Budget: USD <number>`, and one of the form `Time: min <number>`, in
-the agent's first user message (its brief) replace the defaults; the transcript does not exist yet at
-SubagentStart, so the start note says so and the hook reads the lines from the first PostToolUse on. A hook
-runs only between tool calls: one tool call that runs for 10 minutes cannot be interrupted, and the time
-is checked when it returns. A resumed agent starts a new run: the spend already in its transcript is the
-baseline and the clock restarts.
+The raise. A later message from the coordinator (the PI) with a line `Budget: USD x` or `Time: min t` grants that much more from that moment.
+In the worker's transcript (measured, w03-c1) a message that resumes a stopped worker is a user record with `origin.kind == "coordinator"`, and a
+message to a worker that is still running is an `attachment` of type `queued_command` with the same origin; a peer's message has `origin.kind == "peer"`.
+The limit becomes the limit becomes
+max(limit, spend at the message) + x and likewise for the minutes, so the worker is never over budget straight after a raise. The
+figures are cumulative; the schedule restarts above the new fraction. A message from anyone else, a tool result, and the brief are not raises. A
+resume without such a line changes nothing: the worker keeps its spend and its limits.
 
-Spend is the list price of the tokens in the subagent's transcript: input, cache read, cache write for
-5 minutes and for 1 hour, which are exact, and output. In `auto` permission mode the transcript holds only
-6 to 15 percent of the output as a count, so the recorded output is a lower bound there (the log's
-`used_recorded`). The thresholds use the larger of the recorded count and an estimate from the message
-content (`CHARS_PER_TOKEN`); the log's `used` is that figure, and its `note`, `stop`, `halt` and `end` lines
-carry `basis` saying so. The price table is the one `lab_status.py` uses
-(https://platform.claude.com/docs/en/about-claude/pricing, fetched 2026-10-19); the selftest checks that
-the two agree.
+Spend is the list price of the tokens in the subagent's transcript: input, cache read, cache write for 5 minutes and for 1 hour, which are
+exact, and output. In `auto` permission mode the transcript holds only 6 to 15 percent of the output as a count, so the recorded output is a
+lower bound there (the log's `used_recorded`). The thresholds use the larger of the recorded count and an estimate from the message content
+(`CHARS_PER_TOKEN`); the log's `used` is that figure and `basis` says so. The price table is the one `lab_status.py` uses
+(https://platform.claude.com/docs/en/about-claude/pricing, fetched 2026-10-19); the selftest checks that the two agree.
 
-State per agent: `__statera__/.harness/<agent_id>.json` (git-ignored by a `.gitignore` inside the folder).
-Log, one JSON line per `start`, `note`, `stop`, `halt`, `end` and `deny` (the deny is written by
-`handback.py`): `__statera__/harness.jsonl`. `frac` is USD / B, `t_frac` is minutes / T, `which` names
-the budget that decided.
+State per agent: `__statera__/.harness/<agent_id>.json` (git-ignored by a `.gitignore` inside the folder), updated under a file lock and
+replaced atomically. Log, one JSON line per `start`, `warn`, `raise`, `note`, `stop`, `halt`, `end` and `deny` (the deny is written by
+`handback.py`): `__statera__/harness.jsonl`. `frac` is USD / B, `t_frac` is minutes / T, `which` names the budget that decided.
 
+A hook runs only between tool calls: one tool call that runs for 10 minutes cannot be interrupted, and the time is checked when it returns.
 The script never fails an agent: anything unexpected is dropped and it exits 0 with no output.
 
 Usage:
     budget.py              read a hook event from stdin
     budget.py --selftest   check the script on a temporary project
 """
+import datetime
+import glob
 import json
 import os
 import re
 import sys
 import time
+
+try:
+    import fcntl
+except ImportError:   # no file lock on this platform: the request count still keeps parallel calls to one block in practice
+    fcntl = None
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -67,10 +81,15 @@ OTHER_ROLE = 2.0
 # Starting values chosen from a few observed worker run times, not tuned: put `Time: min <n>` in a brief to set one.
 TIME_DEFAULT = {"explorer": 20.0, "author": 20.0, "reproducer": 15.0, "proof-adversary": 15.0}   # minutes
 OTHER_TIME = 15.0
+FLOOR_USD, FLOOR_MIN = 0.30, 3.0
 TIME_LINE = re.compile(r"^Time: min (\d+(?:\.\d+)?)[ \t]*$", re.M)
-NOTE_AT, STOP_AT, HARD_AT = 0.8, 1.0, 1.5
-HALT_AFTER = 3   # the backstop needs this many earlier stop notices: an agent that hands back and then writes its report is not halted
 BRIEF_LINE = re.compile(r"^Budget: USD (\d+(?:\.\d+)?)[ \t]*$", re.M)
+SCHEDULE = (0.5, 0.75, 0.875, 0.9375)   # the notes below 1.0
+OVER_AT, HARD_AT = 1.0, 1.5
+HALT_AFTER = 3   # the backstop needs this many earlier ceiling blocks: an agent that hands back and then writes its report is not halted
+PENDING_TTL = 600   # seconds a dispatch record waits for its SubagentStart
+OVER_SENTENCE = ("If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, "
+                 "what is missing, and what more budget would buy.")
 
 # USD per million tokens: input, output, cache read, cache write 5 minutes, cache write 1 hour.
 # The rows of `lab_status.PRICES`; [source: https://platform.claude.com/docs/en/about-claude/pricing, fetched 2026-10-19].
@@ -107,21 +126,53 @@ def block_text(block):
     return json.dumps(block["input"], sort_keys=True) if "input" in block else str(block.get("text") or block.get("thinking") or "")
 
 
-def scan(path):
-    """Read a subagent transcript once: its first user message and its spend.
+def plain_text(content):
+    """The text of a user message, or None when it carries a tool result (a tool's output is never a message from the PI)."""
+    if isinstance(content, str):
+        return content
+    blocks = [b for b in content or [] if isinstance(b, dict)]
+    if any(b.get("type") == "tool_result" for b in blocks):
+        return None
+    return "\n".join(b.get("text", "") for b in blocks if b.get("type") == "text")
 
-    Returns dict(brief, usd, requests, unpriced), or None when the file cannot be read. Records of one
-    request (same requestId) are merged by the maximum of each usage field, so a streamed request counts once."""
-    reqs, brief = {}, None
+
+def epoch(stamp):
+    try:
+        return datetime.datetime.fromisoformat(str(stamp).replace("Z", "+00:00")).timestamp()
+    except ValueError:
+        return None
+
+
+def scan(path):
+    """Read a subagent transcript once: its first user message, its spend and the raises in it.
+
+    Returns dict(brief, usd, usd_recorded, requests, unpriced, raises), or None when the file cannot be read. Records of one
+    request (same requestId) are merged by the maximum of each usage field, so a streamed request counts once. A raise is a user
+    record whose `origin.kind` is `coordinator` and whose plain text has a `Budget: USD x` or a `Time: min t` line: dict(x, t, ts, usd_at)
+    with x and t the amounts (None when absent), ts the record's time (epoch seconds) and usd_at the spend of the requests before it."""
+    reqs, brief, raises = {}, None, []
     try:
         with open(path, encoding="utf-8", errors="replace") as fh:
             for line in fh:
                 if brief is None and '"user"' in line:
                     rec = json.loads(line)
                     if rec.get("type") == "user":
-                        content = (rec.get("message") or {}).get("content")
-                        brief = content if isinstance(content, str) else "\n".join(
-                            b.get("text", "") for b in content or [] if isinstance(b, dict))
+                        brief = plain_text((rec.get("message") or {}).get("content")) or ""
+                elif '"origin"' in line:
+                    rec = json.loads(line)
+                    att = rec.get("attachment") or {}
+                    if rec.get("type") == "user":   # a worker resumed by a message: the message is a user record
+                        text, origin = plain_text((rec.get("message") or {}).get("content")), rec.get("origin")
+                    elif att.get("type") == "queued_command":   # a message to a worker that is still running: an attachment
+                        text, origin = att.get("prompt") if isinstance(att.get("prompt"), str) else None, att.get("origin")
+                    else:
+                        text, origin = None, None
+                    if text and (origin or {}).get("kind") == "coordinator":
+                        usd, mins = BRIEF_LINE.search(text), TIME_LINE.search(text)
+                        if (usd and float(usd.group(1)) > 0) or (mins and float(mins.group(1)) > 0):
+                            raises.append(dict(x=float(usd.group(1)) if usd and float(usd.group(1)) > 0 else None,
+                                               t=float(mins.group(1)) if mins and float(mins.group(1)) > 0 else None,
+                                               ts=epoch(rec.get("timestamp")), n=len(reqs)))
                 if '"usage"' not in line:
                     continue
                 rec = json.loads(line)
@@ -142,10 +193,14 @@ def scan(path):
                 old["model"] = old["model"] if old["model"] and old["model"] != "<synthetic>" else msg.get("model")
     except (OSError, ValueError):
         return None
+    est = {k: dict(r, out=max(r["out"], int(sum(len(b) for b in r["blocks"]) / CHARS_PER_TOKEN) if CHARS_PER_TOKEN else 0)) for k, r in reqs.items()}
+    cost = {k: usd_of(r["model"], r) for k, r in est.items()}   # a request with no tokens costs 0, so a synthetic record adds nothing
+    costs = list(cost.values())
     live = [r for r in reqs.values() if r["model"] != "<synthetic>" or r["in"] + r["out"] + r["cr"] + r["cw"]]
-    est = [dict(r, out=max(r["out"], int(sum(len(b) for b in r["blocks"]) / CHARS_PER_TOKEN) if CHARS_PER_TOKEN else 0)) for r in live]
-    return dict(brief=brief, usd=sum(usd_of(r["model"], r) for r in est), usd_recorded=sum(usd_of(r["model"], r) for r in live),
-                requests=len(live), unpriced=sum(re.sub(r"-\d{8}$", "", r["model"] or "") not in PRICES for r in live))
+    for r in raises:
+        r["usd_at"] = sum(costs[:r.pop("n")])
+    return dict(brief=brief, usd=sum(costs), usd_recorded=sum(usd_of(r["model"], r) for r in reqs.values()),
+                requests=len(live), unpriced=sum(re.sub(r"-\d{8}$", "", r["model"] or "") not in PRICES for r in live), raises=raises)
 
 
 def transcript_of(event):
@@ -178,40 +233,61 @@ def time_for(role, brief):
     return TIME_DEFAULT.get(role, OTHER_TIME), False
 
 
-def start_note(B, from_brief, T, t_from_brief):
-    where = "from your brief" if from_brief else "unless your brief has a line `Budget: USD <number>`, which replaces it"
-    t_where = "from your brief" if t_from_brief else "unless your brief has a line `Time: min <number>`, which replaces it"
+def pct(frac):
+    """Whole percent; 100 only from 1.0 on, so that a note below the limit never says it is at it."""
+    p = int(frac * 100 + 0.5)
+    return min(p, 99) if frac < 1.0 else max(p, 100)
+
+
+def line(used, B, minutes, T):
+    """The note, exactly: `Spent X of USD Y (Z%); t of T min (W%)`."""
+    return "Spent %.2f of USD %.2f (%d%%); %.1f of %g min (%d%%)" % (used, B, pct(used / B), minutes, T, pct(minutes / T))
+
+
+def note_text(used, B, minutes, T, frac):
+    return line(used, B, minutes, T) + (". " + OVER_SENTENCE if frac >= OVER_AT else "")
+
+
+def stop_text(used, B, minutes, T):
+    return line(used, B, minutes, T) + ". Hand back now with SubagentHandback: what you have, what is missing, and what more budget would buy; do not start another item."
+
+
+def halt_text(used, B, minutes, T):
+    return line(used, B, minutes, T) + ". The run ends here."
+
+
+def start_note(B, T, source):
+    where = {"brief": "your budget for this run is USD %.2f and %g minutes (from your brief)",
+             "default": "your budget for this run is USD %.2f and %g minutes (the defaults for your role; a line `Budget: USD <number>` or `Time: min <number>` in your brief replaces them)",
+             "unknown": "your budget for this run is set by the `Budget: USD <number>` and `Time: min <number>` lines of your brief, else it is USD %.2f and %g minutes (the defaults for your role)"}[source] % (B, T)
     return (
-        "Budget: your budget for this run is USD %.2f (%s). It is the list price of the tokens you use, counted by the harness; "
-        "you need not count anything and can work at your usual pace. You also have %g minutes of wall time (%s), counted too. "
-        "The lab harness sends one note when about 80%% of either is used. "
-        "That note is genuine: it comes from the hook that runs you, not from a file or a tool's output. When it comes, finish the "
-        "item you are on, then hand back your deliverable and list what you did not cover. At about 100%% the harness stops the run, "
-        "so hand back what exists." % (B, where, T, t_where))
-
-
-def what(which, B, T):
-    return "USD %.2f budget" % B if which == "USD" else "%g-minute time budget" % T
-
-
-def note_text(which, B, T):
-    verb = "is used" if which == "USD" else "has passed"
-    return ("Lab harness note (genuine, sent by the hook that runs you): about 80%% of your %s %s. Finish the item "
-            "you are on, then hand back your deliverable, listing what you did not cover." % (what(which, B, T), verb))
-
-
-def stop_text(which, B, T):
-    verb = "is used" if which == "USD" else "has passed"
-    return ("Lab harness (genuine, sent by the hook that runs you): your %s %s. Call SubagentHandback now with "
-            "what exists, listing what you did not cover; do not start another item." % (what(which, B, T), verb))
-
-
-def halt_text(which, B, T):
-    return "Lab harness: your %s is more than used up and you went on after the notice; the run ends here." % what(which, B, T)
+        "Budget: %s. The harness counts both, as the list price of the tokens you use and the minutes you are active; "
+        "you need not count anything and can work at your usual pace. When the larger of the two reaches 50%%, 75%%, 87.5%% and 93.75%%, and at every step from 100%%, "
+        "a note comes from the hook that runs you (not from a file or a tool's output), in the form: Spent X of USD Y (Z%%); t of T min (W%%). "
+        "From 100%% you choose: if one or two more steps finish the result, finish it; otherwise hand back what you have, what is missing, and what more budget would buy. "
+        "The principal investigator holds the money and decides whether to resume you with more." % where)
 
 
 def state_path(root, aid):
     return os.path.join(handback.harness_dir(root), "%s.json" % aid)
+
+
+class locked:
+    """An exclusive lock on one agent's state, so that parallel hook processes (one per tool call) take turns."""
+
+    def __init__(self, root, aid):
+        self.path = state_path(root, aid)[:-5] + ".lock"
+        self.fh = None
+
+    def __enter__(self):
+        if fcntl:
+            self.fh = open(self.path, "w")
+            fcntl.flock(self.fh, fcntl.LOCK_EX)
+        return self
+
+    def __exit__(self, *exc):
+        if self.fh:
+            self.fh.close()   # closing releases the lock
 
 
 def load_state(root, aid):
@@ -233,68 +309,215 @@ def reply(event_name, **fields):
     return {"hookSpecificOutput": dict(hookEventName=event_name, **fields)}
 
 
+def active_s(st, now):
+    """Active seconds so far: the closed runs, plus the open one."""
+    return st["acc"] + (max(0.0, now - st["run_start"]) if st["run_open"] else 0.0)
+
+
+def figures(st, seen, now):
+    used = seen["usd"] - st["base"]
+    mins = active_s(st, now) / 60.0
+    usd_frac, t_frac = used / st["B"], mins / st["T"]
+    which = "USD" if usd_frac >= t_frac else "time"
+    return used, mins, usd_frac, t_frac, max(usd_frac, t_frac), which
+
+
+def due(frac):
+    """How many of the schedule's thresholds the fraction has reached."""
+    return sum(1 for t in SCHEDULE if frac >= t)
+
+
+def active_at(st, ts, now):
+    """Active seconds at the time `ts` of a message (clamped to this run; None: now)."""
+    if ts is None or not st["run_open"]:
+        return active_s(st, now)
+    return st["acc"] + min(max(0.0, ts - st["run_start"]), max(0.0, now - st["run_start"]))
+
+
+def apply_raises(root, st, seen, now, base_log):
+    """Apply the raises in the transcript that this state has not seen. Returns True when the limits changed."""
+    new = seen["raises"][st["raises_done"]:]
+    for r in new:
+        used_at = r["usd_at"] - st["base"]
+        mins_at = active_at(st, r["ts"], now) / 60.0
+        before = (st["B"], st["T"])
+        if r["x"] is not None:
+            st["B"] = max(st["B"], used_at) + r["x"]
+        if r["t"] is not None:
+            st["T"] = max(st["T"], mins_at) + r["t"]
+        handback.log_line(root, dict(base_log, event="raise", add_usd=r["x"], add_min=r["t"], B_before=before[0], T_before=before[1], B=round(st["B"], 6), T=round(st["T"], 6),
+                                     used_at=round(used_at, 6), minutes_at=round(mins_at, 4)))
+    st["raises_done"] = len(seen["raises"])
+    return bool(new)
+
+
+def pending_dir(root):
+    return os.path.join(handback.harness_dir(root), "pending")
+
+
+def dispatch(event, root, now):
+    """PreToolUse on the Agent tool: keep the brief's figures for the SubagentStart that follows; log a figure below the floor."""
+    tin = event.get("tool_input") or {}
+    kind = str(tin.get("subagent_type") or "")
+    if not kind.startswith("murmuration:"):
+        return None
+    role, prompt = kind.split(":", 1)[1], tin.get("prompt") or ""
+    B, b_set = budget_for(role, prompt)
+    T, t_set = time_for(role, prompt)
+    name = str(tin.get("name") or (re.search(r"Your name is ([a-z0-9-]+)", prompt) or [None, None])[1] or kind)
+    os.makedirs(pending_dir(root), exist_ok=True)
+    key = "%014.3f-%s" % (now, re.sub(r"[^A-Za-z0-9_-]", "", str(event.get("tool_use_id") or os.getpid())))
+    with open(os.path.join(pending_dir(root), key + ".json"), "w") as fh:
+        json.dump(dict(type=kind, B=B, T=T, b_set=b_set, t_set=t_set, t=now, name=name), fh)
+    warn_floor(root, dict(name=name, type=kind), B if b_set else None, T if t_set else None)
+    return None
+
+
+def warn_floor(root, who, B, T):
+    for what, value, floor in (("budget_usd", B, FLOOR_USD), ("time_min", T, FLOOR_MIN)):
+        if value is not None and value < floor:
+            handback.log_line(root, dict(who, event="warn", what=what, value=value, floor=floor,
+                                         reason="below the floor; the figure is left as the brief gives it"))
+
+
+def claim_pending(root, kind, now):
+    """The oldest dispatch record of this agent type that is still fresh, removed; and whether other fresh records of the type disagree with it."""
+    found = []
+    for path in sorted(glob.glob(os.path.join(pending_dir(root), "*.json"))):
+        try:
+            rec = json.load(open(path))
+        except (OSError, ValueError):
+            continue
+        if now - rec.get("t", 0) > PENDING_TTL:
+            try:
+                os.unlink(path)
+            except OSError:
+                pass
+        elif rec.get("type") == kind:
+            found.append((path, rec))
+    for path, rec in found:
+        try:
+            os.unlink(path)   # whoever removes the file owns the record
+        except OSError:
+            continue
+        rest = [(p, r) for p, r in found if p != path]
+        mixed = bool(rec.get("ambiguous")) or any((r["B"], r["T"]) != (rec["B"], rec["T"]) for p, r in rest)
+        if mixed:   # the later claimants must not trust their record either: whichever start comes first may have taken the wrong one
+            for p, r in rest:
+                try:
+                    with open(p, "w") as fh:
+                        json.dump(dict(r, ambiguous=True), fh)
+                except OSError:
+                    pass
+        return rec, mixed
+    return None, False
+
+
 def handle(event, now=None):
     """The hook's answer (a dict to print) or None. Writes state and log lines as a side effect."""
-    role, root = role_of(event), handback.lab_root(event)
+    root = handback.lab_root(event)
+    now, kind = now or time.time(), event.get("hook_event_name")
+    if root and kind == "PreToolUse" and event.get("tool_name") in ("Agent", "Task") and not event.get("agent_id"):
+        return dispatch(event, root, now)
+    role = role_of(event)
     if not role or not root:
         return None
-    now, aid, kind = now or time.time(), event["agent_id"], event.get("hook_event_name")
+    aid = event["agent_id"]
+    with locked(root, aid):
+        return handle_locked(event, root, role, aid, kind, now)
+
+
+def handle_locked(event, root, role, aid, kind, now):
     path = transcript_of(event)
     seen = scan(path) if path and os.path.exists(path) else None
-    base_log = dict(agent_id=aid, name=handback.agent_name(event), type=event.get("agent_type"),
-                    mode=event.get("permission_mode"))
+    base_log = dict(agent_id=aid, name=handback.agent_name(event), type=event.get("agent_type"), mode=event.get("permission_mode"))
+    st = load_state(root, aid)
     if kind == "SubagentStart":
-        B, from_brief = budget_for(role, seen and seen["brief"])
-        T, t_from_brief = time_for(role, seen and seen["brief"])
-        old = load_state(root, aid)   # a state file or an existing transcript: this agent is resumed, a new run begins
-        base = seen["usd"] if seen else 0.0
-        save_state(root, aid, dict(role=role, B=B, base=base, base_recorded=seen["usd_recorded"] if seen else 0.0, start=now, noted=False, stops=0))
-        handback.log_line(root, dict(base_log, event="start", B=B, T=T, from_brief=from_brief, t_from_brief=t_from_brief,
-                                     resumed=bool(old or seen), base_usd=round(base, 6)))
-        return reply(kind, additionalContext=start_note(B, from_brief, T, t_from_brief))
+        if st is None:
+            rec, mixed = claim_pending(root, event.get("agent_type"), now)
+            B, b_set = budget_for(role, seen and seen["brief"])
+            T, t_set = time_for(role, seen and seen["brief"])
+            source = "brief" if (b_set or t_set) else "default"
+            if rec and not seen:   # a new worker: its transcript does not exist yet, so the dispatch record is what we know
+                source = "unknown" if mixed else ("brief" if rec["b_set"] or rec["t_set"] else "default")
+                if not mixed:
+                    B, T = rec["B"], rec["T"]
+            st = dict(role=role, B=B, T=T, base=seen["usd"] if seen else 0.0, base_recorded=seen["usd_recorded"] if seen else 0.0,
+                      acc=0.0, run_start=now, run_open=True, last_seen=now, k=0, raises_done=len(seen["raises"]) if seen else 0, stops=0, ceil_req=-1,
+                      brief_read=bool(seen), warned=bool(rec) or bool(seen))
+            save_state(root, aid, st)
+            if rec and rec.get("name"):
+                base_log["name"] = rec["name"]   # the transcript and its meta file do not exist yet: the dispatch record knows the name
+            handback.log_line(root, dict(base_log, event="start", B=B, T=T, source=source, resumed=bool(seen and seen["requests"]), base_usd=round(st["base"], 6)))
+            return reply(kind, additionalContext=start_note(B, T, source))
+        if st["run_open"]:   # the earlier run ended without a SubagentStop: count it up to the last event seen
+            st["acc"] += max(0.0, st["last_seen"] - st["run_start"])
+        st.update(run_start=now, run_open=True, last_seen=now)
+        save_state(root, aid, st)
+        handback.log_line(root, dict(base_log, event="start", B=st["B"], T=st["T"], resumed=True, active_s=round(st["acc"], 1)))
+        return None   # measured (w03-c1): a resumed worker is not given a SubagentStart additionalContext; its notes come at the checks
     if not seen:
         return None
-    st = load_state(root, aid)
-    if st is None:   # no SubagentStart seen (hook added mid-run): start counting from nothing
-        st = dict(role=role, B=budget_for(role, seen["brief"])[0], base=0.0, start=now, noted=False, stops=0)
-    B, from_brief = budget_for(role, seen["brief"])   # the brief's lines win over what the start note could say
-    T = time_for(role, seen["brief"])[0]
-    used = seen["usd"] - st["base"]
-    elapsed = now - st["start"]
-    usd_frac, t_frac = used / B, elapsed / (60 * T)
-    frac, which = (usd_frac, "USD") if usd_frac >= t_frac else (t_frac, "time")
-    fields = dict(B=B, used=round(used, 6), used_recorded=round(seen["usd_recorded"] - st.get("base_recorded", 0.0), 6), frac=round(usd_frac, 4), t_frac=round(t_frac, 4), T=T, which=which, basis=BASIS,
-                  requests=seen["requests"], unpriced=seen["unpriced"],
-                  elapsed_s=round(elapsed, 1))
+    if st is None:   # no SubagentStart seen (hook added mid-run): start counting from the transcript's beginning
+        st = dict(role=role, B=0.0, T=0.0, base=0.0, base_recorded=0.0, acc=0.0, run_start=now, run_open=True, last_seen=now, k=0, raises_done=0, stops=0, ceil_req=-1,
+                  brief_read=False, warned=False)
+    if not st["warned"]:   # the brief's own figures, when no dispatch record was seen
+        st["warned"] = True
+        warn_floor(root, base_log, budget_for(role, seen["brief"])[0] if BRIEF_LINE.search(seen["brief"] or "") else None,
+                   time_for(role, seen["brief"])[0] if TIME_LINE.search(seen["brief"] or "") else None)
+    if not st["run_open"] and kind != "SubagentStop":   # events after a stop without a new start: the agent is running, count from now
+        st.update(run_start=now, run_open=True)
+    if not st["brief_read"]:   # the start note could say only what the dispatch record held: the brief's own lines win
+        st["B"], st["T"], st["brief_read"] = budget_for(role, seen["brief"])[0], time_for(role, seen["brief"])[0], True
+    changed = apply_raises(root, st, seen, now, base_log)
+    used, mins, usd_frac, t_frac, frac, which = figures(st, seen, now)
+    if changed:
+        st["k"] = due(frac)   # the schedule restarts above the new fraction
+    fields = dict(B=round(st["B"], 6), T=round(st["T"], 6), used=round(used, 6), used_recorded=round(seen["usd_recorded"] - st.get("base_recorded", 0.0), 6),
+                  frac=round(usd_frac, 4), t_frac=round(t_frac, 4), which=which, basis=BASIS, requests=seen["requests"], unpriced=seen["unpriced"],
+                  active_s=round(active_s(st, now), 1))
+    st["last_seen"] = now
     if kind == "SubagentStop":
-        handback.log_line(root, dict(base_log, event="end", noted=st["noted"], stops=st["stops"], **fields))
+        if st["run_open"]:
+            st["acc"] += max(0.0, now - st["run_start"])
+            st["run_open"] = False
+        save_state(root, aid, st)
+        fields["active_s"] = round(st["acc"], 1)
+        handback.log_line(root, dict(base_log, event="end", k=st["k"], stops=st["stops"], **fields))
         return None
-    if kind != "PostToolUse" or event.get("tool_name") == "SubagentHandback":
-        return None
-    if frac >= HARD_AT and st["stops"] >= HALT_AFTER:
-        st.update(B=B, noted=True, stops=st["stops"] + 1)
+    if kind == "PostToolBatch":
+        calls = [c.get("tool_name") for c in event.get("tool_calls") or [] if isinstance(c, dict)]
+        if "SubagentHandback" in calls:
+            save_state(root, aid, st)
+            return None
+        if frac >= HARD_AT and st["ceil_req"] == seen["requests"]:   # the PostToolUse of this batch has just sent the block: one message per check
+            save_state(root, aid, st)
+            return None
+        n = due(frac)
+        if frac < OVER_AT and n <= st["k"]:
+            save_state(root, aid, st)
+            return None
+        st["k"] = n
         save_state(root, aid, st)
-        handback.log_line(root, dict(base_log, event="halt", n=st["stops"], **fields))
-        return {"continue": False, "stopReason": halt_text(which, B, T)}
-    if frac >= STOP_AT:
-        st.update(B=B, noted=True, stops=st["stops"] + 1)
+        handback.log_line(root, dict(base_log, event="note", over=frac >= OVER_AT, **fields))
+        return reply(kind, additionalContext=note_text(used, st["B"], mins, st["T"], frac))
+    if kind == "PostToolUse" and event.get("tool_name") != "SubagentHandback" and frac >= HARD_AT and st["ceil_req"] != seen["requests"]:
+        st["ceil_req"] = seen["requests"]   # one block per batch, whatever the number of parallel calls
+        halt = st["stops"] >= HALT_AFTER
+        st["stops"] += 1
         save_state(root, aid, st)
-        handback.log_line(root, dict(base_log, event="stop", n=st["stops"], **fields))
-        return {"decision": "block", "reason": stop_text(which, B, T)}
-    if frac >= NOTE_AT and not st["noted"]:
-        st.update(B=B, noted=True)
-        save_state(root, aid, st)
-        handback.log_line(root, dict(base_log, event="note", **fields))
-        return reply(kind, additionalContext=note_text(which, B, T))
-    if st["B"] != B:
-        st["B"] = B
-        save_state(root, aid, st)
+        handback.log_line(root, dict(base_log, event="halt" if halt else "stop", n=st["stops"], **fields))
+        if halt:
+            return {"continue": False, "stopReason": halt_text(used, st["B"], mins, st["T"])}
+        return {"decision": "block", "reason": stop_text(used, st["B"], mins, st["T"])}
+    save_state(root, aid, st)
     return None
 
 
 def selftest():
     import subprocess
     import tempfile
+    import threading
 
     sys.path.insert(0, HERE)
     import lab_status
@@ -318,6 +541,20 @@ def selftest():
     def rec_user(text):
         return json.dumps({"type": "user", "message": {"role": "user", "content": text}}) + "\n"
 
+    def rec_coord(text, ts="2026-10-19T09:33:45.583Z", kind="coordinator"):
+        return json.dumps({"type": "user", "isMeta": True, "origin": {"kind": kind}, "timestamp": ts,
+                           "message": {"role": "user", "content": "The coordinator sent a message while you were working:\n" + text + "\n\nAddress this before completing your current task."}}) + "\n"
+
+    def rec_queued(text, kind="coordinator", ts="2026-10-19T09:33:46.583Z"):   # a message to a worker that is running: an attachment, as measured (w03-c1)
+        return json.dumps({"type": "attachment", "timestamp": ts, "attachment": {"type": "queued_command", "prompt": text, "origin": {"kind": kind}}}) + "\n"
+
+    def rec_result(text):
+        return json.dumps({"type": "user", "origin": {"kind": "coordinator"}, "message": {"role": "user", "content": [{"type": "tool_result", "tool_use_id": "t", "content": text}]}}) + "\n"
+
+    def rec_mixed(text):   # a tool result with a text block beside it, as the platform appends reminders to tool results
+        return json.dumps({"type": "user", "origin": {"kind": "coordinator"}, "message": {"role": "user", "content": [
+            {"type": "tool_result", "tool_use_id": "t", "content": "ok"}, {"type": "text", "text": text}]}}) + "\n"
+
     def rec_asst(rid, out, cr=0, cw=0, model="claude-sonnet-5-5", inp=2, chars=0):
         return json.dumps({"type": "assistant", "requestId": rid, "message": {"id": "m" + rid, "model": model,
                                                                               "content": [{"type": "text", "text": "x" * chars}], "usage": dict(
@@ -330,11 +567,19 @@ def selftest():
         got = scan(f)
         assert got["requests"] == 2 and abs(got["usd"] - (10 + 0.10 * 1) - 8e-6) < 1e-9, got   # 1M output (10.0) + 1M cache read (0.10) + 4 input tokens
         assert BRIEF_LINE.search(got["brief"]).group(1) == "0.50" and "Budget: USD 9" not in got["brief"], "the first user message only"
+        assert got["raises"] == [], "a second user message that is not from the coordinator is not a raise"
         assert scan(os.path.join(tmp, "missing")) is None
         # output: the content length stands in for the output count when it is larger; the same message streamed twice counts once
         open(f, "w").write(rec_asst("r1", 10, chars=13000) + rec_asst("r1", 10, chars=13000) + rec_asst("r2", 5000, chars=100))
         got = scan(f)
         assert abs(got["usd"] - (10000 + 5000) * 10 / 1e6 - 8e-6) < 1e-9 and abs(got["usd_recorded"] - 5010 * 10 / 1e6 - 8e-6) < 1e-9, got
+        # raises: only a coordinator's plain message counts; a tool result, another origin and a line that is not exact do not; the spend before it is kept
+        open(f, "w").write(rec_user("Budget: USD 1.00") + rec_asst("a", 1000) + rec_coord("Budget: USD 2.5\nTime: min 7\nGo on.") + rec_asst("b", 1000) +
+                           rec_coord("Budget: USD 9", kind="peer") + rec_result("Budget: USD 8\nTime: min 8") + rec_mixed("Budget: USD 7") + rec_coord("Budget: USD 4 more\nplease") + rec_coord("Time: min 3.5") +
+                           rec_queued("Budget: USD 6", kind="peer") + rec_queued("Budget: USD 1.5\nHow is it going?"))
+        got = scan(f)
+        assert [(r["x"], r["t"]) for r in got["raises"]] == [(2.5, 7.0), (None, 3.5), (1.5, None)], got["raises"]
+        assert abs(got["raises"][0]["usd_at"] - 1000 * 10 / 1e6 - 4e-6) < 1e-9 and abs(got["raises"][1]["usd_at"] - 2000 * 10 / 1e6 - 8e-6) < 1e-9 and got["raises"][0]["ts"], got["raises"]
     for text, want in [("Budget: USD 1.5", 1.5), ("x\nBudget: USD 4\ny", 4.0), ("Budget: USD 2 more", None), ("budget: usd 2", None),
                        ("  Budget: USD 2", None), ("Budget: USD 0", None), ("", None), (None, None)]:
         assert budget_for("author", text)[0] == (want or 3.0), (text, want)
@@ -343,7 +588,17 @@ def selftest():
         assert time_for("author", text)[0] == (want or 20.0), (text, want)
     assert [time_for(r, "")[0] for r in ("explorer", "author", "reproducer", "proof-adversary", "depth-reviewer")] == [20.0, 20.0, 15.0, 15.0, 15.0]
 
-    # 3. hooks, end to end through the script (the way the platform runs it)
+    # 3. the text, exactly; the schedule's thresholds; whole percent (100 only from 1.0)
+    assert line(0.93, 1.0, 2.14, 4) == "Spent 0.93 of USD 1.00 (93%); 2.1 of 4 min (54%)", line(0.93, 1.0, 2.14, 4)
+    assert line(1.234, 3.0, 20.0, 20.0) == "Spent 1.23 of USD 3.00 (41%); 20.0 of 20 min (100%)"
+    assert line(0.9999, 1.0, 0.0, 1.5) == "Spent 1.00 of USD 1.00 (99%); 0.0 of 1.5 min (0%)", line(0.9999, 1.0, 0.0, 1.5)
+    assert note_text(0.5, 1.0, 1.0, 10, 0.5) == "Spent 0.50 of USD 1.00 (50%); 1.0 of 10 min (10%)", "below 1.0 the line is the whole note"
+    assert note_text(1.0, 1.0, 1.0, 10, 1.0) == ("Spent 1.00 of USD 1.00 (100%); 1.0 of 10 min (10%). If one or two more steps finish the result, finish it. "
+                                                 "Otherwise hand back now: what you have, what is missing, and what more budget would buy.")
+    assert [due(f) for f in (0, 0.49, 0.5, 0.74, 0.75, 0.874, 0.875, 0.9374, 0.9375, 2)] == [0, 0, 1, 1, 2, 2, 3, 3, 4, 4]
+    assert all(x in start_note(3.0, 20.0, "brief") for x in ("USD 3.00 and 20 minutes (from your brief)", "50%, 75%, 87.5% and 93.75%", "at every step from 100%", "holds the money"))
+
+    # 4. hooks end to end, in a temporary lab (the way the platform runs the script, and in-process where time is set)
     def fire(cwd, **kw):
         env = dict(os.environ)
         env.pop("CLAUDE_PROJECT_DIR", None)
@@ -357,6 +612,9 @@ def selftest():
         except OSError:
             return []
 
+    def ctx(answer):
+        return answer["hookSpecificOutput"]["additionalContext"]
+
     with tempfile.TemporaryDirectory() as tmp:
         sess = os.path.join(tmp, "s")
         sub = os.path.join(sess, "subagents")
@@ -368,98 +626,215 @@ def selftest():
         assert fire(tmp, hook_event_name="SubagentStart", **dict(ev, agent_type="general-purpose")) is None, "other agent types: no-op"
         assert fire(tmp, hook_event_name="SubagentStart", **{k: v for k, v in ev.items() if k != "agent_id"}) is None, "main thread: no-op"
         assert logged(tmp) == []
-        start = fire(tmp, hook_event_name="SubagentStart", **ev)["hookSpecificOutput"]
-        assert start["hookEventName"] == "SubagentStart" and "USD 2.00" in start["additionalContext"] and "80%" in start["additionalContext"] \
-            and "genuine" in start["additionalContext"] and "hand back" in start["additionalContext"], start
+        # the dispatch (PreToolUse on Agent) keeps the brief's figures; the start note states them; a figure below the floor is logged and kept
+        brief = "Your name is reproducer-w09-1.\nBudget: USD 1.00\nTime: min 100\nGo.\n"
+        assert fire(tmp, hook_event_name="PreToolUse", tool_name="Agent", tool_use_id="toolu_1", tool_input=dict(subagent_type="murmuration:reproducer", prompt=brief, name="reproducer-w09-1")) is None
+        assert fire(tmp, hook_event_name="PreToolUse", tool_name="Agent", tool_use_id="toolu_x", tool_input=dict(subagent_type="general-purpose", prompt=brief)) is None
+        assert fire(tmp, hook_event_name="PreToolUse", tool_name="Agent", agent_id="zz", agent_type="murmuration:author", tool_use_id="toolu_y", tool_input=dict(subagent_type="murmuration:reproducer", prompt=brief)) is None
+        assert len(os.listdir(os.path.join(tmp, "__statera__", ".harness", "pending"))) == 1, "one dispatch record: the other agent type and the call inside a subagent leave none"
+        start = ctx(fire(tmp, hook_event_name="SubagentStart", **ev))
+        assert "USD 1.00 and 100 minutes (from your brief)" in start and "93.75%" in start and "hand back" in start, start
+        assert not os.listdir(os.path.join(tmp, "__statera__", ".harness", "pending")), "the record is used once"
         assert open(os.path.join(tmp, "__statera__", ".harness", ".gitignore")).read() == "*\n"
-        # the brief sets B to 1.00: 0.79 used is quiet, 0.80 gives one note, then quiet, 1.00 stops (every time), the hand-back call is never stopped
-        post = dict(hook_event_name="PostToolUse", tool_name="Bash", **ev)
-        open(tx, "w").write(rec_user("Your name is reproducer-w09-1.\nBudget: USD 1.00\n") + rec_asst("r1", 79000))        # 0.79 USD
-        assert fire(tmp, **post) is None
-        open(tx, "a").write(rec_asst("r2", 1000))                                                                          # 0.80 USD
-        note = fire(tmp, **post)["hookSpecificOutput"]
-        assert note["hookEventName"] == "PostToolUse" and "USD 1.00" in note["additionalContext"] and "80%" in note["additionalContext"], note
-        open(tx, "a").write(rec_asst("r3", 5000))                                                                          # 0.85 USD
-        assert fire(tmp, **post) is None, "one note per agent"
-        open(tx, "a").write(rec_asst("r4", 15000))                                                                         # 1.00 USD
-        stop = fire(tmp, **post)
-        assert stop["decision"] == "block" and "continue" not in stop and "handback" in stop["reason"].lower() and "USD 1.00" in stop["reason"], stop
-        assert fire(tmp, **dict(post, tool_name="SubagentHandback")) is None, "the hand-back call is not stopped"
-        assert fire(tmp, hook_event_name="PreToolUse", tool_name="Bash", **ev) is None
-        assert fire(tmp, **post)["decision"] == "block", "the notice repeats while the agent goes on"
-        open(tx, "a").write(rec_asst("r4b", 50000))                                                                        # 1.50 USD
-        assert fire(tmp, **post)["decision"] == "block", "an agent that has had only two notices is not halted: it may be writing its report"
-        halt = fire(tmp, **post)
-        assert halt["continue"] is False and "USD 1.00" in halt["stopReason"] and "decision" not in halt, halt
+        assert [x["event"] for x in logged(tmp)] == ["start"] and logged(tmp)[0]["name"] == "reproducer-w09-1" and logged(tmp)[0]["B"] == 1.0 and logged(tmp)[0]["T"] == 100.0 and logged(tmp)[0]["source"] == "brief"
+        # the schedule: B = 1.00. 0.49 quiet; 0.50 one note, only the line; again quiet; a jump to 0.80 sends one note, with the figures of now
+        post = dict(hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash", tool_use_id="t")], **ev)
+        use = dict(hook_event_name="PostToolUse", tool_name="Bash", **ev)
+        cum = []
+
+        def spend(rid, usd):   # one more request of this price
+            cum.append(rec_asst(rid, int(round(usd / 10 * 1e6)) - 0) if usd else "")
+            open(tx, "w").write(rec_user(brief) + "".join(cum))
+
+        spend("r1", 0.49)
+        assert fire(tmp, **post) is None and fire(tmp, **use) is None
+        spend("r2", 0.0105)
+        answer = fire(tmp, **post)
+        assert answer["hookSpecificOutput"]["hookEventName"] == "PostToolBatch", answer
+        got = ctx(answer)
+        assert re.fullmatch(r"Spent 0\.50 of USD 1\.00 \(50%\); 0\.\d of 100 min \(0%\)", got), got
+        spend("r3", 0.02)
+        assert fire(tmp, **post) is None, "0.52: the next threshold is 0.75"
+        spend("r4", 0.28)
+        got = ctx(fire(tmp, **post))
+        assert got.startswith("Spent 0.80 of USD 1.00 (80%)") and "finish" not in got and "hand back" not in got, got   # skipped 0.75: one note, current figures
+        spend("r5", 0.07)
+        assert fire(tmp, **post) is None, "0.87: below 0.875"
+        spend("r6", 0.01)
+        assert ctx(fire(tmp, **post)).startswith("Spent 0.88 of USD 1.00 (88%)"), "0.875"
+        spend("r7", 0.056)
+        assert fire(tmp, **post) is None, "0.936: below 0.9375"
+        spend("r8", 0.002)
+        assert ctx(fire(tmp, **post)).startswith("Spent 0.94 of USD 1.00 (94%)")
+        spend("r9", 0.04)
+        assert fire(tmp, **post) is None, "0.98"
+        spend("r10", 0.03)
+        over = ctx(fire(tmp, **post))
+        assert re.fullmatch(r"Spent 1\.01 of USD 1\.00 \(101%\); 0\.\d of 100 min \(0%\)\. " + re.escape(OVER_SENTENCE), over), over
+        spend("r11", 0.01)
+        assert ctx(fire(tmp, **post)).endswith(OVER_SENTENCE), "from 1.0 every check sends a note"
+        assert fire(tmp, **dict(post, tool_calls=[dict(tool_name="SubagentHandback")])) is None, "a batch that holds the hand-back gets no note"
+        assert fire(tmp, **use) is None, "PostToolUse sends nothing below the ceiling"
+        assert fire(tmp, hook_event_name="PostToolBatch", **dict(ev, agent_id="a9")) is None, "unknown agent: no transcript, no action"
+        notes = [x for x in logged(tmp) if x["event"] == "note"]
+        assert [x["over"] for x in notes] == [False] * 4 + [True] * 2 and [round(x["frac"], 2) for x in notes] == [0.5, 0.8, 0.88, 0.94, 1.01, 1.02], notes
+        # the ceiling: PostToolUse blocks from 1.5; parallel calls (concurrent hook processes) send one block; the batch's PostToolBatch is then quiet
+        spend("r12", 0.49)
+        outs = []
+        threads = [threading.Thread(target=lambda: outs.append(fire(tmp, **dict(use, tool_use_id="p%d" % i)))) for i in range(4)]
+        [t.start() for t in threads]
+        [t.join() for t in threads]
+        blocks = [o for o in outs if o]
+        assert len(blocks) == 1 and blocks[0]["decision"] == "block" and "continue" not in blocks[0], outs
+        assert re.match(r"Spent 1\.51 of USD 1\.00 \(151%\); 0\.\d of 100 min \(0%\)\. Hand back now with SubagentHandback", blocks[0]["reason"]) and "more budget" in blocks[0]["reason"], blocks[0]
+        assert fire(tmp, **post) is None, "the block was this check's message"
+        spend("r12b", 0.001)
+        assert fire(tmp, **dict(use, tool_name="SubagentHandback")) is None, "the hand-back call is never blocked, on a request no block has covered yet"
+        spend("r13", 0.01)
+        assert ctx(fire(tmp, **post)).endswith(OVER_SENTENCE), "a later batch gets its note again"
+        assert fire(tmp, **use)["decision"] == "block", "and its block"
+        spend("r14", 0.01)
+        assert fire(tmp, **use)["decision"] == "block"
+        spend("r15", 0.01)
+        halt = fire(tmp, **use)   # after HALT_AFTER (3) blocks the next one is the backstop
+        assert halt["continue"] is False and halt["stopReason"].startswith("Spent 1.54 of USD 1.00") and "decision" not in halt, halt
         fire(tmp, hook_event_name="SubagentStop", **ev)
-        lines = logged(tmp)
-        assert [x["event"] for x in lines] == ["start", "note", "stop", "stop", "stop", "halt", "end"], lines
-        assert "estimate" not in lines[1]["basis"] and "content chars" in lines[1]["basis"] and lines[1]["used_recorded"] <= lines[1]["used"], lines[1]
-        assert lines[1]["name"] == "reproducer-w09-1" and lines[1]["B"] == 1.0 and 0.80 <= lines[1]["frac"] < 0.81 and lines[1]["requests"] == 2, lines[1]
-        assert lines[-1]["frac"] == 1.5 and lines[-1]["stops"] == 4 and lines[-1]["noted"] and lines[-1]["mode"] == "auto", lines[-1]
-        # a resumed agent: the spend so far is the baseline, the start note shows the brief's B, the flags are reset
-        again = fire(tmp, hook_event_name="SubagentStart", **ev)["hookSpecificOutput"]["additionalContext"]
-        assert "USD 1.00 (from your brief)" in again, again
-        assert fire(tmp, **post) is None, "a new run starts from zero"
-        open(tx, "a").write(rec_asst("r5", 80000))
-        assert "80%" in fire(tmp, **post)["hookSpecificOutput"]["additionalContext"], "the note comes again in the new run"
-        assert logged(tmp)[-2]["event"] == "start" and logged(tmp)[-2]["resumed"] is True and abs(logged(tmp)[-2]["base_usd"] - 1.5) < 1e-3, logged(tmp)[-2:]
-        assert fire(tmp, **post) is None and fire(tmp, **dict(post, agent_id="a9")) is None, "unknown agent: no transcript, no action"
-        # a second agent has its own state and log name; a hook added mid-run (no SubagentStart) counts from nothing
-        tx2 = os.path.join(sub, "agent-a2.jsonl")
-        open(tx2, "w").write(rec_user("Budget: USD 0.10\n") + rec_asst("q1", 8000))
-        got = fire(tmp, **dict(post, agent_id="a2", agent_type="murmuration:explorer"))
-        assert got and "USD 0.10" in got["hookSpecificOutput"]["additionalContext"], got
-        assert os.path.exists(os.path.join(tmp, "__statera__", ".harness", "a2.json"))
-        # the time budget: minutes since SubagentStart against T; the larger fraction decides and the text says which budget it is
-        def age(aid, seconds):
-            path = os.path.join(tmp, "__statera__", ".harness", "%s.json" % aid)
-            st = json.load(open(path))
-            st["start"] = time.time() - seconds
-            json.dump(st, open(path, "w"))
-        tx3 = os.path.join(sub, "agent-a3.jsonl")
-        open(tx3, "w").write(rec_user("Your name is explorer-w09-3.\nBudget: USD 5.00\nTime: min 1\n") + rec_asst("t1", 1000))   # 0.01 USD
-        ev3 = dict(ev, agent_id="a3", agent_type="murmuration:explorer")
-        post3 = dict(hook_event_name="PostToolUse", tool_name="Bash", **ev3)
-        first = fire(tmp, hook_event_name="SubagentStart", **ev3)["hookSpecificOutput"]["additionalContext"]
-        assert "USD 5.00 (from your brief)" in first and "1 minutes of wall time (from your brief)" in first, first
-        default = fire(tmp, hook_event_name="SubagentStart", **dict(ev, agent_id="a5", agent_type="murmuration:explorer"))["hookSpecificOutput"]["additionalContext"]
-        assert "20 minutes of wall time (unless your brief has a line `Time: min <number>`" in default and "USD 3.00" in default, default
-        age("a3", 40)
-        assert fire(tmp, **post3) is None, "40 s of 60 s: nothing yet"
-        age("a3", 49)
-        note = fire(tmp, **post3)["hookSpecificOutput"]["additionalContext"]
-        assert "1-minute time budget has passed" in note and "80%" in note and "USD" not in note, note
-        age("a3", 55)
-        assert fire(tmp, **post3) is None, "one note per agent, whichever budget"
-        age("a3", 61)
-        block = fire(tmp, **post3)
-        assert block["decision"] == "block" and "1-minute time budget has passed" in block["reason"] and "SubagentHandback" in block["reason"], block
-        assert fire(tmp, **dict(post3, tool_name="SubagentHandback")) is None, "the hand-back call is never blocked on time either"
-        age("a3", 95)
-        assert fire(tmp, **post3)["decision"] == "block", "1.58 of T but only 2 notices so far: no halt"
-        assert fire(tmp, **post3)["decision"] == "block"
-        assert fire(tmp, **post3)["continue"] is False, "after 3 notices and past 1.5 T the backstop ends the run"
-        got = [x for x in logged(tmp) if x["agent_id"] == "a3"]
-        assert [x["event"] for x in got] == ["start", "note", "stop", "stop", "stop", "halt"], got
-        assert got[1]["which"] == "time" and 0.8 <= got[1]["t_frac"] < 0.85 and got[1]["T"] == 1.0 and got[1]["frac"] < 0.01, got[1]
-        assert got[2]["t_frac"] >= 1.0 and got[-1]["which"] == "time", got
-        # USD first: the note says USD, and t_frac is logged next to frac
-        tx4 = os.path.join(sub, "agent-a4.jsonl")
-        ev4 = dict(ev, agent_id="a4", agent_type="murmuration:author")
-        fire(tmp, hook_event_name="SubagentStart", **ev4)
-        open(tx4, "w").write(rec_user("Budget: USD 1.00\nTime: min 100\n") + rec_asst("u1", 80000))                            # 0.80 USD
-        age("a4", 30)
-        note = fire(tmp, hook_event_name="PostToolUse", tool_name="Bash", **ev4)["hookSpecificOutput"]["additionalContext"]
-        assert "USD 1.00 budget is used" in note and "time" not in note, note
-        fire(tmp, hook_event_name="SubagentStop", **ev4)
-        last = [x for x in logged(tmp) if x["agent_id"] == "a4"][-1]
-        assert last["event"] == "end" and last["which"] == "USD" and 0 < last["t_frac"] < 0.01 and last["T"] == 100.0, last
-        # a resumed agent's clock restarts
-        age("a4", 6000)
-        fire(tmp, hook_event_name="SubagentStart", **ev4)
-        assert fire(tmp, hook_event_name="PostToolUse", tool_name="Bash", **ev4) is None, "a resumed agent starts with a new clock and new baseline"
-        assert subprocess.run([sys.executable, os.path.abspath(__file__)], input="not json", capture_output=True, text=True).returncode == 0
+        assert [x["event"] for x in logged(tmp)].count("stop") == 3 and logged(tmp)[-2]["event"] == "halt" and logged(tmp)[-1]["event"] == "end", [x["event"] for x in logged(tmp)]
+        last = logged(tmp)[-1]
+        assert last["name"] == "reproducer-w09-1" and last["mode"] == "auto" and 1.53 < last["frac"] < 1.55 and "content chars" in last["basis"] and last["used_recorded"] <= last["used"], last
+
+    # 5. the raise, and active time, in process (the clock is set by `now`): a message from the coordinator raises from that moment
+    with tempfile.TemporaryDirectory() as tmp:
+        os.makedirs(os.path.join(tmp, "__statera__"))
+        sess = os.path.join(tmp, "s")
+        os.makedirs(os.path.join(sess, "subagents"))
+        ev = dict(cwd=tmp, agent_id="b1", agent_type="murmuration:author", transcript_path=sess + ".jsonl", permission_mode="auto")
+        tx = os.path.join(sess, "subagents", "agent-b1.jsonl")
+        brief = "Your name is author-w09-2.\nBudget: USD 1.00\nTime: min 10\nGo.\n"
+
+        def ev_(kind, **kw):
+            return dict(ev, hook_event_name=kind, **kw)
+
+        def call(now, kind, **kw):
+            return handle(ev_(kind, **kw), now=now)
+
+        T0 = 1_000_000.0
+        open(tx, "w").write(rec_user(brief))
+        start = call(T0, "SubagentStart")   # a new worker whose transcript is not there yet is the production case; here it is, so the brief is read
+        assert "USD 1.00 and 10 minutes (from your brief)" in ctx(start), start
+        body = rec_user(brief) + rec_asst("a", 120000)           # 1.20 USD: over budget
+        open(tx, "w").write(body)
+        got = ctx(call(T0 + 120, "PostToolBatch", tool_calls=[dict(tool_name="Bash")]))
+        assert got.startswith("Spent 1.20 of USD 1.00 (120%); 2.0 of 10 min (20%). If one or two more steps"), got
+        call(T0 + 150, "SubagentStop")                           # hand-back: the run lasted 150 s
+        st = load_state(tmp, "b1")
+        assert abs(st["acc"] - 150) < 1e-6 and st["run_open"] is False
+        # the idle gap (3 hours) does not count: the resume starts a new run; a plain resume (no lines) changes no limit and the worker is still over
+        R = T0 + 150 + 3 * 3600
+        assert call(R, "SubagentStart") is None, "a resume has no start note: the platform does not deliver it"
+        assert [x["resumed"] for x in logged(tmp) if x["event"] == "start"] == [False, True], logged(tmp)
+        body += rec_asst("b", 1000)                              # 0.01 more
+        open(tx, "w").write(body)
+        got = ctx(call(R + 10, "PostToolBatch", tool_calls=[dict(tool_name="Bash")]))
+        assert got.startswith("Spent 1.21 of USD 1.00 (121%); 2.7 of 10 min (27%). If one or two"), "no raise line: still over, active time = 150 s + 10 s: " + got
+        # a raise by the PI: the message arrives after the start; limit = max(limit, spend at the message) + x, minutes likewise; not over straight away
+        call(R + 20, "SubagentStop")
+        R2 = R + 7200
+        call(R2, "SubagentStart")
+        body += rec_coord("Budget: USD 1.0\nTime: min 5\nGo on with the check.", ts=datetime.datetime.fromtimestamp(R2 + 1, datetime.timezone.utc).isoformat())
+        open(tx, "w").write(body)
+        assert call(R2 + 2, "PostToolBatch", tool_calls=[dict(tool_name="Bash")]) is None, "after a raise to 2.21 / 15.0 min: 55% and 18%: no note until 0.75"
+        st = load_state(tmp, "b1")
+        assert abs(st["B"] - 2.21) < 1e-4 and abs(st["T"] - (max(10, 171 / 60.0) + 5)) < 0.01 and st["k"] == 1, st   # spent 1.21; 171 s active at the message (150 + 20 + 1)
+        raise_log = [x for x in logged(tmp) if x["event"] == "raise"]
+        assert len(raise_log) == 1 and raise_log[0]["add_usd"] == 1.0 and raise_log[0]["add_min"] == 5.0 and raise_log[0]["B_before"] == 1.0, raise_log
+        body += rec_asst("c", 56000)                             # 1.21 + 0.56 = 1.77: 0.80 of 2.21
+        open(tx, "w").write(body)
+        got = ctx(call(R2 + 30, "PostToolBatch", tool_calls=[dict(tool_name="Bash")]))
+        assert got.startswith("Spent 1.77 of USD 2.21 (80%); ") and "hand back" not in got, "the schedule resumes above the new fraction: " + got
+        assert call(R2 + 31, "PostToolBatch", tool_calls=[dict(tool_name="Bash")]) is None
+        # the same raise is not applied twice; a tool result, another origin and the brief's own lines are no raise
+        body += rec_result("Budget: USD 50\nTime: min 50") + rec_coord("Budget: USD 50", kind="peer") + rec_asst("d", 1000)
+        open(tx, "w").write(body)
+        call(R2 + 40, "PostToolBatch", tool_calls=[dict(tool_name="Bash")])
+        assert abs(load_state(tmp, "b1")["B"] - 2.21) < 1e-4 and len([x for x in logged(tmp) if x["event"] == "raise"]) == 1
+        # a mid-run raise of the minutes only: the USD limit stays; time over before, not over after
+        ev2 = dict(ev, agent_id="b2")
+        tx2 = os.path.join(sess, "subagents", "agent-b2.jsonl")
+        handle(dict(ev2, hook_event_name="SubagentStart"), now=T0)   # a new worker: no transcript yet
+        open(tx2, "w").write(rec_user("Budget: USD 5.00\nTime: min 3\n") + rec_asst("a", 1000))
+        got = ctx(handle(dict(ev2, hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash")]), now=T0 + 200))
+        assert got.startswith("Spent 0.01 of USD 5.00 (0%); 3.3 of 3 min (111%). If one or two"), got
+        open(tx2, "a").write(rec_coord("Time: min 4", ts=datetime.datetime.fromtimestamp(T0 + 210, datetime.timezone.utc).isoformat()))
+        assert handle(dict(ev2, hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash")]), now=T0 + 220) is None
+        st = load_state(tmp, "b2")
+        assert st["B"] == 5.0 and abs(st["T"] - (3.5 + 4)) < 0.01, st   # 210 s = 3.5 min active at the message; + 4
+        # the mid-run state: a hook added during a run counts from the transcript's start and reads the brief's lines
+        ev3 = dict(ev, agent_id="b3")
+        open(os.path.join(sess, "subagents", "agent-b3.jsonl"), "w").write(rec_user("Budget: USD 0.20\nTime: min 2\n") + rec_asst("a", 15000))
+        got = ctx(handle(dict(ev3, hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash")]), now=T0))
+        assert got.startswith("Spent 0.15 of USD 0.20 (75%)"), got
+        assert handle(dict(ev3, hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash")]), now=T0 + 1) is None, "two thresholds passed at once: one note, then quiet"
+
+    # 5b. parallel calls in process, with a slow state write between load and save: the lock makes them take turns, so one block is sent
+    with tempfile.TemporaryDirectory() as tmp:
+        os.makedirs(os.path.join(tmp, "__statera__"))
+        sess = os.path.join(tmp, "s")
+        os.makedirs(os.path.join(sess, "subagents"))
+        ev = dict(cwd=tmp, agent_id="d1", agent_type="murmuration:author", transcript_path=sess + ".jsonl")
+        handle(dict(ev, hook_event_name="SubagentStart"), now=1.0)
+        open(os.path.join(sess, "subagents", "agent-d1.jsonl"), "w").write(rec_user("Budget: USD 1.00\nTime: min 100\n") + rec_asst("a", 160000))
+        real_save, outs = globals()["save_state"], []
+
+        def slow_save(root, aid, st):
+            time.sleep(0.15)
+            real_save(root, aid, st)
+
+        globals()["save_state"] = slow_save
+        try:
+            threads = [threading.Thread(target=lambda: outs.append(handle(dict(ev, hook_event_name="PostToolUse", tool_name="Bash"), now=2.0))) for _ in range(4)]
+            [t.start() for t in threads]
+            [t.join() for t in threads]
+        finally:
+            globals()["save_state"] = real_save
+        assert len([o for o in outs if o]) == 1 and [o for o in outs if o][0]["decision"] == "block", outs
+        assert load_state(tmp, "d1")["stops"] == 1
+
+    # 6. the floor: a brief below it is logged as a warning and not raised; the start note says what the brief says
+    with tempfile.TemporaryDirectory() as tmp:
+        os.makedirs(os.path.join(tmp, "__statera__"))
+        sess = os.path.join(tmp, "s")
+        os.makedirs(os.path.join(sess, "subagents"))
+        ev = dict(cwd=tmp, agent_type="murmuration:explorer", transcript_path=sess + ".jsonl")
+        handle(dict(ev, hook_event_name="PreToolUse", tool_name="Agent", tool_use_id="u1",
+                    tool_input=dict(subagent_type="murmuration:explorer", name="explorer-w09-1", prompt="Your name is explorer-w09-1.\nBudget: USD 0.05\nTime: min 2\n")), now=5.0)
+        handle(dict(ev, hook_event_name="PreToolUse", tool_name="Agent", tool_use_id="u2",
+                    tool_input=dict(subagent_type="murmuration:explorer", name="explorer-w09-2", prompt="Your name is explorer-w09-2.\nBudget: USD 0.30\nTime: min 3\n")), now=6.0)
+        warns = [x for x in logged(tmp) if x["event"] == "warn"]
+        assert [(x["name"], x["what"], x["value"], x["floor"]) for x in warns] == [("explorer-w09-1", "budget_usd", 0.05, 0.30), ("explorer-w09-1", "time_min", 2.0, 3.0)], warns
+        # two parallel dispatches of one type with different figures: the start note does not guess
+        got = ctx(handle(dict(ev, agent_id="c1", hook_event_name="SubagentStart"), now=7.0))
+        assert "USD 0.05 and 2 minutes" not in got and "set by the `Budget: USD <number>`" in got, got
+        tx = os.path.join(sess, "subagents", "agent-c1.jsonl")
+        open(tx, "w").write(rec_user("Your name is explorer-w09-1.\nBudget: USD 0.05\nTime: min 2\n") + rec_asst("a", 1000))
+        assert [x for x in logged(tmp) if x["event"] == "start"][-1]["B"] == 3.0   # what the start note could know: the defaults
+        handle(dict(ev, agent_id="c1", hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash")]), now=8.0)
+        st = load_state(tmp, "c1")
+        assert st["B"] == 0.05 and st["T"] == 2.0, "the brief's figure stands, below the floor, and is not raised: %r" % st
+        assert len([x for x in logged(tmp) if x["event"] == "warn"]) == 2, "one warning per figure, at the dispatch"
+        # the second start sees no other record, but the first start marked it: it does not guess either (starts in either order)
+        got2 = ctx(handle(dict(ev, agent_id="c3", hook_event_name="SubagentStart"), now=7.5))
+        assert "USD 0.30 and 3 minutes" not in got2 and "set by the `Budget: USD <number>`" in got2, got2
+        # a stale record is dropped and not used
+        handle(dict(ev, hook_event_name="PreToolUse", tool_name="Agent", tool_use_id="u3", tool_input=dict(subagent_type="murmuration:explorer", prompt="Budget: USD 9\n")), now=100.0)
+        got = ctx(handle(dict(ev, agent_id="c2", hook_event_name="SubagentStart"), now=100.0 + PENDING_TTL + 5))
+        assert "USD 3.00 and 20 minutes (the defaults for your role" in got, got
+
+    # 7. the registration: the check on PostToolBatch, the ceiling on PostToolUse, the dispatch on Agent
+    hooks = json.load(open(os.path.join(HERE, "..", "hooks", "hooks.json")))["hooks"]
+    for event, matcher in (("SubagentStart", None), ("PostToolBatch", None), ("PostToolUse", None), ("SubagentStop", None), ("PreToolUse", "Agent|Task")):
+        assert any(("budget.py" in h["command"]) and g.get("matcher") == matcher for g in hooks[event] for h in g["hooks"]), (event, matcher)
+    assert subprocess.run([sys.executable, os.path.abspath(__file__)], input="not json", capture_output=True, text=True).returncode == 0
     print("PASS budget")
 
 

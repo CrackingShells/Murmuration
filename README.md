@@ -41,7 +41,13 @@ claude --plugin-dir /path/to/Murmuration
 3. Run `/lab-status` at any time to see open puzzles, the current label of every claim, and spend
    in USD per agent (a lower bound while a session is open).
 
-Each worker's final report is saved verbatim under `__statera__/handbacks/`. That copy is kept for
+Each worker gets a budget in USD and in minutes, set by `Budget: USD <n>` and `Time: min <n>` lines
+in its brief or a default per role (never under USD 0.30 and 3 minutes). Hooks tell the worker its
+budgets at the start and send it `Spent X of USD Y (Z%); t of T min (W%)` at 50, 75, 87.5 and 93.75%
+and at every check from 100%. From 100% the worker finishes if one or two more steps do it, and
+otherwise hands back and asks the principal investigator, who holds the money, for more; the PI
+decides whether to resume it with a raise. The figures are in `__statera__/harness.jsonl`. Each
+worker's final report is also saved verbatim under `__statera__/handbacks/`. That copy is kept for
 you and the principal investigator to recover from; it is never fed back to agents. An explorer that
 hands back without its findings report is asked once to write it.
 
@@ -50,7 +56,7 @@ hands back without its findings report is asked once to write it.
 | Path | Holds |
 |:--|:--|
 | `__design__/framing.md` | The question, notation, scope and rules for the team |
-| `__statera__/` | Your words (recorded automatically), one note per wave, the synthesis, saved hand-backs and a log of the report check |
+| `__statera__/` | Your words (recorded automatically), one note per wave, the synthesis, saved hand-backs, the budget log and a log of the report check |
 | `__reports__/wave-NN/<agent>/` | Each explorer's findings report, from the research-loop template |
 | `__pondus__/` | One file per claim, with each verifier's verdict |
 | `__scrupuli__/` | Each agent's puzzles |
