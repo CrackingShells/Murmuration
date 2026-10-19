@@ -118,3 +118,12 @@ Rules for B3 (fixed now):
   defaults must not be lowered, and the PI should not be told to set small budgets.
 - If B3 cannot be run or measured within the time left, the budget stays "inert insurance,
   undecided".
+
+## Addendum, arm B4: forced notes (written before the run, about 16:25 JST)
+
+B3's budgets ($0.40, 4 min) did not reach the 0.8 note: the highest fraction was 0.60
+(`w02/explorer-w02-c/02-findings_v0.md`). B4 is B3 with budgets small enough that the notes must
+fire: the prompt says "Give every worker these two lines in its brief: `Budget: USD 0.05` and
+`Time: min 1`." Everything else as B3. The B3 rules apply unchanged (delivery under pressure;
+overshoot at most 1.2 for at least 80% of noticed workers; no anxiety as a rough signal; outcome),
+with one addition: where a worker or the PI states a spend figure, compare it with the harness log.

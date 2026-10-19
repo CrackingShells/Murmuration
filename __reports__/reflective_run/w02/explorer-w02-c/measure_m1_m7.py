@@ -459,17 +459,232 @@ def b2_section(A, B, B2, bf, ev):
     table(("turn end s", "idle gap s", "workers active", "active 600 s later", "note"), rows)
 
 
+def tool_calls_by_run(ag):
+    """Tool calls (distinct tool_use ids) in each run of an agent file: list of (minutes, calls, requests)."""
+    iv = run_intervals(ag) if ag["hb_points"] else [(ag["t0"], ag["t1"])]
+    calls = {}
+    reqs = set()
+    for e in jl(ag["path"]):
+        if e["type"] == "assistant" and e.get("timestamp"):
+            t = iso(e["timestamp"])
+            reqs.add((e.get("requestId") or e["message"].get("id"), t))
+            for b in e["message"].get("content") or []:
+                if isinstance(b, dict) and b.get("type") == "tool_use":
+                    calls[b["id"]] = t
+    res = []
+    for (s0, s1) in iv:
+        n = sum(1 for t in calls.values() if s0 <= t <= s1)
+        rq = len({k for (k, t) in reqs if s0 <= t <= s1})
+        res.append(((s1 - s0) / 60.0, n, rq))
+    return res
+
+
+def b3_section(A, B2, B3, bf):
+    out("## Arm B3 (B2's plugin; the prompt adds `Budget: USD 0.40` and `Time: min 4` to every brief)")
+    out()
+    hp = os.path.join(B3["lab"], "__statera__", "harness.jsonl")
+    H = [json.loads(l) for l in open(hp) if l.strip()]
+    ev3 = collections.Counter(h["event"] for h in H)
+    out("B3 harness log events: %s. Events of kind note/stop/halt/deny: %d. stderr.txt: %r; exit code %s." % (
+        dict(ev3), sum(ev3.get(k, 0) for k in ("note", "stop", "halt", "deny")), B3["stderr"], B3["exit"]))
+    out()
+    BRIEF = re.compile(r"^Budget: USD (\d+(?:\.\d+)?)[ \t]*$", re.M)
+    TLINE = re.compile(r"^Time: min (\d+(?:\.\d+)?)[ \t]*$", re.M)
+    ags = {g["aid"]: g for g in B3["agents"]}
+    ends = [h for h in H if h["event"] == "end"]
+    rows = []
+    for aid in {h["agent_id"] for h in ends}:
+        ag = ags[aid]
+        hs = [h for h in ends if h["agent_id"] == aid]
+        runs, tc = runs_of(ag), tool_calls_by_run(ag)
+        bl, tl = BRIEF.search(ag["brief"]), TLINE.search(ag["brief"])
+        for i, (h, r, (mins, ncalls, nreq)) in enumerate(zip(hs, runs, tc)):
+            rows.append((h["name"], h["type"].split(":")[1], h["B"], bl.group(1) if bl else "-", h["T"], tl.group(1) if tl else "-",
+                         h["frac"], r["est"] / h["B"], h["t_frac"], h["which"], max(h["frac"], h["t_frac"]), h["noted"], h["stops"]))
+    rows.sort(key=lambda x: -x[10])
+    table(("agent", "role", "B USD", "brief Budget line", "T min", "brief Time line", "frac USD (log)", "frac USD (own, est. output)",
+           "t_frac (log)", "which", "deciding fraction", "noted", "stops"), rows)
+    n_notice = sum(1 for r in rows if r[10] >= 0.8)
+    out("Runs %d; runs that reached 0.8 of either budget: %d; highest deciding fraction %.3f; note/stop/halt lines %d." % (
+        len(rows), n_notice, max(r[10] for r in rows), sum(ev3.get(k, 0) for k in ("note", "stop", "halt"))))
+    out()
+    out("Every B3 worker's brief carries both lines: %s." % all(BRIEF.search(g["brief"]) and TLINE.search(g["brief"]) for g in B3["workers"]))
+    out()
+    # deliverables
+    heads = {}
+    for p in glob.glob(os.path.join(B3["lab"], "__pondus__", "*.md")):
+        txt = open(p).read()
+        heads[os.path.basename(p)[:-3]] = dict(author=(re.search(r"^author: (\S+)", txt, re.M) or [None, None])[1],
+                                              verdicts=re.findall(r"^## verdict: (\S+)", txt, re.M))
+    rows = []
+    for g in sorted(B3["workers"], key=lambda g: g["t0"]):
+        role = B3["role"][g["aid"]]
+        if role == "author":
+            d = any(h["author"] == g["name"] for h in heads.values())
+        elif role == "explorer":
+            d = os.path.exists(os.path.join(B3["lab"], "__reports__", "wave-01", g["name"], "00-findings_v0.md"))
+        else:
+            d = any(g["name"] in h["verdicts"] for h in heads.values())
+        rows.append((g["name"], role, len(g["hb_points"]), "yes" if d else "NO"))
+    table(("B3 worker", "role", "hand-backs", "deliverable in the lab"), rows)
+    tpl = open(os.path.join(B3["plugin"], "skills", "research-loop", "templates", "report_findings.md")).read()
+    tpl_h2 = re.findall(r"^## (.+)$", tpl, re.M)
+    tpl_keys = re.findall(r"^([a-z-]+): ", tpl.split("---")[1], re.M)
+    rows = []
+    for g in sorted(B3["workers"], key=lambda g: g["t0"]):
+        if B3["role"][g["aid"]] != "explorer":
+            continue
+        full = os.path.join(B3["lab"], "__reports__", "wave-01", g["name"], "00-findings_v0.md")
+        if not os.path.exists(full):
+            rows.append((g["name"], "MISSING", "-", "-"))
+            continue
+        txt = open(full).read()
+        fm = re.match(r"---\n(.*?)\n---\n", txt, re.S)
+        keys = re.findall(r"^([a-z-]+):", fm.group(1), re.M) if fm else []
+        h2 = re.findall(r"^## (.+)$", txt, re.M)
+        it = iter(h2)
+        in_order = all(any(x == h for h in it) for x in tpl_h2)
+        rows.append((g["name"], "yes", "yes" if keys == tpl_keys else "NO %s" % keys,
+                     "exact" if h2 == tpl_h2 else ("in order, extra: %s" % [h for h in h2 if h not in tpl_h2] if in_order else "NOT in order")))
+    table(("B3 explorer", "report at the convention path", "front-matter keys as template", "six h2 headings"), rows)
+
+    # rule 3: tool calls per minute
+    out("### Rule 3 (rough signal): tool calls per minute, B3 worker against the same role in B2")
+    out()
+    def rates(arm):
+        per_role = collections.defaultdict(lambda: [0.0, 0, 0])
+        per_run = []
+        for g in arm["workers"]:
+            role = arm["role"][g["aid"]]
+            for (mins, n, rq) in tool_calls_by_run(g):
+                per_role[role][0] += mins
+                per_role[role][1] += n
+                per_role[role][2] += rq
+                per_run.append((g["name"], role, mins, n, rq))
+        return per_role, per_run
+    pr2, _ = rates(B2)
+    pr3, runs3 = rates(B3)
+    rows = []
+    for role in ("explorer", "author", "reproducer", "proof-adversary"):
+        r2, r3 = pr2.get(role), pr3.get(role)
+        rows.append((role, "%.2f (%d calls in %.1f min)" % (r2[1] / r2[0], r2[1], r2[0]) if r2 else "-",
+                     "%.2f (%d calls in %.1f min)" % (r3[1] / r3[0], r3[1], r3[0]) if r3 else "-",
+                     "%.2f" % ((r3[1] / r3[0]) / (r2[1] / r2[0])) if r2 and r3 else "-"))
+    table(("role", "B2 tool calls/min (pooled)", "B3 tool calls/min (pooled)", "B3 / B2"), rows)
+    rows, within = [], 0
+    for (name, role, mins, n, rq) in runs3:
+        r2 = pr2.get(role)
+        base = r2[1] / r2[0] if r2 else None
+        ratio = (n / mins) / base if base else None
+        ok = ratio is not None and 0.5 <= ratio <= 2.0
+        within += ok
+        rows.append((name, role, round(mins, 2), n, rq, round(n / mins, 2), round(base, 2) if base else "-", round(ratio, 2) if ratio else "-", "yes" if ok else "no" if ratio else "no B2 role"))
+    table(("B3 run", "role", "minutes", "tool calls", "requests", "calls/min", "B2 role pooled calls/min", "ratio", "within factor 2"), rows)
+    out("Runs within a factor of 2 of the B2 role rate: %d of %d (%.0f%%). All %d runs stayed under 0.8, so all count for the rule. ROUGH SIGNAL: n = 1 run per arm, 7 and 9 workers, runs of 0.5 to 2.5 minutes, tool calls counted as distinct tool_use ids between a run's first record and its hand-back." % (
+        within, len(rows), 100.0 * within / len(rows), len(rows)))
+    out()
+
+    # rule 4: correctness of B3's synthesis
+    out("### Rule 4: B3's synthesis against brute force")
+    out()
+    syn = open(os.path.join(B3["lab"], "__statera__", "synthesis.md")).read()
+    def Kb3(n):   # least k with 2^k >= n-k+1
+        k = 1
+        while 2 ** k < n - k + 1:
+            k += 1
+        return k
+    def cf(n):
+        K = Kb3(n)
+        return 2 ** K - 2 + (n - K + 1) * (n - K + 2) // 2
+    rows, bad_cf = [], []
+    for n in range(1, 17):
+        best, cnt, Ds = bf[n]
+        K = Kb3(n)
+        mism = 0
+        for st, d in Ds.items():
+            c = all_words(st, K - 1) and windows_distinct(st, K)
+            if c != (d == best):
+                mism += 1
+        rows.append((n, best, F_sum(n), cf(n), "yes" if best == F_sum(n) == cf(n) else "NO", K, mism))
+        if not (best == F_sum(n) == cf(n)):
+            bad_cf.append(n)
+    table(("n", "brute max", "sum", "B3 closed form 2^K-2+(n-K+1)(n-K+2)/2", "all equal", "K (least k, 2^k >= n-k+1)", "criterion mismatches over all 2^n strings (all (K-1)-words occur; the n-K+1 K-windows distinct)"), rows)
+    ok3000 = [n for n in range(1, 3001) if cf(n) != F_sum(n)]
+    out("Closed form against the sum for n = 1..3000: %d disagreements %s. Criterion mismatches, n <= 14: %d; n <= 16: %d." % (
+        len(ok3000), ok3000[:10], sum(r[6] for r in rows if r[0] <= 14), sum(r[6] for r in rows)))
+    m_list = re.search(r"Values for n = 1\.\.20 are ([\d, ]+)\.", syn)
+    ms = [int(x) for x in re.findall(r"\d+", m_list.group(1))] if m_list else []
+    n_list = re.search(r"counts for n = 1\.\.20 are ([\d, ]+) \(CHECKED", syn)
+    ns = [int(x) for x in re.findall(r"\d+", n_list.group(1))] if n_list else []
+    out("Stated M list n = 1..%d agrees with brute force for n <= 16: %s. Stated N list n = 1..%d agrees for n <= 16: %s. Special lengths 2^k+k-1 (n = 2, 5, 10): stated 2^(2^(k-1)) = 2, 4, 16, brute %s." % (
+        len(ms), all(ms[n - 1] == bf[n][0] for n in range(1, min(16, len(ms)) + 1)), len(ns),
+        all(ns[n - 1] == bf[n][1] for n in range(1, min(16, len(ns)) + 1)), [bf[n][1] for n in (2, 5, 10)]))
+    ex = {4: "0010", 5: "00110", 10: "0001011100", 20: "00000100110101111000"}
+    res = []
+    for n, st in ex.items():
+        d = len({st[i:j] for i in range(len(st)) for j in range(i + 1, len(st) + 1)})
+        res.append((n, st, len(st) == n, d, F_sum(n), d == F_sum(n)))
+    table(("n", "stated example", "length ok", "distinct substrings", "M(n)", "attains"), res)
+
+    # scope comparison with B2
+    out("### Scope: B3 against B2")
+    out()
+    rows = []
+    for a in (B2, B3):
+        by_role = collections.Counter(a["role"][g["aid"]] for g in a["workers"])
+        runs_role = collections.Counter()
+        for g in a["workers"]:
+            runs_role[a["role"][g["aid"]]] += max(1, len(g["hb_points"]))
+        txt = lab_status_text(a)
+        head = re.search(r"^## Claims \((\d+), (\d+) disputed, (\d+) warnings\)", txt, re.M)
+        lines = re.findall(r"^- (w\d\d-c\d)  (.*)$", txt, re.M)
+        verified = [l for l in lines if "<-" in l[1]]
+        labs = collections.Counter(l[1].split("  <-")[0] for l in lines)
+        cs = a["cost_state"]["modelUsage"]
+        rows.append((a["arm"], "/".join(str(by_role[r]) for r in ("explorer", "author", "reproducer", "proof-adversary")),
+                     "/".join(str(runs_role[r]) for r in ("explorer", "author", "reproducer", "proof-adversary")),
+                     "%d (%d real claim files; %d verified)" % (int(head.group(1)), len(lines), len(verified)), dict(labs),
+                     a["cost_state"]["totalCostUSD"], cs["claude-opus-5-5"]["costUSD"], cs["claude-sonnet-5-5"]["costUSD"],
+                     a["end"] - a["start"], len(a["workers"]), sum(len(g["order"]) for g in a["workers"])))
+    table(("arm", "agent files explorer/author/reproducer/proof-adversary", "runs, same order", "claims filed (lab_status header)", "labels",
+           "USD total", "USD Opus (PI)", "USD Sonnet (workers)", "wall s", "worker files", "worker requests"), rows)
+    out("What the PI's briefs and wave notes say about the budgets (lines of the Agent-tool prompts in the main transcript, and of `__statera__/wave-01.md`, that mention budget, scope, cheap, tight, small or cap; each distinct line once, first 190 characters):")
+    out()
+    pat = re.compile(r"budget|scope|cheap|tight|small|\bcap\b|minutes|time limit", re.I)
+    for a in (B2, B3):
+        lines = collections.Counter()
+        nprompts = 0
+        for e in jl(a["main"]):
+            if e["type"] == "assistant":
+                for b in e["message"].get("content") or []:
+                    if isinstance(b, dict) and b.get("type") == "tool_use" and b["name"] in ("Agent", "SendMessage"):
+                        nprompts += 1
+                        txt = b["input"].get("prompt") or b["input"].get("message") or ""
+                        for ln in str(txt).split("\n"):
+                            if pat.search(ln):
+                                lines[ln.strip()[:190]] += 1
+        wn = open(os.path.join(a["lab"], "__statera__", "wave-01.md")).read()
+        wl = [ln.strip()[:190] for ln in wn.split("\n") if pat.search(ln)]
+        out("**%s**: %d Agent/SendMessage calls; distinct matching prompt lines %d; wave-01.md matching lines %d." % (a["arm"], nprompts, len(lines), len(wl)))
+        out()
+        for ln, c in lines.most_common(8):
+            out("- prompt (x%d): `%s`" % (c, ln.replace("`", "'")))
+        for ln in wl[:6]:
+            out("- wave-01.md: `%s`" % ln.replace("`", "'"))
+        out()
+
+
 # ------------------------------------------------------------------ report
 def main():
-    A, B, B2 = load_arm("A"), load_arm("B"), load_arm("B2")
-    arms = (A, B, B2)
+    A, B, B2, B3 = load_arm("A"), load_arm("B"), load_arm("B2"), load_arm("B3")
+    arms = (A, B, B2, B3)
     for a in arms:
         main_info(a)
         a["agents"] = [scan_agent(ag) for ag in a["agents"]]
         a["workers"] = [ag for ag in a["agents"] if (ag["type"] or "").startswith("murmuration:")]
         a["role"] = {ag["aid"]: ag["type"].split(":")[1] for ag in a["workers"]}
 
-    out("# Wave 2, phase C: M1-M7 for arms A (shipped), B (candidate) and B2 (candidate plus time budget, ceiling setting)")
+    out("# Wave 2, phase C: M1-M7 for arms A (shipped), B (candidate), B2 (candidate plus time budget, ceiling setting) and B3 (B2 with Budget: USD 0.40 and Time: min 4 in every brief)")
     out()
     out("Generated by `python3 -I measure_m1_m7.py`. Data read only. n = 1 per arm. Sections below cover A and B (and B2 where the loops run over all arms); section \"Arm B2\" at the end holds what is specific to B2. In sections written before B2 existed, \"B\" in a column header means arm B.")
     out()
@@ -901,24 +1116,28 @@ def main():
     rows = []
     for role in ("explorer", "author", "reproducer", "proof-adversary"):
         r = [role]
-        for a in arms:
-            v = summ[(role, a["arm"])]["tot"]
-            r += ["%d (%d-%d), n=%d" % (sum(v) / len(v), min(v), max(v), len(v)), "%d" % (sum(summ[(role, a["arm"])]["brief"]) / len(v))]
+        for armname in ("A", "B"):
+            v = summ[(role, armname)]["tot"]
+            r += ["%d (%d-%d), n=%d" % (sum(v) / len(v), min(v), max(v), len(v)), "%d" % (sum(summ[(role, armname)]["brief"]) / len(v))]
         ma, mb = sum(summ[(role, "A")]["tot"]) / len(summ[(role, "A")]["tot"]), sum(summ[(role, "B")]["tot"]) / len(summ[(role, "B")]["tot"])
         r += ["%.0f (%.0f%%)" % (mb - ma, 100 * (mb - ma) / ma)]
         rows.append(tuple(r))
     table(("role", "A tokens", "A brief chars", "B tokens", "B brief chars", "B minus A"), rows)
-    rows = []
-    for role in ("explorer", "author", "reproducer", "proof-adversary"):
-        v = summ[(role, "B2")]["tot"]
-        ma = sum(summ[(role, "A")]["tot"]) / len(summ[(role, "A")]["tot"])
-        mb = sum(summ[(role, "B")]["tot"]) / len(summ[(role, "B")]["tot"])
-        m2 = sum(v) / len(v)
-        rows.append((role, "%d (%d-%d), n=%d" % (m2, min(v), max(v), len(v)), "%d" % (sum(summ[(role, "B2")]["brief"]) / len(v)),
-                     "%.0f (%.0f%%)" % (m2 - ma, 100 * (m2 - ma) / ma), "%.0f" % (m2 - mb)))
-    out("B2 by role:")
-    out()
-    table(("role", "B2 tokens", "B2 brief chars", "B2 minus A", "B2 minus B"), rows)
+    for armname in ("B2", "B3"):
+        rows = []
+        for role in ("explorer", "author", "reproducer", "proof-adversary"):
+            v = summ.get((role, armname), {}).get("tot")
+            if not v:
+                rows.append((role, "no worker of this role", "-", "-", "-"))
+                continue
+            ma = sum(summ[(role, "A")]["tot"]) / len(summ[(role, "A")]["tot"])
+            mb = sum(summ[(role, "B")]["tot"]) / len(summ[(role, "B")]["tot"])
+            m2 = sum(v) / len(v)
+            rows.append((role, "%d (%d-%d), n=%d" % (m2, min(v), max(v), len(v)), "%d" % (sum(summ[(role, armname)]["brief"]) / len(v)),
+                         "%.0f (%.0f%%)" % (m2 - ma, 100 * (m2 - ma) / ma), "%.0f" % (m2 - mb)))
+        out("%s by role:" % armname)
+        out()
+        table(("role", "%s tokens" % armname, "%s brief chars" % armname, "%s minus A" % armname, "%s minus B" % armname), rows)
     # skills listing present in subagents
     for a in arms:
         n_list = 0
@@ -941,6 +1160,7 @@ def main():
             rows.append((a["arm"], name, v, a["own_est"][name], a["printed"].get(name)))
     table(("arm", "agent", "own USD (recorded output)", "own USD (estimated output)", "printed by lab_status.py (top 11)"), rows)
     b2_section(A, B, B2, bf, ev)
+    b3_section(A, B2, B3, bf)
 
 
 if __name__ == "__main__":
