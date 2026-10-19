@@ -17,7 +17,7 @@ Use Murmuration for real, then turn it on itself.
 graph TD
     baseline[Behavioral baseline and puzzle-following replay]:::blocked
     first_study[First real study on the plugin]:::amendment
-    reflective_run[Reflective run: Murmuration on itself]:::amendment
+    reflective_run[Reflective run: Murmuration on itself]:::inprogress
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
     classDef planned    fill:#374151,color:#e5e7eb
@@ -30,7 +30,7 @@ graph TD
 |:-----|:-----|:-------|
 | `baseline.md` | 📄 Leaf Task | 🚫 Blocked |
 | `first_study.md` | 📄 Leaf Task | 🔵 Amendment |
-| `reflective_run.md` | 📄 Leaf Task | 🔵 Amendment |
+| `reflective_run.md` | 📄 Leaf Task | 🔄 In Progress |
 
 ## Amendment Log
 | ID | Date | Source | Nodes Added | Rationale |
