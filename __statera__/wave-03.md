@@ -66,11 +66,45 @@ handing back past 100%, and a way for the PI to raise a budget on resume.
 
 | Claim | Statement | Current label |
 |:--|:--|:--|
+| w03-c1 | budget hook v2: graded notes, finish-or-hand-back past 100%, raise on resume | MEASURED (7f98b1f) |
+| w03-c2 | helper scripts as files in `__instrumenta__/`, one scoped search, index at `/lab` | escalated; restated by PI decision on reproducer-w03-2's figures (9e4bbac) |
 
 ## Puzzle dispositions (at close)
 
 | Puzzle | Disposition |
 |:--|:--|
+| S-w03-author-w03-1-1 | followed: w03-c1 (ceiling block kept on PostToolUse) |
+| S-w03-author-w03-1-2 | followed: w03-c1 (notes on PostToolBatch); the user confirmed the block trap from another project |
+| S-w03-author-w03-1-3 | followed: w03-c1 (PreToolUse(Agent) stores the brief lines) |
+| S-w03-author-w03-1-4 | parked: headless foreground/background is not controlled; stated as a scope limit of w03-c1 |
+| S-w03-author-w03-1-5 | parked: open item 8 (report check pushes explorers past 100%) in __statera__/synthesis.md |
+| S-w03-author-w03-1-6 | followed: w03-c1 (one note per check; floor of USD 0.30) |
+| S-w03-author-w03-1-7 | parked: accepted design (cumulative spend; only PI messages raise), recorded in the wave note |
+| S-w03-author-w03-1-8 | parked: open item 10 (compliance or anxiety at the notes) in __statera__/synthesis.md |
+| S-w03-author-w03-1-9 | followed: w03-c1 (one-note-per-check held under parallel calls) |
+| S-w03-author-w03-1-10 | parked: pre-existing validate warning; README restored after the revert accident (checked by reproducer-w03-1) |
+| S-w03-author-w03-2-1 | parked: open item 11 (search and reuse not exercised) in __statera__/synthesis.md |
+| S-w03-author-w03-2-2 | parked: open item 12 (verifier independence next to the instruments folder) in __statera__/synthesis.md |
+| S-w03-author-w03-2-3 | followed: w03-c2 (restated: the measure that fell is inline code, not heredocs) |
+| S-w03-author-w03-2-4 | parked: one run against six; noted in the synthesis as a wording hazard for briefs |
+| S-w03-author-w03-2-5 | parked: open item 13 (stale-index sources on the user's machine) in __statera__/synthesis.md |
+| S-w03-author-w03-2-6 | parked: method caution; the scope table used a query matching every file |
+| S-w03-author-w03-2-7 | followed: w03-c2 (restated; block narrowed to folders) |
+| S-w03-author-w03-2-8 | parked: disclosed in w03-c2; the practice itself is the claim |
+| S-w03-author-w03-2-9 | followed: w03-c2 (baseline fixed to waves 1-2 by name filter) |
+| S-w03-author-w03-2-10 | parked: test-harness note (headless probes need --tools Grep under --setting-sources) |
+| S-w03-reproducer-w03-1-1 | parked: open item 10 (compliance or anxiety at the notes) in __statera__/synthesis.md |
+| S-w03-reproducer-w03-1-2 | parked: open item 8 (report check pushes explorers past 100%) in __statera__/synthesis.md |
+| S-w03-reproducer-w03-1-3 | followed: w03-c1 (ambiguous dispatches get the generic start note) |
+| S-w03-reproducer-w03-1-4 | parked: the user's tool hooks, outside the plugin |
+| S-w03-reproducer-w03-1-5 | parked: wording; the claim states 15 non-block runs |
+| S-w03-reproducer-w03-2-1 | followed: w03-c2 (block narrowed; README says what it hides) |
+| S-w03-reproducer-w03-2-2 | followed: w03-c2 (no file-type patterns in the block) |
+| S-w03-reproducer-w03-2-3 | parked: overlapping categories in a derived table; no conclusion changes |
+| S-w03-reproducer-w03-2-4 | parked: open item 11 (reuse needs workers that start after a script exists) in __statera__/synthesis.md |
+| S-w03-reproducer-w03-2-5 | parked: open item 12 (verifier independence next to the instruments folder) in __statera__/synthesis.md |
+| S-w03-reproducer-w03-2-6 | parked: method caution; headless total_cost_usd is a session total, repeated per result line |
+| S-w03-reproducer-w03-2-7 | parked: open item 14 (small fixes) in __statera__/synthesis.md |
 
 ## Notes
 
@@ -121,7 +155,12 @@ handing back past 100%, and a way for the PI to raise a budget on resume.
   - the same questions apply to `handback.py`, `user_words.py` and `lab_status.py`.
 
   No measurement has been made yet.
+- **Spend.** `/lab-status` went from USD 114.19 (16:41) to 136.30 at close: 22.11 for this
+  checkout's sessions, the PI's turns included. Headless runs outside the repository add about 9.5,
+  by the workers' `total_cost_usd` figures (3.72, 1.9, 2.34, 1.52). Wave 3 cost about USD 31.6
+  (ESTIMATE), against the PI's cap of about 15: an overrun of about 16. Most of it is the PI's own
+  turns (USD 8.3 of main thread) and authors' probe runs.
 - Spend cap for this wave: about USD 15 for the build and its verification. A test on a harder
   question (about USD 10–20) is not part of this cap; the user decides it after the build.
 
-closed: YYYY-MM-DD
+closed: 2026-10-19

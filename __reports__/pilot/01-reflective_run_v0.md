@@ -4,7 +4,7 @@ Date: 2026-10-19. Branch: `claude/murmuration-system-optimization-8cff9e`, not m
 Roadmap task: `__roadmap__/murmuration/build/pilot/reflective_run.md`.
 
 The full answer is in `__statera__/synthesis.md`. The wave notes are `__statera__/wave-01.md` and
-`wave-02.md`, both closed, with every puzzle disposed. The wave-1 proposals are in
+`wave-02.md` and `wave-03.md`, all closed, with every puzzle disposed. The wave-1 proposals are in
 `__reports__/reflective_run/00-decision_sheet_v0.md`, and the experiment is in
 `__reports__/reflective_run/w02/`. This file records each proposed change, its claim and its
 state, and the decision that is still yours.
@@ -28,7 +28,8 @@ it to `main` or not.
 | `/lab-status` reads a verifier's latest verdict | w02-c9 · MEASURED | b396fd1 | pending |
 | Spend figures only from the harness log or `/lab-status` | w02-c10 · escalated; narrowed statement accepted by PI decision | d4fb928 | pending |
 | README: the above, plus running a lab headless | w02-c7 · below MEASURED: restate; head restated by PI decision | 20a2d3c, 3332c7d, b14130f | pending |
-| Worker budget in USD and minutes (notes at 80% and 100%) | w02-c5, w02-c6 · MEASURED as a mechanism; failed its pre-registered rule in the experiment (w02-c8) | built in fbbbcc3 and fe90bfd, **switched off** in b14130f | keep it off, or revert b14130f |
+| Worker budget v2: notes at 50, 75, 87.5 and 93.75% and from 100% as `Spent X of USD Y (Z%); t of T min (W%)`, finish-or-hand-back, raise on resume, floor USD 0.30 and 3 min | w03-c1 · MEASURED (wave 2's version failed its rule and was switched off in b14130f) | 7f98b1f | pending |
+| Helper scripts as files in `__instrumenta__/`, one scoped search before writing, colgrep index at `/lab` | w03-c2 · escalated; restated by PI decision on the verifier's figures | 9e4bbac | pending |
 
 ## Proposed and not landed, with the reason
 
@@ -38,7 +39,7 @@ it to `main` or not.
 | Close-of-wave message to you | w01-c6 · below CONJECTURE: restate | Small effect; you chose "Neither for now" |
 | An asking habit for the PI | w01-c7 · below CONJECTURE: restate | Small effect; you chose "Neither for now" |
 | Briefs stop asking for report files (P1) | w01-c14 · MEASURED (the saver part) | You judged dropping reports dangerous. Reports stay as the deliverable, under digit-led names that the Write refusal lets through |
-| Higher `maxTurns` per role (P6) | w01-c8 · escalated | You asked for a budget instead of turns. That budget was built and then switched off by the experiment rule, as shown in the table above |
+| Higher `maxTurns` per role (P6) | w01-c8 · escalated | You asked for a budget instead of turns; it landed as w03-c1. `maxTurns` 150 stays only as a fallback |
 | The other set-aside elements | w01-c13 · CONJECTURE | Six were examined and stay out; nine were not examined |
 
 ## Tuning targets of the roadmap task
@@ -61,5 +62,5 @@ it to `main` or not.
   are commits on the branch, and the rejected ones are recorded here. Nothing lands on `main` until
   you merge.
 
-The study cost about USD 146 in all, more than the PI's own caps. The breakdown is in the
+The study cost about USD 178 in all (ESTIMATE), more than the PI's own caps in every wave. The breakdown is in the
 synthesis, under "Cost of the study".
