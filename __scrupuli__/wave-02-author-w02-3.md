@@ -77,3 +77,19 @@ prose, derivations or code the ratio may sit elsewhere, and the hook's basis wou
 log keeps `used_recorded` next to `used` so the drift can be read later against `cost-state` (w02-c1's reader) for the same
 agents in phase C; I did not check how large it is on prose.
 refs: `__reports__/reflective_run/w02/author-w02-3/calibrate_out.txt`
+
+## S-w02-author-w02-3-10
+reproducer-w02-3's Q1 found that in 6 of the 9 cells with a stop notice the worker had already handed back when it arrived: the notice
+fell on the report write that the deny asked for, after the worker had decided. It is a spurious notice there (harmless, nothing
+more was called), and it shows the order that happens at tiny B: note, hand-back, deny, report, notice. Whether the notice should
+be suppressed once the agent has called `SubagentHandback` once is a design question; the hook does not know the call happened
+(it only sees the denied attempt in the transcript).
+refs: `__reports__/reflective_run/w02/author-w02-3/summary.tsv` (columns `stop_before_handback`, `tool_calls_after_first_stop`)
+
+## S-w02-author-w02-3-11
+Restating w02-c3 as w02-c5 cost USD 0.62 for four more cells (q1, q2, s4, s5), 0.02 over the PI's allowance, and the whole of w02-c3 plus
+w02-c5 came to USD 4.19 against the original cap of 4. The stop-alone design (note switched off) is the only way I found to land the
+1.0 B notice before a hand-back at this B; at shipped B, arm B of the experiment will show whether the notice ever lands before a
+hand-back at all, since the 0.8 note normally makes the worker hand back first. If it does not, the 1.0 B notice is a rarely used
+path, and the evidence for it here stands on 5 cells with the note disabled.
+refs: `__pondus__/w02-c5.md`, `__reports__/reflective_run/w02/author-w02-3/summary.tsv`

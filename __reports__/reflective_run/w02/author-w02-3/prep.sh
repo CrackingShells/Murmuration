@@ -35,6 +35,15 @@ old = "NOTE_AT, STOP_AT, HARD_AT = 0.8, 1.0, 1.5"
 assert old in s
 open(p, "w").write(s.replace(old, "NOTE_AT, STOP_AT, HARD_AT = 9.0, 1.0, 1.5"))
 PY
+# start note and tracker only: the note and the stop never fire
+cp -R "$S/plugin_small" "$S/plugin_smallquiet"
+python3 - "$S/plugin_smallquiet/scripts/budget.py" <<'PY'
+import sys
+p = sys.argv[1]; s = open(p).read()
+old = "NOTE_AT, STOP_AT, HARD_AT = 0.8, 1.0, 1.5"
+assert old in s
+open(p, "w").write(s.replace(old, "NOTE_AT, STOP_AT, HARD_AT = 9.0, 9.0, 9.0"))
+PY
 # control with the working-tree agents and no hooks
 cp -R "$S/plugin_wt" "$S/plugin_nohooks_wt"; echo '{"hooks":{}}' > "$S/plugin_nohooks_wt/hooks/hooks.json"
 find "$S" -name __pycache__ -prune -exec rm -rf {} +

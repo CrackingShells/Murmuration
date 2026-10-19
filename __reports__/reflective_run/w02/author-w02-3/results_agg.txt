@@ -1,12 +1,14 @@
-AGG cells with hooks: 11; control cells: 1
+AGG cells with notices: 13; start-note-only cells: 2; no-hooks controls: 1
+AGG start note and tracker only (no 0.8 note, no stop): [('q1', 40, 3.154), ('q2', 40, 3.086)]
 AGG note: fired in 7; reads after the note = 0 in 7; frac at the note (min, max) = (0.8011, 0.8344)
-AGG stop (block at 1.0 B): fired in 9; reads after it = 0 in 9; hand-back saved in 9
+AGG stop notice arrived before any hand-back call (a real test of obedience) in: ['s1', 's2', 's3', 's4', 's5']
+AGG stop (block at 1.0 B): fired in 11; reads after it = 0 in 11; hand-back saved in 11
 AGG halt (continue false): fired in 0: []; hand-back saved in 0
-AGG hand-back saved verbatim in 11 of 11 cells with hooks
-AGG deny: fired once in 9 (n_deny sum 9); report at the convention path in 9
-AGG exact worker USD / B, cells with hooks: min 0.99 median 1.50 max 1.88; controls: [('n1', 2.136)]
-AGG USD after the note on the hook's basis: median 0.0371, max 0.051; after the stop: median 0.0145
-AGG recorded share of exact: min 0.63 max 0.83; hook basis (est) share of exact: min 0.93 max 1.04 over 12 cells
+AGG hand-back saved verbatim in 13 of 13 cells with hooks
+AGG deny: fired once in 11 (n_deny sum 11); report at the convention path in 11
+AGG exact worker USD / B, cells with hooks: min 0.99 median 1.56 max 1.93; controls: [('n1', 2.136)]
+AGG USD after the note on the hook's basis: median 0.0371, max 0.051; after the stop: median 0.0302
+AGG recorded share of exact: min 0.63 max 0.83; hook basis (est) share of exact: min 0.93 max 1.04 over 16 cells
 AGG hook processes per worker tool call: 1.28 (hook processes / worker calls, cells with hooks)
-AGG total USD of these cells (total_cost_usd): 1.370
-latency ms (median, max of 20) on the 91-request transcript of l1: {'budget.py PostToolUse': (45.4, 62.5), 'handback.py PreToolUse (explorer, first call: deny)': (37.1, 39.3), 'python3 -c pass': (30.4, 31.3)}
+AGG total USD of these cells (total_cost_usd): 1.987
+latency ms (median, max of 20) on the 91-request transcript of l1: {'budget.py PostToolUse': (63.0, 87.1), 'handback.py PreToolUse (explorer, first call: deny)': (53.7, 63.4), 'python3 -c pass': (47.2, 78.8)}

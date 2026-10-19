@@ -17,8 +17,9 @@ for any agent whose type is not `murmuration:<role>`.
                  a backstop, not the stop.
   SubagentStop   one `end` line in the log, with the spend at the end (the overshoot is read from it).
 
-Why `block` and not `continue: false` at 1.0 B: `continue: false` ended the subagent at once, without
-the hand-back, in 6 of 8 headless runs (w02-c3); `decision: block` gives the reason to the agent, which then hands back.
+Why `block` and not `continue: false` at 1.0 B: `continue: false` ends the subagent at once, and in
+headless trials the hand-back was then usually not delivered; `decision: block` gives the reason to the
+agent, which hands back.
 
 B is in USD. Default by role: explorer 3.0, author 3.0, reproducer 2.0, proof-adversary 2.0 (any other
 murmuration role 2.0). A line of exactly the form `Budget: USD <number>` in the agent's first user
@@ -28,10 +29,10 @@ new run: the spend already in its transcript is the baseline, B applies to what 
 
 Spend is the list price of the tokens in the subagent's transcript: input, cache read, cache write for
 5 minutes and for 1 hour, which are exact, and output. In `auto` permission mode the transcript holds only
-8 to 15 percent of the output as a count (explorer-w02-a, w01-c2), so the recorded output is a lower
-bound there (the log's `used_recorded`). The thresholds use the larger of the recorded count and an
-estimate from the message content (`CHARS_PER_TOKEN`); the log's `used` is that figure. The price
-table is the one `lab_status.py` uses (w02-c1, https://platform.claude.com/docs/en/about-claude/pricing,
+6 to 15 percent of the output as a count, so the recorded output is a lower bound there (the log's
+`used_recorded`). The thresholds use the larger of the recorded count and an estimate from the message
+content (`CHARS_PER_TOKEN`); the log's `used` is that figure, and its `note`, `stop`, `halt` and `end` lines carry `basis` saying so.
+The price table is the one `lab_status.py` uses (https://platform.claude.com/docs/en/about-claude/pricing,
 fetched 2026-10-19); the selftest checks that the two agree.
 
 State per agent: `__statera__/.harness/<agent_id>.json` (git-ignored by a `.gitignore` inside the folder).
@@ -61,7 +62,7 @@ HALT_AFTER = 3   # the backstop needs this many earlier stop notices: an agent t
 BRIEF_LINE = re.compile(r"^Budget: USD (\d+(?:\.\d+)?)[ \t]*$", re.M)
 
 # USD per million tokens: input, output, cache read, cache write 5 minutes, cache write 1 hour.
-# The rows of `lab_status.PRICES` (w02-c1); [source: https://platform.claude.com/docs/en/about-claude/pricing, fetched 2026-10-19].
+# The rows of `lab_status.PRICES`; [source: https://platform.claude.com/docs/en/about-claude/pricing, fetched 2026-10-19].
 PRICES = {
     "claude-opus-5-5": (4.0, 20.0, 0.20, 5.0, 8.0),
     "claude-sonnet-5-5": (2.0, 10.0, 0.10, 2.5, 4.0),
@@ -70,12 +71,12 @@ PRICES = {
 }
 LONG_HAIKU = (0.50, 2.50, 0.05, 0.625, 1.0)  # Haiku 5.5 above 100,000 prompt tokens
 PRICE_FOR_UNKNOWN = "claude-opus-5-5"  # a model with no row is priced at the highest common row, and counted
-# The transcript keeps an output count taken at the start of the stream, 8 to 15 percent of the real one (w01-c2, explorer-w02-a),
+# The transcript keeps an output count taken at the start of the stream, 6 to 15 percent of the real one in `auto` mode,
 # but the full content of each message. Output is therefore the larger of the recorded count and the content length divided by
 # CHARS_PER_TOKEN: 1.3 is the median (1.26, rounded) ratio of content characters (text plus the JSON of tool inputs) to the exact output
-# tokens of 7 sonnet worker runs (range 0.96 to 1.52; `calibrate.py` in the w02-c3 folder). It is an ESTIMATE; set it to 0 to count
-# the recorded output only.
+# tokens of 7 sonnet worker runs (range 0.96 to 1.52). It is an ESTIMATE; set it to 0 to count the recorded output only.
 CHARS_PER_TOKEN = 1.3
+BASIS = "input and cache exact; output = max(recorded, content chars / %s)" % CHARS_PER_TOKEN if CHARS_PER_TOKEN else "input and cache exact; output as recorded (a lower bound in auto mode)"
 
 
 def usd_of(model, req):
@@ -230,7 +231,7 @@ def handle(event, now=None):
         st = dict(role=role, B=budget_for(role, seen["brief"])[0], base=0.0, start=now, noted=False, stops=0)
     B, from_brief = budget_for(role, seen["brief"])   # the brief's line wins over what the start note could say
     used = seen["usd"] - st["base"]
-    fields = dict(B=B, used=round(used, 6), used_recorded=round(seen["usd_recorded"] - st.get("base_recorded", 0.0), 6), frac=round(used / B, 4),
+    fields = dict(B=B, used=round(used, 6), used_recorded=round(seen["usd_recorded"] - st.get("base_recorded", 0.0), 6), frac=round(used / B, 4), basis=BASIS,
                   requests=seen["requests"], unpriced=seen["unpriced"],
                   elapsed_s=round(now - st["start"], 1))
     if kind == "SubagentStop":
@@ -266,7 +267,7 @@ def selftest():
     sys.path.insert(0, HERE)
     import lab_status
 
-    # 1. the price table and the formula are the ones of lab_status (w02-c1)
+    # 1. the price table and the formula are the ones of lab_status
     assert PRICES == lab_status.PRICES and LONG_HAIKU == lab_status.LONG_HAIKU, "price tables drifted"
     for model, use in [
         ("claude-sonnet-5-5", dict(input_tokens=7, output_tokens=1234, cache_read_input_tokens=56789, cache_creation_input_tokens=4321)),
@@ -358,6 +359,7 @@ def selftest():
         fire(tmp, hook_event_name="SubagentStop", **ev)
         lines = logged(tmp)
         assert [x["event"] for x in lines] == ["start", "note", "stop", "stop", "stop", "halt", "end"], lines
+        assert "estimate" not in lines[1]["basis"] and "content chars" in lines[1]["basis"] and lines[1]["used_recorded"] <= lines[1]["used"], lines[1]
         assert lines[1]["name"] == "reproducer-w09-1" and lines[1]["B"] == 1.0 and 0.80 <= lines[1]["frac"] < 0.81 and lines[1]["requests"] == 2, lines[1]
         assert lines[-1]["frac"] == 1.5 and lines[-1]["stops"] == 4 and lines[-1]["noted"] and lines[-1]["mode"] == "auto", lines[-1]
         # a resumed agent: the spend so far is the baseline, the start note shows the brief's B, the flags are reset

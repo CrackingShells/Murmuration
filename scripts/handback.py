@@ -8,9 +8,10 @@ initialized lab (a folder with `__statera__/`).
 Saving (SubagentStop, PostToolUse): appends the agent's final message to
 `__statera__/handbacks/wave-NN-<agent name>.md` (or `<agent name>.md` when the name carries no
 wave). A resumed agent appends a second section. The file is a recovery aid for the PI and humans:
-no hook, brief or skill may feed it to agents (w01-c14).
+no hook, brief or skill may feed it to agents: in auto mode the harness may withhold or flag a hand-back and the hook
+cannot tell, so the file can hold text the PI never received.
 
-Where the message sits depends on the permission mode (probe row 24, re-measured in w01-c1):
+Where the message sits depends on the permission mode:
   default, bypassPermissions  SubagentStop.last_assistant_message
   auto                        PostToolUse(SubagentHandback).tool_input.message; SubagentStop has no text
 
@@ -24,7 +25,7 @@ Report check (PreToolUse on `SubagentHandback`, explorers only, `murmuration:exp
 under `__reports__/` has the agent's name in its path, the first hand-back is denied with a reason
 that names `__reports__/wave-NN/<name>/00-findings_v0.md`. At most one deny per agent (a marker file
 `__statera__/.harness/<agent_id>.denied`, created atomically); the second attempt goes through, so a
-report is never lost to a loop (explorer-w02-a: a deny on every attempt lost the report). The deny
+report is never lost to a loop (a deny on every attempt can end the run with no hand-back delivered). The deny
 is logged as one JSON line in `__statera__/harness.jsonl`.
 
 Saving never blocks an agent and prints nothing. Anything unexpected is dropped, and the hook exits 0.
