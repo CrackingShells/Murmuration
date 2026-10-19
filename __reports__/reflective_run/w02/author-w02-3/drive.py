@@ -11,7 +11,7 @@ ap.add_argument("scratch"); ap.add_argument("cell")
 ap.add_argument("--plugin", default="head"); ap.add_argument("--type", default="explorer")
 ap.add_argument("--budget", default="0.15"); ap.add_argument("--files", type=int, default=40)
 ap.add_argument("--cap", default="0.7"); ap.add_argument("--name", default="")
-ap.add_argument("--mode", default="auto"); ap.add_argument("--time", default=""); ap.add_argument("--sleep", type=int, default=0); ap.add_argument("--extra", default=""); ap.add_argument("--B", default="")  # the budget the cell is judged against when the brief has no line
+ap.add_argument("--mode", default="auto"); ap.add_argument("--background", action="store_true"); ap.add_argument("--time", default=""); ap.add_argument("--sleep", type=int, default=0); ap.add_argument("--extra", default=""); ap.add_argument("--B", default="")  # the budget the cell is judged against when the brief has no line
 a = ap.parse_args()
 S = os.path.abspath(a.scratch)
 plugin = os.path.join(S, "plugin_" + a.plugin)
@@ -37,8 +37,10 @@ for i in range(1, a.files + 1):
 brief = ("Your name is %s.\n" % name) + ("Budget: USD %s\n" % a.budget if a.budget != "none" else "") + ("Time: min %s\n" % a.time if a.time else "") + (
     "Read the %d files f01.txt to f%02d.txt in the current directory, one file per Bash call (%s), one call at a time, in order. "
     "Then hand back a report with one line per file: the file name, the station name, the founding year, and the founder." % (a.files, a.files, ("sleep %d; cat fNN.txt" % a.sleep) if a.sleep else "cat fNN.txt")) + (("\n" + a.extra) if a.extra else "")
-prompt = ("Call the Agent tool exactly once with subagent_type 'murmuration:%s', name '%s', in the foreground, with exactly the text between "
-          "the lines ==== as its prompt (keep every line, change nothing).\n====\n%s\n====\nWhen the Agent call is finished, say DONE." % (a.type, name, brief))
+where = ("in the background (run_in_background: true), and then wait for its completion notification: do not end your turn before it arrives "
+         "(while waiting, run `sleep 15` with Bash, one call at a time, at most 20 times)") if a.background else "in the foreground"
+prompt = ("Call the Agent tool exactly once with subagent_type 'murmuration:%s', name '%s', %s, with exactly the text between "
+          "the lines ==== as its prompt (keep every line, change nothing).\n====\n%s\n====\nWhen the Agent call is finished, say DONE." % (a.type, name, where, brief))
 cmd = ["claude", "-p", "--model", "haiku", "--plugin-dir", plugin, "--setting-sources", "project", "--strict-mcp-config",
        "--permission-mode", a.mode, "--max-budget-usd", a.cap, "--output-format", "stream-json", "--verbose", "--include-hook-events", prompt]
 env = {k: v for k, v in os.environ.items() if k != "CLAUDE_PROJECT_DIR"}
