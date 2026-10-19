@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Give each Murmuration worker a budget in USD and in minutes, tell it once at 80 percent, ask for the hand-back at 100 percent.
 
-Runs as a hook on SubagentStart, PostToolUse and SubagentStop. It reads the hook JSON from stdin.
+Runs as a hook on SubagentStart, PostToolUse and SubagentStop (it is not registered in `hooks/hooks.json`
+at present). It reads the hook JSON from stdin.
 It does nothing outside an initialized lab (a folder with `__statera__/`), for the main thread, and
 for any agent whose type is not `murmuration:<role>`.
 

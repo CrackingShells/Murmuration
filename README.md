@@ -41,17 +41,16 @@ claude --plugin-dir /path/to/Murmuration
 3. Run `/lab-status` at any time to see open puzzles, the current label of every claim, and spend
    in USD per agent (a lower bound while a session is open).
 
-Each worker gets a budget in USD, set by a `Budget: USD <n>` line in its brief or a default per
-role. A hook tells the worker once when about 80% is used and asks it to hand back at 100%. Each
-worker's final report is also saved verbatim under `__statera__/handbacks/`. That copy is kept for
-you and the principal investigator to recover from; it is never fed back to agents.
+Each worker's final report is saved verbatim under `__statera__/handbacks/`. That copy is kept for
+you and the principal investigator to recover from; it is never fed back to agents. An explorer that
+hands back without its findings report is asked once to write it.
 
 `/lab` creates:
 
 | Path | Holds |
 |:--|:--|
 | `__design__/framing.md` | The question, notation, scope and rules for the team |
-| `__statera__/` | Your words (recorded automatically), one note per wave, the synthesis, saved hand-backs and the budget log |
+| `__statera__/` | Your words (recorded automatically), one note per wave, the synthesis, saved hand-backs and a log of the report check |
 | `__reports__/wave-NN/<agent>/` | Each explorer's findings report, from the research-loop template |
 | `__pondus__/` | One file per claim, with each verifier's verdict |
 | `__scrupuli__/` | Each agent's puzzles |
@@ -79,9 +78,9 @@ does not carry the listing of every installed skill in its context.
 
 ## Running a lab headless
 
-`claude -p` stops background agents that are still running 10 minutes after the principal
-investigator's last turn, so a worker that outlasts that wait is cut off and the synthesis may never
-be written. Runs whose workers finish sooner are not affected. For an unattended run, set
+`claude -p` can stop background agents that are still running 10 minutes after the principal
+investigator's last turn; the worker is then cut off and the synthesis may never be written. This
+does not happen in every run, and runs whose workers finish sooner are not affected. For an unattended run, set
 `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0` (no ceiling) and cap the spend instead:
 
 ```bash
