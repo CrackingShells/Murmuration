@@ -105,8 +105,12 @@ evidence comes from.
   - This repository: the shipped plugin (`agents/`, `skills/`, `scripts/`, `hooks/`), its design
     records (`__reports__/`, especially `platform_probes/01-findings_v1.md`), roadmap (`__roadmap__/`).
 - Changes to the plugin: every change to `agents/`, `skills/`, `scripts/`, `hooks/` or
-  `.claude-plugin/` is a claim and a proposal to the user, never applied directly. A prototype may
-  be written and run under `__reports__/reflective_run/`.
+  `.claude-plugin/` is a claim with a verdict. Since wave 2 (the user's 12:50 answer: "decide
+  that based on experiment on the new architecture") a change may be applied on the study branch
+  once its claim stands; nothing is merged to `main`. Prototypes live under `__reports__/reflective_run/`.
+- Headless `claude -p` probes run in folders OUTSIDE this worktree (e.g. the PI's scratchpad):
+  runs below it register the plugin in the user's `~/.claude/plugins/installed_plugins.json`
+  (w01-c14). Never commit raw run output: hook payloads and OTel bodies carry account identifiers.
 - Platform: the Desktop app that runs this lab is Claude Code 2.1.299 (its `CLAUDE_CODE_EXECPATH`;
   every transcript record of this run); the `claude` on PATH is 2.1.302; the probes ran on 2.1.296
   (corrected after S-w01-explorer-w01-f-1). Platform behaviour taken from the
