@@ -1,0 +1,9 @@
+# Addendum v1 (E1, E2): the runs are repeated without the platform's budget channel
+
+Written by author-w04-2 on 2026-10-20, after the first sets of runs (pilots, E1 A and B, E2 C, exploratory X: 20 runs, USD 6.92 by `total_cost_usd`) and before the repeat. It follows the protocol's rule that a change after the commit is written as a new version with its reason, and the decision then reports both.
+
+What I found. My driver passed `--max-budget-usd 1.5` (as the wave-3 driver passed 2.5, a safety cap). With that flag the platform puts a `budget_usd` attachment (`used`, `total`, `remaining` of the whole session) into the worker's transcript at every request: 88 of 88 requests in x-c3 [source: raw transcript of x-c3, counted by `__instrumenta__/budget_arms_analyze.py`, column `platform_budget_attachments`]. The workers of arm C said so in their hand-backs ("the harness showed about USD 0.25 spent", "the harness line shows a USD 1.5 cap"). Arm C of E2 ("every output of budget.py off") was therefore not silent: the worker still saw its spend, next to a total of 1.5 that contradicts the brief's 0.30. The same channel was open in arms A and B.
+
+Change. Every cell is re-run without `--max-budget-usd` (driver default, `--cap` empty), same task, same seeds (20261021 to 20261023 for E1 and E2; N = 90), same arms, n = 3 each: E1 arms A and B, E2 arm C; arm N of E2 is arm A of the repeat. A runaway is bounded by the plugin's 1.5 ceiling (A, B) and by the task (C); I stop only my own process ids if a cell passes USD 1.5.
+
+Decision rules, metrics, task: unchanged. Both sets are reported (capped: `derived/results_per_run.tsv`; uncapped: `derived/results_uncapped.tsv`); the decision of E1 and E2 is stated on each set and on the uncapped set first, because only it removes the platform's spend channel. The exploratory X arms stay as run (capped) and are labelled so; they are repeated uncapped only if the budget allows (XA and XC first).

@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Runs one headless cell of wave-4 E1/E2: a haiku parent dispatches one sonnet explorer (Budget/Time lines, report deliverable, N generated station files) and waits; writes the run folder, ground truth and meta.json.
-usage: headless_explorer_cell.py <scratch> <cell> <plugin dir> --seed S [--files N] [--budget USD] [--time MIN] [--cap USD] [--brief report|list]
+usage: headless_explorer_cell.py <scratch> <cell> <plugin dir> --seed S [--files N] [--budget USD] [--time MIN] [--cap USD; default none] [--brief report|list]
 Derived from __reports__/reflective_run/w03/author-w03-1/e2e_drive.py (no resume step; ground truth kept outside the lab; the report path as the deliverable).
 Output under <scratch>/runs/<cell>/: lab/ (the explorer's project), ground.json (never in the lab), stdout.jsonl, meta.json. Stdlib only; the model has no seed."""
 import argparse, json, os, random, shutil, subprocess, sys, time
 ap = argparse.ArgumentParser(); ap.add_argument("scratch"); ap.add_argument("cell"); ap.add_argument("plugin")
 ap.add_argument("--seed", type=int, required=True); ap.add_argument("--files", type=int, default=90); ap.add_argument("--budget", default="0.30"); ap.add_argument("--time", default="20")
-ap.add_argument("--cap", default="1.5"); ap.add_argument("--brief", default="report")
+ap.add_argument("--cap", default=""); ap.add_argument("--brief", default="report")   # cap "" = no --max-budget-usd flag: with the flag the platform shows every request a `budget_usd` attachment (used, total, remaining) of the whole session
 a = ap.parse_args()
 S = os.path.abspath(a.scratch); plugin = os.path.abspath(a.plugin)
 base = os.path.join(S, "runs", a.cell); shutil.rmtree(base, ignore_errors=True)
@@ -38,7 +38,9 @@ prompt = ("Step 1: call the Agent tool once with subagent_type 'murmuration:expl
           "Step 2: wait for the worker's completion notification (while waiting, run `sleep 20` with Bash, one call at a time, at most 60 times). Do not end your turn before it arrives. "
           "Do not read the worker's files and do not do its work. Then say DONE.\n" % (name, brief))
 cmd = ["claude", "-p", "--model", "haiku", "--plugin-dir", plugin, "--setting-sources", "project", "--strict-mcp-config", "--permission-mode", "auto",
-       "--max-budget-usd", a.cap, "--output-format", "stream-json", "--verbose", "--include-hook-events", prompt]
+       "--output-format", "stream-json", "--verbose", "--include-hook-events", prompt]
+if a.cap:
+    cmd[cmd.index("--output-format"):cmd.index("--output-format")] = ["--max-budget-usd", a.cap]
 t0 = time.time()
 p = subprocess.run(cmd, capture_output=True, text=True, cwd=lab, env=env, timeout=2400)
 open(os.path.join(base, "stdout.jsonl"), "w").write(p.stdout); open(os.path.join(base, "stderr.txt"), "w").write(p.stderr)
@@ -50,7 +52,7 @@ for l in p.stdout.splitlines():
         continue
     if r.get("type") == "result":
         res = r
-json.dump(dict(cell=a.cell, name=name, plugin=os.path.basename(plugin), seed=a.seed, B=a.budget, T=a.time, files=a.files, brief=a.brief, wall_s=round(time.time() - t0, 1), rc=p.returncode,
+json.dump(dict(cell=a.cell, name=name, plugin=os.path.basename(plugin), seed=a.seed, cap=a.cap, B=a.budget, T=a.time, files=a.files, brief=a.brief, wall_s=round(time.time() - t0, 1), rc=p.returncode,
                usd=res and res.get("total_cost_usd"), turns=res and res.get("num_turns"), session=res and res.get("session_id"),
                model_usd={k: v.get("costUSD") for k, v in ((res or {}).get("modelUsage") or {}).items()}), open(os.path.join(base, "meta.json"), "w"))
 print(open(os.path.join(base, "meta.json")).read())

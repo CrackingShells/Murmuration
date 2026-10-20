@@ -3,11 +3,12 @@
 usage: budget_arms_analyze.py <scratch> <budget.py dir> <out dir> <cell:arm> [<cell:arm> ...]   (arm is a label: A, B, C, ...)
 Inputs: <scratch>/runs/<cell>/{meta.json, ground.json, lab/} and the worker transcript in ~/.claude/projects/*; fractions are ESTIMATES (budget.py's price table, output = max(recorded, chars/1.3)). Stdlib only."""
 import glob, json, os, re, sys
-scratch, bdir, out = sys.argv[1], sys.argv[2], sys.argv[3]
-sys.path.insert(0, bdir)
-import budget  # noqa: E402  (the plugin's own price table and output estimate: the same figures its hook uses)
+SELFTEST = sys.argv[1:2] == ["--selftest"]
+if not SELFTEST:
+    scratch, bdir, out = sys.argv[1], sys.argv[2], sys.argv[3]
+    sys.path.insert(0, bdir)
+    import budget  # noqa: E402  (the plugin's own price table and output estimate: the same figures its hook uses)
 HEADS = ["## Result", "## Table", "## Worst-fitting case", "## Not covered", "## Steering questions", "## Pointers"]
-os.makedirs(out, exist_ok=True)
 
 
 def worker_transcript(cell):
@@ -64,6 +65,20 @@ def parse_items(text, ground):
     return got
 
 
+def selftest():
+    """The item check can fail: a wrong year, a wrong founder, a row with no data and a repeated row are not counted as correct."""
+    g = {"f001": dict(station="Fenford", year=1900, founder="Ada Pell"), "f002": dict(station="Moorwick", year=1850, founder="Bram Holt"), "f003": dict(station="Tarnhaven", year=1810, founder="Cora Maro")}
+    text = "| f001 | Fenford | 1900 | Ada Pell |\n| f002 | Moorwick | 1851 | Bram Holt |\n| f003 | Tarnhaven |\n| f001 | Fenford | 1900 | Ada Pell |\n"
+    got = parse_items(text, g)
+    assert got == {"f001": (True, True, True), "f002": (True, False, True)}, got
+    assert sum(1 for v in got.values() if all(v)) == 1
+    print("PASS budget_arms_analyze")
+
+
+if SELFTEST:
+    selftest()
+    sys.exit(0)
+os.makedirs(out, exist_ok=True)
 rows = []
 for spec in sys.argv[4:]:
     cell, arm = spec.split(":")
@@ -82,6 +97,8 @@ for spec in sys.argv[4:]:
     it_r, it_h = parse_items(rtext, ground), parse_items(final_hb, ground)
     items = dict(it_h); items.update(it_r)   # the report counts first; the hand-back adds what the report lacks
     first_hb_text = hbs[0][1] if hbs else ""
+    cap_att = sum(1 for l in open(tp, errors="replace") if '"type": "budget_usd"' in l or '"type":"budget_usd"' in l) if tp else None   # platform spend attachments (appear with --max-budget-usd)
+    ctx = sum(1 for l in open(tp, errors="replace") if '"hook_additional_context"' in l) if tp else None   # notes the worker was shown (the start note included)
     row = dict(cell=cell, arm=arm, seed=meta["seed"], B=B, usd_total=meta["usd"], usd_sonnet=(meta.get("model_usd") or {}).get("claude-sonnet-5-5"), wall_s=meta["wall_s"],
                denies=sum(1 for r in log if r.get("event") == "deny"), notes=sum(1 for r in log if r.get("event") == "note"), notes_over=sum(1 for r in log if r.get("event") == "note" and r.get("over")),
                stops=sum(1 for r in log if r.get("event") in ("stop", "halt")), handback_calls=len(hbs),
@@ -89,7 +106,8 @@ for spec in sys.argv[4:]:
                overshoot=round(hbs[-1][0] - hbs[0][0], 3) if hbs else None, requests=nreq,
                report_present=bool(rtext), report_shape=all(h in rtext for h in HEADS) and rtext.startswith("---"), report_bytes=len(rtext),
                items_report=len(it_r), items_handback=len(it_h), items_done=len(items), items_correct=sum(1 for v in items.values() if all(v)), n_files=meta["files"],
-               first_hb_budget_reason=bool(re.search(r"budget|USD|spent|limit|\bnote\b|\d+%", first_hb_text, re.I)), first_hb_chars=len(first_hb_text))
+               ctx_attachments=ctx, platform_budget_attachments=cap_att, cap=meta.get("cap", "1.5 (before the driver recorded it)"), stopped_short=len(items) < meta["files"],
+               n4_budget_reason_for_stopping=len(items) < meta["files"] and bool(re.search(r"budget|USD|spent|limit|\bnote\b|\d+%", first_hb_text, re.I)), first_hb_chars=len(first_hb_text))
     row["items_per_usd"] = round(row["items_done"] / meta["usd"], 1) if meta["usd"] else None
     row["unused"] = round(max(0.0, 1 - row["frac_first"]), 3) if row["frac_first"] is not None else None
     json.dump(dict(row, first_handback=first_hb_text, final_handback=final_hb, harness=mine), open(os.path.join(out, "cell_%s.json" % cell), "w"), indent=1)
