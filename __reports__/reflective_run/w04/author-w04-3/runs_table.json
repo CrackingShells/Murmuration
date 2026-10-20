@@ -97,7 +97,7 @@
   "s1_search_before_script": true,
   "s1_first_search": "bash_list_or_read",
   "colgrep_calls": 0,
-  "s2_reuse": "extension_by_copy",
+  "s2_reuse": "new_after_seeing_header",
   "new_files": 2,
   "modified_starting_files": 0,
   "s3_search_call_result_chars": 1982,
@@ -105,7 +105,7 @@
   "s4_total_cost_usd": 0.095,
   "worker_usd_estimate_from_harness": "",
   "tool_calls": 6,
-  "note": "read 5 lines; wrote the logic fresh, also a C version; similarity 0.50"
+  "note": "read 5 lines; wrote a plain no-cache loop, also a C version; not an adaptation (reproducer-w04-4 diffed it)"
  },
  {
   "id": "t3r1",
@@ -241,7 +241,7 @@
   "s1_search_before_script": true,
   "s1_first_search": "bash_list_or_read",
   "colgrep_calls": 0,
-  "s2_reuse": "extension_by_copy",
+  "s2_reuse": "new_after_seeing_header",
   "new_files": 1,
   "modified_starting_files": 0,
   "s3_search_call_result_chars": 2265,
@@ -249,7 +249,7 @@
   "s4_total_cost_usd": 0.3078,
   "worker_usd_estimate_from_harness": 0.0609,
   "tool_calls": 5,
-  "note": "read 5 lines of two scripts; similarity 0.52"
+  "note": "read 5 lines of two scripts; wrote a plain no-cache loop; not an adaptation"
  },
  {
   "id": "st2r3",
@@ -259,7 +259,7 @@
   "s1_search_before_script": true,
   "s1_first_search": "bash_list_or_read",
   "colgrep_calls": 0,
-  "s2_reuse": "extension_by_copy",
+  "s2_reuse": "new_after_seeing_header",
   "new_files": 1,
   "modified_starting_files": 0,
   "s3_search_call_result_chars": 2295,
@@ -267,7 +267,7 @@
   "s4_total_cost_usd": 0.3223,
   "worker_usd_estimate_from_harness": 0.0738,
   "tool_calls": 6,
-  "note": "loaded colgrep find_files by ToolSearch, never called it; ls then head -5; similarity 0.46"
+  "note": "loaded colgrep find_files by ToolSearch, never called it; ls then head -5; plain no-cache loop (its header says so); not an adaptation"
  },
  {
   "id": "xt1r1",
@@ -331,7 +331,7 @@
   "s1_search_before_script": true,
   "s1_first_search": "bash_list_or_read",
   "colgrep_calls": 1,
-  "s2_reuse": "extension_by_copy",
+  "s2_reuse": "new_after_seeing_header",
   "new_files": 1,
   "modified_starting_files": 0,
   "s3_search_call_result_chars": 5104,
@@ -339,7 +339,7 @@
   "s4_total_cost_usd": 0.1277,
   "worker_usd_estimate_from_harness": "",
   "tool_calls": 10,
-  "note": "colgrep search (limit 5, paths __instrumenta__) listed u09 and u08 first; new u47, similarity 0.49"
+  "note": "colgrep search (limit 5, paths __instrumenta__) listed u09 and u08 first; new u47 is a plain no-cache loop, not an adaptation"
  },
  {
   "id": "xt2r2",
@@ -367,7 +367,7 @@
   "s1_search_before_script": true,
   "s1_first_search": "bash_list_or_read",
   "colgrep_calls": 0,
-  "s2_reuse": "extension_by_copy",
+  "s2_reuse": "new_after_seeing_header",
   "new_files": 1,
   "modified_starting_files": 0,
   "s3_search_call_result_chars": 1256,
@@ -375,7 +375,7 @@
   "s4_total_cost_usd": 0.0796,
   "worker_usd_estimate_from_harness": "",
   "tool_calls": 8,
-  "note": "head -n1 of all, grep collatz; new collatz_peak.py, similarity 0.41"
+  "note": "head -n1 of all, grep collatz; new collatz_peak.py, plain loop; read only first lines"
  },
  {
   "id": "ct1r1",

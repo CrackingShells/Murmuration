@@ -4,7 +4,8 @@
 CODING is my reading of each run's tool-call sequence (the sequences are in the JSON; raw runs stay outside git).  Categories of `s2`:
   reuse_as_is        an existing script was run and its output used, nothing new written for the task
   reuse_in_place     an existing script was edited in place and run
-  extension_by_copy  a new file adapted from an existing script of the family, written after its first line or body had been read
+  extension_by_copy  a new file adapted from an existing script of the family: its code reuses the existing body (checked by reading the files), written after the body had been read
+  new_after_seeing_header  a new file written after the first lines of the existing scripts were seen, with its own code (not an adaptation; corrected after reproducer-w04-4)
   new_no_search      a new script, written after the only search call failed (Glob is absent in the headless session); the existing script was never seen
   overwrite          a new script written under the name of an unrelated existing script (see S-w04-author-w04-3-5)
 A cross-check script of another algorithm, written beside a reuse_as_is run, is noted in `note` and is not a duplicate.
@@ -18,13 +19,13 @@ import sys
 CODING = {
     "t1r1": ("reuse_as_is", ""), "t1r2": ("reuse_as_is", "plus an independent suffix-automaton cross-check script"), "t1r3": ("reuse_as_is", ""),
     "t2r1": ("extension_by_copy", "read 20 lines of collatz_*.py; new file, similarity 0.42"), "t2r2": ("extension_by_copy", "read 30 lines; similarity 0.75"),
-    "t2r3": ("extension_by_copy", "read 5 lines; wrote the logic fresh, also a C version; similarity 0.50"),
+    "t2r3": ("new_after_seeing_header", "read 5 lines; wrote a plain no-cache loop, also a C version; not an adaptation (reproducer-w04-4 diffed it)"),
     "t3r1": ("extension_by_copy", "read the fit script; generic-alphabet copy, similarity 0.44"), "t3r2": ("extension_by_copy", "read the fit script; k-ary copy, similarity 0.44"),
     "t3r3": ("reuse_in_place", "patched the fit script to take the alphabet from argv; the file now differs from the start"),
     "st1r1": ("reuse_as_is", ""), "st1r2": ("reuse_as_is", ""), "st1r3": ("reuse_as_is", ""),
     "st2r1": ("new_no_search", "Glob absent, one failed call, no second search; the new script is a fresh cache-loop of the near fit's function"),
-    "st2r2": ("extension_by_copy", "read 5 lines of two scripts; similarity 0.52"),
-    "st2r3": ("extension_by_copy", "loaded colgrep find_files by ToolSearch, never called it; ls then head -5; similarity 0.46"),
+    "st2r2": ("new_after_seeing_header", "read 5 lines of two scripts; wrote a plain no-cache loop; not an adaptation"),
+    "st2r3": ("new_after_seeing_header", "loaded colgrep find_files by ToolSearch, never called it; ls then head -5; plain no-cache loop (its header says so); not an adaptation"),
     "ct1r1": ("reuse_as_is", "no agent-file paragraph; listed the folder in the second call, ran the fit script, added a suffix-check script"),
     "ct1r2": ("reuse_as_is", "no paragraph; ls -R, ran the fit script; added a cross-check script in the claim folder"),
     "ct1r3": ("new_no_search", "no paragraph; never looked at the folder; wrote its own brute force (duplicate of the fit script) in exp/"),
@@ -33,9 +34,9 @@ CODING = {
     "ct2r3": ("new_no_search", "no paragraph; never looked at the folder; script in w04-c9/ outside __instrumenta__/"),
     "xt1r1": ("reuse_as_is", "found u03 by head -1 of all files; plus a cross-check u47"), "xt1r2": ("reuse_as_is", "found u03 by head -1 of all files"),
     "xt1r3": ("reuse_as_is", "found u03 by head -1 of all files; plus a cross-check"),
-    "xt2r1": ("extension_by_copy", "colgrep search (limit 5, paths __instrumenta__) listed u09 and u08 first; new u47, similarity 0.49"),
+    "xt2r1": ("new_after_seeing_header", "colgrep search (limit 5, paths __instrumenta__) listed u09 and u08 first; new u47 is a plain no-cache loop, not an adaptation"),
     "xt2r2": ("overwrite", "ls cut by `head -30`, saw u01..u26, wrote the new script as u27.py: overwrote jsonl_field_counter.py; had seen the first lines of u08 and u09"),
-    "xt2r3": ("extension_by_copy", "head -n1 of all, grep collatz; new collatz_peak.py, similarity 0.41"),
+    "xt2r3": ("new_after_seeing_header", "head -n1 of all, grep collatz; new collatz_peak.py, plain loop; read only first lines"),
 }
 
 
