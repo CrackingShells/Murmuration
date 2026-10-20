@@ -48,3 +48,11 @@ refs: __reports__/reflective_run/w04/author-w04-3/e3b/e3b_runs_table.tsv, e3b_me
 ## S-w04-author-w04-3-12
 4 of 12 parallel launches returned "Not logged in" after 1.7 to 6.7 s, 0 calls; the 9-parallel launch of E3 had 1 of 9, the 6-parallel launches of E3b 0 of 12. It looks like a limit on how many headless sessions start at once with the same credentials, not an API failure. If it is, a PI that dispatches many workers by `claude -p` would see it. The failed runs' output is kept in `/private/tmp/murmuration-w04/author-w04-3/failed_login/` (raw, out of git).
 refs: /private/tmp/murmuration-w04/author-w04-3/failed_login/ (raw)
+
+## S-w04-author-w04-3-13
+E3c: with the targets hidden behind a listing cut at 30 to 50 of 429, the practice that found them was `ls | grep -i <keyword>`, which neither the paragraph nor the start note mentions; the rule's colgrep `search` was used 0 of 6 times (1 of 6 in E3b, 1 of 6 in arm X of E3). So the guidance in the agent files (colgrep, or Glob as a fallback that does not exist in a headless session) describes a practice workers do not follow, and the one they follow is not written down. Whether to write it down is the PI's call; E3c cannot say that it would help, since it works in 4 of 6 as it is.
+refs: __reports__/reflective_run/w04/author-w04-3/e3c/e3c_runs_table.tsv (s5, s7_how)
+
+## S-w04-author-w04-3-14
+The near-fit miss pt2r1 is an artefact of a glob: it ran `head -5 __instrumenta__/collatz_*.py` as in E3 and E3b, and the renamed near fit (`steps_longest_collatz_...`) does not start with `collatz_`, so the glob skipped it. In E3/E3b the same habit worked because I had named the near fit `collatz_...`. A name that contains the keyword but does not start with it defeats prefix globs but not `ls | grep -i`; my renaming therefore also tests prefix-versus-substring matching, not only position in the listing. I kept the target's keyword in the name because the pre-registration said "descriptive names, same first lines".
+refs: __reports__/reflective_run/w04/author-w04-3/e3c/e3c_measure.json (pt2r1 sequence)
