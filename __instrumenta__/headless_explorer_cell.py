@@ -6,7 +6,7 @@ Output under <scratch>/runs/<cell>/: lab/ (the explorer's project), ground.json 
 import argparse, json, os, random, shutil, subprocess, sys, time
 ap = argparse.ArgumentParser(); ap.add_argument("scratch"); ap.add_argument("cell"); ap.add_argument("plugin")
 ap.add_argument("--seed", type=int, required=True); ap.add_argument("--files", type=int, default=90); ap.add_argument("--budget", default="0.30"); ap.add_argument("--time", default="20")
-ap.add_argument("--cap", default=""); ap.add_argument("--brief", default="report")   # cap "" = no --max-budget-usd flag: with the flag the platform shows every request a `budget_usd` attachment (used, total, remaining) of the whole session
+ap.add_argument("--cap", default=""); ap.add_argument("--task", default="stations"); ap.add_argument("--brief", default="report")   # cap "" = no --max-budget-usd flag: with the flag the platform shows every request a `budget_usd` attachment (used, total, remaining) of the whole session
 a = ap.parse_args()
 S = os.path.abspath(a.scratch); plugin = os.path.abspath(a.plugin)
 base = os.path.join(S, "runs", a.cell); shutil.rmtree(base, ignore_errors=True)
@@ -17,7 +17,22 @@ subprocess.run([sys.executable, os.path.join(plugin, "scripts", "lab_init.py"), 
 rnd = random.Random(a.seed)
 first = "Quill Marsh Fen Cairn Wren Slate Briar Hollow Tarn Vale Heath Moor".split(); second = "moor reach ford gate wick stead haven mere".split()
 ground = {}
-for i in range(1, a.files + 1):
+if a.task == "sums":   # E2b: 12 station records per file; items: total population and the station of lowest elevation
+    trades = ["salt harvesting", "peat cutting", "weaving", "ferry work"]
+    for i in range(1, a.files + 1):
+        names = []
+        while len(names) < 12:
+            n = "%s%s" % (rnd.choice(first), rnd.choice(second))
+            if n not in names:
+                names.append(n)
+        elev = rnd.sample(range(20, 900), 12); recs, tot = [], 0
+        for n, e in zip(names, elev):
+            pop = rnd.randint(1000, 90000); tot += pop
+            recs.append("%s: founded %d by %s %s, elevation %d m, population %d, main trade %s." % (n, rnd.randint(1800, 1950), rnd.choice("Ada Bram Cora Dov Elin Faro".split()), rnd.choice("Verrin Holt Maro Ashby Pell".split()), e, pop, rnd.choice(trades)))
+        open(os.path.join(lab, "f%03d.txt" % i), "w").write("Station register, section %03d.\n" % i + "\n".join(recs) + "\n")
+        ground["f%03d" % i] = dict(total=tot, lowest=names[elev.index(min(elev))])
+else:
+  for i in range(1, a.files + 1):
     st = "%s%s" % (rnd.choice(first), rnd.choice(second)); yr = rnd.randint(1800, 1950); fa, fb = rnd.choice("Ada Bram Cora Dov Elin Faro".split()), rnd.choice("Verrin Holt Maro Ashby Pell".split())
     open(os.path.join(lab, "f%03d.txt" % i), "w").write(
         "The %s station was founded in %d by %s %s and stands %d metres above the valley floor. Its population is about %d people, most of whom work in %s. "
@@ -26,7 +41,12 @@ for i in range(1, a.files + 1):
 json.dump(ground, open(os.path.join(base, "ground.json"), "w"), indent=0)
 name = "explorer-w04-%s" % a.cell.replace("_", "").replace("-", "")
 rpath = "__reports__/wave-04/%s/00-findings_v0.md" % name
-if a.brief == "report":
+if a.task == "sums":
+    task = ("Read the %d files f001.txt to f%03d.txt in the current directory, one file per Bash call (`cat fNNN.txt`), one call at a time, in order. Each file lists 12 stations. "
+            "For each file work out two values: the total population of its 12 stations (the sum of the 12 population figures) and the name of the station with the lowest elevation. "
+            "Your deliverable is the findings report at %s, from the findings template of the research-loop skill: its Table holds one row per file, with the file name, the total population and the lowest-elevation station. "
+            "Hand back with a short message that points to the report." % (a.files, a.files, rpath))
+elif a.brief == "report":
     task = ("Read the %d files f001.txt to f%03d.txt in the current directory, one file per Bash call (`cat fNNN.txt`), one call at a time, in order. "
             "Your deliverable is the findings report at %s, from the findings template of the research-loop skill: its Table holds one row per file, with the file name, "
             "the station name, the founding year and the founder. Hand back with a short message that points to the report." % (a.files, a.files, rpath))
@@ -52,7 +72,7 @@ for l in p.stdout.splitlines():
         continue
     if r.get("type") == "result":
         res = r
-json.dump(dict(cell=a.cell, name=name, plugin=os.path.basename(plugin), seed=a.seed, cap=a.cap, B=a.budget, T=a.time, files=a.files, brief=a.brief, wall_s=round(time.time() - t0, 1), rc=p.returncode,
+json.dump(dict(cell=a.cell, name=name, plugin=os.path.basename(plugin), seed=a.seed, cap=a.cap, B=a.budget, T=a.time, files=a.files, brief=a.brief, task=a.task, wall_s=round(time.time() - t0, 1), rc=p.returncode,
                usd=res and res.get("total_cost_usd"), turns=res and res.get("num_turns"), session=res and res.get("session_id"),
                model_usd={k: v.get("costUSD") for k, v in ((res or {}).get("modelUsage") or {}).items()}), open(os.path.join(base, "meta.json"), "w"))
 print(open(os.path.join(base, "meta.json")).read())

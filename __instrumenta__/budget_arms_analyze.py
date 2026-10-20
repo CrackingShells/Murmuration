@@ -59,6 +59,12 @@ def parse_items(text, ground):
         if not m or "f%s" % m.group(1) not in ground or "f%s" % m.group(1) in got:
             continue
         g = ground["f" + m.group(1)]; body = ln[m.end():]
+        if "total" in g:   # sums task: a row carries the total population (digits, commas allowed) and the lowest-elevation station
+            flat = re.sub(r"(?<=\d)[,_ ](?=\d{3}\b)", "", ln[m.end():])
+            if not re.search(r"\d{4,}", flat):
+                continue
+            got["f" + m.group(1)] = (g["lowest"] in ln, bool(re.search(r"(?<!\d)%d(?!\d)" % g["total"], flat)), True)
+            continue
         if not re.search(r"\d{4}", body):
             continue
         got["f" + m.group(1)] = (g["station"] in ln, str(g["year"]) in ln, g["founder"] in ln)
@@ -72,6 +78,11 @@ def selftest():
     got = parse_items(text, g)
     assert got == {"f001": (True, True, True), "f002": (True, False, True)}, got
     assert sum(1 for v in got.values() if all(v)) == 1
+    h = {"f001": dict(total=12345, lowest="Fenford")}
+    assert parse_items("| f001 | 12,345 | Fenford |", h) == {"f001": (True, True, True)}
+    assert parse_items("| f001 | 12,346 | Fenford |", h) == {"f001": (True, False, True)}
+    assert parse_items("| f001 | 12345 | Moorwick |", h) == {"f001": (False, True, True)}
+    assert parse_items("| f001 | 123 | Fenford |", h) == {}
     print("PASS budget_arms_analyze")
 
 
@@ -106,7 +117,7 @@ for spec in sys.argv[4:]:
                overshoot=round(hbs[-1][0] - hbs[0][0], 3) if hbs else None, requests=nreq,
                report_present=bool(rtext), report_shape=all(h in rtext for h in HEADS) and rtext.startswith("---"), report_bytes=len(rtext),
                items_report=len(it_r), items_handback=len(it_h), items_done=len(items), items_correct=sum(1 for v in items.values() if all(v)), n_files=meta["files"],
-               ctx_attachments=ctx, platform_budget_attachments=cap_att, cap=meta.get("cap", "1.5 (before the driver recorded it)"), stopped_short=len(items) < meta["files"],
+               deliverable_lost=(len(hbs) == 0 or len(items) == 0), ctx_attachments=ctx, platform_budget_attachments=cap_att, cap=meta.get("cap", "1.5 (before the driver recorded it)"), stopped_short=len(items) < meta["files"],
                n4_budget_reason_for_stopping=len(items) < meta["files"] and bool(re.search(r"budget|USD|spent|limit|\bnote\b|\d+%", first_hb_text, re.I)), first_hb_chars=len(first_hb_text))
     row["items_per_usd"] = round(row["items_done"] / meta["usd"], 1) if meta["usd"] else None
     row["unused"] = round(max(0.0, 1 - row["frac_first"]), 3) if row["frac_first"] is not None else None
