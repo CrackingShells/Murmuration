@@ -1,0 +1,43 @@
+{
+ "main": {
+  "tool_calls": 121,
+  "error_calls": 5,
+  "batches": 109,
+  "handback_calls": 0,
+  "handback_attempts": 0,
+  "dispatches": 4,
+  "prompts": 1,
+  "resumes": 0,
+  "by_tool": {
+   "Bash": 61,
+   "mcp__ccd_turn__update_plan": 20,
+   "mcp__ccd_turn__wrap_up": 12,
+   "Edit": 7,
+   "Write": 4,
+   "ToolSearch": 4,
+   "Agent": 4,
+   "mcp__plugin_colgrep-mcp_colgrep__list_indexes": 2
+  },
+  "first": "2026-10-19T07:40:14.360Z",
+  "last": "2026-10-19T14:57:24.694Z"
+ },
+ "workers": [],
+ "starts": {
+  "main": {
+   "PostToolBatch||budget.py": 109,
+   "PostToolUse||budget.py": 121,
+   "PostToolUse|SubagentHandback|handback.py": 0,
+   "PreToolUse|Agent|Task|budget.py": 4,
+   "PreToolUse|SubagentHandback|handback.py": 0,
+   "UserPromptSubmit||user_words.py": 1
+  },
+  "workers": {}
+ },
+ "totals": {
+  "main_tool_calls": 121,
+  "worker_tool_calls": 0,
+  "workers": 0,
+  "main_starts": 235,
+  "worker_starts": 0
+ }
+}
