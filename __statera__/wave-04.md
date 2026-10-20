@@ -71,23 +71,147 @@ resolves the lab from the session's first recorded `cwd` (the transcript's first
 
 | Agent | Role | Brief (one line) | Returned |
 |:--|:--|:--|:--|
-| author-w04-1 | author | w04-c1: lab root from the session's first recorded cwd (user_words.py, resume_brief.py); USD 4, 30 min | |
-| author-w04-2 | author | w04-c2 (E1, report line in explorer.md) and w04-c3 (E2, notes-off control); USD 12 + runs ≤ 12, 60 min | |
-| author-w04-3 | author | w04-c4 (E3, search and reuse in a lab with ≥ 40 scripts); USD 8 + runs ≤ 8, 60 min | |
-| author-w04-4 | author | w04-c5 (E4, measure then lean the hooks; owns budget.py, handback.py, hooks.json, lab_status.py); USD 8, 60 min | |
-| author-w04-6 | author | w04-c6 (item 14: lab_init message, briefs sentence); USD 3, 30 min | yes; filed MEASURED at b42f9f2, fixed two bugs found in the exchange (c3bfe2c) |
-| reproducer-w04-6 | reproducer | verify w04-c6 | SUPPORTED at c3bfe2c (changed from OVERSTATED at b42f9f2) |
+| author-w04-1 | author | w04-c1: lab root from the session's first recorded cwd (user_words.py, resume_brief.py); USD 4, 30 min | yes; MEASURED, bound fixed in the exchange (37de695) |
+| reproducer-w04-1 | reproducer | verify w04-c1 | SUPPORTED; ran the resume and EnterWorktree cases |
+| author-w04-2 | author | w04-c2/c3 (E1, E2); resumed with raises for w04-c8/c9 (E1b, E2b), w04-c11, w04-c12 (E1c); USD 12 + 6 + 3 | yes, every time; headless runs USD 11.79 + 4.52 + 0.95 by `total_cost_usd` |
+| reproducer-w04-2 | reproducer | verify w04-c2 | OVERSTATED (sizing, attribution) |
+| reproducer-w04-3 | reproducer | verify w04-c3 | OVERSTATED (task could not separate the readings; wave-3 cap) |
+| reproducer-w04-8 | reproducer | verify w04-c8, then w04-c12 | w04-c8 SUPPORTED (parser defect found); w04-c12 SUPPORTED, on its thresholds |
+| reproducer-w04-9 | reproducer | verify w04-c9, then w04-c11 | w04-c9 OVERSTATED; w04-c11 SUPPORTED |
+| author-w04-3 | author | w04-c4 (E3); resumed for w04-c7 (E3b), w04-c10 (E3c) and three restatements; USD 8 + 5 + 3 | yes; headless runs USD 4.74 + 3.20 + 0.56 |
+| reproducer-w04-4 | reproducer | verify w04-c4 | ESCALATE (s2 coding) |
+| reproducer-w04-7 | reproducer | verify w04-c7 | ESCALATE (targets on screen; version; Q not followed) |
+| reproducer-w04-10 | reproducer | verify w04-c10 | ESCALATE (pass at the rule's edge) |
+| author-w04-4 | author | w04-c5 (E4, measure then lean the hooks); USD 8, 60 min | yes; at its time limit, about USD 5 by its own reading |
+| reproducer-w04-5 | reproducer | verify w04-c5, paired timing | SUPPORTED; long-worker criterion not met (48.4%) |
+| author-w04-6 | author | w04-c6 (item 14); USD 3, 30 min | yes; two bugs fixed in the exchange (c3bfe2c) |
+| reproducer-w04-6 | reproducer | verify w04-c6 | SUPPORTED at c3bfe2c (OVERSTATED at b42f9f2) |
 
 ## Claims of this wave
 
 | Claim | Statement | Current label |
 |:--|:--|:--|
-| w04-c6 | lab_init says whether the colgrep index was built, current, empty, or the parent's; briefs keep helper code a file | MEASURED (c3bfe2c, cee84af) |
+| w04-c1 | user_words.py and resume_brief.py find the lab from the session's first recorded cwd | MEASURED (on the branch) |
+| w04-c2 | E1: with a brief that names the report, no deny; line not proposed | superseded by w04-c8 |
+| w04-c3 | E2: compliance by the rule; task cannot separate the readings | superseded by w04-c9, then w04-c11 |
+| w04-c4 | 46 scripts: workers look by `ls`; strict reuse 7 of 15; inconclusive | escalated; restated by PI decision |
+| w04-c5 | lean hooks: main thread -61%, long worker -48.4%, identical replay | MEASURED; not proposed by E4, set aside at 4c46fe4 |
+| w04-c6 | lab_init index message; briefs keep helper code a file | MEASURED (on the branch) |
+| w04-c7 | 429 scripts, targets on screen: cut `ls` sufficed; Q not proposed | escalated; restated by PI decision |
+| w04-c8 | E1b: line B' removes denies and overshoot; shape 1 of 3; not proposed | MEASURED |
+| w04-c9 | E2b as first filed | superseded by w04-c11 |
+| w04-c10 | targets past the cut: finding 4 of 6, at the rule's edge, by `ls \| grep` | escalated; restated by PI decision |
+| w04-c11 | with notes, workers change what they do at the budget; without, they run to 1.5-2 B | MEASURED |
+| w04-c12 | E1c: line B'' with the template path; proposed by the rule, every condition on its threshold | MEASURED (line on the branch, ff2d5da) |
 
 ## Puzzle dispositions (at close)
 
 | Puzzle | Disposition |
 |:--|:--|
+| S-w04-author-w04-1-1 | parked: open item 17 (platform resets a launch CLAUDE_PROJECT_DIR) in __statera__/synthesis.md |
+| S-w04-author-w04-1-2 | parked: open item 1 (Desktop transcript at the first prompt) in __statera__/synthesis.md |
+| S-w04-author-w04-1-3 | parked: open item 16 (one lab rule for every script) in __statera__/synthesis.md |
+| S-w04-author-w04-1-4 | followed: w04-c1 (scope); parked: open item 17 in __statera__/synthesis.md |
+| S-w04-author-w04-1-5 | followed: w04-c5 (the verifier measured in interleaved pairs) |
+| S-w04-author-w04-1-6 | parked: open item 1 (your choice: first cwd or payload cwd) in __statera__/synthesis.md |
+| S-w04-author-w04-2-1 | followed: w04-c11 (no cap); parked: open item 17 in __statera__/synthesis.md |
+| S-w04-author-w04-2-2 | parked: open item 15 (maxTurns loses the deliverable silently) in __statera__/synthesis.md |
+| S-w04-author-w04-2-3 | followed: w04-c8 (E1 restated) |
+| S-w04-author-w04-2-4 | followed: w04-c12 |
+| S-w04-author-w04-2-5 | followed: w04-c11 (E2b) |
+| S-w04-author-w04-2-6 | parked: open item 5 (hand-backs quote the last note) in __statera__/synthesis.md |
+| S-w04-author-w04-2-7 | parked: open item 6 (an uppercase name truncates silently) in __statera__/synthesis.md |
+| S-w04-author-w04-2-8 | followed: w04-c12 |
+| S-w04-author-w04-2-9 | parked: open item 10 (a task whose accuracy can vary) in __statera__/synthesis.md |
+| S-w04-author-w04-2-10 | parked: disclosed in w04-c8 and w04-c11 (USD 0.017 over the cap) |
+| S-w04-author-w04-2-11 | parked: open item 8 (B'' still let 1 of 3 be denied) in __statera__/synthesis.md |
+| S-w04-author-w04-3-1 | parked: open item 11 in __statera__/synthesis.md |
+| S-w04-author-w04-3-2 | parked: open item 11 (Glob absent in headless sessions) in __statera__/synthesis.md |
+| S-w04-author-w04-3-3 | parked: open item 17 (a worker's background job keeps `claude -p` alive) in __statera__/synthesis.md |
+| S-w04-author-w04-3-4 | parked: open item 11 (overwrite with numbered names) in __statera__/synthesis.md |
+| S-w04-author-w04-3-5 | parked: open item 6 (a one-word hand-back) in __statera__/synthesis.md |
+| S-w04-author-w04-3-6 | followed: w04-c4 (exploratory arm C) |
+| S-w04-author-w04-3-7 | parked: open item 17 ("Not logged in" on parallel launches) in __statera__/synthesis.md |
+| S-w04-author-w04-3-8 | parked: open item 11 (extend in place or by copy) in __statera__/synthesis.md |
+| S-w04-author-w04-3-9 | followed: w04-c7 (precondition probed; 336 set kept out) |
+| S-w04-author-w04-3-10 | followed: w04-c7 (Q not proposed) |
+| S-w04-author-w04-3-11 | followed: w04-c10 (targets renamed past the cut) |
+| S-w04-author-w04-3-12 | parked: open item 17 in __statera__/synthesis.md |
+| S-w04-author-w04-3-13 | parked: open item 11 (workers use `ls | grep`, the paragraph names colgrep) in __statera__/synthesis.md |
+| S-w04-author-w04-3-14 | followed: w04-c10 (scope) |
+| S-w04-author-w04-4-1 | followed: w04-c5 (posix_spawn timer; verifier's pairs) |
+| S-w04-author-w04-4-2 | followed: w04-c5 (verifier's 420 interleaved pairs) |
+| S-w04-author-w04-4-3 | parked: open item 9 in __statera__/synthesis.md |
+| S-w04-author-w04-4-4 | parked: open item 9 (an editable install in your conda base slows every Python start) in __statera__/synthesis.md |
+| S-w04-author-w04-4-5 | followed: w04-c5 (offset read) |
+| S-w04-author-w04-4-6 | parked: method note (wave-3 transcripts sit under the worktree's folder only) |
+| S-w04-author-w04-4-7 | parked: open item 17 (UserPromptSubmit also fires for queued notifications; user_words.py skips them) in __statera__/synthesis.md |
+| S-w04-author-w04-4-8 | parked: open item 6 (hand-back files carry an absolute transcript path) in __statera__/synthesis.md |
+| S-w04-author-w04-4-9 | parked: open item 9 (mutation tests for the lean version) in __statera__/synthesis.md |
+| S-w04-author-w04-4-10 | parked: open item 9 (drop the per-call PostToolUse start) in __statera__/synthesis.md |
+| S-w04-author-w04-6-1 | followed: w04-c6 |
+| S-w04-author-w04-6-2 | parked: open item 6 in __statera__/synthesis.md |
+| S-w04-author-w04-6-3 | parked: open item 6 (the `/lab-status` warning wording) in __statera__/synthesis.md |
+| S-w04-reproducer-w04-1-1 | followed: w04-c1 (resume statement withdrawn) |
+| S-w04-reproducer-w04-1-2 | parked: open item 1 in __statera__/synthesis.md |
+| S-w04-reproducer-w04-1-3 | parked: open item 16 in __statera__/synthesis.md |
+| S-w04-reproducer-w04-1-4 | followed: w04-c1 (bound fixed at 37de695); parked: open item 5 (evidence pins) in __statera__/synthesis.md |
+| S-w04-reproducer-w04-1-5 | parked: open item 17 (transcript-format dependency) in __statera__/synthesis.md |
+| S-w04-reproducer-w04-10-1 | followed: w04-c10 (restated at the rule's edge) |
+| S-w04-reproducer-w04-10-2 | followed: w04-c10 (name seen 5 of 6) |
+| S-w04-reproducer-w04-10-3 | parked: open item 11 in __statera__/synthesis.md |
+| S-w04-reproducer-w04-10-4 | parked: open item 17 in __statera__/synthesis.md |
+| S-w04-reproducer-w04-10-5 | parked: open item 17 (workers read outside the lab) in __statera__/synthesis.md |
+| S-w04-reproducer-w04-10-6 | parked: open item 11 in __statera__/synthesis.md |
+| S-w04-reproducer-w04-2-1 | followed: w04-c8 (E1 restated: the task fit the budget) |
+| S-w04-reproducer-w04-2-2 | followed: w04-c8 (brief attribution CONJECTURE) |
+| S-w04-reproducer-w04-2-3 | parked: method note (two readings of "first hand-back"; final fractions agree) |
+| S-w04-reproducer-w04-2-4 | followed: w04-c8 and w04-c12 (uncapped XB-shaped cells run) |
+| S-w04-reproducer-w04-2-5 | parked: open item 15 in __statera__/synthesis.md |
+| S-w04-reproducer-w04-3-1 | parked: open item 17 (the token counter every worker sees) in __statera__/synthesis.md |
+| S-w04-reproducer-w04-3-2 | followed: w04-c11 (bases named) |
+| S-w04-reproducer-w04-3-3 | followed: w04-c11 (E2b's added clause) |
+| S-w04-reproducer-w04-3-4 | parked: open item 9 (a hook_cancelled in ux-c1) in __statera__/synthesis.md |
+| S-w04-reproducer-w04-3-5 | parked: harmless count (the first request has no attachment) |
+| S-w04-reproducer-w04-3-6 | parked: open item 10 (which graded note suffices) in __statera__/synthesis.md |
+| S-w04-reproducer-w04-4-1 | followed: w04-c4 (recoded, restated) |
+| S-w04-reproducer-w04-4-2 | parked: open item 11 (near-fit task design) in __statera__/synthesis.md |
+| S-w04-reproducer-w04-4-3 | followed: w04-c4 (strict reading stated first) |
+| S-w04-reproducer-w04-4-4 | parked: open item 11 (listing every lab folder at start) in __statera__/synthesis.md |
+| S-w04-reproducer-w04-4-5 | parked: open item 5 (evidence pins) in __statera__/synthesis.md |
+| S-w04-reproducer-w04-5-1 | parked: open item 9 (gate reads its socket byte by byte) in __statera__/synthesis.md |
+| S-w04-reproducer-w04-5-2 | followed: w04-c5 |
+| S-w04-reproducer-w04-5-3 | parked: open item 9 in __statera__/synthesis.md |
+| S-w04-reproducer-w04-5-4 | followed: w04-c5 (replay list committed) |
+| S-w04-reproducer-w04-5-5 | parked: open item 18 (keys printed in a tool output) in __statera__/synthesis.md |
+| S-w04-reproducer-w04-5-6 | parked: open item 9 (stale header text) in __statera__/synthesis.md |
+| S-w04-reproducer-w04-6-1 | followed: w04-c6 |
+| S-w04-reproducer-w04-6-2 | followed: w04-c6 |
+| S-w04-reproducer-w04-6-3 | followed: w04-c6 |
+| S-w04-reproducer-w04-6-4 | parked: open item 6 in __statera__/synthesis.md |
+| S-w04-reproducer-w04-7-1 | followed: w04-c10 (E3c) |
+| S-w04-reproducer-w04-7-2 | parked: method note (run-folder names) |
+| S-w04-reproducer-w04-7-3 | followed: w04-c7 (restated) |
+| S-w04-reproducer-w04-7-4 | parked: method note (s3 is an upper bound) |
+| S-w04-reproducer-w04-7-5 | followed: w04-c10 |
+| S-w04-reproducer-w04-7-6 | parked: open item 11 in __statera__/synthesis.md |
+| S-w04-reproducer-w04-8-1 | followed: w04-c12 (template path) |
+| S-w04-reproducer-w04-8-2 | followed: w04-c8 (parser fixed at 1acb430) |
+| S-w04-reproducer-w04-8-3 | followed: w04-c8 (head) |
+| S-w04-reproducer-w04-8-4 | parked: open item 8 in __statera__/synthesis.md |
+| S-w04-reproducer-w04-8-5 | parked: disclosed in w04-c8 |
+| S-w04-reproducer-w04-8-6 | parked: open item 8 in __statera__/synthesis.md (thresholds met exactly, no side-by-side A) |
+| S-w04-reproducer-w04-8-7 | parked: open item 8 in __statera__/synthesis.md (the report check accepts an off-template report) |
+| S-w04-reproducer-w04-8-8 | parked: open item 8 in __statera__/synthesis.md (rows in the hand-back, not the report) |
+| S-w04-reproducer-w04-9-1 | followed: w04-c11 |
+| S-w04-reproducer-w04-9-2 | parked: open item 9 (arm C logs blocks it never sent) in __statera__/synthesis.md |
+| S-w04-reproducer-w04-9-3 | parked: method note (cost spread across identical runs) |
+| S-w04-reproducer-w04-9-4 | followed: w04-c11 |
+| S-w04-reproducer-w04-9-5 | parked: open item 5 (hand-backs' resume estimates) in __statera__/synthesis.md |
+| S-w04-reproducer-w04-9-6 | parked: method note (one file per call loosely kept) |
+| S-w04-research-pi-1 | followed: w04-c1 |
+| S-w04-research-pi-2 | parked: open item 6 (parallel dispatches log the default budget) in __statera__/synthesis.md |
+| S-w04-research-pi-3 | followed: w04-c1 (cited as CONJECTURE) |
 
 ## Notes
 
@@ -123,3 +247,19 @@ resolves the lab from the session's first recorded `cwd` (the transcript's first
   near-fit run (pt2r2); fit 3 of 3, near fit 1 of 3; found by `ls | grep -i`, colgrep 0 of 6.
 - **PI decisions on w04-c2 and w04-c3** (both OVERSTATED): no in-place restatement; w04-c8 and w04-c9
   supersede them, each opening with the restated earlier result.
+- **PI decision on w04-c5** (reproducer-w04-5: SUPPORTED; long-worker wall down 48.4%, interval
+  47.9–49.1%): E4's rule is not met, so the lean hooks are not proposed. They are set aside on the
+  branch tip (4c46fe4), as wave 2 did with a failed rule. Revert that commit to take them. All
+  selftests and `claude plugin validate .` pass after the set-aside.
+- **w04-c12 lands on the branch** by E1c's rule (ff2d5da). Every condition sits exactly on its
+  threshold, against a reused arm A; the user decides.
+- **Left for the user, not touched:** the main checkout's uncommitted `__statera__/user_words.md`
+  (the shipped hook wrote the 09:27 prompt there). The registry md5 was unchanged at close.
+- **Spend at close:** this checkout's sessions USD 26.63 (list price, a lower bound; `/lab-status`
+  162.93 − 136.30); headless runs outside the repository USD 26.52 (exact, cost-state). Total at least
+  53.15 against the user's 100. The PI's plan was about 70.
+
+closed: 2026-10-20
+- `/lab-status` warns that w04-c1's `supersedes:` line carries a parenthesis after the id, so
+  w01-c10 still shows as "below CONJECTURE: restate" instead of superseded. That is the author's
+  head and is left as filed (open item 5).
