@@ -30,3 +30,15 @@ refs: derived/cell_ux-a2.json (`first_handback`), derived/cell_x-b1.json, derive
 ## S-w04-author-w04-2-7
 Small oddities. (a) A cell named `pilot-A` (capital letter) made the hook log the explorer as `explorer-w04-pilot`: `budget.py` and `handback.py` read the name with `[a-z0-9-]+`, so an uppercase letter silently truncates it; the report check still matched. The naming convention forbids capitals, so no change is asked, but the truncation is silent. (b) The haiku parent twice said "the Agent tool has no `name` parameter" (ux-c1, ux-c2 results) although the dispatch carried the name in the prompt; the hook found it there. (c) In arm C the hook still logs `note` lines that were not delivered (by design of my patch: logging stays on); a reader of a C `harness.jsonl` must know that, and the log has no field that says "delivered". (d) `summary_by_arm.tsv` of the quick command labels its cells "X-uncapped" (the set label is chosen by the cell name's prefix).
 refs: runs/pilot-A/lab/__statera__/harness.jsonl (name `explorer-w04-pilot`), runs/ux-c1/stdout.jsonl, `__instrumenta__/budget_arms_summary.py`
+
+## S-w04-author-w04-2-8
+B' as worded does not produce the template's shape, and neither does the deny's own wording. In E1b, A's reports (written after a deny whose text says "with the findings template of the research-loop skill") were in shape 0 of 3; B''s (line says "from the template") 1 of 3. The explorers write a report as a shell one-liner or a free-form file. If the shape matters, the lever is not wording: a check in `handback.py` for the six headings, or the headings in the explorer file. Not run.
+refs: `__reports__/reflective_run/w04/author-w04-2/derived2/results_e1b_e2b.tsv` column report_shape; runs/e1b-b1 and e1b-b3 reports (free-form), runs/e1b-b2 (in shape)
+
+## S-w04-author-w04-2-9
+Every explorer did the arithmetic by script, so E2b's accuracy metric barely moved (1 wrong row in 369). The "small derived value" did not make items fallible, because a worker with Bash computes a sum with awk. An item that cannot be scripted (a judgement per file) would be needed for accuracy to vary. Also: the explorers departed from the brief's "one file per call" to save budget (e2b-a2 read f046 to f070 in one call because "one call per file would have gone past the budget"): a worker with the notes adapts its method to the budget, which a compliance-or-anxiety reading has to count as a third outcome.
+refs: runs/e2b-a2/lab hand-back (derived2/cell_e2b-a2.json first_handback), derived2/results_e1b_e2b.tsv
+
+## S-w04-author-w04-2-10
+The cap given for E1b and E2b (USD 4.5 of headless spend) was exceeded by USD 0.017 (4.5167) with no pilot and a task sized offline. The offline size model (cache reads and writes per request from an earlier transcript, plus a fixed output allowance) predicted 1.5 B; the measured full deliverable was 1.49 to 1.98 B on the hook basis: right on average, with a 33% spread across three runs of one seed family. One C run (e2b-c1) reached 1.98 B, close to the 2 B limit the protocol set for turns.
+refs: derived2/cost_per_run_e1b_e2b.tsv, derived2/results_e1b_e2b.tsv column frac_end
