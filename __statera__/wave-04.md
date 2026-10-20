@@ -109,3 +109,12 @@ resolves the lab from the session's first recorded `cwd` (the transcript's first
   `budget.py`/`handback.py` still follow the live cwd and `lab_status.py`/`lab_init.py` take
   CLAUDE_PROJECT_DIR first, so the lab is found by three different rules. One rule for all of them
   is a follow-up after w04-c5 (which owns those files) lands.
+- **PI decision on the ESCALATE of w04-c7** (reproducer-w04-7): the head is restated in place to
+  the verifier's statement. At 429 scripts with both targets among the first 10 names, a cut
+  listing sufficed; colgrep `search` 1 of 6 (P) and 0 of 6 (Q); strict reuse 3 of 6 per arm, all on
+  the fit task; Q is not proposed, and why Q did not change behaviour is untested. Since finding was
+  not tested, E3c (targets past position 200, pre-registered 05c0bbf) runs as w04-c10.
+- **PI decision on w04-c5's straddle** (author-w04-4 asked): E4's rule is read as written. The
+  verifier's own paired measurement of long-worker wall time decides; it is not redefined after the
+  fact. If it straddles again, the claim goes to the user as "met for the main thread, at the edge
+  for long workers".
