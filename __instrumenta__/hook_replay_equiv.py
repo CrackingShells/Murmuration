@@ -6,7 +6,7 @@ and fires the hooks a worker would fire: PreToolUse(Agent) dispatch and Subagent
 PreToolUse(SubagentHandback) at each hand-back attempt, and SubagentStop. Each version runs in its own process with the same `now` values (`handle(event, now=...)`).
 Output: one line per transcript: steps, answers that were not None, log lines, and EQUAL or the first difference. Compared: each answer; harness.jsonl without its `t`; the files in
 handbacks/; each state file without the `sc` key (the new version's read offset and request costs) and the deny markers. Exit code 1 when any transcript differs.
-The sh gate and the `python3 -S -I -B` flags of hooks.json are not replayed here (hook_cost_time.py runs the commands themselves; budget_selftest.py checks the gate).
+The sh gate and the `python3 -S -I` flags of hooks.json (no -B: the bytecode cache is the point) are not replayed here (hook_cost_time.py runs the commands themselves; budget_selftest.py checks the gate).
 """
 import argparse, datetime, glob, json, os, shutil, subprocess, sys
 
