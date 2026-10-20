@@ -109,3 +109,35 @@ change is proposed if its selftest covers: Desktop worktree session (session cwd
 CLAUDE_PROJECT_DIR = main checkout, both with a lab) → the worktree; the Bash tool `cd`'d into
 another checkout at prompt time → still the session's lab; headless start in a lab → that lab;
 no lab anywhere → nothing written.
+
+## Addendum, 10:10 (before any run it governs)
+
+**PI decision on E3's reading of "extended"** (asked by author-w04-3 before the verifier, puzzle 8 of
+its file). The protocol did not define it. A copy of an existing script adapted into a new file is
+reported as its own category ("adapted by copy"), not counted as extension: where the strict and the
+loose reading give different verdicts, the synthesis states the strict one. This is decided before
+the verifier reads the claim, and is the more conservative reading.
+
+## E3b (open item 11, claim w04-c7): a folder where `ls` is not the cheaper search
+
+E3 ran at 46 scripts, where `ls` (about 1,240 characters) is cheaper than one colgrep search
+(about 3,670). The user asked for "enough scripts that `ls` is not the cheaper search".
+
+Setup: as E3, with at least 300 scripts with descriptive names (so that `ls -1 __instrumenta__`
+is at least 3 times one colgrep `search` result of `limit: 5`), the index built as `/lab` builds it.
+Arm M only (author as the main agent, as E3's cheap arm), two tasks (one fit, one near fit).
+- **P**: the agent files of 41c75ea unchanged. n = 6 (3 per task).
+- **Q**: the search paragraph of `agents/author.md` reworded by author-w04-3 to describe the
+  search as list-then-read (`ls`, first lines of the close ones, a new name not in the listing),
+  with colgrep `search` for a folder too long to list. n = 6 (3 per task).
+
+Metrics: E3's s1–s4, plus (s5) the search method (colgrep, `ls`, `head` over all files, other) and
+(s6) an existing file overwritten or a new name that collides with one.
+
+Decision rule:
+- **Q is proposed** (a change to `agents/*.md`, claim w04-c7) if Q's reuse (run as is or edited in
+  place, strict reading) is at least P's, Q has 0 overwrites, and Q's median search output
+  characters (s3) is at most P's.
+- Otherwise the paragraph stays as it is, and the table is reported.
+- Either way, if P shows colgrep `search` in at most 1 of 6 runs at 300 scripts, the sentence
+  "search that folder once with colgrep `search`" is reported as not followed at that size.
