@@ -185,3 +185,15 @@ Rule (a reading, not a plugin change):
 - **Finding fails at this size** if s7 holds in at most 2 of 6; a change to the search paragraph is
   then a separate claim with its own test.
 - Otherwise inconclusive. colgrep `search` use is reported in either case.
+
+## Addendum, after w04-c8's verdict (before any run it governs)
+
+### E1c (claim w04-c12)
+w04-c8: the line B' removed the denies (A 3 of 3, B' 0 of 3) and the overshoot, but B''s reports
+were in template shape 1 of 3; only the one run that opened the template file got the shape, and the
+line gives no path. Arm **B''**: B' with the template named by where it is: "Write your findings
+report from the research-loop skill's template (`templates/report_findings.md` in the skill's base
+directory) before you hand back, also when a budget note says to hand back." n = 3, the E1b brief,
+seeds and size, no `--max-budget-usd`. **Arm A is E1b's arm A (same brief, seeds, export), reused;
+no new A runs** (stated as a limit: A and B'' are not run side by side).
+Metrics and rule: E1b's, with B'' in place of B'.
