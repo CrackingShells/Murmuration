@@ -118,3 +118,8 @@ resolves the lab from the session's first recorded `cwd` (the transcript's first
   verifier's own paired measurement of long-worker wall time decides; it is not redefined after the
   fact. If it straddles again, the claim goes to the user as "met for the main thread, at the edge
   for long workers".
+- **PI decision on the ESCALATE of w04-c10** (reproducer-w04-10): title and scope restated in place
+  (3a5429a) to "at the rule's edge": finding 4 of 6, the lowest passing count, resting on one
+  near-fit run (pt2r2); fit 3 of 3, near fit 1 of 3; found by `ls | grep -i`, colgrep 0 of 6.
+- **PI decisions on w04-c2 and w04-c3** (both OVERSTATED): no in-place restatement; w04-c8 and w04-c9
+  supersede them, each opening with the restated earlier result.
