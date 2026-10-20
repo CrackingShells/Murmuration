@@ -17,3 +17,15 @@ refs: __reports__/reflective_run/w04/author-w04-2/derived2/cost_per_run_e1b_e2b.
 ## S-w04-reproducer-w04-8-5
 The restated E1 omits the uncapped exploratory ux-a1..2 (1 deny each); reproducer-w04-2 listed it. Also the run cost cap: head says 12 runs cost 4.5167 against a cap of 4.5 (exceeded by 0.017); the cap is the PI's, and the head discloses it.
 refs: __pondus__/w04-c2.md (reproducer-w04-2 section, m1 line); __reports__/reflective_run/w04/author-w04-2/derived2/cost_per_run_e1b_e2b.tsv
+
+## S-w04-reproducer-w04-8-6
+E1c proposes B'' with every deciding condition on its threshold (denies 1 of 3 against "at most 1", shape 2 of 3 against "at least 2", median final 1.083 against A's 1.097, margin 0.014 B). One run changing its outcome flips the rule, and A is a reused arm from 17 minutes earlier. The line is applied in agents/explorer.md on that margin. Neither a larger n nor a side-by-side A was run.
+refs: __pondus__/w04-c12.md; __instrumenta__/w04c8_rederive_e1b.py output on e1c-b1..b3; /private/tmp/murmuration-w04/author-w04-2/runs/e1c-b*/lab/__statera__/harness.jsonl
+
+## S-w04-reproducer-w04-8-7
+In E1c the in-shape report of b2 came after a deny, and the template was opened (a Bash cat at transcript record 409) only after that deny; b1, which wrote a report without opening the template and without a deny, put an off-template report (1 heading) through the check. The report check only tests that some file under __reports__/ names the agent, so b1's report passes without the template. Before the first hand-back the line made 1 of 3 runs open the template, as B' did in E1b; the proposal rests on b2's deny-then-read path.
+refs: runs/e1c-b1/lab/__reports__/wave-04/explorer-w04-e1cb1/00-findings_v0.md; runs/e1c-b2/lab/__statera__/harness.jsonl; ~/.claude/projects/*-runs-e1c-b2-lab/*/subagents/agent-*.jsonl record 409
+
+## S-w04-reproducer-w04-8-8
+The reports of E1c hold no rows: the list sits in the hand-back (3 of 3) and in side files (b1, b3) next to a report that points to it. The explorer file calls the report the deliverable, the brief the hand-back; the rule asks for "report present and in shape" while the brief's list is in neither the shape check nor the report. What the PI reads in a real run was not measured.
+refs: results_e1c.tsv items_report 0, 1, 0; runs/e1c-b1/lab/__reports__/wave-04/*/00-list_f001-f081.txt; runs/e1c-b3/lab/__reports__/wave-04/*/list.tsv
