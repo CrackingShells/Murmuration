@@ -19,7 +19,7 @@ st2r2 handed back with the message "placeholder" (its claim file and puzzle file
 refs: /private/tmp/murmuration-w04/author-w04-3/runs/st2r2/lab/__statera__/ (raw), s_measure.json (st2r2 sequence, last call)
 
 ## S-w04-author-w04-3-6
-Without the paragraph, workers put their scripts outside `__instrumenta__/` in 3 of 6 runs (`exp/`, `w04-c9/` twice, ct1r2's cross-check in the claim folder), and one (ct1r1) read the plugin export's `skills/research-loop/SKILL.md` by its absolute path, which no brief gave. Where it learned the path I did not trace. This agrees with w03-c2's "where scripts go" figure, now at n = 6, but it is not part of E3's metrics.
+Without the paragraph, workers put a script outside `__instrumenta__/` in 3 of 6 runs (ct1r3 in `exp/`, ct2r3 in `w04-c9/`, ct1r2's cross-check in the claim folder) and one inside it but in a subfolder (ct2r2, `__instrumenta__/w04-c9/`), and one (ct1r1) read the plugin export's `skills/research-loop/SKILL.md` by its absolute path, which no brief gave. Where it learned the path I did not trace. This agrees with w03-c2's "where scripts go" figure, now at n = 6, but it is not part of E3's metrics.
 refs: __reports__/reflective_run/w04/author-w04-3/c_measure.json (ct1r1, ct1r2, ct2r2, ct2r3 sequences)
 
 ## S-w04-author-w04-3-7
