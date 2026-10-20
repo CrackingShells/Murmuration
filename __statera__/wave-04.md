@@ -96,3 +96,16 @@ resolves the lab from the session's first recorded `cwd` (the transcript's first
 - Spend cap for this wave: USD 100 (the user's), stop by 12:00 JST. PI's plan: about 55 for
   authors and their runs, 15 for verifiers, the rest for the PI's own turns and slack.
 - Registry md5 at start: `8d71e8c0f33b7e927133e7e44194de37`.
+- **PI decision on the ESCALATE of w04-c4** (reproducer-w04-4, 10:2x): the head is restated in place
+  to the verifier's figures. Workers listed `__instrumenta__/` before writing in 14 of 15 runs, all
+  by `ls`; colgrep `search` 0 of 15. Strict reuse (run as is or edited in place) 7 of 15. Under the
+  strict reading fixed in the 10:10 addendum, before the verifier read the claim, E3 is
+  INCONCLUSIVE. Three near-fit runs the author first coded as "extension by copy" read only first
+  lines and wrote a new loop. At 46 scripts `ls` is the cheaper search, so E3 did not test the
+  user's condition; E3b (300 scripts, pre-registered 10:10) does.
+- **w04-c1 is SUPPORTED, with a choice left open for the user**: the session's first cwd wins
+  over the payload cwd. This gains the shell-`cd` case (seen live in this session) and loses the
+  "EnterWorktree mid-session" case (reproducer-w04-1). Neither has been counted in real use.
+  `budget.py`/`handback.py` still follow the live cwd and `lab_status.py`/`lab_init.py` take
+  CLAUDE_PROJECT_DIR first, so the lab is found by three different rules. One rule for all of them
+  is a follow-up after w04-c5 (which owns those files) lands.
