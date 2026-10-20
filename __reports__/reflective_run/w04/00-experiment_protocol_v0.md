@@ -170,3 +170,18 @@ Rule: E2's rule, plus: **"the notes are what stops the worker"** if C runs past 
 2 of 3 runs while N hands back between 0.9 and 1.2 B in at least 2 of 3. Anxiety still needs N
 below 0.9 with items per USD or accuracy more than 15% below C's, or a budget reason with at least
 10% left in 2 of 3.
+
+## Addendum, after the exchange on w04-c7 (before any run it governs)
+
+### E3c (claim w04-c10): the target past the listing's cut
+In E3b both targets sorted 3rd and 9th of 429, so every first `ls | head -N` showed them and finding
+was not tested (author-w04-3's answer to reproducer-w04-7, Q1). Setup: the 429-script lab of E3b,
+with the fit and near-fit scripts renamed (descriptive names, same first lines) so that both sort
+after position 200 of `ls -1`. Arm P only (agent files of 41c75ea unchanged), n = 6 (3 per task),
+claude version recorded.
+Metrics: s1–s6 of E3b, plus (s7) the target found: the run opens, runs or copies the target script.
+Rule (a reading, not a plugin change):
+- **Finding works** if s7 holds in at least 4 of 6.
+- **Finding fails at this size** if s7 holds in at most 2 of 6; a change to the search paragraph is
+  then a separate claim with its own test.
+- Otherwise inconclusive. colgrep `search` use is reported in either case.
