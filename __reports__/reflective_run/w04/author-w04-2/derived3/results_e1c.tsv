@@ -1,0 +1,4 @@
+cell	arm	seed	B	usd_total	usd_sonnet	wall_s	denies	notes	notes_over	stops	handback_calls	frac_first	frac_final	frac_end	overshoot	requests	report_present	report_shape	report_bytes	items_report	items_handback	items_done	items_correct	n_files	deliverable_lost	ctx_attachments	platform_budget_attachments	cap	stopped_short	n4_budget_reason_for_stopping	first_hb_chars	items_per_usd	unused
+e1c-b1	Bpp	20261041	0.3	0.34155827000000005	0.33336570000000004	256.4	0	3	0	0	1	1.082	1.082	1.082	0.0	82	True	False	662	0	81	81	81	150	False	4	0		True	True	4242	237.1	0.0
+e1c-b2	Bpp	20261042	0.3	0.33770425000000004	0.3292436000000001	265.3	1	4	0	0	2	0.895	1.093	1.093	0.198	79	True	True	1314	1	76	76	76	150	False	5	0		True	True	4073	225.0	0.105
+e1c-b3	Bpp	20261043	0.3	0.27484650000000005	0.2670374000000001	244.0	0	2	0	0	1	0.891	0.891	0.891	0.0	66	True	True	1514	0	63	63	63	150	False	3	0		True	True	3146	229.2	0.109

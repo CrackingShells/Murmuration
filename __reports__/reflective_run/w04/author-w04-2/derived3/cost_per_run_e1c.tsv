@@ -1,0 +1,5 @@
+cell	arm	name	total_cost_usd	sonnet_usd	haiku_usd	wall_s	cap
+e1c-b1	Bpp	explorer-w04-e1cb1	0.3416	0.3334	0.0082	256.4	''
+e1c-b2	Bpp	explorer-w04-e1cb2	0.3377	0.3292	0.0085	265.3	''
+e1c-b3	Bpp	explorer-w04-e1cb3	0.2748	0.267	0.0078	244.0	''
+TOTAL			0.9541
