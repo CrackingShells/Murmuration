@@ -141,3 +141,32 @@ Decision rule:
 - Otherwise the paragraph stays as it is, and the table is reported.
 - Either way, if P shows colgrep `search` in at most 1 of 6 runs at 300 scripts, the sentence
   "search that folder once with colgrep `search`" is reported as not followed at that size.
+
+## Addendum, after w04-c2 and w04-c3 were filed (before any run it governs)
+
+Reason: E1 did not reproduce with a brief that names the report (0 of 6 denies, capped and
+uncapped); the exploratory wave-3-shaped brief did (capped XA 3 of 3). `--max-budget-usd` makes the
+platform show the worker a session spend figure at every request (author-w04-2, 88 of 88
+requests), so no run below passes it. E2's task (about 1.1 B, 100% accuracy everywhere) could not
+separate the readings.
+
+### E1b (claim w04-c8)
+Brief in the wave-3 shape (the list in the hand-back; the report only from the explorer file),
+150 files, `Budget: USD 0.30`, no `--max-budget-usd`. Arms, n = 3 each, exports of 41c75ea:
+**A** unchanged; **B'** one line in `agents/explorer.md`: write the findings report, from the
+template, before handing back, also when a budget note says to hand back.
+Metrics m1–m5 of E1, plus the template's shape (its headings present).
+Rule: **B' is proposed** if A has denies in at least 2 of 3, B' in at most 1 of 3, B''s report is
+present in 3 of 3 and in the template's shape in at least 2 of 3, and B''s median final fraction is
+not above A's. Otherwise not proposed; table reported.
+
+### E2b (claim w04-c9)
+A task whose full deliverable costs about 1.5 B, that does not reach `maxTurns` before 2 B (fewer,
+larger items per call), and whose items can be wrong (each item needs a small derived value, checked
+against ground truth). No `--max-budget-usd`. Arms, n = 3 each: **N** notes on (A); **C** every
+output of budget.py off, `frac` logged. Metrics n1–n5 of E2, plus (n6) deliverable lost (no
+hand-back, or no list).
+Rule: E2's rule, plus: **"the notes are what stops the worker"** if C runs past 1.3 B in at least
+2 of 3 runs while N hands back between 0.9 and 1.2 B in at least 2 of 3. Anxiety still needs N
+below 0.9 with items per USD or accuracy more than 15% below C's, or a budget reason with at least
+10% left in 2 of 3.
