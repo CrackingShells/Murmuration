@@ -21,6 +21,7 @@ ap.add_argument("--out", required=True)
 ap.add_argument("--seed", type=int, default=20261020)
 ap.add_argument("--only", default="", help="substring filter on case ids")
 ap.add_argument("--no-floors", action="store_true")
+ap.add_argument("--spawn", choices=("popen", "posix"), default="popen", help="popen: subprocess.Popen (forks this Python); posix: os.posix_spawn of `sh -c 'cd LAB && COMMAND'`, a lighter start whose own overhead is smaller")
 args = ap.parse_args()
 
 FX = os.path.abspath(args.fx)
@@ -107,6 +108,28 @@ def run_cmd(name, command, stdin_text, extra_env=None):
     inp = os.path.join(FX, "stdin.json")
     open(inp, "w").write(stdin_text)
     fh = open(inp)
+    if args.spawn == "posix":
+        r_out, w_out = os.pipe()
+        r_err, w_err = os.pipe()
+        fa = [(os.POSIX_SPAWN_DUP2, fh.fileno(), 0), (os.POSIX_SPAWN_DUP2, w_out, 1), (os.POSIX_SPAWN_DUP2, w_err, 2),
+              (os.POSIX_SPAWN_CLOSE, r_out), (os.POSIX_SPAWN_CLOSE, r_err), (os.POSIX_SPAWN_CLOSE, w_out), (os.POSIX_SPAWN_CLOSE, w_err)]
+        t0 = time.perf_counter()
+        pid = os.posix_spawn("/bin/sh", ["sh", "-c", 'cd "%s" && %s' % (LABS[name]["lab"], command)], env, file_actions=fa)
+        os.close(w_out)
+        os.close(w_err)
+        out = b""
+        while True:
+            chunk = os.read(r_out, 65536)
+            if not chunk:
+                break
+            out += chunk
+        err = os.read(r_err, 65536)
+        _, status, ru = os.wait4(pid, 0)
+        wall = (time.perf_counter() - t0) * 1000
+        os.close(r_out)
+        os.close(r_err)
+        fh.close()
+        return wall, (ru.ru_utime + ru.ru_stime) * 1000, os.waitstatus_to_exitcode(status), out, err
     t0 = time.perf_counter()
     p = subprocess.Popen(["/bin/sh", "-c", command], stdin=fh, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=LABS[name]["lab"], env=env)
     out = p.stdout.read()
@@ -189,7 +212,7 @@ def prepare(name, case):
 
 
 # floors: no payload, no variant
-FLOORS = {"floor:sh-noop": "sh -c :", "floor:python3-c-pass": "python3 -c pass", "floor:python3-S-I-c-pass": "python3 -S -I -c pass",
+FLOORS = {"floor:sh-noop": ":", "floor:python3-c-pass": "python3 -c pass", "floor:python3-S-I-c-pass": "python3 -S -I -c pass",
           "floor:python3-S-I-import-json-os-sys": "python3 -S -I -c 'import json,os,sys'"}
 
 cells = []
