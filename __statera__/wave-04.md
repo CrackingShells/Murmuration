@@ -71,11 +71,18 @@ resolves the lab from the session's first recorded `cwd` (the transcript's first
 
 | Agent | Role | Brief (one line) | Returned |
 |:--|:--|:--|:--|
+| author-w04-1 | author | w04-c1: lab root from the session's first recorded cwd (user_words.py, resume_brief.py); USD 4, 30 min | |
+| author-w04-2 | author | w04-c2 (E1, report line in explorer.md) and w04-c3 (E2, notes-off control); USD 12 + runs ≤ 12, 60 min | |
+| author-w04-3 | author | w04-c4 (E3, search and reuse in a lab with ≥ 40 scripts); USD 8 + runs ≤ 8, 60 min | |
+| author-w04-4 | author | w04-c5 (E4, measure then lean the hooks; owns budget.py, handback.py, hooks.json, lab_status.py); USD 8, 60 min | |
+| author-w04-6 | author | w04-c6 (item 14: lab_init message, briefs sentence); USD 3, 30 min | yes; filed MEASURED at b42f9f2, fixed two bugs found in the exchange (c3bfe2c) |
+| reproducer-w04-6 | reproducer | verify w04-c6 | SUPPORTED at c3bfe2c (changed from OVERSTATED at b42f9f2) |
 
 ## Claims of this wave
 
 | Claim | Statement | Current label |
 |:--|:--|:--|
+| w04-c6 | lab_init says whether the colgrep index was built, current, empty, or the parent's; briefs keep helper code a file | MEASURED (c3bfe2c, cee84af) |
 
 ## Puzzle dispositions (at close)
 
