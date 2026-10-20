@@ -13,6 +13,8 @@ them.
    deliverable is its findings report (`__reports__/wave-NN/<name>/00-findings_v0.md`, from the
    research-loop skill's report template) plus a short hand-back message that points to it; an
    author's is the claim head; a verifier's is its verdict section.
+   A brief that waives the claim file says in the same sentence that helper code is still a file in
+   `__instrumenta__/` (one run in seven, told "no claim file is needed", ran its script inline and kept none).
 5. **Rules:** the project's tool and compute limits; no downloads unless allowed; commit only your
    own files; never stop processes by name pattern.
 6. **The budget lines,** each on its own line, exactly `Budget: USD <number>` and `Time: min <number>`
