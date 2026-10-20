@@ -10,6 +10,3 @@ refs: transcript commands on /private/tmp/murmuration-w04/author-w04-6/parent an
 The wave-02 puzzle heading `## What used my 60 turns` is a cost account, not a puzzle, so the `/lab-status` warning about it is not a missed puzzle but a prose section the explorer wrote in a puzzle file. That the file mixes the two suggests the explorer agent file or the closing request should say what else may go in a puzzle file; not tested.
 refs: __scrupuli__/wave-02-explorer-w02-b.md lines 13-; scripts/lab_status.py (scan_puzzles)
 
-## S-w04-author-w04-6-4
-The tools' message "Spent ..." notes did not reach me; I could not check my own spend or minutes, so I cannot say whether USD 3 and 30 minutes were generous for a task this size (it took about a dozen tool calls).
-refs: none
