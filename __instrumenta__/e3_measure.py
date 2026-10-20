@@ -18,8 +18,8 @@ import re
 import subprocess
 import sys
 
-FIT = "binary_max_distinct_substrings_bruteforce.py"
-NEAR = "collatz_longest_stopping_time.py"
+FIT = os.environ.get("E3_FIT", "binary_max_distinct_substrings_bruteforce.py")        # E3c renames the two targets: set E3_FIT and E3_NEAR
+NEAR = os.environ.get("E3_NEAR", "collatz_longest_stopping_time.py")
 INSTR = "__instrumenta__"
 ERRORS = set()
 SUBONLY = os.environ.get("E3_SUBAGENT_ONLY") == "1"   # set for the PI-dispatched arm: count only records with a parent_tool_use_id
@@ -130,6 +130,23 @@ def measure(root, rid, scripts):
         best = max(start, key=lambda o: difflib.SequenceMatcher(None, open(os.path.join(scripts, o)).read(), t).ratio())
         sim[f] = [best, round(difflib.SequenceMatcher(None, open(os.path.join(scripts, best)).read(), t).ratio(), 2)]
     errs = [c["name"] for c in calls if c["id"] in ERRORS]
+    # s7 the target found: the run names the task's target script in a command (cat, head, python3, cp, sed), matches it by a glob in head/cat/sed, or Reads it
+    import fnmatch
+    target = FIT if re.search(r"t1", rid) else NEAR
+    how = []
+    for c in calls:
+        if c["id"] in ERRORS:
+            continue
+        if c["name"] == "Read" and target in str(c["input"].get("file_path", "")):
+            how.append("Read")
+        if c["name"] == "Bash":
+            cmd = re.sub(r"<<-?\s*'?\"?(\w+)'?\"?.*?\n\1\b", "", c["input"].get("command", ""), flags=re.S)
+            if target in cmd and not re.search(r"cat\s*>[^;&]*%s" % re.escape(target), cmd):
+                how.append("named")
+            for tok in re.findall(r"[\w./-]*\*[\w./*-]*", cmd):
+                if re.search(r"\b(head|cat|sed|tail)\b", cmd) and fnmatch.fnmatch(target, os.path.basename(tok)) and INSTR in tok:
+                    how.append("glob " + tok)
+
     # s5 the methods used to look at the folder; s6 starting files changed other than the task's own fit or near-fit script
     methods = set()
     for c in calls:
@@ -161,7 +178,7 @@ def measure(root, rid, scripts):
         "search_kinds": [k for _, k in searches], "search_result_chars": chars,
         "baseline_ls_chars": ls_c, "baseline_first_lines_chars": first_c, "baseline_chars": ls_c + first_c,
         "new_files": sorted(now - start), "modified": modified, "ran_existing": sorted(set(ran)),
-        "closest_start_script_of_new_files": sim, "s5_methods": sorted(methods), "s6_overwritten_unrelated": overwritten, "tool_errors": errs, "ran_fit": FIT in ran, "ran_near": NEAR in ran, "total_cost_usd": cost,
+        "closest_start_script_of_new_files": sim, "s5_methods": sorted(methods), "s7_target": target, "s7_target_found": bool(how), "s7_how": sorted(set(how)), "s6_overwritten_unrelated": overwritten, "tool_errors": errs, "ran_fit": FIT in ran, "ran_near": NEAR in ran, "total_cost_usd": cost,
         "sequence": ["%s %s" % (c["name"].replace("mcp__plugin_colgrep-mcp_colgrep__", "colgrep."), json.dumps(c["input"])[:150]) for c in calls],
     }
 

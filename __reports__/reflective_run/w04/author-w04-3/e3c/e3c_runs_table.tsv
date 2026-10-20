@@ -1,0 +1,7 @@
+id	task	kind	s1_search_before_script	s2_reuse	s3_search_call_result_chars	s4_total_cost_usd	s5_methods	colgrep_calls	s6_overwritten_unrelated	s7_target_found	s7_how
+pt1r1	t1	fit	True	reuse_as_is	5286	0.1179	ls+ls_grep	0	0	True	named
+pt1r2	t1	fit	True	reuse_as_is	2587	0.0936	ls+ls_grep+read_named_files	0	0	True	named
+pt1r3	t1	fit	True	reuse_as_is	4813	0.0864	ls+ls_grep+read_named_files	0	0	True	named
+pt2r1	t2	near fit	True	new_target_not_found	2631	0.068	head_over_all_files+ls+read_named_files	0	0	False	
+pt2r2	t2	near fit	True	adapted_by_copy	6676	0.0968	ls+ls_grep+read_named_files	0	0	True	named
+pt2r3	t2	near fit	True	new_target_not_found	3443	0.1003	ls+ls_grep+read_named_files	0	0	False	
