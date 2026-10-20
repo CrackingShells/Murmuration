@@ -198,6 +198,8 @@ def describe_index(report, root):
         return "ran `colgrep init`; it said: %s" % (text[-200:] or "nothing")
     built = match.group(1) == "Indexed"
     folder, detail = match.group(2), match.group(3)
+    if not built and detail.startswith("0 file"):
+        return "no colgrep index: colgrep found no files to index in %s (%s)" % (folder, detail)
     if os.path.realpath(folder) != os.path.realpath(root):
         return ("no new colgrep index: the lab is inside the index of %s, which colgrep %s (%s); searches from the lab "
                 "use it" % (folder, "updated" if built else "found up to date", detail))
@@ -214,7 +216,7 @@ def build_index(root):
                 "of each file")
     try:
         out = subprocess.run([exe, "init", "-y", "--color", "never", os.path.abspath(root)], capture_output=True,
-                             text=True, timeout=INDEX_TIMEOUT)
+                             text=True, errors="replace", timeout=INDEX_TIMEOUT)
     except (OSError, subprocess.SubprocessError) as err:
         return "colgrep index not built (%s); a first search builds it" % type(err).__name__
     if out.returncode != 0:
@@ -388,6 +390,7 @@ def selftest():
         assert "updated" in say("Indexed %s (added: 1, changed: 0, deleted: 0, unchanged: 8)\n" % tmp)
         sub = say("Indexed %s (subdir: lab) (added: 1, changed: 0, deleted: 0, unchanged: 8)\n" % tmp)  # as colgrep 1.6.2 prints it
         assert sub.startswith("no new colgrep index: the lab is inside the index of %s, which" % tmp) and "subdir" not in sub, sub
+        assert say("Index is up to date for %s (0 files)\n" % here).startswith("no colgrep index: colgrep found no files"), "0 files is not an index"
         assert say("something new\n").startswith("ran `colgrep init`; it said: something new")
         if shutil.which("colgrep"):
             case_parent = os.path.join(tmp, "indexed-parent")
@@ -425,6 +428,19 @@ def selftest():
             for rel in ("__statera__/handbacks", "data", "notes"):
                 shutil.rmtree(os.path.join(proj, rel))
             os.remove(os.path.join(proj, "__instrumenta__", "walk_logs.py"))
+        # colgrep output that is not UTF-8 must not stop the init (a ValueError would read as bad settings)
+        fake_bin = os.path.join(tmp, "fake-bin")
+        os.makedirs(fake_bin)
+        with open(os.path.join(fake_bin, "colgrep"), "w") as fh:
+            fh.write("#!/bin/sh\nprintf '\\377\\376 odd' >&2\n")
+        os.chmod(os.path.join(fake_bin, "colgrep"), 0o755)
+        save_path = os.environ["PATH"]
+        os.environ["PATH"] = fake_bin
+        try:
+            odd = build_index(proj)
+            assert odd.startswith("ran `colgrep init`; it said:") and "odd" in odd, odd
+        finally:
+            os.environ["PATH"] = save_path
         # colgrep absent: no index, a line that says so, and the lab is made all the same
         save_path = os.environ["PATH"]
         os.environ["PATH"] = os.path.join(tmp, "empty-bin")
