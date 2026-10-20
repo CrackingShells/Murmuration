@@ -83,7 +83,7 @@ def unwrap_pasted(text):
 def session_cwd(transcript_path):
     """The `cwd` of the first record of the session transcript that carries one, or None.
 
-    Reads only the head of the file (at most HEAD_LINES lines or HEAD_BYTES bytes): the first records
+    Reads only the head of the file (at most HEAD_LINES lines and HEAD_BYTES bytes in all, including a single huge line): the first records
     are queue operations without a `cwd`, the next ones carry the directory the session started in.
     """
     if not isinstance(transcript_path, str) or not transcript_path:
@@ -91,8 +91,11 @@ def session_cwd(transcript_path):
     seen = 0
     try:
         with open(transcript_path, "rb") as fh:
-            for number, line in enumerate(fh):
+            for _ in range(HEAD_LINES):
+                line = fh.readline(HEAD_BYTES - seen + 1)  # bounded read: a huge line cannot cost more than the budget
                 seen += len(line)
+                if not line or seen > HEAD_BYTES:
+                    return None
                 if b'"cwd"' in line:
                     try:
                         record = json.loads(line)
@@ -101,8 +104,6 @@ def session_cwd(transcript_path):
                     cwd = record.get("cwd") if isinstance(record, dict) else None
                     if isinstance(cwd, str) and os.path.isabs(cwd):
                         return cwd
-                if number + 1 >= HEAD_LINES or seen >= HEAD_BYTES:
-                    return None
     except OSError:
         pass
     return None
@@ -279,6 +280,11 @@ def selftest_lab_root():
             fh.write('{"type":"user","cwd": truncated\n{"type":"user","cwd":"relative/dir"}\n{"cwd":7}\n')
             fh.write(json.dumps({"type": "user", "cwd": wt}) + "\n")
         assert land(cwd=main, tpath=os.path.join(tmp, "i.jsonl"), project_dir=main) == ["wt"]
+        # a first line larger than the byte budget is not read in full: the head gives up and the payload cwd decides
+        with open(os.path.join(tmp, "big.jsonl"), "w") as fh:
+            fh.write('{"type":"attachment","pad":"' + "x" * (HEAD_BYTES + 10) + '"}\n')
+            fh.write(json.dumps({"type": "user", "cwd": wt}) + "\n")
+        assert land(cwd=other, tpath=os.path.join(tmp, "big.jsonl"), project_dir=main) == ["other"]
         # E0-4 no lab anywhere: nothing is written, and no `__statera__` appears
         before = sorted(os.listdir(plain))
         assert land(cwd=plain, tpath=T("j", [plain]), project_dir=plain) == []
