@@ -42,3 +42,7 @@ refs: runs/e2b-a2/lab hand-back (derived2/cell_e2b-a2.json first_handback), deri
 ## S-w04-author-w04-2-10
 The cap given for E1b and E2b (USD 4.5 of headless spend) was exceeded by USD 0.017 (4.5167) with no pilot and a task sized offline. The offline size model (cache reads and writes per request from an earlier transcript, plus a fixed output allowance) predicted 1.5 B; the measured full deliverable was 1.49 to 1.98 B on the hook basis: right on average, with a 33% spread across three runs of one seed family. One C run (e2b-c1) reached 1.98 B, close to the 2 B limit the protocol set for turns.
 refs: derived2/cost_per_run_e1b_e2b.tsv, derived2/results_e1b_e2b.tsv column frac_end
+
+## S-w04-author-w04-2-11
+B'' still let one explorer be denied. In e1c-b2 the first hand-back came at 0.90 B with no report, the deny followed, and the explorer wrote the report and handed back again at 1.09 (overshoot 0.20), although the line says "before you hand back, also when a budget note says to hand back". 1 of 3 here, 0 of 3 for B' in E1b: not a difference n = 3 can bear, but the line is a request, not a gate. And shape tracks whether the explorer opens `report_findings.md` (3 of 3 openers in shape, 0 of 6 non-openers across E1b and E1c): the lever is the opening, and a Read of the template could be asked for explicitly or a heading check added to `handback.py`. Arm A of E1c is E1b's A, run 30 minutes earlier: no run side by side.
+refs: derived3/results_e1c.tsv, derived3/cell_e1c-b2.json, runs/e1c-b2/lab/__statera__/harness.jsonl (deny line)
