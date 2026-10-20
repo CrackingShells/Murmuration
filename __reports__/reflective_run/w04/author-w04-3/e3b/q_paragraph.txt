@@ -1,0 +1,8 @@
+Helper code is a file in `__instrumenta__/`, named for what it does; its first line says what it
+computes, from which inputs, to which outputs. Before you write one, count the files
+(`ls -1 __instrumenta__ | wc -l`). Up to about 100, list them and read the first line of the few whose
+names are close to your task. Above that, search the folder once with colgrep `search`
+(`paths: ["__instrumenta__"]`, `limit: 5`) and read the first lines of the hits; without colgrep, use
+`ls` and `head -1` on the names that look close. Run the script that fits, extend the one that almost
+does, otherwise write a new file under a name that does not exist yet (check it; never overwrite a
+script that is there). Short appends, such as a verdict section, stay shell appends.

@@ -1,0 +1,10 @@
+{
+ "ls_1_chars": 16801,
+ "probe1": {
+  "query": "maximum number of distinct substrings of binary strings",
+  "search_result_chars": [
+   5136
+  ],
+  "total_cost_usd": 0.2792634
+ }
+}

@@ -130,6 +130,29 @@ def measure(root, rid, scripts):
         best = max(start, key=lambda o: difflib.SequenceMatcher(None, open(os.path.join(scripts, o)).read(), t).ratio())
         sim[f] = [best, round(difflib.SequenceMatcher(None, open(os.path.join(scripts, best)).read(), t).ratio(), 2)]
     errs = [c["name"] for c in calls if c["id"] in ERRORS]
+    # s5 the methods used to look at the folder; s6 starting files changed other than the task's own fit or near-fit script
+    methods = set()
+    for c in calls:
+        if c["id"] in ERRORS:
+            continue
+        if c["name"].endswith("colgrep__search") or c["name"].endswith("colgrep__find_files"):
+            methods.add("colgrep")
+        elif c["name"] == "Bash" and INSTR in c["input"].get("command", ""):
+            cmd = c["input"]["command"]
+            if re.search(r"head[^|;]*(\*\.py|\$f)|for \w+ in [^;]*(\*\.py|__instrumenta__/\*)[^;]*;\s*do[^;]*head", cmd):
+                methods.add("head_over_all_files")
+            if re.search(r"\bls\b", cmd):
+                methods.add("ls")
+            if re.search(r"\bls\b[^;&]*\|\s*grep", cmd):
+                methods.add("ls_grep")
+            m = re.search(r"\bls\b[^;&|]*__instrumenta__[^;&|]*\|\s*head\s+-(\d+)", cmd)
+            if m and int(m.group(1)) < len(start):
+                methods.add("ls_head_%s_of_%d" % (m.group(1), len(start)))
+            if re.search(r"head[^|;]*__instrumenta__/\w", cmd) or re.search(r"\bcat\b[^|;>]*__instrumenta__/\w", cmd):
+                methods.add("read_named_files")
+        elif c["name"] == "Glob" and INSTR in json.dumps(c["input"]):
+            methods.add("glob")
+    overwritten = [f for f in modified if f not in (FIT, NEAR) and not f.startswith("u")]
     ls_c, first_c = baseline_chars(scripts)
     return {
         "id": rid, "task": re.search(r"t\d", rid).group(0), "pilot": rid.startswith("pilot-"), "tool_calls": len(calls),
@@ -138,7 +161,7 @@ def measure(root, rid, scripts):
         "search_kinds": [k for _, k in searches], "search_result_chars": chars,
         "baseline_ls_chars": ls_c, "baseline_first_lines_chars": first_c, "baseline_chars": ls_c + first_c,
         "new_files": sorted(now - start), "modified": modified, "ran_existing": sorted(set(ran)),
-        "closest_start_script_of_new_files": sim, "tool_errors": errs, "ran_fit": FIT in ran, "ran_near": NEAR in ran, "total_cost_usd": cost,
+        "closest_start_script_of_new_files": sim, "s5_methods": sorted(methods), "s6_overwritten_unrelated": overwritten, "tool_errors": errs, "ran_fit": FIT in ran, "ran_near": NEAR in ran, "total_cost_usd": cost,
         "sequence": ["%s %s" % (c["name"].replace("mcp__plugin_colgrep-mcp_colgrep__", "colgrep."), json.dumps(c["input"])[:150]) for c in calls],
     }
 

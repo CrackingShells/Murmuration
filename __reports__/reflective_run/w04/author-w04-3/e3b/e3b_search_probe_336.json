@@ -1,0 +1,17 @@
+{
+ "ls_1_chars": 12128,
+ "probe1": {
+  "query": "maximum number of distinct substrings of binary strings",
+  "search_result_chars": [
+   4946
+  ],
+  "total_cost_usd": 0.28954759999999996
+ },
+ "probe2": {
+  "query": "Collatz trajectory highest peak value",
+  "search_result_chars": [
+   4490
+  ],
+  "total_cost_usd": 0.2884974
+ }
+}
