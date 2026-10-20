@@ -17,3 +17,7 @@ refs: runs/e2b-a2/lab/__statera__/handbacks/*.md; runs/e2b-a2/lab/__reports__/wa
 ## S-w04-reproducer-w04-9-5
 N-a1 says finishing needs "roughly USD 0.35 more at the same rate"; N-a3 says "roughly USD 0.08 more" for 14 files; C runs finished all 70 at 0.465 to 0.596. N-a1's total would be about 0.64, above every C run, and N-a3's about 0.41, below every C run. The two hand-backs' resume estimates disagree by a factor of 2 in per-file cost for the same task, and the first one is 33 files at 0.285 USD (0.0086 per file) against C-c3's 0.0066: the early part of the context is not cheaper in N-a1. I did not find the cause.
 refs: runs/e2b-a1/lab/__statera__/handbacks/*.md, runs/e2b-a3/lab/__statera__/handbacks/*.md, runs/e2b-*/meta.json (usd)
+
+## S-w04-reproducer-w04-9-6
+"One file per call" is the brief's instruction and is loosely stated in the claim's C row: C workers made 71, 75 and 72 Bash calls for 70 files, and e2b-c1 says it read f001 and f002 in one call and f004/f005 in two parallel calls. No metric of E2b scores procedure adherence, so N-a2's 25-file batch is only visible through the request count (48) and the hand-back text. A count of files per Bash call, per run, would put the deviation on a number; my crude regex also matches the awk script's file references, so I did not use it.
+refs: runs/e2b-c1/lab/__statera__/handbacks/*.md; ~/.claude/projects/*runs-e2b-c*-lab/*/subagents/agent-*.jsonl (Bash tool_use inputs)
