@@ -54,7 +54,9 @@ def passes(path, B):
 def parse_items(text, ground):
     """{file: (station ok, year ok, founder ok)} for rows (lines) that name a file and carry data; the first row per file counts."""
     got = {}
-    for ln in text.splitlines():
+    lines = text.splitlines()
+    rows = [l for l in lines if re.match(r"\s*\|?\s*f\d{3}\b", l)]   # table rows first (a line that starts with a file name, with or without a leading pipe): a prose line that names a file (a summary of extremes) must not stand for its row
+    for ln in rows + [l for l in lines if l not in rows]:
         m = re.search(r"\bf(\d{3})\b", ln)
         if not m or "f%s" % m.group(1) not in ground or "f%s" % m.group(1) in got:
             continue
@@ -83,6 +85,8 @@ def selftest():
     assert parse_items("| f001 | 12,346 | Fenford |", h) == {"f001": (True, False, True)}
     assert parse_items("| f001 | 12345 | Moorwick |", h) == {"f001": (False, True, True)}
     assert parse_items("| f001 | 123 | Fenford |", h) == {}
+    assert parse_items("Lowest overall: f001 total 12345 (smallest)\n| f001 | 12345 | Fenford |\n", h) == {"f001": (True, True, True)}   # a prose line before the row does not win
+    assert parse_items("Repeated: Moorwick f001/f002 20347\nf001 | 12345 | Fenford\n", h) == {"f001": (True, True, True)}
     print("PASS budget_arms_analyze")
 
 
