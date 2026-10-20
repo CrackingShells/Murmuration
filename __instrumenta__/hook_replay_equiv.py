@@ -22,7 +22,10 @@ args = ap.parse_args()
 
 def child(scripts, lab, events_path):
     sys.path.insert(0, scripts)
-    import budget, handback
+    try:
+        import budget_core as budget, handback_core as handback   # the lean version keeps its code in modules
+    except ImportError:
+        import budget, handback
     answers = []
     for ev in map(json.loads, open(events_path)):
         if ev.get("write"):

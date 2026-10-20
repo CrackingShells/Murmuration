@@ -9,7 +9,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 HB = os.path.join(HERE, "handback.py")
 sys.path.insert(0, HERE)
-from handback import *  # noqa: E402,F401,F403  (the names the checks use: STORE, FOLDER, LOG, HARNESS, sections ...)
+from handback_core import *  # noqa: E402,F401,F403  (the names the checks use: STORE, FOLDER, LOG, HARNESS, sections ...)
 
 
 def selftest():
@@ -97,5 +97,38 @@ def selftest():
         assert fire(tmp, agent_id="e6", tool_input={"message": "m"}, **dict(pre, agent_type="murmuration:explorer", transcript_path=None)) != "", "a nameless explorer is still asked, for type-id"
         with tempfile.TemporaryDirectory() as bare:
             assert fire(bare, agent_id="e7", tool_input={"message": "m"}, **pre) == "" and not os.listdir(bare), "no lab, no deny, no file"
+        # loads and dumps: the same JSON as the json module, on what json.loads yields
+        import random
+        rnd = random.Random(20261020)
+
+        def rand_obj(depth):
+            kind = rnd.randint(0, 8 if depth < 4 else 5)
+            if kind == 0:
+                return None
+            if kind == 1:
+                return rnd.choice([True, False])
+            if kind == 2:
+                return rnd.randint(-10 ** 12, 10 ** 12)
+            if kind == 3:
+                return rnd.choice([0.0, -0.0, 1.5, 1e300, 5e-324, 0.1, 123456789.123456789, float("inf"), float("-inf"), rnd.random() * 10 ** rnd.randint(-20, 20)])
+            if kind in (4, 5):
+                return "".join(rnd.choice(["a", "\u00e9", "\u2028", "\n", "\"", "\\", "\x00", "\U0001f600", "\ud800", " ", "k"]) for _ in range(rnd.randint(0, 12)))
+            if kind in (6, 7):
+                return [rand_obj(depth + 1) for _ in range(rnd.randint(0, 4))]
+            return {rand_obj(5) if False else "".join(rnd.choice("abc\u00e9\"") for _ in range(rnd.randint(0, 3))): rand_obj(depth + 1) for _ in range(rnd.randint(0, 4))}
+        for _ in range(400):
+            obj = rand_obj(0)
+            for sk in (False, True):
+                assert dumps(obj, sort_keys=sk) == json.dumps(obj, sort_keys=sk), (obj, sk)
+            text = json.dumps(obj)
+            assert loads(text) == obj and loads(text.encode()) == obj and loads(" \n" + text + "\r\n") == obj, text
+        assert loads(b'{"a": NaN}')["a"] != loads(b'{"a": NaN}')["a"] and loads("[Infinity, -Infinity]") == [float("inf"), float("-inf")]
+        assert dumps({"b": 1, "a": [True, None, 1.0]}, sort_keys=True) == '{"a": [true, null, 1.0], "b": 1}'
+        for bad in ("", "  ", "{", "x", "[1] 2", b"\xff", '{"a": "\x01"}', "[1,]", "{'a': 1}"):
+            try:
+                loads(bad)
+            except ValueError:
+                continue
+            raise AssertionError("loads accepted %r" % (bad,))
         assert subprocess.run([sys.executable, HB], input="not json", capture_output=True, text=True).returncode == 0
     print("PASS handback")

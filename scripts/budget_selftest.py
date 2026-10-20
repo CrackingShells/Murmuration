@@ -10,8 +10,8 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 BUDGET = os.path.join(HERE, "budget.py")
 sys.path.insert(0, HERE)
-import budget  # noqa: E402
-from budget import *  # noqa: E402,F401,F403  (the names the checks use)
+import budget_core as budget  # noqa: E402
+from budget_core import *  # noqa: E402,F401,F403  (the names the checks use)
 
 
 def selftest():
@@ -471,7 +471,7 @@ def selftest():
         found = [h["command"] for g in hooks[event] if g.get("matcher") is None for h in g["hooks"] if "budget.py" in h["command"]]
         assert len(found) == 1, (event, found)
         cmds[event] = found[0]
-    assert all(c.count("python3 -S -I -B") == 1 for c in cmds.values()), cmds
+    assert all(c.count("python3 -S -I ") == 1 and " -B" not in c for c in cmds.values()), cmds
     for event, cmd in cmds.items():
         with tempfile.TemporaryDirectory() as tmp:
             os.makedirs(os.path.join(tmp, "__statera__"))
