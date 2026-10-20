@@ -32,3 +32,19 @@ refs: __pondus__/w04-c4.md (scope item 2), __reports__/reflective_run/w04/author
 
 ## symbols
 none new.
+
+## S-w04-author-w04-3-9
+E3b: at 336 scripts the pre-registered ratio (`ls -1` at least 3 times one colgrep result) failed (12,128 against 4,490 to 4,946 characters, 2.45 to 2.70); I only knew because I measured the search result by a probe after the 24 runs. I had sized the lab from E3's 3,669-character result, which was for 46 scripts and shorter first lines. A first set of 12 runs (USD 1.27) therefore does not count; the 429-script set does (ratio 3.27). The protocol should say how the ratio is measured (here: a headless call of the MCP `search`, `limit: 5`).
+refs: __reports__/reflective_run/w04/author-w04-3/e3b/e3b_search_probe_336.json, e3b_search_probe_429.json, e3b_v0_measure.json
+
+## S-w04-author-w04-3-10
+Q told workers to list when there are up to about 100 files and to search above that; 6 of 6 counted (429) and then ran `ls | head -100` anyway. A number in the paragraph became the amount they printed. P's workers cut the listing at 30 to 50 on their own. I do not know whether a threshold worded as a bound on what to print ("never print more than 30 names") would work, or whether any numeric threshold anchors the amount.
+refs: __reports__/reflective_run/w04/author-w04-3/e3b/e3b_measure.json (qt1r2, qt1r3, qt2r1-3 sequences)
+
+## S-w04-author-w04-3-11
+t2 in E3b: the near fit is `collatz_longest_stopping_time.py`; the task says "highest peak value of the Collatz trajectory". P workers filtered the listing by `grep -i collatz` and read `collatz_trajectory_print.py`, the one name that shares "trajectory" with the task; none opened the near fit. Q workers saw its first lines (`head -3 collatz_*`) and wrote a new loop. Is a script that answers a neighbouring question ("steps to reach 1") worth reusing for "peak"? It is a small change, but a worker has to read the body to see it. This is the E3 reading of "near fit" again: the task's name decides whether it is found, and "adapt" needs the body, which these workers did not read.
+refs: __reports__/reflective_run/w04/author-w04-3/e3b/e3b_runs_table.tsv, e3b_measure.json (pt2r*, qt2r* sequences)
+
+## S-w04-author-w04-3-12
+4 of 12 parallel launches returned "Not logged in" after 1.7 to 6.7 s, 0 calls; the 9-parallel launch of E3 had 1 of 9, the 6-parallel launches of E3b 0 of 12. It looks like a limit on how many headless sessions start at once with the same credentials, not an API failure. If it is, a PI that dispatches many workers by `claude -p` would see it. The failed runs' output is kept in `/private/tmp/murmuration-w04/author-w04-3/failed_login/` (raw, out of git).
+refs: /private/tmp/murmuration-w04/author-w04-3/failed_login/ (raw)
