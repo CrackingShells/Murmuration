@@ -1,0 +1,1 @@
+MD5 (/Users/hacker/.claude/plugins/installed_plugins.json) = 8d71e8c0f33b7e927133e7e44194de37

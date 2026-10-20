@@ -1,0 +1,46 @@
+base_convert_numbers.py	# converts integers between bases 2 to 36; input: number string, from base, to base (argv[1:4]); output: the converted string on stdout
+benchmark_session_finders.py	# times two ways of finding a lab's session transcripts and counts the lines of code each adds; input: the live ~/.claude/projects folder; output: a table on stdout
+binary_max_distinct_substrings_bruteforce.py	# computes, for each n from 1 to N, the maximum number of distinct non-empty substrings over all binary strings of length n and how many strings reach it, by brute force; input: N (argv[1], default 12
+bootstrap_mean_interval.py	# computes a bootstrap 95 percent interval for the mean of numbers in a file; input: path (one number per line), resamples, seed (argv[1:4]); output: 'lo hi' on stdout
+caesar_cipher_shift.py	# shifts the letters of a text by k places (Caesar cipher); input: text (argv[1]), k (argv[2]); output: the shifted text on stdout
+catalan_numbers_table.py	# prints the first N Catalan numbers; input: N (argv[1]); output: lines 'i C_i' on stdout
+colgrep_index_scope_probe.py	# lists which files of a sample lab colgrep indexes under each ignore setup; input: none (builds the lab in a temp folder); output: one table of file by setup
+collatz_longest_stopping_time.py	# finds, among start values 1 to LIMIT, the one whose Collatz trajectory takes the most steps to reach 1; input: LIMIT (argv[1], default 100000); output: 'start steps' on stdout
+collatz_trajectory_print.py	# prints the Collatz trajectory of one start value; input: n (argv[1]); output: the values, space separated, on stdout
+compare_lab_status_outputs.py	# compares what a human sees from two spend-reporting scripts on one lab; input: lab folders; output: text on stdout
+count_bash_calls_in_transcripts.py	# counts Bash heredocs, inline Python and shell searches in Claude Code worker transcripts; input: a folder of worker .jsonl files; output: a table on stdout
+count_binary_necklaces.py	# counts binary necklaces of length n (cyclic words up to rotation) with Burnside's lemma; input: n (argv[1]); output: the count on stdout
+count_files_before_after_ignore.py	# counts the files colgrep lists for a copy of a folder before and after an ignore block, by kind; input: two file lists; output: a JSON file
+csv_column_summary.py	# summarises one numeric column of a CSV file (count, mean, min, max, standard deviation); input: path, column name; output: one line of statistics on stdout
+csv_to_json_records.py	# converts a CSV file with a header row to a JSON list of records; input: CSV path (argv[1]); output: JSON on stdout
+date_range_weekdays.py	# counts the weekdays between two dates, inclusive; input: two ISO dates (argv[1:3]); output: the count on stdout
+de_bruijn_sequence.py	# builds a binary de Bruijn sequence of order k; input: k (argv[1]); output: the cyclic sequence as a string on stdout
+distinct_subsequences_count.py	# counts the distinct subsequences of a string by dynamic programming; input: the string (argv[1]); output: the count on stdout
+duplicate_files_by_hash.py	# finds files with identical content under a folder by SHA-256; input: folder (argv[1]); output: groups of paths, one group per line, on stdout
+fibonacci_mod_period.py	# finds the Pisano period of the Fibonacci numbers modulo m; input: m (argv[1]); output: the period on stdout
+file_tree_size_report.py	# sums file sizes under a folder by extension; input: folder (argv[1]); output: lines 'bytes extension', largest first, on stdout
+gcd_lcm_of_list.py	# computes the gcd and the lcm of a list of integers; input: integers as argv; output: 'gcd lcm' on stdout
+graph_connected_components.py	# counts the connected components of an undirected graph from an edge list file; input: path to a file with one 'u v' pair per line; output: the component count and sizes on stdout
+graph_degree_histogram.py	# tabulates the degree distribution of an undirected graph; input: edge list file (argv[1]); output: lines 'degree count' on stdout
+graph_shortest_path_bfs.py	# finds a shortest path between two nodes of an unweighted graph by breadth-first search; input: edge list file, source, target (argv[1:4]); output: the path on stdout
+json_keys_flatten.py	# flattens a nested JSON file into 'dotted.key value' lines; input: JSON path (argv[1]); output: lines on stdout
+jsonl_field_counter.py	# counts the values of one field across the lines of a JSON-lines file; input: path, field name; output: lines 'count value', most frequent first, on stdout
+levenshtein_distance.py	# computes the edit distance between two strings; input: two strings (argv[1:3]); output: the distance on stdout
+list_tool_calls_of_session.py	# lists the tool calls of every transcript of one Claude Code session in time order with the start of each input; input: a session folder (its .jsonl beside it), optional width; output: lines on stdou
+log_lines_error_rate.py	# computes the share of lines containing ERROR per hour in a timestamped log; input: log path with lines starting 'YYYY-MM-DD HH' (argv[1]); output: lines 'hour share' on stdout
+longest_repeated_substring.py	# finds the longest substring that occurs at least twice in a string; input: the string (argv[1]); output: the substring and its length on stdout
+matrix_determinant_exact.py	# computes the exact determinant of an integer matrix with fractions; input: matrix rows as argv strings 'a,b,c'; output: the determinant on stdout
+matrix_power_mod.py	# raises a square integer matrix to a power modulo m by repeated squaring; input: JSON matrix, exponent, modulus (argv[1:4]); output: the matrix as JSON on stdout
+modular_inverse_table.py	# tabulates modular inverses of 1..p-1 for a prime p; input: p (argv[1]); output: lines 'a inverse' on stdout
+monte_carlo_pi_estimate.py	# estimates pi by random points in the unit square; input: number of points, seed (argv[1:3]); output: the estimate on stdout
+palindrome_check_batch.py	# tests each line of a text file for being a palindrome, ignoring case and non-letters; input: path (argv[1]); output: lines 'yes|no line' on stdout
+partition_numbers.py	# computes the number of integer partitions p(n) for n up to N by dynamic programming; input: N (argv[1]); output: lines 'n p(n)' on stdout
+perfect_numbers_below.py	# lists the perfect numbers below N by divisor sums; input: N (argv[1]); output: the numbers on stdout
+polynomial_roots_numeric.py	# finds the real roots of a polynomial by bisection on a grid; input: coefficients, highest degree first (argv), range -R..R as env R (default 10); output: the roots on stdout
+prime_sieve_list.py	# lists the primes up to N with a sieve of Eratosthenes; input: N (argv[1]); output: the primes, space separated, on stdout
+print_probe_cells_table.py	# prints one row per probe cell from a results.jsonl file with its cost in USD; input: results.jsonl path (argv[1]); output: a fixed-width table on stdout
+random_walk_return_probability.py	# estimates by simulation the probability that a simple random walk on the integers returns to 0 within T steps; input: T, trials, seed (argv[1:4]); output: the estimate on stdout
+sort_algorithms_timing.py	# times insertion, merge and built-in sort on random lists of growing size; input: max size, seed (argv[1:3]); output: a table of seconds on stdout
+string_factor_complexity_profile.py	# computes the number of distinct factors of each length 1..len for one given string; input: the string (argv[1]); output: lines 'length count' on stdout
+summarize_probe_results_jsonl.py	# summarises results.jsonl records of probe cells, last record per cell wins; input: results.jsonl in the working folder; output: group counts on stdout
+word_frequency_table.py	# counts word frequencies in a text file, lower-cased; input: path (argv[1]), optional top K (argv[2], default 20); output: lines 'count word' on stdout
