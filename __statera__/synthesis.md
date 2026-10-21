@@ -404,6 +404,13 @@ Wave 5 (2026-10-21, 14:29–16:16 JST) cost at least USD 44.47 against your budg
 
 Both are lower bounds in auto mode, because the permission classifier's cost is in no record.
 
+Wave 6 (2026-10-21, 17:18–22:23 JST) cost at least USD 53.00 against your budget of 100:
+- 45.46 for this checkout's session, the PI and its 17 subagents included (46.66 at close against
+  1.20 at opening, list price, session open);
+- 7.54 for the headless runs under `/private/tmp/murmuration-w06/` (7.38 exact from cost-state, 0.16
+  at list price).
+Both are lower bounds in auto mode.
+
 The PI set itself a cap of about USD 60 for wave 2. Wave 2 spent about 78, so the PI overran its own
 cap by about 18. The USD 70–90 proposed for the whole study after wave 1 was never confirmed, and it
 was overrun too. The user's budget for wave 2 was six hours. Wave 2 ran from 12:30 to about 17:00 JST.

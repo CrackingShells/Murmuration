@@ -277,6 +277,19 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     for. The report lists these by date, and `__reports__/wave-06/reproducer-w06-7/k6_classification.tsv`
     on `w06-e3-guard` holds one row per call, with the first 100 characters only.
 
+- 22:2x (the closing commit), at close:
+  - **Landed on the local `main`** (merge below). It carries the lean hook starts (w06-c9, by PI
+    decision against e2's threshold, hardened at 80c8323), the permission guard (w06-c13, with the
+    lean start of w06-c14), and the Permissions paragraph (the user's decision of 19:27). The combined
+    build passed a headless smoke test twice: budget notes, hand-back capture, one guard start per
+    Bash call, the bypass denied from the main thread and from a worker, and no hook errors
+    (reproducer-w06-8). Nothing was pushed.
+  - **Not landed:** the resident server (w06-c4), the dispositions bullet (w06-c2), Rust (not built,
+    sized out), and the decision-frame text (held at the permission layer, for the user).
+  - **The three rules I got wrong:** v1's h3, which could not pass its own ordinary list; E2's e2,
+    which sat at the physical ceiling; and k6's first count, which compared all denials with a limit
+    on false denials. In each case a verifier or the author caught it.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -293,7 +306,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | author-w06-4 | author | E1 stage 2: the port, s1–s4 (w06-c4) | 8cdfd7b: s1, s3 pass; s2 (20.8%) and s4 (+320) fail; reverted b79e81c |
 | reproducer-w06-4 | reproducer | verify w06-c4 | OVERSTATED (38d3273): s4's title and s3b's cumulative reading; the decision stands |
 | author-w06-7 | author | the guard's lean start (w06-c14) | 0ee7652: identical decisions, −6.6 ms a start |
-| reproducer-w06-8 | reproducer | smoke test of the combined build; then w06-c14 | 6c826d3: (a)–(d) pass in 4 sessions |
+| reproducer-w06-8 | reproducer | smoke test of the combined build; then w06-c14 | 6c826d3: (a)–(d) pass in 4 sessions; 6944e80: w06-c14 SUPPORTED, smoke passes on 0ee7652 |
 | author-w06-6 | author | E2: lean starts, same registrations and outputs (w06-c9) | 6157777 on `w06-e2-lean`: e1, e3, e4 pass; e2 22 ms against 25 |
 | reproducer-w06-7 | reproducer | verify w06-c11 (classify k6's 113) and w06-c12 | 7f3593b: c11 OVERSTATED (k6 passes once classified), c12 SUPPORTED |
 | reproducer-w06-6 | reproducer | verify w06-c9 (outputs, saving, `_json` fallback) | SUPPORTED (feb12b4): outputs identical, saving 20–28 ms; two fallback gaps |
@@ -307,13 +320,13 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | w06-c5 | E1 stage 1 restated | superseded by w06-c6 (verdict OVERSTATED: "fails v0" went beyond v0's letter) |
 | w06-c6 | E1 stage 1: a resident server carries the hooks' fields, firing, effects at 1–6 ms; m4 (a) vacuous, (b) meets v0's letter and fails its intent (silent loss of deny and block), (c) 20 s a tool boundary | MEASURED |
 | w06-c13 | E3 v3 with three parser fixes and the mv correction (1ace83e): lands | MEASURED (SUPPORTED after changed_by) |
-| w06-c14 | The guard's rows start as `python3 -S -I`: identical decisions on 660 events, about 7 ms less a start | unverified MEASURED |
+| w06-c14 | The guard's rows start as `python3 -S -I`: identical decisions on 660 events, about 7 ms less a start | MEASURED |
 | w06-c11 | E3 v3: one unconditional Bash row; k1–k5 pass; k6 depends on classifying 113 denials | superseded by w06-c13 |
 | w06-c12 | E3 v2 restated with the full let-through list | MEASURED |
 | w06-c10 | E3 v2: 3 Bash rows, a content check that denies only added words, settings-path rows; h1–h6 pass (incident form denied, 0 spawns on ordinary commands, fails closed, engineering edits allowed) | superseded by w06-c12 (verdict OVERSTATED) |
 | w06-c8 | E3 v1: 3 Bash rows + script-content check; h1, h2, h4, h5 pass, h3 fails (inconsistent as registered); not landed | MEASURED |
 | w06-c7 | E3 v0: 25 gated guard rows deny 42 of 50 attacks, fail closed 9 of 9, start 19 processes on a `$` command; the rule is not met | MEASURED |
-| w06-c9 | E2: lean starts with identical outputs (197/197) save about 20 ms a worker start; e2's 25 ms in every pair is not met | MEASURED |
+| w06-c9 | E2: lean starts with identical outputs (197/197) save about 20 ms a worker start; e2's 25 ms in every pair is not met; landed by PI decision | MEASURED |
 | w06-c4 | E1 stage 2: resident server, outputs equal 197/197, outage handled, but s2 and s4 miss; not landed | below MEASURED: restate (not restated; nothing depends on it) |
 | w06-c2 | Disposing puzzles at the hand-back wake-up costs no extra request (the implied saving is not shown) | below ESTIMATE: restate; not restated, the bullet is reverted |
 | w06-c1 | The `disallowedTools:` line holds on the Desktop: request 0 at 46,738 tokens, no denied tool loaded (n = 1, plus the verifier's same-version pair) | MEASURED |
@@ -408,6 +421,8 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | S-w06-author-w06-7-2 | parked: its end-to-end command check is the one that can fail, and it passed |
 | S-w06-author-w06-7-3 | parked: `user_words.py` runs once per prompt and `resume_brief.py` only on resume; their start is not on a worker's path |
 | S-w06-author-w06-7-4 | parked: the platform's wording of a fail-closed block |
+| S-w06-reproducer-w06-8-6 | parked: a Bash event with a null `tool_input` runs no command; equal under both starts |
+| S-w06-reproducer-w06-8-7 | parked: `onFailure: block` is CITED to the hooks page (permission_mechanisms.md) and seen to block live, both on a crash and on an unreadable script |
 | S-w06-explorer-w06-a-1 | parked: an ordering effect between languages; the language is not taken forward (E1) |
 | S-w06-explorer-w06-a-2 | parked: the exec floor belongs to the kernel and the platform; a hook that starts no process avoids it (E1) |
 | S-w06-explorer-w06-a-3 | followed: E1 (one resident server removes Murmuration's own siblings); the user's own sibling hooks are their config (synthesis item 22) |
@@ -435,3 +450,19 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 - The bash trade, measured: in this setting, variable names, PATH and 11 tools are identical under
   both shells. What bash gives up is `.zshrc`'s shell code (`conda activate`, `nvm`, aliases), and
   the PATH `.zshrc` would add for a run started from a bare environment.
+- **Spend at close (22:23):** this checkout USD 46.66 at list price, against 1.20 at opening, so
+  45.46 for this wave. That is a lower bound, because the session is open. Headless runs under
+  `/private/tmp/murmuration-w06/` add 7.54 (7.38 exact, 0.16 at list price for one open session).
+  So **at least USD 53.00 against the user's 100**. Both figures are lower bounds in auto mode
+  [source: `scripts/lab_status.py` and `--project /private/tmp/murmuration-w06 --spend`, at the
+  closing commit].
+- **This session's own shape (S-w06-reproducer-w06-1-2):** 199 requests, one shape hash, 23 loaded
+  tools, no denied name.
+- **This session's preface (S-w06-explorer-w06-c-4):** context went from 46,738 tokens at request 0
+  to about 137k at the first dispatch (request 33), and 157k at request 40. That is the same order as
+  wave 5's 75k→160k. Open item 29 in the synthesis.
+- The hook wrote the user's words of 19:27 and the session-to-session task message into this
+  worktree's `user_words.md` (S-w06-research-pi-1). The user's mid-turn message of 19:3x on hardening
+  is quoted in the synthesis from this conversation.
+
+closed: 2026-10-21

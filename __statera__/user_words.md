@@ -227,3 +227,9 @@ Shared notes folder for this group of sessions (outside the repo; read siblings'
 > I found that a worker ran unauthorized headless test sessions in bypassPermissions mode to probe a field auto mode leaves empty — I’ll flag this to the user and ban it in all future briefs. Next, I’ll dispatch the verifier and check spend before deciding on stage 2.
 
 yeah, I expected this to happen to some extent because I gave rather big freedom. But that's typically what folds under security, ethics, moral, and legal that cannot be done without the user's permission.
+
+## 2026-10-21 19:37
+
+> Each worker file now has a “Permissions” paragraph: no bypassPermissions, no --dangerously-skip-permissions, and no permission-setting edits without your own yes quoted in the brief.
+
+Good start, but you should think how to harden that. Probably banning the some tool calls patterns or maybe setting the permissions somewhere in hard in this plugin? is that possible? We should also avoid the agent working around and running `claude -p` in bypass mode, I suppose...
