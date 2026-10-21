@@ -147,6 +147,24 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     rule 5 and `working_defaults.md` say the same to the PI. The rule is in the agent files as well
     as the briefs, so it holds even when a brief forgets it, as mine did for author-w06-3.
 
+- HH:MM (this commit), after reproducer-w06-3's ESCALATE of w06-c3 and the user's message on hardening:
+  - **PI decision on w06-c3.** The restatement is accepted, as w06-c5 (supersedes w06-c3, with
+    reproducer-w06-3 again). Under v0, stage 1's meaningful m4 scenarios fail. The kill by pid is
+    vacuous. A failed restart loses the deny and the block silently. A hung restart costs 20 s a
+    boundary. So **under v0 the resident server stays out, and stage 2 should not have run.** I do not
+    rewrite v0. Protocol v1 (9f6d88b), written after the results and saying so, keeps stage 2
+    running. It is stricter on landing: s3a–c require that the worker and the PI are told when the
+    hooks are down, that no boundary waits more than 10 s in a hang, and that a kill loses nothing.
+    author-w06-4 was told by message. Both readings go to the user.
+  - **The user (19:3x): harden the permissions rule.** "Probably banning some tool call patterns or
+    maybe setting the permissions somewhere in hard in this plugin? [...] avoid the agent working
+    around and running `claude -p` in bypass mode". A paragraph is a request to the model. The
+    question is which layer the platform enforces. Read-only check of this machine: there is no
+    managed-settings folder, and `~/.claude/settings.json` has allow rules only, with no deny rules
+    and no `disableBypassPermissionsMode`. I asked claude-code-guide which mechanisms are documented
+    (plugin-shipped settings, `disallowedTools` rule syntax, `disableBypassPermissionsMode` and
+    whether a child `claude -p` can skip it, hook matchers). An experiment follows its answer.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -156,7 +174,8 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | explorer-w06-a | explorer | platform-visible cost of a do-nothing hook in sh, Python and a compiled binary; where the 322–605 ms goes | f38adb0: Rust −30 ms a start; the gap is siblings starting together |
 | explorer-w06-b | explorer | inventory of the plugin's recurring waste; why each lean build failed; SA1 sized, not built | 28859d5: `mcp_tool` 2 ms against 104; lean builds failed on rules; SA1 sized |
 | author-w06-3 | author | E1 stage 1: can a resident server carry Murmuration's hooks (w06-c3) | 134e3ac: passes on the letter; a dead or hung restart is silent or slow |
-| reproducer-w06-3 | reproducer | verify w06-c3 | |
+| reproducer-w06-3 | reproducer | verify w06-c3, then w06-c5 | ESCALATE on w06-c3 (6b79137): m4 vacuous as registered; restated as w06-c5 |
+| guide-w06-perm | claude-code-guide | which permission-hardening mechanisms the platform documents | |
 | author-w06-4 | author | E1 stage 2: the port, s1–s4 (w06-c4) | |
 | explorer-w06-c | explorer | the PI's wake-ups and cost per wake-up in waves 4–5; what idle time could carry; one session per wave | 7c14a2d: idle is free (1-hour cache); wake-ups are hand-backs; preface 21–32% of PI spend |
 
@@ -164,6 +183,8 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 
 | Claim | Statement | Current label |
 |:--|:--|:--|
+| w06-c3 | E1 stage 1, resident server carries the hooks | superseded by w06-c5 |
+| w06-c5 | E1 stage 1 restated: m1, m2, m5, m6 pass; m4 (a) vacuous, (b) silent loss, (c) 20 s a boundary | unverified MEASURED |
 | w06-c2 | Disposing puzzles at the hand-back wake-up costs no extra request (the implied saving is not shown) | below ESTIMATE: restate; not restated, the bullet is reverted |
 | w06-c1 | The `disallowedTools:` line holds on the Desktop: request 0 at 46,738 tokens, no denied tool loaded (n = 1, plus the verifier's same-version pair) | MEASURED |
 
