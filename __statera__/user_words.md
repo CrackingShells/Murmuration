@@ -349,3 +349,61 @@ Done means:
 - a report that states what was decided, why, and what the wave taught about the hardware and the limits of Claude Code's agent loop.
 
 Shared notes folder for this group of sessions (outside the repo; read siblings' notes there, leave hand-over notes or large findings there instead of pasting them into messages): /Users/hacker/Library/Application Support/Claude/side-session-notes/local_a1cc5690-301c-4ea7-815d-6c9664d6c5c0
+
+## 2026-10-22 07:24
+
+I am incredibly satisfied with your results and the reports, as well as the HTML infographics, are very useful. I would like a few things. The first is that in the infographics, section 3, titled Where a Wave's Money Goes, wave 7 is only a gray bar that you indicate at not yet split by role for the costs. I would like this split to be apparent and to update that part. For section 5, subsection costs larger than hooks, I am really impressed by these costs. Could you make them more explicit and tell me exactly what or why the cache rewrites after gaps over 5 minutes actually costs something? Or the tool results over 5,000 characters, why does it cost something as well? And my understanding is that these two subpoints are in fact a property of Anthropic infrastructure, and that aside from trying to have tool results below 5,000 characters, it is likely not going to change anything, or not something we can optimize over. But is this correct? Or you don't have to search a lot. If you don't know, we can just mark that as a puzzle and investigate in a future way. Finally, can you make section 6 related to the parallel scaling more equivalent, such that we have the same scaling plots for Python and for Rust? And here you put it that as speedups factors. And then on the right side for Rust, you showed the milliseconds. I would like to also have the graphs that shows the exact time we are then spending. Not only the speedup factors. It could be two curves on the same plot.
+
+Finally:
+> colgrep-mcp’s colgrep_policy takes about 194 ms per Bash call, and inject_plan_directive.py 177–206 ms per prompt. Starting them without a shell would help them the same way.
+
+## 2026-10-22 07:27
+
+I am incredibly satisfied with your results and the reports, as well as the HTML infographics, are very useful. I would like a few things. The first is that in the infographics, section 3, titled Where a Wave's Money Goes, wave 7 is only a gray bar that you indicate at not yet split by role for the costs. I would like this split to be apparent and to update that part. For section 5, subsection costs larger than hooks, I am really impressed by these costs. Could you make them more explicit and tell me exactly what or why the cache rewrites after gaps over 5 minutes actually costs something? Or the tool results over 5,000 characters, why does it cost something as well? And my understanding is that these two subpoints are in fact a property of Anthropic infrastructure, and that aside from trying to have tool results below 5,000 characters, it is likely not going to change anything, or not something we can optimize over. But is this correct? Or you don't have to search a lot. If you don't know, we can just mark that as a puzzle and investigate in a future way. Finally, can you make section 6 related to the parallel scaling more equivalent, such that we have the same scaling plots for Python and for Rust? And here you put it that as speedups factors. And then on the right side for Rust, you showed the milliseconds. I would like to also have the graphs that shows the exact time we are then spending. Not only the speedup factors. It could be two curves on the same plot.
+
+Finally:
+
+> colgrep-mcp’s colgrep_policy takes about 194 ms per Bash call, and inject_plan_directive.py 177–206 ms per prompt. Starting them without a shell would help them the same way.
+
+That's a very good point. In fact your discovery about hooks design and were the runtime cost goes is useful for every future hook design. We need a knowledge transfer report from /writing-reports:writing-reports that I can then propagate. Because this will become a "best practice". In that regard, I also think that your idea to have async hooks for some tasks is also very good. Typically, everything that does not involve injecting back a message before the rest of the agent loop could become async: it can now depend on the nature and objective of the hook itself.
+
+## 2026-10-22 07:47
+
+> a subagent’s cache entry expires 5 minutes after its last use.
+
+I see, so subagents do not have the 2-level cache pricing between 5min and 1h?
+
+I remember hearing about this tool: https://github.com/rtk-ai/rtk Assuming agents use that proxy, that would mean we could save on every cache write and cache re-reads, correct? That as well, no need to check it specifically. You can just take a look and eyeball what this tool is about. I suppose that'd be a nice puzzle to solve in a future wave as well.
+
+## 2026-10-22 07:50
+
+> The trade: 1 hour costs more on every write and pays off only when a pause between requests is longer than 5 minutes. That fits authors, who wait for verifiers. Explorers and verifiers would have lost money, so they stay on 5 minutes.
+
+I see, that was on your report, w07-c7. I would like a subsection of Section 3 that proves that statement based on the lives of each agent type to show where the break-even point is (when it becomes worth for authors and not for the others)
+
+## 2026-10-22 07:53
+
+> 
+
+Three things would decide whether it helps this lab:
+
+* Coverage: 1,623 of 1,869 worker Bash calls run the lab’s own scripts, which rtk doesn’t know. File Read results don’t go through the shell at all.
+* Lossy output: a compressed result could hide something a verifier has to see.
+* Its own cost: a hook in front of every Bash call costs time, which is exactly what this wave measured.
+
+I see! In that case, I suppose a parallel question is whether it would become worth it for us to optimize our scripts' outputs, then.
+
+## 2026-10-22 08:04
+
+> The break-even.
+
+your data is fascinating. This is almost a textbook example that could be turned into a probabilistic modeling work for the sake of deriving choices about when it becomes worth it. Well P(worth_it>X)>target is only one way to look at it. I am sure there is a wealth of literature, not even necessarily complicated modeling, from economics and agents, that we could use to optimise these agent costs assuming modeling and scenario choices
+
+> Reading notes, reports or claims with the Read tool	34%
+> Reading files through Bash (cat, sed, head, chained commands)	most of the rest
+
+--> isn't that exactly an aspect that colgrep is supposed to help us fight against? I note that agents often refuse to trust the semantic search and prefer to full read, rather than rely on what the semantic mapping shows them. At least, it seems like we have identified another lever where in theory we already ahve the tools to be leaner but we are not using them well, yet.
+
+## 2026-10-22 08:08
+
+Both definitely needs investigating. Whether in the next wave or the one after. That will be up to the PI, anyway. But it is worth logging all this in a way the PI will be able to find. Where are we in the git management? Shouldn't everything committed to `main`? (including the wave 6 and 7 corrected html infographics?)
