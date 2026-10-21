@@ -1,0 +1,4 @@
+cell	m1_ctx_req0	in	cache_write	cache_read	main_requests	init_tools	m2_steps_ok	m3_bad_results	m4_cost_usd	wall_s	toolsearch_found_NotebookEdit	explorer_reply_has_beta	final_text
+D1	14761	2	14759	0	9	23	1skill,2write,3read,4edit,5bash,6toolsearch,7agent	[]	0.23275240000000005	47.4	True	True	DONE
+D2	14762	2	6089	8671	11	23	1skill,2write,3read,4edit,5bash,6toolsearch,7agent	[]	0.1751282	69.9	True	True	DONE  Note: the explorer replied "beta",
+D3	14763	2	6090	8671	9	23	1skill,2write,3read,4edit,5bash,6toolsearch,7agent	[]	0.1525695	51.0	True	True	DONE

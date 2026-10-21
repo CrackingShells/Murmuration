@@ -1,0 +1,7 @@
+probe	agent file line	model	init_tools	dummy_echo_tool_present	ctx_req0	cost_usd
+A	(no tools: line)	haiku	30	True	30600	0.00231
+V1	tools: Read, Bash, mcp__*	haiku	2	False	3807	0.00132
+V2	tools: Read, Bash, mcp__dummy__*	haiku	3	True	3886	0.00103
+V3	tools: Read, Bash, Glob, Foo, TodoWrite, mcp__nothere__*	haiku	2	False	3806	0.00031
+D1	disallowedTools: Artifact, Workflow, ReportFindings, ShareOnboardingGuide	haiku	24	True	14824	0.00356
+D2	disallowedTools: Artifact, Workflow, mcp__dummy__*	haiku	25	False	16094	0.00438

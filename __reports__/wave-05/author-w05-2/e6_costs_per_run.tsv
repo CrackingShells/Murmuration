@@ -1,0 +1,12 @@
+cell	arm	total_cost_usd	wall_s	note
+pilot-A	A	0.4026	57.5	pilot (excluded); cold 1-hour cache write
+pilot-B	B	0.2435	59.3	pilot (excluded); cold
+A1	A	0.1874	49.3	registered
+B1	B	0.1610	47.2	registered
+A2	A	0.1804	53.5	registered
+B2	B	0.1581	50.5	registered
+A3	A	0.1803	51.0	registered
+B3	B	0.1575	50.6	registered
+D1	D	0.2328	47.4	exploratory denylist
+D2	D	0.1751	69.9	exploratory denylist
+D3	D	0.1526	51.0	exploratory denylist
