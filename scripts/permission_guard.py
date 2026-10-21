@@ -48,8 +48,8 @@ WRITEISH = re.compile(r"""\bwrite|writeFile|\.dump\(|,\s*['"][wax]\+?b?['"]|mode
 ASSIGN = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*=")
 
 
-def split_segments(cmd):
-    """Split a shell command into simple-command strings: on newline ; & | ( ) backticks and $( ) (not on >& or &>); quotes respected (substitutions inside double quotes too)."""
+def _split(cmd, quotes):
+    """One pass of the splitter; returns (segments, quote state at the end). With quotes=False a quote character is an ordinary character."""
     segs, cur, i, q = [], [], 0, None
     while i < len(cmd):
         c = cmd[i]
@@ -69,7 +69,7 @@ def split_segments(cmd):
                     i += 1
             else:
                 cur.append(c)
-        elif c in "'\"":
+        elif quotes and c in "'\"":
             q = c
             cur.append(c)
         elif c in "\n;|()`" or (c == "&" and not (cmd[i - 1:i] == ">" or cmd[i + 1:i + 2] == ">")):
@@ -78,7 +78,17 @@ def split_segments(cmd):
             cur.append(c)
         i += 1
     segs.append("".join(cur))
-    return [s.strip() for s in segs if s.strip()]
+    return [x.strip() for x in segs if x.strip()], q
+
+
+def split_segments(cmd):
+    """Split a shell command into simple-command strings: on newline ; & | ( ) backticks and $( ) (not on >& or &>); quotes respected (substitutions inside double
+    quotes too). If a quote is left open (an apostrophe in prose, a stray quote), the text cannot be split safely: split again ignoring quotes, so that no
+    later segment hides inside the unclosed one."""
+    segs, q = _split(cmd, True)
+    if q is not None:
+        segs, _ = _split(cmd, False)
+    return segs
 
 
 def words(seg):
@@ -216,14 +226,18 @@ def g3_bash(cmd, segs, cwd):
                 cur = os.path.normpath(t if os.path.isabs(t) else os.path.join(cur or "", t))
             continue
         targets = []
-        for m in re.finditer(r"""(?:^|[\s&\d])>>?\|?\s*(['"]?)([^\s;&|<>'"]+)\1""", seg):
+        for m in re.finditer(r"""(?:>>?|>\|)\s*(['"]?)([^\s;&|<>'"]+)\1""", seg):
             targets.append(m.group(2))
         args = toks[k + 1:] if k < len(toks) else []
         if prog == "tee":
             targets += [t for t in args if not t.startswith("-")]
         elif prog in ("sed", "perl", "awk", "gawk", "ruby") and any(t.startswith(("-i", "--in-place", "-pi", "-ni")) or t == "inplace" for t in args):
             targets += [t for t in args if not t.startswith("-")]
-        elif prog in ("cp", "mv", "install", "ln", "rsync", "rm", "truncate", "unlink", "shred", "chmod", "chown", "touch"):
+        elif prog in ("cp", "mv"):        # only the destination is written: the last argument, or the value of -t / --target-directory
+            plain = [t for t in args if not t.startswith("-")]
+            tdir = [args[j + 1] for j, t in enumerate(args[:-1]) if t in ("-t", "--target-directory")] + [t.split("=", 1)[1] for t in args if t.startswith("--target-directory=")]
+            targets += tdir if tdir else plain[-1:]
+        elif prog in ("install", "ln", "rsync", "rm", "truncate", "unlink", "shred", "chmod", "chown", "touch"):
             targets += [t for t in args if not t.startswith("-")]
         elif prog == "dd":
             targets += [t[3:] for t in args if t.startswith("of=")]
@@ -351,6 +365,16 @@ def selftest():
         ("NotebookEdit", {"notebook_path": "/h/n.ipynb", "new_source": "mode = 'bypassPermissions'"}, True),
         ("NotebookEdit", {"notebook_path": "/h/n.ipynb", "new_source": "print(1)"}, False),
         ("Bash", {"command": "echo $CLAUDE_CONFIG_DIR"}, False),
+        ("Bash", {"command": "grep -n it's f; claude -p hi --dangerously-skip-permissions"}, True),
+        ("Bash", {"command": "echo '{}'>.claude/settings.json"}, True),
+        ("Bash", {"command": "echo '{}'>>.claude/settings.local.json"}, True),
+        ("Bash", {"command": "cp .claude/settings.local.json /tmp/bak"}, False),
+        ("Bash", {"command": "cp /tmp/new.json .claude/settings.json"}, True),
+        ("Bash", {"command": "cp -t .claude /tmp/settings.json"}, False),
+        ("Bash", {"command": "cp -t /h/proj/.claude/settings.json /tmp/a"}, True),
+        ("Bash", {"command": "mv /tmp/x .claude/settings.json"}, True),
+        ("Bash", {"command": "rm .claude/settings.json"}, True),
+        ("Bash", {"command": "ls 2>&1; echo ok"}, False),
         ("Bash", {"command": "CLAUDE_CONFIG_DIR=/x claude -p y"}, True),
         ("Bash", {"command": "claude -p y --setting-sources local,user"}, False),
         ("Bash", {"command": "git init --bare x"}, False),
