@@ -1,0 +1,8 @@
+| file | main: whole / production / selftest | build: whole / production / selftest |
+|:--|:--|:--|
+| budget.py | 863 / 538 / 325 | 940 / 547 / 393 |
+| handback.py | 311 / 232 / 79 | 389 / 308 / 81 |
+| run_hook.py | 0 / 0 / 0 | 11 / 11 / 0 |
+| total | 1174 / 770 / 404 | 1340 / 866 / 474 |
+
+production lines: build - main = +96 (limit +100)

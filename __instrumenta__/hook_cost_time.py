@@ -103,7 +103,7 @@ def hooks_of(name, event, tool=None, source=None):
         if m is not None and not re.fullmatch(m, tool or source or ""):
             continue
         for hk in g["hooks"]:
-            out.append((re.search(r"(\w+)\.py", hk["command"]).group(1), hk["command"]))
+            out.append(((lambda m: m.group(1) or m.group(2) or m.group(3))(re.search(r"run_hook\.py\W+(\w+)|(\w+)\.py|import (budget|handback);", hk["command"])), hk["command"]))
     return out
 
 

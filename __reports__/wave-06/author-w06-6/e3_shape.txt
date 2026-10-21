@@ -1,0 +1,25 @@
+SAME SHAPE - events 7 / 7, groups 9 / 9, rows 10 / 10
+SubagentStart [None]:
+  main  python3 "${CLAUDE_PLUGIN_ROOT}/scripts/budget.py"
+  build python3 -S -I "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py" budget
+PreToolUse [Agent|Task]:
+  main  python3 "${CLAUDE_PLUGIN_ROOT}/scripts/budget.py"
+  build python3 -S -I "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py" budget
+PreToolUse [SubagentHandback]:
+  main  python3 "${CLAUDE_PLUGIN_ROOT}/scripts/handback.py"
+  build python3 -S -I "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py" handback
+PostToolUse [None]:
+  main  python3 "${CLAUDE_PLUGIN_ROOT}/scripts/budget.py"
+  build python3 -S -I "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py" budget
+PostToolUse [SubagentHandback]:
+  main  python3 "${CLAUDE_PLUGIN_ROOT}/scripts/handback.py"
+  build python3 -S -I "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py" handback
+SubagentStop [None]:
+  main  python3 "${CLAUDE_PLUGIN_ROOT}/scripts/handback.py"
+  build python3 -S -I "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py" handback
+SubagentStop [None]:
+  main  python3 "${CLAUDE_PLUGIN_ROOT}/scripts/budget.py"
+  build python3 -S -I "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py" budget
+PostToolBatch [None]:
+  main  python3 "${CLAUDE_PLUGIN_ROOT}/scripts/budget.py"
+  build python3 -S -I "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py" budget

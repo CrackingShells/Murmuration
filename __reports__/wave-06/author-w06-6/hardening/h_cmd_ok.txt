@@ -1,0 +1,10 @@
+agent-abe4e78584507379e.jsonl | starts=228 nonempty=45 block=3 deny=1 | EQUAL
+agent-a236ec9f6bcc0c19f.jsonl | starts=80 nonempty=5 block=0 deny=1 | EQUAL
+agent-a8427a2477a2a02c2.jsonl | starts=19 nonempty=2 block=0 deny=1 | EQUAL
+agent-a1f4458ce75dacdec.jsonl | starts=134 nonempty=4 block=0 deny=1 | EQUAL
+agent-a8b904eac66ca2fe4.jsonl | starts=16 nonempty=1 block=0 deny=0 | EQUAL
+agent-af9c9879f35b93623.jsonl | starts=30 nonempty=2 block=0 deny=1 | EQUAL
+agent-a14002b966174526e.jsonl | starts=188 nonempty=2 block=0 deny=1 | DIFF log differs at 2 of 3/3: old=['{"B": 3.0, "T": 20.0, "agent_id": "a14002b966174526e", "basis": "input and cache exact; output = max(recorded, content chars / 1.3)", "event": "end", "frac": 0.092, "k": 0, "mode": "auto", "name": "explorer-w02-l1", "requests": 91, "stops": 0, "type": "murmuration:explorer", "unpriced": 0, "used": 0.276086, "used_recorded": 0.247676, "which": "time"}'] new=['{"B": 3.0, "T": 20.0, "agent_id": "a14002b966174526e", "basis": "input and cache exact; output = max(recorded, content chars / 1.3)", "event": "end", "frac": 0.092, "k": 0, "mode": "auto", "name": "explorer-w02-l1", "requests": 91, "stops": 0, "type": "murmuration:explorer", "unpriced": 0, "used": 0.276086, "used_recorded": 0.247676, "which": "USD"}']
+agent-a0f7fc4df62779853.jsonl | starts=29 nonempty=2 block=0 deny=1 | EQUAL
+agent-aa1c72b39e7eedcd2.jsonl | starts=63 nonempty=2 block=0 deny=1 | EQUAL
+agent-a507b6cb60663fb21.jsonl | starts=27 nonempty=1 block=0 deny=0 | EQUAL
