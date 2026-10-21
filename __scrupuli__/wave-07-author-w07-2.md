@@ -21,3 +21,15 @@ refs: __reports__/wave-07/author-w07-2/q3_q4.txt, q2_probe.jsonl (rows p00, r-p0
 ## S-w07-author-w07-2-6
 A resumed session (r-f00, 0.339 s with both hooks) behaved like a first prompt in how long the record took: the transcript file already existed (446 KB) but the new prompt's record was not readable until the hooks exited. So "file exists" is not "record exists", which the explorer's n = 2 could not separate.
 refs: __reports__/wave-07/author-w07-2/q2_live.txt (rows r-f00, r-p00)
+
+## S-w07-author-w07-2-7
+Two hook rows with the identical command in one event ran once: my "sync crash" and "async crash" rows were merged, and the survivor was the async one. The v1 crash comparison with a sync control therefore did not happen, and all 12 sessions were gone. Nothing in the debug log says a row was merged; I found it from the single "moved to the background" line and the single traceback. Is deduplication by command string documented, and does it keep the first or the last row?
+refs: __reports__/wave-07/author-w07-2/v1/dbg-mixed.hooklines.txt, __instrumenta__/w07c5_run.py (the mixed plugin)
+
+## S-w07-author-w07-2-8
+The async crash left an [ERROR] line in the debug log and nothing in the transcript, while explorer-w07-c found an `async_hook_response` record with `exitCode: 1` for an async hook that exited 1. I searched my transcript for `exitCode`, `async_hook_response`, `hook_non_blocking` and the module name and found none. Different hook event (UserPromptSubmit here, PostToolUse there), or a different build of the record writer, or my search missed it; not resolved.
+refs: __reports__/wave-07/author-w07-2/v1/dbg-mixed.hooklines.txt; __reports__/wave-07/explorer-w07-c/00-findings_v0.md (async failure row)
+
+## S-w07-author-w07-2-9
+In every session the time from the user record to the first API request (0.2 to 0.5 s) is about the length of the user-level sync hook `inject_plan_directive.py` (177 to 206 ms), not of anything of ours. So the cost of any plugin hook on UserPromptSubmit is hidden behind the user's own hook in parallel, in this environment. A machine without that hook would show our hook's own cost; not measured. Also: the r2/r4 split into inherited and terminal-like sessions was my design to tell "found and dropped" from "cancelled"; the registered text says "10 headless first prompts" without it.
+refs: __reports__/wave-07/author-w07-2/v1/r2_r3_r4_r5_live.txt, dbg-f00.hooklines.txt
