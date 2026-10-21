@@ -1,0 +1,4 @@
+bypass command, strings only             exit 0 stdout '' stderr ''
+ordinary command, strings only           exit 0 stdout '' stderr ''
+bypass command with a boolean field      exit 1 stdout '' stderr "NameError: name 'false' is not defined. Did you mean: 'False'?"
+PostToolUse with a null field            exit 1 stdout '' stderr "NameError: name 'null' is not defined"

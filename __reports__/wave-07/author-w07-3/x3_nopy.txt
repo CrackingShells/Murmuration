@@ -1,0 +1,57 @@
+== tool_results
+ A (3):
+    0  ERR PreToolUse:Bash hook error: [python3 -S -I "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"]: failed; blocking because onFailure is "block" | /bin/sh: python3: command not found
+    1  OK  1	x | 2	
+    2  ERR PreToolUse:Bash hook error: [python3 -S -I "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"]: failed; blocking because onFailure is "block" | /bin/sh: python3: command not found
+ B (3):
+    0  ERR PreToolUse:Bash hook error: [python3 -S -I ${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py]: failed; blocking because onFailure is "block" | Error occurred while executing hook command: Executable not found in $PATH: "python3"
+    1  OK  1	x | 2	
+    2  ERR PreToolUse:Bash hook error: [python3 -S -I ${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py]: failed; blocking because onFailure is "block"
+ -> DIFFERENT
+== attachments
+ A (11):
+    0  hook_non_blocking_error SessionStart exit=127 stderr=Failed with non-blocking status code: /bin/sh: python3: command not found
+    1  hook_non_blocking_error SessionStart exit=127 stderr=Failed with non-blocking status code: /bin/sh: python3: command not found
+    2  hook_non_blocking_error SessionStart exit=127 stderr=Failed with non-blocking status code: /bin/sh: uv: command not found
+    3  hook_non_blocking_error UserPromptSubmit exit=127 stderr=Failed with non-blocking status code: /bin/sh: python3: command not found
+    4  hook_non_blocking_error UserPromptSubmit exit=127 stderr=Failed with non-blocking status code: /bin/sh: python3: command not found
+    5  hook_non_blocking_error PreToolUse exit=127 stderr=Failed with non-blocking status code: /bin/sh: uv: command not found
+    6  hook_non_blocking_error PostToolBatch exit=127 stderr=Failed with non-blocking status code: /bin/sh: python3: command not found
+    7  hook_non_blocking_error PostToolUse exit=127 stderr=Failed with non-blocking status code: /bin/sh: python3: command not found
+    8  hook_non_blocking_error PostToolBatch exit=127 stderr=Failed with non-blocking status code: /bin/sh: python3: command not found
+    9  hook_non_blocking_error PreToolUse exit=127 stderr=Failed with non-blocking status code: /bin/sh: uv: command not found
+   10  hook_non_blocking_error PostToolBatch exit=127 stderr=Failed with non-blocking status code: /bin/sh: python3: command not found
+ B (9):
+    0  hook_non_blocking_error SessionStart exit=127 stderr=Failed with non-blocking status code: /bin/sh: python3: command not found
+    1  hook_non_blocking_error SessionStart exit=127 stderr=Failed with non-blocking status code: /bin/sh: python3: command not found
+    2  hook_non_blocking_error SessionStart exit=127 stderr=Failed with non-blocking status code: /bin/sh: uv: command not found
+    3  hook_non_blocking_error UserPromptSubmit exit=1 stderr=Failed with non-blocking status code: Error occurred while executing hook command: Executable not found in $PATH: "python3"
+    4  hook_non_blocking_error UserPromptSubmit exit=127 stderr=Failed with non-blocking status code: /bin/sh: python3: command not found
+    5  hook_non_blocking_error PreToolUse exit=127 stderr=Failed with non-blocking status code: /bin/sh: uv: command not found
+    6  hook_non_blocking_error PostToolBatch exit=1 stderr=Failed with non-blocking status code: Error occurred while executing hook command: Executable not found in $PATH: "python3"
+    7  hook_non_blocking_error PostToolUse exit=1 stderr=Failed with non-blocking status code: Error occurred while executing hook command: Executable not found in $PATH: "python3"
+    8  hook_non_blocking_error PreToolUse exit=127 stderr=Failed with non-blocking status code: /bin/sh: uv: command not found
+ -> DIFFERENT
+== debug
+ A (7):
+    0  Hooks: UserPromptSubmit [python3 "<EXPORT>/scripts/user_words.py"] (plugin murmuration@inline) finished with status 127 (83ms)
+    1  Hooks: PreToolUse:Bash [python3 -S -I "<EXPORT>/scripts/permission_guard.py"] (plugin murmuration@inline) finished with status 127 (56ms)
+    2  Hooks: PostToolBatch [python3 -S -I "<EXPORT>/scripts/run_hook.py" budget] (plugin murmuration@inline) finished with status 127 (30ms)
+    3  Hooks: PostToolUse:Read [python3 -S -I "<EXPORT>/scripts/run_hook.py" budget] (plugin murmuration@inline) finished with status 127 (52ms)
+    4  Hooks: PostToolBatch [python3 -S -I "<EXPORT>/scripts/run_hook.py" budget] (plugin murmuration@inline) finished with status 127 (39ms)
+    5  Hooks: PreToolUse:Bash [python3 -S -I "<EXPORT>/scripts/permission_guard.py"] (plugin murmuration@inline) finished with status 127 (58ms)
+    6  Hooks: PostToolBatch [python3 -S -I "<EXPORT>/scripts/run_hook.py" budget] (plugin murmuration@inline) finished with status 127 (31ms)
+ B (7):
+    0  Hooks: UserPromptSubmit [python3 <EXPORT>/scripts/user_words.py] (plugin murmuration@inline) failed to start (1ms)
+    1  Hooks: PreToolUse:Bash [python3 -S -I <EXPORT>/scripts/permission_guard.py] (plugin murmuration@inline) failed to start (1ms)
+    2  Hooks: PostToolBatch [python3 -S -I <EXPORT>/scripts/run_hook.py budget] (plugin murmuration@inline) failed to start (1ms)
+    3  Hooks: PostToolUse:Read [python3 -S -I <EXPORT>/scripts/run_hook.py budget] (plugin murmuration@inline) failed to start (1ms)
+    4  Hooks: PostToolBatch [python3 -S -I <EXPORT>/scripts/run_hook.py budget] (plugin murmuration@inline) failed to start (0ms)
+    5  Hooks: PreToolUse:Bash [python3 -S -I <EXPORT>/scripts/permission_guard.py] (plugin murmuration@inline) failed to start (1ms)
+    6  Hooks: PostToolBatch [python3 -S -I <EXPORT>/scripts/run_hook.py budget] (plugin murmuration@inline) failed to start (1ms)
+ -> DIFFERENT
+== final answer
+ A: - **Bash `echo w07c3-m1`:** blocked. The PreToolUse hook failed with `[python3 -S -I "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"]: failed; blocking because onFailure is "block"` and `/bin/sh: python3: command not found`.
+- **Read `x.txt`:** ran. The file contains a single line, `x`.
+- **Bash `echo w07c3-m2`:** blocked, with the same hook message: `PreToolUse:Bash hook error: [python3 -S -I "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"]: failed; blocking because onFailure is "block"
+ B: Bash `echo w07c3-m1`: blocked. Read of `x.txt`: ran (contents: `x`). Bash `echo w07c3-m2`: blocked. Hook messages, word for word: m1 gave `PreToolUse:Bash hook error: [python3 -S -I ${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py]: failed; blocking because onFailure is "block"` followed by `Error occurred while executing hook command: Executable not found in $PATH: "python3"`; m2 gave `PreToolUse:Bash hook error: [python3 -S -I ${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py]: failed; blocki

@@ -1,0 +1,6 @@
+handlers compared: 42; shlex argv equal: 42; real-sh argv equal: 42; failures: 0
+PASS
+handlers compared: 42; shlex argv equal: 41; real-sh argv equal: 41; failures: 2
+  FAIL PostToolUse[0][0]: shlex.split(A) != [command]+args
+  FAIL PostToolUse[0][0]: real sh splitting differs: ['-S', '-I', "/tmp/w07 c3/ro'ot/scripts/run_hook.py", 'budget'] vs ['-S', '-I', "/tmp/w07 c3/ro'ot/scripts/run_hook.py", 'budgetX']
+FAIL
