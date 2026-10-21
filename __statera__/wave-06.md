@@ -165,6 +165,21 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     (plugin-shipped settings, `disallowedTools` rule syntax, `disableBypassPermissionsMode` and
     whether a child `claude -p` can skip it, hook matchers). An experiment follows its answer.
 
+- HH:MM (this commit), after author-w06-5 returned (w06-c7, E3 v0):
+  - **The v0 guard does not land, by its rule.** g1 is 42 of 50: `CLAUDE_CONFIG_DIR=` forms and
+    redirect writes to settings files pass through. The spawn part of g2 fails: a command with an
+    unresolved `$` matches every `if` row, which meant 19 serial guard processes, and under load one
+    fail-closed timeout blocked a harmless command. Fail-closed itself works (9 of 9), and the bypass
+    flags were denied 21 of 21.
+  - **The guard was aimed at the wrong place.** The incident this wave had came through a script
+    file: the literal `bypassPermissions` sat in `w06c3_run_all.py` and was run with `python3`. No
+    Bash text rule sees that. E3 v1 (26ff1fd), written after the results and saying so, narrows the
+    guard to what text can reliably see: three Bash rows, a content check on Write and Edit of script
+    files, and the settings-path rows. The default mode already refuses settings writes
+    (S-w06-author-w06-5-5). author-w06-5 is resumed for v1 (w06-c8).
+  - **What stays the user's:** only managed settings hold against a child that changes its flags,
+    environment or cwd. The line is in the report, and adding it is the user's choice.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -176,7 +191,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | author-w06-3 | author | E1 stage 1: can a resident server carry Murmuration's hooks (w06-c3) | 134e3ac: passes on the letter; a dead or hung restart is silent or slow |
 | reproducer-w06-3 | reproducer | verify w06-c3, then w06-c5, w06-c6 | ESCALATE on w06-c3 (6b79137): m4 vacuous as registered; restated as w06-c5 (OVERSTATED), then w06-c6 (SUPPORTED, 710bda9) |
 | guide-w06-perm | claude-code-guide | which permission-hardening mechanisms the platform documents | `__reports__/wave-06/research-pi/permission_mechanisms.md`: plugin = hooks only; hard = managed settings |
-| author-w06-5 | author | E3: the permission guard in the plugin (w06-c7), own worktree | |
+| author-w06-5 | author | E3: the permission guard in the plugin (w06-c7), own worktree | c77e696 on `w06-e3-guard`: v0 rule fails (g1 42/50, spawns on `$`); resumed for v1 (w06-c8) |
 | author-w06-4 | author | E1 stage 2: the port, s1–s4 (w06-c4) | |
 | explorer-w06-c | explorer | the PI's wake-ups and cost per wake-up in waves 4–5; what idle time could carry; one session per wave | 7c14a2d: idle is free (1-hour cache); wake-ups are hand-backs; preface 21–32% of PI spend |
 
@@ -187,6 +202,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | w06-c3 | E1 stage 1, resident server carries the hooks | superseded by w06-c5 |
 | w06-c5 | E1 stage 1 restated | superseded by w06-c6 (verdict OVERSTATED: "fails v0" went beyond v0's letter) |
 | w06-c6 | E1 stage 1: a resident server carries the hooks' fields, firing, effects at 1–6 ms; m4 (a) vacuous, (b) meets v0's letter and fails its intent (silent loss of deny and block), (c) 20 s a tool boundary | MEASURED |
+| w06-c7 | E3 v0: 25 gated guard rows deny 42 of 50 attacks, fail closed 9 of 9, start 19 processes on a `$` command; the rule is not met | unverified MEASURED |
 | w06-c2 | Disposing puzzles at the hand-back wake-up costs no extra request (the implied saving is not shown) | below ESTIMATE: restate; not restated, the bullet is reverted |
 | w06-c1 | The `disallowedTools:` line holds on the Desktop: request 0 at 46,738 tokens, no denied tool loaded (n = 1, plus the verifier's same-version pair) | MEASURED |
 
@@ -205,6 +221,15 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | S-w06-author-w06-3-5 | parked: a few ms either way; no decision turns on it |
 | S-w06-author-w06-3-6 | followed: w06-c4 brief (identical `mcp_tool` inputs may merge) |
 | S-w06-author-w06-3-7 | followed: w06-c4 brief (SubagentStop once per ending turn) |
+| S-w06-author-w06-5-1 | followed: E3 v1 (three Bash rows, so at most 3 spawns on a `$` command) |
+| S-w06-author-w06-5-2 | followed: E3 v1 drops what `if` cannot see and hands it to the managed setting |
+| S-w06-author-w06-5-3 | followed: E3 v1 metric h5 (no false block under load) and timeout 10 |
+| S-w06-author-w06-5-4 | parked: a test-design lesson (one attack per session), already applied in the v0 harness |
+| S-w06-author-w06-5-5 | followed: E3 v1 relies on it for Bash writes to settings files in default mode; auto mode stays the classifier's |
+| S-w06-author-w06-5-6 | parked: a matcher quirk with doubled spaces; v1's rows use no inner spaces |
+| S-w06-author-w06-5-7 | parked: three evasions untested because haiku declined; they are reported as untested, not as caught |
+| S-w06-author-w06-5-8 | parked: fixed by its writer before the full run |
+| S-w06-author-w06-5-9 | followed: PI decision above (v0 not landed, v1) |
 | S-w06-explorer-w06-a-1 | parked: an ordering effect between languages; the language is not taken forward (E1) |
 | S-w06-explorer-w06-a-2 | parked: the exec floor belongs to the kernel and the platform; a hook that starts no process avoids it (E1) |
 | S-w06-explorer-w06-a-3 | followed: E1 (one resident server removes Murmuration's own siblings); the user's own sibling hooks are their config (synthesis item 22) |
