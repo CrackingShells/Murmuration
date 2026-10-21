@@ -58,7 +58,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
   (fed7a08) by the lab's own decision under the new frame. The bash-shell trade was measured
   (`__reports__/wave-05/research-pi/shell_check.md`, addendum). The decision frame is in the framing.
 
-- 17:3x (this commit), new session, before any probe returned:
+- 17:24 (00a7898), new session, before any probe returned:
   - **Desktop check of w05-c7 done on myself (w06-c1, MEASURED, n = 1, with reproducer-w06-1).**
     Request 0 held 46,738 tokens, inside the 31–49k band. The loaded tools are the 21 that wave 5's
     projection said the line keeps, plus `DeferredToolPlaceholder` and `advisor`. No denied name is
