@@ -61,16 +61,31 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
   settings file was left byte-identical. Consequence for this wave: my own changes reach me only
   when they land on main. Until then, experiments run headless with `--plugin-dir` pointed at this
   branch.
+- 15:1x, after explorer-w05-e and explorer-w05-a returned:
+  - The Desktop pins every session's config root to the main checkout (`--project-config-root`,
+    seen in the process's command line, reproduced headless; explorer-w05-e). That one flag
+    explains wave 4's misrouted prompt, my misrouted `--scope local`, and the ignored worktree
+    settings. The user's reinstall-on-start idea cannot work: a directory plugin has nothing to
+    update, and SessionStart fires after loading. So "latest on myself" means keeping main current,
+    or a symlinked marketplace path. Both are the user's call. Plugin delivery is dropped as a
+    research direction; what is left goes to the user.
+  - Wave 4's 88 minutes were not spent by the PI (75% idle, about 11 min on the critical path) or
+    by hooks. They went into serial stages of headless experiment cells inside one author's chain
+    (53 of 79 min), 15 min of it rerunning cells after a confound was found late (explorer-w05-a,
+    MEASURED). In the Gantt, the authors' lanes are mostly ≥45 s waits. **The speed of the lab is
+    the speed of its experiments.** This moves the weight of the wave from hooks and the PI toward
+    how workers run and check experiments: pilot one cell before a batch, batch width, waits that
+    can still read messages. I hold that until b, c and d return.
 
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
 |:--|:--|:--|:--|
-| explorer-w05-a | explorer | wall-clock anatomy of wave 4: timeline, waits, critical path; USD 4, 30 min | |
+| explorer-w05-a | explorer | wall-clock anatomy of wave 4: timeline, waits, critical path; USD 4, 30 min | yes; Gantt, 6 puzzles |
 | explorer-w05-b | explorer | PI main-thread token anatomy (wave 4 and waves 1–3); USD 4, 30 min | |
 | explorer-w05-c | explorer | worker orientation, waste and resume costs (wave 4, vs 2–3); USD 4, 30 min | |
 | explorer-w05-d | explorer | non-model overhead: hook starts, lab_status, lab_init, Python start; USD 4, 30 min | |
-| explorer-w05-e | explorer | leanest way for a worktree session to run its own branch of the plugin; USD 4, 30 min | |
+| explorer-w05-e | explorer | leanest way for a worktree session to run its own branch of the plugin; USD 4, 30 min | yes; cause found (--project-config-root), 4 puzzles |
 
 ## Claims of this wave
 
