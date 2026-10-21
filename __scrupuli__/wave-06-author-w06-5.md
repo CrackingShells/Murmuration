@@ -61,3 +61,15 @@ refs: `scripts/permission_guard.py` (`g4_script`), `__pondus__/w06-c10.md` (what
 ## S-w06-author-w06-5-16
 Hook platform time of the three starts of a `$(...)` call was 1.13 s median and 2.67 s max in the v2 run and 1.74 s median and 8.19 s max in the v1 run, with the same rows and timeout. The difference is machine load at that minute, not the build. The margin to `timeout: 10` is not a property I can state for the user's machine.
 refs: `__reports__/wave-06/author-w06-5/e3v2_results_88ab4a5.md` and `e3v1_results_761e45a.md` (h5 lines)
+
+## S-w06-author-w06-5-17
+k6's limit of 55 compared two different things. It came from v2's bracket, which counted G1-type denials of a gated guard; v3's unconditional row also denies what an `if` strips (a `CLAUDE_CONFIG_DIR=` assignment, a redirect write of a settings file), and in the lab those are not strays: isolated probe configs are the lab's usual way to keep a probe off the user's settings, and some writes of `settings.local.json` are real edits of the main repository's file. 113 denials (G1 54, G2 38, G3 21) cannot be split into "false" and "right" by a count; the user decides which of those acts the lab may do without asking. I made no call-by-call judgment.
+refs: `__reports__/wave-06/author-w06-5/e3v3_results_071fc53.md` (k6 line and sample), `/private/tmp/murmuration-w06/author-w06-5/replay_v3.txt` (uncommitted, 113 denied calls)
+
+## S-w06-author-w06-5-18
+k01 (the python heredoc carrying the flag) was never called live by haiku in two tries, so v3's k2 count of 8 of 9 passes on a case that the model refused to run, not one the guard denied. The offline decision function denies it. I could not make the model run it; a scripted tool call would. Similarly no live session called NotebookEdit.
+refs: `/private/tmp/murmuration-w06/author-w06-5/v3shard2/runs/k22_1_0`, `k22_1_1` (no tool call), `e3v3_results_071fc53.md` (k2)
+
+## S-w06-author-w06-5-19
+My classifier labelled a refusal by another plugin's hook (`colgrep-mcp` denying `grep -rn`) as `blocked-failure`, since every hook message begins "hook error". The mention-only case m01 shows it. Harmless here (the case is not gated) but "blocked-failure" means "some hook said no and it was not a guard decision", not "the guard failed". The classifier should check for the guard's script name and not only the prefix.
+refs: `/private/tmp/murmuration-w06/author-w06-5/v3shard0/runs/men0_0_0` (uncommitted), `__instrumenta__/w06c7_e3_run.py` (match)
