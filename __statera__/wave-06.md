@@ -277,7 +277,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     for. The report lists these by date, and `__reports__/wave-06/reproducer-w06-7/k6_classification.tsv`
     on `w06-e3-guard` holds one row per call, with the first 100 characters only.
 
-- 22:2x (the closing commit), at close:
+- 22:23 (2a7fd93), at close:
   - **Landed on the local `main`** (merge below). It carries the lean hook starts (w06-c9, by PI
     decision against e2's threshold, hardened at 80c8323), the permission guard (w06-c13, with the
     lean start of w06-c14), and the Permissions paragraph (the user's decision of 19:27). The combined
