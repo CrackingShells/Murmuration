@@ -518,11 +518,22 @@ def message_usd(model, use):
 
 def merge_usage(into, use):
     """A message id is one API call; its records (one per content block) repeat the usage while
-    `output_tokens` grows during the stream, so each field keeps its maximum."""
+    `output_tokens` grows during the stream, so each field keeps its maximum. `speed` (fast mode) and
+    `server_tool_use.web_search_requests` are kept too, since `message_usd` prices them."""
     for f in USAGE_FIELDS:
         into[f] = max(int(into.get(f) or 0), int(use.get(f) or 0))
     if isinstance(use.get("cache_creation"), dict):
         into["cache_creation"] = use["cache_creation"]
+    if use.get("speed") == "fast":
+        into["speed"] = "fast"
+    tools = use.get("server_tool_use")
+    if isinstance(tools, dict) and tools.get("web_search_requests"):
+        try:
+            n = int(tools["web_search_requests"])
+        except (TypeError, ValueError):
+            n = 0
+        have = into.get("server_tool_use") if isinstance(into.get("server_tool_use"), dict) else {}
+        into["server_tool_use"] = {"web_search_requests": max(n, int(have.get("web_search_requests") or 0))}
 
 
 def parse_transcript(path, warnings):
@@ -561,7 +572,7 @@ def parse_transcript(path, warnings):
     return msgs, cost_state, setting
 
 
-CACHE_VERSION = 1   # change it when parse_transcript returns something else: an older cache file is then ignored
+CACHE_VERSION = 2   # change it when parse_transcript returns something else: an older cache file is then ignored
 _cache = []   # [Cache] while report_spend runs
 
 
@@ -1094,6 +1105,13 @@ def selftest():
         assert by_sid["s2"]["rows"][("main thread", "claude-mystery-1")]["unpriced"] == 1
         assert abs(message_usd("claude-haiku-5-5", {"input_tokens": 200000}) - 0.5 * 0.2) < 1e-9  # long-prompt Haiku
         assert abs(message_usd(opus, {"output_tokens": 1000000, "speed": "fast"}) - 40.0) < 1e-9
+        merged = {}
+        for part in ({"output_tokens": 5}, {"output_tokens": 1000000, "speed": "fast", "server_tool_use": {"web_search_requests": 1}},
+                     {"output_tokens": 1000000, "server_tool_use": {"web_search_requests": 2, "web_fetch_requests": 4}}):
+            merge_usage(merged, part)
+        assert abs(message_usd(opus, merged) - (40.0 + 0.02)) < 1e-9, "merge_usage keeps fast mode and the largest web-search count"
+        merge_usage(merged, {"output_tokens": 1000000, "speed": "standard", "server_tool_use": {"web_search_requests": 0}})
+        assert merged["speed"] == "fast" and merged["server_tool_use"] == {"web_search_requests": 2}
         text = "\n".join(report_spend(root))
         # exact 7.5 (s1) + list price 12.0 (s2) + 2.0 (s3: sonnet f1 only); s3 and s2 are open
         assert "TOTAL  USD 21.50 at least   (7.50 exact + 14.00 at list price for 2 sessions still open)" in text, text
