@@ -105,3 +105,80 @@ Merge and then prepare a draft so another PI session can run while I go to sleep
 you can clean up the points 2, 3, and 13. You can also update installation of the new version of the local plugin before I launch the next Pi agent. 
 
 Regarding point 12, I am undecided for now.
+
+## 2026-10-20 09:27
+
+Continue the reflective run on Murmuration with wave 4. This lab is in this repository. Read
+`__statera__/synthesis.md` (the "Still open" table), `__statera__/wave-03.md` and
+`__reports__/pilot/02-next_pi_session_v0.md` first. I will be asleep and will not answer, so decide by experiment and by the lab's own logging, as in waves 2 and 3.
+Work on a new branch, not on `main`, and do not merge. Every change to the plugin is a claim with
+an independent verdict, as before. I decide which ones land.
+In this order, as far as the budget goes:
+
+1. Open item 1, the Desktop probe. You are a Desktop session. Find out what the plugin's
+hooks receive here (`cwd`, `CLAUDE_PROJECT_DIR`, the lab root that `user_words.py` resolves).
+Check whether my prompt landed in this lab's `__statera__/user_words.md`; answers I gave in
+the question dialog never reached it in waves 2 and 3. That decides the parked w01-c10.
+2. Open item 8. The report check pushes explorers past 100% of their budget after they have
+decided to stop. Try the one-line fix in the explorer file (write the report before handing
+back), and check it.
+3. Open item 10, compliance or anxiety. 5 of 8 workers handed back at 75–99%. Run a control
+without notes at the same budgets.
+4. Open item 11, search and reuse of `__instrumenta__/`. Use a lab whose workers start after
+scripts already exist, with enough scripts that `ls` is not the cheaper search.
+5. Open item 9, the hooks' own cost. The budget hook costs about 90–100 ms of Python on every
+tool call of every agent, the PI's included, and rescans the transcript each time. I said:
+"Everything has a cost. things that look fast (like 100ms) piles up [...] the system itself must
+be frugal [...] be lean." Measure first, then make the hooks lean.
+6. Open item 14, the small fixes, if budget is left.
+
+Leave alone:
+
+* Open item 12: whether verifiers are exempt from the reuse rule for the code they check. I am
+undecided.
+* Open item 4: budgets and team size. It needs several runs per arm.
+
+
+Budget: USD 100 of total spend for this wave, and stop by 12:00 JST. Pre-register each
+experiment's metrics and decision rule in a committed file before running it. Quote spend only from
+Claude Code's cost records or `/lab-status`. Close the wave with every puzzle disposed, update the synthesis, and show me what is still open.
+
+Method note: following the teachings of the lab research loop skill, the items above are open puzzles not a checklist.
+
+## 2026-10-21 14:29
+
+You can proceed with a wave 5 to self optimize your lab system. I'd really like that you work on optimizing the speed and leanness of operating your lab. Of course, just like the other puzzle, this is not a checklist item but part of the trajectory. 
+
+note: make sure you are always running the latest version of the plugin on yourself
+
+## 2026-10-21 14:31
+
+By the way, everytime I read the overview of the work plan you write, such as:
+
+
+```
+
+Load research-loop skill and lab state
+
+Confirm latest plugin version is running
+
+Read prior waves' notes and open puzzles
+
+Measure where lab time and tokens go
+
+Probe and harden speed/leanness changes
+
+Write wave 5 note and synthesis
+
+```
+
+
+i note that you never consider replan or reassessment as part of the plan for the purpose of pushing forward. It feels a bit strange or uncanny given the point of your agent system is to be a research lab and explore a topic. That's puzzling.
+
+## 2026-10-21 14:32
+
+Oh, and I forgot to give you the budget: you can spend 150USD for this wave. Take the time you need.
+
+## 2026-10-21 14:39
+
+I ran /reload-plugins. Check which copy loaded and dispatch the probes.
