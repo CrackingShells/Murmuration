@@ -7,7 +7,7 @@ The "0 changes" replays (decide_diff, the recorded-call replay) run `decide()` i
 refs: __instrumenta__/w06c14_cmd_equal.py, /private/tmp/murmuration-w06/author-w06-7.equal.out
 
 ## S-w06-author-w06-7-3
-The other 4 non-guard rows with plain `python3` (`user_words.py`, `resume_brief.py`, and others at the head of `hooks/hooks.json`) were left alone: the brief names the guard only. `user_words.py` runs on every user prompt, `resume_brief.py` on resume or compact; whether they read the environment or import siblings (and so cannot take `-I`) I did not check.
+The two other rows that still start plain `python3` (`user_words.py` on UserPromptSubmit and `resume_brief.py` on SessionStart resume|compact, at the head of `hooks/hooks.json`) were left alone: the brief names the guard only. `user_words.py` runs on every user prompt, `resume_brief.py` on resume or compact; whether they read the environment or import siblings (and so cannot take `-I`) I did not check.
 refs: hooks/hooks.json lines 4-25
 
 ## S-w06-author-w06-7-4
