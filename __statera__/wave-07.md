@@ -150,6 +150,24 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
     PreToolUse hook (`uv run`) took a median 431 ms per Bash call (n = 10, load 9). It is the
     user's configuration and another repository; it goes to the report as theirs.
 
+- 01:50, after author-w07-1 returned (w07-c1, P1):
+  - **P1 does not land, by its rule, and I do not override it.** p2–p4 pass: the PI without the
+    Skill tool read `research-loop` and its references at the real path (6 of 6, 0 failed Reads),
+    took the same 3 requests, and ran `/lab-status` and `/lab`. But p5 fails on a real loss: the
+    built-in `dataviz` skill has no `SKILL.md` on disk, so a PI without the Skill tool cannot reach
+    it (0 of 2), and wave 6's PI used it. p1 fails in one pair (8,236 against 9,000) on a noise
+    source my registration missed: the deferred tool-name list changes with which MCP servers have
+    connected at launch (110 to 229 names, `mcp__arangodb__*` alone 119), about 2.4k tokens. Where
+    the names match, the drop is 10.6–11.9k tokens.
+  - Why no override, when wave 6 overrode e2: there the rule failed at the physical ceiling of an
+    identical-behaviour change. Here a capability is lost. By the user's "User experience and
+    efficiency downstream is what matters", a PI that cannot draw a figure with the user's own skill
+    is a worse PI for about 11k cached tokens a request (an ESTIMATE of USD 1 a wave at cache-read
+    price, to be priced in the synthesis from `lab_status.py`'s prices).
+  - What the lab learned: the listing is all or nothing, and the PI's request 0 is not a constant of
+    the plugin. It moves by thousands of tokens with the user's MCP servers' connection timing
+    (S-w07-author-w07-1-1). reproducer-w07-1 checks the numbers the synthesis will quote.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -160,7 +178,8 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | explorer-w07-d | explorer | serial loops and algorithms in the lab's code: profile `lab_status.py` and the replays; scaling curves for parallel Python, a better algorithm, Rust | |
 | explorer-w07-e | explorer | the PI's skills listing and the workers' allowlists: what can be excluded, and how, without losing `research-loop` | 546a4b9: `Skill` denied −11.7–12.0k tokens; listing all or none; Wolfram never called but costs names only |
 | explorer-w07-f | explorer | read-only: where Claude Code enforces `disableBypassPermissionsMode`; how `user_words.py` can tell a session's message from the user's (item 28) | 70629c1: first-wins managed tier, the file probably dropped; `origin.kind` marks typed prompts |
-| author-w07-1 | author | w07-c1: P1, the PI without the skills listing | |
+| author-w07-1 | author | w07-c1: P1, the PI without the skills listing | 9a942f3 (branch w07-p1-skill): p1 and p5 fail; does not land |
+| reproducer-w07-1 | reproducer | verify w07-c1 offline, for the numbers the synthesis quotes | |
 | explorer-w07-g | explorer | split the classifier-decided Bash call's 1.5 s; four ways of the same reads; subagent cache lifetime | |
 | author-w07-3 | author | w07-c3: P3, every hook row in exec form | |
 | author-w07-2 | author | w07-c2: P2, `user_words.py` keeps only typed prompts | |
