@@ -1,0 +1,54 @@
+agent	start	secs	tool	bg	head
+author-w04-4	10:14:06	602	Bash		W=/private/tmp/murmuration-w04/author-w04-4; until [ "$(wc -l < $W/final.log)" -ge 3 ]; do sleep 10; done; cat $W/final.log; wc -l $W/final_posix_n60.
+author-w04-3	09:48:28	601	Bash		cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; D=/private/tmp/murmuration-w04/author-w04-3; rm -rf $D/lab_scri
+author-w04-2	10:09:19	541	Bash		S=/private/tmp/murmuration-w04/author-w04-2; timeout 590 sh -c "until [ \$(ls $S/runs/ux-*/meta.json 2>/dev/null | wc -l) -ge 4 ] || ! pgrep -f watch.
+author-w04-2	09:49:33	386	Bash		S=/private/tmp/murmuration-w04/author-w04-2; timeout 580 sh -c "until [ \$(ls $S/runs/e2-c*/meta.json $S/runs/x-*/meta.json 2>/dev/null | wc -l) -ge 9
+author-w04-2	10:26:52	343	Bash		S=/private/tmp/murmuration-w04/author-w04-2; timeout 595 sh -c "until ! pgrep -f watch2.py >/dev/null; do sleep 5; done"; ls $S/runs/e1b-*/meta.json $
+author-w04-2	09:43:05	337	Bash		S=/private/tmp/murmuration-w04/author-w04-2; timeout 560 sh -c "until [ \$(ls $S/runs/e1-*/meta.json 2>/dev/null | wc -l) -ge 6 ]; do sleep 5; done"; 
+author-w04-2	09:56:34	313	Bash		S=/private/tmp/murmuration-w04/author-w04-2; timeout 590 sh -c "until [ \$(ls $S/runs/x-c*/meta.json 2>/dev/null | wc -l) -ge 3 ]; do sleep 5; done"; 
+author-w04-2	10:03:30	307	Bash		S=/private/tmp/murmuration-w04/author-w04-2; timeout 590 sh -c "until [ \$(ls $S/runs/u-*/meta.json 2>/dev/null | wc -l) -ge 9 ]; do sleep 5; done"; l
+author-w04-4	10:08:35	281	Bash		python3 - <<'PYEOF' p="__instrumenta__/hook_cost_time.py"; s=open(p).read() a='FLOORS = {"floor:sh-noop": "sh -c :",'; assert s.count(a)==1 s=s.replac
+author-w04-2	10:44:02	265	Bash		S=/private/tmp/murmuration-w04/author-w04-2; timeout 590 sh -c "until [ \$(ls $S/runs/e1c-*/meta.json 2>/dev/null | wc -l) -ge 3 ]; do sleep 5; done";
+author-w04-2	09:38:21	235	Bash		S=/private/tmp/murmuration-w04/author-w04-2; timeout 500 sh -c "until [ -s $S/runs/pilot-A/meta.json ] && [ -s $S/runs/pilot-C/meta.json ]; do sleep 5
+author-w04-3	10:33:38	213	Bash		D=/private/tmp/murmuration-w04/author-w04-3; for i in $(seq 1 55); do grep -q done $D/e3c_loop.log 2>/dev/null && break; sleep 10; done; cat $D/e3c_lo
+author-w04-3	09:39:01	184	Bash		cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; D=/private/tmp/murmuration-w04/author-w04-3; time python3 -I __
+author-w04-4	09:58:43	182	Bash		W=/private/tmp/murmuration-w04/author-w04-4; source $W/paths.env; export COLGREP_DATA_DIR=$W/colgrep; unset CLAUDE_PROJECT_DIR; (uptime; time python3 
+author-w04-3	09:44:47	174	Bash		cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; D=/private/tmp/murmuration-w04/author-w04-3; time python3 -I __
+author-w04-3	10:12:49	170	Bash		D=/private/tmp/murmuration-w04/author-w04-3; grep -L "built the colgrep index" $D/runs/[pq]t*/lab_init.out; for i in $(seq 1 25); do n=$(grep -l '"typ
+author-w04-3	10:21:17	170	Bash		cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; D=/private/tmp/murmuration-w04/author-w04-3; python3 -I __instr
+author-w04-4	10:04:55	167	Bash		W=/private/tmp/murmuration-w04/author-w04-4; source $W/paths.env; export COLGREP_DATA_DIR=$W/colgrep; unset CLAUDE_PROJECT_DIR; (uptime; time python3 
+author-w04-2	10:33:34	165	Bash		S=/private/tmp/murmuration-w04/author-w04-2; timeout 590 sh -c "until [ \$(ls $S/runs/e2b-a*/meta.json 2>/dev/null | wc -l) -ge 3 ]; do sleep 5; done"
+reproducer-w04-3	10:33:28	151	Bash		timeout 150 tail -f /dev/null; date
+reproducer-w04-5	10:32:59	148	Bash		S=/private/tmp/murmuration-w04/reproducer-w04-5; LONG=~/.claude/projects/-private-tmp-reproducer-w03-1-s2-runs-r1-lab/e08e7434-4338-497d-b7c1-339f5856
+author-w04-3	10:16:46	144	Bash		D=/private/tmp/murmuration-w04/author-w04-3; for i in $(seq 1 30); do n=0; for r in pt2r1 pt2r2 qt1r3 qt2r1; do grep -q '"type":"result"' $D/runs/$r/r
+author-w04-3	10:00:36	123	Bash		D=/private/tmp/murmuration-w04/author-w04-3; for i in 1 2 3 4 5 6 7 8; do n=$(grep -l '"type":"result"' $D/runs/ct*/run.jsonl 2>/dev/null | wc -l); [ 
+reproducer-w04-4	10:16:24	122	Bash		for i in 1 2 3 4 5 6 7 8 9 10 11 12; do python3 -c "import time; time.sleep(10)"; done; echo waited
+reproducer-w04-3	10:31:25	121	Bash		timeout 120 tail -f /dev/null; ls -la /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be/__pondus__/w04-c3.md
+reproducer-w04-2	10:33:05	116	Bash		timeout 115 sh -c 'until [ -n "$(find __pondus__/w04-c2.md __reports__/reflective_run/w04/author-w04-2 -newer __scrupuli__/wave-04-reproducer-w04-2.md
+reproducer-w04-2	10:31:07	116	Bash		timeout 115 sh -c 'until [ -n "$(find __pondus__/w04-c2.md __reports__/reflective_run/w04/author-w04-2 -newer __scrupuli__/wave-04-reproducer-w04-2.md
+reproducer-w04-2	10:29:13	111	Bash		timeout 110 sh -c 'until [ -n "$(find __pondus__/w04-c2.md __reports__/reflective_run/w04/author-w04-2 -newer __scrupuli__/wave-04-reproducer-w04-2.md
+reproducer-w04-4	10:10:41	110	Bash		cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; S=/private/tmp/murmuration-w04/reproducer-w04-4; mkdir -p $S/co
+reproducer-w04-8	10:51:21	108	Bash		until [ -s /private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-4-3417be/c533f1c6-c56e-4c8d-b6ff-e90c3dde
+author-w04-3	10:24:13	107	Bash		cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; python3 - <<'EOF' p='__instrumenta__/e3_measure.py' s=open(p).r
+reproducer-w04-5	10:41:38	103	Bash		S=/private/tmp/murmuration-w04/reproducer-w04-5; python3 - <<'EOF' import shutil,subprocess,os S="/private/tmp/murmuration-w04/reproducer-w04-5" shuti
+author-w04-1	09:38:56	103	Bash		cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; R=/private/tmp/murmuration-w04/author-w04-1; mkdir -p $R/after/
+reproducer-w04-5	10:37:34	93	Bash		python3 - <<'EOF' p="__instrumenta__/w04c5_paired_hook_timing.py" s=open(p).read() s=s.replace('--grow adds,','--stdin sock feeds the payload through 
+author-w04-4	09:38:42	93	Bash		W=/private/tmp/murmuration-w04/author-w04-4; md5 -q ~/.claude/plugins/installed_plugins.json; export REC_DIR=$W/rec COLGREP_DATA_DIR=$W/colgrep; unset
+reproducer-w04-3	10:29:51	91	Bash		timeout 90 tail -f /dev/null; echo done
+reproducer-w04-2	10:26:16	89	Bash		mkdir -p /private/tmp/murmuration-w04/reproducer-w04-2 && env -u CLAUDE_PROJECT_DIR sh __instrumenta__/budget_arms_run_all.sh /private/tmp/murmuration
+reproducer-w04-5	10:46:04	88	Bash		S=/private/tmp/murmuration-w04/reproducer-w04-5 && L=__reports__/reflective_run/w04/author-w04-4/derived/replay_transcripts_291.txt && wc -l < $L && s
+author-w04-2	10:19:55	87	Bash		cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; cat > __instrumenta__/budget_arms_run_all.sh <<'EOF' #!/bin/sh 
+reproducer-w04-4	10:15:00	82	Bash		cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; for i in 1 2 3 4 5 6 7 8; do python3 -c "import time; time.slee
+reproducer-w04-8	10:41:37	80	Bash		until [ -s /private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-4-3417be/c533f1c6-c56e-4c8d-b6ff-e90c3dde
+reproducer-w04-5	10:30:36	73	Bash		S=/private/tmp/murmuration-w04/reproducer-w04-5 && time env -u CLAUDE_PROJECT_DIR python3 __instrumenta__/hook_replay_equiv.py --old $S/old --new $S/n
+author-w04-3	09:43:15	71	Bash		cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; python3 - <<'EOF' p='__instrumenta__/e3_run_workers.py' s=open(
+author-w04-3	10:11:33	71	Bash		cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; python3 - <<'EOF' p='__instrumenta__/e3_measure.py' s=open(p).r
+author-w04-2	09:37:15	61	Bash		cat > __instrumenta__/budget_arms_analyze.py <<'EOF' #!/usr/bin/env python3 """Computes the E1/E2 metrics (denies, fraction at first and final hand-ba
+author-w04-3	10:03:56	61	Bash		cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; O=__reports__/reflective_run/w04/author-w04-3; cat > $O/run_all
+reproducer-w04-9	10:41:05	61	Bash		timeout 60 tail -f /dev/null; echo waited
+author-w04-4	09:55:57	61	Bash		python3 - <<'PYEOF' p="__instrumenta__/hook_replay_equiv.py"; s=open(p).read() a='    fx = os.path.join(os.path.abspath(args.fx), tag)\n'; assert s.co
+reproducer-w04-3	10:28:58	51	Bash		timeout 50 tail -f /dev/null; echo done
+reproducer-w04-4	10:14:08	49	Bash		cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; for i in 1 2 3 4 5 6; do python3 -c "import time; time.sleep(8)
+author-w04-4	09:36:29	48	Bash		cd /tmp && python3 - <<'EOF' import subprocess,time,statistics as st def t(cmd,n=40,shell=True):     xs=[]     for _ in range(n):         a=time.perf_
+author-w04-3	09:37:42	47	Bash		cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; D=/private/tmp/murmuration-w04/author-w04-3; md5 ~/.claude/plug
+reproducer-w04-1	09:50:42	46	Bash		md5 ~/.claude/plugins/installed_plugins.json; ls /private/tmp/murmuration-w04/reproducer-w04-1/run2; sleep 45
