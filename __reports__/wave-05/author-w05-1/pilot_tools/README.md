@@ -1,0 +1,13 @@
+# w05-c1 pilot: Monitor in `tools:` and the source of the `sleep` block (haiku, Claude Code 2.1.304, headless)
+
+Test plugin: `plugin.json` + `waitm.md` (tools: Bash, Read, Monitor) and `waitn.md` (tools: Bash, Read), as `<scratch>/plugin/`. Run:
+`cd <scratch>/cwd && claude -p --plugin-dir ../plugin --model haiku --permission-mode auto --output-format stream-json --verbose [--settings ../nohooks.json] "$(cat ../promptN.txt)" < /dev/null`
+Raw streams stay in `/private/tmp/murmuration-w05/author-w05-1/pilot-tools/` (not committed: hook payloads). Costs: USD 0.0136, 0.0101, 0.0102 (nohooks), 0.0086.
+
+| Probe | Prompt | Result (MEASURED, n=1 each) |
+|:--|:--|:--|
+| 1 | prompt.txt | `waitm` (Monitor in tools) listed its tools as Bash, Read, Monitor, SubagentHandback and Monitor was accepted: "Monitor started (task ..., 30s expiry)". `waitn` (no Monitor) listed Bash, Read, SubagentHandback; it made no Monitor call. So a subagent gets Monitor through `tools:`. |
+| 2 default | prompt2.txt | `sleep 10; echo a` and `sleep 20; echo b` ran; `sleep 30; echo c` and `sleep 45; echo d` returned `<tool_use_error>Blocked: sleep 30 followed by: echo c. To wait for a condition, use Monitor with an until-loop ... Do not chain shorter sleeps to work around this block.</tool_use_error>`. `timeout 12 sh -c 'until [ -f /x ]; do sleep 5; done'; echo e` was not blocked. |
+| 2 nohooks | prompt2.txt, `--settings nohooks.json` (`disableAllHooks: true`) | the same: 10 and 20 ran, 30 and 45 blocked, the until loop ran. The default run printed 3 `hook_started` records, this one 0. So the block is not a hook (not the plugin's, not the user's); it is Claude Code. The threshold lies between 20 and 30 s (21 to 29 not tried); in E5's pilot-A2 `sleep 100` was blocked. |
+| 2 side finding | same | a Bash call with only the default `timeout` that runs past 120 s is moved to the background: "Command did not complete within its 120s timeout and was moved to the background (ID ...). You will be notified when it completes. If it is still running after 10m in the background, it will be stopped". A foreground wait therefore needs `timeout: <ms>` in the call. |
+| 3 | prompt3.txt | `waitm` called Monitor on a 60 s loop printing `eventN` every 10 s, was told it had no other way to wait. Monitor returned "Monitor started (task ..., expires in 2m ... you get one notice at expiry)"; no event reached the worker; it ended its turn and handed back "incomplete". So Monitor starts in a subagent but is not a way to wait inside its run: a worker that waits only on events ends its turn, and a later event would resume it cold (cf. S-w05-explorer-w05-c-1). |

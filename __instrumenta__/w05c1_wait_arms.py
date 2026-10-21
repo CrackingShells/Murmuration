@@ -267,7 +267,7 @@ def metrics(root, rid, secs):
     nums = set(re.findall(r"\d+", ctext.replace(",", "")))
     m5 = str(exp) in nums and str(exp2) in nums
     proc = json.load(open(os.path.join(base, "proc.json"))) if os.path.exists(os.path.join(base, "proc.json")) else {}
-    out = dict(id=rid, session=session, requests=len(order), max_ctx=max(r["ctx"] for r in reqs.values()),
+    out = dict(id=rid, requests=len(order), max_ctx=max(r["ctx"] for r in reqs.values()),
                ctx_at_first_wait=next((rows[i]["ctx"] for i, mid in enumerate(order) if i + 1 < len(rows) and (rows[i + 1]["gap_s"] or 0) > 60), None),
                m1_cold_midrun=cold, m2_longest_tool_s=round(longest[0], 1), m2_longest_tool=longest[1] + " " + longest[2][:100],
                max_gap_between_requests_s=max([r["gap_s"] or 0 for r in rows]),
