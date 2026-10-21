@@ -370,6 +370,28 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
     Code dispatch a generic agent with a 33k context, silently.
   - Merged `w07-p6-cachettl`.
 
+- 04:50, after author-w07-5 returned (w07-c6, P5):
+  - **The Rust guard passes g1–g4 by the rule.** 0 differences from `permission_guard.py` over
+    20,847 events run as real processes (121 registered cases, 4 malformed, 8,722 recorded calls,
+    12,000 fuzzed). It fails closed on a crash, a hang (20 s), a missing binary, an unrunnable file,
+    and a data folder it cannot write. Outside the platform: start-to-exit 32.3 → 16.5 ms (598 of
+    600 pairs), CPU 17.6 → 1.6 ms (600 of 600); 16.5 ms is the machine's one-exec floor. In the
+    platform: the recorded hook 23.5 ms lower, 19 of 19 pairs (default mode). Session wall equal.
+    std only, no dependencies, about 410 KB a target, 2.7 s a build.
+  - **Two findings beyond speed:** the Python guard runs past 40 s on one 300 kB word (regex
+    backtracking), which in a session is a 20 s stall and then a block; the binary answers in
+    0.05 s. And on JSON types the platform never sends (a float where a string is expected), the
+    binary denies where Python allows.
+  - **What I want checked before main:** that the committed binaries rebuild byte for byte from
+    the committed source (a binary is not reviewable from a diff, so reproducibility is the
+    review); the installer under two simultaneous session starts; the data folder of an installed
+    plugin rather than `--plugin-dir`; a mutation test of the checker. reproducer-w07-5 does that.
+  - **The risk I carry into the landing:** the guard now depends on a file outside the repository
+    (`${CLAUDE_PLUGIN_DATA}/bin/murmuration`), put there by a SessionStart hook. If it is missing,
+    every Bash call is blocked, loudly, until the next session start. The Desktop was not run. So
+    the merge to main is followed at once by a headless smoke run from main's own tree, and is
+    reverted if it fails.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -386,7 +408,8 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | author-w07-3 | author | w07-c3: P3, every hook row in exec form | 2e043b7: x1, x4 pass (10/10, ~71–77 ms a start); x2, x3 mostly; wall unresolved |
 | reproducer-w07-3 | reproducer | verify w07-c3, with the missing live note and failure cases | 9658909: SUPPORTED |
 | author-w07-4 | author | w07-c4: P4, `lab_status.py` without the git child, usage fields priced | 627fb4d: o1–o4 pass, 0.051 s a call; change 1 dropped by PI decision; change 2 split for landing |
-| author-w07-5 | author | w07-c6: P5, the permission guard as a Rust binary in exec form | |
+| author-w07-5 | author | w07-c6: P5, the permission guard as a Rust binary in exec form | bd27a00: g1–g4 pass; 0 differences in 20,847; −16 ms CPU a start |
+| reproducer-w07-5 | reproducer | verify w07-c6: reproducible build, installer races, checker mutation | |
 | author-w07-6 | author | w07-c7: P6, a 1-hour cache for authors | 6041f28: c1–c3 pass; c4 +USD 0.87 of 47.80, fragile |
 | reproducer-w07-4 | reproducer | verify w07-c4's landing build (change 2) | ffd1f6b: SUPPORTED at c473203 |
 | reproducer-w07-6 | reproducer | verify w07-c7, c2 rerun apart | 033e274: ESCALATE (restatement); PI: lands by rule |
