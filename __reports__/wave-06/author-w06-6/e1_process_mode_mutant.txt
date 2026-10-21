@@ -1,0 +1,20 @@
+dispatch#0     rc 0/0 stdout    0/   0 bytes stderr 0/0 EQUAL
+start#0        rc 0/0 stdout 1002/1002 bytes stderr 0/0 EQUAL
+quiet#0        rc 0/0 stdout    0/   0 bytes stderr 0/0 EQUAL
+quiet-batch#0  rc 0/0 stdout    0/   0 bytes stderr 0/0 EQUAL
+half#0         rc 0/0 stdout    0/   0 bytes stderr 0/0 EQUAL
+half-batch#0   rc 0/0 stdout  136/ 136 bytes stderr 0/0 EQUAL
+over#0         rc 0/0 stdout  282/ 282 bytes stderr 0/0 EQUAL
+block#0        rc 0/0 stdout  218/ 218 bytes stderr 0/0 EQUAL
+deny#0         rc 0/0 stdout  473/ 473 bytes stderr 0/0 EQUAL
+deny-again#0   rc 0/0 stdout    0/   0 bytes stderr 0/0 EQUAL
+save#0         rc 0/0 stdout    0/   0 bytes stderr 0/0 EQUAL
+save#1         rc 0/0 stdout    0/   0 bytes stderr 0/0 EQUAL
+stop#0         rc 0/0 stdout    0/   0 bytes stderr 0/0 EQUAL
+stop#1         rc 0/0 stdout    0/   0 bytes stderr 0/0 EQUAL
+main#0         rc 0/0 stdout    0/   0 bytes stderr 0/0 EQUAL
+not-json#0     rc 0/0 stdout    0/   0 bytes stderr 0/0 EQUAL
+log            EQUAL (6 entries)
+handbacks      DIFF (1 entries)
+denied         EQUAL (1 entries)
+starts 16 / 16, differences 1
