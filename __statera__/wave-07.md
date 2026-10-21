@@ -314,6 +314,24 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
     author reading 100k+ tokens instead of re-writing them starts its answer sooner. I keep the
     rule as registered; the synthesis states the estimate with its fragility.
 
+- 03:55, after reproducer-w07-2's verdicts (w07-c2 SUPPORTED, w07-c5 SUPPORTED):
+  - **PI decision: P2 v1 lands.** Reproduced: 0 errors offline on 3,027 records; live, 3 of 3
+    inherited first prompts dropped, 4 of 4 terminal-like kept within 0.13–0.39 s; the hook in the
+    background in 8 of 8; no visible added wait against main's synchronous row (median 0.158 s
+    against 0.250 s, interleaved but not randomised); 21 failure cases equal to main's. Of the
+    `user_words.md` entries it could match, it drops exactly the three known wrong ones and no typed
+    entry.
+  - **Its two costs, accepted and stated:** a crash of the recorder under `async` leaves only a
+    debug-log line, where main's synchronous row leaves a transcript record; and a prompt followed by
+    a quit within about 0.4 s may go unrecorded. Against them: the lab stops writing another
+    session's words as the user's, which is the record the user's question is read from. The script
+    catches its own exceptions, so the silent case is an interpreter that does not start, which every
+    other hook would show.
+  - Not run by anyone: a live typed prompt in the Desktop. The first one after the merge is the
+    check (the next `user_words.md` entry).
+  - Protocol note: author-w07-2 added a note to the claim head during verification (open item 5,
+    again); it states costs and changes no number.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -334,7 +352,7 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | author-w07-6 | author | w07-c7: P6, a 1-hour cache for authors | 6041f28: c1–c3 pass; c4 +USD 0.87 of 47.80, fragile |
 | reproducer-w07-4 | reproducer | verify w07-c4's landing build (change 2) | |
 | reproducer-w07-6 | reproducer | verify w07-c7, c2 rerun apart | |
-| reproducer-w07-2 | reproducer | verify w07-c2 and w07-c5, with the missing controls | |
+| reproducer-w07-2 | reproducer | verify w07-c2 and w07-c5, with the missing controls | SUPPORTED both; async crash silent; v1 lands |
 | author-w07-2 | author | w07-c2: P2, `user_words.py` keeps only typed prompts | e84afec (branch w07-p2-origin): q1 passes, q2 fails (record written after the hook); resumed for v1 as w07-c5; 7fbee58: v1 r1, r2, r4 pass; r3 and crash controls missing |
 
 ## Claims of this wave
