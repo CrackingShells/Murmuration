@@ -134,6 +134,30 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
   - A plain commit in this shared checkout swept a staged revert into another author's commit
     (baba44f). I filed w05-c8 (commit by naming paths) and w05-c9 (reassessments in the procedure,
     CONJECTURE). Both are with reproducer-w05-8.
+- 16:16 (the closing commit), at close:
+  - **PI decision on w05-c1's ESCALATE:**
+    - The switch to a subagent worker is accepted on substance and recorded post hoc in protocol
+      v1, as its "v2 note".
+    - The head is restated in place to the runs (7c09d58).
+    - The paragraph gets two untested text fixes: pid and log named per agent, and "4½ minutes"
+      (5906331).
+    - Not seen by anyone until now: E5's arms were both exported from baba44f, the commit that
+      carried the swept-in w04-c5 lean hooks. The two arms are equal in hooks, so the comparison
+      stands, but neither ran main's hooks.
+  - **w05-c4:** the verifier's true-batch replay shows the second lean build is not only faster.
+    It sends an extra message on 11 of 197 transcripts. My puzzle 4 ("blocked for reasons that are
+    not about leanness or correctness") was premature. The rule's "not proposed" stands on a real
+    behaviour difference as well.
+  - **Verifiers changed something in 6 of 7 claims they closed:**
+    - two real cache defects (w05-c5);
+    - an unrecorded protocol switch and a shared pid file (w05-c1);
+    - a replay that could not see parallel batches (w05-c4);
+    - "intact" that was only "present" (w05-c6);
+    - my own estimated clock times (w05-c9);
+    - the missing `git add` for new files (w05-c8).
+  - Untracked puzzle: `S-w05-reproducer-w05-1-2b` has an id `/lab-status` does not parse (the
+    letter suffix). Its content, the shared pid file seen in the raw logs, is the same as
+    S-w05-reproducer-w05-1-1. Parked with it as followed by w05-c1.
 
 ## Dispatches
 
@@ -145,25 +169,127 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
 | explorer-w05-d | explorer | non-model overhead: hook starts, lab_status, lab_init, Python start; USD 4, 30 min | yes; auto-mode 0.85 s/call found, 5 puzzles |
 | explorer-w05-e | explorer | leanest way for a worktree session to run its own branch of the plugin; USD 4, 30 min | yes; cause found (--project-config-root), 4 puzzles |
 | author-w05-1 | author | w05-c1 (E5, how a worker waits), then w05-c2 (colgrep path); USD 12, 75 min, runs ≤ USD 15 | yes; E5 proposes B (cost 0.57 of A at 227k context); c2 CHECKED; runs about USD 10.5 |
-| reproducer-w05-1 | reproducer | verify w05-c1, then w05-c2; USD 3, 35 min, runs ≤ USD 3.5 | |
+| reproducer-w05-1 | reproducer | verify w05-c1, then w05-c2; USD 3, 35 min, runs ≤ USD 3.5 | w05-c1 ESCALATE (unrecorded switch to subagent; title); w05-c2 SUPPORTED |
 | author-w05-2 | author | w05-c3 (E6, `tools:` for the PI); USD 5, 40 min, runs ≤ USD 5; resumed for w05-c6 (E6b denylist), USD 3, 25 min | w05-c3 filed: E6 proposes B; connectors dropped (unmetered); w05-c6: E6b proposes D (tip b554266); w05-c7 restates w05-c6 |
 | reproducer-w05-3 | reproducer | verify w05-c3 at baba44f/36e1b47; USD 2.5, 20 min | SUPPORTED; title arithmetic loose (medians vs mean) |
 | reproducer-w05-6 | reproducer | verify w05-c6; USD 2, 20 min; resumed for w05-c7, USD 0.6, 6 min | w05-c6 OVERSTATED (presence not use; four entries unrun; Artifact a judgement); w05-c7 SUPPORTED |
 | author-w05-3 | author | w05-c4 (E7, lean hooks v2), then w05-c5 (E8, lab_status); USD 10, 75 min | yes; E7 not proposed (m1 ill-posed, m3 at 500 KB), set aside 0d3c879; E8 proposed |
-| reproducer-w05-4 | reproducer | verify w05-c4; USD 2.5, 25 min | |
-| reproducer-w05-5 | reproducer | verify w05-c5; USD 1.5, 15 min | |
-| reproducer-w05-8 | reproducer | verify w05-c8 and w05-c9 (PI-authored); USD 1, 10 min | |
+| reproducer-w05-4 | reproducer | verify w05-c4; USD 2.5, 25 min | SUPPORTED; true-batch replay found 11 transcripts with an extra message |
+| reproducer-w05-5 | reproducer | verify w05-c5; USD 1.5, 15 min | SUPPORTED after two real cache defects were fixed (9da5a47) |
+| reproducer-w05-8 | reproducer | verify w05-c8 and w05-c9 (PI-authored); resumed for w05-c10 | w05-c8 SUPPORTED; w05-c9 OVERSTATED (my clock labels were estimates); w05-c10 SUPPORTED |
 | explorer-w05-f | explorer | auto mode's per-call cost and the first-Bash shell start; USD 3, 25 min, runs ≤ USD 2 | yes; hidden classifier per call; bash shell 0.5 s first call; 4 puzzles |
 
 ## Claims of this wave
 
 | Claim | Statement | Current label |
 |:--|:--|:--|
+| w05-c1 | the waiting paragraph: 0 cold requests against 1, cost 0.57 of A at 227k context (author subagent, one task) | MEASURED, restated in place by PI decision on ESCALATE |
+| w05-c2 | colgrep path in the agent files is absolute; the relative one searched the plugin source | CHECKED |
+| w05-c3 | `tools:` allowlist for the PI: 30.5k to 15.0k tokens at request 0, headless | superseded by w05-c7 (via w05-c6) |
+| w05-c4 | lean hooks, second build: hook serial time −52.5 to −56%; behaviour differs on 11 of 197 transcripts in true batches | MEASURED; not proposed by E7, set aside at 0d3c879 |
+| w05-c5 | `lab_status.py`: one git call and a parse cache, 835 to 261 ms warm, output identical | MEASURED (on the tip, 9da5a47) |
+| w05-c6 | denylist for the PI, first statement | superseded by w05-c7 |
+| w05-c7 | `disallowedTools:` for the PI: about 15,690 tokens off request 0 in 4 of 4 pairs, connectors present | MEASURED (on the tip, b554266) |
+| w05-c8 | commit by naming paths; a plain commit takes another agent's staging | CHECKED |
+| w05-c9 | reassessment entries, first statement | superseded by w05-c10 |
+| w05-c10 | six reassessment entries record changes of plan; procedure asks for them | CONJECTURE |
 
 ## Puzzle dispositions (at close)
 
 | Puzzle | Disposition |
 |:--|:--|
+| S-w05-author-w05-1-1 | followed: w05-c1 (worker run as a subagent; protocol v2 note) |
+| S-w05-author-w05-1-2 | followed: w05-c1 (the paragraph polls; Monitor not added) |
+| S-w05-author-w05-1-3 | parked: open item 19 (the stop-your-jobs clause is unexercised) in __statera__/synthesis.md |
+| S-w05-author-w05-1-4 | followed: w05-c1 (the paragraph names `timeout: 270000`) |
+| S-w05-author-w05-1-5 | followed: w05-c1 (PI decision: "4½ minutes", 5906331) |
+| S-w05-author-w05-1-6 | followed: w05-c2 |
+| S-w05-author-w05-1-7 | parked: disclosed in w05-c1 (the dispatcher's cost is inside each run's total) |
+| S-w05-author-w05-2-1 | parked: open item 17 (platform facts: the headless Agent tool has no `name`) |
+| S-w05-author-w05-2-2 | followed: w05-c7 (denylist chosen; the allowlist's silent drops stated) |
+| S-w05-author-w05-2-3 | parked: open item 17 (`tools:` can add a tool) |
+| S-w05-author-w05-2-4 | parked: open item 20 (the Desktop check of w05-c7) in __statera__/synthesis.md |
+| S-w05-author-w05-2-5 | parked: method note (a token threshold is a cliff; see S-w05-research-pi-4) |
+| S-w05-author-w05-2-6 | followed: w05-c6 and w05-c7 |
+| S-w05-author-w05-2-7 | parked: disclosed in w05-c3 (cold pilot costs) |
+| S-w05-author-w05-2-8 | parked: open item 8 (the report check makes a "write no file" explorer write one) |
+| S-w05-author-w05-2-9 | followed: w05-c6 (the verifier traced the wall time to the explorer side) |
+| S-w05-author-w05-2-10 | parked: method note (both rules met by under 700 tokens; Artifact is 74% of either) |
+| S-w05-author-w05-3-1 | followed: w05-c8 |
+| S-w05-author-w05-3-2 | followed: w05-c4 (withdrawn in the exchange; the build differs on 11 of 197 transcripts in true batches) |
+| S-w05-author-w05-3-3 | parked: open item 9 in __statera__/synthesis.md |
+| S-w05-author-w05-3-4 | parked: open item 9 (block reads cost a process start here) |
+| S-w05-author-w05-3-5 | parked: method note (machine load moves wall figures more than the change; interleave) |
+| S-w05-author-w05-3-6 | parked: disclosed in w05-c4 (three headless runs, two pilots) |
+| S-w05-author-w05-3-7 | parked: open item 9 (failed and denied calls under a PostToolUse-only build) |
+| S-w05-author-w05-3-8 | followed: wave 5 reassessment of 15:08 (the weight moved from hooks to waits) |
+| S-w05-author-w05-3-9 | parked: open item 9 (two starts per hand-back event) |
+| S-w05-explorer-w05-a-1 | parked: open item 4 (whether time boxes set the chain length) |
+| S-w05-explorer-w05-a-2 | parked: open item 21 (the experiment pipeline: batch width, pilot cell) in __statera__/synthesis.md |
+| S-w05-explorer-w05-a-3 | parked: open item 21 (keep timing records without account identifiers) |
+| S-w05-explorer-w05-a-4 | followed: w05-c1 |
+| S-w05-explorer-w05-a-5 | parked: open item 6 (a stray background job made the harness log's last end wrong) |
+| S-w05-explorer-w05-a-6 | parked: method note (this wave dispatched its probes before the PI's own checks finished) |
+| S-w05-explorer-w05-b-1 | parked: open item 22 (platform costs outside the plugin) in __statera__/synthesis.md |
+| S-w05-explorer-w05-b-2 | parked: open item 22 |
+| S-w05-explorer-w05-b-3 | parked: method note (shares from the long session are not trusted; direct measures used) |
+| S-w05-explorer-w05-b-4 | parked: open item 22 (the PI cannot batch its wake-ups) |
+| S-w05-explorer-w05-b-5 | parked: open item 22 (a main thread writes 1-hour cache entries, S-w05-author-w05-1-1) |
+| S-w05-explorer-w05-c-1 | followed: w05-c1 (the stop-your-jobs clause) |
+| S-w05-explorer-w05-c-2 | followed: w05-c2 |
+| S-w05-explorer-w05-c-3 | parked: open item 5 (output tokens are estimated, so spend is soft) |
+| S-w05-explorer-w05-c-4 | parked: open item 21 |
+| S-w05-explorer-w05-c-5 | parked: open item 6 (harness start lines swap names on same-second dispatches) |
+| S-w05-explorer-w05-c-6 | followed: w05-c1 |
+| S-w05-explorer-w05-d-1 | followed: explorer-w05-f |
+| S-w05-explorer-w05-d-2 | parked: open item 9 (platform-recorded hook durations under concurrency) |
+| S-w05-explorer-w05-d-3 | followed: explorer-w05-f and the PI's shell check (__reports__/wave-05/research-pi/shell_check.md) |
+| S-w05-explorer-w05-d-4 | parked: open item 22 (another plugin's hook timed out once at 10 s) |
+| S-w05-explorer-w05-d-5 | followed: w05-c1 |
+| S-w05-explorer-w05-e-1 | parked: open item 1 (the Desktop pins the config root to main) |
+| S-w05-explorer-w05-e-2 | parked: open item 16 (one lab rule for every script) |
+| S-w05-explorer-w05-e-3 | parked: explained (the PI removed the setup before explorer-w05-e read the files; wave note 14:43) |
+| S-w05-explorer-w05-e-4 | parked: open item 9 (fixed platform cost per hook start) |
+| S-w05-explorer-w05-f-1 | parked: open item 23 (auto mode's classifier) in __statera__/synthesis.md |
+| S-w05-explorer-w05-f-2 | parked: open item 23 (its cost is in no record) |
+| S-w05-explorer-w05-f-3 | parked: open item 21 (bash for headless drivers) |
+| S-w05-explorer-w05-f-4 | parked: open item 23 (allow rules cannot match lab scripts) |
+| S-w05-reproducer-w05-1-1 | followed: w05-c1 (PI decision: pid and log named per agent, 5906331) |
+| S-w05-reproducer-w05-1-2 | followed: w05-c1 (PI decision: "4½ minutes") |
+| S-w05-reproducer-w05-1-3 | parked: method note (A's cost varies with the worker's own requests; n = 3) |
+| S-w05-reproducer-w05-1-4 | parked: open item 1 (agent text reaches sessions only once it lands on main) |
+| S-w05-reproducer-w05-3-1 | parked: open item 17 |
+| S-w05-reproducer-w05-3-2 | parked: method note (a hand-back reaches the PI as a message, not in the Agent result) |
+| S-w05-reproducer-w05-3-3 | followed: w05-c7 (scope) and S-w05-research-pi-3 |
+| S-w05-reproducer-w05-3-4 | parked: method note (threshold margin) |
+| S-w05-reproducer-w05-4-1 | followed: w05-c4 (197 distinct transcripts) |
+| S-w05-reproducer-w05-4-2 | followed: w05-c4 (true-batch replay) |
+| S-w05-reproducer-w05-4-3 | parked: open item 9 (wall at 500 KB depends on load; CPU does not) |
+| S-w05-reproducer-w05-4-4 | followed: w05-c4 |
+| S-w05-reproducer-w05-4-5 | parked: open item 9 (m4 tested at 164%, once) |
+| S-w05-reproducer-w05-4-6 | parked: corrected by its writer (puzzle 7) |
+| S-w05-reproducer-w05-4-7 | parked: correction recorded by its writer |
+| S-w05-reproducer-w05-5-1 | followed: w05-c5 (fixed at 9da5a47) |
+| S-w05-reproducer-w05-5-2 | followed: w05-c5 |
+| S-w05-reproducer-w05-5-3 | followed: w05-c5 |
+| S-w05-reproducer-w05-5-4 | followed: w05-c5 (fixed at 9da5a47) |
+| S-w05-reproducer-w05-5-5 | parked: open item 24 (whether the cache is worth its code) in __statera__/synthesis.md |
+| S-w05-reproducer-w05-5-6 | parked: open item 24 (headline numbers from 4eb2272) |
+| S-w05-reproducer-w05-6-1 | followed: w05-c7 |
+| S-w05-reproducer-w05-6-2 | followed: w05-c7 |
+| S-w05-reproducer-w05-6-3 | parked: open item 20 |
+| S-w05-reproducer-w05-6-4 | parked: open item 8 |
+| S-w05-reproducer-w05-6-5 | parked: open item 20 (request-0 composition) |
+| S-w05-reproducer-w05-8-1 | followed: w05-c8 (7ea877d) |
+| S-w05-reproducer-w05-8-2 | followed: w05-c8 (scope as answered in the exchange) |
+| S-w05-reproducer-w05-8-3 | followed: wave-05 note corrected at 7ea877d |
+| S-w05-reproducer-w05-8-4 | followed: w05-c10 |
+| S-w05-reproducer-w05-8-5 | followed: w05-c10 |
+| S-w05-reproducer-w05-8-6 | parked: method note (git has one identity; attribution rests on messages) |
+| S-w05-research-pi-1 | followed: w05-c10 |
+| S-w05-research-pi-2 | parked: open item 1 |
+| S-w05-research-pi-3 | followed: w05-c8 |
+| S-w05-research-pi-4 | followed: w05-c4 (partly withdrawn: the build does change behaviour on 11 of 197 transcripts) |
 
 ## Notes
 
@@ -182,5 +308,12 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
   (about 14:40, before 27d1f7a) "You can do worktree local this session but for the future should we add a
   project-scope or local-scope hook to always run plugin reinstall/update on SessionStart or
   Resume?"; (about 14:41) chose "Merge wave 4 first".
+- **Spend at close (16:15):** this checkout USD 26.29 at list price (a lower bound: the session is
+  open), and headless runs under `/private/tmp/murmuration-w05/` USD 18.18 (exact, cost-state, all
+  ended). That is **at least USD 44.47 against the user's 150**. Both figures are lower bounds in
+  auto mode, because the permission classifier's cost is in no record (explorer-w05-f)
+  [source: lab_status.py at this commit, run in this checkout and in /private/tmp/murmuration-w05/].
 - The probes were dispatched after the merge but before a second `/reload-plugins`. Wave 4 changed
   `agents/explorer.md` by one line, so these explorers may carry the pre-merge definition.
+
+closed: 2026-10-21
