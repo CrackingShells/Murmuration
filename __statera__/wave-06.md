@@ -180,7 +180,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
   - **What stays the user's:** only managed settings hold against a child that changes its flags,
     environment or cwd. The line is in the report, and adding it is the user's choice.
 
-- HH:MM (this commit), after author-w06-4 returned (w06-c4, E1 stage 2):
+- 20:34 (dbd32e7), after author-w06-4 returned (w06-c4, E1 stage 2):
   - **The resident server does not land.** s1 passes: 197 of 197 replays EQUAL, and the replay can
     fail. s3a–c pass, with a gap: a worker that kills the server mid-run tells the PI nothing. s2
     fails: 19.5% median and 20.8% pooled against at most 20%, with 3 of 6 pairs over. s4 fails: +320
@@ -193,7 +193,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
   - **So the larger move is answered.** Rust saves about 1% of a wave. A resident server saves about
     80% of the hook time but brings a failure mode whose safety net costs as much as the margin.
     Neither lands. What remains is the waste inside each Python start. That is E2
-    (`__reports__/wave-06/02-experiment_protocol_e2_v0.md`, this commit): the same registrations, the
+    (`__reports__/wave-06/02-experiment_protocol_e2_v0.md`, dbd32e7): the same registrations, the
     same outputs, less work before the first answer.
 
 ## Dispatches
