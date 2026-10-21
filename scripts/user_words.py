@@ -20,8 +20,8 @@ payload): `origin.kind` is `human` for typed prompts and `!` commands, `peer` fo
 message, `task-notification` for a finished background task; `promptSource`/`turnOrigin` are
 `system`/`scheduled` for the harness's own prompts and `sdk` for the first message of a session started
 by another session (or by `claude -p`). The hook finds the record by the payload's `prompt_id` in the
-tail of the transcript (polling at most ORIGIN_WAIT seconds, since the record may land just after the
-hook starts) and drops what the record marks as not typed by a person; an `sdk` prompt is kept only when
+tail of the transcript (polling at most ORIGIN_WAIT seconds: the record reaches the file only after the
+UserPromptSubmit hooks have exited, so the hook runs `async` in hooks/hooks.json and the poll blocks nothing) and drops what the record marks as not typed by a person; an `sdk` prompt is kept only when
 the record's `entrypoint` is `sdk-cli` (a headless run from a person's own terminal). When there is no
 `prompt_id`, no transcript, no record in time, or a record without a known mark, the text rule above
 decides, as it did before.
@@ -54,7 +54,7 @@ STORE = "__statera__"
 FILE_NAME = "user_words.md"
 HEAD_LINES = 200  # how much of a transcript session_cwd() may read
 HEAD_BYTES = 1 << 20
-ORIGIN_WAIT = 0.3  # seconds the hook may wait for the prompt's record to reach the transcript
+ORIGIN_WAIT = 3.0  # seconds the hook may wait for the prompt's record to reach the transcript; the hook runs async, so this blocks nothing
 ORIGIN_STEP = 0.025
 TAIL_BYTES = (1 << 18, 1 << 22)  # tail windows: 256 KiB, then 4 MiB when the record starts before the first one
 DROP_KINDS = ("peer", "task-notification")  # `origin.kind` values: another session, a finished background task
@@ -320,7 +320,7 @@ def selftest_origin():
         record.update(fields)
         return record
 
-    def fire(tmp, records, text="the words", extra=None, raw=None, late=None, size=None):
+    def fire(tmp, records, text="the words", extra=None, raw=None, late=None, size=None, late_after=0.1):
         """Run the hook once on a lab in `tmp`; return True when `text` was stored."""
         lab = os.path.join(tmp, "lab")
         os.makedirs(os.path.join(lab, STORE), exist_ok=True)
@@ -339,7 +339,7 @@ def selftest_origin():
                                 stderr=subprocess.PIPE, text=True, env=env, cwd=tmp)
         if late is not None:  # the record reaches the file after the hook has started
             def append():
-                time.sleep(0.1)
+                time.sleep(late_after)
                 with open(tpath, "a") as fh:
                     fh.write(json.dumps(late) + "\n")
             threading.Thread(target=append).start()
@@ -388,9 +388,11 @@ def selftest_origin():
     run(True, [], raw='{"type":"user","promptId":"%s","origin":{"kind":"pe\n' % pid)  # a malformed record
     run(True, [], raw='{"type":"user","promptId":"%s","origin":[1,2]}\n[1,2,%s]\n' % (pid, pid.replace("-", "")))
     run(True, [], raw="not json at all %s\n" % pid)
-    # a record that arrives after the hook has started is still found (the wait is 0.3 s)
+    # a record that arrives after the hook has started is still found (the wait is 3 s)
     run(False, [], late=rec(origin={"kind": "peer"}, promptSource="system", turnOrigin="peer"))
     run(True, [], late=rec(**human))
+    # a record that arrives 1.5 s after the hook has started is found too
+    run(False, [], late=rec(origin={"kind": "peer"}, promptSource="system", turnOrigin="peer"), late_after=1.5)
     # a record longer than the first window is found in the second; one longer than both falls back
     run(False, [rec(origin={"kind": "peer"}, promptSource="system", turnOrigin="peer", pad="x" * (TAIL_BYTES[0] + 5))])
     run(False, [rec(origin={"kind": "peer"}, promptSource="system", turnOrigin="peer")], size=TAIL_BYTES[0] * 2)
@@ -398,7 +400,7 @@ def selftest_origin():
     # a big transcript with the record nowhere in it: the prompt is kept after at most the wait
     t0 = time.monotonic()
     run(True, [rec(promptId="other", origin={"kind": "peer"})], size=TAIL_BYTES[1] + 10)
-    assert time.monotonic() - t0 < 3
+    assert time.monotonic() - t0 < 6
     # decision function, direct
     assert human_prompt({"prompt_id": pid, "transcript_path": "/nonexistent/t.jsonl"}, wait=0) is None
     assert scan_tail(b"", pid, True) == (None, False)
