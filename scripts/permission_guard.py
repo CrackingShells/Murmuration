@@ -294,6 +294,7 @@ def decide(event):
 
 def run(raw, log=None):
     """The hook's answer for the raw stdin text: a dict (deny) or None. Never raises."""
+    what = ""
     try:
         event = json.loads(raw)
         hit = decide(event)
