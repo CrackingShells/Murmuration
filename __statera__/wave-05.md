@@ -50,18 +50,19 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
 ## Reassessments
 
 <!-- PI: one entry each time a result changes the plan: what came back, what changes, what is dropped. -->
+<!-- Correction (16:03): the entry times were first written as estimates (14:5x to 17:4x) and drifted by up to 1 h 40 min. reproducer-w05-8 caught it. They are now the commit times of the entries, with the commit named. -->
 
-- 14:5x, after finding the in-place load: the first step becomes "run this branch on myself"
+- 14:36 (4a6a533), after finding the in-place load: the first step becomes "run this branch on myself"
   before any dispatch, and the plugin's delivery path becomes a probe in the portfolio rather than
   a setup chore.
-- 14:5x, after `/reload-plugins` re-read `murmuration-local` from the main checkout: a Desktop
+- 14:43 (27d1f7a), after `/reload-plugins` re-read `murmuration-local` from the main checkout: a Desktop
   worktree session reads the **main** checkout's `.claude/settings.local.json`, so a worktree-only
   switch cannot be made with settings files. The user chose to merge wave 4 first. Merged into
   local main as 4c675ec (not pushed), and the worktree-local marketplace was removed. The main
   settings file was left byte-identical. Consequence for this wave: my own changes reach me only
   when they land on main. Until then, experiments run headless with `--plugin-dir` pointed at this
   branch.
-- 15:1x, after explorer-w05-e and explorer-w05-a returned:
+- 14:52 (c928bd1), after explorer-w05-e and explorer-w05-a returned:
   - The Desktop pins every session's config root to the main checkout (`--project-config-root`,
     seen in the process's command line, reproduced headless; explorer-w05-e). That one flag
     explains wave 4's misrouted prompt, my misrouted `--scope local`, and the ignored worktree
@@ -76,7 +77,7 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
     the speed of its experiments.** This moves the weight of the wave from hooks and the PI toward
     how workers run and check experiments: pilot one cell before a batch, batch width, waits that
     can still read messages. I hold that until b, c and d return.
-- 15:5x, after b, c and d returned:
+- 15:08 (5a05785), after b, c and d returned:
   - **Four probes point at one mechanism: how a worker waits.**
     - 80% of worker Bash time is 48 calls of 60 s or more (d).
     - Every mid-run cache lapse is a single wait longer than 5 minutes, about 17% of worker list
@@ -99,12 +100,12 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
     - "pilot one cell first" and side-by-side cells. These are written into the E5–E8 protocol as
       practice, not tested as claims.
   - Pre-registration committed at e0fc3ab before any run.
-- 16:2x, after w05-c3: E6's rule proposes the allowlist (baba44f). But an allowlist silently drops
+- 15:26 (46935e8), after w05-c3: E6's rule proposes the allowlist (baba44f). But an allowlist silently drops
   every MCP server the plugin cannot name (user connectors, project servers), and E6 measured
   nothing of that. A metric that misses a cost makes a rule pass for the wrong reason. Protocol v1
   (0bd9570) adds E6b, a denylist, with that metric; author-w05-2 is resumed for it (w05-c6). w05-c3
   goes to its verifier as filed.
-- 16:5x, after explorer-w05-f and w05-c3's verdict (SUPPORTED) and w05-c6:
+- 15:36 (db18700), after explorer-w05-f and w05-c3's verdict (SUPPORTED) and w05-c6:
   - Auto mode puts a classifier round trip on every Bash call: `permissionDecisionMs` has a median
     of 448–747 ms, against 2 ms in bypass. Claude Code's cost records do not show its cost. **Every
     spend figure this lab quotes in auto mode, mine included, is a lower bound** by an unknown
@@ -121,7 +122,7 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
   - The PreToolUse hooks may overlap the classifier (with hooks off, the decision was slower). If
     so, PreToolUse savings show less in auto mode. This does not change E7's metric (serial
     seconds); it changes how its saving is read.
-- 17:4x, after authors 1 and 3 returned:
+- 16:00 (3486d68), after authors 1 and 3 returned:
   - The waiting paragraph is the wave's largest measured gain: cost 0.57 of A at 227k context, in
     3 of 3 runs per arm (w05-c1, before verification). One finding changes how I read the
     probes: a headless main thread writes 1-hour cache entries and a subagent writes 5-minute
@@ -178,8 +179,8 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
   takes effect at `/reload-plugins` or on reopening the session.
 - The user's mid-turn messages did reach UserPromptSubmit and were recorded, in the main checkout's
   file. Their dialog answers were not, as in waves 2–4. Quoted here so the lab keeps them:
-  (14:4x) "You can do worktree local this session but for the future should we add a
+  (about 14:40, before 27d1f7a) "You can do worktree local this session but for the future should we add a
   project-scope or local-scope hook to always run plugin reinstall/update on SessionStart or
-  Resume?"; (14:5x) chose "Merge wave 4 first".
+  Resume?"; (about 14:41) chose "Merge wave 4 first".
 - The probes were dispatched after the merge but before a second `/reload-plugins`. Wave 4 changed
   `agents/explorer.md` by one line, so these explorers may carry the pre-merge definition.

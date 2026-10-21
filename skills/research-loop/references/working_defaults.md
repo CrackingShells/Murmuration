@@ -23,8 +23,8 @@
   `Budget: USD <x>` / `Time: min <t>` lines, or let the hand-back stand. Briefs never go below USD 0.30
   and 3 minutes.
 - Never stop processes by name pattern (`pkill`, `killall`). Stop only the process ids you started.
-- Commit your own files only, by naming them (`git commit -m "<why>" -- <paths>`), with a message
-  that says why. Team members do the same. A plain `git commit` also takes what another agent has
+- Commit your own files only, by naming them (`git add <paths> && git commit -m "<why>" --
+  <paths>`), with a message that says why. Team members do the same. A plain `git commit` also takes what another agent has
   staged in the same checkout.
 - A scratch lab you will delete: start Claude Code in it with `COLGREP_DATA_DIR=<folder>/.colgrep`.
 - Use whatever search and reference tools the environment offers (semantic code or document
