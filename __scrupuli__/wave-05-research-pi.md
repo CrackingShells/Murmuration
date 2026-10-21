@@ -14,3 +14,22 @@ session's start. "Updating the installation" therefore changes nothing that runs
 `--scope local` from a worktree writes to the main checkout's settings. So which settings file does
 a Desktop worktree session actually read?
 refs: ~/.claude/plugins/installed_plugins.json, /Users/hacker/Documents/src/CrackingShells/Murmuration/.claude/settings.local.json, .claude/settings.local.json
+
+## S-w05-research-pi-3
+Several agents commit in one worktree. "Commit only your own files" is not enough: a plain
+`git commit` takes whatever another agent has staged. baba44f (author-w05-2, meant as one line in
+`agents/research-pi.md`) carried author-w05-3's staged revert of 4c46fe4: 10 files, about 1,900
+lines. That put the set-aside lean hooks back on the tip until 0d3c879. Nothing measured used the
+tip in between (w05-c3 measured an export of e0fc3ab plus one file), but nobody saw it for about
+40 minutes. A pathspec commit (`git commit -m … -- <paths>`) ignores other staged paths. Should the
+skill say so?
+refs: `git show --stat baba44f`, 0d3c879, __scrupuli__/wave-05-author-w05-3.md
+
+## S-w05-research-pi-4
+My E7 metric m1 ("hook outputs identical on 291 of 291 replays") cannot be met by any build that
+removes the PostToolBatch start, which was the change E7 was written to test. The replay fires one
+PostToolBatch per tool-result record, and the old code repeats a note there (author-w05-3). Wave 4's
+E4 also missed on a threshold set before the build. Twice now, a pre-registered rule written by the
+PI has blocked the lean hooks for a reason that is not about leanness or correctness. What makes a
+rule fit the change it governs: writing it against a dry run of the metric on the old code?
+refs: __pondus__/w05-c4.md (m1), __reports__/wave-05/00-experiment_protocol_v0.md (E7)
