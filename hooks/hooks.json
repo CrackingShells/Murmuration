@@ -56,135 +56,23 @@
         "hooks": [
           {
             "type": "command",
-            "if": "Bash(*bypass*)",
+            "if": "Bash(*bypassPermissions*)",
             "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
+            "timeout": 10,
             "onFailure": "block"
           },
           {
             "type": "command",
-            "if": "Bash(*dangerously*)",
+            "if": "Bash(*dangerously-skip-permissions*)",
             "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
+            "timeout": 10,
             "onFailure": "block"
           },
           {
             "type": "command",
-            "if": "Bash(*--setting-sources p*)",
+            "if": "Bash(*setting-sources*)",
             "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*--setting-sources l*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*--setting-sources -*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*--setting-sources=p*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*--setting-sources=l*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*--setting-sources=))",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*claude*--bare*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*claude*--safe-mode*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*disableAllHooks*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*CLAUDE_CONFIG_DIR=*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*tee *settings*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*cp *settings*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*mv *settings*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*rm *settings*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*sed *-i*settings*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*open(*settings*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*writeFile*settings*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
+            "timeout": 10,
             "onFailure": "block"
           }
         ]
@@ -196,42 +84,140 @@
             "type": "command",
             "if": "Write(**/.claude/settings*.json)",
             "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
+            "timeout": 10,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Write(**/managed-settings*)",
             "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
+            "timeout": 10,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Write(**/managed-settings.d/**)",
             "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "Write(**/*.py)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "Write(**/*.sh)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "Write(**/*.bash)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "Write(**/*.zsh)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "Write(**/*.js)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "Write(**/*.ts)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "Write(**/*.mjs)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Edit(**/.claude/settings*.json)",
             "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
+            "timeout": 10,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Edit(**/managed-settings*)",
             "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
+            "timeout": 10,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Edit(**/managed-settings.d/**)",
             "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 5,
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "Edit(**/*.py)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "Edit(**/*.sh)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "Edit(**/*.bash)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "Edit(**/*.zsh)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "Edit(**/*.js)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "Edit(**/*.ts)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "Edit(**/*.mjs)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
             "onFailure": "block"
           }
         ]

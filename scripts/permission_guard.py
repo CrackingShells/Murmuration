@@ -234,6 +234,25 @@ def g3_edit(inp, cwd):
     return None
 
 
+SCRIPT_EXT = (".py", ".sh", ".bash", ".zsh", ".js", ".ts", ".mjs")
+SRC = re.compile(r"""--setting-sources["'\s=,\[\]]*([A-Za-z,]*)""")
+
+
+def g4_script(inp):
+    """G4: Write/Edit of a script file whose new text carries the bypass words or a literal `--setting-sources` value without `user`."""
+    p = inp.get("file_path") or inp.get("path") or ""
+    if not p.lower().endswith(SCRIPT_EXT):
+        return None
+    text = "\n".join([str(inp.get("content") or ""), str(inp.get("new_string") or "")] + [str(e.get("new_string") or "") for e in (inp.get("edits") or []) if isinstance(e, dict)])
+    m = BYPASS.search(text)
+    if m:
+        return "G4", "the new text of the script `%s` carries `%s`" % (os.path.basename(p), m.group(0))
+    for v in SRC.findall(text):
+        if v and "user" not in v.split(","):
+            return "G4", "the new text of the script `%s` starts a child with `--setting-sources %s`, which leaves out the user's settings" % (os.path.basename(p), v)
+    return None
+
+
 def decide(event):
     """(group, why) when the event is to be denied, else None."""
     tool, inp, cwd = event.get("tool_name"), event.get("tool_input") or {}, event.get("cwd") or ""
@@ -242,7 +261,7 @@ def decide(event):
         segs = expand(cmd)
         return g1(cmd, segs) or g2(cmd, segs) or g3_bash(cmd, segs, cwd)
     if tool in ("Write", "Edit", "MultiEdit", "NotebookEdit"):
-        return g3_edit(inp, cwd)
+        return g3_edit(inp, cwd) or g4_script(inp)
     return None
 
 
