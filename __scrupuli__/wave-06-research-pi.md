@@ -1,0 +1,3 @@
+## S-w06-research-pi-1
+`scripts/user_words.py` recorded the task message that the session which started this one sent, as a user prompt under 2026-10-21 (the long "You are the PI of the Murmuration reflective run, wave 6" brief), next to the user's real 19:27 words. The file promises the user's words verbatim. A session-to-session message is not the user's, and nothing in the record tells them apart. The `promptSource` / `turnOrigin` fields of the transcript's user records may carry the difference. Not checked.
+refs: __statera__/user_words.md (the 2026-10-21 entry before 19:27); this session's transcript, first `user` record (fields `promptSource`, `turnOrigin`)

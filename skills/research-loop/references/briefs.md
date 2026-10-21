@@ -19,7 +19,9 @@ them.
 5. **Rules:** the project's tool and compute limits; no downloads unless allowed; commit only your
    own files, by naming them (`git add <your paths> && git commit -m "<why>" -- <your paths>`; a new
    file must be added first), since a plain commit also takes what another agent has staged;
-   never stop processes by name pattern.
+   never stop processes by name pattern; headless runs in the default or auto permission mode
+   only, never `bypassPermissions` or `--dangerously-skip-permissions`, unless the brief quotes
+   the user's own yes for it.
 6. **The budget lines,** each on its own line, exactly `Budget: USD <number>` and `Time: min <number>`
    (defaults in the table below; never below the floor, see Limits). The harness tells the worker
    itself how the notes work, so the brief needs no sentence about them.

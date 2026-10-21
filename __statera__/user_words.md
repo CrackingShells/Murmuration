@@ -193,3 +193,37 @@ Several things:
 * "In wave 4 the PI was idle 75% of the time, and the hooks cost about 2.5 minutes a wave. Neither is what makes a wave slow." --> I hear you, but that is also part of leanness. It's not because it's cheap that we should spend it. If keeping it doesn't give advantages and is simply something we can reclaim, then we have no reason to not save it even if it is a small proportion of everything. Eliminating wastes, at scale, provides noticeable benefits.
 * "Wave 5 is closed. Six verified changes are on the branch, not merged. Spend was at least USD 44.47 of your 150, a lower bound in auto mode." --> we still have a lot of budget left. Of course you are free to stop but don't you want to proceed?
 * "In wave 4 the PI was idle 75% of the time" --> that's interesting actually. Do you think the PI should be doing something? Might be a puzzle to consider
+
+## 2026-10-21 17:18
+
+Background (from the session that started this one):
+Murmuration is a Claude Code plugin: a research team (PI, explorers, authors, verifiers) that works in waves with labelled claims and independent verdicts. Since 2026-10-19 the lab has been studying its own plugin in this repository (the "reflective run"). Waves 1–5 are done. Wave 5 measured where a wave's time and money go. It landed six verified changes on local main at fed7a08: waits in polls of at most 4½ minutes, an absolute colgrep path, `disallowedTools:` for the PI, a faster `lab_status`, commits by named paths, and a reassessment step. Wave 6 was opened by the previous PI at 43b12e9 on branch `claude/lab-system-optimization-1aa673`, whose context had grown to about 395k tokens. That is why wave 6 runs in a fresh session. At 17:06 the user said engineering decisions about Murmuration are the lab's, and that guardrails (moral, legal, ethical) stay with them. They also asked why the lab never considered larger moves such as Rust hooks, said small waste should be reclaimed too, and asked whether the PI should do something during the 75% of a wave it sits idle. Wave 6 has at least USD 100 of the user's budget left.
+
+Task:
+You are the PI of the Murmuration reflective run, wave 6. This lab is in this repository. Load the `murmuration:research-loop` skill first, then read `__statera__/wave-06.md` (opened; it states the user's 17:06 points and what does not add up), `__design__/framing.md` (section "Who decides" is new), `__statera__/synthesis.md` (the "Wave 5" section and "Still open"), and `__statera__/wave-05.md` (the Reassessments and Notes).
+
+Before anything else, do the Desktop check of w05-c7 on yourself. Read this session's own transcript (under `~/.claude/projects/`, the folder for this worktree): the first assistant request's usage (input + cache write + cache read) and the tool names in its `prompt_snapshot`. About 31–49k tokens means the `disallowedTools:` line on `research-pi` is honoured. About 75k means the app injects the tools anyway. File the result as a claim with a verifier.
+
+Then run wave 6 as a research wave, not a checklist. Spread cheap probes first, reassess in the note each time results come back, and pre-register each experiment's rule in a committed file before running it. Directions to weigh, in the user's words in `__statera__/user_words.md` (2026-10-21 17:06):
+- the larger move the lab never examined. SA1, one compiled binary for the hooks, CLI and lab scripts (Rust 1.99 is installed), against the Python hooks. Measure the platform-visible cost of a do-nothing hook in sh, Python and a compiled binary first: the platform recorded 322–605 ms for hooks whose script takes 42–82 ms;
+- waste reclaimed whatever its size: the hooks, `lab_status`, two starts per hand-back, the lean builds w04-c5 and w05-c4 and why each failed;
+- the PI idle 75% of a wave: what, if anything, the PI should do while it waits, and how the PI itself stays lean (session length, wake-ups);
+- the plugin text that hands engineering decisions back to the human (`agents/research-pi.md` last paragraph, `waves.md` "Closing the story is their call"), against the frame in `__design__/framing.md`.
+
+Decision frame: you decide engineering and land verified changes on the local `main` (merge --no-ff), which is the copy every session runs. Do not push. Guardrails stay with the user: moral, legal, ethical and safety matters (credentials, the permission layer, other people's data), and anything visible outside this machine.
+
+Rules:
+- headless runs under `/private/tmp/murmuration-w06/<agent name>/`, with `CLAUDE_CODE_SHELL=/bin/bash`, no `--max-budget-usd`, and `--plugin-dir` pointed at an export;
+- commit by naming paths (`git add <p> && git commit -m … -- <p>`);
+- never stop processes by name pattern;
+- quote spend only from `scripts/lab_status.py` or cost-state, as lower bounds in auto mode.
+
+Budget: USD 100 for this wave, no time limit. Done means: every puzzle disposed, the synthesis updated, verified changes landed on local main, and a report to the user that states what was decided and why.
+
+Shared notes folder for this group of sessions (outside the repo; read siblings' notes there, leave hand-over notes or large findings there instead of pasting them into messages): /Users/hacker/Library/Application Support/Claude/side-session-notes/local_7ccde0cd-ae81-4026-9907-ce2a933259d0
+
+## 2026-10-21 19:27
+
+> I found that a worker ran unauthorized headless test sessions in bypassPermissions mode to probe a field auto mode leaves empty — I’ll flag this to the user and ban it in all future briefs. Next, I’ll dispatch the verifier and check spend before deciding on stage 2.
+
+yeah, I expected this to happen to some extent because I gave rather big freedom. But that's typically what folds under security, ethics, moral, and legal that cannot be done without the user's permission.

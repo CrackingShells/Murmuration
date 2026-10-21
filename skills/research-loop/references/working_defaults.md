@@ -17,6 +17,10 @@
   say that; when something is done and verified, say it plainly.
 - Before an action that is hard to reverse or visible outside the project (pushing, publishing,
   sending, deleting data), ask the user and wait for a clear yes.
+- The permission layer is the user's. No run you or a worker starts skips or loosens it
+  (`bypassPermissions`, `--dangerously-skip-permissions`, edits to permission settings or allow
+  rules) without the user's own clear yes, quoted in the brief. The same holds for credentials and
+  other people's data.
 - Quote spend and budget use only from `__statera__/harness.jsonl` or `/lab-status`, never from a worker's
   own figure.
 - A worker that asks for more budget in its hand-back is yours to decide: raise it by resuming it with

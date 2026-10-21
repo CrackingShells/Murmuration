@@ -137,6 +137,16 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     The permission layer is the user's, so from this point every brief forbids `bypassPermissions`
     and `--dangerously-skip-permissions`, and the report names it.
 
+- HH:MM (this commit), after the user's words of 19:27 ("that's typically what folds under security,
+  ethics, moral, and legal that cannot be done without the user's permission"):
+  - The user's decision on a guardrail, applied as text. It is not filed as a claim because it
+    decides no engineering question. Each of the four worker files gains a "Permissions" paragraph:
+    no run a worker starts skips or loosens the permission layer (`bypassPermissions`,
+    `--dangerously-skip-permissions`, edits to permission settings or allow rules) unless the brief
+    quotes the user's own yes, and a worker that thinks it needs to hands back instead. `briefs.md`
+    rule 5 and `working_defaults.md` say the same to the PI. The rule is in the agent files as well
+    as the briefs, so it holds even when a brief forgets it, as mine did for author-w06-3.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
