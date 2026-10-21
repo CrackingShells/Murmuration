@@ -210,11 +210,34 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
     `async: true` hook, which explorer-w07-c measured as not holding up the loop. A new mechanism,
     so a new claim, w07-c5, by the same author (warm).
 
+- 02:40, after explorer-w07-a returned:
+  - **The machine's floor is one exec, about 14–16 ms, whatever the language.** `posix_spawn`
+    returns in 0.17 ms and `main()` starts 14–16 ms later; a binary the kernel kills before any user
+    code still costs 13.6 ms; `fork()` without exec costs 0.48 ms. dyld and libSystem are at most
+    about 2 ms. C, assembly and every Rust build are within 1.2 ms of each other; `python3 -S -I` is
+    +7.8 ms. The cause of the 14 ms is a CONJECTURE: the kernel's exec security path, with the
+    Falcon endpoint-security extension installed and `opendirectoryd` burning about 11 ms of CPU per
+    exec but none per fork. A new binary's first exec costs about 330 ms, once.
+  - **Wave 6's two unexplained numbers are exec counts.** `/bin/sh` is a trampoline into bash (two
+    execs), so `sh :` is 33 ms; a binary behind `sh -c` is a third exec, which is the Rust no-op's
+    "+18 ms" (S-w06-explorer-w06-b-1). The platform runs every hook as `/bin/sh -c`, whatever
+    `CLAUDE_CODE_SHELL` or `"shell"` says, and its recorded `durationMs` ends 0–1 ms after the
+    hook's `main()` starts: the recorded time is all spawn path. explorer-w07-c's exec form removes
+    two of the three execs. The two probes, run independently, agree.
+  - **So Rust comes back, on top of exec form.** Registered P5 v0
+    (`__reports__/wave-07/04-protocol_p5_rustguard_v0.md`): the permission guard as one Rust
+    binary, picked per platform at session start through `${CLAUDE_PLUGIN_DATA}`, with the Python
+    guard as fallback and reference; exact decisions over the whole corpus; a paired bench and an
+    in-platform sign test. author-w07-5 runs it as w07-c6.
+  - **Spend so far:** this checkout USD 15.11 at least (0.98 at opening), headless under
+    `/private/tmp/murmuration-w07/` 1.22, so at least USD 15.35 of the 47
+    [source: `scripts/lab_status.py --spend` and `--project /private/tmp/murmuration-w07 --spend`, 02:35].
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
 |:--|:--|:--|:--|
-| explorer-w07-a | explorer | what an exec costs on this machine and through the platform's hook path: sh, C, Rust, Python; dyld, signing, `sh -c` | |
+| explorer-w07-a | explorer | what an exec costs on this machine and through the platform's hook path: sh, C, Rust, Python; dyld, signing, `sh -c` | ee7c125: one exec ≈ 14–16 ms any language; `/bin/sh` is two execs; hooks always `/bin/sh -c` |
 | explorer-w07-b | explorer | the agent loop's time from transcripts: model, classifier, tools, hooks per turn; tool calls per request; what batching would save | be092ae: hooks 0.13% of wall; batching ≤ 1.6%; cache re-writes 15.8% of spend; Bash 1.5 s a call |
 | explorer-w07-c | explorer | hooks without a process per call: `async: true`, `http` with `onFailure: block`, merged rows; fields, latency, dead-server behaviour | 8383dad: exec form 36 ms against 116; http 2 ms, loud on Pre/Post only; async silent on failure |
 | explorer-w07-d | explorer | serial loops and algorithms in the lab's code: profile `lab_status.py` and the replays; scaling curves for parallel Python, a better algorithm, Rust | 19d5dce: warm cache beats pool and Rust; the git child is 0.155 s; scaling flat past 6 P-cores |
@@ -225,6 +248,7 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | explorer-w07-g | explorer | split the classifier-decided Bash call's 1.5 s; four ways of the same reads; subagent cache lifetime | |
 | author-w07-3 | author | w07-c3: P3, every hook row in exec form | |
 | author-w07-4 | author | w07-c4: P4, `lab_status.py` without the git child, usage fields priced | |
+| author-w07-5 | author | w07-c6: P5, the permission guard as a Rust binary in exec form | |
 | author-w07-2 | author | w07-c2: P2, `user_words.py` keeps only typed prompts | e84afec (branch w07-p2-origin): q1 passes, q2 fails (record written after the hook); resumed for v1 as w07-c5 |
 
 ## Claims of this wave
