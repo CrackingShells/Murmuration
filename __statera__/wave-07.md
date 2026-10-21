@@ -123,18 +123,46 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
   - Effort (thinking, S-w07-explorer-w07-b-5) is not varied this wave: the lab has no measure of a
     worker's quality that a lower effort could be checked against.
 
+- 01:35, after explorer-w07-c returned:
+  - **The floor was the shell.** A hook in exec form (`command` plus `args`, no shell) cost the
+    platform 36 ms against 116 ms for the same script in today's string form; a whole tool call
+    with a Pre and a Post hook 174 ms against 314 ms; siblings start 14 ms apart instead of 40 ms
+    (MEASURED, one session per arm, load about 9). The "+40 ms per sibling" of wave 6 is the
+    platform's launch interval in shell form. Nobody questioned the shell because the lab measured
+    `sh :` as if it were the empty hook. This is the first lever this wave that changes no script
+    and keeps behaviour by construction: registered as P3 v0
+    (`__reports__/wave-07/02-protocol_p3_exec_v0.md`), with a sign-test rule instead of a
+    millisecond threshold, because the ceiling (the shell's share) is not yet measured on a quiet
+    machine. author-w07-3 runs it as w07-c3; reproducer-w07-3 verifies.
+  - **Rust comes back here, not earlier.** Once the shell is gone, what remains of a 36 ms start
+    is the interpreter and the platform. A Rust binary in exec form is the next comparison;
+    explorer-w07-a's floor decides whether it is worth building.
+  - **`http` hooks are fast (2 ms) and fail loud on PreToolUse and PostToolUse with
+    `onFailure: block`**, but end the whole session on PostToolBatch and stay silent on SubagentStop.
+    A server still has to be started, given a port and a token. With exec form at 36 ms, `http`
+    would save about 34 ms a start for a failure design the lab does not have yet. Not pursued this
+    wave, as the user suggested; the records stay for item 31.
+  - **`async: true`** does not block the loop and its `additionalContext` reaches the model at the
+    next tool boundary, but its deny and block do nothing, a failure is silent, and an async hook
+    still running at the end of `-p` is cancelled. Only a note that may be lost could use it; the
+    budget block and the hand-back capture cannot. Parked for now.
+  - **The largest hook on a Bash call is not the lab's:** the user's own `colgrep_policy`
+    PreToolUse hook (`uv run`) took a median 431 ms per Bash call (n = 10, load 9). It is the
+    user's configuration and another repository; it goes to the report as theirs.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
 |:--|:--|:--|:--|
 | explorer-w07-a | explorer | what an exec costs on this machine and through the platform's hook path: sh, C, Rust, Python; dyld, signing, `sh -c` | |
 | explorer-w07-b | explorer | the agent loop's time from transcripts: model, classifier, tools, hooks per turn; tool calls per request; what batching would save | be092ae: hooks 0.13% of wall; batching ≤ 1.6%; cache re-writes 15.8% of spend; Bash 1.5 s a call |
-| explorer-w07-c | explorer | hooks without a process per call: `async: true`, `http` with `onFailure: block`, merged rows; fields, latency, dead-server behaviour | |
+| explorer-w07-c | explorer | hooks without a process per call: `async: true`, `http` with `onFailure: block`, merged rows; fields, latency, dead-server behaviour | 8383dad: exec form 36 ms against 116; http 2 ms, loud on Pre/Post only; async silent on failure |
 | explorer-w07-d | explorer | serial loops and algorithms in the lab's code: profile `lab_status.py` and the replays; scaling curves for parallel Python, a better algorithm, Rust | |
 | explorer-w07-e | explorer | the PI's skills listing and the workers' allowlists: what can be excluded, and how, without losing `research-loop` | 546a4b9: `Skill` denied −11.7–12.0k tokens; listing all or none; Wolfram never called but costs names only |
 | explorer-w07-f | explorer | read-only: where Claude Code enforces `disableBypassPermissionsMode`; how `user_words.py` can tell a session's message from the user's (item 28) | 70629c1: first-wins managed tier, the file probably dropped; `origin.kind` marks typed prompts |
 | author-w07-1 | author | w07-c1: P1, the PI without the skills listing | |
 | explorer-w07-g | explorer | split the classifier-decided Bash call's 1.5 s; four ways of the same reads; subagent cache lifetime | |
+| author-w07-3 | author | w07-c3: P3, every hook row in exec form | |
 | author-w07-2 | author | w07-c2: P2, `user_words.py` keeps only typed prompts | |
 
 ## Claims of this wave
