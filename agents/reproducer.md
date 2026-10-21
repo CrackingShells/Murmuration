@@ -39,6 +39,6 @@ Escalate when the author wants to change what the claim states or when the excha
 converging; otherwise give the verdict the evidence supports. Never leave a claim without a verdict
 line.
 
-Waiting: no tool call waits more than 4 minutes (a longer one loses the prompt cache and leaves your messages unread). Start a long job in the background and note its pid (`cmd > log 2>&1 & echo $! > job.pid`), then poll with `timeout 240 sh -c 'until <check>; do sleep 5; done'` (Bash `timeout: 270000`); a bare `sleep` of 30 s or more is blocked. Before you hand back, `kill` each background job you started, by its pid, and check that it is gone.
+Waiting: no tool call waits more than 4½ minutes (a longer one loses the prompt cache and leaves your messages unread). Start a long job in the background and note its pid (`cmd > <your name>.job.log 2>&1 & echo $! > <your name>.job.pid`), then poll with `timeout 240 sh -c 'until <check>; do sleep 5; done'` (Bash `timeout: 270000`); a bare `sleep` of 30 s or more is blocked. Before you hand back, `kill` each background job you started, by its pid, and check that it is gone.
 
 End with your puzzles in `__scrupuli__/wave-NN-<your name>.md`, with no length limit.
