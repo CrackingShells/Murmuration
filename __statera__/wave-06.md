@@ -196,6 +196,18 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     (`__reports__/wave-06/02-experiment_protocol_e2_v0.md`, dbd32e7): the same registrations, the
     same outputs, less work before the first answer.
 
+- HH:MM (this commit), after author-w06-5 returned (w06-c8, E3 v1):
+  - **v1 does not land: h3 fails, and the inconsistency is mine.** The row I registered,
+    `Bash(*setting-sources*)`, must match the four legal `--setting-sources user,project,local` calls
+    of the ordinary list. h1, h2, h4 and h5 pass. The incident form, the c4aaebb script written as a
+    `.py`, is now denied, and the same text in a `.md` is allowed.
+  - **A finding that outweighs h3: G4 as built would block ordinary engineering.** 66 of 422 tracked
+    script files already carry the words, `handback.py` and the guard itself among them, so every edit
+    of them would be denied. E3 v2 (6094f70), registered before its run: the same 3 Bash rows, G4
+    denying only the words an edit adds, h3 stated for the commands that do not name the flag, and a
+    new h6 for engineering edits. Each version's rule is committed before its runs, and all three are
+    reported.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -220,6 +232,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | w06-c3 | E1 stage 1, resident server carries the hooks | superseded by w06-c5 |
 | w06-c5 | E1 stage 1 restated | superseded by w06-c6 (verdict OVERSTATED: "fails v0" went beyond v0's letter) |
 | w06-c6 | E1 stage 1: a resident server carries the hooks' fields, firing, effects at 1–6 ms; m4 (a) vacuous, (b) meets v0's letter and fails its intent (silent loss of deny and block), (c) 20 s a tool boundary | MEASURED |
+| w06-c8 | E3 v1: 3 Bash rows + script-content check; h1, h2, h4, h5 pass, h3 fails (inconsistent as registered); not landed | unverified MEASURED |
 | w06-c7 | E3 v0: 25 gated guard rows deny 42 of 50 attacks, fail closed 9 of 9, start 19 processes on a `$` command; the rule is not met | unverified MEASURED |
 | w06-c4 | E1 stage 2: resident server, outputs equal 197/197, outage handled, but s2 and s4 miss; not landed | unverified MEASURED |
 | w06-c2 | Disposing puzzles at the hand-back wake-up costs no extra request (the implied saving is not shown) | below ESTIMATE: restate; not restated, the bullet is reverted |
