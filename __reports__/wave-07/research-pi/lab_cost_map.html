@@ -215,10 +215,9 @@ details summary{cursor:pointer;color:var(--text-secondary);margin-top:6px}
     <span><i style="background:var(--s1)"></i>PI</span>
     <span><i style="background:var(--s2)"></i>workers (subagents)</span>
     <span><i style="background:var(--s3)"></i>headless runs</span>
-    <span><i style="background:var(--theirs)"></i>wave 7: no split by role yet</span>
   </div>
-  <div class="sw"><svg id="spend" viewBox="0 0 1080 250" width="100%" role="img" aria-label="Stacked bars of spend per wave by role, and wave 7's lower bound"></svg></div>
-  <p class="note">USD at list price for the PI and workers (explorer-w06-c's script; for wave 6 my run of it), headless from cost-state. In wave 6 the workers did most of the building themselves (four experiments, eight verifiers), so headless fell and subagents rose. Wave 7 is at least USD 38.28 (35.80 + 2.48) from this checkout's <code>lab_status.py --spend</code>: list price, session still open, plus headless cost-state. It is a lower bound with no split by role.</p>
+  <div class="sw"><svg id="spend" viewBox="0 0 1080 300" width="100%" role="img" aria-label="Stacked bars of spend per wave by role, and wave 7's lower bound"></svg></div>
+  <p class="note">USD at list price for the PI and workers, headless from cost-state. Waves 4–6 come from explorer-w06-c's script; wave 7 from <code>scripts/lab_status.py</code>'s own transcript parser and prices, over this session's main thread and its 21 subagent files up to the close (02:45 JST). Wave 7's workers did all the building: six explorers, six authors, seven verifier runs and one helper for this page; the last row splits them. Every figure is a lower bound: the session was open, and auto mode's classifier is in no cost record. The 38.28 quoted at 02:41 was read before the last closing requests.</p>
 </div>
 
 <!-- 4. GRAVEYARD -->
@@ -233,13 +232,21 @@ details summary{cursor:pointer;color:var(--text-secondary);margin-top:6px}
   <h2>5 · Where a worker's time goes</h2>
   <p class="note">The time shares are over the workers of waves 5–6. The record set behind the page is waves 4–6: 47 workers, 2,633 requests. Shares are read from the records (MEASURED). The hook and classifier shares are ESTIMATE. The costs below them each use their own base.</p>
   <div class="sw"><svg id="wtime" viewBox="0 0 1080 430" width="100%" role="img" aria-label="Share of a worker's time by kind, the small share taken by plugin hooks and the classifier, and four costs larger than hooks"></svg></div>
+  <h3 style="margin-top:18px">Why the two largest of these cost money</h3>
+  <p class="note">Every model request sends the whole conversation again: system prompt, tool list, every message and every tool result so far. Anthropic's prompt cache keeps the processed prefix, so a request that repeats it pays the cache-read price for those tokens instead of the input price. For Sonnet, the workers' model, the lab's price table gives USD 2.00 per million input tokens, 0.10 per million read from cache, 2.50 per million written to a 5-minute cache entry and 4.00 to a 1-hour entry (<code>scripts/lab_status.py</code>, PRICES). A cache entry lives 5 minutes from its last use for a subagent and 1 hour for the main thread; each hit renews it.</p>
+  <div class="grave" style="margin-top:8px;grid-template-columns:repeat(auto-fill,minmax(420px,1fr))">
+    <div class="g"><span class="badge b-aside">why it costs</span><h3>Cache re-writes after gaps over 5 minutes</h3><div class="n"><p><b>Why it costs:</b> when a worker makes no request for more than 5 minutes (one long tool call, or a wait for a message), its cache entry expires. The next request must write the whole context again at 2.50 instead of reading it at 0.10, 25 times the price. Example: a 150,000-token context costs about USD 0.015 to read and 0.375 to re-write. Over waves 4–6, 23 such re-writes cost USD 10.41 above a read.</p><p><b>What the lab controls:</b> the gaps, not the prices. No tool call waits more than 4½ minutes (in the agent files since wave 5); authors now keep 1-hour entries (w07-c7). An author resumed by a verifier after a long wait is the case that remains.</p></div></div>
+    <div class="g"><span class="badge b-aside">why it costs</span><h3>Tool results over 5,000 characters</h3><div class="n"><p><b>Why it costs:</b> a tool result stays in the context for the rest of the worker's life, so every later request reads it again from cache. The cost is its size × the number of later requests × 0.10 per million tokens. Example: one Read of 61,427 characters (about 25,000 tokens) was re-read by 122 later requests, about 3 million cached tokens, USD 0.31. 5,000 characters is the bucket the probe used, not a limit of the platform; the cost grows smoothly with size and with how early in a worker's life the result comes.</p><p><b>What the lab controls:</b> the size and the timing: scripts that print a summary, Reads with an offset and a limit, a large result read late rather than early, or read by a short-lived helper that hands back a summary. How much of the 29.7% that would save is not measured (Still open 38).</p></div></div>
+  </div>
+  <p class="note">So the prices and the 5-minute lifetime are the platform's. What a run does with them is not: both costs are set by the shape of the agent loop (how long it pauses, how much it reads and when), which the plugin's text and scripts can change. The mechanism here is from Anthropic's prompt-caching documentation as the lab has used it since wave 2, not fetched again this wave.</p>
+
 </div>
 
 <!-- 6. SCALING -->
 <div class="card">
   <h2>6 · Parallel scaling</h2>
-  <p class="note">The parse of every transcript in <code>lab_status.py</code>, run in a pool of Python workers and in Rust threads. Both flatten past the 6 performance cores.</p>
-  <div class="sw"><svg id="scale" viewBox="0 0 1080 290" width="100%" role="img" aria-label="Line chart of Python pool speedup against pool size, and two bars for the Rust parse time on one thread and on 10 to 12 threads"></svg></div>
+  <p class="note">The same job in both panels: parsing every transcript <code>lab_status.py</code> reads (274 MB), in a pool of Python processes started by <code>fork</code> and in Rust threads, medians of 5–11 runs at load average 3–5. Solid line and left axis: the time it takes. Dashed line and right axis: the speedup over one worker. The thin dotted line is perfect scaling. Python was measured at 1, 2, 3, 4, 6, 8 and 12 workers; Rust at every count from 1 to 12. The left axes differ by a factor of seven, because one Rust thread (87 ms) is already 7.3 times one Python process (635 ms); the best Python time (106 ms at 12 workers) is still slower than Rust on one thread.</p>
+  <div class="sw"><svg id="scale" viewBox="0 0 1080 330" width="100%" role="img" aria-label="Two line charts, Python pool and Rust threads, each with parse time in milliseconds and speedup against the number of workers"></svg></div>
 </div>
 
 <!-- 7. TABLE -->
@@ -356,15 +363,15 @@ const spend=[
   {w:"Wave 4",pi:10.51,wk:17.88,hl:26.52},
   {w:"Wave 5",pi:11.90,wk:15.85,hl:18.18},
   {w:"Wave 6",pi:16.06,wk:32.03,hl:7.54},
-  {w:"Wave 7",lb:38.28},
+  {w:"Wave 7",pi:15.86,wk:22.64,hl:2.48,roles:[["authors",10.07],["explorers",7.32],["verifiers",4.17],["page helper",1.08]]},
 ];
 (function(){
   const svg=$("#spend"), L=110,R=1000,max=60,sx=v=>L+(R-L)*v/max,rowH=50,top=12,n=spend.length;
-  for(let v=0;v<=max;v+=10){const x=sx(v);el("line",{x1:x,y1:top-4,x2:x,y2:top+n*rowH-8,stroke:"var(--grid)"},svg);
-    txt(svg,{x,y:top+n*rowH+6,"text-anchor":"middle","font-size":"11",class:"muted"},"$"+v)}
+  for(let v=0;v<=max;v+=10){const x=sx(v);el("line",{x1:x,y1:top-4,x2:x,y2:top+(n+1)*rowH+14,stroke:"var(--grid)"},svg);
+    txt(svg,{x,y:top+(n+1)*rowH+30,"text-anchor":"middle","font-size":"11",class:"muted"},"$"+v)}
   spend.forEach((s,i)=>{
     const y=top+i*rowH;
-    if(s.lb!==undefined){
+    if(false){
       const g=el("g",{"data-tip":"Wave 7: at least USD 38.28 at close (35.80 this checkout, 2.48 headless). Source: scripts/lab_status.py --spend, this checkout's list price plus headless cost-state. A lower bound, with no split by role. Auto mode's classifier is in no cost record."},svg);
       el("rect",{x:0,y:y-4,width:1080,height:rowH-8,class:"hit"},g);
       txt(g,{x:0,y:y+20,"font-size":"13","font-weight":"600"},s.w);
@@ -381,7 +388,19 @@ const spend=[
       if(w>60){txt(g,{x:x+8,y:y+18,"font-size":"11.5",style:"fill:#fff"},`${nm} ${v.toFixed(1)}`)}
       x+=w+2});
     txt(g,{x:x+8,y:y+19,"font-size":"12.5","font-weight":"600"},"$"+tot.toFixed(1));
+    if(s.roles){g.setAttribute("data-tip",g.getAttribute("data-tip")+" Workers by role: "+s.roles.map(r=>r[0]+" "+r[1].toFixed(2)).join(" · ")+".")}
   });
+  /* wave 7 workers by role */
+  const w7=spend.find(s=>s.roles); if(w7){
+    const y=top+n*rowH+22;
+    txt(svg,{x:0,y:y+20,"font-size":"13","font-weight":"600"},"Wave 7 workers");
+    const g=el("g",{"data-tip":"Wave 7's workers, USD at list price, by role: "+w7.roles.map(r=>r[0]+" "+r[1].toFixed(2)).join(" · ")+". The largest single worker was author-w07-5 (the Rust guard), 4.30."},svg);
+    el("rect",{x:0,y:y-4,width:1080,height:rowH-8,class:"hit"},g);
+    let x=L; const op=[1,0.75,0.55,0.35];
+    w7.roles.forEach(([nm,v],i)=>{const w=sx(v)-L-2; el("rect",{x,y,width:w,height:28,rx:4,class:"s2","fill-opacity":op[i]},g);
+      if(w>70)txt(g,{x:x+8,y:y+18,"font-size":"11.5",style:i<2?"fill:#fff":""},nm+" "+v.toFixed(1)); else txt(g,{x:x+w/2,y:y-6,"text-anchor":"middle","font-size":"10.5",class:"sec"},nm+" "+v.toFixed(1)); x+=w+2});
+    txt(g,{x:x+8,y:y+19,"font-size":"12.5","font-weight":"600"},"$"+w7.wk.toFixed(1));
+  }
   bindTips(svg);
 })();
 
@@ -476,36 +495,49 @@ const moves=[
 
 /* ---------- 6. parallel scaling ---------- */
 (function(){
-  const svg=$("#scale"),pl=70,pr=600,pt=24,pb=232;
-  const sx=w=>pl+(pr-pl)*(w-1)/11, sy=v=>pb-(pb-pt)*v/7;
-  txt(svg,{x:0,y:14,"font-size":"12","font-weight":"600",class:"sec"},"Python pool: speedup over one process");
-  for(let v=0;v<=7;v++){el("line",{x1:pl,y1:sy(v),x2:pr,y2:sy(v),stroke:"var(--grid)"},svg);
-    txt(svg,{x:pl-8,y:sy(v)+4,"text-anchor":"end","font-size":"11",class:"muted"},String(v))}
-  const pts=[[2,1.9],[3,2.8],[4,3.6],[6,4.8],[8,5.5],[12,6.0]];
-  [2,3,4,6,8,12].forEach(w=>txt(svg,{x:sx(w),y:pb+16,"text-anchor":"middle","font-size":"11",class:"muted"},String(w)));
-  txt(svg,{x:(pl+pr)/2,y:pb+34,"text-anchor":"middle","font-size":"11.5",class:"sec"},"workers in the pool");
-  el("line",{x1:sx(6),y1:pt-6,x2:sx(6),y2:pb,stroke:"var(--warn)","stroke-dasharray":"4 3","stroke-width":1.5},svg);
-  txt(svg,{x:sx(6)+6,y:pt+4,"font-size":"11.5",style:"fill:var(--warn)","font-weight":"600"},"6 performance cores");
-  el("path",{d:pts.map((p,i)=>(i?"L":"M")+sx(p[0])+","+sy(p[1])).join(" "),fill:"none",stroke:"var(--s2)","stroke-width":2.4},svg);
-  pts.forEach(([w,v])=>{const g=el("g",{"data-tip":`${w} workers: speedup ${v.toFixed(1)} (MEASURED, explorer-w07-d).`},svg);
-    el("circle",{cx:sx(w),cy:sy(v),r:10,class:"hit"},g);
-    el("circle",{cx:sx(w),cy:sy(v),r:4.5,fill:"var(--s2)"},g);
-    txt(g,{x:sx(w),y:sy(v)-11,"text-anchor":"middle","font-size":"11.5","font-weight":"600"},v.toFixed(1))});
-
-  const rx=700,rw=270,sr=ms=>rw*ms/87;
-  txt(svg,{x:rx,y:14,"font-size":"12","font-weight":"600",class:"sec"},"Rust, same parse: time");
-  const rows=[["1 thread",87,"87 ms","t1","Rust on one thread: 87 ms (MEASURED, explorer-w07-d)."],["10–12 threads",16.5,"16–17 ms","t4","Rust on 10–12 threads: 16–17 ms (MEASURED, explorer-w07-d). The bar is drawn at the middle of that range."]];
-  rows.forEach(([a,v,l,c,t],i)=>{const yy=50+i*56,g=el("g",{"data-tip":t},svg);
-    txt(g,{x:rx,y:yy-6,"font-size":"12.5","font-weight":"600"},a);
-    el("rect",{x:rx,y:yy,width:sr(v),height:26,rx:4,class:c},g);
-    txt(g,{x:rx+sr(v)+8,y:yy+18,"font-size":"12.5","font-weight":"600"},l)});
-  txt(svg,{x:rx,y:190,"font-size":"12",class:"sec"},"Both flatten past the 6 performance cores.");
+  const svg=$("#scale");
+  const panels=[
+    {x0:70,x1:470,title:"Python pool (fork), parse only",tmax:700,tstep:100,
+     pts:[[1,635],[2,338],[3,226],[4,175],[6,133],[8,115],[12,106]],unit:"processes"},
+    {x0:620,x1:1020,title:"Rust threads, parse only",tmax:100,tstep:20,
+     pts:[[1,87.4],[2,49.1],[3,34.8],[4,26.5],[5,21.9],[6,22.4],[7,18.8],[8,19.1],[9,16.7],[10,16.4],[11,17.4],[12,17.4]],unit:"threads"}];
+  const pt=34,pb=270,smax=7;
+  panels.forEach(P=>{
+    const sx=w=>P.x0+(P.x1-P.x0)*(w-1)/11, st=v=>pb-(pb-pt)*v/P.tmax, ss=v=>pb-(pb-pt)*v/smax;
+    txt(svg,{x:P.x0,y:16,"font-size":"12.5","font-weight":"600"},P.title);
+    for(let v=0;v<=P.tmax;v+=P.tstep){el("line",{x1:P.x0,y1:st(v),x2:P.x1,y2:st(v),stroke:"var(--grid)"},svg);
+      txt(svg,{x:P.x0-8,y:st(v)+4,"text-anchor":"end","font-size":"11",style:"fill:var(--s1)"},v+" ms")}
+    for(let v=0;v<=smax;v++)txt(svg,{x:P.x1+8,y:ss(v)+4,"font-size":"11",style:"fill:var(--s2)"},v+"×");
+    for(let w=1;w<=12;w++)txt(svg,{x:sx(w),y:pb+16,"text-anchor":"middle","font-size":"11",class:"muted"},String(w));
+    txt(svg,{x:(P.x0+P.x1)/2,y:pb+34,"text-anchor":"middle","font-size":"11.5",class:"sec"},P.unit);
+    el("line",{x1:sx(6),y1:pt-6,x2:sx(6),y2:pb,stroke:"var(--warn)","stroke-dasharray":"4 3","stroke-width":1.5},svg);
+    txt(svg,{x:sx(6)+5,y:pt+4,"font-size":"11",style:"fill:var(--warn)","font-weight":"600"},"6 performance cores");
+    el("path",{d:`M${sx(1)},${ss(1)} L${sx(7)},${ss(7)}`,stroke:"var(--text-muted)","stroke-dasharray":"1 4","stroke-width":1.5,fill:"none"},svg);
+    const t1=P.pts[0][1];
+    el("path",{d:P.pts.map((p,i)=>(i?"L":"M")+sx(p[0])+","+st(p[1])).join(" "),fill:"none",stroke:"var(--s1)","stroke-width":2.4},svg);
+    el("path",{d:P.pts.map((p,i)=>(i?"L":"M")+sx(p[0])+","+ss(t1/p[1])).join(" "),fill:"none",stroke:"var(--s2)","stroke-width":2.2,"stroke-dasharray":"6 4"},svg);
+    P.pts.forEach(([w,ms])=>{const sp=t1/ms;
+      const g=el("g",{"data-tip":`${P.title}, ${w} ${P.unit}: ${ms} ms, speedup ${sp.toFixed(2)}, efficiency ${(sp/w).toFixed(2)} (MEASURED, explorer-w07-d).`},svg);
+      el("rect",{x:sx(w)-9,y:pt,width:18,height:pb-pt,class:"hit"},g);
+      el("circle",{cx:sx(w),cy:st(ms),r:4,fill:"var(--s1)"},g);
+      el("circle",{cx:sx(w),cy:ss(sp),r:3.5,fill:"var(--s2)"},g);
+      if(w===1||w===6||w===12){txt(g,{x:sx(w),y:st(ms)-9,"text-anchor":"middle","font-size":"11","font-weight":"600",style:"fill:var(--s1)"},(ms>=100?Math.round(ms):ms)+" ms");
+        if(w>1)txt(g,{x:sx(w),y:ss(sp)+16,"text-anchor":"middle","font-size":"11","font-weight":"600",style:"fill:var(--s2)"},sp.toFixed(1)+"×")}
+    });
+  });
+  txt(svg,{x:70,y:322,"font-size":"11.5",class:"sec"},"Solid: time (left axis). Dashed: speedup (right axis). Dotted: perfect scaling. Hover a point for its numbers.");
   bindTips(svg);
 })();
 
 /* ---------- 7. sources ---------- */
 const src=[
   /* wave 7 */
+  ["Spend, wave 7, by role (to 02:45)","PI 15.86 · authors 10.07 · explorers 7.32 · verifiers 4.17 · page helper 1.08 · headless 2.48 (USD; 40.98 in all)","MEASURED (lower bound)","scripts/lab_status.py parse_transcript and message_usd over session f023f552 and its subagents; headless: lab_status.py --project /private/tmp/murmuration-w07 --spend"],
+  ["Sonnet prices used for the cache examples","input 2.00, cache read 0.10, 5-minute write 2.50, 1-hour write 4.00 USD per million tokens","CITED (the lab's price table)","scripts/lab_status.py PRICES"],
+  ["Cache lifetime","5 minutes from last use for a subagent, 1 hour for the main thread, renewed on each hit","CITED (UNVERIFIED this wave)","Anthropic prompt-caching documentation; __pondus__/w07-c7.md for the 5-minute default and the 1-hour key"],
+  ["One large re-read result","61,427 characters re-read by 122 later requests, USD 0.31","ESTIMATE","__reports__/wave-07/explorer-w07-b/00-findings_v0.md"],
+  ["Python pool parse time","635, 338, 226, 175, 133, 115, 106 ms at 1, 2, 3, 4, 6, 8, 12 processes","MEASURED","__reports__/wave-07/explorer-w07-d/raw/table_py_parse.txt (orig)"],
+  ["Rust parse time","87.4, 49.1, 34.8, 26.5, 21.9, 22.4, 18.8, 19.1, 16.7, 16.4, 17.4, 17.4 ms at 1–12 threads","MEASURED","__reports__/wave-07/explorer-w07-d/raw/table_rust_item.txt"],
   ["One exec, before the child's first instruction","14–16 ms, any language","MEASURED","__reports__/wave-07/explorer-w07-a/00-findings_v0.md; __pondus__/w07-c6.md"],
   ["Fork without exec","0.48 ms","MEASURED","__reports__/wave-07/explorer-w07-a/00-findings_v0.md"],
   ["dyld","≤ about 2 ms","MEASURED","__reports__/wave-07/explorer-w07-a/00-findings_v0.md"],
@@ -542,7 +574,7 @@ const src=[
   ["Tool results over 5,000 characters","29.7% of cache-read spend","ESTIMATE","__reports__/wave-07/explorer-w07-b/00-findings_v0.md"],
   ["Retries after tool errors","8.5% of wave 6's requests","ESTIMATE","__reports__/wave-07/explorer-w07-b/00-findings_v0.md"],
   ["Batching independent calls","would save 0.8–1.6% of requests (drawn at 1.2, the middle of the range)","ESTIMATE","__reports__/wave-07/explorer-w07-b/00-findings_v0.md"],
-  ["Spend, wave 7","at least USD 38.28 at close (35.80 list price in this checkout, session open; 2.48 headless cost-state, exact)","MEASURED (lower bound)","scripts/lab_status.py --spend"],
+  ["Spend, wave 7, at 02:41","at least USD 38.28 (35.80 list price in this checkout, session open; 2.48 headless cost-state, exact)","MEASURED (lower bound)","scripts/lab_status.py --spend"],
   ["Python pool speedup","1.9, 2.8, 3.6, 4.8, 5.5, 6.0 at 2, 3, 4, 6, 8, 12 workers","MEASURED","__reports__/wave-07/explorer-w07-d/00-findings_v0.md"],
   ["Rust parse, same job","87 ms on 1 thread; 16–17 ms on 10–12 threads (bar drawn at 16.5)","MEASURED","__reports__/wave-07/explorer-w07-d/00-findings_v0.md"],
   ["Scaling knee","flattens past the 6 performance cores","MEASURED","__reports__/wave-07/explorer-w07-d/00-findings_v0.md"],
