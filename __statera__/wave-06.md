@@ -248,7 +248,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     reproducer-w06-7 classifies the 113 and verifies w06-c12. v3 lands if k6 passes as registered.
     Otherwise v2 lands, if w06-c12 stands.
 
-- HH:MM (this commit), after reproducer-w06-6's verdict on w06-c9 (SUPPORTED):
+- 21:33 (ac7572d), after reproducer-w06-6's verdict on w06-c9 (SUPPORTED):
   - **PI decision: E2 lands, against its own registered threshold.** e1 reproduces: 197 of 197 in
     both modes, 814 real command starts EQUAL, on Python 3.9, 3.12 and 3.14, and the read-only folder
     is harmless. The saving is positive, 20–28 ms a start, in 12 of 13 quiet pairs. e2's "25 ms in
