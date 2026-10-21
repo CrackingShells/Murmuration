@@ -1,0 +1,35 @@
+| pair | arm | run | worker PostToolUse budget starts: n, median ms | main PostToolUse starts: n, median ms | budget+handback starts, sum ms: worker / main thread (n) |
+|:--|:--|:--|:--|:--|:--|
+| 1 | main | e2a_1_main | 14, 134 | 4, 117 | 4723 / 1037 (43) |
+| 1 | new | e2a_1_new | 12, 92 | 3, 153 | 3581 / 868 (38) |
+| 2 | main | e2a_2_main | 13, 120 | 3, 183 | 4484 / 945 (41) |
+| 2 | new | e2a_2_new | 13, 101 | 3, 67 | 3875 / 776 (41) |
+| 3 | main | e2a_3_main | 12, 126 | 3, 146 | 3829 / 796 (36) |
+| 3 | new | e2a_3_new | 11, 107 | 3, 117 | 3239 / 840 (38) |
+| 4 | main | e2a_4_main | 12, 108 | 3, 121 | 3504 / 877 (37) |
+| 4 | new | e2a_4_new | 12, 90 | 3, 80 | 3236 / 717 (38) |
+| 5 | main | e2a_5_main | 12, 111 | 3, 197 | 3726 / 860 (38) |
+| 5 | new | e2a_5_new | 14, 88 | 3, 77 | 3229 / 760 (40) |
+| 6 | main | e2b_1_main | 12, 110 | 3, 224 | 6213 / 1317 (38) |
+| 6 | new | e2b_1_new | 11, 139 | 3, 194 | 5378 / 883 (38) |
+| 7 | main | e2b_2_main | 12, 147 | 3, 246 | 5187 / 1660 (37) |
+| 7 | new | e2b_2_new | 12, 118 | 4, 288 | 4764 / 2244 (39) |
+| 8 | main | e2b_3_main | 11, 113 | 3, 95 | 4058 / 1041 (36) |
+| 8 | new | e2b_3_new | 13, 91 | 3, 175 | 4412 / 924 (40) |
+| 9 | main | e2b_4_main | 12, 124 | 3, 266 | 4933 / 1408 (38) |
+| 9 | new | e2b_4_new | 11, 84 | 3, 152 | 4317 / 1170 (36) |
+
+| pair | worker PostToolUse median, main minus new (ms) | pass (>= 25) | main-thread PostToolUse median, main minus new (ms) | run sum main arm (ms) | run sum new arm (ms) |
+|:--|--:|:--|--:|--:|--:|
+| 1 | 42 | yes | -36 | 5760 | 4449 |
+| 2 | 19 | NO | 116 | 5429 | 4651 |
+| 3 | 19 | NO | 29 | 4625 | 4079 |
+| 4 | 18 | NO | 41 | 4381 | 3953 |
+| 5 | 23 | NO | 120 | 4586 | 3989 |
+| 6 | -30 | NO | 30 | 7530 | 6261 |
+| 7 | 29 | yes | -42 | 6847 | 7008 |
+| 8 | 22 | NO | -80 | 5099 | 5336 |
+| 9 | 40 | yes | 114 | 6341 | 5487 |
+
+all pairs pass: False; median of the differences: 22 ms
+pooled over all pairs: worker PostToolUse starts main arm n=110 median 122 ms, new arm n=109 median 96 ms (difference 26 ms); main-thread PostToolUse starts main arm n=28 median 174 ms, new arm n=28 median 164 ms (difference 10 ms)

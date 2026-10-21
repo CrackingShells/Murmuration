@@ -1,0 +1,16 @@
+name	type	t0_utc	t1_utc	span_s	requests	usd_list
+explorer-w05-a	murmuration:explorer	2026-10-21T05:42:54	2026-10-21T05:51:59	545	39	0.9087
+explorer-w05-b	murmuration:explorer	2026-10-21T05:42:54	2026-10-21T05:53:45	651	39	0.7730
+explorer-w05-c	murmuration:explorer	2026-10-21T05:42:54	2026-10-21T05:55:59	785	55	1.3685
+explorer-w05-d	murmuration:explorer	2026-10-21T05:42:54	2026-10-21T06:04:03	1269	67	1.1467
+explorer-w05-e	murmuration:explorer	2026-10-21T05:42:54	2026-10-21T05:51:43	529	45	0.5175
+author-w05-1	murmuration:author	2026-10-21T06:07:42	2026-10-21T07:14:50	4028	68	1.6863
+author-w05-2	murmuration:author	2026-10-21T06:07:42	2026-10-21T06:38:20	1838	60	1.0077
+author-w05-3	murmuration:author	2026-10-21T06:07:42	2026-10-21T07:13:17	3934	136	5.0535
+explorer-w05-f	murmuration:explorer	2026-10-21T06:07:42	2026-10-21T06:34:16	1594	36	0.9646
+reproducer-w05-3	murmuration:reproducer	2026-10-21T06:26:03	2026-10-21T06:33:20	437	32	0.3541
+reproducer-w05-6	murmuration:reproducer	2026-10-21T06:32:45	2026-10-21T06:38:54	369	32	0.3436
+reproducer-w05-4	murmuration:reproducer	2026-10-21T06:58:32	2026-10-21T07:13:49	917	51	0.6263
+reproducer-w05-5	murmuration:reproducer	2026-10-21T06:58:32	2026-10-21T07:11:08	756	33	0.4081
+reproducer-w05-1	murmuration:reproducer	2026-10-21T06:59:13	2026-10-21T07:13:54	881	29	0.4042
+reproducer-w05-8	murmuration:reproducer	2026-10-21T07:00:29	2026-10-21T07:05:22	293	25	0.2851

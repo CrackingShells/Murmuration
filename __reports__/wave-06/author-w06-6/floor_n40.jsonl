@@ -1,0 +1,160 @@
+{"name": "sh :", "round": 0, "wall_ms": 30.18129099655198, "cpu_ms": 2.8209999999999997, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 0, "wall_ms": 55.779999995138496, "cpu_ms": 15.136, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 0, "wall_ms": 69.25283299642615, "cpu_ms": 27.957, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 0, "wall_ms": 55.67120799969416, "cpu_ms": 13.678999999999998, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 1, "wall_ms": 55.20295799942687, "cpu_ms": 13.896, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 1, "wall_ms": 57.81537500297418, "cpu_ms": 16.819999999999997, "rc": 0}
+{"name": "sh :", "round": 1, "wall_ms": 29.801999997289386, "cpu_ms": 2.6409999999999996, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 1, "wall_ms": 73.56754200009163, "cpu_ms": 32.589999999999996, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 2, "wall_ms": 56.22399999992922, "cpu_ms": 14.219, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 2, "wall_ms": 58.083666997845285, "cpu_ms": 16.495, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 2, "wall_ms": 68.92149999475805, "cpu_ms": 28.040999999999997, "rc": 0}
+{"name": "sh :", "round": 2, "wall_ms": 30.56749999814201, "cpu_ms": 2.7329999999999997, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 3, "wall_ms": 69.47012500313576, "cpu_ms": 28.585, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 3, "wall_ms": 55.28049999702489, "cpu_ms": 13.462, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 3, "wall_ms": 55.25845800002571, "cpu_ms": 14.144999999999998, "rc": 0}
+{"name": "sh :", "round": 3, "wall_ms": 29.82095799961826, "cpu_ms": 2.629, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 4, "wall_ms": 61.317833002249245, "cpu_ms": 20.221999999999998, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 4, "wall_ms": 55.45479099964723, "cpu_ms": 14.247, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 4, "wall_ms": 71.50299999921117, "cpu_ms": 30.636999999999997, "rc": 0}
+{"name": "sh :", "round": 4, "wall_ms": 30.177374996128492, "cpu_ms": 2.7720000000000002, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 5, "wall_ms": 56.3455410010647, "cpu_ms": 15.129, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 5, "wall_ms": 68.84487500065006, "cpu_ms": 27.671, "rc": 0}
+{"name": "sh :", "round": 5, "wall_ms": 29.75449999939883, "cpu_ms": 2.771, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 5, "wall_ms": 54.337834000762086, "cpu_ms": 13.315999999999999, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 6, "wall_ms": 69.62608400499448, "cpu_ms": 28.365, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 6, "wall_ms": 55.59358300524764, "cpu_ms": 13.944999999999999, "rc": 0}
+{"name": "sh :", "round": 6, "wall_ms": 30.81387500424171, "cpu_ms": 3.477, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 6, "wall_ms": 54.80066599557176, "cpu_ms": 13.821, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 7, "wall_ms": 52.254958005505614, "cpu_ms": 11.174999999999999, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 7, "wall_ms": 74.0220409934409, "cpu_ms": 33.416000000000004, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 7, "wall_ms": 56.61775000044145, "cpu_ms": 14.344, "rc": 0}
+{"name": "sh :", "round": 7, "wall_ms": 29.58191699872259, "cpu_ms": 2.6769999999999996, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 8, "wall_ms": 69.00991599832196, "cpu_ms": 27.77, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 8, "wall_ms": 54.391750003560446, "cpu_ms": 12.879999999999999, "rc": 0}
+{"name": "sh :", "round": 8, "wall_ms": 29.866541997762397, "cpu_ms": 2.683, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 8, "wall_ms": 58.17166600172641, "cpu_ms": 17.473, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 9, "wall_ms": 71.96429100440582, "cpu_ms": 30.276999999999997, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 9, "wall_ms": 53.43812499631895, "cpu_ms": 12.098999999999998, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 9, "wall_ms": 56.19112499698531, "cpu_ms": 14.809999999999999, "rc": 0}
+{"name": "sh :", "round": 9, "wall_ms": 28.90362500329502, "cpu_ms": 2.6319999999999997, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 10, "wall_ms": 60.58095800108276, "cpu_ms": 19.191, "rc": 0}
+{"name": "sh :", "round": 10, "wall_ms": 29.701416999159846, "cpu_ms": 2.8249999999999997, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 10, "wall_ms": 76.31933299853699, "cpu_ms": 34.787, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 10, "wall_ms": 56.02037499920698, "cpu_ms": 14.391, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 11, "wall_ms": 56.90566600242164, "cpu_ms": 15.632999999999997, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 11, "wall_ms": 69.21424999745796, "cpu_ms": 27.927, "rc": 0}
+{"name": "sh :", "round": 11, "wall_ms": 30.266207999375183, "cpu_ms": 3.025, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 11, "wall_ms": 54.54620900127338, "cpu_ms": 13.043, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 12, "wall_ms": 57.20116599695757, "cpu_ms": 16.232999999999997, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 12, "wall_ms": 60.2231250013574, "cpu_ms": 18.75, "rc": 0}
+{"name": "sh :", "round": 12, "wall_ms": 29.296332999365404, "cpu_ms": 2.963, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 12, "wall_ms": 73.88833299773978, "cpu_ms": 33.672999999999995, "rc": 0}
+{"name": "sh :", "round": 13, "wall_ms": 30.365458005690016, "cpu_ms": 2.92, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 13, "wall_ms": 69.09420800366206, "cpu_ms": 28.016, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 13, "wall_ms": 55.85479199362453, "cpu_ms": 14.550999999999998, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 13, "wall_ms": 53.279749998182524, "cpu_ms": 12.113999999999999, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 14, "wall_ms": 67.5649999975576, "cpu_ms": 26.212, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 14, "wall_ms": 55.254082995816134, "cpu_ms": 13.194999999999999, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 14, "wall_ms": 57.069499998760875, "cpu_ms": 14.487999999999998, "rc": 0}
+{"name": "sh :", "round": 14, "wall_ms": 30.81695800210582, "cpu_ms": 3.477, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 15, "wall_ms": 72.39074999961304, "cpu_ms": 31.931, "rc": 0}
+{"name": "sh :", "round": 15, "wall_ms": 30.180124995240476, "cpu_ms": 2.868, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 15, "wall_ms": 54.75208300049417, "cpu_ms": 13.434999999999999, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 15, "wall_ms": 55.92774999968242, "cpu_ms": 14.902, "rc": 0}
+{"name": "sh :", "round": 16, "wall_ms": 30.493999998725485, "cpu_ms": 3.2459999999999996, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 16, "wall_ms": 62.97141699906206, "cpu_ms": 21.982, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 16, "wall_ms": 72.80404199991608, "cpu_ms": 30.997999999999998, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 16, "wall_ms": 54.89029200543882, "cpu_ms": 13.091000000000001, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 17, "wall_ms": 57.79429199901642, "cpu_ms": 16.4, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 17, "wall_ms": 55.07866600237321, "cpu_ms": 13.111999999999998, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 17, "wall_ms": 71.76374999835389, "cpu_ms": 30.804, "rc": 0}
+{"name": "sh :", "round": 17, "wall_ms": 30.174665997037664, "cpu_ms": 2.9299999999999993, "rc": 0}
+{"name": "sh :", "round": 18, "wall_ms": 28.915249997226056, "cpu_ms": 2.6670000000000003, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 18, "wall_ms": 68.22895799996331, "cpu_ms": 27.32, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 18, "wall_ms": 53.796917003637645, "cpu_ms": 12.818, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 18, "wall_ms": 54.78370800119592, "cpu_ms": 13.297999999999998, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 19, "wall_ms": 68.78612499713199, "cpu_ms": 27.590999999999998, "rc": 0}
+{"name": "sh :", "round": 19, "wall_ms": 30.476375002763234, "cpu_ms": 2.734, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 19, "wall_ms": 52.32541700388538, "cpu_ms": 11.123, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 19, "wall_ms": 59.53241699899081, "cpu_ms": 18.345999999999997, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 20, "wall_ms": 66.99537499662256, "cpu_ms": 26.279999999999998, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 20, "wall_ms": 52.75441599951591, "cpu_ms": 10.652, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 20, "wall_ms": 57.460584001091775, "cpu_ms": 16.136999999999997, "rc": 0}
+{"name": "sh :", "round": 20, "wall_ms": 30.16441700310679, "cpu_ms": 2.7439999999999998, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 21, "wall_ms": 72.01562500267755, "cpu_ms": 31.402, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 21, "wall_ms": 55.0311659972067, "cpu_ms": 13.145, "rc": 0}
+{"name": "sh :", "round": 21, "wall_ms": 29.91825000208337, "cpu_ms": 2.726, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 21, "wall_ms": 61.14345800597221, "cpu_ms": 20.587, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 22, "wall_ms": 55.65575000218814, "cpu_ms": 14.296999999999999, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 22, "wall_ms": 71.82370900409296, "cpu_ms": 31.348000000000003, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 22, "wall_ms": 57.021334003366064, "cpu_ms": 15.345999999999998, "rc": 0}
+{"name": "sh :", "round": 22, "wall_ms": 29.74312500009546, "cpu_ms": 2.8989999999999996, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 23, "wall_ms": 53.697625000495464, "cpu_ms": 13.187, "rc": 0}
+{"name": "sh :", "round": 23, "wall_ms": 30.454250001639593, "cpu_ms": 3.386, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 23, "wall_ms": 76.0472080000909, "cpu_ms": 35.020999999999994, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 23, "wall_ms": 57.19870899338275, "cpu_ms": 15.467, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 24, "wall_ms": 69.97666700044647, "cpu_ms": 28.324, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 24, "wall_ms": 56.00179199973354, "cpu_ms": 14.649999999999999, "rc": 0}
+{"name": "sh :", "round": 24, "wall_ms": 30.255416997533757, "cpu_ms": 3.077, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 24, "wall_ms": 56.00704200332984, "cpu_ms": 14.924, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 25, "wall_ms": 55.94787500012899, "cpu_ms": 14.636999999999999, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 25, "wall_ms": 59.097625002323184, "cpu_ms": 17.227, "rc": 0}
+{"name": "sh :", "round": 25, "wall_ms": 29.723665997153148, "cpu_ms": 2.7349999999999994, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 25, "wall_ms": 75.68733299558517, "cpu_ms": 34.827999999999996, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 26, "wall_ms": 55.95070799608948, "cpu_ms": 14.287999999999998, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 26, "wall_ms": 67.86266699782573, "cpu_ms": 26.235, "rc": 0}
+{"name": "sh :", "round": 26, "wall_ms": 29.817790993547533, "cpu_ms": 2.817, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 26, "wall_ms": 52.49866699887207, "cpu_ms": 11.595999999999998, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 27, "wall_ms": 69.35995899402769, "cpu_ms": 28.789, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 27, "wall_ms": 55.202750001626555, "cpu_ms": 13.812, "rc": 0}
+{"name": "sh :", "round": 27, "wall_ms": 29.51908400427783, "cpu_ms": 2.87, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 27, "wall_ms": 57.06304100021953, "cpu_ms": 15.73, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 28, "wall_ms": 59.746916995209176, "cpu_ms": 18.456, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 28, "wall_ms": 57.56058300175937, "cpu_ms": 16.457, "rc": 0}
+{"name": "sh :", "round": 28, "wall_ms": 30.506625000271015, "cpu_ms": 2.8669999999999995, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 28, "wall_ms": 71.48462499753805, "cpu_ms": 29.058999999999997, "rc": 0}
+{"name": "sh :", "round": 29, "wall_ms": 30.3144589997828, "cpu_ms": 2.646, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 29, "wall_ms": 51.755542001046706, "cpu_ms": 11.081999999999999, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 29, "wall_ms": 72.3867920023622, "cpu_ms": 30.58, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 29, "wall_ms": 56.60458299826132, "cpu_ms": 14.921999999999999, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 30, "wall_ms": 54.71358399518067, "cpu_ms": 13.593, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 30, "wall_ms": 54.392291996919084, "cpu_ms": 12.933, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 30, "wall_ms": 68.02991699805716, "cpu_ms": 26.7, "rc": 0}
+{"name": "sh :", "round": 30, "wall_ms": 29.923292000603396, "cpu_ms": 2.7689999999999997, "rc": 0}
+{"name": "sh :", "round": 31, "wall_ms": 28.272499999729916, "cpu_ms": 2.389, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 31, "wall_ms": 53.41887500253506, "cpu_ms": 12.490999999999998, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 31, "wall_ms": 68.53091700031655, "cpu_ms": 27.063999999999997, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 31, "wall_ms": 55.32470800244482, "cpu_ms": 13.475000000000001, "rc": 0}
+{"name": "sh :", "round": 32, "wall_ms": 30.077666997385677, "cpu_ms": 3.2709999999999995, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 32, "wall_ms": 58.93087499862304, "cpu_ms": 17.927, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 32, "wall_ms": 68.42733299708925, "cpu_ms": 27.517, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 32, "wall_ms": 77.33045799977845, "cpu_ms": 11.677, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 33, "wall_ms": 72.90158399700886, "cpu_ms": 20.725, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 33, "wall_ms": 61.795624998921994, "cpu_ms": 11.875, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 33, "wall_ms": 102.80212500219932, "cpu_ms": 9.998, "rc": 0}
+{"name": "sh :", "round": 33, "wall_ms": 59.846083997399546, "cpu_ms": 2.868, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 34, "wall_ms": 73.24266700015869, "cpu_ms": 11.181999999999999, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 34, "wall_ms": 65.98070800100686, "cpu_ms": 24.24, "rc": 0}
+{"name": "sh :", "round": 34, "wall_ms": 30.632791000243742, "cpu_ms": 2.9259999999999997, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 34, "wall_ms": 53.66041699744528, "cpu_ms": 12.825, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 35, "wall_ms": 54.23583400261123, "cpu_ms": 12.829999999999998, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 35, "wall_ms": 67.20100000529783, "cpu_ms": 26.142, "rc": 0}
+{"name": "sh :", "round": 35, "wall_ms": 30.51650000270456, "cpu_ms": 3.1609999999999996, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 35, "wall_ms": 56.40304199914681, "cpu_ms": 16.295, "rc": 0}
+{"name": "sh :", "round": 36, "wall_ms": 29.885292002290953, "cpu_ms": 2.678, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 36, "wall_ms": 60.978875000728294, "cpu_ms": 19.622, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 36, "wall_ms": 74.80237499839859, "cpu_ms": 32.778, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 36, "wall_ms": 55.88779200479621, "cpu_ms": 13.824, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 37, "wall_ms": 54.2173330031801, "cpu_ms": 12.530999999999999, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 37, "wall_ms": 68.47595799627015, "cpu_ms": 27.427999999999997, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 37, "wall_ms": 56.789166999806184, "cpu_ms": 14.764, "rc": 0}
+{"name": "sh :", "round": 37, "wall_ms": 29.772666006465442, "cpu_ms": 2.703, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 38, "wall_ms": 57.034707999264356, "cpu_ms": 16.212, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 38, "wall_ms": 69.31641600385774, "cpu_ms": 27.176, "rc": 0}
+{"name": "sh :", "round": 38, "wall_ms": 29.992249998031184, "cpu_ms": 2.6359999999999997, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 38, "wall_ms": 53.11587500182213, "cpu_ms": 12.219999999999999, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 39, "wall_ms": 54.09216700354591, "cpu_ms": 12.476999999999999, "rc": 0}
+{"name": "python3 -c pass (as main starts)", "round": 39, "wall_ms": 74.6748339952319, "cpu_ms": 32.806, "rc": 0}
+{"name": "python3 -S -I -c import os,sys,_json,fcntl", "round": 39, "wall_ms": 57.168958002876025, "cpu_ms": 15.044, "rc": 0}
+{"name": "sh :", "round": 39, "wall_ms": 29.663875000551343, "cpu_ms": 2.633, "rc": 0}

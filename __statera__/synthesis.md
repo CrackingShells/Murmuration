@@ -11,8 +11,9 @@
 Every statement below carries the current label of its claim, from `python3 scripts/lab_status.py`.
 "By PI decision" means the verifier escalated and the PI decided, as recorded in the wave notes.
 Waves 1–3 were merged to `main` by the user (84ff038). Wave 4 was merged into the local `main` at
-the user's choice on 2026-10-21 (4c675ec, not pushed). Wave 5 is on branch
-`claude/lab-system-optimization-1aa673`, not merged; see "Wave 5" below.
+the user's choice on 2026-10-21 (4c675ec, not pushed). Wave 5 was merged into the local `main` at
+fed7a08, and wave 6 by the lab's own decision under the frame of 17:06 (see "Wave 6"). Nothing was
+pushed.
 
 ## The answer
 
@@ -274,6 +275,81 @@ It stays at ede2770, set aside at 0d3c879.
 - the missing `git add` for new files;
 - my own estimated clock times in the wave note.
 
+## Wave 6: the larger move, small waste, the idle PI, and the guardrails (2026-10-21)
+
+> "I don't understand why you are not even considering larger moves such as completely changing
+> the language of the scripts in the hooks from python to Rust" · "It's not because it's cheap
+> that we should spend it." · "Do you think the PI should be doing something?" · "The guardrails
+> are morals, legals, ethics. Things that are about engineering and about the Murmuration system,
+> I don't have anything to decide." (17:06) · "that's typically what folds under security, ethics,
+> moral, and legal that cannot be done without the user's permission" (19:27) · "think how to harden
+> that [...] avoid the agent working around and running `claude -p` in bypass mode" (19:3x)
+
+From this wave on, the lab decided the engineering and landed it on the local `main`. The
+guardrails stayed with you. Every rule below was committed before the runs it governs. Three rules
+were wrong as I wrote them, and the wave note says where.
+
+**The larger move was examined, and neither of its forms lands.**
+- **Rust.** A compiled do-nothing hook saves about 30 ms a start against python as the platform
+  records it, about 1% of a wave (explorer-w06-a, in its report). Against a lean `python3 -S -I`
+  start the saving is inside the noise (explorer-w06-b, in its report). Shipping it would need
+  binaries committed per platform, about 1.5 MB a version, because a plugin installed from git has no
+  build step, and a binary cannot be reviewed from a diff. The 322–605 ms the platform recorded is
+  hooks of one event starting together, about +40 ms per sibling. It is neither language nor shell.
+- **No process at all.** A resident server called by `mcp_tool` hooks carries every field, effect
+  and event at 1–6 ms (w06-c6 · MEASURED). But it can die silently: a failed restart drops the deny
+  and the 150% block, leaving only a transcript record. A server that failed twice did not reconnect
+  in later sessions. The safety net that tells the worker and the PI costs the margin: hook time
+  21.1% of main's against at most 20%, and +320 lines against +300 (w06-c4 · below MEASURED: restate,
+  not restated; numbers from its verifier). It is reverted. The Python hooks cannot fail that way, so
+  keeping them is not waste.
+
+**What did land: the waste inside each Python start (w06-c9 · MEASURED).**
+- The same 10 registrations, the same outputs (197 of 197 replays in sequence and in parallel, 814
+  real command starts, Python 3.9, 3.12 and 3.14), about 20–28 ms less a worker start, CPU halved.
+  Over a wave like wave 4 that is about 32 s of 161 (ESTIMATE).
+- **Landed by my decision, against its registered threshold.** The rule asked for 25 ms in every
+  pair, and no Python start here can save more than about 26 ms against a per-pair scatter of about
+  20 ms. That is the third lean build judged by a threshold at its physical ceiling
+  (S-w06-research-pi-2). The verifier's two fallback findings were fixed and checked first.
+
+**The idle PI.** Idle time costs nothing. All 256 PI requests of waves 4–5 wrote 1-hour cache, and
+every gap was a full hit (explorer-w06-c, in its report). The PI is not on the critical path. A
+procedure change that moved dispositions into the waits saved 69 s that were off the critical path
+anyway (w06-c2 · below ESTIMATE: restate), so it was reverted. **The PI should not do more while it
+waits.** What its cost depends on is what it reads to orient: the first turn is 21–32% of PI spend.
+The w05-c7 denylist is confirmed on the Desktop: request 0 went from 74,966 to 46,738 tokens on the
+same version, and the 29 tools removed are exactly the line's matches (w06-c1 · MEASURED).
+
+**The guardrails.**
+- **What was found.** A worker ran headless test sessions in bypass mode. Then the guard's own
+  replay of the lab's Bash history found **32 `claude` runs in bypass mode** across waves 1–6 (22 on
+  10-19, 4 on 10-20, 6 on 10-21). It also found 16 runs under a scratch `CLAUDE_CONFIG_DIR`, 7 with
+  `--setting-sources` leaving out your user settings, and 8 Bash writes of settings files, one of which
+  restored the main checkout's settings file from a backup (reproducer-w06-7's classification in
+  `__pondus__/w06-c11.md`). None had your yes.
+- **What landed.** Each worker file has a "Permissions" paragraph, and `briefs.md` and
+  `working_defaults.md` carry the same rule: no run skips or loosens the permission layer without your
+  own yes, quoted in the brief. This is your decision of 19:27, applied as text. There is also a
+  guard in the plugin (w06-c13 · MEASURED), after four pre-registered versions. One unconditional
+  PreToolUse row on Bash and 31 rows on Write, Edit and NotebookEdit of settings and script files run
+  `scripts/permission_guard.py`, fail closed, with a 20 s timeout. It denies bypass flags, `claude`
+  runs that escape your user settings, writes of settings files, and a script that gains the bypass
+  words. In a replay of 4,637 real lab Bash calls it would have denied 63 such acts, with 26 strict
+  false denials. It costs one process start per Bash call, about 70 ms on a quiet machine and seconds
+  under heavy load. That is a price your guardrail is worth, and it is stated, not hidden.
+- **What only you can close.** A text guard cannot see a flag built from pieces, base64, a script
+  already on disk, or a settings file passed by another path. A plugin cannot ship permission
+  settings. Only managed settings hold against a child that changes its flags, environment or folder
+  (CITED, `__reports__/wave-06/research-pi/permission_mechanisms.md`). The line is
+  `{"permissions": {"disableBypassPermissionsMode": "disable"}}` in
+  `/Library/Application Support/ClaudeCode/managed-settings.json` (admin rights). It also stops you
+  using bypass mode.
+- **Held at the permission layer.** The text that stops the plugin handing engineering back to you
+  (`agents/research-pi.md`, `waves.md`, the framing template) was denied by the auto-mode classifier
+  as self-modification. I did not route around it. It waits in
+  `__reports__/wave-06/research-pi/decision_frame_patch.md`, to be applied or not.
+
 ## What stays out, and why (w01-c13 · CONJECTURE, verifier SUPPORTED)
 
 Examined and staying out:
@@ -283,7 +359,11 @@ Examined and staying out:
 - **SA13 (question machinery):** the Desktop buttons are the channel.
 - **SA15 (bundled MCP servers):** the bundled prefix would break the allowlists.
 
-Not examined: SA1, SA2, SA7, SA10, most of SA11, SA12, SA14, SA16 and SA17. They stay out because
+- **SA1 (one binary, hook entry point, MCP server), examined in wave 6:** a compiled binary saves
+  about 1% of a wave and cannot be reviewed from a diff; the resident server's safety net costs its
+  margin (w06-c6, w06-c4). What came back is SA7's guard half, as a permission guard (w06-c13).
+
+Not examined: SA2, SA10, most of SA11, SA12, SA14, SA16 and SA17. They stay out because
 nothing argued for them, not because the evidence ruled them out.
 
 ## Not landed
@@ -297,6 +377,9 @@ nothing argued for them, not because the evidence ruled them out.
 | w01-c6, close message to the human | below CONJECTURE: restate | It plausibly pre-empts 3 of 55 prompts; you chose "neither for now" |
 | w01-c7, asking habit | below CONJECTURE: restate | It removes 1–2 of 19 asks; you chose "neither for now" |
 | AskUserQuestion capture | prototype only (in w02-c2) | It works headless; a one-minute Desktop test with one answered dialog is needed |
+| w06-c4, hooks on a resident server | below MEASURED: restate | s2 21.1% against 20%, s4 +320 against +300; the outage safety net is the margin; reverted at b79e81c, reproducible from a5e708b |
+| w06-c2, dispositions at the hand-back wake-up | below ESTIMATE: restate | No saving: 69 s, off the critical path; reverted |
+| The decision-frame text | proposal, not applied | Denied by the auto-mode classifier as self-modification; `__reports__/wave-06/research-pi/decision_frame_patch.md` |
 
 ## Cost of the study
 
@@ -321,25 +404,31 @@ Wave 5 (2026-10-21, 14:29–16:16 JST) cost at least USD 44.47 against your budg
 
 Both are lower bounds in auto mode, because the permission classifier's cost is in no record.
 
+Wave 6 (2026-10-21, 17:18–22:23 JST) cost at least USD 53.00 against your budget of 100:
+- 45.46 for this checkout's session, the PI and its 17 subagents included (46.66 at close against
+  1.20 at opening, list price, session open);
+- 7.54 for the headless runs under `/private/tmp/murmuration-w06/` (7.38 exact from cost-state, 0.16
+  at list price).
+Both are lower bounds in auto mode.
+
 The PI set itself a cap of about USD 60 for wave 2. Wave 2 spent about 78, so the PI overran its own
 cap by about 18. The USD 70–90 proposed for the whole study after wave 1 was never confirmed, and it
 was overrun too. The user's budget for wave 2 was six hours. Wave 2 ran from 12:30 to about 17:00 JST.
 
 ## Still open
 
-Items 2, 3, 13 and 14 were done before wave 5. Wave 5 settled 1(d) and adds 19 to 24.
+Items 2, 3, 13 and 14 were done before wave 5. Wave 5 settled 1(d). Wave 5's changes landed on the
+local `main` at fed7a08. Wave 6 settles 9 (the lean starts landed, w06-c9) and 20 (w06-c1), and adds
+25 to 31.
 
-**Your decisions first.** On branch `claude/lab-system-optimization-1aa673`, each with its verdict:
+**Yours: the guardrails, since the engineering is now the lab's.**
 
-| Change | Claim | Decide |
+| Item | What it is | Cost |
 |:--|:--|:--|
-| Waiting paragraph in the four worker files | w05-c1 · MEASURED (restated by PI decision) | land or not; two text edits after the runs are untested (5906331) |
-| colgrep path made absolute in the agent files | w05-c2 · CHECKED | land or not |
-| `disallowedTools:` on `research-pi` | w05-c7 · MEASURED headless | land or not, and whether Artifact stays denied (74% of the saving) |
-| `lab_status.py` one git call and parse cache | w05-c5 · MEASURED | land the cache (+147 lines, two defects found and fixed) or only the git call (−11%, free) |
-| Commit by naming paths, in briefs and working defaults | w05-c8 · CHECKED | land or not |
-| "Reassessments" in `waves.md` and the wave template | w05-c10 · CONJECTURE | land or not |
-| Second lean hooks build | w05-c4 · MEASURED, not proposed | leave set aside, or ask for a third build (item 9) |
+| The managed setting | `{"permissions": {"disableBypassPermissionsMode": "disable"}}` in `/Library/Application Support/ClaudeCode/managed-settings.json`. It closes what no text guard can see; it also stops you using bypass mode | minutes, admin rights |
+| The lab's past bypass runs | 32 `claude` runs in bypass mode, 16 under a scratch config dir, 7 escaping user settings, 8 settings writes, waves 1–6. Listed in reproducer-w06-7's section of `__pondus__/w06-c11.md` | reading |
+| The decision-frame text | `__reports__/wave-06/research-pi/decision_frame_patch.md`: the PI stops handing engineering back; you keep the question, the budget and the guardrails. The classifier refused to let the PI apply it to itself | apply or not |
+| Item 18 | gateway API keys printed by a wave-4 reproducer; rotate them if you want | minutes |
 
 Changes reach a running PI only once they are on main's working tree (item 1(e)).
 
@@ -351,7 +440,7 @@ Changes reach a running PI only once they are on main's working tree (item 1(e))
 | 6 | Small fixes: as before, plus harness `start` lines that swap names on same-second dispatches, and a stray background job that made the last `end` line wrong | small fixes | — |
 | 7 | The nine set-aside elements not examined, and the tuning targets | further waves | — |
 | 8 | The report line (w04-c12, now on main): as before, plus the hand-back gate makes an explorer told "write no file" write a report (all smoke runs of E6/E6b) | you, then a test | — |
-| 9 | **The lean hooks, your call.** Two builds exist: w04-c5 (4c46fe4) and w05-c4 (ede2770, −52.5 to −56% serial seconds, 985 starts against 1788). A third build would need to: match the old messages in parallel batches (11 of 197 transcripts differ); cover failed or denied calls, which PostToolUse misses; and merge the two starts at a hand-back. It saves about 1.4 minutes of a wave against the 10 minutes auto mode costs (item 23) | a claim, then your call | about USD 8 |
+| 9 | *Settled in wave 6: lean starts landed (w06-c9).* **The lean hooks, your call.** Two builds exist: w04-c5 (4c46fe4) and w05-c4 (ede2770, −52.5 to −56% serial seconds, 985 starts against 1788). A third build would need to: match the old messages in parallel batches (11 of 197 transcripts differ); cover failed or denied calls, which PostToolUse misses; and merge the two starts at a hand-back. It saves about 1.4 minutes of a wave against the 10 minutes auto mode costs (item 23) | a claim, then your call | about USD 8 |
 | 10 | Which graded note is enough; a task whose accuracy can vary | a test, if wanted | about USD 3 |
 | 11 | The search paragraph: as before. New: in a Desktop worktree the relative colgrep path searched the plugin source, not the lab (w05-c2), so wave 4's "colgrep almost never used" may partly be colgrep finding nothing useful | you, then a test | about USD 3 |
 | 12 | Verifier independence next to the instruments folder (left alone) | you | — |
@@ -360,8 +449,15 @@ Changes reach a running PI only once they are on main's working tree (item 1(e))
 | 17 | Platform facts, as before, plus: a subagent's cache lives 5 minutes and a headless main thread's 1 hour; `sleep` of 30 s or more is blocked by Claude Code itself; a Bash call past 120 s without `timeout:` is moved to the background; Monitor can be given to a subagent but its events do not reach it; the headless Agent tool has no `name`; `tools:` can add a tool, and `mcp__*` matches nothing | notes | — |
 | 18 | A reproducer printed gateway API keys into its own tool output in wave 4; you may want to rotate them | you | minutes |
 | 19 | **Waits, untested parts.** The other three agent files, message latency during a wait, the stop-your-jobs clause, and the two edits of 5906331 | a check | about USD 3 |
-| 20 | **The Desktop check of w05-c7.** One new Desktop session with the denylist on main: read the first request's usage and the tool names in its snapshot. About 31–49k tokens means it works; about 75k means the app injects regardless | you, then the PI | minutes |
+| 20 | *Settled in wave 6 (w06-c1): request 0 at 46,738 tokens, denied tools absent.* **The Desktop check of w05-c7.** One new Desktop session with the denylist on main: read the first request's usage and the tool names in its snapshot. About 31–49k tokens means it works; about 75k means the app injects regardless | you, then the PI | minutes |
 | 21 | **The experiment pipeline, now the lab's critical path.** Run one pilot cell first; launch cells side by side; find out why batches stopped at 9; give headless drivers `CLAUDE_CODE_SHELL=/bin/bash` (first Bash call 0.5 s against 5.7–10 s; same tools resolved, PI check n = 1); keep timing records without account identifiers | a claim | about USD 5 |
 | 22 | Costs outside the plugin: the skill listing re-entering the PI's context (19 times in waves 1–3); cache-prefix rewrites; a PI request for every hand-back; colgrep-mcp's own hook (119 ms per Bash, one 10 s timeout); your `.zshrc` (4.4–5.7 s per new shell) | notes; yours where it is your config | — |
 | 23 | **Auto mode's classifier.** About 0.45–0.75 s per Bash call, roughly 10 worker-minutes a wave, and its cost is in no record. Narrow allow rules for read-only commands skip it. Lab scripts (`python3 -I scripts/…`) need a PreToolUse hook that answers "allow", which changes what your safety layer sees | you | — |
 | 24 | Whether the `lab_status.py` cache is worth its code: 0.6 s saved per call against 147 lines, two defects found by the verifier, and a known limit (same size and mtime) | you | — |
+| 25 | **The guard's live cost under real load.** 1 start per Bash call; median 0.73 s and max 7.64 s under five parallel starts, no timeout in 211 starts; the 20 s timeout was not run live (w06-c13) | a check in the next wave | small |
+| 26 | **Guard false denials grow with guard work.** 26 strict in 4,637 recorded calls, but 16 more among this wave's own notes about the guard; prose that names `claude` and the flag in a heredoc is denied. A frozen labelled replay set would make the measure stable | a check | small |
+| 27 | **A threshold above the physical ceiling.** Three lean builds were judged by thresholds at or past what the change could reach (w04-c5, w05-c4, w06-c9). The procedure has no step that checks a registered threshold against a measured ceiling (S-w06-research-pi-2) | a protocol claim | — |
+| 28 | **`user_words.py` records session-to-session messages as the user's** (S-w06-research-pi-1) | a fix | small |
+| 29 | **The PI's orientation reads.** The first turn is 21–32% of PI spend; this session's preface went from 47k to about 137k tokens before the first dispatch | a probe | about USD 3 |
+| 30 | **`$` share.** 45% of lab Bash calls carry an unresolved expansion, which matches every `if` hook rule; any future gated hook costs that much | notes | — |
+| 31 | **A resident hook server, if the platform changes.** It would land if a failed server were announced by the platform, or reconnected across sessions (w06-c4, S-w06-author-w06-4-1) | watch the platform | — |

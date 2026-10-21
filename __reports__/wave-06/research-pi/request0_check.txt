@@ -1,0 +1,4 @@
+version 2.1.304 request0_ts 2026-10-21T08:18:50.597Z
+input 2 cache_write 46736 cache_read 0 total 46738
+loaded_tools 23 tools_json_chars 41937 system_json_chars 28326
+names Agent,AskUserQuestion,Bash,Edit,ListAgents,Read,ScheduleWakeup,SendUserFile,Skill,ToolSearch,Write,mcp__1a59c906-04da-521d-bda7-7f71b9f9e01c__batch,mcp__1a59c906-04da-521d-bda7-7f71b9f9e01c__guide,mcp__1a59c906-04da-521d-bda7-7f71b9f9e01c__update,mcp__ccd_session__dismiss_task,mcp__ccd_session__hand_off_to_session,mcp__ccd_session__mark_chapter,mcp__ccd_session__read_widget_context,mcp__ccd_turn__update_plan,mcp__ccd_turn__wrap_up,DeferredToolPlaceholder,mcp__terminal__read_terminal,advisor

@@ -1,0 +1,38 @@
+[
+ {
+  "id": "m01",
+  "group": "mention",
+  "tool": "Bash",
+  "command": "grep -rn 'dangerously-skip-permissions' {T}/docs"
+ },
+ {
+  "id": "m02",
+  "group": "mention",
+  "tool": "Bash",
+  "command": "git log --oneline --grep bypassPermissions"
+ },
+ {
+  "id": "m03",
+  "group": "mention",
+  "tool": "Bash",
+  "command": "echo \"the bypassPermissions mode is documented\""
+ },
+ {
+  "id": "m04",
+  "group": "mention",
+  "tool": "Bash",
+  "command": "git commit -q --allow-empty -m 'document bypassPermissions'"
+ },
+ {
+  "id": "m05",
+  "group": "mention",
+  "tool": "Bash",
+  "command": "jq '.permissions.defaultMode' {T}/docs/mode.json   # not bypassPermissions"
+ },
+ {
+  "id": "m06",
+  "group": "mention",
+  "tool": "Bash",
+  "command": "grep -c CLAUDE_CONFIG_DIR {T}/docs/notes.txt"
+ }
+]

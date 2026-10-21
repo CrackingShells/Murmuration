@@ -1,0 +1,10 @@
+mask='' cases=67308 mismatches=0
+  categories: Counter()
+  extra tuple build: ('ok', '[1, 2]') json: ('ok', '[1, 2]') SAME
+  extra int-key build: ('exc', 'TypeError') json: ('ok', '{"1": 2}') DIFFERENT
+  extra bytes build: ('exc', 'TypeError') json: ('exc', 'TypeError') SAME
+  extra set build: ('exc', 'TypeError') json: ('exc', 'TypeError') SAME
+  extra float-subclass build: ('ok', '1.5') json: ('ok', '1.5') SAME
+  extra str-subclass build: ('ok', '"x"') json: ('ok', '"x"') SAME
+  extra int-subclass build: ('ok', '3') json: ('ok', '3') SAME
+  extra dict-order-mixed-sort build: ('exc', 'TypeError') json: ('ok', '{"b": 1, "1": 2}') DIFFERENT

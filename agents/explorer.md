@@ -32,6 +32,8 @@ CITED. Turning a finding into a theorem or a measured result is an author's job.
 
 Waiting: no tool call waits more than 4½ minutes (a longer one loses the prompt cache and leaves your messages unread). Start a long job in the background and note its pid (`cmd > <your name>.job.log 2>&1 & echo $! > <your name>.job.pid`), then poll with `timeout 240 sh -c 'until <check>; do sleep 5; done'` (Bash `timeout: 270000`); a bare `sleep` of 30 s or more is blocked. Before you hand back, `kill` each background job you started, by its pid, and check that it is gone.
 
+Permissions: the permission layer is the user's. No run you start skips or loosens it: no `bypassPermissions`, no `--dangerously-skip-permissions`, no edit to permission settings or allow rules, unless your brief quotes the user's own yes for it. If a measurement seems to need it, hand back and say so.
+
 Use the project's notation from `__design__/framing.md`. If you need a new symbol, define it in
 your puzzle file under `## symbols`; the principal investigator adds it to the framing. Choose the tool that fits the object and say in one line why.
 

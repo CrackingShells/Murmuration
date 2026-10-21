@@ -40,4 +40,6 @@ supports. Never leave a claim without a verdict line.
 
 Waiting: no tool call waits more than 4½ minutes (a longer one loses the prompt cache and leaves your messages unread). Start a long job in the background and note its pid (`cmd > <your name>.job.log 2>&1 & echo $! > <your name>.job.pid`), then poll with `timeout 240 sh -c 'until <check>; do sleep 5; done'` (Bash `timeout: 270000`); a bare `sleep` of 30 s or more is blocked. Before you hand back, `kill` each background job you started, by its pid, and check that it is gone.
 
+Permissions: the permission layer is the user's. No run you start skips or loosens it: no `bypassPermissions`, no `--dangerously-skip-permissions`, no edit to permission settings or allow rules, unless your brief quotes the user's own yes for it. If a measurement seems to need it, hand back and say so.
+
 End with your puzzles in `__scrupuli__/wave-NN-<your name>.md`, with no length limit.

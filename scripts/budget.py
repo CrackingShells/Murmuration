@@ -59,11 +59,7 @@ Usage:
     budget.py              read a hook event from stdin
     budget.py --selftest   check the script on a temporary project
 """
-import datetime
-import glob
-import json
 import os
-import re
 import sys
 import time
 
@@ -76,14 +72,16 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import handback  # noqa: E402  (a sibling script: one place that finds the lab, the agent's name, and writes the log)
 
+loads, dumps = handback.loads, handback.dumps   # `json`, `re`, `datetime`, `glob` load only on the paths that need them (w06-c9)
+
 DEFAULT = {"explorer": 3.0, "author": 3.0, "reproducer": 2.0, "proof-adversary": 2.0}
 OTHER_ROLE = 2.0
 # Starting values chosen from a few observed worker run times, not tuned: put `Time: min <n>` in a brief to set one.
 TIME_DEFAULT = {"explorer": 20.0, "author": 20.0, "reproducer": 15.0, "proof-adversary": 15.0}   # minutes
 OTHER_TIME = 15.0
 FLOOR_USD, FLOOR_MIN = 0.30, 3.0
-TIME_LINE = re.compile(r"^Time: min (\d+(?:\.\d+)?)[ \t]*$", re.M)
-BRIEF_LINE = re.compile(r"^Budget: USD (\d+(?:\.\d+)?)[ \t]*$", re.M)
+TIME_LINE = handback.Lazy(r"^Time: min (\d+(?:\.\d+)?)[ \t]*$", "M")
+BRIEF_LINE = handback.Lazy(r"^Budget: USD (\d+(?:\.\d+)?)[ \t]*$", "M")
 SCHEDULE = (0.5, 0.75, 0.875, 0.9375)   # the notes below 1.0
 OVER_AT, HARD_AT = 1.0, 1.5
 HALT_AFTER = 3   # the backstop needs this many earlier ceiling blocks: an agent that hands back and then writes its report is not halted
@@ -109,9 +107,17 @@ CHARS_PER_TOKEN = 1.3
 BASIS = "input and cache exact; output = max(recorded, content chars / %s)" % CHARS_PER_TOKEN if CHARS_PER_TOKEN else "input and cache exact; output as recorded (a lower bound in auto mode)"
 
 
+def price_row(model):
+    """The price row of a model name: the name itself, else the name without a trailing `-YYYYMMDD`."""
+    if model in PRICES:
+        return model
+    import re
+    return re.sub(r"-\d{8}$", "", model or "")
+
+
 def usd_of(model, req):
     """USD of one API request at list price; `req` holds the max of each usage field over its records."""
-    p = PRICES.get(re.sub(r"-\d{8}$", "", model or ""))
+    p = PRICES.get(price_row(model))
     if p is None:
         p = PRICES[PRICE_FOR_UNKNOWN]
     elif model.startswith("claude-haiku-5-5") and req["in"] + req["cr"] + req["cw"] > 100000:
@@ -123,7 +129,7 @@ def usd_of(model, req):
 
 def block_text(block):
     """What a content block adds to the output: its text or thinking, or the JSON of a tool call's input."""
-    return json.dumps(block["input"], sort_keys=True) if "input" in block else str(block.get("text") or block.get("thinking") or "")
+    return dumps(block["input"], sort_keys=True) if "input" in block else str(block.get("text") or block.get("thinking") or "")
 
 
 def plain_text(content):
@@ -137,6 +143,7 @@ def plain_text(content):
 
 
 def epoch(stamp):
+    import datetime
     try:
         return datetime.datetime.fromisoformat(str(stamp).replace("Z", "+00:00")).timestamp()
     except ValueError:
@@ -155,11 +162,11 @@ def scan(path):
         with open(path, encoding="utf-8", errors="replace") as fh:
             for line in fh:
                 if brief is None and '"user"' in line:
-                    rec = json.loads(line)
+                    rec = loads(line)
                     if rec.get("type") == "user":
                         brief = plain_text((rec.get("message") or {}).get("content")) or ""
                 elif '"origin"' in line:
-                    rec = json.loads(line)
+                    rec = loads(line)
                     att = rec.get("attachment") or {}
                     if rec.get("type") == "user":   # a worker resumed by a message: the message is a user record
                         text, origin = plain_text((rec.get("message") or {}).get("content")), rec.get("origin")
@@ -175,7 +182,7 @@ def scan(path):
                                                ts=epoch(rec.get("timestamp")), n=len(reqs)))
                 if '"usage"' not in line:
                     continue
-                rec = json.loads(line)
+                rec = loads(line)
                 msg, use = rec.get("message") or {}, (rec.get("message") or {}).get("usage")
                 if rec.get("type") != "assistant" or not isinstance(use, dict):
                     continue
@@ -200,7 +207,7 @@ def scan(path):
     for r in raises:
         r["usd_at"] = sum(costs[:r.pop("n")])
     return dict(brief=brief, usd=sum(costs), usd_recorded=sum(usd_of(r["model"], r) for r in reqs.values()),
-                requests=len(live), unpriced=sum(re.sub(r"-\d{8}$", "", r["model"] or "") not in PRICES for r in live), raises=raises)
+                requests=len(live), unpriced=sum(price_row(r["model"]) not in PRICES for r in live), raises=raises)
 
 
 def transcript_of(event):
@@ -294,8 +301,8 @@ class locked:
 
 def load_state(root, aid):
     try:
-        with open(state_path(root, aid)) as fh:
-            return json.load(fh)
+        with open(state_path(root, aid), "rb") as fh:
+            return loads(fh.read())
     except (OSError, ValueError):
         return None
 
@@ -303,7 +310,7 @@ def load_state(root, aid):
 def save_state(root, aid, st):
     tmp = state_path(root, aid) + ".%d.tmp" % os.getpid()
     with open(tmp, "w") as fh:
-        json.dump(st, fh)
+        fh.write(dumps(st))
     os.replace(tmp, state_path(root, aid))
 
 
@@ -363,6 +370,7 @@ def dispatch(event, root, now):
     kind = str(tin.get("subagent_type") or "")
     if not kind.startswith("murmuration:"):
         return None
+    import re
     role, prompt = kind.split(":", 1)[1], tin.get("prompt") or ""
     B, b_set = budget_for(role, prompt)
     T, t_set = time_for(role, prompt)
@@ -370,7 +378,7 @@ def dispatch(event, root, now):
     os.makedirs(pending_dir(root), exist_ok=True)
     key = "%014.3f-%s" % (now, re.sub(r"[^A-Za-z0-9_-]", "", str(event.get("tool_use_id") or os.getpid())))
     with open(os.path.join(pending_dir(root), key + ".json"), "w") as fh:
-        json.dump(dict(type=kind, B=B, T=T, b_set=b_set, t_set=t_set, t=now, name=name), fh)
+        fh.write(dumps(dict(type=kind, B=B, T=T, b_set=b_set, t_set=t_set, t=now, name=name)))
     warn_floor(root, dict(name=name, type=kind), B if b_set else None, T if t_set else None)
     return None
 
@@ -384,10 +392,11 @@ def warn_floor(root, who, B, T):
 
 def claim_pending(root, kind, now):
     """The oldest dispatch record of this agent type that is still fresh, removed; and whether other fresh records of the type disagree with it."""
+    import glob
     found = []
     for path in sorted(glob.glob(os.path.join(pending_dir(root), "*.json"))):
         try:
-            rec = json.load(open(path))
+            rec = loads(open(path, "rb").read())
         except (OSError, ValueError):
             continue
         if now - rec.get("t", 0) > PENDING_TTL:
@@ -408,7 +417,7 @@ def claim_pending(root, kind, now):
             for p, r in rest:
                 try:
                     with open(p, "w") as fh:
-                        json.dump(dict(r, ambiguous=True), fh)
+                        fh.write(dumps(dict(r, ambiguous=True)))
                 except OSError:
                     pass
         return rec, mixed
@@ -517,6 +526,10 @@ def handle_locked(event, root, role, aid, kind, now):
 
 
 def selftest():
+    import datetime
+    import glob
+    import json
+    import re
     import subprocess
     import tempfile
     import threading
@@ -836,17 +849,81 @@ def selftest():
     # 7. the registration: the check on PostToolBatch, the ceiling on PostToolUse, the dispatch on Agent
     hooks = json.load(open(os.path.join(HERE, "..", "hooks", "hooks.json")))["hooks"]
     for event, matcher in (("SubagentStart", None), ("PostToolBatch", None), ("PostToolUse", None), ("SubagentStop", None), ("PreToolUse", "Agent|Task")):
-        assert any(("budget.py" in h["command"]) and g.get("matcher") == matcher for g in hooks[event] for h in g["hooks"]), (event, matcher)
+        assert any(h["command"].endswith('run_hook.py" budget') and g.get("matcher") == matcher for g in hooks[event] for h in g["hooks"]), (event, matcher)
     assert subprocess.run([sys.executable, os.path.abspath(__file__)], input="not json", capture_output=True, text=True).returncode == 0
+
+    # 8. the lean start (w06-c9): the registered command gives what `python3 budget.py` gives; the quiet path imports neither `re` nor `json`; the JSON reader and writer equal `json`
+    import random
+    import shlex
+    cmds = [h["command"].replace("${CLAUDE_PLUGIN_ROOT}", os.path.dirname(HERE)) for g in hooks["PostToolUse"] + hooks["SubagentStart"] for h in g["hooks"] if "run_hook.py" in h["command"]]
+    assert cmds and all(shlex.split(c)[:3] == ["python3", "-S", "-I"] for c in cmds), cmds
+    with tempfile.TemporaryDirectory() as tmp:
+        os.makedirs(os.path.join(tmp, "__statera__"))
+        sub = os.path.join(tmp, "s", "subagents")
+        os.makedirs(sub)
+        open(os.path.join(sub, "agent-q1.meta.json"), "w").write(json.dumps({"name": "explorer-w09-1"}))
+        open(os.path.join(sub, "agent-q1.jsonl"), "w").write(rec_user("Your name is explorer-w09-1.\nBudget: USD 100\nTime: min 100\n") + rec_asst("r1", 1000, cr=5000))
+        ev = dict(cwd=tmp, agent_id="q1", agent_type="murmuration:explorer", transcript_path=os.path.join(tmp, "s.jsonl"), permission_mode="auto")
+        for name in ("SubagentStart", "PostToolUse", "PostToolBatch"):   # the registered command, then the script run directly, on the same state
+            outs = []
+            for cmd in cmds[:1] + [None]:
+                proc = subprocess.run(shlex.split(cmd) if cmd else [sys.executable, os.path.abspath(__file__)], input=json.dumps(dict(ev, hook_event_name=name, tool_name="Bash", tool_calls=[])),
+                                      capture_output=True, text=True, env={k: v for k, v in os.environ.items() if k != "CLAUDE_PROJECT_DIR"})
+                assert proc.returncode == 0 and not proc.stderr, (cmd, proc.returncode, proc.stderr)
+                outs.append(proc.stdout)
+            assert outs[0] == outs[1] or name == "SubagentStart", (name, outs)   # a second start of one worker is a resume: no note
+        quiet = subprocess.run([sys.executable, "-S", "-I", "-c", "import sys; sys.path.insert(0, %r); import budget; budget.handle(%r); print(sorted(m for m in ('re', 'json', 'datetime', 'hashlib', 'glob') if m in sys.modules))" % (
+            HERE, dict(ev, hook_event_name="PostToolUse", tool_name="Bash"))], capture_output=True, text=True)
+        assert quiet.stdout.strip() == "[]", ("the quiet path imported", quiet.stdout, quiet.stderr)
+    rnd = random.Random(7)
+
+    def anything(depth=0):
+        kind = rnd.choice(["n", "t", "f", "i", "x", "s", "s", "u"] + (["l", "d"] if depth < 3 else []))
+        if kind == "l":
+            return [anything(depth + 1) for _ in range(rnd.randint(0, 3))]
+        if kind == "d":
+            return {"".join(rnd.choice("kz\u00e9\"") for _ in range(rnd.randint(0, 3))): anything(depth + 1) for _ in range(rnd.randint(0, 3))}
+        if kind == "i":
+            return rnd.randint(-10 ** rnd.randint(0, 20), 10 ** rnd.randint(0, 20))
+        if kind == "x":
+            return rnd.choice([0.0, 1e-7, 1.5, -2.25e22, 123456.789, 1e300])
+        if kind == "s":
+            return "".join(rnd.choice('ab "\\\n\t/') for _ in range(rnd.randint(0, 6)))
+        if kind == "u":
+            return "".join(chr(rnd.choice([0xe9, 0x4e2d, 0x1f600, 0x7f, 1])) for _ in range(3))
+        return {"n": None, "t": True, "f": False}[kind]
+
+    for _ in range(400):
+        obj = anything()
+        for sort in (False, True):
+            assert handback.dumps(obj, sort_keys=sort) == json.dumps(obj, sort_keys=sort), obj
+        assert handback.loads(json.dumps(obj)) == obj and handback.loads(json.dumps(obj, ensure_ascii=False).encode("utf-8")) == obj, obj
+    for bad in ("", " ", "{", "[1,]", "{} x", "nul", "﻿{}", "[NaN, Infinity]x", '{"a": 1', "1 2"):
+        try:
+            handback.loads(bad)
+        except ValueError:
+            continue
+        raise AssertionError("accepted: %r" % bad)
+    assert handback.loads(" \n[NaN, -Infinity, 1e2, 3]\t")[1:] == [float("-inf"), 100.0, 3]
+    # a `_json` that is missing, empty, half there or broken (w06-c9 hardening): reads and writes fall back to `json`, and a BOM or UTF-16/32 is rejected as the text path rejects it
+    masks = ["sys.modules['_json'] = None", "sys.modules['_json'] = types.ModuleType('_json')",
+             "import _json as r; m = types.ModuleType('_json'); m.encode_basestring_ascii = r.encode_basestring_ascii; m.make_scanner = lambda c: 1 / 0; sys.modules['_json'] = m"]
+    for mask in masks:
+        code = ("import sys, types; %s\nsys.path.insert(0, %r); import handback as h\nassert h.loads(b'{\"a\": [1, 2.5, \"\\\\u00e9\"]}') == {'a': [1, 2.5, '\\xe9']}\n"
+                "assert h.dumps({'b': 1, 'a': ['\\xe9', None]}, sort_keys=True) == '{\"a\": [\"\\\\u00e9\", null], \"b\": 1}'\n"
+                "for bad in (b'\\xef\\xbb\\xbf{}', '{}'.encode('utf-16'), '{}'.encode('utf-32'), b'{} x'):\n"
+                "    try:\n        h.loads(bad)\n    except ValueError:\n        continue\n    raise SystemExit('accepted %%r' %% bad)\nprint('ok')") % (mask, HERE)
+        done = subprocess.run([sys.executable, "-S", "-I", "-c", code], capture_output=True, text=True)
+        assert done.stdout.strip() == "ok", (mask, done.stdout, done.stderr[-300:])
     print("PASS budget")
 
 
 def main():
     try:
-        event = json.loads(sys.stdin.read() or "{}")
+        event = loads(sys.stdin.buffer.read() or b"{}")
         answer = handle(event) if isinstance(event, dict) else None
         if answer:
-            print(json.dumps(answer))
+            print(dumps(answer))
     except Exception:
         pass
     return 0

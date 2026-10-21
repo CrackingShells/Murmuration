@@ -1,0 +1,33 @@
+category	items	tokens_entered	carry_cost_share	cache_write_share	cache_read_share	carry_cost_share_if_chars_proportional	share_of_total_list_price_incl_output
+base context at start (system, tools, memory, skills)	1	74966	0.2567	0.0567	0.2000	0.2567	0.1978
+PI own output (text + tool calls)	141	99171	0.1879	0.0751	0.1128	0.2170	0.3741
+other attachments (total_tokens_reminder)	119	49499	0.1043	0.0375	0.0668	0.0151	0.0804
+peer message (worker report or reply)	22	40006	0.0768	0.0303	0.0466	0.0803	0.0592
+tool result: Bash: other	14	20123	0.0607	0.0152	0.0455	0.0683	0.0468
+tool result: Bash: lab scripts	23	27127	0.0584	0.0205	0.0379	0.0638	0.0450
+tool result: Bash: file view (cat/sed/head/tail)	10	21953	0.0559	0.0166	0.0392	0.0630	0.0430
+tool result: Bash: git	12	21072	0.0554	0.0159	0.0395	0.0617	0.0427
+listing/deltas (skills, tools, mcp)	69	14201	0.0335	0.0107	0.0227	0.0398	0.0258
+task notification	20	11087	0.0210	0.0084	0.0126	0.0199	0.0162
+tool result: Bash: write via heredoc	18	9457	0.0197	0.0072	0.0126	0.0217	0.0152
+tool result: Bash: ls/find/wc/ps	6	4164	0.0130	0.0032	0.0099	0.0162	0.0100
+subagent hand-back (queued)	3	6597	0.0114	0.0050	0.0064	0.0121	0.0088
+skill body load	1	2816	0.0096	0.0021	0.0075	0.0111	0.0074
+queued human message/other	2	2868	0.0090	0.0022	0.0069	0.0018	0.0070
+tool result: Agent tool result (sync)	15	3801	0.0087	0.0029	0.0058	0.0165	0.0067
+tool result: AskUserQuestion	2	1715	0.0052	0.0013	0.0039	0.0029	0.0040
+tool result: Bash: python/claude run	3	1461	0.0046	0.0011	0.0035	0.0135	0.0035
+other attachments (edited_text_file)	6	2266	0.0038	0.0017	0.0020	0.0041	0.0029
+tool result: Read (whole file)	1	3160	0.0035	0.0024	0.0011	0.0034	0.0027
+tool result: Write	4	387	0.0008	0.0003	0.0005	0.0009	0.0006
+human prompt	2	50	0.0001	0.0000	0.0000	0.0009	0.0000
+tool result: mcp__ccd_turn__wrap_up	11	0	0.0000	0.0000	0.0000	0.0031	0.0000
+tool result: Edit	9	0	0.0000	0.0000	0.0000	0.0017	0.0000
+tool result: SendMessage	6	0	0.0000	0.0000	0.0000	0.0009	0.0000
+other attachments (silent_turn_reminder)	3	0	0.0000	0.0000	0.0000	0.0006	0.0000
+other attachments (environment)	2	0	0.0000	0.0000	0.0000	0.0021	0.0000
+other user text	2	0	0.0000	0.0000	0.0000	0.0004	0.0000
+tool result: Skill	1	0	0.0000	0.0000	0.0000	0.0000	0.0000
+other attachments (command_permissions)	1	0	0.0000	0.0000	0.0000	0.0001	0.0000
+tool result: ToolSearch	2	0	0.0000	0.0000	0.0000	0.0000	0.0000
+tool result: mcp__ccd_session__start_session	1	0	0.0000	0.0000	0.0000	0.0002	0.0000

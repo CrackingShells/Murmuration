@@ -1,0 +1,660 @@
+{"name": "rust noop (std)", "round": 0, "wall_ms": 50.285499997698935, "cpu_ms": 6.123, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 0, "wall_ms": 34.07191599762882, "cpu_ms": 4.845000000000001, "rc": 0}
+{"name": "sh :", "round": 0, "wall_ms": 35.056041000643745, "cpu_ms": 5.9559999999999995, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 0, "wall_ms": 90.1938329989207, "cpu_ms": 44.833, "rc": 0}
+{"name": "python3 -c pass", "round": 0, "wall_ms": 68.80687499869964, "cpu_ms": 23.425, "rc": 0}
+{"name": "rust gate (std)", "round": 0, "wall_ms": 49.40062500099884, "cpu_ms": 5.48, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 0, "wall_ms": 76.78183299867669, "cpu_ms": 32.76499999999999, "rc": 0}
+{"name": "rust drain stdin", "round": 0, "wall_ms": 51.22729099821299, "cpu_ms": 5.702999999999999, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 0, "wall_ms": 88.81724999810103, "cpu_ms": 43.577000000000005, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 0, "wall_ms": 57.39941700085183, "cpu_ms": 11.976, "rc": 0}
+{"name": "rust serde_json spike", "round": 0, "wall_ms": 50.83162500159233, "cpu_ms": 5.827, "rc": 0}
+{"name": "rust drain stdin", "round": 1, "wall_ms": 50.4653749994759, "cpu_ms": 6.1499999999999995, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 1, "wall_ms": 32.44166600052267, "cpu_ms": 3.5389999999999997, "rc": 0}
+{"name": "rust noop (std)", "round": 1, "wall_ms": 53.4682920006162, "cpu_ms": 7.794, "rc": 0}
+{"name": "rust serde_json spike", "round": 1, "wall_ms": 54.87445799735724, "cpu_ms": 9.724, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 1, "wall_ms": 94.71599999960745, "cpu_ms": 49.012, "rc": 0}
+{"name": "python3 -c pass", "round": 1, "wall_ms": 72.2864590024983, "cpu_ms": 26.762999999999995, "rc": 0}
+{"name": "rust gate (std)", "round": 1, "wall_ms": 49.67274999944493, "cpu_ms": 5.186, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 1, "wall_ms": 85.73841699762852, "cpu_ms": 40.83, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 1, "wall_ms": 75.06679099969915, "cpu_ms": 30.003999999999998, "rc": 0}
+{"name": "sh :", "round": 1, "wall_ms": 32.820249998621875, "cpu_ms": 3.1859999999999995, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 1, "wall_ms": 57.276291998277884, "cpu_ms": 12.705000000000002, "rc": 0}
+{"name": "rust noop (std)", "round": 2, "wall_ms": 49.873667001520516, "cpu_ms": 5.856, "rc": 0}
+{"name": "python3 -c pass", "round": 2, "wall_ms": 100.85554100078298, "cpu_ms": 22.188, "rc": 0}
+{"name": "rust serde_json spike", "round": 2, "wall_ms": 50.17445900011808, "cpu_ms": 5.364, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 2, "wall_ms": 110.38587499933783, "cpu_ms": 28.017, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 2, "wall_ms": 80.0707499984128, "cpu_ms": 11.232, "rc": 0}
+{"name": "sh :", "round": 2, "wall_ms": 88.91650000077789, "cpu_ms": 3.1539999999999995, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 2, "wall_ms": 44.209542000317015, "cpu_ms": 3.456, "rc": 0}
+{"name": "rust drain stdin", "round": 2, "wall_ms": 76.45087499986403, "cpu_ms": 5.795, "rc": 0}
+{"name": "rust gate (std)", "round": 2, "wall_ms": 63.18904200088582, "cpu_ms": 6.298, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 2, "wall_ms": 139.46929099984118, "cpu_ms": 42.736999999999995, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 2, "wall_ms": 167.7602920026402, "cpu_ms": 40.523, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 3, "wall_ms": 84.96762499999022, "cpu_ms": 37.921, "rc": 0}
+{"name": "python3 -c pass", "round": 3, "wall_ms": 67.72020800053724, "cpu_ms": 21.811999999999998, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 3, "wall_ms": 33.88516700215405, "cpu_ms": 3.401, "rc": 0}
+{"name": "rust drain stdin", "round": 3, "wall_ms": 50.5315000009432, "cpu_ms": 5.782, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 3, "wall_ms": 86.49049999803538, "cpu_ms": 40.72, "rc": 0}
+{"name": "sh :", "round": 3, "wall_ms": 33.060208003007574, "cpu_ms": 3.477, "rc": 0}
+{"name": "rust gate (std)", "round": 3, "wall_ms": 53.16925000079209, "cpu_ms": 5.414, "rc": 0}
+{"name": "rust serde_json spike", "round": 3, "wall_ms": 49.386582999431994, "cpu_ms": 5.228, "rc": 0}
+{"name": "rust noop (std)", "round": 3, "wall_ms": 49.94187500051339, "cpu_ms": 6.0, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 3, "wall_ms": 76.80929100024514, "cpu_ms": 32.574, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 3, "wall_ms": 56.995917002495844, "cpu_ms": 11.851, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 4, "wall_ms": 76.67295899955207, "cpu_ms": 31.529, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 4, "wall_ms": 58.28425000072457, "cpu_ms": 12.678999999999998, "rc": 0}
+{"name": "rust noop (std)", "round": 4, "wall_ms": 51.576875001046574, "cpu_ms": 6.515999999999999, "rc": 0}
+{"name": "sh :", "round": 4, "wall_ms": 33.612332998018246, "cpu_ms": 3.8249999999999997, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 4, "wall_ms": 34.19383300206391, "cpu_ms": 4.621, "rc": 0}
+{"name": "rust serde_json spike", "round": 4, "wall_ms": 51.42420899937861, "cpu_ms": 7.003, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 4, "wall_ms": 88.92674999879091, "cpu_ms": 43.317, "rc": 0}
+{"name": "rust drain stdin", "round": 4, "wall_ms": 51.345457999559585, "cpu_ms": 5.625, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 4, "wall_ms": 88.05299999949057, "cpu_ms": 42.301, "rc": 0}
+{"name": "rust gate (std)", "round": 4, "wall_ms": 52.18829200020991, "cpu_ms": 6.1209999999999996, "rc": 0}
+{"name": "python3 -c pass", "round": 4, "wall_ms": 70.59033399855252, "cpu_ms": 26.182000000000002, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 5, "wall_ms": 88.19858300194028, "cpu_ms": 41.315999999999995, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 5, "wall_ms": 33.25708400006988, "cpu_ms": 3.437, "rc": 0}
+{"name": "rust serde_json spike", "round": 5, "wall_ms": 50.22616700080107, "cpu_ms": 6.054, "rc": 0}
+{"name": "sh :", "round": 5, "wall_ms": 32.615374999295454, "cpu_ms": 3.525, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 5, "wall_ms": 57.541791000403464, "cpu_ms": 13.548999999999998, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 5, "wall_ms": 78.47174999915296, "cpu_ms": 33.086999999999996, "rc": 0}
+{"name": "python3 -c pass", "round": 5, "wall_ms": 69.0681250016496, "cpu_ms": 25.05, "rc": 0}
+{"name": "rust drain stdin", "round": 5, "wall_ms": 50.42312499790569, "cpu_ms": 5.657, "rc": 0}
+{"name": "rust gate (std)", "round": 5, "wall_ms": 49.69787500158418, "cpu_ms": 5.222, "rc": 0}
+{"name": "rust noop (std)", "round": 5, "wall_ms": 51.39004200100317, "cpu_ms": 6.7299999999999995, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 5, "wall_ms": 92.65212500031339, "cpu_ms": 47.868, "rc": 0}
+{"name": "python3 -c pass", "round": 6, "wall_ms": 69.39041599980555, "cpu_ms": 23.910999999999998, "rc": 0}
+{"name": "rust serde_json spike", "round": 6, "wall_ms": 50.165250002464745, "cpu_ms": 5.2, "rc": 0}
+{"name": "rust noop (std)", "round": 6, "wall_ms": 50.15120900134207, "cpu_ms": 5.71, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 6, "wall_ms": 90.43870800087461, "cpu_ms": 45.498, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 6, "wall_ms": 75.34741700146697, "cpu_ms": 29.911, "rc": 0}
+{"name": "sh :", "round": 6, "wall_ms": 32.42120899813017, "cpu_ms": 3.1789999999999994, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 6, "wall_ms": 32.63308299938217, "cpu_ms": 3.5979999999999994, "rc": 0}
+{"name": "rust gate (std)", "round": 6, "wall_ms": 50.01970900048036, "cpu_ms": 5.794, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 6, "wall_ms": 89.07783399990876, "cpu_ms": 45.19799999999999, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 6, "wall_ms": 56.800207999913255, "cpu_ms": 12.068999999999999, "rc": 0}
+{"name": "rust drain stdin", "round": 6, "wall_ms": 50.94716699750279, "cpu_ms": 6.111999999999999, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 7, "wall_ms": 89.824333001161, "cpu_ms": 43.483999999999995, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 7, "wall_ms": 74.18208400122239, "cpu_ms": 29.485999999999997, "rc": 0}
+{"name": "python3 -c pass", "round": 7, "wall_ms": 68.53191700065508, "cpu_ms": 23.671999999999997, "rc": 0}
+{"name": "rust drain stdin", "round": 7, "wall_ms": 50.775833002262516, "cpu_ms": 5.8919999999999995, "rc": 0}
+{"name": "rust gate (std)", "round": 7, "wall_ms": 50.70750000231783, "cpu_ms": 6.115, "rc": 0}
+{"name": "rust serde_json spike", "round": 7, "wall_ms": 52.006083002197556, "cpu_ms": 6.980999999999999, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 7, "wall_ms": 61.35974999779137, "cpu_ms": 16.703, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 7, "wall_ms": 33.56725000048755, "cpu_ms": 3.8979999999999997, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 7, "wall_ms": 98.73275000063586, "cpu_ms": 42.153999999999996, "rc": 0}
+{"name": "sh :", "round": 7, "wall_ms": 33.50845800014213, "cpu_ms": 3.297, "rc": 0}
+{"name": "rust noop (std)", "round": 7, "wall_ms": 49.896917000296526, "cpu_ms": 5.315, "rc": 0}
+{"name": "sh :", "round": 8, "wall_ms": 58.59012499786331, "cpu_ms": 3.207, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 8, "wall_ms": 55.768334001186304, "cpu_ms": 3.4749999999999996, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 8, "wall_ms": 95.12075000020559, "cpu_ms": 28.214999999999996, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 8, "wall_ms": 136.22754199968767, "cpu_ms": 40.467999999999996, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 8, "wall_ms": 72.31037500241655, "cpu_ms": 12.642999999999997, "rc": 0}
+{"name": "rust noop (std)", "round": 8, "wall_ms": 95.47112499785726, "cpu_ms": 6.225, "rc": 0}
+{"name": "rust serde_json spike", "round": 8, "wall_ms": 294.15295899889315, "cpu_ms": 5.816, "rc": 0}
+{"name": "rust drain stdin", "round": 8, "wall_ms": 101.65333400072996, "cpu_ms": 5.837999999999999, "rc": 0}
+{"name": "python3 -c pass", "round": 8, "wall_ms": 65.9821249973902, "cpu_ms": 21.491999999999997, "rc": 0}
+{"name": "rust gate (std)", "round": 8, "wall_ms": 48.53212500165682, "cpu_ms": 5.235, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 8, "wall_ms": 84.63716600090265, "cpu_ms": 39.957, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 9, "wall_ms": 89.5223330007866, "cpu_ms": 41.736, "rc": 0}
+{"name": "rust drain stdin", "round": 9, "wall_ms": 86.57083300204249, "cpu_ms": 5.502, "rc": 0}
+{"name": "rust noop (std)", "round": 9, "wall_ms": 60.67958299900056, "cpu_ms": 5.535, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 9, "wall_ms": 108.26133299997309, "cpu_ms": 27.534999999999997, "rc": 0}
+{"name": "rust gate (std)", "round": 9, "wall_ms": 61.04516599953058, "cpu_ms": 5.666, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 9, "wall_ms": 109.86508299902198, "cpu_ms": 40.395, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 9, "wall_ms": 125.62899999829824, "cpu_ms": 10.956999999999997, "rc": 0}
+{"name": "rust serde_json spike", "round": 9, "wall_ms": 84.22162499846308, "cpu_ms": 5.6049999999999995, "rc": 0}
+{"name": "python3 -c pass", "round": 9, "wall_ms": 68.38462499945308, "cpu_ms": 21.982, "rc": 0}
+{"name": "sh :", "round": 9, "wall_ms": 34.09204200215754, "cpu_ms": 3.4469999999999996, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 9, "wall_ms": 32.078667001769645, "cpu_ms": 3.3369999999999997, "rc": 0}
+{"name": "rust serde_json spike", "round": 10, "wall_ms": 50.59462499775691, "cpu_ms": 5.827999999999999, "rc": 0}
+{"name": "sh :", "round": 10, "wall_ms": 33.72170800139429, "cpu_ms": 3.5989999999999998, "rc": 0}
+{"name": "rust noop (std)", "round": 10, "wall_ms": 49.874915999680525, "cpu_ms": 5.7, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 10, "wall_ms": 88.0604999983916, "cpu_ms": 42.733, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 10, "wall_ms": 83.30462500089197, "cpu_ms": 37.579, "rc": 0}
+{"name": "python3 -c pass", "round": 10, "wall_ms": 65.23166599799879, "cpu_ms": 21.391000000000002, "rc": 0}
+{"name": "rust gate (std)", "round": 10, "wall_ms": 50.094833997718524, "cpu_ms": 5.247999999999999, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 10, "wall_ms": 32.26741700200364, "cpu_ms": 3.2969999999999997, "rc": 0}
+{"name": "rust drain stdin", "round": 10, "wall_ms": 48.369750002166256, "cpu_ms": 5.2829999999999995, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 10, "wall_ms": 58.907665999868186, "cpu_ms": 14.863000000000001, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 10, "wall_ms": 78.94070800102782, "cpu_ms": 34.367, "rc": 0}
+{"name": "python3 -c pass", "round": 11, "wall_ms": 72.06958300230326, "cpu_ms": 26.549, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 11, "wall_ms": 73.74637499742676, "cpu_ms": 29.23, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 11, "wall_ms": 32.60420900187455, "cpu_ms": 3.409, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 11, "wall_ms": 88.67858400117257, "cpu_ms": 42.717, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 11, "wall_ms": 56.952082999487175, "cpu_ms": 11.786, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 11, "wall_ms": 85.38262500223937, "cpu_ms": 40.305, "rc": 0}
+{"name": "rust serde_json spike", "round": 11, "wall_ms": 50.79241600105888, "cpu_ms": 5.62, "rc": 0}
+{"name": "sh :", "round": 11, "wall_ms": 32.258166000247, "cpu_ms": 3.3289999999999997, "rc": 0}
+{"name": "rust drain stdin", "round": 11, "wall_ms": 50.71112500081654, "cpu_ms": 6.444, "rc": 0}
+{"name": "rust gate (std)", "round": 11, "wall_ms": 52.057875000173226, "cpu_ms": 6.864999999999999, "rc": 0}
+{"name": "rust noop (std)", "round": 11, "wall_ms": 51.981167001940776, "cpu_ms": 6.829, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 12, "wall_ms": 33.133790999272605, "cpu_ms": 3.2449999999999997, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 12, "wall_ms": 96.52325000206474, "cpu_ms": 51.269, "rc": 0}
+{"name": "python3 -c pass", "round": 12, "wall_ms": 72.17875000060303, "cpu_ms": 26.255, "rc": 0}
+{"name": "rust gate (std)", "round": 12, "wall_ms": 50.71404200134566, "cpu_ms": 5.962000000000001, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 12, "wall_ms": 76.9260419983766, "cpu_ms": 32.327999999999996, "rc": 0}
+{"name": "rust drain stdin", "round": 12, "wall_ms": 50.8611250006652, "cpu_ms": 5.58, "rc": 0}
+{"name": "rust serde_json spike", "round": 12, "wall_ms": 50.61624999871128, "cpu_ms": 5.953999999999999, "rc": 0}
+{"name": "rust noop (std)", "round": 12, "wall_ms": 50.63795800015214, "cpu_ms": 6.279, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 12, "wall_ms": 60.98470799770439, "cpu_ms": 16.117, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 12, "wall_ms": 92.79766600229777, "cpu_ms": 47.96399999999999, "rc": 0}
+{"name": "sh :", "round": 12, "wall_ms": 33.82179099935456, "cpu_ms": 3.263, "rc": 0}
+{"name": "sh :", "round": 13, "wall_ms": 32.525416998396395, "cpu_ms": 3.6740000000000004, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 13, "wall_ms": 33.635083000262966, "cpu_ms": 4.188, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 13, "wall_ms": 66.32149999859394, "cpu_ms": 11.73, "rc": 0}
+{"name": "rust serde_json spike", "round": 13, "wall_ms": 68.20883399996092, "cpu_ms": 5.7780000000000005, "rc": 0}
+{"name": "python3 -c pass", "round": 13, "wall_ms": 67.21837500299443, "cpu_ms": 22.338, "rc": 0}
+{"name": "rust noop (std)", "round": 13, "wall_ms": 88.18600000086008, "cpu_ms": 5.478, "rc": 0}
+{"name": "rust drain stdin", "round": 13, "wall_ms": 70.54441699801828, "cpu_ms": 5.5569999999999995, "rc": 0}
+{"name": "rust gate (std)", "round": 13, "wall_ms": 108.960166999168, "cpu_ms": 5.525, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 13, "wall_ms": 108.1445830022858, "cpu_ms": 40.321999999999996, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 13, "wall_ms": 78.86137499735923, "cpu_ms": 30.251, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 13, "wall_ms": 116.78508300246904, "cpu_ms": 43.989, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 14, "wall_ms": 66.5309169999091, "cpu_ms": 3.479, "rc": 0}
+{"name": "rust serde_json spike", "round": 14, "wall_ms": 50.62545900000259, "cpu_ms": 5.7, "rc": 0}
+{"name": "python3 -c pass", "round": 14, "wall_ms": 67.54333299977588, "cpu_ms": 23.401, "rc": 0}
+{"name": "rust gate (std)", "round": 14, "wall_ms": 62.25191699923016, "cpu_ms": 5.813, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 14, "wall_ms": 71.98566700026277, "cpu_ms": 26.973999999999997, "rc": 0}
+{"name": "rust noop (std)", "round": 14, "wall_ms": 50.21829099860042, "cpu_ms": 5.609999999999999, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 14, "wall_ms": 81.12729200001922, "cpu_ms": 37.242, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 14, "wall_ms": 84.13404099701438, "cpu_ms": 38.534, "rc": 0}
+{"name": "rust drain stdin", "round": 14, "wall_ms": 51.14266700184089, "cpu_ms": 5.528, "rc": 0}
+{"name": "sh :", "round": 14, "wall_ms": 32.14091600239044, "cpu_ms": 3.269, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 14, "wall_ms": 57.171624997863546, "cpu_ms": 12.969999999999999, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 15, "wall_ms": 57.95800000123563, "cpu_ms": 12.745, "rc": 0}
+{"name": "python3 -c pass", "round": 15, "wall_ms": 72.81062500260305, "cpu_ms": 27.025000000000002, "rc": 0}
+{"name": "rust serde_json spike", "round": 15, "wall_ms": 52.33008300274378, "cpu_ms": 6.111, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 15, "wall_ms": 87.59979199749068, "cpu_ms": 42.933, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 15, "wall_ms": 73.07458300056169, "cpu_ms": 27.566, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 15, "wall_ms": 35.906499997508945, "cpu_ms": 3.207, "rc": 0}
+{"name": "rust drain stdin", "round": 15, "wall_ms": 49.70308400152135, "cpu_ms": 5.393999999999999, "rc": 0}
+{"name": "rust gate (std)", "round": 15, "wall_ms": 49.20666600082768, "cpu_ms": 5.91, "rc": 0}
+{"name": "sh :", "round": 15, "wall_ms": 32.16358400095487, "cpu_ms": 3.588, "rc": 0}
+{"name": "rust noop (std)", "round": 15, "wall_ms": 51.4867919991957, "cpu_ms": 7.2379999999999995, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 15, "wall_ms": 100.18016699905274, "cpu_ms": 40.948, "rc": 0}
+{"name": "rust serde_json spike", "round": 16, "wall_ms": 139.1263750010694, "cpu_ms": 5.346, "rc": 0}
+{"name": "rust noop (std)", "round": 16, "wall_ms": 105.17512499791337, "cpu_ms": 5.474999999999999, "rc": 0}
+{"name": "rust gate (std)", "round": 16, "wall_ms": 79.04249999774038, "cpu_ms": 5.369000000000001, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 16, "wall_ms": 52.863082997646416, "cpu_ms": 3.26, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 16, "wall_ms": 98.67804200257524, "cpu_ms": 41.736000000000004, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 16, "wall_ms": 86.71712499926798, "cpu_ms": 39.230999999999995, "rc": 0}
+{"name": "rust drain stdin", "round": 16, "wall_ms": 50.18345799908275, "cpu_ms": 5.566, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 16, "wall_ms": 74.74983300198801, "cpu_ms": 30.155, "rc": 0}
+{"name": "sh :", "round": 16, "wall_ms": 33.193999999639345, "cpu_ms": 3.4450000000000003, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 16, "wall_ms": 57.231333001254825, "cpu_ms": 12.74, "rc": 0}
+{"name": "python3 -c pass", "round": 16, "wall_ms": 72.5191250021453, "cpu_ms": 28.362, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 17, "wall_ms": 75.8237910013122, "cpu_ms": 30.406, "rc": 0}
+{"name": "rust gate (std)", "round": 17, "wall_ms": 51.26208400179166, "cpu_ms": 5.783999999999999, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 17, "wall_ms": 88.93416600039927, "cpu_ms": 43.797, "rc": 0}
+{"name": "rust noop (std)", "round": 17, "wall_ms": 50.05699999674107, "cpu_ms": 5.37, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 17, "wall_ms": 32.00295799979358, "cpu_ms": 3.339, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 17, "wall_ms": 89.91787499689963, "cpu_ms": 44.866, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 17, "wall_ms": 56.50820799928624, "cpu_ms": 11.777, "rc": 0}
+{"name": "rust serde_json spike", "round": 17, "wall_ms": 85.67008400132181, "cpu_ms": 5.502, "rc": 0}
+{"name": "rust drain stdin", "round": 17, "wall_ms": 153.18654099974083, "cpu_ms": 5.689, "rc": 0}
+{"name": "sh :", "round": 17, "wall_ms": 56.95774999912828, "cpu_ms": 3.5629999999999997, "rc": 0}
+{"name": "python3 -c pass", "round": 17, "wall_ms": 72.7744169998914, "cpu_ms": 28.028, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 18, "wall_ms": 57.22479199903319, "cpu_ms": 12.405, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 18, "wall_ms": 89.78916599880904, "cpu_ms": 44.788, "rc": 0}
+{"name": "rust gate (std)", "round": 18, "wall_ms": 50.59091699877172, "cpu_ms": 6.124999999999999, "rc": 0}
+{"name": "sh :", "round": 18, "wall_ms": 32.51412499957951, "cpu_ms": 3.58, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 18, "wall_ms": 80.05558299919358, "cpu_ms": 34.53, "rc": 0}
+{"name": "rust serde_json spike", "round": 18, "wall_ms": 50.370458000543294, "cpu_ms": 5.361, "rc": 0}
+{"name": "rust drain stdin", "round": 18, "wall_ms": 49.92983299962361, "cpu_ms": 5.991, "rc": 0}
+{"name": "rust noop (std)", "round": 18, "wall_ms": 51.614916999824345, "cpu_ms": 6.728, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 18, "wall_ms": 96.77408300194656, "cpu_ms": 50.726, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 18, "wall_ms": 34.7642500018992, "cpu_ms": 3.392, "rc": 0}
+{"name": "python3 -c pass", "round": 18, "wall_ms": 71.52841599963722, "cpu_ms": 26.934, "rc": 0}
+{"name": "sh :", "round": 19, "wall_ms": 32.64662500077975, "cpu_ms": 3.537, "rc": 0}
+{"name": "python3 -c pass", "round": 19, "wall_ms": 71.76212500053225, "cpu_ms": 28.696999999999996, "rc": 0}
+{"name": "rust drain stdin", "round": 19, "wall_ms": 87.15849999862257, "cpu_ms": 5.554999999999999, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 19, "wall_ms": 188.6363750018063, "cpu_ms": 40.486000000000004, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 19, "wall_ms": 32.69633400122984, "cpu_ms": 3.698, "rc": 0}
+{"name": "rust noop (std)", "round": 19, "wall_ms": 51.18274999767891, "cpu_ms": 5.89, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 19, "wall_ms": 76.52991700160783, "cpu_ms": 31.431, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 19, "wall_ms": 56.924000000435626, "cpu_ms": 12.19, "rc": 0}
+{"name": "rust gate (std)", "round": 19, "wall_ms": 50.40758300310699, "cpu_ms": 6.161999999999999, "rc": 0}
+{"name": "rust serde_json spike", "round": 19, "wall_ms": 51.066791002085665, "cpu_ms": 6.544, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 19, "wall_ms": 92.48233300240827, "cpu_ms": 47.620999999999995, "rc": 0}
+{"name": "rust serde_json spike", "round": 20, "wall_ms": 50.78758300078334, "cpu_ms": 5.384, "rc": 0}
+{"name": "sh :", "round": 20, "wall_ms": 31.5178749988263, "cpu_ms": 3.44, "rc": 0}
+{"name": "rust gate (std)", "round": 20, "wall_ms": 48.952291002933634, "cpu_ms": 5.271999999999999, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 20, "wall_ms": 79.37158300046576, "cpu_ms": 35.348, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 20, "wall_ms": 33.52558400001726, "cpu_ms": 3.61, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 20, "wall_ms": 90.2492080022057, "cpu_ms": 45.437999999999995, "rc": 0}
+{"name": "rust noop (std)", "round": 20, "wall_ms": 51.454583001032006, "cpu_ms": 5.548, "rc": 0}
+{"name": "rust drain stdin", "round": 20, "wall_ms": 50.35962499823654, "cpu_ms": 5.796, "rc": 0}
+{"name": "python3 -c pass", "round": 20, "wall_ms": 68.49404199965647, "cpu_ms": 23.886999999999997, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 20, "wall_ms": 141.94266599952243, "cpu_ms": 10.654, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 20, "wall_ms": 132.1097500003816, "cpu_ms": 43.336, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 21, "wall_ms": 86.75866699923063, "cpu_ms": 40.817, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 21, "wall_ms": 33.15695900164428, "cpu_ms": 3.2189999999999994, "rc": 0}
+{"name": "rust serde_json spike", "round": 21, "wall_ms": 49.62341699865647, "cpu_ms": 5.721, "rc": 0}
+{"name": "rust gate (std)", "round": 21, "wall_ms": 48.78808399735135, "cpu_ms": 5.382, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 21, "wall_ms": 92.07408300062525, "cpu_ms": 47.067, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 21, "wall_ms": 74.74791699860361, "cpu_ms": 29.344, "rc": 0}
+{"name": "rust noop (std)", "round": 21, "wall_ms": 49.22912500114762, "cpu_ms": 5.624, "rc": 0}
+{"name": "sh :", "round": 21, "wall_ms": 32.74249999958556, "cpu_ms": 3.534, "rc": 0}
+{"name": "python3 -c pass", "round": 21, "wall_ms": 70.71041699964553, "cpu_ms": 26.744999999999997, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 21, "wall_ms": 57.21312500099884, "cpu_ms": 11.854999999999999, "rc": 0}
+{"name": "rust drain stdin", "round": 21, "wall_ms": 50.02258400054416, "cpu_ms": 6.337, "rc": 0}
+{"name": "python3 -c pass", "round": 22, "wall_ms": 71.36525000169058, "cpu_ms": 26.865999999999996, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 22, "wall_ms": 56.84266600292176, "cpu_ms": 11.543999999999999, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 22, "wall_ms": 44.25775000345311, "cpu_ms": 3.294, "rc": 0}
+{"name": "sh :", "round": 22, "wall_ms": 43.30366700014565, "cpu_ms": 3.3749999999999996, "rc": 0}
+{"name": "rust serde_json spike", "round": 22, "wall_ms": 53.13804199977312, "cpu_ms": 8.59, "rc": 0}
+{"name": "rust drain stdin", "round": 22, "wall_ms": 56.16220799856819, "cpu_ms": 12.76, "rc": 0}
+{"name": "rust gate (std)", "round": 22, "wall_ms": 56.77974999707658, "cpu_ms": 12.245, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 22, "wall_ms": 87.6344579992292, "cpu_ms": 41.967999999999996, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 22, "wall_ms": 91.44608400310972, "cpu_ms": 44.903, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 22, "wall_ms": 85.79333300076541, "cpu_ms": 39.965, "rc": 0}
+{"name": "rust noop (std)", "round": 22, "wall_ms": 50.940708999405615, "cpu_ms": 5.6930000000000005, "rc": 0}
+{"name": "rust gate (std)", "round": 23, "wall_ms": 50.09341600089101, "cpu_ms": 5.872, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 23, "wall_ms": 57.858457999827806, "cpu_ms": 14.027999999999999, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 23, "wall_ms": 33.08512500007055, "cpu_ms": 4.012, "rc": 0}
+{"name": "rust noop (std)", "round": 23, "wall_ms": 50.4408329979924, "cpu_ms": 5.6979999999999995, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 23, "wall_ms": 93.85233300054097, "cpu_ms": 48.989999999999995, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 23, "wall_ms": 86.98466699934215, "cpu_ms": 40.99, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 23, "wall_ms": 72.9438329981349, "cpu_ms": 27.61, "rc": 0}
+{"name": "rust serde_json spike", "round": 23, "wall_ms": 50.83224999907543, "cpu_ms": 5.547, "rc": 0}
+{"name": "sh :", "round": 23, "wall_ms": 32.53549999863026, "cpu_ms": 3.202, "rc": 0}
+{"name": "rust drain stdin", "round": 23, "wall_ms": 51.964500002213754, "cpu_ms": 6.475, "rc": 0}
+{"name": "python3 -c pass", "round": 23, "wall_ms": 78.28116699965904, "cpu_ms": 33.132, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 24, "wall_ms": 77.42658400093205, "cpu_ms": 32.592, "rc": 0}
+{"name": "sh :", "round": 24, "wall_ms": 32.75962499901652, "cpu_ms": 3.3249999999999997, "rc": 0}
+{"name": "rust drain stdin", "round": 24, "wall_ms": 50.43470800228533, "cpu_ms": 5.611, "rc": 0}
+{"name": "python3 -c pass", "round": 24, "wall_ms": 74.24462500057416, "cpu_ms": 29.457, "rc": 0}
+{"name": "rust serde_json spike", "round": 24, "wall_ms": 51.30129099779879, "cpu_ms": 5.757999999999999, "rc": 0}
+{"name": "rust noop (std)", "round": 24, "wall_ms": 50.55841699868324, "cpu_ms": 6.523, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 24, "wall_ms": 33.04695900078514, "cpu_ms": 3.9699999999999998, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 24, "wall_ms": 64.82733300072141, "cpu_ms": 20.367, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 24, "wall_ms": 95.14870900238748, "cpu_ms": 49.931999999999995, "rc": 0}
+{"name": "rust gate (std)", "round": 24, "wall_ms": 50.929334000102244, "cpu_ms": 5.765, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 24, "wall_ms": 88.60408300097333, "cpu_ms": 43.73199999999999, "rc": 0}
+{"name": "sh :", "round": 25, "wall_ms": 32.93558400037, "cpu_ms": 3.5309999999999997, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 25, "wall_ms": 58.200916999339825, "cpu_ms": 14.037999999999998, "rc": 0}
+{"name": "rust serde_json spike", "round": 25, "wall_ms": 51.972291999845766, "cpu_ms": 6.433, "rc": 0}
+{"name": "python3 -c pass", "round": 25, "wall_ms": 73.74133299890673, "cpu_ms": 29.925, "rc": 0}
+{"name": "rust drain stdin", "round": 25, "wall_ms": 51.017083002079744, "cpu_ms": 6.045999999999999, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 25, "wall_ms": 91.45612499924027, "cpu_ms": 46.337, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 25, "wall_ms": 76.13887499974226, "cpu_ms": 29.644, "rc": 0}
+{"name": "rust gate (std)", "round": 25, "wall_ms": 49.01099999915459, "cpu_ms": 5.411, "rc": 0}
+{"name": "rust noop (std)", "round": 25, "wall_ms": 49.86487499991199, "cpu_ms": 5.984999999999999, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 25, "wall_ms": 33.29549999762094, "cpu_ms": 4.054, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 25, "wall_ms": 90.89712499917368, "cpu_ms": 45.775000000000006, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 26, "wall_ms": 88.70012500119628, "cpu_ms": 41.834999999999994, "rc": 0}
+{"name": "rust noop (std)", "round": 26, "wall_ms": 50.14099999971222, "cpu_ms": 5.534, "rc": 0}
+{"name": "rust gate (std)", "round": 26, "wall_ms": 48.14741699738079, "cpu_ms": 5.155, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 26, "wall_ms": 31.52595799838309, "cpu_ms": 3.312, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 26, "wall_ms": 91.65741600008914, "cpu_ms": 47.819, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 26, "wall_ms": 75.13749999998254, "cpu_ms": 30.009999999999998, "rc": 0}
+{"name": "sh :", "round": 26, "wall_ms": 32.59254200020223, "cpu_ms": 3.414, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 26, "wall_ms": 55.90025000128662, "cpu_ms": 12.884999999999998, "rc": 0}
+{"name": "rust serde_json spike", "round": 26, "wall_ms": 50.650625002163, "cpu_ms": 6.461999999999999, "rc": 0}
+{"name": "rust drain stdin", "round": 26, "wall_ms": 50.363166999886744, "cpu_ms": 5.866, "rc": 0}
+{"name": "python3 -c pass", "round": 26, "wall_ms": 72.70799999969313, "cpu_ms": 28.912, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 27, "wall_ms": 33.37325000029523, "cpu_ms": 3.563, "rc": 0}
+{"name": "rust serde_json spike", "round": 27, "wall_ms": 52.0862909979769, "cpu_ms": 6.635000000000001, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 27, "wall_ms": 81.37474999966798, "cpu_ms": 36.246, "rc": 0}
+{"name": "rust drain stdin", "round": 27, "wall_ms": 51.26395800107275, "cpu_ms": 6.148, "rc": 0}
+{"name": "rust noop (std)", "round": 27, "wall_ms": 50.66100000112783, "cpu_ms": 5.931, "rc": 0}
+{"name": "python3 -c pass", "round": 27, "wall_ms": 75.34229200246045, "cpu_ms": 31.940999999999995, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 27, "wall_ms": 58.45766700076638, "cpu_ms": 13.424999999999999, "rc": 0}
+{"name": "rust gate (std)", "round": 27, "wall_ms": 51.16637500032084, "cpu_ms": 6.365, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 27, "wall_ms": 92.88625000044703, "cpu_ms": 48.427, "rc": 0}
+{"name": "sh :", "round": 27, "wall_ms": 33.81133299990324, "cpu_ms": 3.4099999999999997, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 27, "wall_ms": 86.29479199953494, "cpu_ms": 41.459999999999994, "rc": 0}
+{"name": "rust noop (std)", "round": 28, "wall_ms": 50.92125000010128, "cpu_ms": 5.59, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 28, "wall_ms": 73.12524999724701, "cpu_ms": 29.209, "rc": 0}
+{"name": "rust serde_json spike", "round": 28, "wall_ms": 50.047374999849126, "cpu_ms": 5.882999999999999, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 28, "wall_ms": 88.5622499990859, "cpu_ms": 43.397999999999996, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 28, "wall_ms": 55.86570800005575, "cpu_ms": 11.675999999999998, "rc": 0}
+{"name": "sh :", "round": 28, "wall_ms": 32.91329199782922, "cpu_ms": 3.554, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 28, "wall_ms": 88.26404100182117, "cpu_ms": 44.251, "rc": 0}
+{"name": "python3 -c pass", "round": 28, "wall_ms": 70.90054199943552, "cpu_ms": 24.908, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 28, "wall_ms": 33.62116599964793, "cpu_ms": 3.4019999999999997, "rc": 0}
+{"name": "rust drain stdin", "round": 28, "wall_ms": 49.16120900088572, "cpu_ms": 5.5169999999999995, "rc": 0}
+{"name": "rust gate (std)", "round": 28, "wall_ms": 50.30925000028219, "cpu_ms": 7.167999999999999, "rc": 0}
+{"name": "rust serde_json spike", "round": 29, "wall_ms": 51.59454200111213, "cpu_ms": 7.044, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 29, "wall_ms": 33.4355000013602, "cpu_ms": 4.778, "rc": 0}
+{"name": "rust gate (std)", "round": 29, "wall_ms": 57.09954200210632, "cpu_ms": 12.999, "rc": 0}
+{"name": "rust noop (std)", "round": 29, "wall_ms": 55.16883300151676, "cpu_ms": 10.009999999999998, "rc": 0}
+{"name": "rust drain stdin", "round": 29, "wall_ms": 53.65491600241512, "cpu_ms": 9.763000000000002, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 29, "wall_ms": 97.62858300018706, "cpu_ms": 51.761, "rc": 0}
+{"name": "sh :", "round": 29, "wall_ms": 32.677416998922126, "cpu_ms": 3.221, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 29, "wall_ms": 77.11883400043007, "cpu_ms": 32.285, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 29, "wall_ms": 56.461249998392304, "cpu_ms": 12.225, "rc": 0}
+{"name": "python3 -c pass", "round": 29, "wall_ms": 78.68883299670415, "cpu_ms": 23.415, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 29, "wall_ms": 84.29866699952981, "cpu_ms": 39.565999999999995, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 30, "wall_ms": 86.41370899931644, "cpu_ms": 39.936, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 30, "wall_ms": 73.64145799874677, "cpu_ms": 27.737, "rc": 0}
+{"name": "rust noop (std)", "round": 30, "wall_ms": 49.92770900207688, "cpu_ms": 5.549999999999999, "rc": 0}
+{"name": "rust drain stdin", "round": 30, "wall_ms": 49.95545800193213, "cpu_ms": 6.168999999999999, "rc": 0}
+{"name": "python3 -c pass", "round": 30, "wall_ms": 71.9078330002958, "cpu_ms": 27.349999999999998, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 30, "wall_ms": 87.00766599940835, "cpu_ms": 41.424, "rc": 0}
+{"name": "sh :", "round": 30, "wall_ms": 33.21029200014891, "cpu_ms": 3.3759999999999994, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 30, "wall_ms": 57.3537079981179, "cpu_ms": 12.875999999999998, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 30, "wall_ms": 32.66016700217733, "cpu_ms": 3.536, "rc": 0}
+{"name": "rust gate (std)", "round": 30, "wall_ms": 51.87204100002418, "cpu_ms": 6.7299999999999995, "rc": 0}
+{"name": "rust serde_json spike", "round": 30, "wall_ms": 51.07020800278406, "cpu_ms": 6.534999999999999, "rc": 0}
+{"name": "rust noop (std)", "round": 31, "wall_ms": 50.430207997123944, "cpu_ms": 5.384, "rc": 0}
+{"name": "sh :", "round": 31, "wall_ms": 35.088042001007125, "cpu_ms": 5.523999999999999, "rc": 0}
+{"name": "rust gate (std)", "round": 31, "wall_ms": 56.98074999963865, "cpu_ms": 12.03, "rc": 0}
+{"name": "rust drain stdin", "round": 31, "wall_ms": 54.008667000744026, "cpu_ms": 10.432, "rc": 0}
+{"name": "python3 -c pass", "round": 31, "wall_ms": 80.10350000040489, "cpu_ms": 36.919, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 31, "wall_ms": 77.61745899915695, "cpu_ms": 32.125, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 31, "wall_ms": 58.45237500034273, "cpu_ms": 12.92, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 31, "wall_ms": 88.26395800133469, "cpu_ms": 40.431999999999995, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 31, "wall_ms": 33.34412500043982, "cpu_ms": 3.328, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 31, "wall_ms": 86.30416700179921, "cpu_ms": 39.885999999999996, "rc": 0}
+{"name": "rust serde_json spike", "round": 31, "wall_ms": 50.872416999482084, "cpu_ms": 5.715999999999999, "rc": 0}
+{"name": "python3 -c pass", "round": 32, "wall_ms": 70.33450000017183, "cpu_ms": 26.404, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 32, "wall_ms": 111.68349999934435, "cpu_ms": 40.647000000000006, "rc": 0}
+{"name": "sh :", "round": 32, "wall_ms": 44.973749998462154, "cpu_ms": 3.346, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 32, "wall_ms": 54.54766699767788, "cpu_ms": 10.897, "rc": 0}
+{"name": "rust noop (std)", "round": 32, "wall_ms": 49.90558400095324, "cpu_ms": 5.742999999999999, "rc": 0}
+{"name": "rust gate (std)", "round": 32, "wall_ms": 50.74004200287163, "cpu_ms": 6.323, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 32, "wall_ms": 33.234250000532484, "cpu_ms": 4.108, "rc": 0}
+{"name": "rust drain stdin", "round": 32, "wall_ms": 52.122583001619205, "cpu_ms": 8.113, "rc": 0}
+{"name": "rust serde_json spike", "round": 32, "wall_ms": 55.95029099640669, "cpu_ms": 10.818, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 32, "wall_ms": 98.66179199889302, "cpu_ms": 53.701, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 32, "wall_ms": 76.76341600017622, "cpu_ms": 30.73, "rc": 0}
+{"name": "python3 -c pass", "round": 33, "wall_ms": 70.04041600157507, "cpu_ms": 24.939, "rc": 0}
+{"name": "rust drain stdin", "round": 33, "wall_ms": 48.81020899847499, "cpu_ms": 5.545, "rc": 0}
+{"name": "rust serde_json spike", "round": 33, "wall_ms": 49.89670799841406, "cpu_ms": 5.523, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 33, "wall_ms": 86.89987499747076, "cpu_ms": 41.242000000000004, "rc": 0}
+{"name": "rust noop (std)", "round": 33, "wall_ms": 77.79787500112434, "cpu_ms": 5.306, "rc": 0}
+{"name": "sh :", "round": 33, "wall_ms": 56.61300000065239, "cpu_ms": 3.216, "rc": 0}
+{"name": "rust gate (std)", "round": 33, "wall_ms": 58.141499997873325, "cpu_ms": 5.436, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 33, "wall_ms": 107.27820800093468, "cpu_ms": 39.159, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 33, "wall_ms": 80.33250000153203, "cpu_ms": 27.797999999999995, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 33, "wall_ms": 47.72133300139103, "cpu_ms": 3.194, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 33, "wall_ms": 66.496666000603, "cpu_ms": 10.908999999999999, "rc": 0}
+{"name": "rust noop (std)", "round": 34, "wall_ms": 122.06666700149071, "cpu_ms": 5.553, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 34, "wall_ms": 105.98020800171071, "cpu_ms": 26.642, "rc": 0}
+{"name": "rust gate (std)", "round": 34, "wall_ms": 49.3389160001243, "cpu_ms": 5.32, "rc": 0}
+{"name": "rust drain stdin", "round": 34, "wall_ms": 49.02662500171573, "cpu_ms": 5.231999999999999, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 34, "wall_ms": 87.17795800112071, "cpu_ms": 42.159, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 34, "wall_ms": 85.49220799977775, "cpu_ms": 39.641, "rc": 0}
+{"name": "sh :", "round": 34, "wall_ms": 32.624041003145976, "cpu_ms": 3.386, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 34, "wall_ms": 33.20858299775864, "cpu_ms": 3.7779999999999996, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 34, "wall_ms": 57.18849999902886, "cpu_ms": 13.427, "rc": 0}
+{"name": "rust serde_json spike", "round": 34, "wall_ms": 52.8207499992277, "cpu_ms": 6.978999999999999, "rc": 0}
+{"name": "python3 -c pass", "round": 34, "wall_ms": 75.23249999940163, "cpu_ms": 31.112000000000002, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 35, "wall_ms": 90.09770900229341, "cpu_ms": 43.65599999999999, "rc": 0}
+{"name": "python3 -c pass", "round": 35, "wall_ms": 68.4790420018544, "cpu_ms": 23.168999999999997, "rc": 0}
+{"name": "rust drain stdin", "round": 35, "wall_ms": 49.527541999850655, "cpu_ms": 5.599999999999999, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 35, "wall_ms": 55.62708399884286, "cpu_ms": 11.83, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 35, "wall_ms": 89.77075000075274, "cpu_ms": 44.898999999999994, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 35, "wall_ms": 33.99058300055913, "cpu_ms": 3.554, "rc": 0}
+{"name": "rust gate (std)", "round": 35, "wall_ms": 49.793999998655636, "cpu_ms": 5.4879999999999995, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 35, "wall_ms": 77.07945799847948, "cpu_ms": 31.981999999999996, "rc": 0}
+{"name": "rust noop (std)", "round": 35, "wall_ms": 51.49824999898556, "cpu_ms": 5.906, "rc": 0}
+{"name": "rust serde_json spike", "round": 35, "wall_ms": 50.10458299875609, "cpu_ms": 6.145, "rc": 0}
+{"name": "sh :", "round": 35, "wall_ms": 33.19266700054868, "cpu_ms": 3.745, "rc": 0}
+{"name": "python3 -c pass", "round": 36, "wall_ms": 76.34304200109909, "cpu_ms": 32.596, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 36, "wall_ms": 87.66683300200384, "cpu_ms": 42.439, "rc": 0}
+{"name": "rust gate (std)", "round": 36, "wall_ms": 50.82725000102073, "cpu_ms": 6.062999999999999, "rc": 0}
+{"name": "rust serde_json spike", "round": 36, "wall_ms": 61.828958001569845, "cpu_ms": 5.63, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 36, "wall_ms": 56.43466700348654, "cpu_ms": 3.506, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 36, "wall_ms": 71.7785000015283, "cpu_ms": 26.642999999999997, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 36, "wall_ms": 80.28916599869262, "cpu_ms": 11.356, "rc": 0}
+{"name": "rust noop (std)", "round": 36, "wall_ms": 65.67174999872805, "cpu_ms": 5.35, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 36, "wall_ms": 127.98087500050315, "cpu_ms": 39.556, "rc": 0}
+{"name": "sh :", "round": 36, "wall_ms": 47.711625000374625, "cpu_ms": 3.221, "rc": 0}
+{"name": "rust drain stdin", "round": 36, "wall_ms": 103.11595800158102, "cpu_ms": 5.889, "rc": 0}
+{"name": "sh :", "round": 37, "wall_ms": 33.295790999545716, "cpu_ms": 3.867, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 37, "wall_ms": 80.7557080006518, "cpu_ms": 12.056, "rc": 0}
+{"name": "python3 -c pass", "round": 37, "wall_ms": 194.87041699903784, "cpu_ms": 23.113000000000003, "rc": 0}
+{"name": "rust noop (std)", "round": 37, "wall_ms": 57.92345800000476, "cpu_ms": 6.553, "rc": 0}
+{"name": "rust drain stdin", "round": 37, "wall_ms": 50.776208998286165, "cpu_ms": 6.11, "rc": 0}
+{"name": "rust serde_json spike", "round": 37, "wall_ms": 50.701957999990555, "cpu_ms": 5.537999999999999, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 37, "wall_ms": 83.86008299930836, "cpu_ms": 38.779, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 37, "wall_ms": 72.78883300023153, "cpu_ms": 27.253999999999998, "rc": 0}
+{"name": "rust gate (std)", "round": 37, "wall_ms": 50.48425000131829, "cpu_ms": 5.633, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 37, "wall_ms": 86.52320799956215, "cpu_ms": 41.594, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 37, "wall_ms": 34.306375000596745, "cpu_ms": 3.198, "rc": 0}
+{"name": "rust gate (std)", "round": 38, "wall_ms": 50.49045800114982, "cpu_ms": 5.635999999999999, "rc": 0}
+{"name": "rust noop (std)", "round": 38, "wall_ms": 51.95150000145077, "cpu_ms": 6.123, "rc": 0}
+{"name": "rust serde_json spike", "round": 38, "wall_ms": 51.61408300045878, "cpu_ms": 6.6579999999999995, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 38, "wall_ms": 81.76062500206172, "cpu_ms": 36.015, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 38, "wall_ms": 88.61333299864782, "cpu_ms": 42.65, "rc": 0}
+{"name": "python3 -c pass", "round": 38, "wall_ms": 70.13191700025345, "cpu_ms": 23.86, "rc": 0}
+{"name": "sh :", "round": 38, "wall_ms": 33.58170799765503, "cpu_ms": 3.4000000000000004, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 38, "wall_ms": 57.053250002354616, "cpu_ms": 12.347999999999999, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 38, "wall_ms": 85.79341699805809, "cpu_ms": 39.806, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 38, "wall_ms": 32.804791000671685, "cpu_ms": 3.429, "rc": 0}
+{"name": "rust drain stdin", "round": 38, "wall_ms": 49.37820799750625, "cpu_ms": 5.877, "rc": 0}
+{"name": "rust drain stdin", "round": 39, "wall_ms": 49.591000002692454, "cpu_ms": 5.686999999999999, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 39, "wall_ms": 91.30445799746667, "cpu_ms": 45.275, "rc": 0}
+{"name": "python3 -c pass", "round": 39, "wall_ms": 70.4948750026233, "cpu_ms": 24.035999999999998, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 39, "wall_ms": 33.555333997355774, "cpu_ms": 3.182, "rc": 0}
+{"name": "rust serde_json spike", "round": 39, "wall_ms": 48.70258300070418, "cpu_ms": 5.207, "rc": 0}
+{"name": "rust gate (std)", "round": 39, "wall_ms": 49.94091600019601, "cpu_ms": 5.54, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 39, "wall_ms": 58.94191699917428, "cpu_ms": 14.703999999999999, "rc": 0}
+{"name": "sh :", "round": 39, "wall_ms": 31.857916997978464, "cpu_ms": 2.992, "rc": 0}
+{"name": "rust noop (std)", "round": 39, "wall_ms": 51.303374999406515, "cpu_ms": 6.818, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 39, "wall_ms": 82.56175000133226, "cpu_ms": 38.317, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 39, "wall_ms": 88.20220900088316, "cpu_ms": 43.10099999999999, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 40, "wall_ms": 56.714750000537606, "cpu_ms": 11.682, "rc": 0}
+{"name": "rust noop (std)", "round": 40, "wall_ms": 50.43075000139652, "cpu_ms": 5.95, "rc": 0}
+{"name": "rust gate (std)", "round": 40, "wall_ms": 50.606041000719415, "cpu_ms": 5.782, "rc": 0}
+{"name": "sh :", "round": 40, "wall_ms": 33.84195800026646, "cpu_ms": 4.173, "rc": 0}
+{"name": "python3 -c pass", "round": 40, "wall_ms": 78.82070800042129, "cpu_ms": 33.797, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 40, "wall_ms": 89.22854100092081, "cpu_ms": 43.45399999999999, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 40, "wall_ms": 86.14016700084903, "cpu_ms": 40.412, "rc": 0}
+{"name": "rust drain stdin", "round": 40, "wall_ms": 49.83962500045891, "cpu_ms": 5.372999999999999, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 40, "wall_ms": 73.07991699781269, "cpu_ms": 28.699999999999996, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 40, "wall_ms": 33.66975000244565, "cpu_ms": 3.092, "rc": 0}
+{"name": "rust serde_json spike", "round": 40, "wall_ms": 49.06370800017612, "cpu_ms": 5.469, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 41, "wall_ms": 76.30562499980442, "cpu_ms": 32.797, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 41, "wall_ms": 87.93866599808098, "cpu_ms": 42.25999999999999, "rc": 0}
+{"name": "rust gate (std)", "round": 41, "wall_ms": 58.91812499976368, "cpu_ms": 5.6, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 41, "wall_ms": 59.76979199840571, "cpu_ms": 10.734999999999998, "rc": 0}
+{"name": "sh :", "round": 41, "wall_ms": 32.32183399813948, "cpu_ms": 3.139, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 41, "wall_ms": 84.11924999745679, "cpu_ms": 39.408, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 41, "wall_ms": 32.89329200197244, "cpu_ms": 3.496, "rc": 0}
+{"name": "rust noop (std)", "round": 41, "wall_ms": 48.74941700109048, "cpu_ms": 5.339999999999999, "rc": 0}
+{"name": "python3 -c pass", "round": 41, "wall_ms": 70.33841600059532, "cpu_ms": 26.410999999999998, "rc": 0}
+{"name": "rust serde_json spike", "round": 41, "wall_ms": 50.79308300264529, "cpu_ms": 5.506, "rc": 0}
+{"name": "rust drain stdin", "round": 41, "wall_ms": 50.114917001337744, "cpu_ms": 6.148, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 42, "wall_ms": 34.64112499932526, "cpu_ms": 4.696000000000001, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 42, "wall_ms": 61.98950000180048, "cpu_ms": 17.261, "rc": 0}
+{"name": "rust gate (std)", "round": 42, "wall_ms": 50.874749998911284, "cpu_ms": 6.159, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 42, "wall_ms": 82.44079200085253, "cpu_ms": 36.698, "rc": 0}
+{"name": "python3 -c pass", "round": 42, "wall_ms": 91.58091700010118, "cpu_ms": 22.479, "rc": 0}
+{"name": "rust serde_json spike", "round": 42, "wall_ms": 50.69241700039129, "cpu_ms": 5.446, "rc": 0}
+{"name": "rust drain stdin", "round": 42, "wall_ms": 85.41716699983226, "cpu_ms": 5.435, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 42, "wall_ms": 120.59241699898848, "cpu_ms": 41.03799999999999, "rc": 0}
+{"name": "rust noop (std)", "round": 42, "wall_ms": 110.4382080011419, "cpu_ms": 5.31, "rc": 0}
+{"name": "sh :", "round": 42, "wall_ms": 43.710124999051914, "cpu_ms": 3.506, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 42, "wall_ms": 112.42620900156908, "cpu_ms": 39.891, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 43, "wall_ms": 110.75137499938137, "cpu_ms": 50.304, "rc": 0}
+{"name": "rust noop (std)", "round": 43, "wall_ms": 408.06070899998304, "cpu_ms": 7.873999999999999, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 43, "wall_ms": 235.94183299792348, "cpu_ms": 18.935, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 43, "wall_ms": 305.80025000017486, "cpu_ms": 31.988000000000003, "rc": 0}
+{"name": "rust gate (std)", "round": 43, "wall_ms": 68.0510830025014, "cpu_ms": 7.281, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 43, "wall_ms": 173.84120899805566, "cpu_ms": 67.01199999999999, "rc": 0}
+{"name": "sh :", "round": 43, "wall_ms": 43.017915999371326, "cpu_ms": 3.8609999999999998, "rc": 0}
+{"name": "python3 -c pass", "round": 43, "wall_ms": 101.5880000013567, "cpu_ms": 26.437999999999995, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 43, "wall_ms": 84.52199999737786, "cpu_ms": 4.021, "rc": 0}
+{"name": "rust serde_json spike", "round": 43, "wall_ms": 117.49629199766787, "cpu_ms": 6.037, "rc": 0}
+{"name": "rust drain stdin", "round": 43, "wall_ms": 114.28929100293317, "cpu_ms": 6.706, "rc": 0}
+{"name": "rust serde_json spike", "round": 44, "wall_ms": 98.46675000153482, "cpu_ms": 6.154, "rc": 0}
+{"name": "rust noop (std)", "round": 44, "wall_ms": 142.6010840004892, "cpu_ms": 6.163, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 44, "wall_ms": 189.90395799846738, "cpu_ms": 29.677, "rc": 0}
+{"name": "python3 -c pass", "round": 44, "wall_ms": 110.04883400164545, "cpu_ms": 26.580999999999996, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 44, "wall_ms": 195.0112079975952, "cpu_ms": 45.842999999999996, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 44, "wall_ms": 118.41225000171107, "cpu_ms": 46.791, "rc": 0}
+{"name": "rust drain stdin", "round": 44, "wall_ms": 59.38075000085519, "cpu_ms": 7.749, "rc": 0}
+{"name": "sh :", "round": 44, "wall_ms": 34.015124998404644, "cpu_ms": 3.6819999999999995, "rc": 0}
+{"name": "rust gate (std)", "round": 44, "wall_ms": 100.40658299840288, "cpu_ms": 7.555999999999999, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 44, "wall_ms": 121.96825000137324, "cpu_ms": 4.0809999999999995, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 44, "wall_ms": 126.19537499995204, "cpu_ms": 13.366999999999999, "rc": 0}
+{"name": "python3 -c pass", "round": 45, "wall_ms": 132.51533299990115, "cpu_ms": 28.956999999999997, "rc": 0}
+{"name": "sh :", "round": 45, "wall_ms": 104.5035410024866, "cpu_ms": 4.562, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 45, "wall_ms": 212.05854199797614, "cpu_ms": 46.871, "rc": 0}
+{"name": "rust noop (std)", "round": 45, "wall_ms": 148.123333001422, "cpu_ms": 6.5760000000000005, "rc": 0}
+{"name": "rust gate (std)", "round": 45, "wall_ms": 119.61574999804725, "cpu_ms": 6.6579999999999995, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 45, "wall_ms": 189.7459579995484, "cpu_ms": 56.328, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 45, "wall_ms": 215.25816599751124, "cpu_ms": 17.086, "rc": 0}
+{"name": "rust serde_json spike", "round": 45, "wall_ms": 119.37237500023912, "cpu_ms": 8.44, "rc": 0}
+{"name": "rust drain stdin", "round": 45, "wall_ms": 62.324957998498576, "cpu_ms": 8.861, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 45, "wall_ms": 81.48866700139479, "cpu_ms": 31.147000000000002, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 45, "wall_ms": 65.87979200048721, "cpu_ms": 4.137999999999999, "rc": 0}
+{"name": "rust noop (std)", "round": 46, "wall_ms": 80.1208749981015, "cpu_ms": 6.168, "rc": 0}
+{"name": "sh :", "round": 46, "wall_ms": 35.3904590010643, "cpu_ms": 3.913, "rc": 0}
+{"name": "rust gate (std)", "round": 46, "wall_ms": 52.56766599995899, "cpu_ms": 6.562, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 46, "wall_ms": 55.91904199900455, "cpu_ms": 11.517, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 46, "wall_ms": 45.0814169998921, "cpu_ms": 3.5839999999999996, "rc": 0}
+{"name": "rust drain stdin", "round": 46, "wall_ms": 82.05287500095437, "cpu_ms": 5.691, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 46, "wall_ms": 74.85283400092158, "cpu_ms": 29.290999999999997, "rc": 0}
+{"name": "python3 -c pass", "round": 46, "wall_ms": 78.66445800027577, "cpu_ms": 23.396, "rc": 0}
+{"name": "rust serde_json spike", "round": 46, "wall_ms": 97.34650000245892, "cpu_ms": 5.697, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 46, "wall_ms": 202.78337499985355, "cpu_ms": 43.197, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 46, "wall_ms": 107.18875000020489, "cpu_ms": 44.847, "rc": 0}
+{"name": "rust serde_json spike", "round": 47, "wall_ms": 55.823666996730026, "cpu_ms": 6.758, "rc": 0}
+{"name": "rust noop (std)", "round": 47, "wall_ms": 55.095042000175454, "cpu_ms": 5.899, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 47, "wall_ms": 74.06345799972769, "cpu_ms": 28.618, "rc": 0}
+{"name": "sh :", "round": 47, "wall_ms": 48.74266699698637, "cpu_ms": 3.7390000000000003, "rc": 0}
+{"name": "rust drain stdin", "round": 47, "wall_ms": 121.70420899929013, "cpu_ms": 6.274, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 47, "wall_ms": 121.58949999866309, "cpu_ms": 40.687, "rc": 0}
+{"name": "python3 -c pass", "round": 47, "wall_ms": 82.01620799809461, "cpu_ms": 24.137999999999998, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 47, "wall_ms": 56.95449999984703, "cpu_ms": 10.684, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 47, "wall_ms": 84.03229200121132, "cpu_ms": 38.261, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 47, "wall_ms": 32.54199999719276, "cpu_ms": 3.149, "rc": 0}
+{"name": "rust gate (std)", "round": 47, "wall_ms": 49.03058399941074, "cpu_ms": 5.7330000000000005, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 48, "wall_ms": 58.14362499950221, "cpu_ms": 13.732000000000001, "rc": 0}
+{"name": "sh :", "round": 48, "wall_ms": 31.654791000619298, "cpu_ms": 3.4979999999999998, "rc": 0}
+{"name": "python3 -c pass", "round": 48, "wall_ms": 102.32787499990081, "cpu_ms": 22.947999999999997, "rc": 0}
+{"name": "rust drain stdin", "round": 48, "wall_ms": 49.903792001714464, "cpu_ms": 5.483999999999999, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 48, "wall_ms": 121.54920900138677, "cpu_ms": 38.934, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 48, "wall_ms": 96.56025000003865, "cpu_ms": 29.150000000000002, "rc": 0}
+{"name": "rust serde_json spike", "round": 48, "wall_ms": 100.60154099846841, "cpu_ms": 5.588, "rc": 0}
+{"name": "rust gate (std)", "round": 48, "wall_ms": 74.88400000147521, "cpu_ms": 5.644, "rc": 0}
+{"name": "rust noop (std)", "round": 48, "wall_ms": 64.69508400186896, "cpu_ms": 5.7459999999999996, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 48, "wall_ms": 47.276959001465, "cpu_ms": 3.77, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 48, "wall_ms": 125.54254100177786, "cpu_ms": 42.013000000000005, "rc": 0}
+{"name": "rust noop (std)", "round": 49, "wall_ms": 54.18091599858599, "cpu_ms": 5.54, "rc": 0}
+{"name": "rust drain stdin", "round": 49, "wall_ms": 50.01049999918905, "cpu_ms": 5.484999999999999, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 49, "wall_ms": 104.87637500045821, "cpu_ms": 37.868, "rc": 0}
+{"name": "sh :", "round": 49, "wall_ms": 34.0903750002326, "cpu_ms": 3.304, "rc": 0}
+{"name": "rust serde_json spike", "round": 49, "wall_ms": 50.48591699960525, "cpu_ms": 5.678, "rc": 0}
+{"name": "python3 -c pass", "round": 49, "wall_ms": 65.81137499961187, "cpu_ms": 21.831999999999997, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 49, "wall_ms": 83.56849999836413, "cpu_ms": 37.983, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 49, "wall_ms": 33.966582999710226, "cpu_ms": 3.573, "rc": 0}
+{"name": "rust gate (std)", "round": 49, "wall_ms": 49.20250000213855, "cpu_ms": 5.308999999999999, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 49, "wall_ms": 73.55375000042841, "cpu_ms": 30.559999999999995, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 49, "wall_ms": 55.55058300160454, "cpu_ms": 11.393, "rc": 0}
+{"name": "python3 -c pass", "round": 50, "wall_ms": 69.55608300268068, "cpu_ms": 24.608999999999998, "rc": 0}
+{"name": "sh :", "round": 50, "wall_ms": 34.112916997401044, "cpu_ms": 3.4259999999999997, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 50, "wall_ms": 86.20899999732501, "cpu_ms": 41.172, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 50, "wall_ms": 72.71762500022305, "cpu_ms": 27.576, "rc": 0}
+{"name": "rust gate (std)", "round": 50, "wall_ms": 49.45583299922873, "cpu_ms": 5.478999999999999, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 50, "wall_ms": 54.97237500094343, "cpu_ms": 12.171, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 50, "wall_ms": 34.36308299933444, "cpu_ms": 3.9579999999999997, "rc": 0}
+{"name": "rust drain stdin", "round": 50, "wall_ms": 50.42975000105798, "cpu_ms": 6.182999999999999, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 50, "wall_ms": 90.95833300307277, "cpu_ms": 45.408, "rc": 0}
+{"name": "rust noop (std)", "round": 50, "wall_ms": 51.02054099916131, "cpu_ms": 5.906, "rc": 0}
+{"name": "rust serde_json spike", "round": 50, "wall_ms": 50.194916999316774, "cpu_ms": 5.709, "rc": 0}
+{"name": "rust drain stdin", "round": 51, "wall_ms": 50.71008300001267, "cpu_ms": 5.962999999999999, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 51, "wall_ms": 54.62854099823744, "cpu_ms": 3.411, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 51, "wall_ms": 105.35683300258825, "cpu_ms": 27.805999999999997, "rc": 0}
+{"name": "python3 -c pass", "round": 51, "wall_ms": 111.94008299935376, "cpu_ms": 22.917, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 51, "wall_ms": 75.28974999877391, "cpu_ms": 11.740999999999998, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 51, "wall_ms": 86.05783299935865, "cpu_ms": 40.393, "rc": 0}
+{"name": "rust gate (std)", "round": 51, "wall_ms": 49.21704200023669, "cpu_ms": 5.567, "rc": 0}
+{"name": "sh :", "round": 51, "wall_ms": 31.039166999107692, "cpu_ms": 3.3169999999999997, "rc": 0}
+{"name": "rust serde_json spike", "round": 51, "wall_ms": 49.828292001620866, "cpu_ms": 5.944, "rc": 0}
+{"name": "rust noop (std)", "round": 51, "wall_ms": 50.331458001892315, "cpu_ms": 6.289, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 51, "wall_ms": 89.56558299905737, "cpu_ms": 44.631, "rc": 0}
+{"name": "rust gate (std)", "round": 52, "wall_ms": 51.30308300067554, "cpu_ms": 5.922000000000001, "rc": 0}
+{"name": "rust noop (std)", "round": 52, "wall_ms": 50.434584001777694, "cpu_ms": 6.487, "rc": 0}
+{"name": "python3 -c pass", "round": 52, "wall_ms": 74.06216700110235, "cpu_ms": 29.592, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 52, "wall_ms": 58.10041599761462, "cpu_ms": 12.209999999999999, "rc": 0}
+{"name": "rust drain stdin", "round": 52, "wall_ms": 51.43583300014143, "cpu_ms": 6.1659999999999995, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 52, "wall_ms": 77.0577500006766, "cpu_ms": 33.019, "rc": 0}
+{"name": "sh :", "round": 52, "wall_ms": 33.585666002181824, "cpu_ms": 3.299, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 52, "wall_ms": 87.41037499930826, "cpu_ms": 43.096000000000004, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 52, "wall_ms": 33.71049999987008, "cpu_ms": 3.678, "rc": 0}
+{"name": "rust serde_json spike", "round": 52, "wall_ms": 51.22249999840278, "cpu_ms": 6.484, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 52, "wall_ms": 121.34983299984015, "cpu_ms": 41.975, "rc": 0}
+{"name": "rust gate (std)", "round": 53, "wall_ms": 50.40729200118221, "cpu_ms": 5.554, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 53, "wall_ms": 85.84595800130046, "cpu_ms": 41.033, "rc": 0}
+{"name": "rust serde_json spike", "round": 53, "wall_ms": 51.01608300174121, "cpu_ms": 5.651999999999999, "rc": 0}
+{"name": "python3 -c pass", "round": 53, "wall_ms": 69.58324999868637, "cpu_ms": 26.129999999999995, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 53, "wall_ms": 75.44758400035789, "cpu_ms": 30.304, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 53, "wall_ms": 86.87329099848284, "cpu_ms": 40.025999999999996, "rc": 0}
+{"name": "rust drain stdin", "round": 53, "wall_ms": 50.00008299975889, "cpu_ms": 5.601999999999999, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 53, "wall_ms": 56.1318330001086, "cpu_ms": 12.161999999999999, "rc": 0}
+{"name": "sh :", "round": 53, "wall_ms": 33.45108299981803, "cpu_ms": 3.9169999999999994, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 53, "wall_ms": 33.99841699865647, "cpu_ms": 3.862, "rc": 0}
+{"name": "rust noop (std)", "round": 53, "wall_ms": 51.59954200280481, "cpu_ms": 7.599, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 54, "wall_ms": 93.40599999995902, "cpu_ms": 48.586999999999996, "rc": 0}
+{"name": "rust noop (std)", "round": 54, "wall_ms": 49.71750000186148, "cpu_ms": 5.875, "rc": 0}
+{"name": "python3 -c pass", "round": 54, "wall_ms": 70.75774999975692, "cpu_ms": 26.302, "rc": 0}
+{"name": "rust gate (std)", "round": 54, "wall_ms": 50.39499999838881, "cpu_ms": 5.973, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 54, "wall_ms": 107.62908399919979, "cpu_ms": 29.389, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 54, "wall_ms": 42.96408300069743, "cpu_ms": 3.822, "rc": 0}
+{"name": "sh :", "round": 54, "wall_ms": 32.78883399980259, "cpu_ms": 3.6740000000000004, "rc": 0}
+{"name": "rust serde_json spike", "round": 54, "wall_ms": 50.36574999758159, "cpu_ms": 6.156, "rc": 0}
+{"name": "rust drain stdin", "round": 54, "wall_ms": 71.49991700134706, "cpu_ms": 5.48, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 54, "wall_ms": 94.78912499980652, "cpu_ms": 50.24, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 54, "wall_ms": 57.19166699782363, "cpu_ms": 12.771999999999998, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 55, "wall_ms": 59.01724999785074, "cpu_ms": 14.453999999999999, "rc": 0}
+{"name": "sh :", "round": 55, "wall_ms": 33.3796250015439, "cpu_ms": 3.656, "rc": 0}
+{"name": "rust gate (std)", "round": 55, "wall_ms": 51.080208002531435, "cpu_ms": 7.052999999999999, "rc": 0}
+{"name": "rust noop (std)", "round": 55, "wall_ms": 49.68216700217454, "cpu_ms": 5.887, "rc": 0}
+{"name": "rust serde_json spike", "round": 55, "wall_ms": 62.952917000075104, "cpu_ms": 6.2989999999999995, "rc": 0}
+{"name": "python3 -c pass", "round": 55, "wall_ms": 112.16191699713818, "cpu_ms": 26.424999999999997, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 55, "wall_ms": 117.3186669984716, "cpu_ms": 42.44499999999999, "rc": 0}
+{"name": "rust drain stdin", "round": 55, "wall_ms": 65.55262500114623, "cpu_ms": 6.1339999999999995, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 55, "wall_ms": 76.51749999786261, "cpu_ms": 3.5100000000000002, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 55, "wall_ms": 173.44537500321167, "cpu_ms": 41.706, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 55, "wall_ms": 137.98470799883944, "cpu_ms": 28.753, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 56, "wall_ms": 35.59299999687937, "cpu_ms": 3.726, "rc": 0}
+{"name": "sh :", "round": 56, "wall_ms": 33.66095800083713, "cpu_ms": 3.5689999999999995, "rc": 0}
+{"name": "rust gate (std)", "round": 56, "wall_ms": 51.429499999358086, "cpu_ms": 5.75, "rc": 0}
+{"name": "rust serde_json spike", "round": 56, "wall_ms": 51.85524999978952, "cpu_ms": 5.981, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 56, "wall_ms": 94.25691700016614, "cpu_ms": 47.15, "rc": 0}
+{"name": "rust noop (std)", "round": 56, "wall_ms": 53.84470900025917, "cpu_ms": 6.069, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 56, "wall_ms": 78.33258299797308, "cpu_ms": 29.796999999999997, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 56, "wall_ms": 72.32704200214357, "cpu_ms": 11.179, "rc": 0}
+{"name": "rust drain stdin", "round": 56, "wall_ms": 56.58479100020486, "cpu_ms": 5.911, "rc": 0}
+{"name": "python3 -c pass", "round": 56, "wall_ms": 68.7419999994745, "cpu_ms": 22.525999999999996, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 56, "wall_ms": 84.78408299924922, "cpu_ms": 38.169999999999995, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 57, "wall_ms": 83.4022079980059, "cpu_ms": 37.508, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 57, "wall_ms": 85.1738329984073, "cpu_ms": 37.23, "rc": 0}
+{"name": "rust serde_json spike", "round": 57, "wall_ms": 53.094958999281516, "cpu_ms": 5.644999999999999, "rc": 0}
+{"name": "python3 -c pass", "round": 57, "wall_ms": 69.65608300015447, "cpu_ms": 24.887, "rc": 0}
+{"name": "sh :", "round": 57, "wall_ms": 33.887416997458786, "cpu_ms": 3.606, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 57, "wall_ms": 77.10075000068173, "cpu_ms": 30.401999999999997, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 57, "wall_ms": 33.54745799879311, "cpu_ms": 3.471, "rc": 0}
+{"name": "rust drain stdin", "round": 57, "wall_ms": 51.05979200016009, "cpu_ms": 6.178999999999999, "rc": 0}
+{"name": "rust noop (std)", "round": 57, "wall_ms": 51.793457998428494, "cpu_ms": 7.056, "rc": 0}
+{"name": "rust gate (std)", "round": 57, "wall_ms": 52.3602920002304, "cpu_ms": 6.26, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 57, "wall_ms": 93.11566700125695, "cpu_ms": 10.706999999999999, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 58, "wall_ms": 74.0542080020532, "cpu_ms": 3.202, "rc": 0}
+{"name": "rust noop (std)", "round": 58, "wall_ms": 89.16220799801522, "cpu_ms": 5.683, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 58, "wall_ms": 79.99295799891115, "cpu_ms": 11.223, "rc": 0}
+{"name": "python3 -c pass", "round": 58, "wall_ms": 107.69333300049766, "cpu_ms": 22.328999999999997, "rc": 0}
+{"name": "rust drain stdin", "round": 58, "wall_ms": 90.59412500209874, "cpu_ms": 5.509999999999999, "rc": 0}
+{"name": "rust gate (std)", "round": 58, "wall_ms": 116.15795800025808, "cpu_ms": 5.5360000000000005, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 58, "wall_ms": 108.68133399708313, "cpu_ms": 39.050000000000004, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 58, "wall_ms": 75.07258400073624, "cpu_ms": 27.886000000000003, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 58, "wall_ms": 86.8596250002156, "cpu_ms": 40.47899999999999, "rc": 0}
+{"name": "sh :", "round": 58, "wall_ms": 44.2397910010186, "cpu_ms": 3.2119999999999997, "rc": 0}
+{"name": "rust serde_json spike", "round": 58, "wall_ms": 62.66504100130987, "cpu_ms": 5.972999999999999, "rc": 0}
+{"name": "budget.py main thread, outside lab", "round": 59, "wall_ms": 81.31150000190246, "cpu_ms": 37.004, "rc": 0}
+{"name": "budget.py PostToolBatch main, in a lab (cwd lab)", "round": 59, "wall_ms": 83.77487500183634, "cpu_ms": 37.794999999999995, "rc": 0}
+{"name": "sh gate (byte loop, w04-c5)", "round": 59, "wall_ms": 33.58562499852269, "cpu_ms": 3.5909999999999997, "rc": 0}
+{"name": "rust serde_json spike", "round": 59, "wall_ms": 50.20179099665256, "cpu_ms": 5.719, "rc": 0}
+{"name": "rust noop (std)", "round": 59, "wall_ms": 50.198833996546455, "cpu_ms": 6.13, "rc": 0}
+{"name": "sh :", "round": 59, "wall_ms": 33.163415999297285, "cpu_ms": 4.201, "rc": 0}
+{"name": "rust gate (std)", "round": 59, "wall_ms": 50.743749998218846, "cpu_ms": 6.539999999999999, "rc": 0}
+{"name": "rust drain stdin", "round": 59, "wall_ms": 51.84200000076089, "cpu_ms": 8.292000000000002, "rc": 0}
+{"name": "python3 -c pass", "round": 59, "wall_ms": 79.41054199909559, "cpu_ms": 35.967, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 59, "wall_ms": 59.59495799834258, "cpu_ms": 14.495, "rc": 0}
+{"name": "user_words.py (no prompt)", "round": 59, "wall_ms": 74.07483299903106, "cpu_ms": 28.703999999999997, "rc": 0}

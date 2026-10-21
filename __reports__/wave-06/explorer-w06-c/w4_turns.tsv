@@ -1,0 +1,26 @@
+turn	t_start_utc	idle_before_s	turn_s	n_req	ctx_start	usd_list	trigger	senders	cls	n_agent	n_sendmsg	n_write	n_bashwrite	n_bashread	final_text_chars	detail
+0	2026-10-20T00:27:31	0	516	35	74632	3.3625	human	human	dispatch	6	1	3	9	23	1422	BashWrite:echo "--- worktree user_words tail"; tail -c 1500 __statera_|BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/|BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/|BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/|BashWrite:S=/private/tmp/claude-501/-Users-hacker-Documents-tmp-claude|BashWrite:cd /Users/hacker/Documents/tmp/clau
+1	2026-10-20T00:38:14	127	8	2	204889	0.2091	peer	author-w04-6:hand-back	dispatch	1	0	0	0	0	86	Agent:reproducer-w04-6
+2	2026-10-20T00:41:38	195	1	1	207563	0.0529	peer	author-w04-6:hand-back	text-only	0	0	0	0	0	282	
+3	2026-10-20T00:42:08	29	21	4	209335	0.2499	peer	reproducer-w04-6:hand-back	file-or-commit	0	0	0	2	1	277	BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/|BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/
+4	2026-10-20T00:45:32	182	13	2	216380	0.1551	peer	author-w04-1:hand-back	dispatch	1	0	0	0	0	424	Agent:reproducer-w04-1
+5	2026-10-20T00:51:36	350	2	1	219810	0.0586	peer	author-w04-1:hand-back	text-only	0	0	0	0	0	361	
+6	2026-10-20T00:52:29	52	2	1	221396	0.0617	peer	reproducer-w04-1:hand-back	text-only	0	0	0	0	0	424	
+7	2026-10-20T01:08:09	937	45	4	224981	0.3446	peer+task-notification	done:reproducer-w04-1(completed),author-w04-3:hand-back	dispatch	1	1	0	1	1	245	BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/|SendMessage:author-w04-3|Agent:reproducer-w04-4
+8	2026-10-20T01:19:04	610	19	3	232613	0.2083	peer	reproducer-w04-4:hand-back	message	0	1	0	1	0	681	SendMessage:author-w04-3|BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/
+9	2026-10-20T01:24:09	286	51	4	237648	0.3908	peer	author-w04-2:hand-back	dispatch	2	1	0	1	0	377	BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/|SendMessage:author-w04-2|Agent:reproducer-w04-2|Agent:reproducer-w04-3
+10	2026-10-20T01:28:59	239	40	4	247788	0.3755	peer	author-w04-3:hand-back	dispatch	2	0	0	0	1	235	Agent:reproducer-w04-7|Agent:reproducer-w04-5
+11	2026-10-20T01:32:24	165	17	3	258869	0.2163	peer	author-w04-3:hand-back	message	0	1	0	1	0	277	BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/|SendMessage:author-w04-3
+12	2026-10-20T01:32:50	9	12	2	262613	0.1584	peer	reproducer-w04-7:hand-back	message	0	1	0	1	0	421	SendMessage:author-w04-3|BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/
+13	2026-10-20T01:35:40	157	8	2	266310	0.1535	peer	reproducer-w04-2:hand-back	message	0	1	0	0	0	269	SendMessage:author-w04-2
+14	2026-10-20T01:36:33	45	4	2	269939	0.1412	peer	reproducer-w04-3:hand-back	message	0	1	0	0	0	403	SendMessage:author-w04-2
+15	2026-10-20T01:38:33	117	74	7	273001	0.7069	peer	author-w04-2:hand-back	dispatch	3	0	0	2	2	355	Agent:reproducer-w04-8|Agent:reproducer-w04-9|Agent:reproducer-w04-10|BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/|BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/
+16	2026-10-20T01:40:38	51	2	1	296516	0.0752	peer	author-w04-3:hand-back	text-only	0	0	0	0	0	370	
+17	2026-10-20T01:41:12	32	4	2	298806	0.1537	peer	reproducer-w04-10:hand-back	message	0	1	0	0	0	227	SendMessage:author-w04-3
+18	2026-10-20T01:41:30	14	13	2	300664	0.1620	peer	author-w04-3:hand-back	file-or-commit	0	0	0	1	0	295	BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/
+19	2026-10-20T01:42:16	33	0	1	303740	0.0767	peer	author-w04-2:hand-back	text-only	0	0	0	0	0	282	
+20	2026-10-20T01:43:08	52	9	2	305828	0.1678	peer	reproducer-w04-9:hand-back	message	0	1	0	0	0	209	SendMessage:author-w04-2
+21	2026-10-20T01:43:29	12	23	4	309174	0.3402	peer	reproducer-w04-8:hand-back	message	0	2	0	1	0	238	BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/|SendMessage:author-w04-2|SendMessage:reproducer-w04-9
+22	2026-10-20T01:44:37	44	8	2	314687	0.1812	peer	reproducer-w04-9:hand-back	read-only	0	0	0	0	1	286	
+23	2026-10-20T01:48:27	223	219	12	320745	1.4798	peer	reproducer-w04-5:hand-back	message	0	1	0	5	5	296	BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/|BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/|BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/|SendMessage:reproducer-w04-8|BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/|BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/
+24	2026-10-20T01:53:41	95	100	11	352894	1.0234	peer	reproducer-w04-8:hand-back	file-or-commit	0	0	0	3	6	4898	BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/|BashWrite:cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/|BashWrite:ps -Ao pid,command | grep -E "murmuration-w04" | grep -v gre

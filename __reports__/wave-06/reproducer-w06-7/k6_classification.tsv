@@ -1,0 +1,116 @@
+# w06-c11 k6: reproducer-w06-7's label per denied lab Bash call (a mention-only, b act the guard is for, c other); index into the replay order of w06c11_v7_dump_denied_full.py; head = first 100 characters
+idx	session	ts	group	label	head
+0	74fa512e	2026-10-21T10:38	G1	a	python3 -I - <<'EOF' ⏎ p='__statera__/wave-06.md'; s=open(p).read() ⏎ add="""- HH:MM (this commit), afte
+1	74fa512e	2026-10-21T10:43	G1	a	cat > __reports__/wave-06/research-pi/permission_mechanisms.md <<'EOF' ⏎ # What Claude Code documents 
+2	74fa512e	2026-10-21T11:25	G1	a	cat > __reports__/wave-06/01-experiment_protocol_e3_v1.md <<'EOF' ⏎ # Wave 6, E3 v1: a narrower guard,
+3	74fa512e	2026-10-21T11:25	G2	a	python3 -I - <<'EOF' ⏎ p='__statera__/wave-06.md'; s=open(p).read() ⏎ add="""- HH:MM (this commit), afte
+4	74fa512e	2026-10-21T11:43	G1	a	cat > __reports__/wave-06/01-experiment_protocol_e3_v2.md <<'EOF' ⏎ # Wave 6, E3 v2: the v1 guard with
+5	74fa512e	2026-10-21T12:09	G2	a	cat > __reports__/wave-06/01-experiment_protocol_e3_v3.md <<'EOF' ⏎ # Wave 6, E3 v3: one unconditional
+6	74fa512e	2026-10-21T12:22	G2	a	python3 -I - <<'EOF' ⏎ p='__statera__/wave-06.md'; s=open(p).read() ⏎ add="""- HH:MM (this commit), afte
+7	agent-a1	2026-10-21T12:00	G1	a	cd /private/tmp/murmuration-w06/reproducer-w06-5/tools && python3 - <<'EOF' ⏎ import re,collections ⏎ ro
+8	agent-a1	2026-10-21T12:00	G1	a	cd /private/tmp/murmuration-w06/reproducer-w06-5/tools && cat > w06c10_v_offline_cases.py <<'EOF' ⏎ # 
+9	agent-a1	2026-10-21T12:05	G1	a	cd /private/tmp/murmuration-w06/reproducer-w06-5 && python3 - <<'EOF' ⏎ p='tools/w06c10_v_live_cases.p
+10	agent-a1	2026-10-21T12:06	G1	a	cd /private/tmp/murmuration-w06/reproducer-w06-5/tools && python3 - <<'EOF' ⏎ s=open('w06c10_v_replay_
+11	agent-a1	2026-10-21T12:08	G1	a	cd /Users/hacker/Documents/src/CrackingShells/Murmuration/.claude/worktrees/agent-ad975b2e44c301492 
+12	agent-a1	2026-10-21T12:09	G1	a	cd /Users/hacker/Documents/src/CrackingShells/Murmuration/.claude/worktrees/agent-ad975b2e44c301492 
+13	agent-ab	2026-10-21T10:37	G1	a	cat > __pondus__/w06-c5.md <<'EOF' ⏎ # w06-c5: In stage 1 of E1 a resident stdio MCP server carried ev
+14	agent-ab	2026-10-21T08:27	G2	b	cd /private/tmp/murmuration-w06/explorer-w06-a/work && export CLAUDE_CODE_SHELL=/bin/bash W06_LOG=/p
+15	agent-ad	2026-10-21T10:46	G1	a	mkdir -p __reports__/wave-06/author-w06-5 && cat > __reports__/wave-06/author-w06-5/e3_make_lists.py
+16	agent-ad	2026-10-21T10:53	G3	c	python3 -I - <<'EOF' ⏎ p="__instrumenta__/w06c7_if_probe.py" ⏎ s=open(p).read() ⏎ # variant: same command 
+17	agent-ad	2026-10-21T10:57	G3	c	python3 -I - <<'EOF' ⏎ p="__instrumenta__/w06c7_if_probe.py" ⏎ s=open(p).read() ⏎ s=s.replace('def build(s
+18	agent-ad	2026-10-21T10:59	G3	c	python3 -I - <<'EOF' ⏎ p="__instrumenta__/w06c7_if_probe.py" ⏎ s=open(p).read() ⏎ s=s.replace('SETS = {','
+19	agent-ad	2026-10-21T12:08	G1	a	cat >> __pondus__/w06-c7.md <<'EOF' ⏎  ⏎ ## Correction of the share estimate (after reproducer-w06-5's q
+20	agent-ad	2026-10-21T12:10	G1	a	cat > /private/tmp/murmuration-w06/author-w06-5/patch_v3.py <<'PYEOF' ⏎ p = "scripts/permission_guard.
+21	agent-ad	2026-10-21T12:11	G1	a	cat > __reports__/wave-06/author-w06-5/e3v3_make_lists.py <<'PYEOF' ⏎ # w06-c11 (E3 v3): writes the ca
+22	agent-ae	2026-10-21T08:23	G1	b	mkdir -p /private/tmp/murmuration-w06/explorer-w06-b/t0 && cd /private/tmp/murmuration-w06/explorer-
+23	agent-ae	2026-10-21T08:24	G1	b	mkdir -p /private/tmp/murmuration-w06/explorer-w06-b/plug && cd /Users/hacker/Documents/tmp/claude-w
+24	agent-ae	2026-10-21T08:39	G1	b	python3 -I - <<'EOF' ⏎ p="__instrumenta__/hook_platform_floor.py" ⏎ s=open(p).read() ⏎ s=s.replace('rows =
+25	6b0e1f2a	2026-10-21T05:35	G3	c	cp .claude/settings.local.json "$TMPDIR/settings.local.json.bak-w5" && cat > .claude-plugin/marketpl
+26	6b0e1f2a	2026-10-21T05:35	G3	b	M=/Users/hacker/Documents/src/CrackingShells/Murmuration/.claude/settings.local.json && cp "$TMPDIR/
+27	6b0e1f2a	2026-10-21T05:41	G3	b	M=/Users/hacker/Documents/src/CrackingShells/Murmuration/.claude/settings.local.json; md5 -q $M > $T
+28	agent-a0	2026-10-21T05:52	G3	a	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673; O=__repo
+29	agent-a2	2026-10-21T06:59	G2	c	mkdir -p /private/tmp/murmuration-w05/reproducer-w05-5/s && cat > /Users/hacker/Documents/tmp/claude
+30	agent-a2	2026-10-21T07:00	G2	c	W=/private/tmp/murmuration-w05/reproducer-w05-5 && export CLAUDE_CONFIG_DIR=$W/cfg LAB_STATUS_CACHE=
+31	agent-a2	2026-10-21T07:03	G2	c	W=/private/tmp/murmuration-w05/reproducer-w05-5 && CLAUDE_CONFIG_DIR=$W/cfg python3 - <<EOF ⏎ import s
+32	agent-a2	2026-10-21T07:03	G2	c	cat > /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673/__inst
+33	agent-a2	2026-10-21T07:04	G2	c	W=/private/tmp/murmuration-w05/reproducer-w05-5 && export CLAUDE_CONFIG_DIR=$W/cfg && N=$W/new/scrip
+34	agent-a2	2026-10-21T07:05	G2	a	cp /private/tmp/murmuration-w05/reproducer-w05-5/s/runs2.jsonl __reports__/wave-05/ 2>/dev/null; rm 
+35	agent-a2	2026-10-21T07:06	G2	c	W=/private/tmp/murmuration-w05/reproducer-w05-5 && export CLAUDE_CONFIG_DIR=$W/cfg LAB_STATUS_CACHE=
+36	agent-a2	2026-10-21T05:43	G2	b	mkdir -p /private/tmp/murmuration-w05/explorer-w05-e/cfg && cd /private/tmp/murmuration-w05/explorer
+37	agent-a2	2026-10-21T05:43	G2	b	cd /private/tmp/murmuration-w05/explorer-w05-e/wt && export CLAUDE_CONFIG_DIR=/private/tmp/murmurati
+38	agent-a2	2026-10-21T05:43	G2	b	cd /private/tmp/murmuration-w05/explorer-w05-e && for d in repo wt; do mkdir -p $d/.claude; echo "{\
+39	agent-a2	2026-10-21T05:44	G2	b	cd /private/tmp/murmuration-w05/explorer-w05-e && export CLAUDE_CONFIG_DIR=$PWD/cfg; grep "Watching 
+40	agent-a2	2026-10-21T05:44	G2	b	cd /private/tmp/murmuration-w05/explorer-w05-e && export CLAUDE_CONFIG_DIR=$PWD/cfg; B=$PWD ⏎ run(){ r
+41	agent-a2	2026-10-21T05:44	G2	b	cd /private/tmp/murmuration-w05/explorer-w05-e && export CLAUDE_CONFIG_DIR=$PWD/cfg; B=$PWD ⏎ cat > ru
+42	agent-a2	2026-10-21T05:44	G3	b	cd /private/tmp/murmuration-w05/explorer-w05-e && rm -f wt/dbg_D_wtsub.log wt/latest; git -C repo lo
+43	agent-a2	2026-10-21T05:45	G2	b	cd /private/tmp/murmuration-w05/explorer-w05-e && cat > runp.sh <<'EOF' ⏎ #!/bin/zsh ⏎ # usage: [CFG=dir
+44	agent-a2	2026-10-21T05:46	G2	b	cd /private/tmp/murmuration-w05/explorer-w05-e && export CLAUDE_CONFIG_DIR=$PWD/cfg5; rm -rf cfg5; m
+45	agent-a2	2026-10-21T05:46	G2	b	cd /private/tmp/murmuration-w05/explorer-w05-e && export CLAUDE_CONFIG_DIR=$PWD/cfg5; export CFG=$PW
+46	agent-a2	2026-10-21T05:46	G2	b	cd /private/tmp/murmuration-w05/explorer-w05-e && export CFG=$PWD/cfg6 CLAUDE_CONFIG_DIR=$PWD/cfg6; 
+47	agent-a2	2026-10-21T05:47	G2	b	cd /private/tmp/murmuration-w05/explorer-w05-e && export CFG=$PWD/cfg7 CLAUDE_CONFIG_DIR=$PWD/cfg7; 
+48	agent-a2	2026-10-21T05:47	G2	b	cd /private/tmp/murmuration-w05/explorer-w05-e && export CFG=$PWD/cfg8 CLAUDE_CONFIG_DIR=$PWD/cfg8; 
+49	agent-a2	2026-10-21T05:47	G2	b	cd /private/tmp/murmuration-w05/explorer-w05-e && export CFG=$PWD/cfg7 CLAUDE_CONFIG_DIR=$PWD/cfg7; 
+50	agent-a2	2026-10-21T05:48	G3	b	cd /private/tmp/murmuration-w05/explorer-w05-e && export CFG=$PWD/cfg9; rm -rf cfg9; mkdir cfg9; git
+51	agent-a2	2026-10-21T05:48	G3	b	cd /private/tmp/murmuration-w05/explorer-w05-e && export CFG=$PWD/cfg9 ⏎ echo '{"env":{"W05_repo_PROJE
+52	agent-a2	2026-10-21T05:49	G2	b	cd /private/tmp/murmuration-w05/explorer-w05-e && export CFG=$PWD/cfg10 CLAUDE_CONFIG_DIR=$PWD/cfg10
+53	agent-a2	2026-10-21T05:49	G2	b	cd /private/tmp/murmuration-w05/explorer-w05-e && cp /Users/hacker/Documents/tmp/claude-worktrees/Mu
+54	agent-a2	2026-10-21T05:49	G2	b	cd /private/tmp/murmuration-w05/explorer-w05-e && export CFG=$PWD/cfg11 CLAUDE_CONFIG_DIR=$PWD/cfg11
+55	agent-a2	2026-10-21T05:51	G3	a	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673/__reports
+56	agent-a3	2026-10-21T06:36	G2	a	cat > __instrumenta__/w05c5_lab_status_cases.py <<'PYEOF' ⏎ """Writes the case file for cmd_cost_inter
+57	agent-a3	2026-10-21T07:07	G2	c	python3 - <<'EOF' ⏎ p='__instrumenta__/w05c5_author_mutants.py' ⏎ s=open(p).read() ⏎ s=s.replace('"os.rena
+58	agent-a8	2026-10-21T05:52	G2	c	S=/private/tmp/murmuration-w05/explorer-w05-d; mkdir -p $S/cfg/projects; cd ~/.claude/projects; pyth
+59	agent-a8	2026-10-21T05:52	G2	c	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673; S=/priva
+60	agent-a8	2026-10-21T05:54	G2	c	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673; S=/priva
+61	agent-a8	2026-10-21T05:56	G1	b	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673; cat > __
+62	agent-a8	2026-10-21T06:09	G1	b	cd /private/tmp/murmuration-w05/explorer-w05-f/probe && P='Call the Bash tool three times in a row, 
+63	agent-a8	2026-10-21T06:11	G1	b	cat > /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673/__inst
+64	agent-a8	2026-10-21T06:34	G1	a	D=__reports__/wave-05/explorer-w05-f && cat > $D/00-findings_v0.md <<'EOF' ⏎ --- ⏎ type: findings ⏎ wave: 
+65	agent-ad	2026-10-21T06:32	G3	c	python3 - <<'EOF' ⏎ p='__instrumenta__/w05c1_wait_arms.py' ⏎ s=open(p).read() ⏎  ⏎ # 1. dispatcher prompt ⏎ s=
+66	agent-a2	2026-10-19T02:37	G1	b	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e; 
+67	agent-a2	2026-10-19T02:40	G1	a	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e; 
+68	agent-a3	2026-10-19T11:09	G3	a	python3 - <<'PY' ⏎ p="scripts/lab_init.py" ⏎ s=open(p).read() ⏎ s=s.replace('''    with tempfile.Temporary
+69	agent-a3	2026-10-19T11:29	G3	c	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/_
+70	agent-a3	2026-10-19T11:51	G2	b	cd /tmp/author-w03-2/ignore_lab && claude -p --setting-sources project,local --permission-mode auto 
+71	agent-a3	2026-10-19T11:52	G2	b	cd /tmp/author-w03-2/ignore_lab && claude -p --setting-sources project,local --output-format stream-
+72	agent-a3	2026-10-19T11:52	G2	b	cd /tmp/author-w03-2/ignore_lab && claude -p --setting-sources project,local --tools Grep,Glob --out
+73	agent-a3	2026-10-19T02:48	G3	a	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e; 
+74	agent-a4	2026-10-19T02:19	G1	b	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/_
+75	agent-a4	2026-10-19T11:34	G2	b	cd /tmp/reproducer-w03-2/lab && export COLGREP_DATA_DIR=/tmp/reproducer-w03-2/colgrep && cat > /tmp/
+76	agent-a4	2026-10-19T11:35	G2	b	cd /tmp/reproducer-w03-2/lab && export COLGREP_DATA_DIR=/tmp/reproducer-w03-2/colgrep && cat > /tmp/
+77	agent-a6	2026-10-19T02:04	G1	b	S=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__
+78	agent-a6	2026-10-19T02:05	G1	b	S=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__
+79	agent-a6	2026-10-19T02:05	G1	b	S=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__
+80	agent-a6	2026-10-19T02:06	G1	b	S=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__
+81	agent-a6	2026-10-19T02:06	G1	b	S=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__
+82	agent-a6	2026-10-19T02:07	G1	b	S=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__
+83	agent-a6	2026-10-19T02:07	G1	b	S=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__
+84	agent-a6	2026-10-19T02:08	G1	b	S=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__
+85	agent-a6	2026-10-19T02:09	G1	b	S=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__
+86	agent-a7	2026-10-19T02:52	G1	c	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/_
+87	agent-a7	2026-10-19T02:54	G1	a	cat >> __pondus__/w01-c2.md <<'EOF' ⏎  ⏎ ## verdict: reproducer-w01-2 ⏎  ⏎ ### independent result ⏎ Own script
+88	agent-a9	2026-10-19T02:20	G1	b	W=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__
+89	agent-a9	2026-10-19T02:22	G1	b	W=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__
+90	agent-a9	2026-10-19T02:23	G1	b	W=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__
+91	agent-a9	2026-10-19T02:23	G1	b	W=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__
+92	agent-a9	2026-10-19T02:24	G1	b	W=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__
+93	agent-ab	2026-10-19T02:24	G1	c	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/_
+94	agent-ab	2026-10-19T02:29	G1	b	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/_
+95	agent-ab	2026-10-19T02:29	G1	b	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/_
+96	agent-ab	2026-10-19T02:31	G1	b	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/_
+97	agent-ab	2026-10-19T02:33	G1	c	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/_
+98	agent-ac	2026-10-19T03:33	G2	b	S=/private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-syste
+99	agent-ac	2026-10-19T03:36	G3	c	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/_
+100	agent-ac	2026-10-19T04:02	G3	b	S=/private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-syste
+101	agent-ac	2026-10-19T04:10	G3	c	W=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e; A
+102	agent-ac	2026-10-19T04:10	G3	c	W=/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e; A
+103	agent-ad	2026-10-19T03:30	G1	c	S=/private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-syste
+104	agent-ad	2026-10-19T03:38	G2	c	R=__reports__/reflective_run/w02/reproducer-w02-1 && cat > $R/mark_check.py <<'EOF' ⏎ # reproducer-w02
+105	agent-ae	2026-10-19T03:33	G1	b	export S=/private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuratio
+106	agent-ae	2026-10-19T03:34	G1	b	export S=/private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuratio
+107	agent-ae	2026-10-19T03:37	G1	b	export S=/private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuratio
+108	c533f1c6	2026-10-20T00:29	G3	b	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; S=/private/tm
+109	c533f1c6	2026-10-20T00:29	G3	b	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; S=/private/tm
+110	agent-a0	2026-10-20T00:35	G1	b	mkdir -p /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be/__instru
+111	agent-a0	2026-10-20T00:41	G1	b	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; cat > __instr
+112	agent-a1	2026-10-20T00:48	G1	b	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; cat > __instr
+113	agent-aa	2026-10-20T01:37	G1	b	S=/private/tmp/murmuration-w04/reproducer-w04-5; mkdir -p $S/hl && cd $S/hl && cat > probe.py <<'EOF

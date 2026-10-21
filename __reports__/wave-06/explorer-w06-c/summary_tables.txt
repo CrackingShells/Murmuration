@@ -1,0 +1,62 @@
+## spend: PI main thread vs the session's subagents (list price)
+wave 4: PI in wave 10.51 (whole session 10.51) | subagents 17.88 over 15 runs | PI share of PI+subagents 37.0%
+wave 5: PI in wave 11.90 (whole session 13.72) | subagents 15.85 over 15 runs | PI share of PI+subagents 42.9%
+## time split
+wave 4 (turns 0-24) time: wall 5270 s (87.8 min), PI turns 1211 s (23.0%), idle between turns 4059 s (77.0%), turns 25
+   from end of preface turn 0: wall 4754 s, PI turns 695 s (14.6%), idle 4059 s (85.4%)
+wave 5 (turns 0-23) time: wall 6555 s (109.2 min), PI turns 1772 s (27.0%), idle between turns 4783 s (73.0%), turns 24
+   from end of preface turn 0: wall 6061 s, PI turns 1278 s (21.1%), idle 4783 s (78.9%)
+## wake-ups
+wave 4 wake-ups by trigger -> outcome (turns, requests, USD, share of PI USD in this window 10.51):
+   human -> dispatch                  turns  1  req  35  USD 3.36  32.0%
+   peer -> message                    turns  9  req  32  USD 3.02  28.7%
+   peer -> dispatch                   turns  6  req  23  USD 2.18  20.8%
+   peer -> file-or-commit             turns  3  req  17  USD 1.44  13.7%
+   peer -> text-only                  turns  5  req   5  USD 0.33  3.1%
+   peer -> read-only                  turns  1  req   2  USD 0.18  1.7%
+   after the first turn: 24 wake-ups; changed no state (text-only or read-only): 6 turns, 7 requests, USD 0.51 = 4.8% of the PI window; text-only alone: 5 turns USD 0.33
+   reactive (woken by a worker, not a human prompt): 24 turns, USD 7.14 = 68.0%; of those that did something: 18
+wave 5 (turns 0-23) wake-ups by trigger -> outcome (turns, requests, USD, share of PI USD in this window 11.90):
+   peer -> message                    turns  5  req  28  USD 3.14  26.4%
+   peer -> dispatch                   turns  5  req  30  USD 3.11  26.1%
+   human -> file-or-commit            turns  1  req  30  USD 2.55  21.4%
+   peer -> file-or-commit             turns  3  req  14  USD 1.19  10.0%
+   human -> dispatch                  turns  1  req  14  USD 0.98  8.3%
+   peer -> text-only                  turns  7  req   7  USD 0.59  4.9%
+   peer -> read-only                  turns  2  req   5  USD 0.34  2.8%
+   after the first turn: 23 wake-ups; changed no state (text-only or read-only): 9 turns, 12 requests, USD 0.92 = 7.8% of the PI window; text-only alone: 7 turns USD 0.59
+   reactive (woken by a worker, not a human prompt): 22 turns, USD 8.37 = 70.3%; of those that did something: 13
+## cost per wake-up against context
+wave 4 one-request wake-ups (text-only acks): n=5, ctx 208k..304k, USD 0.053..0.077; fit usd = 0.0096 + 0.000222 * ctx_k  (pure cache read would be 0.0002 per k)
+   all 113 later requests: usd = 0.0620 + 0.000105 * ctx_k; at 100k 0.072, 200k 0.083, 300k 0.093, 390k 0.103
+   cache read 5.45 of 10.51 USD = 51.9%; the first-request base context (75k) re-read by 113 requests = 1.70 USD = 16.1%
+wave 5 one-request wake-ups (text-only acks): n=7, ctx 267k..338k, USD 0.076..0.093; fit usd = 0.0326 + 0.000161 * ctx_k  (pure cache read would be 0.0002 per k)
+   all 127 later requests: usd = 0.0433 + 0.000188 * ctx_k; at 100k 0.062, 200k 0.081, 300k 0.100, 390k 0.117
+   cache read 6.10 of 11.90 USD = 51.3%; the first-request base context (75k) re-read by 127 requests = 1.91 USD = 16.0%
+per wake-up cost by starting context (waves 4 and 5 pooled, turns after the first, wave-6 opening turn excluded)
+   ctx   0k- 250k: 16 wake-ups, mean USD 0.340 per wake-up, 0.085 per request, 4.0 requests per wake-up; text-only wake-ups 3
+   ctx 250k- 300k: 15 wake-ups, mean USD 0.224 per wake-up, 0.086 per request, 2.6 requests per wake-up; text-only wake-ups 3
+   ctx 300k- 350k: 15 wake-ups, mean USD 0.445 per wake-up, 0.106 per request, 4.2 requests per wake-up; text-only wake-ups 6
+   ctx 350k- 999k:  1 wake-ups, mean USD 1.023 per wake-up, 0.093 per request, 11.0 requests per wake-up; text-only wake-ups 0
+## cache life
+wave 4: 1h writes 361773 tokens; 5m-rate saving 1.09 USD; 3 gaps over 300 s (longest 937 s, none over 3600 s) rewrite sum prev_ctx 670939 tokens = +3.22 USD; net 5-minute minus 1-hour = +2.14 USD
+   every gap over 300 s was a cache HIT on the real run: cache_read / prev_ctx min 1.0000
+wave 5: 1h writes 417957 tokens; 5m-rate saving 1.25 USD; 6 gaps over 300 s (longest 2975 s, none over 3600 s) rewrite sum prev_ctx 1577834 tokens = +7.57 USD; net 5-minute minus 1-hour = +6.32 USD
+   every gap over 300 s was a cache HIT on the real run: cache_read / prev_ctx min 1.0000
+## fresh session
+wave-6 opening turn: 14 requests from 2026-10-21T08:07:58, ctx 389k -> 417k, actual USD 1.82 (preceded by 2975 s human-away gap; 1h cache hit)
+   fresh session, handoff H=     0 tokens: USD 1.54 ; saves +0.28 vs actual 1.82
+   fresh session, handoff H= 10000 tokens: USD 1.81 ; saves +0.01 vs actual 1.82
+   fresh session, handoff H= 30000 tokens: USD 2.19 ; saves -0.38 vs actual 1.82
+   fresh session, handoff H= 85000 tokens: USD 3.25 ; saves -1.43 vs actual 1.82
+waves 1-3 session (explorer-w05-b's table), actual vs one fresh session per wave (boundaries: wave-2 open 12:29 JST, wave-2 close 16:43 JST by commit time; wave 3 starts at the first request after that, so the wave-3 window includes the human's 17:00-20:00 gap)
+  H=10000 tokens: wave 1 n=143 maxctx=702k actual 20.31 fresh 20.67; wave 2 n=145 maxctx=966k actual 27.79 fresh 12.12; wave 3 n=106 maxctx=307k actual 15.12 fresh 8.87 | total actual 63.23 fresh 41.67 saves 21.56 (34%)
+  H=30000 tokens: wave 1 n=143 maxctx=702k actual 20.31 fresh 21.40; wave 2 n=145 maxctx=966k actual 27.79 fresh 12.86; wave 3 n=106 maxctx=307k actual 15.12 fresh 9.46 | total actual 63.23 fresh 43.72 saves 19.50 (31%)
+  H=85000 tokens: wave 1 n=143 maxctx=702k actual 20.31 fresh 23.42; wave 2 n=145 maxctx=966k actual 27.79 fresh 14.89; wave 3 n=106 maxctx=307k actual 15.12 fresh 11.06 | total actual 63.23 fresh 49.38 saves 13.85 (22%)
+restart-in-the-middle break-even: restart at context C saves (C - (BASE+H)) * R_CR per later request and costs (BASE+H) * R_W1 once (cold write), so it pays after N requests where N = (BASE+H)*R_W1 / ((C-(BASE+H))*R_CR)
+   H=10000 C=200k: N = 29.6 later requests
+   H=10000 C=300k: N = 15.8 later requests
+   H=10000 C=390k: N = 11.1 later requests
+   H=30000 C=200k: N = 44.2 later requests
+   H=30000 C=300k: N = 21.5 later requests
+   H=30000 C=390k: N = 14.7 later requests
