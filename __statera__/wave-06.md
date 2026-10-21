@@ -147,7 +147,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     rule 5 and `working_defaults.md` say the same to the PI. The rule is in the agent files as well
     as the briefs, so it holds even when a brief forgets it, as mine did for author-w06-3.
 
-- HH:MM (this commit), after reproducer-w06-3's ESCALATE of w06-c3 and the user's message on hardening:
+- 19:38 (26148de), after reproducer-w06-3's ESCALATE of w06-c3 and the user's message on hardening:
   - **PI decision on w06-c3.** The restatement is accepted, as w06-c5 (supersedes w06-c3, with
     reproducer-w06-3 again). Under v0, stage 1's meaningful m4 scenarios fail. The kill by pid is
     vacuous. A failed restart loses the deny and the block silently. A hung restart costs 20 s a
