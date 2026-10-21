@@ -425,7 +425,7 @@ local `main` at fed7a08. Wave 6 settles 9 (the lean starts landed, w06-c9) and 2
 
 | Item | What it is | Cost |
 |:--|:--|:--|
-| The managed setting | `{"permissions": {"disableBypassPermissionsMode": "disable"}}` in `/Library/Application Support/ClaudeCode/managed-settings.json`. It closes what no text guard can see; it also stops you using bypass mode | minutes, admin rights |
+| The managed setting | *Added by you on 2026-10-22 at 00:08, and read by Claude Code, but a `-p` run with the skip-permissions flag still ran in bypass mode (n = 1; `__reports__/wave-06/research-pi/managed_setting_check.md`). The guard stays until a bypass attempt is shown refused.* An interactive check, or one `-p` run with a debug log on your yes, would narrow it down | minutes |
 | The lab's past bypass runs | 32 `claude` runs in bypass mode, 16 under a scratch config dir, 7 escaping user settings, 8 settings writes, waves 1–6. Listed in reproducer-w06-7's section of `__pondus__/w06-c11.md` | reading |
 | The decision-frame text | `__reports__/wave-06/research-pi/decision_frame_patch.md`: the PI stops handing engineering back; you keep the question, the budget and the guardrails. The classifier refused to let the PI apply it to itself | apply or not |
 | Item 18 | gateway API keys printed by a wave-4 reproducer; rotate them if you want | minutes |

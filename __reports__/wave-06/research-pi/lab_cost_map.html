@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Murmuration: the lab and what each part costs (after wave 6)</title>
+<style>
+.viz-root{
+  color-scheme:light;
+  --surface-0:#f4f3f0; --surface-1:#fcfcfb; --line:#dddcd6; --grid:#ebeae5;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#7a7974;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;            /* spend: PI, subagents, headless */
+  --guard:#6250d6; --budget:#008300; --theirs:#a9a8a1;   /* hook segments */
+  --ok:#008300; --warn:#c98500; --bad:#e34948; --held:#6250d6;
+  --pulse:#eb6834;
+}
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-theme="light"])) .viz-root{
+    color-scheme:dark;
+    --surface-0:#121211; --surface-1:#1a1a19; --line:#3a3a37; --grid:#2a2a28;
+    --text-primary:#f0efec; --text-secondary:#c3c2b7; --text-muted:#8f8e86;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+    --guard:#9085e9; --budget:#008300; --theirs:#5c5b56;
+    --ok:#3fae3f; --warn:#e0a020; --bad:#e66767; --held:#9085e9; --pulse:#d95926;
+  }
+}
+:root[data-theme="dark"] .viz-root{
+  color-scheme:dark;
+  --surface-0:#121211; --surface-1:#1a1a19; --line:#3a3a37; --grid:#2a2a28;
+  --text-primary:#f0efec; --text-secondary:#c3c2b7; --text-muted:#8f8e86;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+  --guard:#9085e9; --budget:#008300; --theirs:#5c5b56;
+  --ok:#3fae3f; --warn:#e0a020; --bad:#e66767; --held:#9085e9; --pulse:#d95926;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-0)}
+.viz-root{font:14px/1.45 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text-primary);background:var(--surface-0);padding:28px 20px 60px}
+.wrap{max-width:1120px;margin:0 auto}
+h1{font-size:26px;margin:0 0 4px;letter-spacing:-.01em}
+h2{font-size:17px;margin:0 0 4px}
+.sub{color:var(--text-secondary);margin:0 0 20px}
+.card{background:var(--surface-1);border:1px solid var(--line);border-radius:12px;padding:18px 18px 14px;margin:0 0 18px}
+.note{color:var(--text-muted);font-size:12px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.tile{background:var(--surface-1);border:1px solid var(--line);border-radius:12px;padding:14px}
+.tile .k{font-size:28px;font-weight:650;letter-spacing:-.02em}
+.tile .l{color:var(--text-secondary);font-size:12.5px}
+@media (max-width:820px){.tiles{grid-template-columns:repeat(2,1fr)}}
+svg text{fill:var(--text-primary);font-family:inherit}
+.muted{fill:var(--text-muted)} .sec{fill:var(--text-secondary)}
+.node rect{fill:var(--surface-0);stroke:var(--line);stroke-width:1.2}
+.node.you rect{stroke-dasharray:4 3}
+.edge{stroke:var(--line);stroke-width:1.6;fill:none}
+.band{fill:none;stroke:var(--line)}
+.seg-guard{fill:var(--guard)} .seg-budget{fill:var(--budget)} .seg-theirs{fill:url(#hatch)}
+.s1{fill:var(--s1)} .s2{fill:var(--s2)} .s3{fill:var(--s3)}
+.toggle{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
+.toggle button{font:inherit;font-size:13px;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface-0);color:var(--text-primary);cursor:pointer}
+.toggle button[aria-pressed="true"]{border-color:var(--text-primary);font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--text-secondary);margin:4px 0 8px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.grave{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.g{border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:var(--surface-0)}
+.g h3{font-size:13.5px;margin:0 0 4px}
+.g .n{font-size:12.5px;color:var(--text-secondary)}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;border:1px solid currentColor;margin-bottom:6px}
+.b-landed{color:var(--ok)} .b-out{color:var(--bad)} .b-aside{color:var(--warn)} .b-held{color:var(--held)} .b-reopen{color:var(--s1)}
+#tip{position:fixed;pointer-events:none;background:var(--surface-1);border:1px solid var(--line);border-radius:8px;padding:7px 9px;font-size:12.5px;max-width:280px;box-shadow:0 4px 14px rgba(0,0,0,.12);opacity:0;transition:opacity .12s;z-index:10}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th,td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--grid);vertical-align:top}
+th{color:var(--text-secondary);font-weight:600}
+details summary{cursor:pointer;color:var(--text-secondary);margin-top:6px}
+.hit{fill:transparent;cursor:default}
+@media (prefers-reduced-motion: reduce){ .pulse{display:none} }
+</style>
+</head>
+<body>
+<div class="viz-root"><div class="wrap">
+
+<h1>The lab, and what each part costs</h1>
+<p class="sub">Murmuration after wave 6 (local <code>main</code> at 33582f1). Every number has its source in the table at the bottom. ESTIMATE marks arithmetic of mine; the rest is measured.</p>
+
+<div class="tiles">
+  <div class="tile"><div class="k">≥ USD 53</div><div class="l">wave 6, of the 100 you gave (lower bound in auto mode)</div></div>
+  <div class="tile"><div class="k">73–77%</div><div class="l">of a wave the PI is idle. It costs nothing: 1-hour cache, every gap a full hit</div></div>
+  <div class="tile"><div class="k">75k → 47k</div><div class="l">tokens in the PI's first request, after the tool denylist (Desktop, same version)</div></div>
+  <div class="tile"><div class="k">450–750 ms</div><div class="l">auto-mode classifier on every Bash call: the largest per-call cost, and not the plugin's</div></div>
+</div>
+
+<!-- 1. STRUCTURE -->
+<div class="card">
+  <h2>1 · Structure: who runs, and where the time goes on one tool call</h2>
+  <p class="note">The orange dot is one worker's Bash call travelling through the hooks that run around it. Hover any box for its cost.</p>
+  <svg id="map" viewBox="0 0 1080 560" width="100%" role="img" aria-label="Diagram of the lab: you, the PI, workers, headless runs, and the hook chain around a tool call">
+    <defs>
+      <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <rect width="6" height="6" fill="var(--surface-0)"/><line x1="0" y1="0" x2="0" y2="6" stroke="var(--theirs)" stroke-width="2.2"/>
+      </pattern>
+      <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--line)"/></marker>
+    </defs>
+
+    <!-- edges -->
+    <path class="edge" d="M150,95 L330,95" marker-end="url(#arr)"/>
+    <path class="edge" d="M540,130 L540,190" marker-end="url(#arr)"/>
+    <path class="edge" d="M750,95 L860,95" marker-end="url(#arr)"/>
+    <path class="edge" d="M540,280 L540,345" marker-end="url(#arr)"/>
+
+    <!-- YOU -->
+    <g class="node you" data-tip="You keep the question, the budget and the guardrails (moral, legal, ethical, safety; anything seen outside this machine). The managed setting that would forbid bypass mode is not set.">
+      <rect x="20" y="45" width="130" height="100" rx="10"/>
+      <text x="85" y="78" text-anchor="middle" font-weight="650">You</text>
+      <text x="85" y="98" text-anchor="middle" class="sec" font-size="11.5">question · budget</text>
+      <text x="85" y="113" text-anchor="middle" class="sec" font-size="11.5">guardrails</text>
+      <text x="85" y="132" text-anchor="middle" class="muted" font-size="10.5">managed setting: not set</text>
+    </g>
+
+    <!-- PI -->
+    <g class="node" data-tip="Principal investigator, Opus, main thread. Wave 6: USD 16.06 at list price, 180 requests, 42 wake-ups. Request 0: 46,738 tokens (was 74,966). Its first turn (orientation) is 21–32% of its spend in waves 4–5.">
+      <rect x="330" y="45" width="420" height="85" rx="10"/>
+      <rect x="330" y="45" width="6" height="85" rx="3" class="s1"/>
+      <text x="350" y="72" font-weight="650">PI · research-pi (Opus, main thread)</text>
+      <text x="350" y="92" class="sec" font-size="12">USD 16.1 in wave 6 · request 0 = 46.7k tokens (was 75k)</text>
+      <text x="350" y="110" class="sec" font-size="12">idle 73–77% — free · orientation turn = 21–32% of its spend</text>
+    </g>
+
+    <!-- HEADLESS -->
+    <g class="node" data-tip="Headless claude -p runs under /private/tmp/murmuration-w06/, mostly haiku, started by authors and verifiers to measure things. Wave 6: USD 7.54 (cost-state).">
+      <rect x="860" y="45" width="200" height="85" rx="10"/>
+      <rect x="860" y="45" width="6" height="85" rx="3" class="s3"/>
+      <text x="878" y="72" font-weight="650">Headless runs</text>
+      <text x="878" y="92" class="sec" font-size="12">claude -p, haiku</text>
+      <text x="878" y="110" class="sec" font-size="12">USD 7.5 in wave 6</text>
+    </g>
+
+    <!-- WORKERS -->
+    <g class="node" data-tip="Workers: Sonnet subagents, each with a USD and minute budget. Wave 6: 17 dispatched, USD 32.03 at list price. Their prompt cache lives 5 minutes, so a long wait cost a cold re-read until the waiting rule (w05-c1).">
+      <rect x="330" y="190" width="420" height="90" rx="10"/>
+      <rect x="330" y="190" width="6" height="90" rx="3" class="s2"/>
+      <text x="350" y="216" font-weight="650">Workers (Sonnet subagents)</text>
+      <text x="350" y="236" class="sec" font-size="12">explorer · author · reproducer · proof-adversary</text>
+      <text x="350" y="254" class="sec" font-size="12">USD 32.0 in wave 6 · 17 dispatches · cache lives 5 min</text>
+      <text x="350" y="271" class="muted" font-size="11">+ budget note at start · hand-back capture at stop</text>
+    </g>
+
+    <!-- HOOK CHAIN -->
+    <text x="20" y="335" class="sec" font-size="12" font-weight="600">One worker Bash call, as the platform runs it (milliseconds, medians)</text>
+    <g id="chain"></g>
+    <path id="track" d="M40,415 L1060,415" fill="none" stroke="none"/>
+    <circle class="pulse" r="7" fill="var(--pulse)">
+      <animateMotion dur="5.5s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#track"/></animateMotion>
+    </circle>
+
+    <!-- per prompt / per call side items -->
+    <g class="node" data-tip="lab_status.py: 835 → 261 ms warm after wave 5's one git call and parse cache (w05-c5). Runs when someone asks for /lab-status.">
+      <rect x="20" y="480" width="250" height="56" rx="8"/>
+      <text x="34" y="503" font-weight="600" font-size="12.5">lab_status.py</text>
+      <text x="34" y="522" class="sec" font-size="11.5">261 ms a call (was 835)</text>
+    </g>
+    <g class="node" data-tip="user_words.py on every prompt (it also records session-to-session messages as yours: open item 28); resume_brief.py on resume or compact. Both stay plain python3: not on a worker's path.">
+      <rect x="290" y="480" width="300" height="56" rx="8"/>
+      <text x="304" y="503" font-weight="600" font-size="12.5">user_words.py · resume_brief.py</text>
+      <text x="304" y="522" class="sec" font-size="11.5">once per prompt / per resume · not on the hot path</text>
+    </g>
+    <g class="node" data-tip="Hook starts in a wave like wave 4: 1788, about 161 s of serial hook time (explorer-w06-b, ESTIMATE). The lean starts of wave 6 take about 32 s off it (ESTIMATE). The guard adds one start per Bash call.">
+      <rect x="610" y="480" width="450" height="56" rx="8"/>
+      <text x="624" y="503" font-weight="600" font-size="12.5">Per wave (wave-4 sized): 1788 hook starts ≈ 161 s serial</text>
+      <text x="624" y="522" class="sec" font-size="11.5">lean starts −32 s (ESTIMATE) · guard +1 start per Bash call</text>
+    </g>
+  </svg>
+</div>
+
+<!-- 2. PER-CALL COMPARISON -->
+<div class="card">
+  <h2>2 · One worker Bash call, under each design we tried</h2>
+  <p class="note">Platform-recorded hook time around one Bash call. The hatched grey segment is auto mode's permission classifier: it is not the plugin's, and no design here touches it.</p>
+  <div class="toggle" id="tg" role="group" aria-label="Show classifier">
+    <button aria-pressed="true" data-cls="1">with the classifier</button>
+    <button aria-pressed="false" data-cls="0">plugin hooks only</button>
+  </div>
+  <div class="legend">
+    <span><i style="background:var(--guard)"></i>permission guard (PreToolUse)</span>
+    <span><i style="background:var(--budget)"></i>budget hooks (PostToolUse + PostToolBatch)</span>
+    <span><i style="background:url(#)"></i><svg width="11" height="11" style="vertical-align:-1px;margin-right:6px"><rect width="11" height="11" rx="3" fill="url(#hatch2)"/><defs><pattern id="hatch2" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="var(--surface-0)"/><line x1="0" y1="0" x2="0" y2="5" stroke="var(--theirs)" stroke-width="2"/></pattern></defs></svg>auto-mode classifier (not ours)</span>
+  </div>
+  <svg id="bars" viewBox="0 0 1080 260" width="100%" role="img" aria-label="Stacked bars of hook time per Bash call for five designs"></svg>
+</div>
+
+<!-- 3. SPEND -->
+<div class="card">
+  <h2>3 · Where a wave's money goes</h2>
+  <div class="legend">
+    <span><i style="background:var(--s1)"></i>PI</span>
+    <span><i style="background:var(--s2)"></i>workers (subagents)</span>
+    <span><i style="background:var(--s3)"></i>headless runs</span>
+  </div>
+  <svg id="spend" viewBox="0 0 1080 200" width="100%" role="img" aria-label="Stacked bars of spend per wave by role"></svg>
+  <p class="note">USD at list price for the PI and workers (explorer-w06-c's script; for wave 6 my run of it), headless from cost-state. In wave 6 the workers did most of the building themselves (four experiments, eight verifiers), so headless fell and subagents rose.</p>
+</div>
+
+<!-- 4. GRAVEYARD -->
+<div class="card">
+  <h2>4 · Moves we tried, and what happened to them</h2>
+  <p class="note">Each card is a claim with an independent verdict. A red badge is a move that did not land; a green one, a move on <code>main</code>.</p>
+  <div class="grave" id="grave"></div>
+</div>
+
+<!-- 5. TABLE -->
+<div class="card">
+  <h2>Sources (table view)</h2>
+  <details open><summary>Every number on this page</summary>
+  <table id="src"><thead><tr><th>Item</th><th>Value</th><th>Label</th><th>Source</th></tr></thead><tbody></tbody></table>
+  </details>
+</div>
+
+</div></div>
+<div id="tip" role="tooltip"></div>
+
+<script>
+const $=s=>document.querySelector(s), NS="http://www.w3.org/2000/svg";
+const el=(t,a={},p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const tip=$("#tip");
+function bindTips(root){root.querySelectorAll("[data-tip]").forEach(g=>{
+  g.addEventListener("mousemove",ev=>{tip.textContent=g.dataset.tip;tip.style.opacity=1;
+    const x=Math.min(ev.clientX+14,innerWidth-300),y=ev.clientY+14;tip.style.left=x+"px";tip.style.top=y+"px"});
+  g.addEventListener("mouseleave",()=>tip.style.opacity=0)})}
+
+/* ---------- 1. hook chain ---------- */
+const chain=[
+  {n:"auto-mode classifier",ms:"450–750",w:300,cls:"seg-theirs",t:"Auto mode asks a classifier about every Bash call: median 448–747 ms (explorer-w05-f). Not the plugin's, and in no cost record, so every USD figure is a lower bound."},
+  {n:"permission guard",ms:"≈ 124–136",w:130,cls:"seg-guard",t:"PreToolUse, one unconditional Bash row, python3 -S -I, fails closed (w06-c13, w06-c14). 124–136 ms live under load; 64–65 ms bare through sh. Denies bypass flags, claude runs that escape your settings, settings writes."},
+  {n:"the tool runs",ms:"",w:120,cls:"",t:"The Bash command itself."},
+  {n:"PostToolUse",ms:"budget ≈ 96 (was 122)",w:150,cls:"seg-budget",t:"budget.py after every tool call: checks the worker's USD and minutes, notes at 50/75/87.5/93.75%, blocks at 150%. Lean start since wave 6: 96 against 122 ms live (w06-c9)."},
+  {n:"PostToolBatch",ms:"budget ≈ 96 (ESTIMATE)",w:150,cls:"seg-budget",t:"The same budget.py on the batch boundary. Assumed to cost the same as PostToolUse (ESTIMATE)."},
+];
+(function(){
+  const g=$("#chain"); let x=40; const y=375,h=80;
+  chain.forEach((c,i)=>{
+    const grp=el("g",{"data-tip":c.t},g);
+    const r=el("rect",{x,y,width:c.w,height:h,rx:8,fill:c.cls?"":"var(--surface-0)",stroke:"var(--line)"},grp);
+    if(c.cls)r.setAttribute("class",c.cls);
+    const tx=el("text",{x:x+c.w/2,y:y+h/2-4,"text-anchor":"middle","font-size":"12.5","font-weight":"600"},grp);tx.textContent=c.n;
+    if(c.cls&&c.cls!=="seg-theirs"){tx.setAttribute("style","fill:#fff")}
+    const tm=el("text",{x:x+c.w/2,y:y+h/2+14,"text-anchor":"middle","font-size":"11.5"},grp);tm.textContent=c.ms;
+    if(c.cls&&c.cls!=="seg-theirs"){tm.setAttribute("style","fill:#fff;opacity:.9")}else tm.setAttribute("class","sec");
+    x+=c.w+14;
+  });
+  const t=el("text",{x:40,y:470,"font-size":"11","class":"muted"},g);
+  t.textContent="Widths are schematic in this strip; section 2 draws them to scale.";
+})();
+bindTips($("#map"));
+
+/* ---------- 2. per-call bars ---------- */
+const designs=[
+  {k:"Before wave 6",s:"budget.py ×2, plain python3",g:0,b:244,st:"history",t:"PostToolUse 122 + PostToolBatch 122 ms (author-w06-6's live main arm; PostToolBatch assumed equal, ESTIMATE). No guard."},
+  {k:"Now, on main  ✓",s:"lean starts + permission guard",g:130,b:192,st:"landed",t:"Guard 124–136 ms live (reproducer-w06-8), lean budget 96 + 96 (w06-c9). The guard costs more than the lean starts save: the price of the guardrail, stated."},
+  {k:"Rust binary",s:"not built · ESTIMATE",g:100,b:132,st:"out",t:"ESTIMATE: about 30 ms less per start than python as the platform records it (explorer-w06-a). About 1% of a wave; binaries per platform; a binary cannot be reviewed from a diff."},
+  {k:"Resident server (mcp_tool)",s:"built, measured, reverted",g:130,b:6,st:"reopen",t:"1–6 ms per hook (w06-c6), budget logic unchanged (197/197 replays). Per worker it adds 3 outage-check starts, not drawn here (≈150 ms each, once per worker). Reverted on its registered rules: see the note below."},
+];
+const SC={with:750,without:0};
+function drawBars(withCls){
+  const svg=$("#bars"); svg.innerHTML="";
+  const defs=el("defs",{},svg);const p=el("pattern",{id:"hatchb",width:6,height:6,patternUnits:"userSpaceOnUse",patternTransform:"rotate(45)"},defs);
+  el("rect",{width:6,height:6,fill:"var(--surface-0)"},p);el("line",{x1:0,y1:0,x2:0,y2:6,stroke:"var(--theirs)","stroke-width":2.2},p);
+  const L=290,R=1040, max=withCls?1150:450, sx=v=>L+(R-L)*v/max, rowH=52, top=18;
+  for(let v=0;v<=max;v+=withCls?250:100){const x=sx(v);el("line",{x1:x,y1:top-6,x2:x,y2:top+designs.length*rowH,stroke:"var(--grid)"},svg);
+    const t=el("text",{x,y:top+designs.length*rowH+16,"text-anchor":"middle","font-size":"11",class:"muted"},svg);t.textContent=v+" ms"}
+  designs.forEach((d,i)=>{
+    const y=top+i*rowH, g=el("g",{"data-tip":d.t},svg);
+    el("rect",{x:0,y:y-4,width:1080,height:rowH-6,class:"hit"},g);
+    const a=el("text",{x:0,y:y+15,"font-size":"13","font-weight":"600"},g);a.textContent=d.k;
+    const b=el("text",{x:0,y:y+32,"font-size":"11.5",class:"sec"},g);b.textContent=d.s;
+    let x=L; const H=26;
+    const seg=(w,fill,cls)=>{if(w<=0)return;const ww=Math.max(sx(w)-L-2,3);const r=el("rect",{x,y,width:ww,height:H,rx:4},g);if(cls)r.setAttribute("class",cls);else r.setAttribute("fill",fill);x+=ww+2};
+    if(withCls){seg(600,"url(#hatchb)")}
+    seg(d.g,null,"seg-guard"); seg(d.b,null,"seg-budget");
+    const tot=d.g+d.b; const lab=el("text",{x:x+8,y:y+18,"font-size":"12.5","font-weight":"600"},g);
+    lab.textContent=(tot? tot+" ms":"")+(withCls?" + 450–750":"");
+  });
+  bindTips(svg);
+}
+document.querySelectorAll("#tg button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll("#tg button").forEach(x=>x.setAttribute("aria-pressed",x===b));drawBars(b.dataset.cls==="1")}));
+drawBars(true);
+
+/* ---------- 3. spend ---------- */
+const spend=[
+  {w:"Wave 4",pi:10.51,wk:17.88,hl:26.52},
+  {w:"Wave 5",pi:11.90,wk:15.85,hl:18.18},
+  {w:"Wave 6",pi:16.06,wk:32.03,hl:7.54},
+];
+(function(){
+  const svg=$("#spend"), L=110,R=1000,max=60,sx=v=>L+(R-L)*v/max,rowH=50,top=12;
+  for(let v=0;v<=max;v+=10){const x=sx(v);el("line",{x1:x,y1:top-4,x2:x,y2:top+3*rowH-8,stroke:"var(--grid)"},svg);
+    const t=el("text",{x,y:top+3*rowH+6,"text-anchor":"middle","font-size":"11",class:"muted"},svg);t.textContent="$"+v}
+  spend.forEach((s,i)=>{
+    const y=top+i*rowH, tot=s.pi+s.wk+s.hl;
+    const g=el("g",{"data-tip":`${s.w}: PI ${s.pi.toFixed(2)} · workers ${s.wk.toFixed(2)} · headless ${s.hl.toFixed(2)} = ${tot.toFixed(2)} USD. PI share ${(100*s.pi/tot).toFixed(0)}%.`},svg);
+    el("rect",{x:0,y:y-4,width:1080,height:rowH-8,class:"hit"},g);
+    const t=el("text",{x:0,y:y+20,"font-size":"13","font-weight":"600"},g);t.textContent=s.w;
+    let x=L;[[s.pi,"s1","PI"],[s.wk,"s2","workers"],[s.hl,"s3","headless"]].forEach(([v,c,n])=>{
+      const w=sx(v)-L-2; el("rect",{x,y,width:w,height:28,rx:4,class:c},g);
+      if(w>60){const tt=el("text",{x:x+8,y:y+18,"font-size":"11.5",style:"fill:#fff"},g);tt.textContent=`${n} ${v.toFixed(1)}`}
+      x+=w+2});
+    const tl=el("text",{x:x+8,y:y+19,"font-size":"12.5","font-weight":"600"},g);tl.textContent="$"+tot.toFixed(1);
+  });
+  bindTips(svg);
+})();
+
+/* ---------- 4. graveyard ---------- */
+const moves=[
+  ["landed","On main","Lean hook starts (w06-c9)","Same 10 registrations, identical outputs on 197/197 replays and 814 real starts. −20 to −28 ms a worker start, CPU halved. Landed by my decision against its own 25 ms threshold, which sat at the physical ceiling."],
+  ["landed","On main","Permission guard v3 + fixes (w06-c13/14)","1 start per Bash call, fails closed, timeout 20 s. In a replay of 4,637 lab calls: 63 guarded acts denied, 26 false denials. Fourth version; the first three each failed a rule."],
+  ["landed","On main","Permissions paragraph in every worker","Your decision of 19:27, applied as text: no run skips or loosens the permission layer without your quoted yes."],
+  ["landed","On main","PI tool denylist (w05-c7, checked w06-c1)","Request 0: 74,966 → 46,738 tokens on the Desktop; the 29 tools removed are exactly the line's matches."],
+  ["reopen","Reverted — worth reopening","Resident server, mcp_tool hooks (w06-c4/c6)","Hooks at 1–6 ms, −79% of hook time. Missed ≤20% (21.1%) and +300 lines (+320). The real problem: a dead server fails silently. A design that fails loudly may fix it."],
+  ["out","Not built","Rust binary for the hooks (SA1)","−30 ms a start ≈ 1% of a wave. Binaries per platform, no build step in a git-installed plugin, unreviewable diffs. The language was never the cost; the process start is."],
+  ["aside","Set aside, wave 4","Lean build #1 (w04-c5)","Outputs identical 291/291; −48.4% on long workers against a 50% rule I can no longer defend. Superseded by w06-c9."],
+  ["aside","Set aside, wave 5","Lean build #2 (w05-c4)","−52.5 to −56% serial hook time, but it merged two starts and changed behaviour: an extra message on 11 of 197 transcripts."],
+  ["out","Reverted","Dispositions at the hand-back wake-up (w06-c2)","Moved 69 s of the PI's close that were already off the critical path. No saving; friction with /lab-status."],
+  ["out","Not landed","Guard v0 · 25 gated rows (w06-c7)","Denied 42 of 50 attacks; a command with $ matched every row: 19 processes. Fails closed 9/9."],
+  ["out","Not landed","Guard v1 · v2 (w06-c8, w06-c12)","v1: my rule could not pass its own list. v2: missed the heredoc route the lab uses most, and cost 1.35 starts per call at a 45% $ share."],
+  ["out","Superseded","PI tool allowlist (w05-c3)","Saved the same tokens but silently dropped every MCP server the plugin cannot name. Replaced by the denylist."],
+  ["held","Held at the permission layer","Decision-frame text","The PI stops handing engineering back to you. The classifier denied the PI editing its own authority; the patch waits for you."],
+];
+(function(){
+  const g=$("#grave"); const icon={landed:"✓",out:"✕",aside:"◐",held:"⏸",reopen:"↻"};
+  moves.forEach(([k,b,h,n])=>{const d=document.createElement("div");d.className="g";
+    d.innerHTML=`<span class="badge b-${k}">${icon[k]} ${b}</span><h3>${h}</h3><div class="n">${n}</div>`;g.appendChild(d)});
+})();
+
+/* ---------- 5. sources ---------- */
+const src=[
+  ["PI request 0, Desktop","74,966 → 46,738 tokens","MEASURED","w06-c1 (reproducer-w06-1's pair)"],
+  ["PI idle share","77.0% (w4), 73.0% (w5)","MEASURED","explorer-w06-c report"],
+  ["PI orientation turn","21–32% of PI spend","MEASURED","explorer-w06-c report"],
+  ["Spend by role, waves 4–5","PI 10.51/11.90; workers 17.88/15.85; headless 26.52/18.18","MEASURED (list price; headless CITED)","explorer-w06-c tables; wave notes"],
+  ["Spend by role, wave 6","PI 16.06; workers 32.03; headless 7.54","MEASURED (list price; headless cost-state)","w06c_pi_wakeups.py on this session; lab_status --project /private/tmp/murmuration-w06"],
+  ["Auto-mode classifier","448–747 ms median per Bash call","CHECKED","explorer-w05-f (wave 5)"],
+  ["budget.py start, before / lean","122 / 96 ms live pooled; 81.2 / 61.2 quiet bench","MEASURED","w06-c9 (author-w06-6, reproducer-w06-6)"],
+  ["Guard start","124–136 ms live; 71.9 → 65.2 ms bench after -S -I","MEASURED","w06-c14 (reproducer-w06-8)"],
+  ["PostToolBatch = PostToolUse cost","assumed equal","ESTIMATE","mine"],
+  ["Rust vs python start","≈ −30 ms as the platform records it","MEASURED (probe)","explorer-w06-a report"],
+  ["mcp_tool hook","1–6 ms median by event class","MEASURED","w06-c6"],
+  ["Resident server hook time","21.1% of main's (9 pairs, pooled)","MEASURED","w06-c4 and reproducer-w06-4"],
+  ["Hook starts per wave","1788 (wave 4), ≈ 161 s serial","ESTIMATE","explorer-w06-b report"],
+  ["Lean starts per wave","≈ −32 s","ESTIMATE","w06-c9 head"],
+  ["lab_status.py","835 → 261 ms warm","MEASURED","w05-c5"],
+  ["$ share of lab Bash calls","45.1% (5,135 calls)","MEASURED","w06-c12, w06-c13"],
+  ["Guard replay","63 guarded acts, 26 strict false denials, of 4,637","MEASURED","reproducer-w06-7 in w06-c11"],
+];
+(function(){const tb=$("#src tbody");src.forEach(r=>{const tr=document.createElement("tr");tr.innerHTML=r.map(c=>`<td>${c}</td>`).join("");tb.appendChild(tr)})})();
+</script>
+</body>
+</html>
