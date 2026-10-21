@@ -73,3 +73,11 @@ refs: `/private/tmp/murmuration-w06/author-w06-5/v3shard2/runs/k22_1_0`, `k22_1_
 ## S-w06-author-w06-5-19
 My classifier labelled a refusal by another plugin's hook (`colgrep-mcp` denying `grep -rn`) as `blocked-failure`, since every hook message begins "hook error". The mention-only case m01 shows it. Harmless here (the case is not gated) but "blocked-failure" means "some hook said no and it was not a guard decision", not "the guard failed". The classifier should check for the guard's script name and not only the prefix.
 refs: `/private/tmp/murmuration-w06/author-w06-5/v3shard0/runs/men0_0_0` (uncommitted), `__instrumenta__/w06c7_e3_run.py` (match)
+
+## S-w06-author-w06-5-20
+Fix 1 (an unclosed quote falls back to an unquoted split) is a trade, not a free repair: prose heredocs with an apostrophe now expose their later lines to G1 when the text also names `claude`. On the labelled replay it changes nothing (a 27, a+c 50 against 55); on calls made since the labelling it adds four denials, three of them my own notes about this guard. The replay population is self-referential: every note about the guard's test strings is itself a denied call, so the unlabelled count grows with the work. A labelled, frozen replay set (not the live transcripts) would make k6 stable.
+refs: `__instrumenta__/w06c13_k6_recount.py` output (`/private/tmp/murmuration-w06/author-w06-5/recount_5b43cc4.txt`, uncommitted), `__pondus__/w06-c13.md`
+
+## S-w06-author-w06-5-21
+In the live run of 5b43cc4, shard 4's preflight made no tool call and the shard died; two h1 cases (a06, a21) were not called by haiku in two tries and were denied when run singly. The model's willingness to make a call drifts between runs (k01 in the previous run, a06 and a21 in this one). Any live k-count here is a count of calls the model chose to make, plus reruns; the offline `decide()` diff is the stable evidence.
+refs: `/private/tmp/murmuration-w06/author-w06-5/v4_s4.log` (overwritten by the rerun), `e3v4_results_5b43cc4.md` (addendum)
