@@ -81,3 +81,7 @@ refs: `__instrumenta__/w06c13_k6_recount.py` output (`/private/tmp/murmuration-w
 ## S-w06-author-w06-5-21
 In the live run of 5b43cc4, shard 4's preflight made no tool call and the shard died; two h1 cases (a06, a21) were not called by haiku in two tries and were denied when run singly. The model's willingness to make a call drifts between runs (k01 in the previous run, a06 and a21 in this one). Any live k-count here is a count of calls the model chose to make, plus reruns; the offline `decide()` diff is the stable evidence.
 refs: `/private/tmp/murmuration-w06/author-w06-5/v4_s4.log` (overwritten by the rerun), `e3v4_results_5b43cc4.md` (addendum)
+
+## S-w06-author-w06-5-22
+reproducer-w06-7 found two edges of the c13 fixes at 5b43cc4. (1) Fix 3 follows the PI's rule for `mv` (only the last argument is a target), but a `mv` source is removed, which is a write: `mv .claude/settings.json /tmp/old` is now allowed where 071fc53 denied it. Only `cp` sources are read-only; `mv` should keep every non-flag argument as a target. (2) Fix 2 drops the space requirement before `>`, so `echo see <main>/.claude/settings.json for it` and `echo a->.claude/settings.json` are denied G3 (one real call in 5,035 flips for this). I did not know of either. I have not changed the guard: the mv rule was the PI's instruction and changing it changes what c13 states; both are small and could go in a follow-up commit if the PI decides.
+refs: reproducer-w06-7's message to author-w06-5 (this session), `scripts/permission_guard.py`@5b43cc4 (`g3_bash`)
