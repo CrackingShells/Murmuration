@@ -57,7 +57,7 @@ Workers, waves 1–6 (all subagent transcripts of the `murmuration:*` types on t
 | reproducer (wave 47, probe 7) | Wolfram (0 of 54), Glob, Grep, Edit (2 calls) | Bash 1478 (47), Read 92 (39), SendMessage 51 (46), colgrep `search` 10 (6), Write 7 (4), Edit 2 |
 | proof-adversary (probe 19, wave 0) | Wolfram (0), Glob, Grep, colgrep (0) | Bash 56 (19), Read 51 (19), SendMessage 2 (2); no wave run of this type exists |
 
-Worker request 0 (2.1.304, first 4 explorers, 4 reproducers... from the newest wave subagent transcripts): 14,163–14,925 tokens, 8 loaded tools (tools JSON 9,366 chars, identical across types), MCP tools all deferred. Deferred-name cost per server, from the first `deferred_tools_delta`: [source: `worker_req0.tsv`, `__instrumenta__/w07e_worker_req0.py`]
+Worker request 0 (2.1.304; the newest 4 explorers and the newest 3 each of reproducer and author among the wave subagent transcripts): 14,163–14,925 tokens, 8 loaded tools (tools JSON 9,366 chars, identical across types), MCP tools all deferred. Deferred-name cost per server, from the first `deferred_tools_delta`: [source: `worker_req0.tsv`, `__instrumenta__/w07e_worker_req0.py`]
 
 | Server (names in the worker's deferred list) | Names | Characters of names | Tokens at 0.21–0.34 | Label |
 |:--|--:|--:|:--|:--|
@@ -69,9 +69,9 @@ Worker request 0 (2.1.304, first 4 explorers, 4 reproducers... from the newest w
 
 Other worker facts:
 
-- 54 of the 72 reproducer and author wave subagents issue `ToolSearch select:SendMessage` before anything else (reproducer 35+7+..., author 19+...; `toolsearch_results.tsv`): one extra request per worker, because `SendMessage` is deferred in workers (MEASURED, 14,163+ tokens cache read each time at the least; the cost per request is not computed here).
-- Authors searched for context7 in 6 wave cases (`ToolSearch` queries "context7 ..."), though the author allowlist has no context7: failed lookups (MEASURED queries; their outcome was not read).
-- `Monitor` was called by 1 explorer, 2 authors... in wave transcripts although it is in no allowlist (`worker_subagents.tsv`); `Skill` once by an author. The allowlist is not a closed set in every transcript; those could be agent files of earlier waves (CONJECTURE).
+- 61 of the 72 reproducer and author wave subagents (42 of 47 reproducers, 19 of 25 authors) issue a `ToolSearch` for `SendMessage`, the first or an early call (`worker_subagents.tsv`): one extra request per worker, because `SendMessage` is deferred in workers (MEASURED counts; the token cost of that request is not computed here; it re-reads a cache of at least 14k tokens).
+- 4 of 25 wave authors searched for context7 by keyword (`ToolSearch` queries "context7 ..."), though the author allowlist has no context7 (MEASURED queries; whether they then found it was not read).
+- `Monitor` was called in wave transcripts by 1 explorer, 2 authors and 6 reproducers although it is in no allowlist (`worker_subagents.tsv`); `Skill` once by 1 author. The allowlist is not a closed set in every transcript; those could be agent files of earlier waves (CONJECTURE).
 - The `skills: [research-loop]` frontmatter injects the 9,974-character SKILL.md into every worker before its first request: ESTIMATE 2.1k–3.4k tokens, 15–23% of a 14.2–14.9k request 0 (characters from `wc -c skills/research-loop/SKILL.md`). Not a candidate for removal here (workers need the labels), but it is the largest single lever inside a worker.
 
 ## Worst-fitting case
