@@ -1,0 +1,5 @@
+requests 394, max ctx 966526, mean ctx 496143, list-price total (share base) 63.23
+X=150000: 17 compactions; cache-read cost avoided 47.0% of total; compaction cost 28.6%; net 18.4% of the session's list-price total
+X=200000: 8 compactions; cache-read cost avoided 43.9% of total; compaction cost 13.6%; net 30.4% of the session's list-price total
+X=300000: 5 compactions; cache-read cost avoided 36.9% of total; compaction cost 8.6%; net 28.3% of the session's list-price total
+X=400000: 2 compactions; cache-read cost avoided 33.1% of total; compaction cost 3.5%; net 29.6% of the session's list-price total

@@ -1,0 +1,35 @@
+category	tokens_per_char_nnls	total_chars
+PI own output (text + tool calls)	0.535	154061
+hook notices	0.000	5103
+human prompt	0.000	2666
+listing/deltas (skills, tools, mcp)	0.315	123268
+other attachments (auto_mode)	0.000	135
+other attachments (command_permissions)	0.000	51
+other attachments (credential_org)	0.000	86
+other attachments (date)	0.000	38
+other attachments (edited_text_file)	0.000	531
+other attachments (environment)	0.847	1840
+other attachments (instructions)	0.000	1895
+other attachments (model)	0.000	258
+other attachments (remote_session_change)	0.000	269
+other attachments (session_context)	0.000	327
+other attachments (silent_turn_reminder)	4.514	580
+other attachments (total_tokens_reminder)	1.969	8460
+peer message (worker report or reply)	0.388	106859
+skill body load	0.356	9809
+subagent hand-back (queued)	0.422	17490
+task notification	0.724	22295
+tool result: Agent tool result (sync)	0.157	17070
+tool result: Bash: file view (cat/sed/head/tail)	0.394	32866
+tool result: Bash: git	0.000	2040
+tool result: Bash: lab scripts	0.443	65769
+tool result: Bash: ls/find/wc/ps	0.511	8490
+tool result: Bash: other	0.680	43561
+tool result: Bash: write via heredoc	0.402	43810
+tool result: Edit	0.000	211
+tool result: Read (whole file)	0.737	2111
+tool result: SendMessage	0.000	2718
+tool result: Skill	0.000	42
+tool result: Write	0.000	439
+tool result: mcp__ccd_turn__update_plan	0.000	95
+tool result: mcp__ccd_turn__wrap_up	0.000	179

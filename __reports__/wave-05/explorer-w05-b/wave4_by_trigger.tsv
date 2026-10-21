@@ -1,0 +1,7 @@
+trigger	request_kind	requests	share_of_list_price	tool_calls
+tool_result	calls tools	69	0.6030	84
+peer	calls tools	18	0.1646	20
+tool_result	text only (turn ends)	20	0.1348	0
+first	calls tools	1	0.0577	2
+peer	text only (turn ends)	5	0.0309	0
+peer+task-notification	calls tools	1	0.0090	1

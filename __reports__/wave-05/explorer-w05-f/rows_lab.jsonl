@@ -1,0 +1,270 @@
+{"cell": "bypass", "rep": 0, "run": true, "cost": 0.00822403, "cache_read": 414483, "cache_create": 17391, "input": 20, "output": 1198, "turns": 10, "duration_ms": 30323, "api_ms": 12278, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "bypass", "rep": 0, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 6, "run_ms": 10375}
+{"cell": "bypass", "rep": 0, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 2, "run_ms": 187}
+{"cell": "bypass", "rep": 0, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 2, "run_ms": 93}
+{"cell": "bypass", "rep": 0, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 1, "run_ms": 193}
+{"cell": "bypass", "rep": 0, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 1, "run_ms": 303}
+{"cell": "bypass", "rep": 0, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 1, "run_ms": 1153}
+{"cell": "bypass", "rep": 0, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 2, "run_ms": 241}
+{"cell": "bypass", "rep": 0, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 2, "run_ms": 117}
+{"cell": "auto", "rep": 0, "run": true, "cost": 0.008222469999999999, "cache_read": 414167, "cache_create": 17354, "input": 20, "output": 1216, "turns": 10, "duration_ms": 36174, "api_ms": 18118, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto", "rep": 0, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 629, "run_ms": 10286}
+{"cell": "auto", "rep": 0, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 683, "run_ms": 179}
+{"cell": "auto", "rep": 0, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 438, "run_ms": 155}
+{"cell": "auto", "rep": 0, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 541, "run_ms": 132}
+{"cell": "auto", "rep": 0, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 512, "run_ms": 230}
+{"cell": "auto", "rep": 0, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 632, "run_ms": 1151}
+{"cell": "auto", "rep": 0, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 602, "run_ms": 172}
+{"cell": "auto", "rep": 0, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 482, "run_ms": 115}
+{"cell": "auto+bashshell", "rep": 0, "run": true, "cost": 0.00831602, "cache_read": 414912, "cache_create": 17477, "input": 20, "output": 1339, "turns": 10, "duration_ms": 27894, "api_ms": 19499, "snapshot_s": 0.44, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+bashshell", "rep": 0, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 564, "run_ms": 665}
+{"cell": "auto+bashshell", "rep": 0, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 666, "run_ms": 146}
+{"cell": "auto+bashshell", "rep": 0, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 300, "run_ms": 253}
+{"cell": "auto+bashshell", "rep": 0, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 296, "run_ms": 206}
+{"cell": "auto+bashshell", "rep": 0, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 376, "run_ms": 108}
+{"cell": "auto+bashshell", "rep": 0, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 630, "run_ms": 1080}
+{"cell": "auto+bashshell", "rep": 0, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 472, "run_ms": 108}
+{"cell": "auto+bashshell", "rep": 0, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 354, "run_ms": 50}
+{"cell": "auto+pywild", "rep": 0, "run": true, "cost": 0.007905109999999998, "cache_read": 415741, "cache_create": 15826, "input": 20, "output": 1161, "turns": 10, "duration_ms": 36208, "api_ms": 18604, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+pywild", "rep": 0, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 788, "run_ms": 10317}
+{"cell": "auto+pywild", "rep": 0, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 788, "run_ms": 242}
+{"cell": "auto+pywild", "rep": 0, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 490, "run_ms": 215}
+{"cell": "auto+pywild", "rep": 0, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 403, "run_ms": 249}
+{"cell": "auto+pywild", "rep": 0, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 653, "run_ms": 276}
+{"cell": "auto+pywild", "rep": 0, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 679, "run_ms": 1103}
+{"cell": "auto+pywild", "rep": 0, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 541, "run_ms": 113}
+{"cell": "auto+pywild", "rep": 0, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 893, "run_ms": 69}
+{"cell": "auto+labrules", "rep": 0, "run": true, "cost": 0.007862000000000001, "cache_read": 415790, "cache_create": 15813, "input": 20, "output": 1079, "turns": 10, "duration_ms": 34027, "api_ms": 17847, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+labrules", "rep": 0, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 571, "run_ms": 10311}
+{"cell": "auto+labrules", "rep": 0, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 524, "run_ms": 274}
+{"cell": "auto+labrules", "rep": 0, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 2, "run_ms": 215}
+{"cell": "auto+labrules", "rep": 0, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 1, "run_ms": 131}
+{"cell": "auto+labrules", "rep": 0, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 1, "run_ms": 198}
+{"cell": "auto+labrules", "rep": 0, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 1, "run_ms": 1112}
+{"cell": "auto+labrules", "rep": 0, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 1, "run_ms": 135}
+{"cell": "auto+labrules", "rep": 0, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 475, "run_ms": 150}
+{"cell": "auto+flagrules", "rep": 0, "run": true, "cost": 0.007794939999999999, "cache_read": 415024, "cache_create": 15726, "input": 20, "output": 995, "turns": 10, "duration_ms": 34413, "api_ms": 18337, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+flagrules", "rep": 0, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 382, "run_ms": 10267}
+{"cell": "auto+flagrules", "rep": 0, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 619, "run_ms": 128}
+{"cell": "auto+flagrules", "rep": 0, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 2, "run_ms": 108}
+{"cell": "auto+flagrules", "rep": 0, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 1, "run_ms": 75}
+{"cell": "auto+flagrules", "rep": 0, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 2, "run_ms": 187}
+{"cell": "auto+flagrules", "rep": 0, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 1, "run_ms": 1068}
+{"cell": "auto+flagrules", "rep": 0, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 2, "run_ms": 67}
+{"cell": "auto+flagrules", "rep": 0, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 369, "run_ms": 177}
+{"cell": "auto+pywild", "rep": 1, "run": true, "cost": 0.00802054, "cache_read": 416484, "cache_create": 15906, "input": 20, "output": 1345, "turns": 10, "duration_ms": 36507, "api_ms": 18105, "snapshot_s": 10.01, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+pywild", "rep": 1, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 510, "run_ms": 10477}
+{"cell": "auto+pywild", "rep": 1, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 594, "run_ms": 375}
+{"cell": "auto+pywild", "rep": 1, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 461, "run_ms": 465}
+{"cell": "auto+pywild", "rep": 1, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 506, "run_ms": 126}
+{"cell": "auto+pywild", "rep": 1, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 512, "run_ms": 131}
+{"cell": "auto+pywild", "rep": 1, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 520, "run_ms": 1083}
+{"cell": "auto+pywild", "rep": 1, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 540, "run_ms": 218}
+{"cell": "auto+pywild", "rep": 1, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 433, "run_ms": 217}
+{"cell": "auto", "rep": 1, "run": true, "cost": 0.00784432, "cache_read": 415542, "cache_create": 15787, "input": 20, "output": 1059, "turns": 10, "duration_ms": 35482, "api_ms": 17440, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto", "rep": 1, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 642, "run_ms": 10511}
+{"cell": "auto", "rep": 1, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 631, "run_ms": 271}
+{"cell": "auto", "rep": 1, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 744, "run_ms": 302}
+{"cell": "auto", "rep": 1, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 575, "run_ms": 251}
+{"cell": "auto", "rep": 1, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 602, "run_ms": 145}
+{"cell": "auto", "rep": 1, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 601, "run_ms": 1139}
+{"cell": "auto", "rep": 1, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 770, "run_ms": 277}
+{"cell": "auto", "rep": 1, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 397, "run_ms": 130}
+{"cell": "auto+labrules", "rep": 1, "run": true, "cost": 0.007873999999999999, "cache_read": 415720, "cache_create": 15809, "input": 20, "output": 1106, "turns": 10, "duration_ms": 34398, "api_ms": 17938, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+labrules", "rep": 1, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 410, "run_ms": 10357}
+{"cell": "auto+labrules", "rep": 1, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 468, "run_ms": 236}
+{"cell": "auto+labrules", "rep": 1, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 2, "run_ms": 150}
+{"cell": "auto+labrules", "rep": 1, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 2, "run_ms": 142}
+{"cell": "auto+labrules", "rep": 1, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 2, "run_ms": 277}
+{"cell": "auto+labrules", "rep": 1, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 1, "run_ms": 1289}
+{"cell": "auto+labrules", "rep": 1, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 1, "run_ms": 189}
+{"cell": "auto+labrules", "rep": 1, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 479, "run_ms": 68}
+{"cell": "bypass", "rep": 1, "run": true, "cost": 0.00782811, "cache_read": 415461, "cache_create": 15775, "input": 20, "output": 1033, "turns": 10, "duration_ms": 26875, "api_ms": 10669, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "bypass", "rep": 1, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 4, "run_ms": 10277}
+{"cell": "bypass", "rep": 1, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 1, "run_ms": 220}
+{"cell": "bypass", "rep": 1, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 2, "run_ms": 274}
+{"cell": "bypass", "rep": 1, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 2, "run_ms": 172}
+{"cell": "bypass", "rep": 1, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 1, "run_ms": 75}
+{"cell": "bypass", "rep": 1, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 1, "run_ms": 1086}
+{"cell": "bypass", "rep": 1, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 2, "run_ms": 74}
+{"cell": "bypass", "rep": 1, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 1, "run_ms": 74}
+{"cell": "auto+flagrules", "rep": 1, "run": true, "cost": 0.00790647, "cache_read": 415537, "cache_create": 15783, "input": 20, "output": 1185, "turns": 10, "duration_ms": 35608, "api_ms": 18719, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+flagrules", "rep": 1, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 407, "run_ms": 10339}
+{"cell": "auto+flagrules", "rep": 1, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 599, "run_ms": 215}
+{"cell": "auto+flagrules", "rep": 1, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 2, "run_ms": 93}
+{"cell": "auto+flagrules", "rep": 1, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 1, "run_ms": 74}
+{"cell": "auto+flagrules", "rep": 1, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 1, "run_ms": 171}
+{"cell": "auto+flagrules", "rep": 1, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 1, "run_ms": 1148}
+{"cell": "auto+flagrules", "rep": 1, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 1, "run_ms": 85}
+{"cell": "auto+flagrules", "rep": 1, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 665, "run_ms": 111}
+{"cell": "auto+bashshell", "rep": 1, "run": true, "cost": 0.007908089999999998, "cache_read": 414969, "cache_create": 15737, "input": 20, "output": 1218, "turns": 10, "duration_ms": 23334, "api_ms": 16062, "snapshot_s": 0.42, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+bashshell", "rep": 1, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 392, "run_ms": 516}
+{"cell": "auto+bashshell", "rep": 1, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 196, "run_ms": 159}
+{"cell": "auto+bashshell", "rep": 1, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 291, "run_ms": 100}
+{"cell": "auto+bashshell", "rep": 1, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 256, "run_ms": 107}
+{"cell": "auto+bashshell", "rep": 1, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 360, "run_ms": 113}
+{"cell": "auto+bashshell", "rep": 1, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 248, "run_ms": 1039}
+{"cell": "auto+bashshell", "rep": 1, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 241, "run_ms": 41}
+{"cell": "auto+bashshell", "rep": 1, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 115, "run_ms": 57}
+{"cell": "bypass", "rep": 2, "run": true, "cost": 0.007714620000000001, "cache_read": 414392, "cache_create": 15511, "input": 20, "output": 933, "turns": 10, "duration_ms": 29099, "api_ms": 11249, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "bypass", "rep": 2, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 4, "run_ms": 10334}
+{"cell": "bypass", "rep": 2, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 2, "run_ms": 464}
+{"cell": "bypass", "rep": 2, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 2, "run_ms": 211}
+{"cell": "bypass", "rep": 2, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 2, "run_ms": 174}
+{"cell": "bypass", "rep": 2, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 1, "run_ms": 239}
+{"cell": "bypass", "rep": 2, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 2, "run_ms": 1215}
+{"cell": "bypass", "rep": 2, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 2, "run_ms": 153}
+{"cell": "bypass", "rep": 2, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 1, "run_ms": 160}
+{"cell": "auto+flagrules", "rep": 2, "run": true, "cost": 0.007677000000000001, "cache_read": 414700, "cache_create": 15545, "input": 20, "output": 838, "turns": 10, "duration_ms": 32846, "api_ms": 16116, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+flagrules", "rep": 2, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 461, "run_ms": 10424}
+{"cell": "auto+flagrules", "rep": 2, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 491, "run_ms": 311}
+{"cell": "auto+flagrules", "rep": 2, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 1, "run_ms": 240}
+{"cell": "auto+flagrules", "rep": 2, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 2, "run_ms": 197}
+{"cell": "auto+flagrules", "rep": 2, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 1, "run_ms": 161}
+{"cell": "auto+flagrules", "rep": 2, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 1, "run_ms": 1204}
+{"cell": "auto+flagrules", "rep": 2, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 4, "run_ms": 217}
+{"cell": "auto+flagrules", "rep": 2, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 394, "run_ms": 134}
+{"cell": "auto+bashshell", "rep": 2, "run": true, "cost": 0.007986640000000001, "cache_read": 415794, "cache_create": 15841, "input": 20, "output": 1317, "turns": 10, "duration_ms": 24029, "api_ms": 15989, "snapshot_s": 0.36, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+bashshell", "rep": 2, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 242, "run_ms": 484}
+{"cell": "auto+bashshell", "rep": 2, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 232, "run_ms": 163}
+{"cell": "auto+bashshell", "rep": 2, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 240, "run_ms": 166}
+{"cell": "auto+bashshell", "rep": 2, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 296, "run_ms": 70}
+{"cell": "auto+bashshell", "rep": 2, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 300, "run_ms": 86}
+{"cell": "auto+bashshell", "rep": 2, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 13, "run_ms": 1155}
+{"cell": "auto+bashshell", "rep": 2, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 214, "run_ms": 99}
+{"cell": "auto+bashshell", "rep": 2, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 136, "run_ms": 69}
+{"cell": "auto", "rep": 2, "run": true, "cost": 0.008402930000000001, "cache_read": 460653, "cache_create": 16146, "input": 22, "output": 1130, "turns": 11, "duration_ms": 111446, "api_ms": 92790, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto", "rep": 2, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 418, "run_ms": 10442}
+{"cell": "auto", "rep": 2, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 475, "run_ms": 386}
+{"cell": "auto", "rep": 2, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 479, "run_ms": 230}
+{"cell": "auto", "rep": 2, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 410, "run_ms": 106}
+{"cell": "auto", "rep": 2, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 362, "run_ms": 165}
+{"cell": "auto", "rep": 2, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 472, "run_ms": 1112}
+{"cell": "auto", "rep": 2, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 322, "run_ms": 256}
+{"cell": "auto", "rep": 2, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 635, "run_ms": 74}
+{"cell": "auto+labrules", "rep": 2, "run": true, "cost": 0.007883830000000001, "cache_read": 416043, "cache_create": 15862, "input": 20, "output": 1098, "turns": 10, "duration_ms": 53903, "api_ms": 36479, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+labrules", "rep": 2, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 528, "run_ms": 10341}
+{"cell": "auto+labrules", "rep": 2, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 497, "run_ms": 184}
+{"cell": "auto+labrules", "rep": 2, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 2, "run_ms": 108}
+{"cell": "auto+labrules", "rep": 2, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 2, "run_ms": 181}
+{"cell": "auto+labrules", "rep": 2, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 2, "run_ms": 189}
+{"cell": "auto+labrules", "rep": 2, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 1, "run_ms": 1175}
+{"cell": "auto+labrules", "rep": 2, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 3, "run_ms": 101}
+{"cell": "auto+labrules", "rep": 2, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 392, "run_ms": 104}
+{"cell": "auto+pywild", "rep": 2, "run": true, "cost": 0.007992599999999999, "cache_read": 416560, "cache_create": 15915, "input": 20, "output": 1284, "turns": 10, "duration_ms": 53883, "api_ms": 35969, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+pywild", "rep": 2, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 32, "run_ms": 10349}
+{"cell": "auto+pywild", "rep": 2, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 430, "run_ms": 202}
+{"cell": "auto+pywild", "rep": 2, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 365, "run_ms": 167}
+{"cell": "auto+pywild", "rep": 2, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 295, "run_ms": 178}
+{"cell": "auto+pywild", "rep": 2, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 462, "run_ms": 114}
+{"cell": "auto+pywild", "rep": 2, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 486, "run_ms": 1111}
+{"cell": "auto+pywild", "rep": 2, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 591, "run_ms": 221}
+{"cell": "auto+pywild", "rep": 2, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 384, "run_ms": 96}
+{"cell": "auto+labrules", "rep": 3, "run": true, "cost": 0.007722120000000001, "cache_read": 414612, "cache_create": 15530, "input": 20, "output": 936, "turns": 10, "duration_ms": 35307, "api_ms": 18621, "snapshot_s": 10.01, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+labrules", "rep": 3, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 266, "run_ms": 10435}
+{"cell": "auto+labrules", "rep": 3, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 791, "run_ms": 495}
+{"cell": "auto+labrules", "rep": 3, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 2, "run_ms": 225}
+{"cell": "auto+labrules", "rep": 3, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 2, "run_ms": 117}
+{"cell": "auto+labrules", "rep": 3, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 2, "run_ms": 169}
+{"cell": "auto+labrules", "rep": 3, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 2, "run_ms": 1146}
+{"cell": "auto+labrules", "rep": 3, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 2, "run_ms": 135}
+{"cell": "auto+labrules", "rep": 3, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 684, "run_ms": 115}
+{"cell": "auto+flagrules", "rep": 3, "run": true, "cost": 0.008067060000000001, "cache_read": 417106, "cache_create": 15980, "input": 20, "output": 1396, "turns": 10, "duration_ms": 37109, "api_ms": 20001, "snapshot_s": 10.01, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+flagrules", "rep": 3, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 426, "run_ms": 10475}
+{"cell": "auto+flagrules", "rep": 3, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 405, "run_ms": 194}
+{"cell": "auto+flagrules", "rep": 3, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 2, "run_ms": 173}
+{"cell": "auto+flagrules", "rep": 3, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 3, "run_ms": 169}
+{"cell": "auto+flagrules", "rep": 3, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 2, "run_ms": 133}
+{"cell": "auto+flagrules", "rep": 3, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 1, "run_ms": 1171}
+{"cell": "auto+flagrules", "rep": 3, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 2, "run_ms": 240}
+{"cell": "auto+flagrules", "rep": 3, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 322, "run_ms": 51}
+{"cell": "auto+pywild", "rep": 3, "run": true, "cost": 0.00784441, "cache_read": 415611, "cache_create": 15799, "input": 20, "output": 1053, "turns": 10, "duration_ms": 40460, "api_ms": 19994, "snapshot_s": 10.01, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+pywild", "rep": 3, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 1126, "run_ms": 10613}
+{"cell": "auto+pywild", "rep": 3, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 261, "run_ms": 477}
+{"cell": "auto+pywild", "rep": 3, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 129, "run_ms": 1475}
+{"cell": "auto+pywild", "rep": 3, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 373, "run_ms": 406}
+{"cell": "auto+pywild", "rep": 3, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 82, "run_ms": 194}
+{"cell": "auto+pywild", "rep": 3, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 217, "run_ms": 1512}
+{"cell": "auto+pywild", "rep": 3, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 412, "run_ms": 358}
+{"cell": "auto+pywild", "rep": 3, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 399, "run_ms": 203}
+{"cell": "auto", "rep": 3, "run": true, "cost": 0.007871040000000001, "cache_read": 415894, "cache_create": 15838, "input": 20, "output": 1085, "turns": 10, "duration_ms": 39614, "api_ms": 17724, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto", "rep": 3, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 68, "run_ms": 11162}
+{"cell": "auto", "rep": 3, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 6, "run_ms": 616}
+{"cell": "auto", "rep": 3, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 202, "run_ms": 1731}
+{"cell": "auto", "rep": 3, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 481, "run_ms": 358}
+{"cell": "auto", "rep": 3, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 170, "run_ms": 479}
+{"cell": "auto", "rep": 3, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 191, "run_ms": 1220}
+{"cell": "auto", "rep": 3, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 448, "run_ms": 285}
+{"cell": "auto", "rep": 3, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 431, "run_ms": 183}
+{"cell": "bypass", "rep": 3, "run": true, "cost": 0.00790223, "cache_read": 415593, "cache_create": 15789, "input": 20, "output": 1173, "turns": 10, "duration_ms": 32540, "api_ms": 11488, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "bypass", "rep": 3, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 7, "run_ms": 10739}
+{"cell": "bypass", "rep": 3, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 2, "run_ms": 677}
+{"cell": "bypass", "rep": 3, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 4, "run_ms": 1030}
+{"cell": "bypass", "rep": 3, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 2, "run_ms": 397}
+{"cell": "bypass", "rep": 3, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 1, "run_ms": 272}
+{"cell": "bypass", "rep": 3, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 1, "run_ms": 1260}
+{"cell": "bypass", "rep": 3, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 2, "run_ms": 159}
+{"cell": "bypass", "rep": 3, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 2, "run_ms": 134}
+{"cell": "auto+bashshell", "rep": 3, "run": true, "cost": 0.007898390000000002, "cache_read": 415579, "cache_create": 15823, "input": 20, "output": 1152, "turns": 10, "duration_ms": 25386, "api_ms": 17144, "snapshot_s": 0.62, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+bashshell", "rep": 3, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 343, "run_ms": 788}
+{"cell": "auto+bashshell", "rep": 3, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 445, "run_ms": 119}
+{"cell": "auto+bashshell", "rep": 3, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 512, "run_ms": 115}
+{"cell": "auto+bashshell", "rep": 3, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 468, "run_ms": 122}
+{"cell": "auto+bashshell", "rep": 3, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 695, "run_ms": 101}
+{"cell": "auto+bashshell", "rep": 3, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 477, "run_ms": 1138}
+{"cell": "auto+bashshell", "rep": 3, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 397, "run_ms": 72}
+{"cell": "auto+bashshell", "rep": 3, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 488, "run_ms": 38}
+{"cell": "auto+pywild", "rep": 4, "run": true, "cost": 0.00783786, "cache_read": 415046, "cache_create": 15727, "input": 20, "output": 1080, "turns": 10, "duration_ms": 37013, "api_ms": 18722, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+pywild", "rep": 4, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 611, "run_ms": 10288}
+{"cell": "auto+pywild", "rep": 4, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 463, "run_ms": 267}
+{"cell": "auto+pywild", "rep": 4, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 630, "run_ms": 146}
+{"cell": "auto+pywild", "rep": 4, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 962, "run_ms": 109}
+{"cell": "auto+pywild", "rep": 4, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 889, "run_ms": 171}
+{"cell": "auto+pywild", "rep": 4, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 325, "run_ms": 1180}
+{"cell": "auto+pywild", "rep": 4, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 504, "run_ms": 85}
+{"cell": "auto+pywild", "rep": 4, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 638, "run_ms": 153}
+{"cell": "auto+flagrules", "rep": 4, "run": true, "cost": 0.00788357, "cache_read": 415647, "cache_create": 15808, "input": 20, "output": 1127, "turns": 10, "duration_ms": 32892, "api_ms": 16774, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+flagrules", "rep": 4, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 553, "run_ms": 10295}
+{"cell": "auto+flagrules", "rep": 4, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 492, "run_ms": 166}
+{"cell": "auto+flagrules", "rep": 4, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 2, "run_ms": 203}
+{"cell": "auto+flagrules", "rep": 4, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 3, "run_ms": 172}
+{"cell": "auto+flagrules", "rep": 4, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 2, "run_ms": 251}
+{"cell": "auto+flagrules", "rep": 4, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 1, "run_ms": 1092}
+{"cell": "auto+flagrules", "rep": 4, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 2, "run_ms": 172}
+{"cell": "auto+flagrules", "rep": 4, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 342, "run_ms": 123}
+{"cell": "auto", "rep": 4, "run": true, "cost": 0.007881349999999999, "cache_read": 416085, "cache_create": 15895, "input": 20, "output": 1079, "turns": 10, "duration_ms": 31202, "api_ms": 14731, "snapshot_s": 9.31, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto", "rep": 4, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 288, "run_ms": 9409}
+{"cell": "auto", "rep": 4, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 73, "run_ms": 147}
+{"cell": "auto", "rep": 4, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 66, "run_ms": 241}
+{"cell": "auto", "rep": 4, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 144, "run_ms": 113}
+{"cell": "auto", "rep": 4, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 3, "run_ms": 139}
+{"cell": "auto", "rep": 4, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 62, "run_ms": 1102}
+{"cell": "auto", "rep": 4, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 175, "run_ms": 105}
+{"cell": "auto", "rep": 4, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 46, "run_ms": 124}
+{"cell": "auto+labrules", "rep": 4, "run": true, "cost": 0.00788874, "cache_read": 415604, "cache_create": 15796, "input": 20, "output": 1143, "turns": 10, "duration_ms": 36893, "api_ms": 17152, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+labrules", "rep": 4, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 349, "run_ms": 10817}
+{"cell": "auto+labrules", "rep": 4, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 65, "run_ms": 587}
+{"cell": "auto+labrules", "rep": 4, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 4, "run_ms": 511}
+{"cell": "auto+labrules", "rep": 4, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 4, "run_ms": 413}
+{"cell": "auto+labrules", "rep": 4, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 1, "run_ms": 212}
+{"cell": "auto+labrules", "rep": 4, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 2, "run_ms": 1260}
+{"cell": "auto+labrules", "rep": 4, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 1, "run_ms": 361}
+{"cell": "auto+labrules", "rep": 4, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 4, "run_ms": 375}
+{"cell": "bypass", "rep": 4, "run": true, "cost": 0.00789244, "cache_read": 415714, "cache_create": 15814, "input": 20, "output": 1141, "turns": 10, "duration_ms": 35614, "api_ms": 12880, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "bypass", "rep": 4, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 5, "run_ms": 10788}
+{"cell": "bypass", "rep": 4, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 5, "run_ms": 691}
+{"cell": "bypass", "rep": 4, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 4, "run_ms": 902}
+{"cell": "bypass", "rep": 4, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 2, "run_ms": 382}
+{"cell": "bypass", "rep": 4, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 2, "run_ms": 299}
+{"cell": "bypass", "rep": 4, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 1, "run_ms": 1350}
+{"cell": "bypass", "rep": 4, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 2, "run_ms": 408}
+{"cell": "bypass", "rep": 4, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 2, "run_ms": 280}
+{"cell": "auto+bashshell", "rep": 4, "run": true, "cost": 0.007891660000000002, "cache_read": 415416, "cache_create": 15795, "input": 20, "output": 1153, "turns": 10, "duration_ms": 25216, "api_ms": 16561, "snapshot_s": 0.46, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+bashshell", "rep": 4, "n_in_run": 1, "cmd": "python3 -I ./hello.py a", "perm_ms": 11, "run_ms": 614}
+{"cell": "auto+bashshell", "rep": 4, "n_in_run": 2, "cmd": "python3 ./hello.py b", "perm_ms": 267, "run_ms": 218}
+{"cell": "auto+bashshell", "rep": 4, "n_in_run": 3, "cmd": "git log --oneline -3", "perm_ms": 31, "run_ms": 409}
+{"cell": "auto+bashshell", "rep": 4, "n_in_run": 4, "cmd": "ls -la", "perm_ms": 57, "run_ms": 195}
+{"cell": "auto+bashshell", "rep": 4, "n_in_run": 5, "cmd": "wc -l hello.py", "perm_ms": 314, "run_ms": 98}
+{"cell": "auto+bashshell", "rep": 4, "n_in_run": 6, "cmd": "sleep 1", "perm_ms": 208, "run_ms": 1203}
+{"cell": "auto+bashshell", "rep": 4, "n_in_run": 7, "cmd": "grep -c print hello.py", "perm_ms": 123, "run_ms": 201}
+{"cell": "auto+bashshell", "rep": 4, "n_in_run": 8, "cmd": "command -v python3; echo $SHELL", "perm_ms": 313, "run_ms": 66}

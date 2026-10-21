@@ -1,0 +1,9 @@
+ NNLS fit of delta_ctx on chars per category: n=113 requests, R2=0.953
+ attribution weights: NNLS tokens per char (R2 > 0.8)
+== wave4: 114 requests, 1 session ids, 0 context resets
+ claude-opus-5-5: req 114  input 274  cache_read 27273105  cache_write 361773  output 107752 (thinking 37457)
+ list-price shares: cache_read 0.519  cache_write 0.276  input 0.0001  output 0.205  (total 10.50 USD list; shares only are reported)
+ attribution check: attributed read 5.455 of actual read 5.455 ; attributed write 2.894 of actual write 2.894 (ratio read 1.000 write 1.000)
+ cache misses (cr < half of previous ctx, excl. context resets): 0, rewritten tokens 0 = 0.000 of all cache-write tokens; extra cost vs reading = 0.000 of list-price total
+ gaps > 300s: 3 ; > 3600s: 0 ; requests with cache_read==0: 1
+ tokens per char of items (delta/chars): median 0.495 p10 0.388 p90 0.822

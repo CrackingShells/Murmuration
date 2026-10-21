@@ -1,0 +1,13 @@
+n	t_iso	cache_write	cache_read	ctx	gap_s	reset	first_item
+364	14:52:11	268258	0	268260	5429	0	tool result: mcp__ccd_turn__wrap_up: mcp__ccd_turn__wrap_up
+355	13:19:38	247389	0	247391	5073	0	tool result: mcp__ccd_turn__wrap_up: mcp__ccd_turn__wrap_up
+305	10:39:37	167481	0	167483	4419	0	human prompt: Speaking about sustainability, I am seeing an insane number 
+290	08:54:37	128612	0	128614	66	0	human prompt: i'm back, brief me on what happened.
+291	09:02:53	80215	50455	130672	479	0	human prompt: The arms A to B4 are very good: don't they prove the system 
+0	01:56:35	74455	0	74457	0	0	hook notices: hook_success
+276	07:41:39	41043	50455	91499	64	1	tool result: Bash: lab scripts: git add hooks/hooks.json scripts/budget.py skills/research-loop/SKILL.md skills/research-l
+9	01:57:40	18582	103268	121852	7	0	tool result: Read (whole file): /Users/hacker/Documents/src/CrackingShells/Murmuration/__reports__/design_review/00-review_fable_v0.md
+63	02:32:59	15469	331781	347252	44	0	peer message (worker report or reply): Another Claude session sent a message: <agent-message from="
+91	02:45:52	14944	509961	524907	66	0	peer message (worker report or reply): Another Claude session sent a message: <agent-message from="
+65	02:34:22	14626	351235	365863	58	0	peer message (worker report or reply): Another Claude session sent a message: <agent-message from="
+59	02:31:33	14395	312706	327103	182	0	peer message (worker report or reply): Another Claude session sent a message: <agent-message from="

@@ -2,6 +2,7 @@
 name: research-pi
 description: Principal investigator of a Murmuration research team. Runs as the main-thread agent of a lab project; leads explorers, authors and verifiers on a question the user cares about.
 model: opus
+disallowedTools: Artifact, ArtifactComments, ArtifactData, Workflow, ReportFindings, ShareOnboardingGuide, SuggestSkills, SearchPlugins, SuggestPluginInstall, mcp__Claude_Browser__*, mcp__Claude_Code_iOS_Simulator__*, mcp__visualize__*
 skills:
   - research-loop
 ---

@@ -1,0 +1,360 @@
+{"cell": "auto", "rep": 0, "run": true, "cost": 0.00779246, "cache_read": 413436, "cache_create": 15673, "input": 20, "output": 1043, "turns": 10, "duration_ms": 33047, "api_ms": 19870, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto", "rep": 0, "n_in_run": 1, "cmd": "true", "perm_ms": 521, "run_ms": 10080}
+{"cell": "auto", "rep": 0, "n_in_run": 2, "cmd": "pwd", "perm_ms": 955, "run_ms": 84}
+{"cell": "auto", "rep": 0, "n_in_run": 3, "cmd": "ls", "perm_ms": 1007, "run_ms": 113}
+{"cell": "auto", "rep": 0, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 987, "run_ms": 131}
+{"cell": "auto", "rep": 0, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 932, "run_ms": 99}
+{"cell": "auto", "rep": 0, "n_in_run": 6, "cmd": "git status", "perm_ms": 1212, "run_ms": 136}
+{"cell": "auto", "rep": 0, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 927, "run_ms": 147}
+{"cell": "auto", "rep": 0, "n_in_run": 8, "cmd": "date", "perm_ms": 747, "run_ms": 92}
+{"cell": "auto+mcp", "rep": 0, "run": true, "cost": 0.01129937, "cache_read": 517467, "cache_create": 27816, "input": 20, "output": 1119, "turns": 10, "duration_ms": 34156, "api_ms": 22088, "snapshot_s": 9.64, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+mcp", "rep": 0, "n_in_run": 1, "cmd": "true", "perm_ms": 1383, "run_ms": 9699}
+{"cell": "auto+mcp", "rep": 0, "n_in_run": 2, "cmd": "pwd", "perm_ms": 1143, "run_ms": 37}
+{"cell": "auto+mcp", "rep": 0, "n_in_run": 3, "cmd": "ls", "perm_ms": 913, "run_ms": 63}
+{"cell": "auto+mcp", "rep": 0, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 893, "run_ms": 75}
+{"cell": "auto+mcp", "rep": 0, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 996, "run_ms": 58}
+{"cell": "auto+mcp", "rep": 0, "n_in_run": 6, "cmd": "git status", "perm_ms": 837, "run_ms": 125}
+{"cell": "auto+mcp", "rep": 0, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 1016, "run_ms": 126}
+{"cell": "auto+mcp", "rep": 0, "n_in_run": 8, "cmd": "date", "perm_ms": 953, "run_ms": 64}
+{"cell": "bypass", "rep": 0, "run": true, "cost": 0.0078713, "cache_read": 414640, "cache_create": 15817, "input": 20, "output": 1119, "turns": 10, "duration_ms": 26543, "api_ms": 11639, "snapshot_s": 10.01, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "bypass", "rep": 0, "n_in_run": 1, "cmd": "true", "perm_ms": 8, "run_ms": 10101}
+{"cell": "bypass", "rep": 0, "n_in_run": 2, "cmd": "pwd", "perm_ms": 2, "run_ms": 89}
+{"cell": "bypass", "rep": 0, "n_in_run": 3, "cmd": "ls", "perm_ms": 2, "run_ms": 82}
+{"cell": "bypass", "rep": 0, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 3, "run_ms": 86}
+{"cell": "bypass", "rep": 0, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 1, "run_ms": 44}
+{"cell": "bypass", "rep": 0, "n_in_run": 6, "cmd": "git status", "perm_ms": 12, "run_ms": 97}
+{"cell": "bypass", "rep": 0, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 1, "run_ms": 137}
+{"cell": "bypass", "rep": 0, "n_in_run": 8, "cmd": "date", "perm_ms": 1, "run_ms": 86}
+{"cell": "auto+nohooks", "rep": 0, "run": true, "cost": 0.0075716700000000026, "cache_read": 407097, "cache_create": 14996, "input": 20, "output": 999, "turns": 10, "duration_ms": 30157, "api_ms": 20817, "snapshot_s": 6.31, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+nohooks", "rep": 0, "n_in_run": 1, "cmd": "true", "perm_ms": 1576, "run_ms": 6364}
+{"cell": "auto+nohooks", "rep": 0, "n_in_run": 2, "cmd": "pwd", "perm_ms": 1164, "run_ms": 79}
+{"cell": "auto+nohooks", "rep": 0, "n_in_run": 3, "cmd": "ls", "perm_ms": 1097, "run_ms": 59}
+{"cell": "auto+nohooks", "rep": 0, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 1386, "run_ms": 66}
+{"cell": "auto+nohooks", "rep": 0, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 1227, "run_ms": 42}
+{"cell": "auto+nohooks", "rep": 0, "n_in_run": 6, "cmd": "git status", "perm_ms": 1225, "run_ms": 114}
+{"cell": "auto+nohooks", "rep": 0, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 1048, "run_ms": 90}
+{"cell": "auto+nohooks", "rep": 0, "n_in_run": 8, "cmd": "date", "perm_ms": 913, "run_ms": 67}
+{"cell": "auto+blanketBash", "rep": 0, "run": true, "cost": 0.00773146, "cache_read": 412976, "cache_create": 15621, "input": 20, "output": 951, "turns": 10, "duration_ms": 29566, "api_ms": 20348, "snapshot_s": 6.45, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+blanketBash", "rep": 0, "n_in_run": 1, "cmd": "true", "perm_ms": 940, "run_ms": 6525}
+{"cell": "auto+blanketBash", "rep": 0, "n_in_run": 2, "cmd": "pwd", "perm_ms": 951, "run_ms": 46}
+{"cell": "auto+blanketBash", "rep": 0, "n_in_run": 3, "cmd": "ls", "perm_ms": 987, "run_ms": 108}
+{"cell": "auto+blanketBash", "rep": 0, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 1042, "run_ms": 92}
+{"cell": "auto+blanketBash", "rep": 0, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 1048, "run_ms": 78}
+{"cell": "auto+blanketBash", "rep": 0, "n_in_run": 6, "cmd": "git status", "perm_ms": 773, "run_ms": 141}
+{"cell": "auto+blanketBash", "rep": 0, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 1234, "run_ms": 139}
+{"cell": "auto+blanketBash", "rep": 0, "n_in_run": 8, "cmd": "date", "perm_ms": 1149, "run_ms": 78}
+{"cell": "auto+exactallow", "rep": 0, "run": true, "cost": 0.00776567, "cache_read": 413527, "cache_create": 15677, "input": 20, "output": 986, "turns": 10, "duration_ms": 33436, "api_ms": 25324, "snapshot_s": 6.52, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+exactallow", "rep": 0, "n_in_run": 1, "cmd": "true", "perm_ms": 5, "run_ms": 6569}
+{"cell": "auto+exactallow", "rep": 0, "n_in_run": 2, "cmd": "pwd", "perm_ms": 2, "run_ms": 40}
+{"cell": "auto+exactallow", "rep": 0, "n_in_run": 3, "cmd": "ls", "perm_ms": 2, "run_ms": 57}
+{"cell": "auto+exactallow", "rep": 0, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 622, "run_ms": 92}
+{"cell": "auto+exactallow", "rep": 0, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 2, "run_ms": 41}
+{"cell": "auto+exactallow", "rep": 0, "n_in_run": 6, "cmd": "git status", "perm_ms": 2, "run_ms": 97}
+{"cell": "auto+exactallow", "rep": 0, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 2, "run_ms": 80}
+{"cell": "auto+exactallow", "rep": 0, "n_in_run": 8, "cmd": "date", "perm_ms": 2, "run_ms": 65}
+{"cell": "auto+globallow", "rep": 0, "run": true, "cost": 0.0077634900000000005, "cache_read": 413539, "cache_create": 15688, "input": 20, "output": 977, "turns": 10, "duration_ms": 28714, "api_ms": 19688, "snapshot_s": 6.7, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+globallow", "rep": 0, "n_in_run": 1, "cmd": "true", "perm_ms": 3, "run_ms": 6735}
+{"cell": "auto+globallow", "rep": 0, "n_in_run": 2, "cmd": "pwd", "perm_ms": 2, "run_ms": 35}
+{"cell": "auto+globallow", "rep": 0, "n_in_run": 3, "cmd": "ls", "perm_ms": 3, "run_ms": 78}
+{"cell": "auto+globallow", "rep": 0, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 620, "run_ms": 77}
+{"cell": "auto+globallow", "rep": 0, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 1, "run_ms": 39}
+{"cell": "auto+globallow", "rep": 0, "n_in_run": 6, "cmd": "git status", "perm_ms": 2, "run_ms": 149}
+{"cell": "auto+globallow", "rep": 0, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 448, "run_ms": 134}
+{"cell": "auto+globallow", "rep": 0, "n_in_run": 8, "cmd": "date", "perm_ms": 2, "run_ms": 110}
+{"cell": "auto+bashshell", "rep": 0, "run": true, "cost": 0.00770916, "cache_read": 412786, "cache_create": 15589, "input": 20, "output": 923, "turns": 10, "duration_ms": 24906, "api_ms": 21656, "snapshot_s": 0.28, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+bashshell", "rep": 0, "n_in_run": 1, "cmd": "true", "perm_ms": 972, "run_ms": 320}
+{"cell": "auto+bashshell", "rep": 0, "n_in_run": 2, "cmd": "pwd", "perm_ms": 800, "run_ms": 64}
+{"cell": "auto+bashshell", "rep": 0, "n_in_run": 3, "cmd": "ls", "perm_ms": 1188, "run_ms": 50}
+{"cell": "auto+bashshell", "rep": 0, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 1624, "run_ms": 75}
+{"cell": "auto+bashshell", "rep": 0, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 1031, "run_ms": 65}
+{"cell": "auto+bashshell", "rep": 0, "n_in_run": 6, "cmd": "git status", "perm_ms": 695, "run_ms": 149}
+{"cell": "auto+bashshell", "rep": 0, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 962, "run_ms": 124}
+{"cell": "auto+bashshell", "rep": 0, "n_in_run": 8, "cmd": "date", "perm_ms": 1455, "run_ms": 83}
+{"cell": "auto+exactallow", "rep": 1, "run": true, "cost": 0.007809380000000001, "cache_read": 413858, "cache_create": 15729, "input": 20, "output": 1046, "turns": 10, "duration_ms": 31112, "api_ms": 22316, "snapshot_s": 7.93, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+exactallow", "rep": 1, "n_in_run": 1, "cmd": "true", "perm_ms": 4, "run_ms": 8000}
+{"cell": "auto+exactallow", "rep": 1, "n_in_run": 2, "cmd": "pwd", "perm_ms": 3, "run_ms": 45}
+{"cell": "auto+exactallow", "rep": 1, "n_in_run": 3, "cmd": "ls", "perm_ms": 2, "run_ms": 63}
+{"cell": "auto+exactallow", "rep": 1, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 688, "run_ms": 142}
+{"cell": "auto+exactallow", "rep": 1, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 1, "run_ms": 59}
+{"cell": "auto+exactallow", "rep": 1, "n_in_run": 6, "cmd": "git status", "perm_ms": 2, "run_ms": 252}
+{"cell": "auto+exactallow", "rep": 1, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 2, "run_ms": 225}
+{"cell": "auto+exactallow", "rep": 1, "n_in_run": 8, "cmd": "date", "perm_ms": 1, "run_ms": 206}
+{"cell": "auto+bashshell", "rep": 1, "run": true, "cost": 0.00776513, "cache_read": 413353, "cache_create": 15658, "input": 20, "output": 996, "turns": 10, "duration_ms": 24700, "api_ms": 21291, "snapshot_s": 0.41, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+bashshell", "rep": 1, "n_in_run": 1, "cmd": "true", "perm_ms": 858, "run_ms": 521}
+{"cell": "auto+bashshell", "rep": 1, "n_in_run": 2, "cmd": "pwd", "perm_ms": 1141, "run_ms": 68}
+{"cell": "auto+bashshell", "rep": 1, "n_in_run": 3, "cmd": "ls", "perm_ms": 950, "run_ms": 164}
+{"cell": "auto+bashshell", "rep": 1, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 944, "run_ms": 138}
+{"cell": "auto+bashshell", "rep": 1, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 1169, "run_ms": 59}
+{"cell": "auto+bashshell", "rep": 1, "n_in_run": 6, "cmd": "git status", "perm_ms": 1027, "run_ms": 269}
+{"cell": "auto+bashshell", "rep": 1, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 865, "run_ms": 184}
+{"cell": "auto+bashshell", "rep": 1, "n_in_run": 8, "cmd": "date", "perm_ms": 951, "run_ms": 174}
+{"cell": "auto+mcp", "rep": 1, "run": true, "cost": 0.01124066, "cache_read": 515626, "cache_create": 27587, "input": 20, "output": 1130, "turns": 10, "duration_ms": 34855, "api_ms": 22414, "snapshot_s": 9.7, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+mcp", "rep": 1, "n_in_run": 1, "cmd": "true", "perm_ms": 944, "run_ms": 9805}
+{"cell": "auto+mcp", "rep": 1, "n_in_run": 2, "cmd": "pwd", "perm_ms": 805, "run_ms": 68}
+{"cell": "auto+mcp", "rep": 1, "n_in_run": 3, "cmd": "ls", "perm_ms": 1693, "run_ms": 121}
+{"cell": "auto+mcp", "rep": 1, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 861, "run_ms": 176}
+{"cell": "auto+mcp", "rep": 1, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 211, "run_ms": 77}
+{"cell": "auto+mcp", "rep": 1, "n_in_run": 6, "cmd": "git status", "perm_ms": 818, "run_ms": 150}
+{"cell": "auto+mcp", "rep": 1, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 961, "run_ms": 162}
+{"cell": "auto+mcp", "rep": 1, "n_in_run": 8, "cmd": "date", "perm_ms": 946, "run_ms": 116}
+{"cell": "auto+globallow", "rep": 1, "run": true, "cost": 0.007722160000000002, "cache_read": 412866, "cache_create": 15610, "input": 20, "output": 939, "turns": 10, "duration_ms": 34133, "api_ms": 22624, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+globallow", "rep": 1, "n_in_run": 1, "cmd": "true", "perm_ms": 4, "run_ms": 10120}
+{"cell": "auto+globallow", "rep": 1, "n_in_run": 2, "cmd": "pwd", "perm_ms": 1, "run_ms": 71}
+{"cell": "auto+globallow", "rep": 1, "n_in_run": 3, "cmd": "ls", "perm_ms": 1, "run_ms": 154}
+{"cell": "auto+globallow", "rep": 1, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 1261, "run_ms": 165}
+{"cell": "auto+globallow", "rep": 1, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 2, "run_ms": 102}
+{"cell": "auto+globallow", "rep": 1, "n_in_run": 6, "cmd": "git status", "perm_ms": 2, "run_ms": 124}
+{"cell": "auto+globallow", "rep": 1, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 965, "run_ms": 145}
+{"cell": "auto+globallow", "rep": 1, "n_in_run": 8, "cmd": "date", "perm_ms": 2, "run_ms": 132}
+{"cell": "auto+blanketBash", "rep": 1, "run": true, "cost": 0.00779436, "cache_read": 413546, "cache_create": 15692, "input": 20, "output": 1037, "turns": 10, "duration_ms": 31183, "api_ms": 20148, "snapshot_s": 8.06, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+blanketBash", "rep": 1, "n_in_run": 1, "cmd": "true", "perm_ms": 464, "run_ms": 8114}
+{"cell": "auto+blanketBash", "rep": 1, "n_in_run": 2, "cmd": "pwd", "perm_ms": 546, "run_ms": 51}
+{"cell": "auto+blanketBash", "rep": 1, "n_in_run": 3, "cmd": "ls", "perm_ms": 532, "run_ms": 165}
+{"cell": "auto+blanketBash", "rep": 1, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 597, "run_ms": 125}
+{"cell": "auto+blanketBash", "rep": 1, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 647, "run_ms": 36}
+{"cell": "auto+blanketBash", "rep": 1, "n_in_run": 6, "cmd": "git status", "perm_ms": 874, "run_ms": 149}
+{"cell": "auto+blanketBash", "rep": 1, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 1489, "run_ms": 135}
+{"cell": "auto+blanketBash", "rep": 1, "n_in_run": 8, "cmd": "date", "perm_ms": 1762, "run_ms": 61}
+{"cell": "bypass", "rep": 1, "run": true, "cost": 0.00777093, "cache_read": 413603, "cache_create": 15697, "input": 20, "output": 987, "turns": 10, "duration_ms": 22978, "api_ms": 10791, "snapshot_s": 7.39, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "bypass", "rep": 1, "n_in_run": 1, "cmd": "true", "perm_ms": 4, "run_ms": 7441}
+{"cell": "bypass", "rep": 1, "n_in_run": 2, "cmd": "pwd", "perm_ms": 2, "run_ms": 32}
+{"cell": "bypass", "rep": 1, "n_in_run": 3, "cmd": "ls", "perm_ms": 2, "run_ms": 59}
+{"cell": "bypass", "rep": 1, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 3, "run_ms": 109}
+{"cell": "bypass", "rep": 1, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 2, "run_ms": 75}
+{"cell": "bypass", "rep": 1, "n_in_run": 6, "cmd": "git status", "perm_ms": 3, "run_ms": 180}
+{"cell": "bypass", "rep": 1, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 2, "run_ms": 122}
+{"cell": "bypass", "rep": 1, "n_in_run": 8, "cmd": "date", "perm_ms": 2, "run_ms": 111}
+{"cell": "auto+nohooks", "rep": 1, "run": true, "cost": 0.007558030000000002, "cache_read": 407093, "cache_create": 14988, "input": 20, "output": 975, "turns": 10, "duration_ms": 33627, "api_ms": 22490, "snapshot_s": 8.36, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+nohooks", "rep": 1, "n_in_run": 1, "cmd": "true", "perm_ms": 1190, "run_ms": 8409}
+{"cell": "auto+nohooks", "rep": 1, "n_in_run": 2, "cmd": "pwd", "perm_ms": 1101, "run_ms": 54}
+{"cell": "auto+nohooks", "rep": 1, "n_in_run": 3, "cmd": "ls", "perm_ms": 2251, "run_ms": 70}
+{"cell": "auto+nohooks", "rep": 1, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 1210, "run_ms": 69}
+{"cell": "auto+nohooks", "rep": 1, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 1201, "run_ms": 34}
+{"cell": "auto+nohooks", "rep": 1, "n_in_run": 6, "cmd": "git status", "perm_ms": 1327, "run_ms": 96}
+{"cell": "auto+nohooks", "rep": 1, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 1083, "run_ms": 118}
+{"cell": "auto+nohooks", "rep": 1, "n_in_run": 8, "cmd": "date", "perm_ms": 1291, "run_ms": 66}
+{"cell": "auto", "rep": 1, "run": true, "cost": 0.00777126, "cache_read": 412956, "cache_create": 15616, "input": 20, "output": 1033, "turns": 10, "duration_ms": 25914, "api_ms": 16369, "snapshot_s": 7.12, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto", "rep": 1, "n_in_run": 1, "cmd": "true", "perm_ms": 471, "run_ms": 7180}
+{"cell": "auto", "rep": 1, "n_in_run": 2, "cmd": "pwd", "perm_ms": 455, "run_ms": 38}
+{"cell": "auto", "rep": 1, "n_in_run": 3, "cmd": "ls", "perm_ms": 540, "run_ms": 58}
+{"cell": "auto", "rep": 1, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 527, "run_ms": 57}
+{"cell": "auto", "rep": 1, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 370, "run_ms": 38}
+{"cell": "auto", "rep": 1, "n_in_run": 6, "cmd": "git status", "perm_ms": 578, "run_ms": 118}
+{"cell": "auto", "rep": 1, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 397, "run_ms": 99}
+{"cell": "auto", "rep": 1, "n_in_run": 8, "cmd": "date", "perm_ms": 458, "run_ms": 55}
+{"cell": "auto+bashshell", "rep": 2, "run": true, "cost": 0.00759078, "cache_read": 412518, "cache_create": 15438, "input": 20, "output": 752, "turns": 10, "duration_ms": 20839, "api_ms": 17498, "snapshot_s": 0.43, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+bashshell", "rep": 2, "n_in_run": 1, "cmd": "true", "perm_ms": 581, "run_ms": 489}
+{"cell": "auto+bashshell", "rep": 2, "n_in_run": 2, "cmd": "pwd", "perm_ms": 577, "run_ms": 29}
+{"cell": "auto+bashshell", "rep": 2, "n_in_run": 3, "cmd": "ls", "perm_ms": 723, "run_ms": 64}
+{"cell": "auto+bashshell", "rep": 2, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 837, "run_ms": 45}
+{"cell": "auto+bashshell", "rep": 2, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 999, "run_ms": 51}
+{"cell": "auto+bashshell", "rep": 2, "n_in_run": 6, "cmd": "git status", "perm_ms": 539, "run_ms": 100}
+{"cell": "auto+bashshell", "rep": 2, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 842, "run_ms": 83}
+{"cell": "auto+bashshell", "rep": 2, "n_in_run": 8, "cmd": "date", "perm_ms": 905, "run_ms": 44}
+{"cell": "auto+nohooks", "rep": 2, "run": true, "cost": 0.0075184399999999995, "cache_read": 406904, "cache_create": 14947, "input": 20, "output": 916, "turns": 10, "duration_ms": 34915, "api_ms": 21756, "snapshot_s": 10.01, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+nohooks", "rep": 2, "n_in_run": 1, "cmd": "true", "perm_ms": 931, "run_ms": 10112}
+{"cell": "auto+nohooks", "rep": 2, "n_in_run": 2, "cmd": "pwd", "perm_ms": 1528, "run_ms": 96}
+{"cell": "auto+nohooks", "rep": 2, "n_in_run": 3, "cmd": "ls", "perm_ms": 1646, "run_ms": 116}
+{"cell": "auto+nohooks", "rep": 2, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 1926, "run_ms": 73}
+{"cell": "auto+nohooks", "rep": 2, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 1247, "run_ms": 55}
+{"cell": "auto+nohooks", "rep": 2, "n_in_run": 6, "cmd": "git status", "perm_ms": 1157, "run_ms": 218}
+{"cell": "auto+nohooks", "rep": 2, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 223, "run_ms": 181}
+{"cell": "auto+nohooks", "rep": 2, "n_in_run": 8, "cmd": "date", "perm_ms": 1200, "run_ms": 96}
+{"cell": "auto+blanketBash", "rep": 2, "run": true, "cost": 0.007712470000000001, "cache_read": 412807, "cache_create": 15597, "input": 20, "output": 926, "turns": 10, "duration_ms": 34099, "api_ms": 21439, "snapshot_s": 10.01, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+blanketBash", "rep": 2, "n_in_run": 1, "cmd": "true", "perm_ms": 1233, "run_ms": 10082}
+{"cell": "auto+blanketBash", "rep": 2, "n_in_run": 2, "cmd": "pwd", "perm_ms": 1053, "run_ms": 92}
+{"cell": "auto+blanketBash", "rep": 2, "n_in_run": 3, "cmd": "ls", "perm_ms": 1027, "run_ms": 82}
+{"cell": "auto+blanketBash", "rep": 2, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 1679, "run_ms": 95}
+{"cell": "auto+blanketBash", "rep": 2, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 1317, "run_ms": 97}
+{"cell": "auto+blanketBash", "rep": 2, "n_in_run": 6, "cmd": "git status", "perm_ms": 1094, "run_ms": 171}
+{"cell": "auto+blanketBash", "rep": 2, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 934, "run_ms": 253}
+{"cell": "auto+blanketBash", "rep": 2, "n_in_run": 8, "cmd": "date", "perm_ms": 1012, "run_ms": 97}
+{"cell": "auto+globallow", "rep": 2, "run": true, "cost": 0.007702769999999999, "cache_read": 412847, "cache_create": 15599, "input": 20, "output": 905, "turns": 10, "duration_ms": 33304, "api_ms": 22172, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+globallow", "rep": 2, "n_in_run": 1, "cmd": "true", "perm_ms": 4, "run_ms": 10094}
+{"cell": "auto+globallow", "rep": 2, "n_in_run": 2, "cmd": "pwd", "perm_ms": 1, "run_ms": 54}
+{"cell": "auto+globallow", "rep": 2, "n_in_run": 3, "cmd": "ls", "perm_ms": 2, "run_ms": 63}
+{"cell": "auto+globallow", "rep": 2, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 1629, "run_ms": 126}
+{"cell": "auto+globallow", "rep": 2, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 2, "run_ms": 59}
+{"cell": "auto+globallow", "rep": 2, "n_in_run": 6, "cmd": "git status", "perm_ms": 1, "run_ms": 131}
+{"cell": "auto+globallow", "rep": 2, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 1078, "run_ms": 253}
+{"cell": "auto+globallow", "rep": 2, "n_in_run": 8, "cmd": "date", "perm_ms": 2, "run_ms": 145}
+{"cell": "auto+mcp", "rep": 2, "run": true, "cost": 0.011319780000000002, "cache_read": 517488, "cache_create": 27857, "input": 20, "output": 1143, "turns": 10, "duration_ms": 35588, "api_ms": 20779, "snapshot_s": 10.02, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+mcp", "rep": 2, "n_in_run": 1, "cmd": "true", "perm_ms": 19, "run_ms": 10212}
+{"cell": "auto+mcp", "rep": 2, "n_in_run": 2, "cmd": "pwd", "perm_ms": 827, "run_ms": 251}
+{"cell": "auto+mcp", "rep": 2, "n_in_run": 3, "cmd": "ls", "perm_ms": 1405, "run_ms": 347}
+{"cell": "auto+mcp", "rep": 2, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 111, "run_ms": 295}
+{"cell": "auto+mcp", "rep": 2, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 529, "run_ms": 102}
+{"cell": "auto+mcp", "rep": 2, "n_in_run": 6, "cmd": "git status", "perm_ms": 765, "run_ms": 216}
+{"cell": "auto+mcp", "rep": 2, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 896, "run_ms": 330}
+{"cell": "auto+mcp", "rep": 2, "n_in_run": 8, "cmd": "date", "perm_ms": 1192, "run_ms": 98}
+{"cell": "auto+exactallow", "rep": 2, "run": true, "cost": 0.0078055500000000005, "cache_read": 413655, "cache_create": 15705, "input": 20, "output": 1052, "turns": 10, "duration_ms": 30945, "api_ms": 18273, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+exactallow", "rep": 2, "n_in_run": 1, "cmd": "true", "perm_ms": 5, "run_ms": 10246}
+{"cell": "auto+exactallow", "rep": 2, "n_in_run": 2, "cmd": "pwd", "perm_ms": 1, "run_ms": 256}
+{"cell": "auto+exactallow", "rep": 2, "n_in_run": 3, "cmd": "ls", "perm_ms": 2, "run_ms": 254}
+{"cell": "auto+exactallow", "rep": 2, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 611, "run_ms": 370}
+{"cell": "auto+exactallow", "rep": 2, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 1, "run_ms": 262}
+{"cell": "auto+exactallow", "rep": 2, "n_in_run": 6, "cmd": "git status", "perm_ms": 2, "run_ms": 209}
+{"cell": "auto+exactallow", "rep": 2, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 1, "run_ms": 370}
+{"cell": "auto+exactallow", "rep": 2, "n_in_run": 8, "cmd": "date", "perm_ms": 2, "run_ms": 231}
+{"cell": "auto", "rep": 2, "run": true, "cost": 0.00778951, "cache_read": 413361, "cache_create": 15662, "input": 20, "output": 1043, "turns": 10, "duration_ms": 35823, "api_ms": 21620, "snapshot_s": 10.01, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto", "rep": 2, "n_in_run": 1, "cmd": "true", "perm_ms": 190, "run_ms": 10200}
+{"cell": "auto", "rep": 2, "n_in_run": 2, "cmd": "pwd", "perm_ms": 864, "run_ms": 185}
+{"cell": "auto", "rep": 2, "n_in_run": 3, "cmd": "ls", "perm_ms": 908, "run_ms": 345}
+{"cell": "auto", "rep": 2, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 904, "run_ms": 184}
+{"cell": "auto", "rep": 2, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 754, "run_ms": 167}
+{"cell": "auto", "rep": 2, "n_in_run": 6, "cmd": "git status", "perm_ms": 1262, "run_ms": 266}
+{"cell": "auto", "rep": 2, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 1072, "run_ms": 194}
+{"cell": "auto", "rep": 2, "n_in_run": 8, "cmd": "date", "perm_ms": 919, "run_ms": 110}
+{"cell": "bypass", "rep": 2, "run": true, "cost": 0.007726090000000001, "cache_read": 412879, "cache_create": 15609, "input": 20, "output": 947, "turns": 10, "duration_ms": 27473, "api_ms": 11064, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "bypass", "rep": 2, "n_in_run": 1, "cmd": "true", "perm_ms": 4, "run_ms": 10118}
+{"cell": "bypass", "rep": 2, "n_in_run": 2, "cmd": "pwd", "perm_ms": 2, "run_ms": 88}
+{"cell": "bypass", "rep": 2, "n_in_run": 3, "cmd": "ls", "perm_ms": 2, "run_ms": 141}
+{"cell": "bypass", "rep": 2, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 3, "run_ms": 203}
+{"cell": "bypass", "rep": 2, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 1, "run_ms": 52}
+{"cell": "bypass", "rep": 2, "n_in_run": 6, "cmd": "git status", "perm_ms": 3, "run_ms": 325}
+{"cell": "bypass", "rep": 2, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 2, "run_ms": 422}
+{"cell": "bypass", "rep": 2, "n_in_run": 8, "cmd": "date", "perm_ms": 2, "run_ms": 176}
+{"cell": "auto", "rep": 3, "run": true, "cost": 0.007771360000000001, "cache_read": 412826, "cache_create": 15593, "input": 20, "output": 1045, "turns": 10, "duration_ms": 34273, "api_ms": 20543, "snapshot_s": 10.01, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto", "rep": 3, "n_in_run": 1, "cmd": "true", "perm_ms": 576, "run_ms": 10172}
+{"cell": "auto", "rep": 3, "n_in_run": 2, "cmd": "pwd", "perm_ms": 508, "run_ms": 134}
+{"cell": "auto", "rep": 3, "n_in_run": 3, "cmd": "ls", "perm_ms": 529, "run_ms": 195}
+{"cell": "auto", "rep": 3, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 886, "run_ms": 129}
+{"cell": "auto", "rep": 3, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 679, "run_ms": 198}
+{"cell": "auto", "rep": 3, "n_in_run": 6, "cmd": "git status", "perm_ms": 960, "run_ms": 223}
+{"cell": "auto", "rep": 3, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 761, "run_ms": 261}
+{"cell": "auto", "rep": 3, "n_in_run": 8, "cmd": "date", "perm_ms": 813, "run_ms": 187}
+{"cell": "auto+bashshell", "rep": 3, "run": true, "cost": 0.0076970400000000005, "cache_read": 412864, "cache_create": 15602, "input": 20, "output": 892, "turns": 10, "duration_ms": 18422, "api_ms": 15182, "snapshot_s": 0.45, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+bashshell", "rep": 3, "n_in_run": 1, "cmd": "true", "perm_ms": 192, "run_ms": 507}
+{"cell": "auto+bashshell", "rep": 3, "n_in_run": 2, "cmd": "pwd", "perm_ms": 397, "run_ms": 40}
+{"cell": "auto+bashshell", "rep": 3, "n_in_run": 3, "cmd": "ls", "perm_ms": 247, "run_ms": 117}
+{"cell": "auto+bashshell", "rep": 3, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 556, "run_ms": 90}
+{"cell": "auto+bashshell", "rep": 3, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 238, "run_ms": 56}
+{"cell": "auto+bashshell", "rep": 3, "n_in_run": 6, "cmd": "git status", "perm_ms": 200, "run_ms": 241}
+{"cell": "auto+bashshell", "rep": 3, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 74, "run_ms": 202}
+{"cell": "auto+bashshell", "rep": 3, "n_in_run": 8, "cmd": "date", "perm_ms": 276, "run_ms": 180}
+{"cell": "auto+globallow", "rep": 3, "run": true, "cost": 0.00779687, "cache_read": 413637, "cache_create": 15690, "input": 20, "output": 1041, "turns": 10, "duration_ms": 33284, "api_ms": 20018, "snapshot_s": 10.01, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+globallow", "rep": 3, "n_in_run": 1, "cmd": "true", "perm_ms": 4, "run_ms": 10101}
+{"cell": "auto+globallow", "rep": 3, "n_in_run": 2, "cmd": "pwd", "perm_ms": 2, "run_ms": 176}
+{"cell": "auto+globallow", "rep": 3, "n_in_run": 3, "cmd": "ls", "perm_ms": 3, "run_ms": 221}
+{"cell": "auto+globallow", "rep": 3, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 1553, "run_ms": 351}
+{"cell": "auto+globallow", "rep": 3, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 1, "run_ms": 188}
+{"cell": "auto+globallow", "rep": 3, "n_in_run": 6, "cmd": "git status", "perm_ms": 2, "run_ms": 312}
+{"cell": "auto+globallow", "rep": 3, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 505, "run_ms": 396}
+{"cell": "auto+globallow", "rep": 3, "n_in_run": 8, "cmd": "date", "perm_ms": 1, "run_ms": 210}
+{"cell": "bypass", "rep": 3, "run": true, "cost": 0.007718990000000001, "cache_read": 412909, "cache_create": 15612, "input": 20, "output": 931, "turns": 10, "duration_ms": 28189, "api_ms": 10399, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "bypass", "rep": 3, "n_in_run": 1, "cmd": "true", "perm_ms": 4, "run_ms": 10215}
+{"cell": "bypass", "rep": 3, "n_in_run": 2, "cmd": "pwd", "perm_ms": 2, "run_ms": 255}
+{"cell": "bypass", "rep": 3, "n_in_run": 3, "cmd": "ls", "perm_ms": 3, "run_ms": 291}
+{"cell": "bypass", "rep": 3, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 3, "run_ms": 317}
+{"cell": "bypass", "rep": 3, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 1, "run_ms": 172}
+{"cell": "bypass", "rep": 3, "n_in_run": 6, "cmd": "git status", "perm_ms": 2, "run_ms": 409}
+{"cell": "bypass", "rep": 3, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 1, "run_ms": 349}
+{"cell": "bypass", "rep": 3, "n_in_run": 8, "cmd": "date", "perm_ms": 1, "run_ms": 125}
+{"cell": "auto+mcp", "rep": 3, "run": true, "cost": 0.01125629, "cache_read": 517029, "cache_create": 27795, "input": 20, "output": 1050, "turns": 10, "duration_ms": 34364, "api_ms": 20576, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+mcp", "rep": 3, "n_in_run": 1, "cmd": "true", "perm_ms": 923, "run_ms": 10148}
+{"cell": "auto+mcp", "rep": 3, "n_in_run": 2, "cmd": "pwd", "perm_ms": 1066, "run_ms": 72}
+{"cell": "auto+mcp", "rep": 3, "n_in_run": 3, "cmd": "ls", "perm_ms": 1018, "run_ms": 179}
+{"cell": "auto+mcp", "rep": 3, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 1086, "run_ms": 174}
+{"cell": "auto+mcp", "rep": 3, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 771, "run_ms": 109}
+{"cell": "auto+mcp", "rep": 3, "n_in_run": 6, "cmd": "git status", "perm_ms": 1074, "run_ms": 244}
+{"cell": "auto+mcp", "rep": 3, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 749, "run_ms": 235}
+{"cell": "auto+mcp", "rep": 3, "n_in_run": 8, "cmd": "date", "perm_ms": 740, "run_ms": 149}
+{"cell": "auto+blanketBash", "rep": 3, "run": true, "cost": 0.00772906, "cache_read": 412966, "cache_create": 15617, "input": 20, "output": 948, "turns": 10, "duration_ms": 28319, "api_ms": 16589, "snapshot_s": 8.95, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+blanketBash", "rep": 3, "n_in_run": 1, "cmd": "true", "perm_ms": 528, "run_ms": 9037}
+{"cell": "auto+blanketBash", "rep": 3, "n_in_run": 2, "cmd": "pwd", "perm_ms": 355, "run_ms": 97}
+{"cell": "auto+blanketBash", "rep": 3, "n_in_run": 3, "cmd": "ls", "perm_ms": 671, "run_ms": 111}
+{"cell": "auto+blanketBash", "rep": 3, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 641, "run_ms": 178}
+{"cell": "auto+blanketBash", "rep": 3, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 330, "run_ms": 62}
+{"cell": "auto+blanketBash", "rep": 3, "n_in_run": 6, "cmd": "git status", "perm_ms": 259, "run_ms": 261}
+{"cell": "auto+blanketBash", "rep": 3, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 531, "run_ms": 154}
+{"cell": "auto+blanketBash", "rep": 3, "n_in_run": 8, "cmd": "date", "perm_ms": 328, "run_ms": 62}
+{"cell": "auto+exactallow", "rep": 3, "run": true, "cost": 0.00779106, "cache_read": 413326, "cache_create": 15669, "input": 20, "output": 1044, "turns": 10, "duration_ms": 32575, "api_ms": 20984, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+exactallow", "rep": 3, "n_in_run": 1, "cmd": "true", "perm_ms": 4, "run_ms": 10213}
+{"cell": "auto+exactallow", "rep": 3, "n_in_run": 2, "cmd": "pwd", "perm_ms": 2, "run_ms": 130}
+{"cell": "auto+exactallow", "rep": 3, "n_in_run": 3, "cmd": "ls", "perm_ms": 2, "run_ms": 176}
+{"cell": "auto+exactallow", "rep": 3, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 599, "run_ms": 187}
+{"cell": "auto+exactallow", "rep": 3, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 2, "run_ms": 130}
+{"cell": "auto+exactallow", "rep": 3, "n_in_run": 6, "cmd": "git status", "perm_ms": 2, "run_ms": 205}
+{"cell": "auto+exactallow", "rep": 3, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 1, "run_ms": 230}
+{"cell": "auto+exactallow", "rep": 3, "n_in_run": 8, "cmd": "date", "perm_ms": 1, "run_ms": 175}
+{"cell": "auto+nohooks", "rep": 3, "run": true, "cost": 0.00752316, "cache_read": 406976, "cache_create": 14962, "input": 20, "output": 918, "turns": 10, "duration_ms": 29630, "api_ms": 18355, "snapshot_s": 8.41, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+nohooks", "rep": 3, "n_in_run": 1, "cmd": "true", "perm_ms": 826, "run_ms": 8503}
+{"cell": "auto+nohooks", "rep": 3, "n_in_run": 2, "cmd": "pwd", "perm_ms": 844, "run_ms": 48}
+{"cell": "auto+nohooks", "rep": 3, "n_in_run": 3, "cmd": "ls", "perm_ms": 942, "run_ms": 107}
+{"cell": "auto+nohooks", "rep": 3, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 1088, "run_ms": 168}
+{"cell": "auto+nohooks", "rep": 3, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 867, "run_ms": 109}
+{"cell": "auto+nohooks", "rep": 3, "n_in_run": 6, "cmd": "git status", "perm_ms": 738, "run_ms": 157}
+{"cell": "auto+nohooks", "rep": 3, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 1123, "run_ms": 136}
+{"cell": "auto+nohooks", "rep": 3, "n_in_run": 8, "cmd": "date", "perm_ms": 1262, "run_ms": 97}
+{"cell": "bypass", "rep": 4, "run": true, "cost": 0.00772931, "cache_read": 412951, "cache_create": 15614, "input": 20, "output": 950, "turns": 10, "duration_ms": 23178, "api_ms": 10152, "snapshot_s": 8.78, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "bypass", "rep": 4, "n_in_run": 1, "cmd": "true", "perm_ms": 4, "run_ms": 8826}
+{"cell": "bypass", "rep": 4, "n_in_run": 2, "cmd": "pwd", "perm_ms": 2, "run_ms": 41}
+{"cell": "bypass", "rep": 4, "n_in_run": 3, "cmd": "ls", "perm_ms": 2, "run_ms": 100}
+{"cell": "bypass", "rep": 4, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 3, "run_ms": 63}
+{"cell": "bypass", "rep": 4, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 2, "run_ms": 39}
+{"cell": "bypass", "rep": 4, "n_in_run": 6, "cmd": "git status", "perm_ms": 3, "run_ms": 103}
+{"cell": "bypass", "rep": 4, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 3, "run_ms": 96}
+{"cell": "bypass", "rep": 4, "n_in_run": 8, "cmd": "date", "perm_ms": 2, "run_ms": 66}
+{"cell": "auto+globallow", "rep": 4, "run": true, "cost": 0.00761926, "cache_read": 412606, "cache_create": 15446, "input": 20, "output": 804, "turns": 10, "duration_ms": 25277, "api_ms": 17336, "snapshot_s": 6.97, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+globallow", "rep": 4, "n_in_run": 1, "cmd": "true", "perm_ms": 3, "run_ms": 7033}
+{"cell": "auto+globallow", "rep": 4, "n_in_run": 2, "cmd": "pwd", "perm_ms": 2, "run_ms": 47}
+{"cell": "auto+globallow", "rep": 4, "n_in_run": 3, "cmd": "ls", "perm_ms": 2, "run_ms": 68}
+{"cell": "auto+globallow", "rep": 4, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 603, "run_ms": 68}
+{"cell": "auto+globallow", "rep": 4, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 2, "run_ms": 36}
+{"cell": "auto+globallow", "rep": 4, "n_in_run": 6, "cmd": "git status", "perm_ms": 3, "run_ms": 99}
+{"cell": "auto+globallow", "rep": 4, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 695, "run_ms": 139}
+{"cell": "auto+globallow", "rep": 4, "n_in_run": 8, "cmd": "date", "perm_ms": 2, "run_ms": 119}
+{"cell": "auto+blanketBash", "rep": 4, "run": true, "cost": 0.00779335, "cache_read": 413765, "cache_create": 15721, "input": 20, "output": 1019, "turns": 10, "duration_ms": 30711, "api_ms": 20090, "snapshot_s": 7.64, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+blanketBash", "rep": 4, "n_in_run": 1, "cmd": "true", "perm_ms": 1175, "run_ms": 7705}
+{"cell": "auto+blanketBash", "rep": 4, "n_in_run": 2, "cmd": "pwd", "perm_ms": 563, "run_ms": 39}
+{"cell": "auto+blanketBash", "rep": 4, "n_in_run": 3, "cmd": "ls", "perm_ms": 660, "run_ms": 95}
+{"cell": "auto+blanketBash", "rep": 4, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 504, "run_ms": 89}
+{"cell": "auto+blanketBash", "rep": 4, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 623, "run_ms": 63}
+{"cell": "auto+blanketBash", "rep": 4, "n_in_run": 6, "cmd": "git status", "perm_ms": 479, "run_ms": 94}
+{"cell": "auto+blanketBash", "rep": 4, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 561, "run_ms": 115}
+{"cell": "auto+blanketBash", "rep": 4, "n_in_run": 8, "cmd": "date", "perm_ms": 652, "run_ms": 89}
+{"cell": "auto+bashshell", "rep": 4, "run": true, "cost": 0.007741519999999999, "cache_read": 412872, "cache_create": 15599, "input": 20, "output": 982, "turns": 10, "duration_ms": 20724, "api_ms": 17497, "snapshot_s": 0.38, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+bashshell", "rep": 4, "n_in_run": 1, "cmd": "true", "perm_ms": 930, "run_ms": 426}
+{"cell": "auto+bashshell", "rep": 4, "n_in_run": 2, "cmd": "pwd", "perm_ms": 459, "run_ms": 73}
+{"cell": "auto+bashshell", "rep": 4, "n_in_run": 3, "cmd": "ls", "perm_ms": 713, "run_ms": 129}
+{"cell": "auto+bashshell", "rep": 4, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 399, "run_ms": 68}
+{"cell": "auto+bashshell", "rep": 4, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 733, "run_ms": 40}
+{"cell": "auto+bashshell", "rep": 4, "n_in_run": 6, "cmd": "git status", "perm_ms": 689, "run_ms": 175}
+{"cell": "auto+bashshell", "rep": 4, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 415, "run_ms": 117}
+{"cell": "auto+bashshell", "rep": 4, "n_in_run": 8, "cmd": "date", "perm_ms": 393, "run_ms": 77}
+{"cell": "auto+exactallow", "rep": 4, "run": true, "cost": 0.0078336, "cache_read": 413550, "cache_create": 15688, "input": 20, "output": 1117, "turns": 10, "duration_ms": 28402, "api_ms": 19800, "snapshot_s": 6.71, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+exactallow", "rep": 4, "n_in_run": 1, "cmd": "true", "perm_ms": 5, "run_ms": 6744}
+{"cell": "auto+exactallow", "rep": 4, "n_in_run": 2, "cmd": "pwd", "perm_ms": 2, "run_ms": 42}
+{"cell": "auto+exactallow", "rep": 4, "n_in_run": 3, "cmd": "ls", "perm_ms": 3, "run_ms": 82}
+{"cell": "auto+exactallow", "rep": 4, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 709, "run_ms": 186}
+{"cell": "auto+exactallow", "rep": 4, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 2, "run_ms": 54}
+{"cell": "auto+exactallow", "rep": 4, "n_in_run": 6, "cmd": "git status", "perm_ms": 3, "run_ms": 172}
+{"cell": "auto+exactallow", "rep": 4, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 1, "run_ms": 191}
+{"cell": "auto+exactallow", "rep": 4, "n_in_run": 8, "cmd": "date", "perm_ms": 2, "run_ms": 116}
+{"cell": "auto", "rep": 4, "run": true, "cost": 0.00768351, "cache_read": 412831, "cache_create": 15596, "input": 20, "output": 868, "turns": 10, "duration_ms": 31442, "api_ms": 17169, "snapshot_s": 10.01, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto", "rep": 4, "n_in_run": 1, "cmd": "true", "perm_ms": 515, "run_ms": 10112}
+{"cell": "auto", "rep": 4, "n_in_run": 2, "cmd": "pwd", "perm_ms": 740, "run_ms": 111}
+{"cell": "auto", "rep": 4, "n_in_run": 3, "cmd": "ls", "perm_ms": 614, "run_ms": 332}
+{"cell": "auto", "rep": 4, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 460, "run_ms": 85}
+{"cell": "auto", "rep": 4, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 573, "run_ms": 140}
+{"cell": "auto", "rep": 4, "n_in_run": 6, "cmd": "git status", "perm_ms": 412, "run_ms": 388}
+{"cell": "auto", "rep": 4, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 405, "run_ms": 367}
+{"cell": "auto", "rep": 4, "n_in_run": 8, "cmd": "date", "perm_ms": 393, "run_ms": 117}
+{"cell": "auto+nohooks", "rep": 4, "run": true, "cost": 0.0075171, "cache_read": 406870, "cache_create": 14947, "input": 20, "output": 914, "turns": 10, "duration_ms": 29187, "api_ms": 15397, "snapshot_s": 10.0, "snapshot_ok": false, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+nohooks", "rep": 4, "n_in_run": 1, "cmd": "true", "perm_ms": 570, "run_ms": 10144}
+{"cell": "auto+nohooks", "rep": 4, "n_in_run": 2, "cmd": "pwd", "perm_ms": 492, "run_ms": 85}
+{"cell": "auto+nohooks", "rep": 4, "n_in_run": 3, "cmd": "ls", "perm_ms": 494, "run_ms": 125}
+{"cell": "auto+nohooks", "rep": 4, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 523, "run_ms": 320}
+{"cell": "auto+nohooks", "rep": 4, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 537, "run_ms": 149}
+{"cell": "auto+nohooks", "rep": 4, "n_in_run": 6, "cmd": "git status", "perm_ms": 491, "run_ms": 273}
+{"cell": "auto+nohooks", "rep": 4, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 678, "run_ms": 219}
+{"cell": "auto+nohooks", "rep": 4, "n_in_run": 8, "cmd": "date", "perm_ms": 503, "run_ms": 167}
+{"cell": "auto+mcp", "rep": 4, "run": true, "cost": 0.011286080000000002, "cache_read": 517588, "cache_create": 27836, "input": 20, "output": 1082, "turns": 10, "duration_ms": 28782, "api_ms": 17165, "snapshot_s": 8.88, "snapshot_ok": true, "n_bash": 8, "models": ["claude-haiku-5-5"]}
+{"cell": "auto+mcp", "rep": 4, "n_in_run": 1, "cmd": "true", "perm_ms": 334, "run_ms": 8964}
+{"cell": "auto+mcp", "rep": 4, "n_in_run": 2, "cmd": "pwd", "perm_ms": 760, "run_ms": 39}
+{"cell": "auto+mcp", "rep": 4, "n_in_run": 3, "cmd": "ls", "perm_ms": 524, "run_ms": 111}
+{"cell": "auto+mcp", "rep": 4, "n_in_run": 4, "cmd": "cat /etc/hosts", "perm_ms": 477, "run_ms": 61}
+{"cell": "auto+mcp", "rep": 4, "n_in_run": 5, "cmd": "echo hi", "perm_ms": 427, "run_ms": 41}
+{"cell": "auto+mcp", "rep": 4, "n_in_run": 6, "cmd": "git status", "perm_ms": 503, "run_ms": 143}
+{"cell": "auto+mcp", "rep": 4, "n_in_run": 7, "cmd": "python3 -c pass", "perm_ms": 560, "run_ms": 124}
+{"cell": "auto+mcp", "rep": 4, "n_in_run": 8, "cmd": "date", "perm_ms": 436, "run_ms": 83}

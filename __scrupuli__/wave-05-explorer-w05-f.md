@@ -1,0 +1,15 @@
+## S-w05-explorer-w05-f-1
+With hooks disabled, auto mode's permission decision is slower (1101 ms median, n = 35) than with the user's hooks (747 ms, n = 35). Hooks cannot make a decision faster unless the classifier starts concurrently with the PreToolUse hooks and the hooks' time hides inside it, or the machine was noisier for that cell. explorer-w05-d saw the opposite (1.31 s with hooks, 0.93 without). I did not test the overlap, so "hooks add 0.16 to 0.38 s on top of auto" is probably wrong, and the lean-hooks saving per call may be smaller than assumed in auto mode.
+refs: __reports__/wave-05/explorer-w05-f/timing_table.md (run 1, `auto` and `auto+nohooks`); __reports__/wave-05/explorer-w05-f/rows_main.jsonl
+
+## S-w05-explorer-w05-f-2
+The classifier's cost is invisible: `total_cost_usd`, `modelUsage`, the transcript's `cost-state` and the `api-request` count are identical in auto and bypass, yet the binary carries `classifierCostUSD`, `classifierInputTokens` and two stages in its telemetry events and the docs say these count toward token usage. So every spend figure of the lab (lab_status, harness) in auto mode is a lower bound by an unknown amount, and I could not find where the classifier's tokens are recorded. If auto-mode runs are USD-priced for a decision (the PI's USD 75), the missing share is unknown.
+refs: __reports__/wave-05/explorer-w05-f/timing_table.md (run 1, tokens table); /private/tmp/murmuration-w05/explorer-w05-f/claude_strings.txt (search `classifierCostUSD`)
+
+## S-w05-explorer-w05-f-3
+Under three parallel headless runs, 17 of 35 zsh shell snapshots failed at the 10 s timeout (the snapshot sources `~/.zshrc`), and the first Bash call took 10.1 s. A wave dispatches 5 to 8 workers at once, so the live lab probably sees this. I do not know what the shell has afterwards (PATH from `.zshrc` missing?) or whether a worker's `python3`, `uv` or `git` then resolves to another binary. This is also why explorer-w05-d's first-call figure of 4.4 to 6.4 s is the idle case only.
+refs: __reports__/wave-05/explorer-w05-f/rows_main.jsonl (snapshot_ok false); /private/tmp/murmuration-w05/explorer-w05-f/main/dbg/auto_0.log (search `Shell snapshot creation failed`)
+
+## S-w05-explorer-w05-f-4
+`Bash(python3 -I ./hello.py *)` did not skip the classifier (about 400 to 570 ms) but the exact string `Bash(python3 -c pass)` did (1 to 3 ms). The lab's commands are mostly `python3 -I scripts/...`; a rule list can only match them by exact string, which cannot cover varying arguments. Also `cat /etc/hosts` against an exact rule was still classified (a path outside the working directory?). I did not find out which forms of rule the platform accepts for interpreter scripts, nor whether a PreToolUse hook that answers `permissionDecision: allow` for named lab scripts would skip the classifier; that is the next lever to test.
+refs: __reports__/wave-05/explorer-w05-f/timing_table.md (run 2, `auto+labrules`; run 1 `auto+exactallow`); __reports__/wave-05/explorer-w05-f/rows_lab.jsonl

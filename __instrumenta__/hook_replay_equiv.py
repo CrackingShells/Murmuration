@@ -6,7 +6,7 @@ and fires the hooks a worker would fire: PreToolUse(Agent) dispatch and Subagent
 PreToolUse(SubagentHandback) at each hand-back attempt, and SubagentStop. Each version runs in its own process with the same `now` values (`handle(event, now=...)`).
 Output: one line per transcript: steps, answers that were not None, log lines, and EQUAL or the first difference. Compared: each answer; harness.jsonl without its `t`; the files in
 handbacks/; each state file without the `sc` key (the new version's read offset and request costs) and the deny markers. Exit code 1 when any transcript differs.
-The sh gate and the `python3 -S -I` flags of hooks.json (no -B: the bytecode cache is the point) are not replayed here (hook_cost_time.py runs the commands themselves; budget_selftest.py checks the gate).
+--merged (w05-c4): for a new version whose hooks.json has no PostToolBatch registration; see the flag. The sh gate and the `python3 -S -I` flags of hooks.json (no -B: the bytecode cache is the point) are not replayed here (hook_cost_time.py runs the commands themselves; budget_selftest.py checks the gate).
 """
 import argparse, datetime, glob, json, os, shutil, subprocess, sys
 
@@ -16,6 +16,8 @@ ap.add_argument("--new")
 ap.add_argument("--fx")
 ap.add_argument("--child", nargs=3, metavar=("SCRIPTS", "LAB", "EVENTS"))
 ap.add_argument("--max-steps", type=int, default=0)
+ap.add_argument("--dump", help="write the old and the new snapshot (after normalisation) of each transcript to DIR/<transcript>.old.json and .new.json")
+ap.add_argument("--merged", action="store_true", help="w05-c4: the new version has no PostToolBatch registration: it gets no PostToolBatch events, and the answers are compared as the sequence of non-empty answers with the event name normalised (the old version's note at a step's PostToolBatch is the new one's at that step's PostToolUse); `sent` and `ceil_req` are not compared")
 ap.add_argument("transcripts", nargs="*")
 args = ap.parse_args()
 
@@ -38,12 +40,14 @@ def child(scripts, lab, events_path):
         for script in ev["scripts"]:
             payload = dict(ev["payload"], cwd=lab)
             if script == "budget":
+                if os.environ.get("REPLAY_DROP_BATCH") and payload["hook_event_name"] == "PostToolBatch":
+                    continue
                 ans = budget.handle(payload, now=ev["now"])
             else:
                 ans = handback.gate(payload)
                 if payload["hook_event_name"] != "PreToolUse":
                     handback.handle(payload, now=dt)
-            answers.append([script, payload["hook_event_name"], payload.get("tool_name"), ans])
+            answers.append([script, payload["hook_event_name"], payload.get("tool_name"), ans, ev["now"]])
     snap = dict(answers=answers)
     snap["log"] = [{k: v for k, v in json.loads(l).items() if k != "t"} for l in open(os.path.join(lab, "__statera__", "harness.jsonl"))] if os.path.exists(os.path.join(lab, "__statera__", "harness.jsonl")) else []
     hb = os.path.join(lab, "__statera__", "handbacks")
@@ -54,6 +58,8 @@ def child(scripts, lab, events_path):
         if n.endswith(".json"):
             d = json.load(open(os.path.join(st, n)))
             d.pop("sc", None)
+            if os.environ.get("REPLAY_DROP_BATCH") or os.environ.get("REPLAY_NORM"):
+                d.pop("sent", None), d.pop("ceil_req", None)
             state[n] = d
         elif n.endswith(".denied"):
             state[n] = "marker"
@@ -125,6 +131,11 @@ def events_for(tpath, lab_sess):
 
 
 def run_one(tpath, variant_dir, tag):
+    if args.merged:
+        os.environ.pop("REPLAY_DROP_BATCH", None)
+        os.environ["REPLAY_NORM"] = "1"
+        if tag == "new":
+            os.environ["REPLAY_DROP_BATCH"] = "1"
     fx = os.path.join(os.path.abspath(args.fx), "run")   # one folder name for both versions, rebuilt each time: paths that appear in hand-backs are then equal
     shutil.rmtree(fx, ignore_errors=True)
     lab, sess = os.path.join(fx, "lab"), os.path.join(fx, "sess")
@@ -156,6 +167,19 @@ for t in args.transcripts:
     old, steps = run_one(t, args.old, "old")
     new, _ = run_one(t, args.new, "new")
     diff = None
+    if args.merged:
+        def norm(snap):
+            out = []
+            for sc, ev_, tool, ans, now in snap["answers"]:
+                if ans:
+                    ans = json.loads(json.dumps(ans).replace('"hookEventName": "PostToolBatch"', '"hookEventName": "PostToolUse"'))
+                    out.append([sc, now, ans])
+            return out
+        old["answers"], new["answers"] = norm(old), norm(new)
+    if args.dump:
+        os.makedirs(args.dump, exist_ok=True)
+        for tag_, snap_ in (("old", old), ("new", new)):
+            json.dump(snap_, open(os.path.join(args.dump, os.path.basename(t) + "." + tag_ + ".json"), "w"), indent=1)
     for key in ("answers", "log", "handbacks", "state"):
         if old[key] != new[key]:
             if isinstance(old[key], list):
@@ -164,7 +188,7 @@ for t in args.transcripts:
             else:
                 diff = "%s differs: old=%s new=%s" % (key, json.dumps(old[key])[:300], json.dumps(new[key])[:300])
             break
-    nans = sum(1 for a in old["answers"] if a[3])
+    nans = sum(1 for a in old["answers"] if (a[2] if args.merged else a[3]))
     kinds = sorted({l["event"] for l in old["log"]})
     print("%s | steps=%d answers=%d log=%d (%s) | %s" % (os.path.basename(t), steps, nans, len(old["log"]), ",".join(kinds), "EQUAL" if diff is None else "DIFF " + diff))
     bad += diff is not None

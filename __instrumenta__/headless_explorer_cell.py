@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Runs one headless cell of wave-4 E1/E2: a haiku parent dispatches one sonnet explorer (Budget/Time lines, report deliverable, N generated station files) and waits; writes the run folder, ground truth and meta.json.
-usage: headless_explorer_cell.py <scratch> <cell> <plugin dir> --seed S [--files N] [--budget USD] [--time MIN] [--cap USD; default none] [--brief report|list]
+usage: headless_explorer_cell.py <scratch> <cell> <plugin dir> --seed S [--files N] [--extra TEXT] [--budget USD] [--time MIN] [--cap USD; default none] [--brief report|list]
 Derived from __reports__/reflective_run/w03/author-w03-1/e2e_drive.py (no resume step; ground truth kept outside the lab; the report path as the deliverable).
 Output under <scratch>/runs/<cell>/: lab/ (the explorer's project), ground.json (never in the lab), stdout.jsonl, meta.json. Stdlib only; the model has no seed."""
 import argparse, json, os, random, shutil, subprocess, sys, time
 ap = argparse.ArgumentParser(); ap.add_argument("scratch"); ap.add_argument("cell"); ap.add_argument("plugin")
 ap.add_argument("--seed", type=int, required=True); ap.add_argument("--files", type=int, default=90); ap.add_argument("--budget", default="0.30"); ap.add_argument("--time", default="20")
-ap.add_argument("--cap", default=""); ap.add_argument("--task", default="stations"); ap.add_argument("--brief", default="report")   # cap "" = no --max-budget-usd flag: with the flag the platform shows every request a `budget_usd` attachment (used, total, remaining) of the whole session
+ap.add_argument("--extra", default=""); ap.add_argument("--cap", default=""); ap.add_argument("--task", default="stations"); ap.add_argument("--brief", default="report")   # cap "" = no --max-budget-usd flag: with the flag the platform shows every request a `budget_usd` attachment (used, total, remaining) of the whole session
 a = ap.parse_args()
 S = os.path.abspath(a.scratch); plugin = os.path.abspath(a.plugin)
 base = os.path.join(S, "runs", a.cell); shutil.rmtree(base, ignore_errors=True)
@@ -53,6 +53,7 @@ elif a.brief == "report":
 else:   # the wave-3 shape: the list goes into the hand-back message
     task = ("Read the %d files f001.txt to f%03d.txt in the current directory, one file per Bash call (`cat fNNN.txt`), one call at a time, in order. "
             "Your deliverable is the complete list, one line per file: the file name, the station name, the founding year, and the founder. Write it in your hand-back." % (a.files, a.files))
+task += (" " + a.extra) if a.extra else ""   # w05-c4: a sentence added to the task (e.g. to make the worker go on past its notes, so that the ceiling block is reached)
 brief = "Your name is %s.\nBudget: USD %s\nTime: min %s\n%s" % (name, a.budget, a.time, task)
 prompt = ("Step 1: call the Agent tool once with subagent_type 'murmuration:explorer', name '%s', run_in_background true, with exactly the text between the lines ==== as its prompt (keep every line, change nothing).\n====\n%s\n====\n"
           "Step 2: wait for the worker's completion notification (while waiting, run `sleep 20` with Bash, one call at a time, at most 60 times). Do not end your turn before it arrives. "

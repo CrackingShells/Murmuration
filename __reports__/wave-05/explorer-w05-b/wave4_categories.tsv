@@ -1,0 +1,27 @@
+category	items	tokens_entered	carry_cost_share	cache_write_share	cache_read_share	carry_cost_share_if_chars_proportional	share_of_total_list_price_incl_output
+base context at start (system, tools, memory, skills)	1	74632	0.2735	0.0715	0.2020	0.2735	0.2174
+PI own output (text + tool calls)	113	82554	0.1859	0.0791	0.1068	0.1819	0.3529
+tool result: Bash: lab scripts	29	29777	0.0919	0.0285	0.0634	0.1047	0.0731
+peer message (worker report or reply)	24	41290	0.0878	0.0396	0.0482	0.0898	0.0698
+tool result: Bash: other	18	28217	0.0819	0.0270	0.0548	0.0826	0.0651
+listing/deltas (skills, tools, mcp)	10	18594	0.0577	0.0178	0.0399	0.0626	0.0459
+tool result: Bash: file view (cat/sed/head/tail)	4	12949	0.0465	0.0124	0.0341	0.0474	0.0370
+tool result: Bash: write via heredoc	10	18149	0.0391	0.0174	0.0217	0.0411	0.0310
+other attachments (total_tokens_reminder)	89	16379	0.0388	0.0157	0.0231	0.0114	0.0309
+task notification	25	16174	0.0330	0.0155	0.0175	0.0261	0.0263
+subagent hand-back (queued)	5	7399	0.0140	0.0071	0.0069	0.0167	0.0111
+tool result: Bash: ls/find/wc/ps	6	4442	0.0140	0.0043	0.0097	0.0154	0.0111
+skill body load	1	3494	0.0127	0.0033	0.0094	0.0121	0.0101
+tool result: Agent tool result (sync)	16	2685	0.0068	0.0026	0.0043	0.0202	0.0054
+other attachments (silent_turn_reminder)	4	2399	0.0067	0.0023	0.0044	0.0010	0.0053
+tool result: Read (whole file)	1	1555	0.0056	0.0015	0.0041	0.0032	0.0045
+other attachments (environment)	2	1078	0.0038	0.0010	0.0028	0.0023	0.0030
+tool result: SendMessage	13	0	0.0000	0.0000	0.0000	0.0028	0.0000
+tool result: mcp__ccd_turn__update_plan	3	0	0.0000	0.0000	0.0000	0.0001	0.0000
+other attachments (edited_text_file)	3	0	0.0000	0.0000	0.0000	0.0008	0.0000
+tool result: Write	2	0	0.0000	0.0000	0.0000	0.0006	0.0000
+tool result: Skill	1	0	0.0000	0.0000	0.0000	0.0001	0.0000
+other attachments (command_permissions)	1	0	0.0000	0.0000	0.0000	0.0001	0.0000
+tool result: Bash: git	1	0	0.0000	0.0000	0.0000	0.0031	0.0000
+tool result: Edit	1	0	0.0000	0.0000	0.0000	0.0003	0.0000
+tool result: mcp__ccd_turn__wrap_up	1	0	0.0000	0.0000	0.0000	0.0001	0.0000

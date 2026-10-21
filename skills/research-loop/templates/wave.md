@@ -10,6 +10,10 @@ opened: YYYY-MM-DD
 
 <Why this wave is worth running, in plain words: the anomaly, gap or open question that drives it.>
 
+## Reassessments
+
+<One entry each time results come back: what came back, what it changes, what is dropped.>
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |

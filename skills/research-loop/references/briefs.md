@@ -17,7 +17,9 @@ them.
    `__instrumenta__/`: the one run that was told "no claim file is needed" wrote no script file, and
    the six runs that were not told it all did (a difference seen once, not a tested cause).
 5. **Rules:** the project's tool and compute limits; no downloads unless allowed; commit only your
-   own files; never stop processes by name pattern.
+   own files, by naming them (`git add <your paths> && git commit -m "<why>" -- <your paths>`; a new
+   file must be added first), since a plain commit also takes what another agent has staged;
+   never stop processes by name pattern.
 6. **The budget lines,** each on its own line, exactly `Budget: USD <number>` and `Time: min <number>`
    (defaults in the table below; never below the floor, see Limits). The harness tells the worker
    itself how the notes work, so the brief needs no sentence about them.

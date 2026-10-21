@@ -1,0 +1,8 @@
+first dispatch 9:34:50
+C12	end 10:53:38	span_min 78.8
+C5	end 10:48:13	span_min 73.4
+C11	end 10:41:28	span_min 66.6
+C1	end 9:52:27	span_min 17.6
+C6	end 9:42:05	span_min 7.2
+pre (to first dispatch, from wave start 9:27:19): 7.5 min; close after last verdict: 1.8 min; wave end 10:55:24
+second chain C5 ends 10:48:13: removing the critical chain entirely saves at most 5.4 min if close time is unchanged

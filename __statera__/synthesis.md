@@ -10,8 +10,9 @@
 
 Every statement below carries the current label of its claim, from `python3 scripts/lab_status.py`.
 "By PI decision" means the verifier escalated and the PI decided, as recorded in the wave notes.
-Waves 1–3 were merged to `main` by the user (84ff038). Wave 4 is on branch
-`claude/murmuration-wave-4-3417be`, not merged; see "Wave 4" below.
+Waves 1–3 were merged to `main` by the user (84ff038). Wave 4 was merged into the local `main` at
+the user's choice on 2026-10-21 (4c675ec, not pushed). Wave 5 is on branch
+`claude/lab-system-optimization-1aa673`, not merged; see "Wave 5" below.
 
 ## The answer
 
@@ -198,6 +199,81 @@ real bugs in the exchange, both fixed.
 - Headless workers read files outside their lab (another session's scratchpad, an old plugin
   cache) while looking for the skill.
 
+## Wave 5: the speed and leanness of operating the lab (2026-10-21)
+
+> "I'd really like that you work on optimizing the speed and leanness of operating your lab. Of
+> course, just like the other puzzle, this is not a checklist item but part of the trajectory."
+> "note: make sure you are always running the latest version of the plugin on yourself"
+> (`user_words.md` of the main checkout, 14:29; the hook wrote it there)
+
+**The lab was not running the plugin it improves.**
+- The plugin is read in place from the main checkout's working tree. Its cache copy, still at
+  9eb759b from 19 October, is never read. So "updating the installation" changes nothing.
+- The Desktop starts every session with the hidden flag `--project-config-root <main checkout>`
+  (explorer-w05-e, reproduced headless). A worktree's own `.claude/` settings are therefore never
+  read. `--scope local` from a worktree writes main's file. The prompt hook writes to main's
+  `user_words.md`.
+- Waves 3 and 4 measured their changes in headless runs on their branch. Their PIs and subagents
+  ran main's copy.
+- A reinstall-on-start hook cannot help: a directory plugin has nothing to update, and SessionStart
+  fires after loading. "The latest version on myself" therefore means keeping main current. Wave 4
+  was merged for that reason, by your choice. The other way is a symlinked marketplace path.
+
+**Where a wave's time and money go.** The five probes measured wave 4:
+- The PI was idle 75% of the time and owned about 11 minutes of the critical path.
+- The 88 minutes were one author's experiment pipeline: 53 minutes of headless runs in 10 serial
+  stages, 15 of them rerunning cells after a confound was found late.
+- 80% of worker Bash time was 48 calls of 60 s or more, waiting.
+- Orientation (skill, framing, agent files) was about 3% of worker spend. Re-reads were negligible.
+- The hooks cost about 156 s per wave, `lab_status.py` about 0.8 s a call.
+- Larger than all the hooks: auto mode puts a permission classifier on every Bash call, at a median
+  of 448 to 747 ms. Its cost is in no record Claude Code keeps, so every spend figure in auto mode
+  is a lower bound (explorer-w05-f, CHECKED on haiku headless runs).
+
+**What changed, on the branch, each with an independent verdict:**
+- **How a worker waits (w05-c1 · MEASURED, restated by PI decision).**
+  - One paragraph in the worker files: no tool call waits more than 4½ minutes; poll in chunks; stop
+    your own background jobs by pid.
+  - An author subagent with 227k tokens of context, waiting on a 9-minute job, had 0 cold requests
+    against 1 and cost 0.57 of the old file (0.53 in the verifier's pair; n = 3 per arm, one task).
+  - The cause: a subagent's prompt cache lives 5 minutes, a headless main thread's 1 hour.
+  - Not run: the other three agent files (same text, CONJECTURE), message latency during a wait, and
+    the stop-your-jobs clause. Two text fixes came after the runs and are untested.
+- **The colgrep path (w05-c2 · CHECKED).** The relative `__instrumenta__` searched the plugin
+  source in a Desktop worktree session, not the lab. The agent files now say an absolute path.
+- **The PI's tool schemas (w05-c7 · MEASURED, headless).**
+  - A `disallowedTools:` line removes about 15,690 tokens from the PI's request 0, in 4 of 4 pairs.
+    Connectors and project MCP servers stay.
+  - An allowlist (w05-c3, superseded) did the same and silently dropped every server the plugin
+    cannot name.
+  - Artifact alone is 74% of the saving. Denying it is a judgement left to you.
+  - The Desktop effect is an ESTIMATE (7.5–12% of a wave-4 PI) until one Desktop session is read.
+- **`lab_status.py` (w05-c5 · MEASURED).** One git call instead of three, and a parse cache: 835 to
+  261 ms warm, output identical. The verifier found two real defects in the cache, both fixed and
+  retested.
+- **Commits in a shared checkout (w05-c8 · CHECKED).** A plain `git commit` took another agent's
+  staged revert into an unrelated commit (baba44f). Workers now commit by naming paths.
+- **Reassessment in the procedure (w05-c10 · CONJECTURE).** After your remark that my plans never
+  contain a re-plan, `waves.md` and the wave template ask for an entry each time results come back.
+  In this wave six entries recorded changes of plan. That causation is not shown.
+
+**Set aside.** The second lean hooks build (w05-c4 · MEASURED) halves the hooks' serial time
+(−52.5% to −56%; starts 1788 to 985 a wave). E7's rule does not propose it:
+- the build sends an extra message on 11 of 197 transcripts when tool calls come in parallel
+  batches;
+- it is 6% slower at a 500 KB payload, which the platform was not seen to send (31 KB at most);
+- the rule's "identical on 291 of 291" was mine, and it was partly ill-posed.
+
+It stays at ede2770, set aside at 0d3c879.
+
+**What the team caught.** Verifiers changed something in 6 of the 7 claims they closed:
+- two cache defects;
+- an unrecorded protocol switch, and a pid file shared between parallel runs;
+- a replay that could not see parallel batches;
+- "intact" that was only "present";
+- the missing `git add` for new files;
+- my own estimated clock times in the wave note.
+
 ## What stays out, and why (w01-c13 · CONJECTURE, verifier SUPPORTED)
 
 Examined and staying out:
@@ -214,9 +290,10 @@ nothing argued for them, not because the evidence ruled them out.
 
 | Claim | State | Why |
 |:--|:--|:--|
-| w01-c10, the prompt hook's lab root (cwd first) | below CONJECTURE: restate | Replaced by w04-c1 (first recorded cwd), on the wave-4 branch |
+| w01-c10, the prompt hook's lab root (cwd first) | below CONJECTURE: restate | Replaced by w04-c1 (first recorded cwd), now on main with wave 4 |
 | w04-c5, the lean hooks | MEASURED; not proposed | E4's long-worker criterion missed (48.4% against 50%); set aside at `4c46fe4` |
-| w04-c12, the report line with the template path | see "Still open" 8 | On the wave-4 branch for your decision |
+| w05-c4, the lean hooks, second build | MEASURED; not proposed | E7: an extra message on 11 of 197 transcripts in parallel batches, 6% slower at 500 KB; at ede2770, set aside at 0d3c879 |
+| w04-c12, the report line with the template path | on main with wave 4 | Merged with wave 4 at your choice; its open questions stay in "Still open" 8 |
 | w01-c6, close message to the human | below CONJECTURE: restate | It plausibly pre-empts 3 of 55 prompts; you chose "neither for now" |
 | w01-c7, asking habit | below CONJECTURE: restate | It removes 1–2 of 19 asks; you chose "neither for now" |
 | AskUserQuestion capture | prototype only (in w02-c2) | It works headless; a one-minute Desktop test with one answered dialog is needed |
@@ -236,28 +313,55 @@ Wave 4 (2026-10-20, 09:27–10:55 JST) cost at least USD 53.15 against your budg
 - The registry md5 of `installed_plugins.json` was unchanged from start to close.
 - The wave ended at 10:55, before the 12:00 stop.
 
+Wave 5 (2026-10-21, 14:29–16:16 JST) cost at least USD 44.47 against your budget of 150:
+- 26.29 for this checkout's session, the PI and its 15 subagents included. That is list price,
+  because the session was still open, so it is a lower bound;
+- 18.18 for the headless runs under `/private/tmp/murmuration-w05/`, exact from cost-state, with
+  all sessions ended.
+
+Both are lower bounds in auto mode, because the permission classifier's cost is in no record.
+
 The PI set itself a cap of about USD 60 for wave 2. Wave 2 spent about 78, so the PI overran its own
 cap by about 18. The USD 70–90 proposed for the whole study after wave 1 was never confirmed, and it
 was overrun too. The user's budget for wave 2 was six hours. Wave 2 ran from 12:30 to about 17:00 JST.
 
 ## Still open
 
-Items 2, 3, 13 and 14 are done. Items 1 and 8–11 were worked in wave 4 and keep only what is
-left. 15–18 are new.
+Items 2, 3, 13 and 14 were done before wave 5. Wave 5 settled 1(d) and adds 19 to 24.
+
+**Your decisions first.** On branch `claude/lab-system-optimization-1aa673`, each with its verdict:
+
+| Change | Claim | Decide |
+|:--|:--|:--|
+| Waiting paragraph in the four worker files | w05-c1 · MEASURED (restated by PI decision) | land or not; two text edits after the runs are untested (5906331) |
+| colgrep path made absolute in the agent files | w05-c2 · CHECKED | land or not |
+| `disallowedTools:` on `research-pi` | w05-c7 · MEASURED headless | land or not, and whether Artifact stays denied (74% of the saving) |
+| `lab_status.py` one git call and parse cache | w05-c5 · MEASURED | land the cache (+147 lines, two defects found and fixed) or only the git call (−11%, free) |
+| Commit by naming paths, in briefs and working defaults | w05-c8 · CHECKED | land or not |
+| "Reassessments" in `waves.md` and the wave template | w05-c10 · CONJECTURE | land or not |
+| Second lean hooks build | w05-c4 · MEASURED, not proposed | leave set aside, or ask for a third build (item 9) |
+
+Changes reach a running PI only once they are on main's working tree (item 1(e)).
 
 | # | Open item | Who | Cost |
 |:--|:--|:--|:--|
-| 1 | **Lab root, what is left.** (a) Your choice for w04-c1: the session's first cwd wins (a shell `cd` elsewhere is harmless; a session that starts in main and enters a worktree keeps its words in main), or the payload cwd wins (the reverse). (b) Your 09:27 prompt sits uncommitted in the main checkout's `__statera__/user_words.md`, written by the shipped hook: keep or revert it. (c) Dialog answers are still not captured; the prototype in w02-c2 needs one answered dialog in a new Desktop session. (d) The Desktop's hook CLAUDE_PROJECT_DIR is inferred, not dumped: a new Desktop session with the probe of w01-c10 settles it | you | minutes |
-| 4 | Whether stated budgets make the PI plan a smaller team: several runs per arm (left alone, as you asked) | a further wave | about USD 20 |
-| 5 | Protocol: authors edit claim heads during verification (again in w04-c6); evidence lines pin a commit the code has since left (w04-c1, w04-c4); graders parse prose lines as data (w04-c8, w04-c11); hand-backs quote the last note's figure and estimate their own resume cost; PI-authored claims, proof files and the verdict-line rule as before | a protocol claim | — |
-| 6 | Small fixes: hand-backs repeat the report; `/lab-status` warns on a cost section in a puzzle file (w04-c6 proposes a wording); a parallel dispatch logs the default budget in its `start` line though the state holds the brief's; an uppercase agent name is truncated silently; a one-word hand-back ("placeholder") went through; hand-back files carry absolute transcript paths | small fixes | — |
-| 7 | The nine set-aside elements not examined, and the tuning targets (`omitClaudeMd`, `autoCompactWindow`, a 1-hour cache for waiting authors) | further waves | — |
-| 8 | **The report line (w04-c12 · MEASURED), your call.** On the branch in `agents/explorer.md` (ff2d5da). It met E1c's rule with every condition exactly on its threshold (denies 1 of 3, shape 2 of 3, median final 1.083 against A's 1.097), against E1b's A run 17 minutes earlier, not side by side. Before the first hand-back the template was opened in 1 of 3 runs, as with B' in w04-c8, so the path in the line is not shown to help; the report check accepts an off-template report; in E1c the rows went to the hand-back, not the report. A heading check in `handback.py` is untested | you | — |
-| 9 | **The lean hooks (w04-c5), your call.** Set aside at `4c46fe4` (revert it to take them): main thread wall −61% and CPU −91%, long worker wall −48.4% (rule: 50%) and CPU −79%, identical on 291 replays, +38% code. A next build would: read the gate's input in blocks (it is slower than the old hook above about 200 KB of payload), drop the hand-written JSON (6.5 ms for 60 lines), decide the ceiling at PostToolBatch so PostToolUse need not start at all (halves starts), and respect `PYTHONDONTWRITEBYTECODE`. Your conda base has an editable hatchling install that adds about 9 ms to every Python start on this machine | a claim, then your call | about USD 8 |
-| 10 | Closed by w04-c11 (the notes change what workers do at the budget; no anxiety at n = 3). Left: which graded note is enough to stop a worker, and a task whose accuracy can vary (workers script the arithmetic) | a test, if wanted | about USD 3 |
-| 11 | **The search paragraph, your call.** Workers look before writing (14 of 15, 6 of 6, 6 of 6) but by `ls`, `head` and `ls \| grep -i`, almost never by the colgrep search the paragraph names (2 of 27 rule runs). Finding past a listing's cut held at the rule's edge (4 of 6); a near fit is mostly rewritten (strict reuse 7 of 15 at 46 scripts). Options: name the practice that works (list, grep the names, read first lines, pick a name not in the listing) and keep colgrep for content search; or keep colgrep and test why it is not used. Headless sessions have no Glob, so the fallback cannot be followed; with numbered names one worker overwrote a script | you, then a test | about USD 3 |
-| 12 | Verifier independence next to the instruments folder (left alone, as you asked) | you | — |
-| 15 | **A worker that reaches `maxTurns` loses its deliverable with no trace**: no hand-back, no `end` line, no hand-back file (2 of 2 uncapped no-notes explorers in w04-c3's exploratory arm). The budget notes prevent it; nothing catches it when they are off | a fix, then a check | small |
-| 16 | **One lab rule for every script.** The lab is now found three ways: user_words/resume_brief (first cwd), budget/handback (live cwd, then parents), lab_init/lab_status (CLAUDE_PROJECT_DIR first; `/lab` in a Desktop worktree still writes to main) | a claim after you decide 1(a) and 9 | small |
-| 17 | Platform facts found in wave 4, for drivers and briefs: `--max-budget-usd` shows every worker the session's spend; parallel `claude -p` launches sometimes fail with "Not logged in" (5 of 33); a worker's background job keeps `claude -p` alive after its result; headless sessions have no Glob or Grep; the platform replaces a launch CLAUDE_PROJECT_DIR; workers read files outside their lab (another session's scratchpad, an old plugin cache) while looking for the skill; every request carries a token counter | notes | — |
-| 18 | **A reproducer printed its process environment into its own tool output**, including the API keys of a local gateway (`RIVAULT_*` variables). Nothing went to a file or to git; the text is in that subagent's transcript under `~/.claude/projects/`. You may want to rotate those keys | you | minutes |
+| 1 | **Lab root and plugin delivery.** (a) Your choice for w04-c1, now on main: the session's first cwd wins, or the payload cwd. (b) The main checkout's `__statera__/user_words.md` is uncommitted and holds the prompts of waves 4 and 5, written there by the hook. Keep or revert it. (c) Dialog answers are still not captured. (d) *Settled:* the Desktop passes `--project-config-root <main>`, so hooks see `CLAUDE_PROJECT_DIR` = main and the payload `cwd` = the worktree (explorer-w05-e). (e) To run a branch on yourself, merge it into main, or point `murmuration-local` at a symlink and switch it with `ln -sfn` (one edit to main's `settings.local.json`; global to every session) | you | minutes |
+| 4 | Whether stated budgets make the PI plan a smaller team (left alone). New: the three wave-4 author chains ended at 55–90% of their 60-minute boxes; whether boxes set the length is untested | a further wave | about USD 20 |
+| 5 | Protocol: authors still edit claim heads during verification (w05-c4, w05-c5); evidence pins drift; pre-registered rules were written before running their metric on the old code (E4, E7); output tokens are estimated (chars/1.3; 1.73 observed); the PI wrote estimated clock times (w05-c9) | a protocol claim | — |
+| 6 | Small fixes: as before, plus harness `start` lines that swap names on same-second dispatches, and a stray background job that made the last `end` line wrong | small fixes | — |
+| 7 | The nine set-aside elements not examined, and the tuning targets | further waves | — |
+| 8 | The report line (w04-c12, now on main): as before, plus the hand-back gate makes an explorer told "write no file" write a report (all smoke runs of E6/E6b) | you, then a test | — |
+| 9 | **The lean hooks, your call.** Two builds exist: w04-c5 (4c46fe4) and w05-c4 (ede2770, −52.5 to −56% serial seconds, 985 starts against 1788). A third build would need to: match the old messages in parallel batches (11 of 197 transcripts differ); cover failed or denied calls, which PostToolUse misses; and merge the two starts at a hand-back. It saves about 1.4 minutes of a wave against the 10 minutes auto mode costs (item 23) | a claim, then your call | about USD 8 |
+| 10 | Which graded note is enough; a task whose accuracy can vary | a test, if wanted | about USD 3 |
+| 11 | The search paragraph: as before. New: in a Desktop worktree the relative colgrep path searched the plugin source, not the lab (w05-c2), so wave 4's "colgrep almost never used" may partly be colgrep finding nothing useful | you, then a test | about USD 3 |
+| 12 | Verifier independence next to the instruments folder (left alone) | you | — |
+| 15 | A worker that reaches `maxTurns` loses its deliverable with no trace | a fix, then a check | small |
+| 16 | **One lab rule for every script.** Under the Desktop, `CLAUDE_PROJECT_DIR` is main, so `lab_init.py`, `lab_status.py` and the `handback.py` fallback act on main from a hook. From Bash they act on the worktree, because the variable is empty there | a claim after 1(a) | small |
+| 17 | Platform facts, as before, plus: a subagent's cache lives 5 minutes and a headless main thread's 1 hour; `sleep` of 30 s or more is blocked by Claude Code itself; a Bash call past 120 s without `timeout:` is moved to the background; Monitor can be given to a subagent but its events do not reach it; the headless Agent tool has no `name`; `tools:` can add a tool, and `mcp__*` matches nothing | notes | — |
+| 18 | A reproducer printed gateway API keys into its own tool output in wave 4; you may want to rotate them | you | minutes |
+| 19 | **Waits, untested parts.** The other three agent files, message latency during a wait, the stop-your-jobs clause, and the two edits of 5906331 | a check | about USD 3 |
+| 20 | **The Desktop check of w05-c7.** One new Desktop session with the denylist on main: read the first request's usage and the tool names in its snapshot. About 31–49k tokens means it works; about 75k means the app injects regardless | you, then the PI | minutes |
+| 21 | **The experiment pipeline, now the lab's critical path.** Run one pilot cell first; launch cells side by side; find out why batches stopped at 9; give headless drivers `CLAUDE_CODE_SHELL=/bin/bash` (first Bash call 0.5 s against 5.7–10 s; same tools resolved, PI check n = 1); keep timing records without account identifiers | a claim | about USD 5 |
+| 22 | Costs outside the plugin: the skill listing re-entering the PI's context (19 times in waves 1–3); cache-prefix rewrites; a PI request for every hand-back; colgrep-mcp's own hook (119 ms per Bash, one 10 s timeout); your `.zshrc` (4.4–5.7 s per new shell) | notes; yours where it is your config | — |
+| 23 | **Auto mode's classifier.** About 0.45–0.75 s per Bash call, roughly 10 worker-minutes a wave, and its cost is in no record. Narrow allow rules for read-only commands skip it. Lab scripts (`python3 -I scripts/…`) need a PreToolUse hook that answers "allow", which changes what your safety layer sees | you | — |
+| 24 | Whether the `lab_status.py` cache is worth its code: 0.6 s saved per call against 147 lines, two defects found by the verifier, and a known limit (same size and mtime) | you | — |

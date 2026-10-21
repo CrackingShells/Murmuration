@@ -1,0 +1,41 @@
+entry_request	category	tokens	later_requests_carried	carry_cost_share	desc
+0	base context at start (system, tools, memory, skills)	74632	113	0.2735	request 0 context
+35	listing/deltas (skills, tools, mcp)	10411	78	0.0294	skill_listing
+22	tool result: Bash: other	9088	91	0.0285	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; rm 
+5	tool result: Bash: lab scripts	6809	108	0.0241	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be && p
+27	PI own output (text + tool calls)	7886	86	0.0238	assistant of request 26
+3	tool result: Bash: file view (cat/sed/head/tail)	5714	110	0.0205	cat __statera__/synthesis.md
+12	tool result: Bash: other	6052	101	0.0204	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; ls 
+74	tool result: Bash: write via heredoc	10720	39	0.0203	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; pyt
+1	listing/deltas (skills, tools, mcp)	5240	112	0.0191	deferred_tools_delta
+3	tool result: Bash: file view (cat/sed/head/tail)	5024	110	0.0181	cat __statera__/wave-03.md
+6	tool result: Bash: write via heredoc	3972	107	0.0140	ls -d ~/.claude/projects/*Murmuration* | head -20; f=$(ls ~/.claude/projects/*/c533f1c6-c5
+11	tool result: Bash: lab scripts	3916	102	0.0133	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; S=/
+1	skill body load	3494	112	0.0127	Base directory for this skill: /Users/hacker/Documents/src/CrackingShells/Murmur
+15	tool result: Bash: other	3667	98	0.0121	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; sed
+13	tool result: Bash: lab scripts	2770	100	0.0093	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; sed
+100	PI own output (text + tool calls)	6815	13	0.0087	assistant of request 99
+24	PI own output (text + tool calls)	2782	89	0.0086	assistant of request 23
+18	tool result: Bash: ls/find/wc/ps	2653	95	0.0086	ps -ww -E -o command= -p 3542 | tr ' ' '\n' | grep -E '^(CLAUDE_PROJECT_DIR|PWD)=|add-dir|
+7	tool result: Bash: lab scripts	2406	106	0.0084	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; ls 
+25	PI own output (text + tool calls)	2567	88	0.0079	assistant of request 24
+3	tool result: Bash: file view (cat/sed/head/tail)	2130	110	0.0077	cat __reports__/pilot/02-next_pi_session_v0.md
+58	subagent hand-back (queued)	3092	55	0.0070	<agent-message from="author-w04-4"> [Subagent hand-back] The text below is the f
+46	peer message (worker report or reply)	2702	67	0.0069	Another Claude session sent a message: <agent-message from="
+42	peer message (worker report or reply)	2584	71	0.0069	Another Claude session sent a message: <agent-message from="
+55	PI own output (text + tool calls)	2762	58	0.0065	assistant of request 54
+8	PI own output (text + tool calls)	1747	105	0.0061	assistant of request 7
+4	tool result: Bash: lab scripts	1691	109	0.0060	echo "--- worktree user_words tail"; tail -c 1500 __statera__/user_words.md; echo; echo "-
+31	listing/deltas (skills, tools, mcp)	2046	82	0.0060	deferred_tools_record
+57	peer message (worker report or reply)	2503	56	0.0058	Another Claude session sent a message: <agent-message from="
+30	tool result: Bash: lab scripts	1925	83	0.0057	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; sed
+53	peer message (worker report or reply)	2350	60	0.0056	Another Claude session sent a message: <agent-message from="
+2	tool result: Read (whole file)	1555	111	0.0056	/Users/hacker/Documents/src/CrackingShells/Murmuration/skills/research-loop/references/working_defaults.md
+29	tool result: Bash: lab scripts	1888	84	0.0056	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; gre
+54	PI own output (text + tool calls)	2314	59	0.0055	assistant of request 53
+35	peer message (worker report or reply)	1703	78	0.0048	Another Claude session sent a message: <agent-message from="
+13	tool result: Bash: lab scripts	1425	100	0.0048	cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; sed
+4	tool result: Bash: ls/find/wc/ps	1335	109	0.0048	ls hooks scripts agents probes .claude .claude-plugin && cat hooks/hooks.json 2>/dev/null 
+71	PI own output (text + tool calls)	2323	42	0.0046	assistant of request 70
+19	tool result: Bash: other	1421	94	0.0046	grep -n "CLAUDE_PROJECT_DIR" ~/Library/Logs/Claude/main*.log | tail -5 | cut -c1-600; grep
+59	PI own output (text + tool calls)	2014	54	0.0045	assistant of request 58

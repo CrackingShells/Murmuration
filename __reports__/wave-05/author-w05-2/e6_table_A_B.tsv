@@ -1,0 +1,7 @@
+cell	m1_ctx_req0	in	cache_write	cache_read	main_requests	init_tools	m2_steps_ok	m3_bad_results	m4_cost_usd	wall_s	toolsearch_found_NotebookEdit	explorer_reply_has_beta	final_text
+A1	30511	2	6801	23708	10	29	1skill,2write,3read,4edit,5bash,6toolsearch,7agent	[]	0.187421	49.3	True	True	DONE
+B1	15013	2	7095	7916	9	21	1skill,2write,3read,4edit,5bash,6toolsearch,7agent	[]	0.1610084	47.2	True	True	DONE
+A2	30511	2	6046	24463	9	29	1skill,2write,3read,4edit,5bash,6toolsearch,7agent	[]	0.18043679999999998	53.5	True	True	DONE
+B2	15015	2	6342	8671	10	21	1skill,2write,3read,4edit,5bash,6toolsearch,7agent	[]	0.1581127	50.5	True	True	DONE
+A3	30509	2	6044	24463	9	29	1skill,2write,3read,4edit,5bash,6toolsearch,7agent	[]	0.180303	51.0	True	True	DONE
+B3	15012	2	6339	8671	10	21	1skill,2write,3read,4edit,5bash,6toolsearch,7agent	[]	0.15749490000000002	50.6	True	True	DONE

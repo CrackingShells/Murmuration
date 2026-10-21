@@ -1,0 +1,35 @@
+class  bucket_s        n   sum_s  share
+main   0-0.5           0       0     0%
+main   0.5-2          53      70    54%
+main   2-10           14      42    33%
+main   10-60           1      16    13%
+main   60-inf          0       0     0%
+worker 0-0.5          11       0     0%
+worker 0.5-2         432     537     5%
+worker 2-10          115     477     5%
+worker 10-60          47    1079    10%
+worker 60-inf         48    8482    80%
+
+slowest:
+    602 s worker W=/private/tmp/murmuration-w04/author-w04-4; until [ "$(wc -l < $W/final.log)" -ge 3 ]; do sleep 10;
+    601 s worker cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; D=/private/tm
+    541 s worker S=/private/tmp/murmuration-w04/author-w04-2; timeout 590 sh -c "until [ \$(ls $S/runs/ux-*/meta.json
+    386 s worker S=/private/tmp/murmuration-w04/author-w04-2; timeout 580 sh -c "until [ \$(ls $S/runs/e2-c*/meta.jso
+    343 s worker S=/private/tmp/murmuration-w04/author-w04-2; timeout 595 sh -c "until ! pgrep -f watch2.py >/dev/nul
+    337 s worker S=/private/tmp/murmuration-w04/author-w04-2; timeout 560 sh -c "until [ \$(ls $S/runs/e1-*/meta.json
+    313 s worker S=/private/tmp/murmuration-w04/author-w04-2; timeout 590 sh -c "until [ \$(ls $S/runs/x-c*/meta.json
+    307 s worker S=/private/tmp/murmuration-w04/author-w04-2; timeout 590 sh -c "until [ \$(ls $S/runs/u-*/meta.json 
+    281 s worker python3 - <<'PYEOF' p="__instrumenta__/hook_cost_time.py"; s=open(p).read() a='FLOORS = {"floor:sh-n
+    265 s worker S=/private/tmp/murmuration-w04/author-w04-2; timeout 590 sh -c "until [ \$(ls $S/runs/e1c-*/meta.jso
+
+fastest-bucket sample (0-0.5 s) vs 0.5-2 s commands:
+ 0.00 s  sleep 60; cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3
+ 0.00 s  sleep 90; D=/private/tmp/murmuration-w04/author-w04-3/runs; for r in xt1r1 xt1r2 xt1r3 xt2
+ 0.00 s  sleep 45; echo ok
+ 0.17 s  python3 - <<'EOF' p="__instrumenta__/w04c5_paired_hook_timing.py" s=open(p).read() s=s.rep
+ 0.00 s  sleep 45; echo ok
+ 1.06 s  grep -n "subprocess\.\|tempfile\.\|contextlib\.\|io\.\|collections\.\|glob\.\|^def selftes
+ 1.56 s  grep -n "E1" __reports__/reflective_run/w04/00-experiment_protocol_v0.md | head -30; wc -l
+ 0.93 s  cd ~/.claude/projects && python3 - <<'EOF' import json,glob,os,collections for f in ["-pri
+ 1.00 s  W=/private/tmp/murmuration-w04/author-w04-4; python3 __instrumenta__/hook_cost_summary.py 
+ 1.16 s  cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; S=/

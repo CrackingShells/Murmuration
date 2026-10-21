@@ -1,0 +1,50 @@
+category	tokens_per_char_nnls	total_chars
+PI own output (text + tool calls)	0.106	636469
+hook notices	0.000	12670
+human prompt	1.211	7136
+listing/deltas (skills, tools, mcp)	0.504	872511
+other attachments (auto_mode)	0.000	270
+other attachments (command_permissions)	0.000	51
+other attachments (compact_file_reference)	0.000	207
+other attachments (credential_org)	0.000	172
+other attachments (date)	0.000	76
+other attachments (edited_text_file)	0.303	7283
+other attachments (environment)	0.700	6697
+other attachments (file)	0.000	33679
+other attachments (instructions)	0.000	3790
+other attachments (invoked_skills)	0.000	8523
+other attachments (model)	0.000	516
+other attachments (remote_session_change)	0.000	538
+other attachments (session_context)	0.000	654
+other attachments (silent_turn_reminder)	0.000	2465
+other attachments (task_status)	0.000	417
+other attachments (thinking_drop)	0.000	597
+other attachments (total_tokens_reminder)	14.015	29328
+other user text	0.000	15015
+peer message (worker report or reply)	0.276	439641
+queued human message/other	1.618	1974
+skill body load	0.000	8168
+subagent hand-back (queued)	0.437	102208
+task notification	0.279	70402
+tool result: Agent tool result (sync)	0.860	49632
+tool result: AskUserQuestion	0.140	1395
+tool result: Bash: file view (cat/sed/head/tail)	0.278	45351
+tool result: Bash: git	0.098	18396
+tool result: Bash: lab scripts	0.358	127081
+tool result: Bash: ls/find/wc/ps	0.301	9185
+tool result: Bash: other	0.303	75127
+tool result: Bash: python/claude run	0.000	2218
+tool result: Bash: write via heredoc	0.427	67517
+tool result: Edit	0.000	1106
+tool result: Read (whole file)	0.370	56390
+tool result: SendMessage	0.000	5900
+tool result: Skill	0.000	42
+tool result: ToolSearch	0.000	0
+tool result: Write	3.150	3904
+tool result: mcp__ccd_session__mark_chapter	0.000	125
+tool result: mcp__ccd_session__start_session	0.000	428
+tool result: mcp__ccd_turn__update_plan	0.000	388
+tool result: mcp__ccd_turn__wrap_up	0.000	2110
+tool result: mcp__plugin_colgrep-mcp_colgrep__index_prune	0.000	2074
+tool result: mcp__plugin_colgrep-mcp_colgrep__index_status	7.876	528
+tool result: mcp__plugin_colgrep-mcp_colgrep__list_indexes	0.000	2506

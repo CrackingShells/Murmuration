@@ -1,0 +1,25 @@
+{
+ "transcripts": 137,
+ "unparsed": 0,
+ "totals": {
+  "main_tool_calls": 985,
+  "worker_tool_calls": 4272,
+  "workers": 60,
+  "main_starts": 2172,
+  "worker_starts": 8810
+ },
+ "starts_by_registration": {
+  "PostToolBatch||budget.py": 5200,
+  "PostToolUse||budget.py": 5257,
+  "PostToolUse|SubagentHandback|handback.py": 58,
+  "PreToolUse|Agent|Task|budget.py": 60,
+  "PreToolUse|SubagentHandback|handback.py": 71,
+  "UserPromptSubmit||user_words.py": 156,
+  "SubagentStart||budget.py": 60,
+  "SubagentStop||budget.py": 60,
+  "SubagentStop||handback.py": 60
+ },
+ "all_starts": 10982,
+ "est_wall_s_if_serial": 988.4,
+ "est_cpu_s": 439.3
+}

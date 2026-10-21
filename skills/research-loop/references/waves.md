@@ -19,6 +19,9 @@ it is worth this wave: the reason for the wave in plain words, not a task list.
   hands back what it covered, what it did not, and what more budget would buy. Read that request:
   you hold the money, and you decide whether to resume the worker with a raise (`Budget:` and
   `Time:` lines in the message; see `briefs.md`) or to let the hand-back stand.
+- **Reassess when results come back.** Each time a batch of agents returns, write one entry under
+  the wave note's "Reassessments": what came back, what it changes, and what you drop. A plan that
+  no result has changed by mid-wave is a sign that you are following a list, not the evidence.
 - **Read raw material yourself.** For every agent that returns, open at least one raw artifact it
   points to (a figure, a table, a log, its puzzle file), not only its summary.
 - **Turn a hunch into a claim** when you judge it worth hardening. Assign the claim id

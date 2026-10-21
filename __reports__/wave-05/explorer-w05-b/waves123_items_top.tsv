@@ -1,0 +1,41 @@
+entry_request	category	tokens	later_requests_carried	carry_cost_share	desc
+0	base context at start (system, tools, memory, skills)	74457	275	0.0942	request 0 context
+290	listing/deltas (skills, tools, mcp)	128026	103	0.0720	skill_listing
+276	context after reset (compaction/restart)	91499	12	0.0191	ctx 966526 -> 91499
+9	tool result: Read (whole file)	13503	266	0.0166	/Users/hacker/Documents/src/CrackingShells/Murmuration/__reports__/genesis/12-architecture_v5.md
+23	listing/deltas (skills, tools, mcp)	10938	252	0.0128	skill_listing
+26	listing/deltas (skills, tools, mcp)	10917	249	0.0127	skill_listing
+29	listing/deltas (skills, tools, mcp)	10853	246	0.0125	skill_listing
+55	listing/deltas (skills, tools, mcp)	11224	220	0.0117	skill_listing
+59	listing/deltas (skills, tools, mcp)	11092	216	0.0114	skill_listing
+63	listing/deltas (skills, tools, mcp)	11115	212	0.0112	skill_listing
+65	listing/deltas (skills, tools, mcp)	11195	210	0.0112	skill_listing
+76	listing/deltas (skills, tools, mcp)	11087	199	0.0106	skill_listing
+69	listing/deltas (skills, tools, mcp)	10770	206	0.0106	skill_listing
+71	listing/deltas (skills, tools, mcp)	10714	204	0.0105	skill_listing
+75	listing/deltas (skills, tools, mcp)	10778	200	0.0104	skill_listing
+78	listing/deltas (skills, tools, mcp)	10864	197	0.0103	skill_listing
+92	listing/deltas (skills, tools, mcp)	11398	183	0.0102	skill_listing
+91	listing/deltas (skills, tools, mcp)	11179	184	0.0101	skill_listing
+84	listing/deltas (skills, tools, mcp)	10822	191	0.0100	skill_listing
+89	listing/deltas (skills, tools, mcp)	11006	186	0.0100	skill_listing
+94	listing/deltas (skills, tools, mcp)	10930	181	0.0097	skill_listing
+93	listing/deltas (skills, tools, mcp)	10720	182	0.0096	skill_listing
+100	tool result: Bash: lab scripts	11062	175	0.0095	python3 scripts/lab_status.py 2>&1 | sed -n '/## Open puzzles/,/## Claims/p' | cut -c1-170
+96	listing/deltas (skills, tools, mcp)	10644	179	0.0094	skill_listing
+51	peer message (worker report or reply)	8806	224	0.0093	Another Claude session sent a message: <agent-message from="
+35	peer message (worker report or reply)	8175	240	0.0092	Another Claude session sent a message: <agent-message from="
+107	listing/deltas (skills, tools, mcp)	10943	168	0.0091	skill_listing
+36	subagent hand-back (queued)	8065	239	0.0090	<agent-message from="explorer-w01-c"> [Subagent hand-back] The text below is the
+8	tool result: Bash: file view (cat/sed/head/tail)	6556	267	0.0081	cat __reports__/genesis/13-architecture_v6.md __reports__/design_review/00-review_opus_v0.
+40	subagent hand-back (queued)	7220	235	0.0080	<agent-message from="explorer-w01-a"> [Subagent hand-back] The text below is the
+39	subagent hand-back (queued)	7015	236	0.0078	<agent-message from="explorer-w01-b"> [Subagent hand-back] The text below is the
+20	PI own output (text + tool calls)	6283	255	0.0074	assistant of request 19
+47	PI own output (text + tool calls)	6780	228	0.0073	assistant of request 46
+1	listing/deltas (skills, tools, mcp)	5713	274	0.0072	deferred_tools_delta
+66	tool result: Bash: write via heredoc	6918	209	0.0069	python3 -I - <<'EOF' import json,os p=os.path.expanduser('~/.claude/plugins/installed_plug
+9	tool result: Read (whole file)	4911	266	0.0060	/Users/hacker/Documents/src/CrackingShells/Murmuration/__reports__/design_review/00-review_fable_v0.md
+21	tool result: Bash: lab scripts	5061	254	0.0060	cat __reports__/genesis/08-hooks_leverage_v0.md; sed -n 1,80p scripts/user_words.py
+11	tool result: Bash: lab scripts	3773	264	0.0046	head -12 agents/*.md; python3 scripts/lab_status.py 2>&1 | head -40; claude --version 2>/d
+22	tool result: Bash: file view (cat/sed/head/tail)	3679	253	0.0043	sed -n 1,45p __reports__/genesis/08-information_counsel_v0.md; echo '---'; sed -n 1,60p __
+10	tool result: Bash: other	3508	265	0.0043	P=~/.claude/projects/-Users-hacker-Documents-explore-combinatorics-on-binary; ls -la $P | 

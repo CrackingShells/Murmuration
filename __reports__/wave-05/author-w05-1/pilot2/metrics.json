@@ -1,0 +1,52 @@
+[
+ {
+  "id": "pilot-A2",
+  "requests": 10,
+  "max_ctx": 233193,
+  "ctx_at_first_wait": 230348,
+  "m1_cold_midrun": 1,
+  "m2_longest_tool_s": 515.5,
+  "m2_longest_tool": "Bash {\"command\": \"until [ -f job/result.txt ]; do sleep 5; done; cat job/result.txt; cat /private/tmp/cla",
+  "max_gap_between_requests_s": 521.5,
+  "m3_cost_usd": 1.36288187,
+  "m4_wall_s": 639.5,
+  "m4_to_result_s": 607.4,
+  "m5_correct": true,
+  "expected": 81305,
+  "expected_derived": 1056965,
+  "claim_filed": true,
+  "m6_alive_30s": 0,
+  "m6_alive_detail": {},
+  "m7_blocked_or_failed_waits": 1,
+  "m7_texts": [
+   "<tool_use_error>Blocked: sleep 100 followed by: cat /private/tmp/claude-501/job9.log date."
+  ],
+  "bash_calls": 7,
+  "bg_calls": 1,
+  "backgrounded_by_timeout": 0
+ },
+ {
+  "id": "pilot-B2",
+  "requests": 11,
+  "max_ctx": 229816,
+  "ctx_at_first_wait": 227481,
+  "m1_cold_midrun": 0,
+  "m2_longest_tool_s": 241.0,
+  "m2_longest_tool": "Bash {\"command\": \"timeout 240 sh -c 'until [ -f /private/tmp/murmuration-w05/author-w05-1/e5/runs/pilot-B",
+  "max_gap_between_requests_s": 247.8,
+  "m3_cost_usd": 0.78571366,
+  "m4_wall_s": 661.1,
+  "m4_to_result_s": 629.8,
+  "m5_correct": true,
+  "expected": 81305,
+  "expected_derived": 1056965,
+  "claim_filed": true,
+  "m6_alive_30s": 0,
+  "m6_alive_detail": {},
+  "m7_blocked_or_failed_waits": 0,
+  "m7_texts": [],
+  "bash_calls": 7,
+  "bg_calls": 0,
+  "backgrounded_by_timeout": 0
+ }
+]

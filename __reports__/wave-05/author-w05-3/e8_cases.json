@@ -1,0 +1,38 @@
+[
+ {
+  "name": "main",
+  "sh": "python3 /private/tmp/murmuration-w05/author-w05-3/old/scripts/lab_status.py --project /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673",
+  "stdin": null,
+  "env": {
+   "CLAUDE_CONFIG_DIR": "/private/tmp/murmuration-w05/explorer-w05-d/cfg",
+   "LAB_STATUS_CACHE": "off"
+  }
+ },
+ {
+  "name": "e8-nocache",
+  "sh": "python3 /private/tmp/murmuration-w05/author-w05-3/e8/scripts/lab_status.py --project /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673",
+  "stdin": null,
+  "env": {
+   "CLAUDE_CONFIG_DIR": "/private/tmp/murmuration-w05/explorer-w05-d/cfg",
+   "LAB_STATUS_CACHE": "off"
+  }
+ },
+ {
+  "name": "e8-cold",
+  "sh": "rm -f /private/tmp/murmuration-w05/author-w05-3/e8scratch/e8.cache.json; python3 /private/tmp/murmuration-w05/author-w05-3/e8/scripts/lab_status.py --project /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673",
+  "stdin": null,
+  "env": {
+   "CLAUDE_CONFIG_DIR": "/private/tmp/murmuration-w05/explorer-w05-d/cfg",
+   "LAB_STATUS_CACHE": "/private/tmp/murmuration-w05/author-w05-3/e8scratch/e8.cache.json"
+  }
+ },
+ {
+  "name": "e8-warm",
+  "sh": "python3 /private/tmp/murmuration-w05/author-w05-3/e8/scripts/lab_status.py --project /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673",
+  "stdin": null,
+  "env": {
+   "CLAUDE_CONFIG_DIR": "/private/tmp/murmuration-w05/explorer-w05-d/cfg",
+   "LAB_STATUS_CACHE": "/private/tmp/murmuration-w05/author-w05-3/e8scratch/e8.cache.json"
+  }
+ }
+]

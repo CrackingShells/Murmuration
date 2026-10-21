@@ -1,0 +1,180 @@
+{"name": "colgrep_policy, python3 -S -I", "round": 0, "wall_ms": 83.10712499951478, "cpu_ms": 28.585, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 0, "wall_ms": 143.2221249997383, "cpu_ms": 58.23499999999999, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 0, "wall_ms": 122.489792000124, "cpu_ms": 32.833999999999996, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 0, "wall_ms": 107.25333299888007, "cpu_ms": 44.151999999999994, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 0, "wall_ms": 53.869291999944835, "cpu_ms": 10.764, "rc": 0}
+{"name": "floor: sh :", "round": 0, "wall_ms": 32.300541999575216, "cpu_ms": 3.146, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 1, "wall_ms": 54.04770799941616, "cpu_ms": 12.197, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 1, "wall_ms": 124.16379200112715, "cpu_ms": 64.983, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 1, "wall_ms": 105.44304199902399, "cpu_ms": 45.756, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 1, "wall_ms": 71.75787500091246, "cpu_ms": 28.476999999999997, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 1, "wall_ms": 78.22104200022295, "cpu_ms": 34.696, "rc": 0}
+{"name": "floor: sh :", "round": 1, "wall_ms": 32.105499998579035, "cpu_ms": 3.1449999999999996, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 2, "wall_ms": 78.47437499913212, "cpu_ms": 36.019, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 2, "wall_ms": 73.85654199970304, "cpu_ms": 29.404, "rc": 0}
+{"name": "floor: sh :", "round": 2, "wall_ms": 32.168042000193964, "cpu_ms": 2.9319999999999995, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 2, "wall_ms": 54.87729100059369, "cpu_ms": 12.335, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 2, "wall_ms": 109.39633300040441, "cpu_ms": 50.881, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 2, "wall_ms": 118.77354100033699, "cpu_ms": 58.958, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 3, "wall_ms": 54.463832999317674, "cpu_ms": 10.959999999999999, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 3, "wall_ms": 79.31375000043772, "cpu_ms": 35.295, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 3, "wall_ms": 118.42774999968242, "cpu_ms": 58.657999999999994, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 3, "wall_ms": 72.06291699912981, "cpu_ms": 27.516999999999996, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 3, "wall_ms": 105.24325000005774, "cpu_ms": 45.96099999999999, "rc": 0}
+{"name": "floor: sh :", "round": 3, "wall_ms": 30.994249998911982, "cpu_ms": 2.808, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 4, "wall_ms": 72.67887499983772, "cpu_ms": 30.066999999999997, "rc": 0}
+{"name": "floor: sh :", "round": 4, "wall_ms": 31.691166001110105, "cpu_ms": 3.0860000000000003, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 4, "wall_ms": 78.34854199973051, "cpu_ms": 36.641, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 4, "wall_ms": 55.26483300127438, "cpu_ms": 10.808, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 4, "wall_ms": 120.48941700049909, "cpu_ms": 62.327, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 4, "wall_ms": 106.14258299938228, "cpu_ms": 46.916, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 5, "wall_ms": 76.8783750008879, "cpu_ms": 33.785, "rc": 0}
+{"name": "floor: sh :", "round": 5, "wall_ms": 32.22966700013785, "cpu_ms": 3.0159999999999996, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 5, "wall_ms": 53.62533299921779, "cpu_ms": 10.983999999999998, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 5, "wall_ms": 120.590833001188, "cpu_ms": 61.116, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 5, "wall_ms": 104.85412500020175, "cpu_ms": 46.201, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 5, "wall_ms": 71.8065419987397, "cpu_ms": 28.447, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 6, "wall_ms": 77.29158400070446, "cpu_ms": 33.302, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 6, "wall_ms": 73.11158400079876, "cpu_ms": 29.296, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 6, "wall_ms": 105.88020800059894, "cpu_ms": 46.595, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 6, "wall_ms": 117.16366600012407, "cpu_ms": 57.622, "rc": 0}
+{"name": "floor: sh :", "round": 6, "wall_ms": 32.16979199896741, "cpu_ms": 3.028, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 6, "wall_ms": 54.0404170005786, "cpu_ms": 10.889, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 7, "wall_ms": 108.69541700049012, "cpu_ms": 50.437999999999995, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 7, "wall_ms": 79.10808300039207, "cpu_ms": 34.772, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 7, "wall_ms": 119.95924999973795, "cpu_ms": 58.91, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 7, "wall_ms": 54.18637500042678, "cpu_ms": 10.286, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 7, "wall_ms": 71.36354200156347, "cpu_ms": 29.159000000000002, "rc": 0}
+{"name": "floor: sh :", "round": 7, "wall_ms": 30.932000001484994, "cpu_ms": 2.897, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 8, "wall_ms": 118.74233299931802, "cpu_ms": 61.495, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 8, "wall_ms": 72.23741699999664, "cpu_ms": 28.397, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 8, "wall_ms": 54.03962500167836, "cpu_ms": 11.168000000000001, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 8, "wall_ms": 79.44204200066451, "cpu_ms": 36.762, "rc": 0}
+{"name": "floor: sh :", "round": 8, "wall_ms": 31.353958000181592, "cpu_ms": 2.9099999999999997, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 8, "wall_ms": 108.07870899952832, "cpu_ms": 51.518, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 9, "wall_ms": 71.70249999944645, "cpu_ms": 28.554999999999996, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 9, "wall_ms": 116.68650000137859, "cpu_ms": 58.397, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 9, "wall_ms": 75.44995799980825, "cpu_ms": 32.693, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 9, "wall_ms": 53.634624999176594, "cpu_ms": 10.704, "rc": 0}
+{"name": "floor: sh :", "round": 9, "wall_ms": 32.6762080003391, "cpu_ms": 2.9090000000000003, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 9, "wall_ms": 112.68783300147334, "cpu_ms": 53.510000000000005, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 10, "wall_ms": 119.74545900011435, "cpu_ms": 59.324000000000005, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 10, "wall_ms": 76.60879099967133, "cpu_ms": 10.286999999999999, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 10, "wall_ms": 90.00716700029443, "cpu_ms": 32.162, "rc": 0}
+{"name": "floor: sh :", "round": 10, "wall_ms": 32.609291998596746, "cpu_ms": 2.9299999999999993, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 10, "wall_ms": 72.8428750007879, "cpu_ms": 29.381999999999998, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 10, "wall_ms": 106.62945799958834, "cpu_ms": 47.125, "rc": 0}
+{"name": "floor: sh :", "round": 11, "wall_ms": 31.884250000075554, "cpu_ms": 2.996, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 11, "wall_ms": 77.25670899890247, "cpu_ms": 34.802, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 11, "wall_ms": 106.08529199998884, "cpu_ms": 46.96, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 11, "wall_ms": 117.06129099911777, "cpu_ms": 56.916000000000004, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 11, "wall_ms": 54.84654199972283, "cpu_ms": 10.209, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 11, "wall_ms": 72.20558399967558, "cpu_ms": 29.855999999999998, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 12, "wall_ms": 77.85237499956565, "cpu_ms": 34.98499999999999, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 12, "wall_ms": 71.79625000026135, "cpu_ms": 28.711000000000002, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 12, "wall_ms": 116.20620800022152, "cpu_ms": 58.92699999999999, "rc": 0}
+{"name": "floor: sh :", "round": 12, "wall_ms": 49.20700000002398, "cpu_ms": 3.0599999999999996, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 12, "wall_ms": 61.93654199887533, "cpu_ms": 10.312999999999999, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 12, "wall_ms": 137.17545799954678, "cpu_ms": 44.973, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 13, "wall_ms": 87.45795899994846, "cpu_ms": 10.362, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 13, "wall_ms": 85.34387500003504, "cpu_ms": 29.374, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 13, "wall_ms": 131.84308300151315, "cpu_ms": 33.219, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 13, "wall_ms": 118.37812500016298, "cpu_ms": 44.568999999999996, "rc": 0}
+{"name": "floor: sh :", "round": 13, "wall_ms": 32.0314580003469, "cpu_ms": 2.973, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 13, "wall_ms": 115.45408299934934, "cpu_ms": 57.67999999999999, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 14, "wall_ms": 116.57525000009628, "cpu_ms": 56.185, "rc": 0}
+{"name": "floor: sh :", "round": 14, "wall_ms": 31.657583998821792, "cpu_ms": 3.1859999999999995, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 14, "wall_ms": 109.97104099988064, "cpu_ms": 33.654999999999994, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 14, "wall_ms": 90.74791700004425, "cpu_ms": 10.633000000000001, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 14, "wall_ms": 129.13758300055633, "cpu_ms": 45.161, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 14, "wall_ms": 114.79175000022224, "cpu_ms": 27.996, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 15, "wall_ms": 77.33812500009662, "cpu_ms": 33.182, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 15, "wall_ms": 104.48783300125797, "cpu_ms": 45.975, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 15, "wall_ms": 117.02933400010807, "cpu_ms": 57.656, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 15, "wall_ms": 70.76266700096312, "cpu_ms": 27.648, "rc": 0}
+{"name": "floor: sh :", "round": 15, "wall_ms": 31.443750000107684, "cpu_ms": 3.0689999999999995, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 15, "wall_ms": 54.285917000015615, "cpu_ms": 12.15, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 16, "wall_ms": 119.65562499972293, "cpu_ms": 62.251999999999995, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 16, "wall_ms": 76.055624998844, "cpu_ms": 32.937999999999995, "rc": 0}
+{"name": "floor: sh :", "round": 16, "wall_ms": 31.585791999532375, "cpu_ms": 3.0759999999999996, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 16, "wall_ms": 71.68983299925458, "cpu_ms": 29.490999999999996, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 16, "wall_ms": 106.02887499953795, "cpu_ms": 47.155, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 16, "wall_ms": 53.21945799914829, "cpu_ms": 10.839999999999998, "rc": 0}
+{"name": "floor: sh :", "round": 17, "wall_ms": 30.21058300146251, "cpu_ms": 3.0219999999999994, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 17, "wall_ms": 79.38987499983341, "cpu_ms": 38.108000000000004, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 17, "wall_ms": 106.9210829991789, "cpu_ms": 48.08, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 17, "wall_ms": 54.0944579988718, "cpu_ms": 11.363, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 17, "wall_ms": 121.52016700019885, "cpu_ms": 62.632999999999996, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 17, "wall_ms": 72.20454099842755, "cpu_ms": 28.628, "rc": 0}
+{"name": "floor: sh :", "round": 18, "wall_ms": 31.7246670001623, "cpu_ms": 3.008, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 18, "wall_ms": 70.78187500155764, "cpu_ms": 28.096, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 18, "wall_ms": 117.36087499957648, "cpu_ms": 59.245, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 18, "wall_ms": 103.26024999994843, "cpu_ms": 44.864, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 18, "wall_ms": 51.97550000048068, "cpu_ms": 10.187, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 18, "wall_ms": 77.64537500042934, "cpu_ms": 35.172999999999995, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 19, "wall_ms": 117.528750000929, "cpu_ms": 58.382, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 19, "wall_ms": 53.39629199988849, "cpu_ms": 10.511, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 19, "wall_ms": 72.91224999971746, "cpu_ms": 30.399999999999995, "rc": 0}
+{"name": "floor: sh :", "round": 19, "wall_ms": 31.8539170002623, "cpu_ms": 3.404, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 19, "wall_ms": 79.5887500007666, "cpu_ms": 37.218, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 19, "wall_ms": 108.12137500033714, "cpu_ms": 49.131, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 20, "wall_ms": 76.70525000139605, "cpu_ms": 33.819, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 20, "wall_ms": 104.44195799937006, "cpu_ms": 45.807, "rc": 0}
+{"name": "floor: sh :", "round": 20, "wall_ms": 31.07379200082505, "cpu_ms": 2.945, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 20, "wall_ms": 70.78483299846994, "cpu_ms": 28.711, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 20, "wall_ms": 119.20795799960615, "cpu_ms": 58.973, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 20, "wall_ms": 53.539042000920745, "cpu_ms": 10.727, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 21, "wall_ms": 72.4827499998355, "cpu_ms": 30.058, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 21, "wall_ms": 107.20712500005902, "cpu_ms": 48.840999999999994, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 21, "wall_ms": 55.34154100132582, "cpu_ms": 12.221999999999998, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 21, "wall_ms": 119.58924999998999, "cpu_ms": 61.36899999999999, "rc": 0}
+{"name": "floor: sh :", "round": 21, "wall_ms": 31.56358399974124, "cpu_ms": 3.0739999999999994, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 21, "wall_ms": 77.03229199978523, "cpu_ms": 34.934999999999995, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 22, "wall_ms": 95.30112500033283, "cpu_ms": 29.272999999999996, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 22, "wall_ms": 85.25979200021538, "cpu_ms": 32.090999999999994, "rc": 0}
+{"name": "floor: sh :", "round": 22, "wall_ms": 31.340457999249338, "cpu_ms": 2.892, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 22, "wall_ms": 114.79499999950349, "cpu_ms": 57.08899999999999, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 22, "wall_ms": 104.05133299900626, "cpu_ms": 45.555, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 22, "wall_ms": 53.106334000403876, "cpu_ms": 10.892, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 23, "wall_ms": 52.626374999817926, "cpu_ms": 11.08, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 23, "wall_ms": 79.65970800069044, "cpu_ms": 37.172, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 23, "wall_ms": 70.96079199982341, "cpu_ms": 28.221999999999998, "rc": 0}
+{"name": "floor: sh :", "round": 23, "wall_ms": 31.599833999280236, "cpu_ms": 2.897, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 23, "wall_ms": 108.07504199874529, "cpu_ms": 49.00300000000001, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 23, "wall_ms": 116.79225000079896, "cpu_ms": 57.161, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 24, "wall_ms": 116.20416599907912, "cpu_ms": 56.205999999999996, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 24, "wall_ms": 79.7578749989043, "cpu_ms": 34.376999999999995, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 24, "wall_ms": 101.19212500103458, "cpu_ms": 27.620999999999995, "rc": 0}
+{"name": "floor: sh :", "round": 24, "wall_ms": 52.985667000029935, "cpu_ms": 3.099, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 24, "wall_ms": 87.18641700033913, "cpu_ms": 10.301999999999998, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 24, "wall_ms": 118.92454199914937, "cpu_ms": 44.85699999999999, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 25, "wall_ms": 97.75808299855271, "cpu_ms": 34.4, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 25, "wall_ms": 132.3412500005361, "cpu_ms": 45.384, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 25, "wall_ms": 181.0922919994482, "cpu_ms": 55.159, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 25, "wall_ms": 53.48233299991989, "cpu_ms": 10.133999999999999, "rc": 0}
+{"name": "floor: sh :", "round": 25, "wall_ms": 48.52050000044983, "cpu_ms": 2.8179999999999996, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 25, "wall_ms": 91.12800000002608, "cpu_ms": 28.26, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 26, "wall_ms": 104.55820800052607, "cpu_ms": 45.108000000000004, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 26, "wall_ms": 54.18995900072332, "cpu_ms": 10.983999999999998, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 26, "wall_ms": 72.53504199979943, "cpu_ms": 29.465, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 26, "wall_ms": 118.33674999979849, "cpu_ms": 58.433, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 26, "wall_ms": 76.66266599881055, "cpu_ms": 32.842, "rc": 0}
+{"name": "floor: sh :", "round": 26, "wall_ms": 32.12391700071748, "cpu_ms": 3.01, "rc": 0}
+{"name": "floor: sh :", "round": 27, "wall_ms": 31.345791001513135, "cpu_ms": 2.82, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 27, "wall_ms": 79.7467919983319, "cpu_ms": 37.477, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 27, "wall_ms": 55.973500000618515, "cpu_ms": 11.921, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 27, "wall_ms": 112.38495799989323, "cpu_ms": 52.384, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 27, "wall_ms": 74.21549999889976, "cpu_ms": 29.254999999999995, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 27, "wall_ms": 139.47329099937633, "cpu_ms": 57.41, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 28, "wall_ms": 75.533416998951, "cpu_ms": 31.819, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 28, "wall_ms": 53.9256669999304, "cpu_ms": 10.295, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 28, "wall_ms": 71.40058400000271, "cpu_ms": 28.907000000000004, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 28, "wall_ms": 140.27816700036055, "cpu_ms": 57.211, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 28, "wall_ms": 157.68729199953668, "cpu_ms": 47.114000000000004, "rc": 0}
+{"name": "floor: sh :", "round": 28, "wall_ms": 49.46025000026566, "cpu_ms": 2.98, "rc": 0}
+{"name": "uv run --no-project --quiet python -c pass", "round": 29, "wall_ms": 114.50595799942676, "cpu_ms": 44.304, "rc": 0}
+{"name": "floor: sh :", "round": 29, "wall_ms": 43.47725000116043, "cpu_ms": 3.055, "rc": 0}
+{"name": "colgrep_policy, python3 -S -I", "round": 29, "wall_ms": 143.08083299874852, "cpu_ms": 27.319999999999997, "rc": 0}
+{"name": "colgrep_policy PreToolUse Bash, as shipped (uv run --no-project --quiet python)", "round": 29, "wall_ms": 131.54129199938325, "cpu_ms": 55.592, "rc": 0}
+{"name": "colgrep_policy, python3 directly", "round": 29, "wall_ms": 76.91987500038522, "cpu_ms": 32.733, "rc": 0}
+{"name": "floor: python3 -S -I -c pass", "round": 29, "wall_ms": 53.90637499840523, "cpu_ms": 10.315, "rc": 0}

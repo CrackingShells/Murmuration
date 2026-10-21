@@ -450,10 +450,10 @@ def git_worktrees(root):
     return [line[9:] for line in out.splitlines() if line.startswith("worktree ")]
 
 
-def lab_roots(root):
-    """The lab's directory, its real path, and every git worktree of its repository (and their real paths)."""
+def lab_roots(root, trees=None):
+    """The lab's directory, its real path, and every git worktree of its repository (and their real paths); `trees` is `git_worktrees(root)` when the caller has it."""
     roots = [os.path.abspath(root), os.path.realpath(root)]
-    for path in git_worktrees(root):
+    for path in git_worktrees(root) if trees is None else trees:
         roots += [path, os.path.realpath(path)]
     return list(dict.fromkeys(roots))
 
@@ -525,7 +525,7 @@ def merge_usage(into, use):
         into["cache_creation"] = use["cache_creation"]
 
 
-def read_transcript(path, warnings):
+def parse_transcript(path, warnings):
     """One transcript file: ({message id: message}, last `cost-state` record, `agent-setting` name).
 
     A message is {model, usage, ts, sid, final}. `sid` is the `sessionId` of its record: a forked session
@@ -561,6 +561,75 @@ def read_transcript(path, warnings):
     return msgs, cost_state, setting
 
 
+CACHE_VERSION = 1   # change it when parse_transcript returns something else: an older cache file is then ignored
+_cache = []   # [Cache] while report_spend runs
+
+
+class Cache:
+    """What parse_transcript found in each transcript, kept in a JSON file and used while the file's size and modification time are the same (w05-c5). The file is replaced
+    atomically; one that cannot be read, or is of another version, is ignored; only the transcripts of this run are kept. Message ids are stored as pairs so that an id that
+    is a number stays one."""
+
+    def __init__(self, path):
+        self.path, self.files, self.seen, self.dirty = path, {}, {}, False
+        try:
+            with open(path) as fh:
+                data = json.load(fh)
+            if data.get("v") == CACHE_VERSION and isinstance(data.get("files"), dict):
+                self.files = data["files"]
+        except (OSError, ValueError, AttributeError):
+            pass
+
+    def read(self, path, warnings):
+        try:
+            st = os.stat(path)
+        except OSError:
+            return parse_transcript(path, warnings)
+        stamp = [st.st_size, st.st_mtime_ns]
+        hit = self.files.get(path)
+        if isinstance(hit, list) and len(hit) == 5 and hit[:2] == stamp and os.access(path, os.R_OK):   # a file that has become unreadable is parsed, and warned about, as before
+            self.seen[path] = hit
+            return dict((k, m) for k, m in hit[2]), hit[3], hit[4]
+        before = len(warnings)
+        msgs, cost_state, setting = parse_transcript(path, warnings)
+        if len(warnings) == before:
+            self.seen[path] = self.files[path] = stamp + [list(msgs.items()), cost_state, setting]
+            self.dirty = True
+        return msgs, cost_state, setting
+
+    def save(self):
+        if not (self.dirty or len(self.seen) != len(self.files)):
+            return
+        tmp = "%s.%d.tmp" % (self.path, os.getpid())
+        try:
+            os.makedirs(os.path.dirname(self.path), exist_ok=True)
+            gitignore = os.path.join(os.path.dirname(self.path), ".gitignore")
+            if os.path.basename(os.path.dirname(self.path)) == ".harness" and not os.path.exists(gitignore):   # the lab's own state folder; a folder named by $LAB_STATUS_CACHE is left as it is
+                with open(gitignore, "w") as fh:
+                    fh.write("*\n")
+            with open(tmp, "w") as fh:
+                json.dump({"v": CACHE_VERSION, "files": self.seen}, fh)
+            os.replace(tmp, self.path)
+        except OSError:
+            try:
+                os.unlink(tmp)
+            except OSError:
+                pass
+
+
+def cache_path(root):
+    """`$LAB_STATUS_CACHE`, else the lab's `__statera__/.harness/lab_status_cache.json` (git-ignored); None for a folder that is no lab (`--spend` needs none), `-` or `off` in the variable: no cache."""
+    given = os.environ.get("LAB_STATUS_CACHE")
+    if given:
+        return None if given in ("-", "off") else given
+    return os.path.join(root, "__statera__", ".harness", "lab_status_cache.json") if os.path.isdir(os.path.join(root, "__statera__")) else None
+
+
+def read_transcript(path, warnings):
+    """parse_transcript through the cache, while report_spend has one open."""
+    return _cache[0].read(path, warnings) if _cache else parse_transcript(path, warnings)
+
+
 def agent_label(path):
     """A subagent's name from its `.meta.json` (`name`, else `agentType`), else 'subagent <id>'."""
     fallback = "subagent " + os.path.basename(path)[len("agent-"):-len(".jsonl")][:6]
@@ -591,7 +660,7 @@ def load_sessions(mains, warnings):
             for key, msg in found.items():
                 have = owned.get(key)
                 if have is None:
-                    owned[key] = dict(msg, label=label, sub=is_sub, own=(msg["sid"] == sid))
+                    owned[key] = dict(msg, label=label, sub=is_sub, own=(msg["sid"] == sid), usage=dict(msg["usage"]))   # a copy: merge_usage below must not change what the cache holds
                     continue
                 copies += 1
                 merge_usage(have["usage"], msg["usage"])
@@ -627,11 +696,27 @@ def table(rows):
 
 def report_spend(root):
     """The spend section: USD per session group and per agent, exact where Claude Code recorded it."""
-    roots = lab_roots(root)
+    trees = git_worktrees(root)   # one call: git is a slow start here
+    roots = lab_roots(root, trees)
     warnings = []
-    sessions, copies = load_sessions(find_sessions(roots), warnings)
+    path = cache_path(root)
+    _cache[:] = [Cache(path)] if path else []
+    try:
+        try:
+            sessions, copies = load_sessions(find_sessions(roots), warnings)
+        except Exception:   # an entry of the cache that is valid JSON but not what was written: read everything again and replace the file
+            if not _cache:
+                raise
+            _cache[:] = [Cache(path)]
+            _cache[0].files, _cache[0].dirty = {}, True
+            warnings.clear()
+            sessions, copies = load_sessions(find_sessions(roots), warnings)
+        if _cache:
+            _cache[0].save()
+    finally:
+        _cache[:] = []
     out = ["## Spend (USD: Claude Code's cost-state where a session has ended, else list price of 2026-10-19)"]
-    if not git_worktrees(root):
+    if not trees:
         out.append("! git is not available, or this folder is not in a git repository: only sessions started in this "
                    "folder or below it were counted")
     if not sessions:
@@ -639,7 +724,6 @@ def report_spend(root):
                    "under %s)" % (os.path.abspath(root), os.path.join(config_dir(), "projects")))
         return out
     here = os.path.realpath(root)
-    trees = git_worktrees(root)
     main_checkout = os.path.realpath(trees[0]) if trees else None
     groups, exact, listed, unpriced = collections.OrderedDict(), 0.0, 0.0, 0
     for s in sessions:
@@ -1080,6 +1164,131 @@ def selftest():
         with contextlib.redirect_stdout(io.StringIO()) as printed:
             assert main(["--spend", "--project", os.path.join(tmp, "elsewhere")]) == 0
         assert "TOTAL  USD 4.00 at least" in printed.getvalue(), printed.getvalue()
+
+        # The transcript cache (w05-c5): the same report with it and without it, cold and warm; invalidated by a change of size or of modification time; a bad file is ignored; written atomically.
+        cache_file = cache_path(root)
+        assert cache_file == os.path.join(root, "__statera__", ".harness", "lab_status_cache.json"), cache_file
+        spend = lambda: "\n".join(report_spend(root))
+        os.environ["LAB_STATUS_CACHE"] = "off"
+        plain = spend()
+        del os.environ["LAB_STATUS_CACHE"]
+        if os.path.exists(cache_file):
+            os.unlink(cache_file)
+        assert spend() == plain, "cold: the cache changes nothing"
+        stored = json.load(open(cache_file))
+        assert stored["v"] == CACHE_VERSION and len(stored["files"]) >= 6, sorted(stored)
+        assert spend() == plain, "warm: the cache changes nothing"
+        assert len(json.load(open(cache_file))["files"]) == len(stored["files"]), "a warm run keeps the entries it used"
+        assert open(os.path.join(root, "__statera__", ".harness", ".gitignore")).read() == "*\n"
+        assert [f for f in os.listdir(os.path.dirname(cache_file)) if f.endswith(".tmp")] == [], "the temporary file is renamed away"
+        bbb = os.path.join(sub, "agent-bbb.jsonl")
+        before = open(bbb).read()
+        open(bbb, "a").write(record("b2", sonnet, 4, 40))
+        grown = spend()
+        assert grown != plain, "a longer file is read again"
+        os.environ["LAB_STATUS_CACHE"] = "off"
+        assert spend() == grown, "and equals the uncached report"
+        del os.environ["LAB_STATUS_CACHE"]
+        # a size or a time that differs, the other the same: read again (a mutant that compares only one of them must fail here)
+        st_ = os.stat(bbb)
+        open(bbb, "a").write(record("b3", sonnet, 4, 40))
+        os.utime(bbb, ns=(st_.st_atime_ns, st_.st_mtime_ns))   # longer, with the time it had
+        assert spend() != grown, "another size, the same time: read again"
+        spend()
+        cur = open(bbb).read()
+        st_ = os.stat(bbb)
+        open(bbb, "w").write(cur.replace('"output_tokens": 40', '"output_tokens": 41', 1))
+        os.utime(bbb, ns=(st_.st_atime_ns, st_.st_mtime_ns + 5_000_000_000))   # the same size, another time
+        os.environ["LAB_STATUS_CACHE"] = "off"
+        fresh = spend()
+        del os.environ["LAB_STATUS_CACHE"]
+        assert spend() == fresh, "the same size, another time: read again"
+        good = json.load(open(cache_file))
+        for junk in ("{not json", '{"v": 0, "files": {}}', '{"v": %d, "files": 5}' % CACHE_VERSION, "[]",
+                     json.dumps(dict(good, v=CACHE_VERSION + 1, files={p: e[:2] + [[], None, None] for p, e in good["files"].items()})),
+                     ) + tuple(json.dumps(dict(good, files={p: e[:2] + [bad, e[3], e[4]] for p, e in good["files"].items()})) for bad in (5, [[1]], [["k", "not a dict"]], [["k", {"usage": None}]], [["k", {"model": "m"}]])):   # the last: another version, with emptied entries of the right stamps; then entries that are valid JSON of the right stamps but not what was written (the report reads everything again)
+            open(cache_file, "w").write(junk)
+            assert spend() == fresh, "a cache file that is unusable is ignored: " + junk[:40]
+            assert json.load(open(cache_file))["v"] == CACHE_VERSION, "and replaced"
+        # a message copied into a second file: merging the copy must not change what the cache holds for the first (a cache that shares the usage dict fails here)
+        cp1, cp2 = os.path.join(folder, "s7.jsonl"), os.path.join(folder, "s8.jsonl")
+        _write(cp1, head("s7", real) + record("cm1", sonnet, 1, 10, sid="s7"))
+        _write(cp2, head("s8", real) + record("cm1", sonnet, 1, 5000, sid="s7"))
+        for step in ("both files", "copy removed"):
+            os.environ["LAB_STATUS_CACHE"] = "off"
+            ref = spend()
+            del os.environ["LAB_STATUS_CACHE"]
+            assert spend() == ref and spend() == ref, "a copy in two files, " + step
+            if step == "both files":
+                os.unlink(cp2)
+        assert cp2 not in json.load(open(cache_file))["files"], "an entry of a file that is gone is dropped at the write"
+        # the write: a complete temporary file named with the process id exists when the rename happens and the old file is still whole then; a failed rename leaves the old file and no temporary
+        real_replace, seen_rename = os.replace, []
+
+        def spy(src, dst):
+            seen_rename.append((os.path.basename(src), json.load(open(src))["v"], json.load(open(dst))["v"]))
+            real_replace(src, dst)
+        os.replace = spy
+        try:
+            open(cp1, "a").write(record("cm2", sonnet, 1, 7, sid="s7"))
+            spend()
+        finally:
+            os.replace = real_replace
+        assert len(seen_rename) == 1 and re.fullmatch(r"lab_status_cache\.json\.\d+\.tmp", seen_rename[0][0]) and seen_rename[0][1:] == (CACHE_VERSION, CACHE_VERSION), seen_rename
+
+        def failing(src, dst):
+            raise OSError("no rename")
+        before_bytes = open(cache_file).read()
+        os.replace = failing
+        try:
+            open(cp1, "a").write(record("cm3", sonnet, 1, 7, sid="s7"))
+            spend()
+        finally:
+            os.replace = real_replace
+        assert open(cache_file).read() == before_bytes and not [x for x in os.listdir(os.path.dirname(cache_file)) if x.endswith(".tmp")], "a failed rename: the old file stays, no temporary is left"
+        spend()
+        stat_a = os.stat(cache_file)
+        spend()
+        stat_b = os.stat(cache_file)
+        assert (stat_a.st_ino, stat_a.st_mtime_ns) == (stat_b.st_ino, stat_b.st_mtime_ns), "a run that changed nothing writes nothing"
+        # a transcript that grows while it is parsed: the stamp is the one from before the parse, so the next run reads it again
+        real_parse = parse_transcript
+
+        def racing(path, warnings):
+            out = real_parse(path, warnings)
+            if path == cp1:
+                open(cp1, "a").write(record("cm4", sonnet, 1, 9, sid="s7"))
+            return out
+        open(cp1, "a").write(record("cm5", sonnet, 1, 1, sid="s7"))
+        globals()["parse_transcript"] = racing
+        try:
+            spend()
+        finally:
+            globals()["parse_transcript"] = real_parse
+        os.environ["LAB_STATUS_CACHE"] = "off"
+        ref = spend()
+        del os.environ["LAB_STATUS_CACHE"]
+        assert spend() == ref, "the stamp is taken before the parse"
+        os.unlink(cp1)
+        spend()
+        number = os.path.join(tmp, "nokey.jsonl")   # a message with no id, request id or uuid is keyed by its position, a number that a JSON object key would turn into text
+        _write(number, json.dumps({"type": "assistant", "sessionId": "k", "message": {"model": sonnet, "usage": {"input_tokens": 1, "output_tokens": 2}}}) + "\n")
+        direct = parse_transcript(number, [])
+        c1 = Cache(os.path.join(tmp, "k.json"))
+        assert c1.read(number, []) == direct and list(direct[0]) == [0]
+        c1.save()
+        c2 = Cache(os.path.join(tmp, "k.json"))
+        assert c2.read(number, []) == direct and list(c2.read(number, [])[0]) == [0] and not c2.dirty, "read back from the file: equal, and the key is still a number"
+        elsewhere = os.path.join(tmp, "elsewhere")
+        report_spend(elsewhere)
+        assert not os.path.exists(os.path.join(elsewhere, "__statera__")), "a folder that is no lab gets no cache folder"
+        if os.geteuid() != 0:   # a cache that cannot be written is not an error
+            os.unlink(cache_file)
+            os.chmod(os.path.dirname(cache_file), 0o500)
+            try:
+                assert spend() == fresh
+            finally:
+                os.chmod(os.path.dirname(cache_file), 0o700)
 
         # No transcripts: say so.
         os.environ["CLAUDE_CONFIG_DIR"] = os.path.join(tmp, "empty")
