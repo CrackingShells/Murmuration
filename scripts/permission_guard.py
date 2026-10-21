@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Deny the direct forms of skipping or loosening Claude Code's permission layer, from a PreToolUse hook.
 
-Python standard library only. The hook rows in hooks.json start this script only when a cheap `if` rule has matched
-(`Bash(*bypass*)`, `Edit(**/.claude/settings.json)`, ...), so an ordinary tool call starts no process. The `if` rules over-approximate;
-this script is the exact judge. It reads the event on stdin and answers with a `permissionDecision: deny` and a reason, or says nothing (allow).
+Python standard library only. hooks.json starts it as `python3 -S -I permission_guard.py` (no `site`, no PYTHON* variables; the script imports only the
+standard library and reads MURMURATION_GUARD_LOG through os.environ, which -I leaves alone). The Bash row has no `if` rule: the guard starts on every
+Bash call (v3), and the Write/Edit/NotebookEdit rows start it only when a cheap `if` rule has matched (`Write(**/.claude/settings*.json)`, `Write(**/*.py)`, ...),
+so an ordinary Write or Edit starts no process. The `if` rules over-approximate; this script is the exact judge. It reads the event on stdin and answers with a
+`permissionDecision: deny` and a reason, or says nothing (allow).
 The rows carry `"onFailure": "block"`: if this script cannot run (unreadable, crashes, no python3, timeout), the call is blocked.
 Inside the script, any exception also becomes a deny (fail closed).
 
