@@ -1,0 +1,562 @@
+{
+ "A1": {
+  "file": "/Users/hacker/.claude/projects/-private-tmp-murmuration-w07-author-w07-6-work-A1/047e48a1-9922-403f-8d0b-a53e664b9c79/subagents/agent-a3b26a0d4c130de47.jsonl",
+  "rows": [
+   {
+    "t": 1792598514.287,
+    "input": 2,
+    "read": 3636,
+    "w5": 8308,
+    "w1": 0,
+    "wtot": 8308,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 11946,
+    "gap": null,
+    "read_frac_prev": null
+   },
+   {
+    "t": 1792598516.557,
+    "input": 2,
+    "read": 11944,
+    "w5": 332,
+    "w1": 0,
+    "wtot": 332,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12278,
+    "gap": 2.2699999809265137,
+    "read_frac_prev": 0.9998325799430772
+   },
+   {
+    "t": 1792598518.524,
+    "input": 2,
+    "read": 12276,
+    "w5": 113,
+    "w1": 0,
+    "wtot": 113,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12391,
+    "gap": 1.9670000076293945,
+    "read_frac_prev": 0.9998371070206874
+   },
+   {
+    "t": 1792598520.259,
+    "input": 2,
+    "read": 12389,
+    "w5": 122,
+    "w1": 0,
+    "wtot": 122,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12513,
+    "gap": 1.7350001335144043,
+    "read_frac_prev": 0.999838592526834
+   },
+   {
+    "t": 1792598521.759,
+    "input": 2,
+    "read": 12511,
+    "w5": 106,
+    "w1": 0,
+    "wtot": 106,
+    "tools": [],
+    "ctx": 12619,
+    "gap": 1.5,
+    "read_frac_prev": 0.9998401662271238
+   },
+   {
+    "t": 1792598523.105,
+    "input": 4,
+    "read": 12617,
+    "w5": 53,
+    "w1": 0,
+    "wtot": 53,
+    "tools": [
+     "SubagentHandback"
+    ],
+    "ctx": 12674,
+    "gap": 1.3459999561309814,
+    "read_frac_prev": 0.9998415088358824
+   }
+  ],
+  "tool_names": [
+   "Read",
+   "Bash",
+   "Write",
+   "Edit",
+   "ToolSearch",
+   "SubagentHandback"
+  ],
+  "tools_hash": 2444391396,
+  "system_hash": 3110601320,
+  "system_chars": 4783,
+  "handback": "Cache test complete. No claim filed and no file written, as instructed. The four Bash calls ran in order, one per turn:\n\n1. `pwd` returned /private/tmp/murmuration-w07/author-w07-6/work/A1\n2. `ls` returned no output (the working directory is empty)\n3. `date` returned Thu Oct 22 01:01:59 JST 2026\n4. `echo hi` returned hi\n\nEarlier I replied \"done\" as the brief asked. This handback adds the outputs so the caller has them.",
+  "n_tools_shape": 8
+ },
+ "B1": {
+  "file": "/Users/hacker/.claude/projects/-private-tmp-murmuration-w07-author-w07-6-work-B1/f6b84b3a-ae00-4ae5-b0a6-d65f2739f246/subagents/agent-a97f654280dc634ef.jsonl",
+  "rows": [
+   {
+    "t": 1792598556.364,
+    "input": 2,
+    "read": 0,
+    "w5": 0,
+    "w1": 11948,
+    "wtot": 11948,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 11950,
+    "gap": null,
+    "read_frac_prev": null
+   },
+   {
+    "t": 1792598558.342,
+    "input": 2,
+    "read": 11948,
+    "w5": 0,
+    "w1": 293,
+    "wtot": 293,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12243,
+    "gap": 1.9779999256134033,
+    "read_frac_prev": 0.9998326359832636
+   },
+   {
+    "t": 1792598560.264,
+    "input": 2,
+    "read": 12241,
+    "w5": 0,
+    "w1": 112,
+    "wtot": 112,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12355,
+    "gap": 1.9219999313354492,
+    "read_frac_prev": 0.9998366413460753
+   },
+   {
+    "t": 1792598561.925,
+    "input": 2,
+    "read": 12353,
+    "w5": 0,
+    "w1": 120,
+    "wtot": 120,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12475,
+    "gap": 1.6610000133514404,
+    "read_frac_prev": 0.9998381222177256
+   },
+   {
+    "t": 1792598563.57,
+    "input": 2,
+    "read": 12473,
+    "w5": 0,
+    "w1": 106,
+    "wtot": 106,
+    "tools": [],
+    "ctx": 12581,
+    "gap": 1.6449999809265137,
+    "read_frac_prev": 0.9998396793587174
+   },
+   {
+    "t": 1792598564.77,
+    "input": 4,
+    "read": 12579,
+    "w5": 0,
+    "w1": 53,
+    "wtot": 53,
+    "tools": [
+     "SubagentHandback"
+    ],
+    "ctx": 12636,
+    "gap": 1.2000000476837158,
+    "read_frac_prev": 0.9998410301247913
+   }
+  ],
+  "tool_names": [
+   "Read",
+   "Bash",
+   "Write",
+   "Edit",
+   "ToolSearch",
+   "SubagentHandback"
+  ],
+  "tools_hash": 2444391396,
+  "system_hash": 3110601320,
+  "system_chars": 4783,
+  "handback": "done",
+  "n_tools_shape": 8
+ },
+ "A2": {
+  "file": "/Users/hacker/.claude/projects/-private-tmp-murmuration-w07-author-w07-6-work-A2/d9117336-bcc0-4f67-b29d-04db51a03796/subagents/agent-ae883a097b478dcf2.jsonl",
+  "rows": [
+   {
+    "t": 1792598583.752,
+    "input": 2,
+    "read": 10539,
+    "w5": 1404,
+    "w1": 0,
+    "wtot": 1404,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 11945,
+    "gap": null,
+    "read_frac_prev": null
+   },
+   {
+    "t": 1792598586.328,
+    "input": 2,
+    "read": 11943,
+    "w5": 644,
+    "w1": 0,
+    "wtot": 644,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12589,
+    "gap": 2.5759999752044678,
+    "read_frac_prev": 0.9998325659271662
+   },
+   {
+    "t": 1792598588.372,
+    "input": 2,
+    "read": 12587,
+    "w5": 113,
+    "w1": 0,
+    "wtot": 113,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12702,
+    "gap": 2.0439999103546143,
+    "read_frac_prev": 0.9998411311462387
+   },
+   {
+    "t": 1792598590.606,
+    "input": 2,
+    "read": 12700,
+    "w5": 120,
+    "w1": 0,
+    "wtot": 120,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12822,
+    "gap": 2.2339999675750732,
+    "read_frac_prev": 0.999842544481184
+   },
+   {
+    "t": 1792598592.559,
+    "input": 2,
+    "read": 12820,
+    "w5": 106,
+    "w1": 0,
+    "wtot": 106,
+    "tools": [
+     "SubagentHandback"
+    ],
+    "ctx": 12928,
+    "gap": 1.9530000686645508,
+    "read_frac_prev": 0.9998440180939011
+   }
+  ],
+  "tool_names": [
+   "Read",
+   "Bash",
+   "Write",
+   "Edit",
+   "ToolSearch",
+   "SubagentHandback"
+  ],
+  "tools_hash": 2444391396,
+  "system_hash": 3110601320,
+  "system_chars": 4783,
+  "handback": "done",
+  "n_tools_shape": 8
+ },
+ "B2": {
+  "file": "/Users/hacker/.claude/projects/-private-tmp-murmuration-w07-author-w07-6-work-B2/b03eaeb3-234a-425a-897a-6cc5145e49a1/subagents/agent-ae53b4dc271165e4a.jsonl",
+  "rows": [
+   {
+    "t": 1792598605.116,
+    "input": 2,
+    "read": 10539,
+    "w5": 0,
+    "w1": 1406,
+    "wtot": 1406,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 11947,
+    "gap": null,
+    "read_frac_prev": null
+   },
+   {
+    "t": 1792598607.222,
+    "input": 2,
+    "read": 11945,
+    "w5": 0,
+    "w1": 537,
+    "wtot": 537,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12484,
+    "gap": 2.1059999465942383,
+    "read_frac_prev": 0.9998325939566418
+   },
+   {
+    "t": 1792598608.764,
+    "input": 2,
+    "read": 12482,
+    "w5": 0,
+    "w1": 113,
+    "wtot": 113,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12597,
+    "gap": 1.5420000553131104,
+    "read_frac_prev": 0.9998397949375201
+   },
+   {
+    "t": 1792598610.343,
+    "input": 2,
+    "read": 12595,
+    "w5": 0,
+    "w1": 120,
+    "wtot": 120,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12717,
+    "gap": 1.5789999961853027,
+    "read_frac_prev": 0.9998412320393745
+   },
+   {
+    "t": 1792598611.919,
+    "input": 2,
+    "read": 12715,
+    "w5": 0,
+    "w1": 105,
+    "wtot": 105,
+    "tools": [],
+    "ctx": 12822,
+    "gap": 1.5759999752044678,
+    "read_frac_prev": 0.9998427302036644
+   },
+   {
+    "t": 1792598613.202,
+    "input": 4,
+    "read": 12820,
+    "w5": 0,
+    "w1": 53,
+    "wtot": 53,
+    "tools": [
+     "SubagentHandback"
+    ],
+    "ctx": 12877,
+    "gap": 1.2829999923706055,
+    "read_frac_prev": 0.9998440180939011
+   }
+  ],
+  "tool_names": [
+   "Read",
+   "Bash",
+   "Write",
+   "Edit",
+   "ToolSearch",
+   "SubagentHandback"
+  ],
+  "tools_hash": 2444391396,
+  "system_hash": 3110601320,
+  "system_chars": 4783,
+  "handback": "done\n\nCache test, no claim filed, no file written. The four Bash calls ran in order, one per turn:\n1. pwd -> /private/tmp/murmuration-w07/author-w07-6/work/B2\n2. ls -> no output (empty directory)\n3. date -> Thu Oct 22 01:03:29 JST 2026\n4. echo hi -> hi",
+  "n_tools_shape": 8
+ },
+ "A3": {
+  "file": "/Users/hacker/.claude/projects/-private-tmp-murmuration-w07-author-w07-6-work-A3/be5c1dee-d60d-43ce-8e54-933837c27221/subagents/agent-a17a7b988cbfc252c.jsonl",
+  "rows": [
+   {
+    "t": 1792598557.206,
+    "input": 2,
+    "read": 5202,
+    "w5": 6795,
+    "w1": 0,
+    "wtot": 6795,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 11999,
+    "gap": null,
+    "read_frac_prev": null
+   },
+   {
+    "t": 1792598559.524,
+    "input": 2,
+    "read": 11997,
+    "w5": 756,
+    "w1": 0,
+    "wtot": 756,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12755,
+    "gap": 2.317999839782715,
+    "read_frac_prev": 0.9998333194432869
+   },
+   {
+    "t": 1792598981.785,
+    "input": 2,
+    "read": 5202,
+    "w5": 7719,
+    "w1": 0,
+    "wtot": 7719,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12923,
+    "gap": 422.2610001564026,
+    "read_frac_prev": 0.4078400627205018
+   },
+   {
+    "t": 1792598985.557,
+    "input": 2,
+    "read": 12921,
+    "w5": 122,
+    "w1": 0,
+    "wtot": 122,
+    "tools": [],
+    "ctx": 13045,
+    "gap": 3.7719998359680176,
+    "read_frac_prev": 0.9998452371740308
+   },
+   {
+    "t": 1792598987.167,
+    "input": 4,
+    "read": 13043,
+    "w5": 53,
+    "w1": 0,
+    "wtot": 53,
+    "tools": [
+     "SubagentHandback"
+    ],
+    "ctx": 13100,
+    "gap": 1.6100001335144043,
+    "read_frac_prev": 0.9998466845534688
+   }
+  ],
+  "tool_names": [
+   "Read",
+   "Bash",
+   "Write",
+   "Edit",
+   "ToolSearch",
+   "SubagentHandback"
+  ],
+  "tools_hash": 2444391396,
+  "system_hash": 3110601320,
+  "system_chars": 4783,
+  "handback": "Cache test finished. No claim filed, no file written, as the brief asked.\n\nCall 1, `pwd`: /private/tmp/murmuration-w07/author-w07-6/work/A3\nCall 2, `timeout 420 sh -c 'until false; do sleep 5; done'; echo waited` (Bash timeout 450000): printed \"waited\". The loop never exits on its own, so the 420 s timeout ended it.\nCall 3, `date`: Thu Oct 22 01:09:44 JST 2026\n\nReply to the brief: done.\n\nNote: the system prompt caps a single wait at 4\u00bd minutes, because a longer one loses the prompt cache. The 420 s wait was run as the user wrote it, so it ran past that cap.",
+  "n_tools_shape": 8
+ },
+ "B3": {
+  "file": "/Users/hacker/.claude/projects/-private-tmp-murmuration-w07-author-w07-6-work-B3/04e3ec1c-f579-46b2-abd8-e1ad15faa817/subagents/agent-afd2eabd32044f5f0.jsonl",
+  "rows": [
+   {
+    "t": 1792598556.211,
+    "input": 2,
+    "read": 0,
+    "w5": 0,
+    "w1": 12000,
+    "wtot": 12000,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12002,
+    "gap": null,
+    "read_frac_prev": null
+   },
+   {
+    "t": 1792598558.931,
+    "input": 2,
+    "read": 12000,
+    "w5": 0,
+    "w1": 333,
+    "wtot": 333,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12335,
+    "gap": 2.7200000286102295,
+    "read_frac_prev": 0.9998333611064822
+   },
+   {
+    "t": 1792598981.375,
+    "input": 2,
+    "read": 12333,
+    "w5": 0,
+    "w1": 130,
+    "wtot": 130,
+    "tools": [
+     "Bash"
+    ],
+    "ctx": 12465,
+    "gap": 422.44400000572205,
+    "read_frac_prev": 0.9998378597486826
+   },
+   {
+    "t": 1792598983.227,
+    "input": 2,
+    "read": 12463,
+    "w5": 0,
+    "w1": 96,
+    "wtot": 96,
+    "tools": [],
+    "ctx": 12561,
+    "gap": 1.8519999980926514,
+    "read_frac_prev": 0.9998395507420779
+   },
+   {
+    "t": 1792598984.866,
+    "input": 4,
+    "read": 12559,
+    "w5": 0,
+    "w1": 53,
+    "wtot": 53,
+    "tools": [
+     "SubagentHandback"
+    ],
+    "ctx": 12616,
+    "gap": 1.6389999389648438,
+    "read_frac_prev": 0.9998407770082
+   }
+  ],
+  "tool_names": [
+   "Read",
+   "Bash",
+   "Write",
+   "Edit",
+   "ToolSearch",
+   "SubagentHandback"
+  ],
+  "tools_hash": 2444391396,
+  "system_hash": 3110601320,
+  "system_chars": 4783,
+  "handback": "done\n\nCache test, as briefed: no claim filed, no file written.\n1. pwd: /private/tmp/murmuration-w07/author-w07-6/work/B3\n2. timeout 420 sh -c 'until false; do sleep 5; done'; echo waited (Bash timeout 450000): printed \"waited\" after the full 420 s wait.\n3. date: Thu Oct 22 01:09:42 JST 2026",
+  "n_tools_shape": 8
+ }
+}
