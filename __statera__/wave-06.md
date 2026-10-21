@@ -73,14 +73,31 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     user. D moves from "the lab decides" to "the user applies or not". Whether the classifier will
     also stop a merge into main of other plugin files is not known yet; it will show at the first one.
 
+- 17:4x (this commit), after explorer-w06-c and reproducer-w06-1 returned:
+  - **The PI's idle time is not waste.** All 256 PI requests of waves 4–5 wrote 1-hour cache, and
+    every idle gap (the longest 2975 s) was a full cache hit. Idle costs no tokens. The PI's money is
+    in its wake-ups, and 46 of 47 later wake-ups were hand-backs. Wake-ups that changed nothing cost
+    USD 0.51 and 0.92 a wave. A request at 390k costs 1.4–1.9× one at 100k, not five times; the
+    opening note's "five times" was the cache-read part only (explorer-w06-c, MEASURED). So the
+    answer to the user's "should the PI be doing something?" is narrow. The PI is not on the
+    critical path, and nothing in its waiting costs. What it can do is work it owes anyway, placed in
+    a wake-up that happens anyway: dispose of each worker's puzzles when that worker hands back,
+    instead of 101 at the close (wave 4). That is the `waves.md` bullet of w06-c2 (ESTIMATE, with
+    reproducer-w06-2). I am doing it in this wave from now on.
+  - **The larger lever in the PI is orientation, not idleness.** The preface turn is 21–32% of PI
+    spend (explorer-w06-c). I will measure this session's own preface at the close and decide then.
+  - The `waves.md` edit went through the Edit tool without a denial. The decision-frame edit stays
+    unapplied: a denial of the kind I hit is not something to retry with another tool.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
 |:--|:--|:--|:--|
+| reproducer-w06-2 | reproducer | verify w06-c2, the dispose-as-they-land bullet (ESTIMATE) | |
 | reproducer-w06-1 | reproducer | verify w06-c1, the Desktop check of w05-c7 on this session's request 0 | SUPPORTED; paired with the wave-5 PI on 2.1.304: 74,966 → 46,738, the 29 removed tools = the line's matches |
 | explorer-w06-a | explorer | platform-visible cost of a do-nothing hook in sh, Python and a compiled binary; where the 322–605 ms goes | |
 | explorer-w06-b | explorer | inventory of the plugin's recurring waste; why each lean build failed; SA1 sized, not built | |
-| explorer-w06-c | explorer | the PI's wake-ups and cost per wake-up in waves 4–5; what idle time could carry; one session per wave | |
+| explorer-w06-c | explorer | the PI's wake-ups and cost per wake-up in waves 4–5; what idle time could carry; one session per wave | 7c14a2d: idle is free (1-hour cache); wake-ups are hand-backs; preface 21–32% of PI spend |
 
 ## Claims of this wave
 
@@ -92,6 +109,15 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 
 | Puzzle | Disposition |
 |:--|:--|
+| S-w06-explorer-w06-c-1 | followed: reassessment after explorer-w06-c (idle measured in wall clock, not waste), and w06-c2 |
+| S-w06-explorer-w06-c-2 | followed: w06-c2 (the close adds a row where a later result changed a disposition; how often that happens is untested) |
+| S-w06-explorer-w06-c-3 | parked: the platform sets the lifetime (main thread 1 h, subagents 5 min); the plugin's lever is how workers wait (w05-c1, on main) |
+| S-w06-explorer-w06-c-4 | followed: this session's own preface is measured at the close (Notes) |
+| S-w06-reproducer-w06-1-1 | followed: resolved by its writer in S-w06-reproducer-w06-1-5 (snapshot form against wire form) |
+| S-w06-reproducer-w06-1-2 | followed: this session's later request shapes checked at the close (Notes) |
+| S-w06-reproducer-w06-1-3 | parked: the names come from the platform's own listings (agent types, skills, the browser paragraph); the plugin cannot remove them, and a call to an absent tool fails visibly |
+| S-w06-reproducer-w06-1-4 | parked: a cut of a few hundred characters in the right direction; nothing to change |
+| S-w06-reproducer-w06-1-5 | parked: the snapshot form is the platform's record. Its 21 tools exclude the denied names, so it is taken after the filter; nothing for the plugin |
 
 ## Notes
 
