@@ -257,6 +257,17 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
     (`__reports__/wave-07/05-protocol_p6_cachettl_v0.md`), authors only, exact counts from the usage
     records. author-w07-6 runs it as w07-c7.
 
+- 03:00, after author-w07-2 returned (w07-c5, P2 v1):
+  - **The async hook sees the record.** 10 of 10 first prompts were found and decided by origin
+    (5 dropped as another session's, 5 kept as a terminal's), within 0.2–0.7 s, and the platform
+    ran the hook in the background (1–4 ms) in 11 of 11. r1 again 0 errors on 3,001 records.
+    Missing: main's synchronous arm for r3 (n = 1) and a synchronous crash control.
+  - **Platform fact found by accident:** two hook rows with the same command string are merged
+    into one, with nothing in the debug log (S-w07-author-w07-2-7). P3 and P5 should know it.
+  - The time from a prompt to its first API request is set by a user-level synchronous hook
+    (`inject_plan_directive.py`, 177–206 ms), not by the lab's.
+  - reproducer-w07-2 verifies w07-c2 and w07-c5 together, and runs the two missing controls.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -274,7 +285,8 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | author-w07-4 | author | w07-c4: P4, `lab_status.py` without the git child, usage fields priced | |
 | author-w07-5 | author | w07-c6: P5, the permission guard as a Rust binary in exec form | |
 | author-w07-6 | author | w07-c7: P6, a 1-hour cache for authors | |
-| author-w07-2 | author | w07-c2: P2, `user_words.py` keeps only typed prompts | e84afec (branch w07-p2-origin): q1 passes, q2 fails (record written after the hook); resumed for v1 as w07-c5 |
+| reproducer-w07-2 | reproducer | verify w07-c2 and w07-c5, with the missing controls | |
+| author-w07-2 | author | w07-c2: P2, `user_words.py` keeps only typed prompts | e84afec (branch w07-p2-origin): q1 passes, q2 fails (record written after the hook); resumed for v1 as w07-c5; 7fbee58: v1 r1, r2, r4 pass; r3 and crash controls missing |
 
 ## Claims of this wave
 
