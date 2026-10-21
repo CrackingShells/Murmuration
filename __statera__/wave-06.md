@@ -225,7 +225,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     way the guard costs a process start on Bash calls. That is a price the user's guardrail is worth,
     and the report states it.
 
-- HH:MM (this commit), after author-w06-6 returned (w06-c9, E2):
+- 21:11 (29ed4f0), after author-w06-6 returned (w06-c9, E2):
   - **E2's rule fails on e2, and the miss is my threshold, not the build.** e1 (197 of 197 EQUAL in
     both modes, real commands 16 of 16, mutants DIFF), e3 and e4 (+94 against +100) pass. e2 needs
     25 ms in every pair. The pairs gave 42, 19, 19, 18, 23, −30, 29, 22 and 40 ms (median 22). On a
