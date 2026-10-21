@@ -208,7 +208,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     new h6 for engineering edits. Each version's rule is committed before its runs, and all three are
     reported.
 
-- HH:MM (this commit), after reproducer-w06-4's verdict on w06-c4 (OVERSTATED):
+- 20:49 (118a06f), after reproducer-w06-4's verdict on w06-c4 (OVERSTATED):
   - s1, s2 on the final build (pooled 22.2%; 2 of 6 pairs over, not 3), s3a for (b), s3c and the
     revert all reproduce. The two readings it asks me to name are these. s3b was meant cumulatively,
     over the whole outage (12–18 s, fails). s4 was meant as all production code the build adds, the
