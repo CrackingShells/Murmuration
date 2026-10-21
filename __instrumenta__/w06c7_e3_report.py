@@ -20,6 +20,27 @@ files = sorted(glob.glob("%s/e3_results_%s_%s.json" % (E.S, sha, mode)) + glob.g
 R = {}
 for f in files:
     merge(R, json.load(open(f)))
+
+
+def reclassify(node):
+    """Re-derive each case's outcome from the raw session (shards started before the `blocked-failure` class existed): a deny that is the platform's hook-failure block is not a guard decision."""
+    if isinstance(node, dict) and "outcome" in node and "run" in node:
+        return
+    if not isinstance(node, dict):
+        return
+    for k, v in node.items():
+        if isinstance(v, dict) and "outcome" in v and "run" in v:
+            dirs = glob.glob("%s/runs/%s" % (E.S, v["run"])) + glob.glob("%s/shard*/runs/%s" % (E.S, v["run"]))
+            if dirs and os.path.exists(dirs[0] + "/cases.json"):
+                cs = json.load(open(dirs[0] + "/cases.json"))["cases"]
+                for row in E.match(dirs[0], cs):
+                    if row[0] == k:
+                        v["outcome"] = row[1]
+        else:
+            reclassify(v)
+
+
+reclassify(R)
 OUT = os.path.join(E.LISTS, "e3_results_%s_%s.md" % (sha, mode))
 lists = {n: {c["id"]: c for c in json.load(open("%s/e3_%s.json" % (E.LISTS, n)))} for n in ("attacks", "ordinary", "mention", "evasions")}
 DOLLAR = re.compile(r"\$\(|`|\$[A-Za-z_{]")
@@ -64,7 +85,7 @@ p("")
 p("Not denied: %s" % (json.dumps(bad) if bad else "none"))
 p("")
 g2 = cases(R["g2"])
-ok = [k for k, v in g2.items() if v["outcome"] not in ("denied", "not-called") and v["spawns_for_case"] == 0]
+ok = [k for k, v in g2.items() if v["outcome"] not in ("denied", "blocked-failure", "not-called") and v["spawns_for_case"] == 0]
 p("## g2 ordinary: %d of %d passed with 0 hook spawns (denied or spawned or not called: the rest)" % (len(ok), len(g2)))
 p("")
 p("| id | outcome | spawns for this call | has `$` expansion | command |")

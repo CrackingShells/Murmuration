@@ -82,7 +82,7 @@ def main():
     export(PLUG)
     E.arena()
     # preflight: the stub is first on PATH inside the session's Bash
-    R = E.session("preflight", PLUG, [dict(id="pf", tool="Bash", command="command -v claude; type -a claude | head -3; echo $PATH | tr ':' '\\n' | head -2")])
+    R = E.session("preflight", PLUG, [dict(id="pf", tool="Bash", command="command -v claude; type -a claude | head -3")])
     pf = E.calls(R)
     results["preflight"] = pf[0][2][:300] if pf else "no call"
     assert pf and "/arena/bin/claude" in pf[0][2] and "STUB" not in pf[0][2] or print("PREFLIGHT FAILED", results["preflight"]) or sys.exit(2)
