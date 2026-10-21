@@ -216,7 +216,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     either reading, because s2 fails. w06-c4 stays at "below MEASURED: restate" and is not restated,
     since no decision depends on it. The synthesis quotes the verifier's own reproduced numbers.
 
-- HH:MM (this commit), after author-w06-5's correction of the `$` share:
+- 21:09 (3fa468f), after author-w06-5's correction of the `$` share:
   - Commands with an unresolved `$` are 45.1% of the lab's own Bash calls, not 17.7%. The 17.7%
     pooled the headless probe sessions. Each such command matches every `if` row, so v2's 3 rows
     cost about 1.35 guard starts per Bash call. One unconditional Bash row costs exactly 1, and it
