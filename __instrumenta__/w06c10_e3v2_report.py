@@ -19,6 +19,22 @@ def merge(a, b):
 files = sorted(glob.glob("%s/v2shard*/e3v2_results_%s_s*.json" % (E.S, sha)))
 for f in files:
     merge(R, json.load(open(f)))
+
+
+def reclassify(node):
+    """Re-derive each case's outcome from the raw session with the final classifier (a tool result that merely names permission_guard.py in a path is not a hook failure)."""
+    for k, v in node.items():
+        if isinstance(v, dict) and "outcome" in v and "run" in v:
+            dirs = glob.glob("%s/v2shard*/runs/%s" % (E.S, v["run"]))
+            if dirs and os.path.exists(dirs[0] + "/cases.json"):
+                for row in E.match(dirs[0], json.load(open(dirs[0] + "/cases.json"))["cases"]):
+                    if row[0] == k:
+                        v["outcome"] = row[1]
+        elif isinstance(v, dict):
+            reclassify(v)
+
+
+reclassify(R)
 load = lambda n: {c["id"]: c for c in json.load(open("%s/%s.json" % (E.LISTS, n)))}
 a0, o0, c1, c2 = load("e3_attacks"), load("e3_ordinary"), load("e3v1_cases"), load("e3v2_cases")
 DOLLAR = re.compile(r"\$\(|`|\$[A-Za-z_{]")

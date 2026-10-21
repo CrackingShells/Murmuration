@@ -128,7 +128,7 @@ def match(R, cases):
             continue
         used.add(hit)
         r = cs[hit][2]
-        rows.append((c["id"], ("denied" if "permission_guard (G" in r else "blocked-failure") if ("permission_guard" in r or "onFailure" in r) else ("stub-ran" if "STUB-RAN" in r else "ran/other"), r.replace("\n", " ")[:110]))
+        rows.append((c["id"], ("denied" if "permission_guard (G" in r else "blocked-failure") if ("hook error" in r or "onFailure" in r) else ("stub-ran" if "STUB-RAN" in r else "ran/other"), r.replace("\n", " ")[:110]))
     return rows
 
 
