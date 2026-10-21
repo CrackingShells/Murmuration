@@ -99,6 +99,11 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
     - "pilot one cell first" and side-by-side cells. These are written into the E5–E8 protocol as
       practice, not tested as claims.
   - Pre-registration committed at e0fc3ab before any run.
+- 16:2x, after w05-c3: E6's rule proposes the allowlist (baba44f). But an allowlist silently drops
+  every MCP server the plugin cannot name (user connectors, project servers), and E6 measured
+  nothing of that. A metric that misses a cost makes a rule pass for the wrong reason. Protocol v1
+  (0bd9570) adds E6b, a denylist, with that metric; author-w05-2 is resumed for it (w05-c6). w05-c3
+  goes to its verifier as filed.
 
 ## Dispatches
 
@@ -110,7 +115,8 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
 | explorer-w05-d | explorer | non-model overhead: hook starts, lab_status, lab_init, Python start; USD 4, 30 min | yes; auto-mode 0.85 s/call found, 5 puzzles |
 | explorer-w05-e | explorer | leanest way for a worktree session to run its own branch of the plugin; USD 4, 30 min | yes; cause found (--project-config-root), 4 puzzles |
 | author-w05-1 | author | w05-c1 (E5, how a worker waits), then w05-c2 (colgrep path); USD 12, 75 min, runs ≤ USD 15 | |
-| author-w05-2 | author | w05-c3 (E6, `tools:` for the PI); USD 5, 40 min, runs ≤ USD 5 | |
+| author-w05-2 | author | w05-c3 (E6, `tools:` for the PI); USD 5, 40 min, runs ≤ USD 5; resumed for w05-c6 (E6b denylist), USD 3, 25 min | w05-c3 filed: E6 proposes B; connectors dropped (unmetered) |
+| reproducer-w05-3 | reproducer | verify w05-c3 at baba44f/36e1b47; USD 2.5, 20 min | |
 | author-w05-3 | author | w05-c4 (E7, lean hooks v2), then w05-c5 (E8, lab_status); USD 10, 75 min | |
 | explorer-w05-f | explorer | auto mode's per-call cost and the first-Bash shell start; USD 3, 25 min, runs ≤ USD 2 | |
 
