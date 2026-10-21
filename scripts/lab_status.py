@@ -530,7 +530,7 @@ def merge_usage(into, use):
     if isinstance(tools, dict) and tools.get("web_search_requests"):
         try:
             n = int(tools["web_search_requests"])
-        except (TypeError, ValueError):
+        except (TypeError, ValueError, OverflowError):   # a string, a list, `Infinity` (Python's json accepts it)
             n = 0
         have = into.get("server_tool_use") if isinstance(into.get("server_tool_use"), dict) else {}
         into["server_tool_use"] = {"web_search_requests": max(n, int(have.get("web_search_requests") or 0))}
@@ -1112,6 +1112,7 @@ def selftest():
         assert abs(message_usd(opus, merged) - (40.0 + 0.02)) < 1e-9, "merge_usage keeps fast mode and the largest web-search count"
         merge_usage(merged, {"output_tokens": 1000000, "speed": "standard", "server_tool_use": {"web_search_requests": 0}})
         assert merged["speed"] == "fast" and merged["server_tool_use"] == {"web_search_requests": 2}
+        merge_usage({}, {"server_tool_use": {"web_search_requests": float("inf")}})   # must not raise: A printed a report for it
         text = "\n".join(report_spend(root))
         # exact 7.5 (s1) + list price 12.0 (s2) + 2.0 (s3: sonnet f1 only); s3 and s2 are open
         assert "TOTAL  USD 21.50 at least   (7.50 exact + 14.00 at list price for 2 sessions still open)" in text, text
