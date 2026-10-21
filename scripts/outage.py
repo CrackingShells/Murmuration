@@ -52,36 +52,49 @@ def reply(kind, **fields):
     return {"hookSpecificOutput": dict(hookEventName=kind, **fields)}
 
 
-def answer(event, now=None):
-    """The hook's answer (a dict) or None."""
+def lab_root(event):
+    """The nearest folder with `__statera__/`, from the event's cwd up 5 levels (this script starts fast, so it imports nothing of the lab until it has something to say)."""
+    p = os.path.abspath(event.get("cwd") or os.getcwd())
+    return next((c for c in [p] + [os.path.abspath(os.path.join(p, *[".."] * n)) for n in range(1, 6)] if os.path.isdir(os.path.join(c, "__statera__"))), None)
+
+
+def lab(root):
+    """The handback module (its `harness_dir` is created, with its `.gitignore`)."""
     sys.path.insert(0, HERE)
     import handback
-    root, kind, now = handback.lab_root(event), event.get("hook_event_name"), now or datetime.datetime.now().timestamp()
+    handback.harness_dir(root)
+    return handback
+
+
+def say(root, event, detail):
+    """Log one `hook_fault` line, kind `down`."""
+    lab(root).log_line(root, dict(event="hook_fault", kind="down", detail=detail, hook=event.get("hook_event_name"), agent_id=event.get("agent_id")))
+
+
+def answer(event, now=None):
+    """The hook's answer (a dict) or None."""
+    root, kind, now = lab_root(event), event.get("hook_event_name"), now or datetime.datetime.now().timestamp()
     aid, main = event.get("agent_id"), event.get("transcript_path")
     if not root:
         return None
     if kind == "SubagentStart" and aid:
-        try:
-            import hook_server
-            hook_server.modules()
-            n = failures(main, now - RECENT)[0] if main else 0
-            why = "%d hook calls of the hook server failed in the last 10 minutes" % n if n else None
-        except Exception as exc:
-            why = "hook_server.py does not load (%s)" % type(exc).__name__
+        broken = [f for f in ("budget.py", "handback.py", "hook_server.py") if not _compiles(os.path.join(HERE, f))]
+        n = failures(main, now - RECENT)[0] if main else 0
+        why = "%s does not load" % ", ".join(broken) if broken else ("%d hook calls of the hook server failed in the last 10 minutes" % n if n else None)
         if why:
-            handback.log_line(root, dict(event="hook_fault", kind="down", detail=why, hook=kind, agent_id=aid))
+            say(root, event, why)
             return reply(kind, additionalContext="Hooks down: %s. The budget notes, the 150%% block and the hand-back capture may not be running for this run. "
                                                  "Go on; start your hand-back with a line `HOOKS DOWN: <what you saw>`." % why)
     elif kind == "PreToolUse" and event.get("tool_name") in ("Agent", "Task") and not aid and main:
-        seen = os.path.join(handback.harness_dir(root), "outage.seen")
+        seen = os.path.join(root, "__statera__", ".harness", "outage.seen")
         try:
             since = float(open(seen).read())
         except (OSError, ValueError):
             since = 0.0
         n, newest = failures(main, since)
         if n:
+            say(root, event, "%d hook calls failed since the last note" % n)
             open(seen, "w").write(str(newest))
-            handback.log_line(root, dict(event="hook_fault", kind="down", detail="%d hook calls failed since the last note" % n, hook=kind, agent_id=None))
             return reply(kind, additionalContext="Hooks down: %d calls of the hook server failed in this session since the last note (the budget notes, the 150%% block, the "
                                                  "hand-back capture and the dispatch record did not run for them). Workers dispatched now have no budget; /lab-status lists the failures." % n)
     elif kind == "PreToolUse" and event.get("tool_name") == "SubagentHandback" and aid:
@@ -89,15 +102,23 @@ def answer(event, now=None):
         n = failures(path)[0] if path else 0
         if n:
             try:
-                fd = os.open(os.path.join(handback.harness_dir(root), "%s.outage" % aid), os.O_WRONLY | os.O_CREAT | os.O_EXCL)
+                fd = os.open(os.path.join(lab(root).harness_dir(root), "%s.outage" % aid), os.O_WRONLY | os.O_CREAT | os.O_EXCL)
                 os.close(fd)
             except FileExistsError:
                 return None
-            handback.log_line(root, dict(event="hook_fault", kind="down", detail="%d hook calls failed during the run" % n, hook=kind, agent_id=aid))
+            say(root, event, "%d hook calls failed during the run" % n)
             return reply(kind, permissionDecision="deny", permissionDecisionReason=(
                 "Lab harness check (genuine, sent by the hook that runs you): %d of your hook calls failed during this run, so your budget notes, the 150%% block and the "
                 "capture of your hand-back were not running. Call SubagentHandback again; start the message with a line `HOOKS DOWN: %d hook calls failed`. This check happens once." % (n, n)))
     return None
+
+
+def _compiles(path):
+    try:
+        compile(open(path).read(), path, "exec")
+        return True
+    except (OSError, SyntaxError, ValueError):
+        return False
 
 
 def main():

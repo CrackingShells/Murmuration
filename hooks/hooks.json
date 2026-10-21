@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/outage.py\" || echo '{\"hookSpecificOutput\": {\"hookEventName\": \"SubagentStart\", \"additionalContext\": \"Hooks down: python3 cannot run the hook scripts of the lab. The budget notes, the 150% block and the hand-back capture are not running for this run. Go on; start your hand-back with a line `HOOKS DOWN: <what you saw>`.\"}}'",
+            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/outage.py\" || echo '{\"hookSpecificOutput\": {\"hookEventName\": \"SubagentStart\", \"additionalContext\": \"Hooks down: python3 cannot run the hook scripts of the lab. The budget notes, the 150% block and the hand-back capture are not running for this run. Go on; start your hand-back with a line `HOOKS DOWN: <what you saw>`.\"}}'",
             "timeout": 10
           },
           {
@@ -56,7 +56,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/outage.py\"",
+            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/outage.py\"",
             "timeout": 10
           },
           {
@@ -85,7 +85,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/outage.py\"",
+            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/outage.py\"",
             "timeout": 10
           },
           {
