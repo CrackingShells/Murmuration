@@ -350,6 +350,56 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | S-w06-reproducer-w06-4-3 | followed: the intended reading stated (cumulative over the outage) |
 | S-w06-reproducer-w06-4-4 | parked: a limit of the test design; the server is out |
 | S-w06-reproducer-w06-4-5 | parked: true and by design; b200173 is the permissions guardrail, not part of the build |
+| S-w06-author-w06-5-10 | followed: E3 v2 (6094f70), h3 restated |
+| S-w06-author-w06-5-11 | followed: E3 v3 (one row) and the 20 s timeout |
+| S-w06-author-w06-5-12 | parked: G4 cannot tell intent from text; it denies added words, and the user's managed setting is the hard layer |
+| S-w06-author-w06-5-13 | followed: E3 v1's h2 and v3 (the script-file route) |
+| S-w06-author-w06-5-14 | parked: fixed by its writer, and outcomes re-derived from raw sessions by two verifiers |
+| S-w06-author-w06-5-15 | parked: a known limit of G4's count rule, stated in w06-c12 and w06-c13 |
+| S-w06-author-w06-5-16 | followed: v3 (1 start instead of 3) and the 20 s timeout |
+| S-w06-author-w06-5-17 | followed: reproducer-w06-7's classification of the 113 (k6 passes as registered) |
+| S-w06-author-w06-5-18 | parked: k01 was denied live in the 5b43cc4 run and offline throughout |
+| S-w06-author-w06-5-19 | parked: another plugin's refusal; the guard log reads allow |
+| S-w06-author-w06-5-20 | parked: accepted trade, stated in w06-c13's limits |
+| S-w06-author-w06-5-21 | parked: model willingness drifts between runs; the offline diff is the stable evidence |
+| S-w06-author-w06-5-22 | followed: the mv fix at 1ace83e; the placeholder false denial accepted |
+| S-w06-author-w06-6-1 | parked: three measures of one positive saving (20–28 ms); the landing decision does not turn on the gap |
+| S-w06-author-w06-6-2 | followed: synthesis open item 27 (thresholds against ceilings and noise) |
+| S-w06-author-w06-6-3 | parked: main-thread starts are noisy at n = 28 and not the landing metric |
+| S-w06-author-w06-6-4 | followed: the PI decision to land w06-c9 against its threshold |
+| S-w06-author-w06-6-5 | followed: the same decision, which applies the user's sentence |
+| S-w06-author-w06-6-6 | parked: it does not change w06-c4's verdict (recorded in w06-c9) |
+| S-w06-author-w06-6-7 | parked: 4.4 ms above the cheapest start; further cuts would leave the identical-by-construction scope |
+| S-w06-author-w06-6-8 | parked: the isolation hook's refusal across worktrees is the platform's; noted for briefs that use worktrees |
+| S-w06-author-w06-6-9 | parked: a pilot in line with the batch; excluded by rule |
+| S-w06-reproducer-w06-3-1 | parked: request-0 jitter, as S-w06-author-w06-3-1 |
+| S-w06-reproducer-w06-3-2 | parked: the same jitter, for workers |
+| S-w06-reproducer-w06-3-3 | followed: w06-c6 (m4 (a) stated as vacuous) and protocol v1 |
+| S-w06-reproducer-w06-3-4 | followed: v1's s3b and the 3 s timeout of the stage-2 build |
+| S-w06-reproducer-w06-5-1 | followed: E3 v3 (an unconditional row sees heredoc bodies) |
+| S-w06-reproducer-w06-5-2 | followed: v3's amendment (G1 needs a claude invocation) and k6 |
+| S-w06-reproducer-w06-5-3 | parked: stated limit of G4 (w06-c12, w06-c13) |
+| S-w06-reproducer-w06-5-4 | parked: stated limit; the managed setting closes it |
+| S-w06-reproducer-w06-5-5 | parked: h6 is a floor, not a sample; stated in w06-c12 |
+| S-w06-reproducer-w06-5-6 | followed: fixed at 5eea015 |
+| S-w06-reproducer-w06-5-7 | parked: untestable live; denied offline |
+| S-w06-reproducer-w06-5-8 | parked: as S-w06-author-w06-6-8; the PI committed its helpers in 9e6d8b6 |
+| S-w06-reproducer-w06-6-1 | parked: as S-w06-author-w06-6-1 |
+| S-w06-reproducer-w06-6-2 | followed: synthesis open item 27 |
+| S-w06-reproducer-w06-6-3 | followed: fixed at 80c8323 and re-verified |
+| S-w06-reproducer-w06-6-4 | parked: its loaded pairs were discarded; the quiet pairs carry the reading |
+| S-w06-reproducer-w06-7-1 | followed: its classification decided k6 |
+| S-w06-reproducer-w06-7-2 | parked: the folders are named in its own section |
+| S-w06-reproducer-w06-7-3 | followed: fixes at 5b43cc4 and 1ace83e (w06-c13) |
+| S-w06-reproducer-w06-7-4 | parked: its stated labelling rule; the margin of 5 on the broad reading is reported |
+| S-w06-reproducer-w06-7-5 | parked: k5 hook times not re-derived; the 211-start headroom check covers it |
+| S-w06-reproducer-w06-8-1 | parked: the hand-back capture worked through SubagentStop; the tool's absence in default mode is the platform's |
+| S-w06-reproducer-w06-8-2 | followed: w06-c14 (lean start for the guard) |
+| S-w06-reproducer-w06-8-3 | followed: w06-c14 (docstring) |
+| S-w06-reproducer-w06-8-4 | parked: the deny reaches the model with the guard's text; the wording 'hook error' is the platform's |
+| S-w06-reproducer-w06-8-5 | parked: the user's colgrep policy hook is their config (synthesis item 22) |
+| S-w06-research-pi-1 | followed: synthesis open item 28 |
+| S-w06-research-pi-2 | followed: synthesis open item 27 |
 | S-w06-explorer-w06-a-1 | parked: an ordering effect between languages; the language is not taken forward (E1) |
 | S-w06-explorer-w06-a-2 | parked: the exec floor belongs to the kernel and the platform; a hook that starts no process avoids it (E1) |
 | S-w06-explorer-w06-a-3 | followed: E1 (one resident server removes Murmuration's own siblings); the user's own sibling hooks are their config (synthesis item 22) |
