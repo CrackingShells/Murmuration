@@ -80,6 +80,24 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
     model request per verifier and author, seconds each; it goes to explorer-w07-b's frame of
     requests per task when b returns.
 
+- 01:05, after explorer-w07-f returned:
+  - **The managed file is probably not the managed tier on this account** (CHECKED by reading the
+    2.1.304 binary, not run). Claude Code takes one managed source, first-wins: server-managed,
+    then MDM, then `managed-settings.json`. `~/.claude/remote-settings.json` holds
+    `channelsEnabled`, which counts as policy content, so the file is dropped. The check itself is
+    not interactive-only. My own reading of the file's mtime is 2026-10-18 18:40, not "refreshed
+    today" as the report says; it does not change the inference. This is the user's guardrail: the
+    guard's Bash row stays, and the report gives the user two tests to settle it (`/status`, and a
+    `touch` under the flag with a debug file). No worker runs them.
+  - **Item 28 has its marker.** The transcript marks origin (`origin.kind` `human` for typed
+    prompts; `sdk`, `peer`, `task-notification` otherwise); the hook payload does not, but carries
+    `prompt_id`. Registered P2 v0 (`__reports__/wave-07/01-protocol_p2_origin_v0.md`) before its
+    run; author-w07-2 runs it as w07-c2, reproducer-w07-2 verifies. My decision on the open
+    question: a headless `-p` prompt is kept, because a person may run a lab headless.
+  - `user_words.md` holds three wrong entries (17:18 and 00:22 are spawned sessions' first
+    messages; 00:12 "say ok" is the user's own `-p` test). No agent edits that file; the synthesis
+    names them.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -89,7 +107,9 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | explorer-w07-c | explorer | hooks without a process per call: `async: true`, `http` with `onFailure: block`, merged rows; fields, latency, dead-server behaviour | |
 | explorer-w07-d | explorer | serial loops and algorithms in the lab's code: profile `lab_status.py` and the replays; scaling curves for parallel Python, a better algorithm, Rust | |
 | explorer-w07-e | explorer | the PI's skills listing and the workers' allowlists: what can be excluded, and how, without losing `research-loop` | 546a4b9: `Skill` denied −11.7–12.0k tokens; listing all or none; Wolfram never called but costs names only |
-| explorer-w07-f | explorer | read-only: where Claude Code enforces `disableBypassPermissionsMode`; how `user_words.py` can tell a session's message from the user's (item 28) | |
+| explorer-w07-f | explorer | read-only: where Claude Code enforces `disableBypassPermissionsMode`; how `user_words.py` can tell a session's message from the user's (item 28) | 70629c1: first-wins managed tier, the file probably dropped; `origin.kind` marks typed prompts |
+| author-w07-1 | author | w07-c1: P1, the PI without the skills listing | |
+| author-w07-2 | author | w07-c2: P2, `user_words.py` keeps only typed prompts | |
 
 ## Claims of this wave
 
