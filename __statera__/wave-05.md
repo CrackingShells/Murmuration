@@ -121,6 +121,18 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
   - The PreToolUse hooks may overlap the classifier (with hooks off, the decision was slower). If
     so, PreToolUse savings show less in auto mode. This does not change E7's metric (serial
     seconds); it changes how its saving is read.
+- 17:4x, after authors 1 and 3 returned:
+  - The waiting paragraph is the wave's largest measured gain: cost 0.57 of A at 227k context, in
+    3 of 3 runs per arm (w05-c1, before verification). One finding changes how I read the
+    probes: a headless main thread writes 1-hour cache entries and a subagent writes 5-minute
+    ones (author-w05-1). The PI's own idle waits are therefore probably not cache losses. b's
+    expiries after over an hour fit that.
+  - E7 failed on my own m1, which no build that removes a start can meet, and on a 500 KB payload
+    the platform never sends (31 KB seen). I do not rewrite the rule after the fact. The build goes
+    to the user with that reading (S-w05-research-pi-4).
+  - A plain commit in this shared checkout swept a staged revert into another author's commit
+    (baba44f). I filed w05-c8 (commit by naming paths) and w05-c9 (reassessments in the procedure,
+    CONJECTURE). Both are with reproducer-w05-8.
 
 ## Dispatches
 
@@ -131,11 +143,15 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
 | explorer-w05-c | explorer | worker orientation, waste and resume costs (wave 4, vs 2–3); USD 4, 30 min | yes; cache lapses in long waits, 6 puzzles |
 | explorer-w05-d | explorer | non-model overhead: hook starts, lab_status, lab_init, Python start; USD 4, 30 min | yes; auto-mode 0.85 s/call found, 5 puzzles |
 | explorer-w05-e | explorer | leanest way for a worktree session to run its own branch of the plugin; USD 4, 30 min | yes; cause found (--project-config-root), 4 puzzles |
-| author-w05-1 | author | w05-c1 (E5, how a worker waits), then w05-c2 (colgrep path); USD 12, 75 min, runs ≤ USD 15 | |
+| author-w05-1 | author | w05-c1 (E5, how a worker waits), then w05-c2 (colgrep path); USD 12, 75 min, runs ≤ USD 15 | yes; E5 proposes B (cost 0.57 of A at 227k context); c2 CHECKED; runs about USD 10.5 |
+| reproducer-w05-1 | reproducer | verify w05-c1, then w05-c2; USD 3, 35 min, runs ≤ USD 3.5 | |
 | author-w05-2 | author | w05-c3 (E6, `tools:` for the PI); USD 5, 40 min, runs ≤ USD 5; resumed for w05-c6 (E6b denylist), USD 3, 25 min | w05-c3 filed: E6 proposes B; connectors dropped (unmetered); w05-c6: E6b proposes D (tip b554266); w05-c7 restates w05-c6 |
 | reproducer-w05-3 | reproducer | verify w05-c3 at baba44f/36e1b47; USD 2.5, 20 min | SUPPORTED; title arithmetic loose (medians vs mean) |
 | reproducer-w05-6 | reproducer | verify w05-c6; USD 2, 20 min; resumed for w05-c7, USD 0.6, 6 min | w05-c6 OVERSTATED (presence not use; four entries unrun; Artifact a judgement); w05-c7 SUPPORTED |
-| author-w05-3 | author | w05-c4 (E7, lean hooks v2), then w05-c5 (E8, lab_status); USD 10, 75 min | |
+| author-w05-3 | author | w05-c4 (E7, lean hooks v2), then w05-c5 (E8, lab_status); USD 10, 75 min | yes; E7 not proposed (m1 ill-posed, m3 at 500 KB), set aside 0d3c879; E8 proposed |
+| reproducer-w05-4 | reproducer | verify w05-c4; USD 2.5, 25 min | |
+| reproducer-w05-5 | reproducer | verify w05-c5; USD 1.5, 15 min | |
+| reproducer-w05-8 | reproducer | verify w05-c8 and w05-c9 (PI-authored); USD 1, 10 min | |
 | explorer-w05-f | explorer | auto mode's per-call cost and the first-Bash shell start; USD 3, 25 min, runs ≤ USD 2 | yes; hidden classifier per call; bash shell 0.5 s first call; 4 puzzles |
 
 ## Claims of this wave
