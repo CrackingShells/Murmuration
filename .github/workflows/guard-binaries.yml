@@ -1,0 +1,28 @@
+# CI for the Rust guard (a file for the maintainer; not pushed by the lab). Builds `murmuration` for each target, checks it against scripts/permission_guard.py, and uploads the binary
+# so that it can be committed under bin/<target>/. The lab built and committed only aarch64-apple-darwin and x86_64-apple-darwin; the other rows are untested here.
+name: guard-binaries
+on:
+  push:
+    paths: ["rust/**", "scripts/permission_guard.py", "scripts/check_guard_equal.py"]
+  workflow_dispatch:
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: macos-14, target: aarch64-apple-darwin }
+          - { os: macos-13, target: x86_64-apple-darwin }
+          - { os: ubuntu-latest, target: x86_64-unknown-linux-gnu }
+          - { os: ubuntu-24.04-arm, target: aarch64-unknown-linux-gnu }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - run: rustup target add ${{ matrix.target }}
+      - run: cargo clippy --release --target ${{ matrix.target }} --manifest-path rust/Cargo.toml
+      - run: cargo build --release --target ${{ matrix.target }} --manifest-path rust/Cargo.toml
+      - run: mkdir -p bin/${{ matrix.target }} && cp rust/target/${{ matrix.target }}/release/murmuration bin/${{ matrix.target }}/murmuration
+      - run: python3 -I scripts/check_guard_equal.py --no-recorded --rust bin/${{ matrix.target }}/murmuration
+      - uses: actions/upload-artifact@v4
+        with: { name: "murmuration-${{ matrix.target }}", path: "bin/${{ matrix.target }}/murmuration" }
