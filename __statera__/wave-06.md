@@ -238,7 +238,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     supports identical outputs, a positive saving and a working fallback without `_json`. If it does
     not, nothing lands.
 
-- HH:MM (this commit), after author-w06-5 returned (w06-c11, E3 v3; w06-c12, the restatement of w06-c10):
+- 21:22 (67de314), after author-w06-5 returned (w06-c11, E3 v3; w06-c12, the restatement of w06-c10):
   - k1–k5 pass. v3 denies 8 of 9 of what the gated rows let through, the `bash` heredoc included, at
     exactly 1 start per Bash call. k6 as counted fails: 113 of 4,553 replayed lab Bash calls are
     denied, against 55. But the amendment defines a false denial as a command that only mentions the
