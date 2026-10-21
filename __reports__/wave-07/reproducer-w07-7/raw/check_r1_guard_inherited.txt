@@ -1,0 +1,16 @@
+== tool calls (tool, main/sub, command or path, result head)
+  Write            main  '/private/tmp/murmuration-w07/reproducer-w07-7/runs/r1_guard_inherited/' -> PreToolUse:Write hook error: permission_guard (G3): the edit targets `/private/tmp/murmuration-w07/reproducer-w07-7/runs/r1_guard_
+  Bash             main  'echo after'                                                           -> after
+== hook starts by name: {'SessionStart:startup': 3, 'UserPromptSubmit': 2, 'PreToolUse:Write': 1, 'PreToolUse:Bash': 2, 'PostToolUse:Bash': 1, 'PostToolBatch': 1}
+== guard.log lines: 2 decisions: {('deny', 'G3'): 1, ('allow', None): 1}
+   non-allow: {'tool': 'Write', 'what': '/private/tmp/murmuration-w07/reproducer-w07-7/runs/r1_guard_inherited/lab/.claude/settings.json', 'decision': 'deny', 'group': 'G3'}
+== debug log: error words (whole log): {'hook_non_blocking_error': 0, 'hook_cancelled': 0, 'hook_blocking_error': 0, 'non-blocking': 0, 'hook error': 0}
+== debug log: hook lines (not MCP-server lines): 808 ; of them matching error|fail|timed out|Traceback|exit code [1-9]|status [1-9]:
+== debug log: lines '[ERROR]' not from MCP servers: 1
+    2026-10-21T17:23:59.779Z [ERROR] NON-FATAL: Lock acquisition failed for /Users/hacker/.local/share/claude/versions/2.1.304 (expected in multi-process scenarios): Lock already held by another process
+== hand-back files: None
+== user_words.md: 195 bytes, 1 dated headings: ['## 2026-10-22 02:23']
+   contains 'Smoke test of the lab': 0 ; contains 'test of a security hook': 0 ; contains seed question: 1
+== transcript hook error records (main + subagents): none ; files: 1
+== subagent transcripts:
+== stub.log lines (whole file): 0

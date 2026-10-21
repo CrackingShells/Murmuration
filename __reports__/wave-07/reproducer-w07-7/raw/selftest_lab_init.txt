@@ -1,0 +1,3 @@
+SELFTEST fresh index:      built the colgrep index of the lab (added: 1, changed: 0, deleted: 0, unchanged: 0), without the paths in .ignore
+SELFTEST lab in a parent:  no new colgrep index: the lab is inside the index of /private/var/folders/nw/ddpd99c119j47w3s4gzv7sb00000gn/T/tmp3ctors_f/indexed-parent, which colgrep updated (added: 1, changed: 0, deleted: 0, unchanged: 1); searches from the lab use it
+PASS lab_init

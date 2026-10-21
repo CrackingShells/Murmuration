@@ -1,0 +1,5 @@
+{"tool": "Bash", "what": "end=$(( $(date +%s) + 30 )); until [ $(date +%s) -ge $end ]; do sleep 2; done; echo waited", "decision": "allow", "group": null}
+{"tool": "Bash", "what": "echo author-ok", "decision": "allow", "group": null}
+{"tool": "Bash", "what": "end=$(( $(date +%s) + 30 )); until [ $(date +%s) -ge $end ]; do sleep 2; done; echo waited", "decision": "allow", "group": null}
+{"tool": "Bash", "what": "end=$(( $(date +%s) + 30 )); until [ $(date +%s) -ge $end ]; do sleep 2; done; echo waited", "decision": "allow", "group": null}
+{"tool": "Bash", "what": "end=$(( $(date +%s) + 30 )); until [ $(date +%s) -ge $end ]; do sleep 2; done; echo waited", "decision": "allow", "group": null}

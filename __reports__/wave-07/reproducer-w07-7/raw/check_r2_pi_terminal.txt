@@ -1,0 +1,30 @@
+== tool calls (tool, main/sub, command or path, result head)
+  Agent            main  '{"subagent_type": "murmuration:explorer", "description": "Smoke test e' ->   This agent's report was delivered to you as a message from "explorer-w99-1" (its SubagentHandback call). Read it there; it is no
+  Agent            main  '{"subagent_type": "murmuration:author", "description": "Smoke test aut' ->   This agent's report was delivered to you as a message from "author-w99-2" (its SubagentHandback call). Read it there; it is not 
+  Bash             sub   'end=$(( $(date +%s) + 30 )); until [ $(date +%s) -ge $end ]; do sleep ' -> waited
+  Bash             sub   'echo author-ok'                                                       -> author-ok
+  Write            sub   '/private/tmp/murmuration-w07/reproducer-w07-7/runs/r2_pi_terminal/lab/' -> File created successfully at: /private/tmp/murmuration-w07/reproducer-w07-7/runs/r2_pi_terminal/lab/__pondus__/w99-c1.md (file sta
+  SubagentHandback sub   '{"message": "done"}'                                                  -> {"success":true,"message":"Report delivered to your caller."}
+  Bash             sub   'end=$(( $(date +%s) + 30 )); until [ $(date +%s) -ge $end ]; do sleep ' -> waited
+  Bash             sub   'end=$(( $(date +%s) + 30 )); until [ $(date +%s) -ge $end ]; do sleep ' -> waited
+  Bash             sub   'end=$(( $(date +%s) + 30 )); until [ $(date +%s) -ge $end ]; do sleep ' -> waited
+  Write            sub   '/private/tmp/murmuration-w07/reproducer-w07-7/runs/r2_pi_terminal/lab/' -> File created successfully at: /private/tmp/murmuration-w07/reproducer-w07-7/runs/r2_pi_terminal/lab/__reports__/wave-99/explorer-w
+  SubagentHandback sub   '{"message": "done"}'                                                  -> {"success":true,"message":"Report delivered to your caller."}
+== hook starts by name: {'SessionStart:startup': 3, 'UserPromptSubmit': 6, 'PreToolUse:Agent': 2, 'SubagentStart:murmuration:explorer': 3, 'SubagentStart:murmuration:author': 3, 'PreToolUse:Bash': 10, 'PostToolUse:Bash': 5, 'PostToolBatch': 10, 'Post
+== guard.log lines: 5 decisions: {('allow', None): 5}
+== debug log: error words (whole log): {'hook_non_blocking_error': 0, 'hook_cancelled': 0, 'hook_blocking_error': 0, 'non-blocking': 0, 'hook error': 0}
+== debug log: hook lines (not MCP-server lines): 1274 ; of them matching error|fail|timed out|Traceback|exit code [1-9]|status [1-9]:
+== debug log: lines '[ERROR]' not from MCP servers: 0
+== harness.jsonl events: [('start', 'explorer-w99-1', None, None, None), ('start', 'author-w99-2', None, None, None), ('end', 'author-w99-2', 0.0093, 0.0458, 'auto'), ('note', 'explorer-w99-1', 0.0068, 0.5606, 'auto'), ('note', 'explorer-w99-1', 0.00
+== hand-back files: ['wave-99-author-w99-2.md', 'wave-99-explorer-w99-1.md']
+   wave-99-author-w99-2.md: 472 bytes, header lines: ['## hand-back 1 | 2026-10-22T02:24:15+09:00 | agent_id=a799808d19c772d04 type=murmuration:author event=PostTool']
+   wave-99-explorer-w99-1.md: 476 bytes, header lines: ['## hand-back 1 | 2026-10-22T02:26:25+09:00 | agent_id=afd9fcd10d0f11449 type=murmuration:explorer event=PostTo']
+== user_words.md: 1319 bytes, 2 dated headings: ['## 2026-10-22 02:23', '## 2026-10-22 02:24']
+   contains 'Smoke test of the lab': 1 ; contains 'test of a security hook': 0 ; contains seed question: 1
+== transcript hook error records (main + subagents): none ; files: 3
+== subagent transcripts:
+  murmuration:author     name=author-w99-2     start-note=['Budget: your budget for this run is USD 0.30 and 3 minutes (from your brief). The harness counts both, as the '] graded-notes=[]
+                         requests=3: 5m-write=0 1h-write=11738 cache-read=34650 tokens
+  murmuration:explorer   name=explorer-w99-1   start-note=['Budget: your budget for this run is USD 0.30 and 3 minutes (from your brief). The harness counts both, as the '] graded-notes=[('PostToolBatch', 'Spent 0.00 of USD 0.30 (1%); 1.7 of 3 min (5
+                         requests=6: 5m-write=12684 1h-write=0 cache-read=86539 tokens
+== stub.log lines (whole file): 0
