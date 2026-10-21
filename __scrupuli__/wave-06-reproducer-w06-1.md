@@ -13,3 +13,7 @@ refs: this session's api-request-blob records 34 and 35 (blob 35 holds the agent
 ## S-w06-reproducer-w06-1-4
 The line removes names from the deferred listing too, not only from the loaded tools (209 names here vs 212 in the wave-5 PI: ArtifactComments, ArtifactData, the Simulator `build` tool). The wave-5 w05-c7 claim and the projection track "removed deferred names" as 3; the Desktop run agrees. Nothing odd, but it is a second cut by the same line that nobody has costed in tokens (a few hundred chars).
 refs: `deferred_tools_delta` attachments in both transcripts
+
+## S-w06-reproducer-w06-1-5
+Resolution of S-1 (found after the PI's answer): the projection read `prompt_snapshot["tools"]`, whose entries are {name, description, schema} (Write 984 chars), not the wire {name, description, input_schema, eager_input_streaming} (Write 694). The same 984 appears in this 2.1.304 session's snapshot, so version is not the cause. What still does not add up: why the app records a snapshot form that is about 1.4x the wire size, and whether its 21-tool snapshot (without DeferredToolPlaceholder and advisor) is built before or after the filtering by `disallowedTools:`; this session's snapshot has 21 tools, the wave-5 PI's 50.
+refs: `__instrumenta__/w05c3_desktop_projection.py` lines 9-21, prompt_snapshot attachment #2 of each of the three transcripts
