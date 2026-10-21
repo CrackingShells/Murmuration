@@ -104,6 +104,23 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
   nothing of that. A metric that misses a cost makes a rule pass for the wrong reason. Protocol v1
   (0bd9570) adds E6b, a denylist, with that metric; author-w05-2 is resumed for it (w05-c6). w05-c3
   goes to its verifier as filed.
+- 16:5x, after explorer-w05-f and w05-c3's verdict (SUPPORTED) and w05-c6:
+  - Auto mode puts a classifier round trip on every Bash call: `permissionDecisionMs` has a median
+    of 448–747 ms, against 2 ms in bypass. Claude Code's cost records do not show its cost. **Every
+    spend figure this lab quotes in auto mode, mine included, is a lower bound** by an unknown
+    amount (explorer-w05-f). Narrow allow rules remove the wait for read-only commands but not for
+    `python3 -I scripts/...`. A hook that answers "allow" for lab scripts would. That is a
+    security trade-off, so it goes to the user and is not built.
+  - The first Bash call of a headless run sources `~/.zshrc` for a shell snapshot: 5.7 s idle, and
+    10 s timeouts on 17 of 35 snapshots under three parallel launches. `CLAUDE_CODE_SHELL=/bin/bash`
+    brings it to 0.5 s (14 of 14). My own check resolved the same python3, git, uv, colgrep and
+    claude under both shells, with wall 16.5 s against 10.5 s (n = 1;
+    `__reports__/wave-05/research-pi/shell_check.md`). It is not applied to runs already in
+    progress. For future drivers it is a free 5–10 s per cell, roughly 11–23 cell-minutes for a
+    wave of wave 4's 137 runs (ESTIMATE: 137 × 5–10 s).
+  - The PreToolUse hooks may overlap the classifier (with hooks off, the decision was slower). If
+    so, PreToolUse savings show less in auto mode. This does not change E7's metric (serial
+    seconds); it changes how its saving is read.
 
 ## Dispatches
 
@@ -116,9 +133,10 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
 | explorer-w05-e | explorer | leanest way for a worktree session to run its own branch of the plugin; USD 4, 30 min | yes; cause found (--project-config-root), 4 puzzles |
 | author-w05-1 | author | w05-c1 (E5, how a worker waits), then w05-c2 (colgrep path); USD 12, 75 min, runs ≤ USD 15 | |
 | author-w05-2 | author | w05-c3 (E6, `tools:` for the PI); USD 5, 40 min, runs ≤ USD 5; resumed for w05-c6 (E6b denylist), USD 3, 25 min | w05-c3 filed: E6 proposes B; connectors dropped (unmetered) |
-| reproducer-w05-3 | reproducer | verify w05-c3 at baba44f/36e1b47; USD 2.5, 20 min | |
+| reproducer-w05-3 | reproducer | verify w05-c3 at baba44f/36e1b47; USD 2.5, 20 min | SUPPORTED; title arithmetic loose (medians vs mean) |
+| reproducer-w05-6 | reproducer | verify w05-c6; USD 2, 20 min | |
 | author-w05-3 | author | w05-c4 (E7, lean hooks v2), then w05-c5 (E8, lab_status); USD 10, 75 min | |
-| explorer-w05-f | explorer | auto mode's per-call cost and the first-Bash shell start; USD 3, 25 min, runs ≤ USD 2 | |
+| explorer-w05-f | explorer | auto mode's per-call cost and the first-Bash shell start; USD 3, 25 min, runs ≤ USD 2 | yes; hidden classifier per call; bash shell 0.5 s first call; 4 puzzles |
 
 ## Claims of this wave
 
