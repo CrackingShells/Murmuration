@@ -1,5 +1,5 @@
 ## S-w06-reproducer-w06-7-1
-The k6 limit of 55 came from a bracket of false denials (commands that run no claude), but the v3 result compares it with every denial. Of 113 replayed denials, 63 are the guarded act itself: 32 `claude -p ... bypassPermissions` runs (29 of them on 2026-10-19, waves 1 to 3, the rest in w04 to w06), 23 `CLAUDE_CONFIG_DIR=` or `--setting-sources` without `user`, 8 settings-file writes. Nobody had read the denials before the number was filed as a failure. Why does the registered rule have no step that classifies the replay?
+The k6 limit of 55 came from a bracket of false denials (commands that run no claude), but the v3 result compares it with every denial. Of 113 replayed denials, 63 are the guarded act itself: 32 `claude -p ... bypassPermissions` runs (22 on 2026-10-19, 4 on 10-20, 6 on 10-21), 23 `CLAUDE_CONFIG_DIR=` or `--setting-sources` without `user`, 8 settings-file writes. Nobody had read the denials before the number was filed as a failure. Why does the registered rule have no step that classifies the replay?
 refs: `__reports__/wave-06/reproducer-w06-7/k6_classification.tsv`, `__instrumenta__/w06c11_v7_labels.py`
 
 ## S-w06-reproducer-w06-7-2
