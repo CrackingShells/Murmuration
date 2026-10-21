@@ -1,0 +1,197 @@
+agent-a02f6b131b9984d34.jsonl | steps=35 answers=2 log=3 (end,note,start) | EQUAL
+agent-a14c1a51f2af8092b.jsonl | steps=34 answers=2 log=3 (end,note,start) | EQUAL
+agent-a169bc918bebad572.jsonl | steps=29 answers=1 log=2 (end,start) | EQUAL
+agent-a1f4458ce75dacdec.jsonl | steps=63 answers=4 log=5 (deny,end,note,start) | DIFF answers differs at 131: old=[["budget", "PostToolBatch", null, null, 1792376015.468]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 2.66 of USD 3.00 (89%); 12.0 of 20 min (60%)\"}}", 1792376015.468]]
+agent-a1f5287c51079c621.jsonl | steps=15 answers=1 log=2 (end,start) | EQUAL
+agent-a1fc18c8a5d480043.jsonl | steps=31 answers=1 log=2 (end,start) | EQUAL
+agent-a2ca20f214bf665d4.jsonl | steps=41 answers=2 log=3 (end,note,start) | EQUAL
+agent-a303bb1eb32be0ace.jsonl | steps=109 answers=2 log=4 (end,note,raise,start) | EQUAL
+agent-a33f44eb9a534960c.jsonl | steps=20 answers=1 log=2 (end,start) | EQUAL
+agent-a3ca5291991a08315.jsonl | steps=15 answers=1 log=2 (end,start) | EQUAL
+agent-a41c53b7f77ba2588.jsonl | steps=66 answers=19 log=20 (end,halt,note,start,stop) | DIFF answers differs at 122: old=[["budget", "PostToolBatch", null, null, 1792378285.062]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 4.14 of USD 3.00 (138%); 33.9 of 20 min (170%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what 
+agent-a492a8c08e69c24bf.jsonl | steps=38 answers=2 log=3 (end,note,start) | EQUAL
+agent-a4c1e0d7cb4252a9b.jsonl | steps=54 answers=1 log=2 (end,start) | EQUAL
+agent-a53e063b007b7a428.jsonl | steps=49 answers=3 log=4 (deny,end,note,start) | EQUAL
+agent-a5427617b9ecf73ff.jsonl | steps=53 answers=2 log=3 (end,note,start) | EQUAL
+agent-a5efc74c3a545b66c.jsonl | steps=29 answers=2 log=3 (end,note,start) | EQUAL
+agent-a6a6066b76cfb02ea.jsonl | steps=46 answers=3 log=4 (deny,end,note,start) | DIFF answers differs at 111: old=[["budget", "PostToolBatch", null, null, 1792376014.493]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 2.32 of USD 3.00 (77%); 12.0 of 20 min (60%)\"}}", 1792376014.493]]
+agent-a701db1323184fd9b.jsonl | steps=57 answers=6 log=7 (end,note,start) | DIFF answers differs at 125: old=[["budget", "PostToolBatch", null, null, 1792377428.004]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 3.12 of USD 3.00 (104%); 19.6 of 20 min (98%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what m
+agent-a7779c3c1800fb1b5.jsonl | steps=26 answers=2 log=3 (end,note,start) | EQUAL
+agent-a7f3114c02a0db670.jsonl | steps=24 answers=1 log=2 (end,start) | EQUAL
+agent-a87f98d7cd7102e6f.jsonl | steps=26 answers=1 log=2 (end,start) | EQUAL
+agent-a8971b5d09adcbb14.jsonl | steps=27 answers=10 log=11 (end,note,start) | DIFF answers differs at 55: old=[["budget", "PostToolBatch", null, null, 1792386606.228]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.79 of USD 2.00 (40%); 16.4 of 15 min (110%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what m
+agent-a93c828c5c098ac3a.jsonl | steps=63 answers=14 log=15 (end,note,start,stop) | DIFF answers differs at 119: old=[["budget", "PostToolBatch", null, null, 1792377688.981]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 3.02 of USD 3.00 (101%); 24.0 of 20 min (120%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what 
+agent-a9745700ad92f7cee.jsonl | steps=62 answers=15 log=16 (end,note,start) | DIFF answers differs at 103: old=[["budget", "PostToolBatch", null, null, 1792377289.065]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 3.12 of USD 3.00 (104%); 17.3 of 20 min (87%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what m
+agent-a982018b5dc8777dd.jsonl | steps=41 answers=2 log=3 (end,note,start) | EQUAL
+agent-a996dba2994d53126.jsonl | steps=62 answers=5 log=6 (deny,end,note,start) | DIFF answers differs at 128: old=[["budget", "PostToolBatch", null, null, 1792376318.328]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 2.83 of USD 3.00 (94%); 17.0 of 20 min (85%)\"}}", 1792376318.328]]
+agent-aa70e320bd52db2dd.jsonl | steps=45 answers=11 log=12 (end,note,start) | DIFF answers differs at 108: old=[["budget", "PostToolBatch", null, null, 1792377667.607]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 3.78 of USD 3.00 (126%); 21.8 of 20 min (109%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what 
+agent-aab41749735b2f317.jsonl | steps=175 answers=108 log=109 (end,halt,note,start,stop) | DIFF answers differs at 232: old=[["budget", "PostToolBatch", null, null, 1792385540.745]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 5.06 of USD 3.00 (169%); 52.6 of 20 min (263%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what 
+agent-aad06407f4af84343.jsonl | steps=17 answers=1 log=2 (end,start) | EQUAL
+agent-ab6cc558229bad0e3.jsonl | steps=71 answers=33 log=34 (end,halt,note,start,stop) | DIFF answers differs at 103: old=[["budget", "PostToolBatch", null, null, 1792377947.193]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 2.48 of USD 3.00 (83%); 28.3 of 20 min (141%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what m
+agent-abe4e78584507379e.jsonl | steps=105 answers=51 log=52 (deny,end,halt,note,start,stop) | DIFF answers differs at 120: old=[["budget", "PostToolBatch", null, null, 1792391350.682]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 2.21 of USD 3.00 (74%); 19.0 of 20 min (95%)\"}}", 1792391350.682]]
+agent-abe8d9dc8f9133a34.jsonl | steps=25 answers=1 log=2 (end,start) | EQUAL
+agent-ac5d0013586c7dc93.jsonl | steps=50 answers=3 log=4 (end,note,start) | DIFF answers differs at 104: old=[["budget", "PostToolBatch", null, null, 1792381488.951]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 1.68 of USD 3.00 (56%); 15.2 of 20 min (76%)\"}}", 1792381488.951]]
+agent-ac6c27171353e66ed.jsonl | steps=62 answers=4 log=5 (deny,end,note,start) | DIFF answers differs at 133: old=[["budget", "PostToolBatch", null, null, 1792376064.515]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 2.79 of USD 3.00 (93%); 12.8 of 20 min (64%)\"}}", 1792376064.515]]
+agent-ac8b82f8280b0b58d.jsonl | steps=31 answers=1 log=2 (end,start) | DIFF answers differs at 67: old=[["budget", "PostToolBatch", null, null, 1792381584.354]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.69 of USD 2.00 (34%); 7.6 of 15 min (50%)\"}}", 1792381584.354]]
+agent-ac9ab4bd0415ff320.jsonl | steps=124 answers=80 log=81 (end,halt,note,start,stop) | DIFF answers differs at 238: old=[["budget", "PostToolBatch", null, null, 1792406537.78]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 6.66 of USD 3.00 (222%); 76.5 of 20 min (382%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what 
+agent-acd75cc5fb4f856ef.jsonl | steps=71 answers=22 log=23 (end,halt,note,start,stop) | DIFF answers differs at 115: old=[["budget", "PostToolBatch", null, null, 1792383609.611]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 1.36 of USD 3.00 (45%); 20.4 of 20 min (102%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what m
+agent-ad31c47f2325cfcbd.jsonl | steps=52 answers=14 log=15 (end,halt,note,start,stop) | DIFF answers differs at 110: old=[["budget", "PostToolBatch", null, null, 1792392828.144]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 2.32 of USD 3.00 (77%); 204.2 of 20 min (1021%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what
+agent-ad7420a7735b5dbf6.jsonl | steps=50 answers=20 log=21 (deny,end,note,start) | DIFF answers differs at 108: old=[["budget", "PostToolBatch", null, null, 1792382297.6]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 1.70 of USD 3.00 (57%); 28.7 of 20 min (143%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what m
+agent-ada4eb3280d996089.jsonl | steps=25 answers=1 log=2 (end,start) | EQUAL
+agent-ae06a641b41dc6114.jsonl | steps=64 answers=17 log=18 (deny,end,note,start) | DIFF answers differs at 139: old=[["budget", "PostToolBatch", null, null, 1792382249.514]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 1.46 of USD 3.00 (49%); 27.9 of 20 min (139%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what m
+agent-ae08af1290a8c0f70.jsonl | steps=52 answers=8 log=9 (end,note,start) | DIFF answers differs at 101: old=[["budget", "PostToolBatch", null, null, 1792378881.164]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 1.60 of USD 2.00 (80%); 15.1 of 15 min (101%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what m
+agent-af01bccf4de2a3706.jsonl | steps=52 answers=4 log=5 (deny,end,note,start) | EQUAL
+agent-af203d6362eab4e3f.jsonl | steps=40 answers=2 log=3 (end,note,start) | EQUAL
+agent-afd3a87d89cd1cd3f.jsonl | steps=8 answers=1 log=2 (end,start) | EQUAL
+agent-a29cf96f1a0667c2d.jsonl | steps=1 answers=1 log=2 (end,start) | EQUAL
+agent-ae5e0052529beb6db.jsonl | steps=8 answers=1 log=2 (end,start) | EQUAL
+agent-a236ec9f6bcc0c19f.jsonl | steps=35 answers=5 log=8 (deny,end,note,raise,start,warn) | DIFF answers differs at 65: old=[["budget", "PostToolBatch", null, null, 1792405855.365]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.10 of USD 0.12 (86%); 1.4 of 6 min (23%)\"}}", 1792405855.365]]
+agent-a306bb6f0fd8b650e.jsonl | steps=4 answers=1 log=3 (end,raise,start) | EQUAL
+agent-a39b11b718dfedf55.jsonl | steps=142 answers=9 log=11 (deny,end,note,raise,start) | DIFF answers differs at 178: old=[["budget", "PostToolBatch", null, null, 1792403594.284]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.32 of USD 0.30 (105%); 4.7 of 20 min (23%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what mo
+agent-af3a1d52bb25cf988.jsonl | steps=90 answers=7 log=8 (deny,end,note,start) | DIFF answers differs at 177: old=[["budget", "PostToolBatch", null, null, 1792404101.711]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.30 of USD 0.30 (99%); 4.3 of 20 min (22%)\"}}", 1792404101.711]]
+agent-a109f78e60ecc3e71.jsonl | steps=93 answers=6 log=7 (deny,end,note,start) | DIFF answers differs at 184: old=[["budget", "PostToolBatch", null, null, 1792404051.847]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.30 of USD 0.30 (100%); 3.5 of 20 min (18%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what mo
+agent-a6eb483037a456c35.jsonl | steps=94 answers=6 log=7 (deny,end,note,start) | DIFF answers differs at 192: old=[["budget", "PostToolBatch", null, null, 1792404432.406]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.34 of USD 0.30 (112%); 4.4 of 20 min (22%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what mo
+agent-ac9a5e57eaba42319.jsonl | steps=38 answers=3 log=6 (deny,end,note,raise,start,warn) | DIFF answers differs at 74: old=[["budget", "PostToolBatch", null, null, 1792404988.442]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.12 of USD 0.24 (51%); 1.8 of 9 min (20%)\"}}", 1792404988.442]]
+agent-a4f6f9a4c1f40015f.jsonl | steps=80 answers=8 log=11 (deny,end,note,raise,start,warn) | DIFF answers differs at 158: old=[["budget", "PostToolBatch", null, null, 1792405290.845]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.27 of USD 0.24 (111%); 4.1 of 9 min (45%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what mor
+agent-ab219edd37dcecbe6.jsonl | steps=13 answers=5 log=6 (deny,end,note,start) | DIFF answers differs at 32: old=[["budget", "PostToolBatch", null, null, 1792405541.311]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.07 of USD 3.00 (2%); 2.8 of 3 min (94%)\"}}", 1792405541.311]]
+agent-a87a3f3f638aff97f.jsonl | steps=8 answers=1 log=2 (end,start) | EQUAL
+agent-a69dad92322d439b2.jsonl | steps=8 answers=1 log=2 (end,start) | EQUAL
+agent-a4c4903eeb93dee60.jsonl | steps=8 answers=1 log=2 (end,start) | EQUAL
+agent-a86886b0501e629e1.jsonl | steps=1 answers=1 log=2 (end,start) | EQUAL
+agent-a31b10f12d05740d5.jsonl | steps=1 answers=1 log=2 (end,start) | EQUAL
+agent-a9094eb0febd20af5.jsonl | steps=9 answers=1 log=2 (end,start) | EQUAL
+agent-a68c8ed2907a8968f.jsonl | steps=9 answers=1 log=2 (end,start) | EQUAL
+agent-a87b59d9b4fe7eeb8.jsonl | steps=2 answers=1 log=2 (end,start) | EQUAL
+agent-a533b7e8ed66c925f.jsonl | steps=2 answers=1 log=2 (end,start) | EQUAL
+agent-a4d6637827fdb6be4.jsonl | steps=11 answers=1 log=2 (end,start) | EQUAL
+agent-a6667e78b181cddeb.jsonl | steps=8 answers=1 log=2 (end,start) | EQUAL
+agent-a507b6cb60663fb21.jsonl | steps=8 answers=1 log=2 (end,start) | EQUAL
+agent-a0564b85e0d10c0b8.jsonl | steps=8 answers=1 log=2 (end,start) | EQUAL
+agent-a9dcd06479e51e42a.jsonl | steps=1 answers=1 log=2 (end,start) | EQUAL
+agent-a45b5bd542d0614aa.jsonl | steps=1 answers=1 log=2 (end,start) | EQUAL
+agent-a04c8084179be273b.jsonl | steps=8 answers=1 log=2 (end,start) | EQUAL
+agent-ab515cb48d26a4bbc.jsonl | steps=8 answers=2 log=3 (deny,end,start) | EQUAL
+agent-acbf3202dc9e7c577.jsonl | steps=8 answers=1 log=2 (end,start) | EQUAL
+agent-a1d4976dd27bf5e33.jsonl | steps=34 answers=4 log=7 (deny,end,note,raise,start,warn) | DIFF answers differs at 65: old=[["budget", "PostToolBatch", null, null, 1792403186.27]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.10 of USD 0.12 (85%); 1.5 of 6 min (25%)\"}}", 1792403186.27]]
+agent-ab8462706347283d5.jsonl | steps=4 answers=1 log=3 (end,raise,start) | EQUAL
+agent-a086cf457746b2ffc.jsonl | steps=4 answers=1 log=2 (end,start) | EQUAL
+agent-a2edf3519864a50cb.jsonl | steps=2 answers=1 log=2 (end,start) | EQUAL
+agent-a25f636fbf2dcccfe.jsonl | steps=4 answers=1 log=2 (end,start) | EQUAL
+agent-ad06c6907a2568c5e.jsonl | steps=4 answers=1 log=2 (end,start) | EQUAL
+agent-a8e8dbee8b61c47b7.jsonl | steps=4 answers=1 log=3 (end,raise,start) | EQUAL
+agent-a15a713624a0ad6de.jsonl | steps=4 answers=1 log=2 (end,start) | EQUAL
+agent-a8427a2477a2a02c2.jsonl | steps=6 answers=2 log=3 (deny,end,start) | EQUAL
+agent-aeca27b697da542b5.jsonl | steps=4 answers=1 log=2 (end,start) | EQUAL
+agent-af1a57a287d5da3ef.jsonl | steps=21 answers=2 log=3 (deny,end,start) | EQUAL
+agent-acc292b05ad52cc88.jsonl | steps=41 answers=2 log=3 (deny,end,start) | EQUAL
+agent-ae0ec0e3485eeed0f.jsonl | steps=18 answers=1 log=2 (end,start) | EQUAL
+agent-a31521e72c87d0493.jsonl | steps=18 answers=1 log=2 (end,start) | EQUAL
+agent-a255d54459fc59922.jsonl | steps=14 answers=4 log=6 (deny,end,note,start,warn) | DIFF answers differs at 28: old=[["budget", "PostToolBatch", null, null, 1792383791.348]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.05 of USD 0.06 (78%); 0.9 of 20 min (4%)\"}}", 1792383791.348]]
+agent-abafaf7c934d345ad.jsonl | steps=19 answers=5 log=7 (deny,end,note,start,warn) | DIFF answers differs at 36: old=[["budget", "PostToolBatch", null, null, 1792384486.532]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.06 of USD 0.06 (93%); 1.0 of 20 min (5%)\"}}", 1792384486.532]]
+agent-a8fbd949087e7575d.jsonl | steps=15 answers=4 log=6 (deny,end,note,start,warn) | DIFF answers differs at 32: old=[["budget", "PostToolBatch", null, null, 1792383918.101]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.05 of USD 0.06 (89%); 1.1 of 20 min (5%)\"}}", 1792383918.101]]
+agent-ae7dc6bdf3fce70ca.jsonl | steps=10 answers=4 log=6 (deny,end,note,start,warn) | DIFF answers differs at 21: old=[["budget", "PostToolBatch", null, null, 1792392570.593]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.05 of USD 3.00 (2%); 0.9 of 1 min (93%)\"}}", 1792392570.593]]
+agent-a85ff0cec30c163e3.jsonl | steps=12 answers=6 log=8 (deny,end,note,start,warn) | DIFF answers differs at 22: old=[["budget", "PostToolBatch", null, null, 1792392571.08]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.05 of USD 3.00 (2%); 0.9 of 1 min (93%)\"}}", 1792392571.08]]
+agent-a3e14cfa0bffa56ad.jsonl | steps=14 answers=4 log=6 (deny,end,note,start,warn) | DIFF answers differs at 31: old=[["budget", "PostToolBatch", null, null, 1792383325.979]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.06 of USD 0.06 (104%); 1.0 of 20 min (5%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what mor
+agent-a312fd488e1a85dd4.jsonl | steps=9 answers=4 log=6 (deny,end,note,start,warn) | DIFF answers differs at 21: old=[["budget", "PostToolBatch", null, null, 1792383313.961]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.06 of USD 0.06 (105%); 0.8 of 20 min (4%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what mor
+agent-a705492dad98883bf.jsonl | steps=10 answers=4 log=6 (deny,end,note,start,warn) | DIFF answers differs at 21: old=[["budget", "PostToolBatch", null, null, 1792392571.863]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.05 of USD 3.00 (2%); 0.9 of 1 min (93%)\"}}", 1792392571.863]]
+agent-af9c9879f35b93623.jsonl | steps=11 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a0f7fc4df62779853.jsonl | steps=10 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a0986197e2fa34457.jsonl | steps=10 answers=2 log=3 (deny,end,start) | EQUAL
+agent-ae808ab56051def42.jsonl | steps=21 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a80a542fa38fc3b49.jsonl | steps=21 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a0dcbf5a104ff73b0.jsonl | steps=22 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a890936866dbbcc4f.jsonl | steps=21 answers=2 log=3 (deny,end,start) | EQUAL
+agent-abbdc6286dc7ac786.jsonl | steps=21 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a045ce7b70ad2deb7.jsonl | steps=22 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a14002b966174526e.jsonl | steps=91 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a8d014336d2b19889.jsonl | steps=11 answers=5 log=7 (deny,end,note,start,warn) | DIFF answers differs at 21: old=[["budget", "PostToolBatch", null, null, 1792391709.439]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.05 of USD 3.00 (2%); 0.9 of 1 min (91%)\"}}", 1792391709.439]]
+agent-adc70bb79d7553700.jsonl | steps=11 answers=6 log=8 (deny,end,note,start,warn) | DIFF answers differs at 20: old=[["budget", "PostToolBatch", null, null, 1792391707.251]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.05 of USD 3.00 (2%); 0.9 of 1 min (88%)\"}}", 1792391707.251]]
+agent-afc41b031dc56cca1.jsonl | steps=11 answers=6 log=8 (deny,end,note,start,warn) | DIFF answers differs at 22: old=[["budget", "PostToolBatch", null, null, 1792391711.367]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.05 of USD 3.00 (2%); 1.0 of 1 min (95%)\"}}", 1792391711.367]]
+agent-ad80b984b639cc6de.jsonl | steps=11 answers=6 log=8 (deny,end,note,start,warn) | DIFF answers differs at 23: old=[["budget", "PostToolBatch", null, null, 1792391835.705]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.04 of USD 3.00 (1%); 1.1 of 1 min (107%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what more
+agent-ace9ae5bea0eb497d.jsonl | steps=14 answers=8 log=10 (deny,end,note,start,warn) | DIFF answers differs at 25: old=[["budget", "PostToolBatch", null, null, 1792391837.271]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.04 of USD 3.00 (1%); 1.1 of 1 min (109%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what more
+agent-a500dc43612f18428.jsonl | steps=41 answers=2 log=3 (deny,end,start) | EQUAL
+agent-aece65b7493f0c0a6.jsonl | steps=40 answers=2 log=3 (deny,end,start) | EQUAL
+agent-aa824e0877d30027b.jsonl | steps=43 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a50bee28f18a7066a.jsonl | steps=43 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a975154b488b05226.jsonl | steps=27 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a095f735035459dad.jsonl | steps=26 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a1689e04e3b1d5de6.jsonl | steps=27 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a9e846004033cfea6.jsonl | steps=43 answers=5 log=7 (deny,end,note,start,warn) | DIFF answers differs at 86: old=[["budget", "PostToolBatch", null, null, 1792383033.731]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.14 of USD 0.15 (95%); 2.2 of 20 min (11%)\"}}", 1792383033.731]]
+agent-ab92f5159f4c05943.jsonl | steps=24 answers=1 log=2 (end,start) | EQUAL
+agent-a7c43b99adf531f3d.jsonl | steps=27 answers=2 log=3 (deny,end,start) | EQUAL
+agent-abf57f5f448fe232e.jsonl | steps=27 answers=2 log=3 (deny,end,start) | EQUAL
+agent-ae1333c34e9454b78.jsonl | steps=26 answers=2 log=3 (deny,end,start) | EQUAL
+agent-ac898aa156e2dea5c.jsonl | steps=26 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a9cc87d01b45a9c11.jsonl | steps=27 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a3737d31391d45602.jsonl | steps=27 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a5b94b475244542bb.jsonl | steps=14 answers=4 log=6 (deny,end,note,start,warn) | DIFF answers differs at 29: old=[["budget", "PostToolBatch", null, null, 1792383241.053]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.06 of USD 0.06 (99%); 0.9 of 20 min (5%)\"}}", 1792383241.053]]
+agent-afb6ca38ecdd110e9.jsonl | steps=14 answers=3 log=5 (deny,end,note,start,warn) | DIFF answers differs at 29: old=[["budget", "PostToolBatch", null, null, 1792383230.374]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.06 of USD 0.06 (96%); 0.8 of 20 min (4%)\"}}", 1792383230.374]]
+agent-a18d9ceb743cc7f07.jsonl | steps=16 answers=4 log=6 (deny,end,note,start,warn) | DIFF answers differs at 33: old=[["budget", "PostToolBatch", null, null, 1792383234.298]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.06 of USD 0.06 (107%); 0.8 of 20 min (4%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what mor
+agent-acd88c853658b3e01.jsonl | steps=14 answers=3 log=5 (end,note,start,warn) | DIFF answers differs at 31: old=[["budget", "PostToolBatch", null, null, 1792383316.267]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.06 of USD 0.06 (94%); 0.8 of 20 min (4%)\"}}", 1792383316.267]]
+agent-a058e0a21b70a28fc.jsonl | steps=21 answers=4 log=6 (deny,end,note,start,warn) | DIFF answers differs at 43: old=[["budget", "PostToolBatch", null, null, 1792383341.683]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.06 of USD 0.06 (107%); 1.2 of 20 min (6%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what mor
+agent-a46305dba4cf88055.jsonl | steps=22 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a05a54b0e49d37e1d.jsonl | steps=5 answers=1 log=2 (end,start) | EQUAL
+agent-a209ed43358aee992.jsonl | steps=9 answers=2 log=3 (end,note,start) | EQUAL
+agent-a3b108f0f151d7757.jsonl | steps=9 answers=1 log=2 (end,start) | EQUAL
+agent-a47b17bf4793371b4.jsonl | steps=7 answers=1 log=2 (end,start) | EQUAL
+agent-a6f08741370165838.jsonl | steps=8 answers=1 log=2 (end,start) | EQUAL
+agent-a92b9377b0694b059.jsonl | steps=5 answers=1 log=2 (end,start) | EQUAL
+agent-aa36c19b84b497a9d.jsonl | steps=11 answers=1 log=2 (end,start) | EQUAL
+agent-ab76d084dd2430479.jsonl | steps=4 answers=1 log=2 (end,start) | EQUAL
+agent-ad579cccc5df7228f.jsonl | steps=15 answers=2 log=3 (deny,end,start) | EQUAL
+agent-adf1a914d44dc5653.jsonl | steps=4 answers=1 log=2 (end,start) | EQUAL
+agent-ae13f6c0ff81a15d4.jsonl | steps=4 answers=1 log=2 (end,start) | EQUAL
+agent-aef91b56c3ae2c91a.jsonl | steps=6 answers=1 log=2 (end,start) | EQUAL
+agent-a0b9b1339ad368dae.jsonl | steps=10 answers=1 log=2 (end,start) | EQUAL
+agent-a0dd7cb497e04db1d.jsonl | steps=4 answers=1 log=2 (end,start) | EQUAL
+agent-a0e3892b00e81281f.jsonl | steps=5 answers=1 log=2 (end,start) | EQUAL
+agent-a3ee5330776a7736e.jsonl | steps=3 answers=1 log=2 (end,start) | EQUAL
+agent-a50be5bad353f84c1.jsonl | steps=4 answers=1 log=2 (end,start) | EQUAL
+agent-a54a19b5a4f73fe34.jsonl | steps=4 answers=1 log=2 (end,start) | EQUAL
+agent-a5cd0cf8d208c2bfc.jsonl | steps=13 answers=2 log=3 (end,note,start) | EQUAL
+agent-a6317e1f7f77f6ed5.jsonl | steps=9 answers=1 log=2 (end,start) | EQUAL
+agent-a7ff64af9e785ba55.jsonl | steps=5 answers=1 log=2 (end,start) | EQUAL
+agent-a85bd28b385990d53.jsonl | steps=11 answers=1 log=2 (end,start) | EQUAL
+agent-a88d15d77caced3e8.jsonl | steps=11 answers=2 log=3 (deny,end,start) | EQUAL
+agent-aa1c72b39e7eedcd2.jsonl | steps=27 answers=13 log=14 (deny,end,halt,note,start,stop) | DIFF answers differs at 60: old=[["budget", "PostToolBatch", null, null, 1792389165.563]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.85 of USD 3.00 (28%); 49.3 of 20 min (246%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what m
+agent-ac677ac7993b1eae3.jsonl | steps=17 answers=2 log=3 (end,note,start) | EQUAL
+agent-acf4b3a6258463d09.jsonl | steps=7 answers=1 log=2 (end,start) | EQUAL
+agent-a23eed56e8847c785.jsonl | steps=5 answers=1 log=2 (end,start) | EQUAL
+agent-a2ab800a223e6e501.jsonl | steps=6 answers=1 log=2 (end,start) | EQUAL
+agent-a3e076669021cbb24.jsonl | steps=4 answers=1 log=2 (end,start) | EQUAL
+agent-a44b0077b3cbe9ba1.jsonl | steps=5 answers=1 log=2 (end,start) | EQUAL
+agent-a8b904eac66ca2fe4.jsonl | steps=5 answers=1 log=2 (end,start) | EQUAL
+agent-a9349981439fbdbb2.jsonl | steps=12 answers=2 log=3 (deny,end,start) | EQUAL
+agent-acf26a9a7a794161a.jsonl | steps=8 answers=1 log=2 (end,start) | EQUAL
+agent-ad33abf2011cee9ca.jsonl | steps=6 answers=1 log=2 (end,start) | EQUAL
+agent-afbf7cc76b6d61ca1.jsonl | steps=17 answers=1 log=2 (end,start) | EQUAL
+agent-a03464560ce295e2a.jsonl | steps=3 answers=1 log=2 (end,start) | EQUAL
+agent-a2b354341eefe6892.jsonl | steps=6 answers=2 log=3 (end,note,start) | EQUAL
+agent-a3e451b01bf4bb385.jsonl | steps=7 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a41bd3b3579edfc33.jsonl | steps=7 answers=1 log=2 (end,start) | EQUAL
+agent-a8e4811bc454d403f.jsonl | steps=4 answers=1 log=2 (end,start) | EQUAL
+agent-a933a9c8188ebf61d.jsonl | steps=5 answers=2 log=3 (deny,end,start) | EQUAL
+agent-aef45114ff0a02bbb.jsonl | steps=4 answers=1 log=2 (end,start) | EQUAL
+agent-a447666617ebd8339.jsonl | steps=7 answers=7 log=10 (end,halt,note,start,stop,warn) | DIFF answers differs at 18: old=[["budget", "PostToolBatch", null, null, 1792394784.185]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.12 of USD 0.05 (245%); 0.8 of 1 min (84%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what mor
+agent-a635d36af7dc50fe5.jsonl | steps=3 answers=3 log=6 (end,start,stop,warn) | DIFF answers differs at 9: old=[["budget", "PostToolBatch", null, null, 1792394717.006]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.15 of USD 0.05 (302%); 2.6 of 1 min (258%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what mo
+agent-a308bb414d91a850e.jsonl | steps=15 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a90a112597a404caf.jsonl | steps=40 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a05f3ca3ef055b875.jsonl | steps=5 answers=2 log=3 (deny,end,start) | EQUAL
+agent-ae7c1b7daa6189d6d.jsonl | steps=5 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a3c2c9d5cb87e80d8.jsonl | steps=5 answers=2 log=3 (deny,end,start) | EQUAL
+agent-a5bb30d763a6d237d.jsonl | steps=5 answers=2 log=3 (deny,end,start) | EQUAL
+agent-ad67c882928b9babb.jsonl | steps=8 answers=1 log=2 (end,start) | EQUAL
+agent-ae8b66ab244366172.jsonl | steps=1 answers=1 log=2 (end,start) | EQUAL
+agent-ab234aeb6e9a5bdb5.jsonl | steps=8 answers=1 log=2 (end,start) | EQUAL
+agent-a050f6051b30f6ef9.jsonl | steps=34 answers=5 log=8 (deny,end,note,raise,start,warn) | DIFF answers differs at 72: old=[["budget", "PostToolBatch", null, null, 1792406984.157]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.14 of USD 0.12 (118%); 1.9 of 6 min (32%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what mor
+agent-a2f73c2df3bad9d5d.jsonl | steps=4 answers=1 log=3 (end,raise,start) | EQUAL
+agent-a50b3982ac2a64503.jsonl | steps=151 answers=9 log=11 (deny,end,note,raise,start) | DIFF answers differs at 184: old=[["budget", "PostToolBatch", null, null, 1792406860.013]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.30 of USD 0.30 (99%); 3.9 of 20 min (19%)\"}}", 1792406860.013]]
+agent-a9c365c77c72b61cb.jsonl | steps=13 answers=5 log=6 (deny,end,note,start) | EQUAL
+agent-aa12fa49f2d6c610a.jsonl | steps=8 answers=1 log=2 (end,start) | EQUAL
+agent-ae4e2707a71ef10d5.jsonl | steps=1 answers=1 log=2 (end,start) | EQUAL
+agent-afbb572d1d246b62c.jsonl | steps=8 answers=1 log=2 (end,start) | EQUAL
+agent-a22c4b6fa34f31eab.jsonl | steps=34 answers=5 log=8 (deny,end,note,raise,start,warn) | DIFF answers differs at 72: old=[["budget", "PostToolBatch", null, null, 1792407812.795]] new=[["budget", "PostToolBatch", null, "{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"Spent 0.14 of USD 0.12 (115%); 1.8 of 6 min (31%). If one or two more steps finish the result, finish it. Otherwise hand back now: what you have, what is missing, and what mor
+agent-a43cc234c3d96f8bc.jsonl | steps=4 answers=1 log=3 (end,raise,start) | EQUAL
+agent-a18ff173a6f8cb9df.jsonl | steps=5 answers=1 log=2 (end,start) | EQUAL
+agent-a4ac4e14e40f55e1c.jsonl | steps=7 answers=2 log=3 (deny,end,start) | EQUAL
+agent-adda098e975b19188.jsonl | steps=6 answers=1 log=2 (end,start) | EQUAL

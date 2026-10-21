@@ -1,0 +1,5 @@
+seq: 197 EQUAL, 0 DIFF
+par: 197 EQUAL, 0 DIFF
+mut_cost: 0 EQUAL, 197 DIFF
+mut_block: 186 EQUAL, 11 DIFF
+mut_loads: 142 EQUAL, 55 DIFF
