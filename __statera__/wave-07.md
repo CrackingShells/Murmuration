@@ -407,6 +407,28 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
     otherwise installs the Python launcher and says so to the session. Doubt resolves to the
     reference, visibly. author-w07-5 (warm) runs it as w07-c8; reproducer-w07-5 checks it.
 
+- 06:05, after reproducer-w07-7's smoke run and reproducer-w07-5's verdict on w07-c8 (OVERSTATED):
+  - **The merged branch passes its combined smoke run** (82b366c, 3 sessions): 42 rows in exec
+    form, `user_words` async; 7 of 7 selftests; start and graded budget notes; hand-back capture;
+    the guard's deny of a settings Write; one `user_words` entry for a terminal prompt and none for
+    an inherited one; author writes 1-hour, explorer 5-minute; 0 hook errors in every record;
+    `lab_status.py` with the versioned cache. Not run live here: the bypass-flag deny, because the
+    guard and the classifier stopped the verifier from writing the test prompt (it was run live in
+    both arms of w07-c3 and by reproducer-w07-3).
+  - **w07-c8:** five faults of the verifier's own choosing fall back visibly, 36 concurrent
+    installers 0 failed, the notice reaches the model. The residual gap is real: a binary right on
+    the 12 self-test payloads and wrong elsewhere, or an honest build of a changed `guard.rs` with a
+    consistent manifest, installs silently. So the title's "clean" overstates; the manifest ties the
+    binary and sources to each other, not to the Python guard's decisions.
+  - **PI decision: P5 v1 lands, on the verifier's restated wording** ("installs the binary only
+    when the manifest hashes agree and it matched the Python guard on 12 payloads; otherwise the
+    Python guard decides, and the session is told"). Why: the failures that happen without anyone
+    meaning them (an edited reference, a stale build, a corrupt copy, a missing manifest, an
+    unrunnable target) now fall back to the reference, visibly; the silent case needs someone to
+    rebuild a changed `rust/` and rewrite the manifest, which the pre-commit file would stop by
+    replaying the corpus, once the user installs it. The notice gets a remedy sentence before the
+    merge. The synthesis names the residual gap.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -424,7 +446,8 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | reproducer-w07-3 | reproducer | verify w07-c3, with the missing live note and failure cases | 9658909: SUPPORTED |
 | author-w07-4 | author | w07-c4: P4, `lab_status.py` without the git child, usage fields priced | 627fb4d: o1–o4 pass, 0.051 s a call; change 1 dropped by PI decision; change 2 split for landing |
 | author-w07-5 | author | w07-c6: P5, the permission guard as a Rust binary in exec form | bd27a00: g1–g4 pass; 0 differences in 20,847; −16 ms CPU a start |
-| reproducer-w07-5 | reproducer | verify w07-c6: reproducible build, installer races, checker mutation | 1cc0348: SUPPORTED, four gaps; v1 registered |
+| reproducer-w07-5 | reproducer | verify w07-c6: reproducible build, installer races, checker mutation; then w07-c8 | 1cc0348: SUPPORTED, four gaps; 3062e69: w07-c8 OVERSTATED (title); v1 lands by PI decision |
+| reproducer-w07-7 | reproducer | combined smoke run of the merged branch | fabddb0: passes; bypass deny not run live |
 | author-w07-6 | author | w07-c7: P6, a 1-hour cache for authors | 6041f28: c1–c3 pass; c4 +USD 0.87 of 47.80, fragile |
 | reproducer-w07-4 | reproducer | verify w07-c4's landing build (change 2) | ffd1f6b: SUPPORTED at c473203 |
 | reproducer-w07-6 | reproducer | verify w07-c7, c2 rerun apart | 033e274: ESCALATE (restatement); PI: lands by rule |
