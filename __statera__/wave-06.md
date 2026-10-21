@@ -216,6 +216,15 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     either reading, because s2 fails. w06-c4 stays at "below MEASURED: restate" and is not restated,
     since no decision depends on it. The synthesis quotes the verifier's own reproduced numbers.
 
+- HH:MM (this commit), after author-w06-5's correction of the `$` share:
+  - Commands with an unresolved `$` are 45.1% of the lab's own Bash calls, not 17.7%. The 17.7%
+    pooled the headless probe sessions. Each such command matches every `if` row, so v2's 3 rows
+    cost about 1.35 guard starts per Bash call. One unconditional Bash row costs exactly 1, and it
+    also sees what `if` strips. E3 v3 (524ce32), registered before its run, lands instead of v2 only
+    if it beats v2 on both cost and coverage. v2 stays the fallback, pending reproducer-w06-5. Either
+    way the guard costs a process start on Bash calls. That is a price the user's guardrail is worth,
+    and the report states it.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
