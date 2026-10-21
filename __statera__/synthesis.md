@@ -12,8 +12,8 @@ Every statement below carries the current label of its claim, from `python3 scri
 "By PI decision" means the verifier escalated and the PI decided, as recorded in the wave notes.
 Waves 1–3 were merged to `main` by the user (84ff038). Wave 4 was merged into the local `main` at
 the user's choice on 2026-10-21 (4c675ec, not pushed). Wave 5 was merged into the local `main` at
-fed7a08, and wave 6 by the lab's own decision under the frame of 17:06 (see "Wave 6"). Nothing was
-pushed.
+fed7a08, and wave 6 by the lab's own decision under the frame of 17:06 (see "Wave 6"). Wave 7 was
+merged into the local `main` at 3b0448b by the same frame. Nothing was pushed.
 
 ## The answer
 
@@ -350,6 +350,135 @@ same version, and the 29 tools removed are exactly the line's matches (w06-c1 ·
   as self-modification. I did not route around it. It waits in
   `__reports__/wave-06/research-pi/decision_frame_patch.md`, to be applied or not.
 
+## Wave 7: the machine, the agent loop, and what is worth saving (2026-10-22)
+
+> "'know your algorithms', leverage 'parallel-first' because the Modern hardware is done that way
+> [...] I know that parallelism also has a cost at the CPU level and that scaling is not linear"
+> · "Try explore other possibilities. Don't forget your nature as a research PI. All this also
+> teaches us things about our hardware and limit of optimizing Claude Code's agent loops." · "I
+> don't see how that exempts us from saving that 1% if we know we can save it." · "the deny list
+> for the Pi was smart. I wonder if this applied to the other agents as well?" (2026-10-21 23:28
+> and 23:50)
+
+Seven probes, seven experiments, each rule committed before its runs, each claim checked by a
+verifier who had not done the work. Every number below is MEASURED unless marked.
+
+**What the machine does (this M3 Pro, macOS 26.6, with the Falcon endpoint extension installed).**
+- One exec costs about 14–16 ms before the child's first instruction, whatever the language:
+  `posix_spawn` returns in 0.17 ms, `fork` without exec costs 0.48 ms, and a binary the kernel kills
+  before any user code still costs 13.6 ms. dyld and libSystem are at most about 2 ms. C, assembly
+  and every Rust build come within 1.2 ms of each other; `python3 -S -I` adds 7.8 ms. The cause of
+  the 14 ms is a CONJECTURE: the kernel's exec security path (`opendirectoryd` burns about 11 ms of
+  CPU per exec and none per fork). A new binary's first exec costs 150–480 ms, once (explorer-w07-a,
+  author-w07-5).
+- `/bin/sh` is a trampoline into bash, two execs. Claude Code runs every string-form hook as
+  `/bin/sh -c`, whatever `CLAUDE_CODE_SHELL` says, so a Python hook was three execs and the
+  platform's recorded duration is all spawn path. Wave 6's two unexplained numbers (`sh :` at 33 ms,
+  a Rust no-op 18 ms above it) are exec counts.
+- Parallel parsing scales to the six performance cores and flattens there: a Python pool reaches
+  6.0× at 12 workers, Rust 87 ms on one thread and 16–17 ms on 10–12 (efficiency 0.42–0.53); each
+  efficiency core adds about 0.3–0.5 of a performance core. Python's default `spawn` start costs
+  63–172 ms a pool on macOS against 2–10 ms for `fork`, enough to cancel the gain on small inputs.
+  Rust's parser is 7× Python's on one core (explorer-w07-d).
+
+**What the agent loop does, and where the plugin sits in it.**
+- A worker's wall time over waves 5–6 (of 47 workers and 2,633 requests read over waves 4–6; wave 4
+  has no request timestamps): 30.8% model requests (41% of that thinking), 45.6% tool phases, 22.3%
+  idle waits for a message, 1.3% client gaps. The plugin's
+  hooks are 0.13–0.5% of it, the auto-mode classifier about 1.9% (explorer-w07-b, explorer-w07-g;
+  the shares are ESTIMATEs from records).
+- Auto mode's classifier waits a median 628 ms on a trivial Bash call (55 ms for the whole call in
+  default mode, 709 ms in auto). A PreToolUse hook runs alongside it and is mostly hidden; a
+  PostToolUse hook is not. A Read never reaches the classifier. The classifier's wait doubles
+  between identical sessions and does not grow with context from 42k to 102k tokens.
+- Parallel-first at the message level is already done, inside the shell: 92% of worker requests
+  carry one call, yet batching independent calls would have saved 0.8–1.6% of requests
+  (ESTIMATE), because 75% of Bash calls already chain three or more statements and the next call
+  usually needs the last result. Four reads took 2.83 s as four Reads in one message, 3.39 s as one
+  chained `cat`, 3.79 s as four Bash calls in one message and 5.11 s as four messages (n = 1 each).
+- The larger costs are not hooks: prompt-cache re-writes after gaps over 5 minutes, 15.8% of worker
+  spend; tool results over 5,000 characters re-read by every later request, 29.7% of cache-read
+  spend; requests right after a tool error, 8.5% of wave 6's (mostly the worktree-isolation refusal of complex `git` and the harness's `sleep` refusal; ESTIMATEs over recorded transcripts).
+- Platform facts the lab found by testing: a prompt's transcript record is written only after the
+  UserPromptSubmit hooks exit; two hook rows with the same command string run once; an `async`
+  hook's failure is silent and one still running when `-p` ends is cancelled; an `http` hook with
+  `onFailure: "block"` fails loudly on PreToolUse and PostToolUse, ends the whole session on
+  PostToolBatch and is silent on SubagentStop; an agent file truncated to empty is dispatched as a
+  generic agent without a word; and the PI's request 0 moves by about 2.4k tokens with which of your
+  MCP servers have connected at launch.
+
+**What landed on the local `main`** (3b0448b, merge --no-ff; a headless smoke run from main's own tree then showed the installer run and the binary decide a Bash call in 30 ms).
+- **Every hook row in exec form, no shell (w07-c3 · MEASURED).** The same 42 handlers, the same
+  outputs (215 of 215 scripted starts; every live pair, the graded budget note included), fail
+  closed when the guard crashes or `python3` is missing. The guard's start fell from 123 to 42 ms
+  and the budget hook's from 104.5 to 41 ms (pooled; 10 of 10 pairs each, reproduced 6 of 6). It
+  saves CPU and energy on every tool call. The budget hook runs after every tool call and is not
+  hidden behind the classifier, so its 60–70 ms should reach a worker's wall; ten pairs could not
+  resolve that against a ±600 ms spread, and a whole session was not shown shorter. With a missing `python3`, B names the cause on the first blocked call only.
+  The README's minimum is now 2.1.295, which `onFailure: "block"` needs (it said 2.1.271).
+- **Your words record only what a person typed (w07-c5 · MEASURED; w07-c2 · MEASURED is its
+  failed v0).** `user_words.py` finds its prompt's record by `prompt_id` from an `async` hook and
+  keeps `origin.kind: human`; it drops other sessions' and the harness's messages. 0 errors over
+  3,027 recorded prompts; live, 10 of 10 decided by origin. Of the entries already in
+  `user_words.md` it would have dropped exactly the three wrong ones: the spawned sessions' first
+  messages of 10-21 17:18 and 10-22 00:22, and your own `-p` test "say ok" of 00:12. Two costs,
+  accepted: a crash of the recorder under `async` leaves only a debug-log line; a prompt followed by
+  a quit within about 0.4 s may go unrecorded. v0 failed live because of the platform fact above.
+- **`lab_status.py` prices fast mode and web searches (w07-c4 · MEASURED).** They were silently
+  dropped before. The cache file now carries its version, because an old and a new script sharing
+  one file made every call cold (0.955 s against 0.25 s). The fast-mode factor 2.0 and USD 0.01 a
+  search are the script's own rates, UNVERIFIED against a fetched page. Your lab has no such record
+  yet, so no figure changes today.
+- **Authors keep a 1-hour prompt cache (w07-c7 · escalated; PI decision: lands by its rule).**
+  `experimental: {cacheTtl: "1h"}` in `agents/author.md` is honoured: 17 of 17 writes 1-hour; after
+  a 333 s gap B read 100% of its context where A read 42%; a resumed author also kept it (n = 1).
+  Whether it saves money is not determined: net +USD 0.87 of 47.80 at a 300 s bound, −0.60 at
+  360 s, P(net ≤ 0) = 0.34 by bootstrap (ESTIMATE). The time a resumed author saves by reading
+  rather than re-writing was not measured. One line, and a key the platform stops honouring falls
+  back to 5 minutes.
+- **The permission guard as one Rust binary, SA1's pilot (w07-c6 · MEASURED; w07-c8 · below
+  MEASURED: restate, landed on its verifier's wording by PI decision).** `murmuration guard`, std
+  only, about 410 KB a target, committed for `aarch64-apple-darwin` and `x86_64-apple-darwin`. Its
+  decisions equal `permission_guard.py`'s on 20,847 events (registered cases, malformed events,
+  8,722 recorded calls, 12,000 fuzzed), reproduced on 20,926 with another seed; it is stricter on
+  JSON types the platform never sends, and answers in 0.05 s a 300 kB word on which the Python
+  guard runs past 40 s. CPU 17.6 → 1.6 ms a start and start-to-exit 32.3 → 16.5 ms (598 of 600
+  pairs), the machine's one-exec floor; the recorded hook 23.5 ms lower (19 of 19 pairs). In auto
+  mode that is CPU and energy, since the guard hides behind the classifier; in default mode and on
+  Write/Edit it is wall. A SessionStart installer copies the binary into the plugin's data folder
+  only when its hash, the hashes of `permission_guard.py` and of `rust/`, and a 12-payload
+  self-test all agree with `bin/manifest.json`; on any doubt it installs a launcher of the Python
+  guard and tells the session why, with the remedy. A fresh install costs about 0.85 s once per
+  version, a warm start 38 ms. **The residual gap, named:** a binary right on the 12 payloads and
+  wrong elsewhere, such as an honest build of a changed `guard.rs` with a rewritten manifest,
+  installs silently. The pre-commit file would stop that by replaying the corpus; it and the CI
+  file that builds the other targets are written, not installed or pushed. Linux and Windows get
+  the Python guard through the launcher until then.
+- A selftest the merge broke (`budget.py` matched the old command string) was fixed.
+
+**What did not land, and why.**
+- **The PI without the skills listing (w07-c1 · below MEASURED: restate, not restated).** Denying
+  `Skill` removes the whole 30k-character listing, 10.6–11.0k tokens of a headless PI's request 0,
+  and the PI still follows `research-loop` and its references at the same step count. But the
+  listing goes only whole (`Skill(...)` rules do nothing to it, `skillOverrides` reaches only
+  non-plugin skills), and a built-in skill such as `dataviz` has no `SKILL.md` on disk, so a PI
+  without the Skill tool loses it. A PI that cannot use your own figure skill is a worse PI for
+  about 11k cached tokens a request. On your question about the workers: they already start without
+  the listing, and the one server none of them ever called (Wolfram) costs its 15 tool names, about
+  115–186 tokens (ESTIMATE), inside the noise. Nothing worth excluding there.
+- **`lab_status.py` without its `git` child (w07-c4's change 1).** It saves 0.04–0.05 s a call
+  (9 of 10 and 28 of 30 pairs), a few seconds a wave, by re-implementing git's worktree list; its
+  first version gave a wrong list silently in two cases. The `git` child cannot fail that way.
+- **A parallel or Rust `lab_status.py`.** Both bring a cold run from 0.9 s to about 0.33 s; the warm
+  cache it already has takes 0.39 s. Here the better algorithm, an incremental cache, beats
+  parallelism, and cold runs are rare.
+- **`http` and `async` hooks, a resident server.** `http` is fast (2 ms) and loud on Pre/Post, but
+  needs a server, a port and a token, and its failure is fatal or silent on two events; exec form
+  already took the shell's share. Kept as records for item 31.
+- **Message batching and worker effort.** Batching is worth at most 1.6% of requests. Effort was
+  not varied, because the lab has no measure of a worker's quality to check a lower effort against.
+
+
 ## What stays out, and why (w01-c13 · CONJECTURE, verifier SUPPORTED)
 
 Examined and staying out:
@@ -359,9 +488,11 @@ Examined and staying out:
 - **SA13 (question machinery):** the Desktop buttons are the channel.
 - **SA15 (bundled MCP servers):** the bundled prefix would break the allowlists.
 
-- **SA1 (one binary, hook entry point, MCP server), examined in wave 6:** a compiled binary saves
-  about 1% of a wave and cannot be reviewed from a diff; the resident server's safety net costs its
-  margin (w06-c6, w06-c4). What came back is SA7's guard half, as a permission guard (w06-c13).
+- **SA1 (one binary, hook entry point, MCP server), examined in waves 6 and 7:** the resident
+  server's safety net costs its margin (w06-c6, w06-c4). Wave 6 sized a binary at about 1% of a
+  wave; wave 7 found that most of a hook's start was the shell, removed it (w07-c3), and then
+  brought SA1 back as one binary for the guard, with a fallback to the reviewable Python source
+  (w07-c6, w07-c8). `budget` and `handback` would join it as subcommands.
 
 Not examined: SA2, SA10, most of SA11, SA12, SA14, SA16 and SA17. They stay out because
 nothing argued for them, not because the evidence ruled them out.
@@ -379,6 +510,9 @@ nothing argued for them, not because the evidence ruled them out.
 | AskUserQuestion capture | prototype only (in w02-c2) | It works headless; a one-minute Desktop test with one answered dialog is needed |
 | w06-c4, hooks on a resident server | below MEASURED: restate | s2 21.1% against 20%, s4 +320 against +300; the outage safety net is the margin; reverted at b79e81c, reproducible from a5e708b |
 | w06-c2, dispositions at the hand-back wake-up | below ESTIMATE: restate | No saving: 69 s, off the critical path; reverted |
+| w07-c1, the PI without the skills listing | below MEASURED: restate | The listing goes only whole, and a built-in skill (`dataviz`) has no `SKILL.md` to Read; on branch `w07-p1-skill` |
+| w07-c4's change 1, `lab_status.py` without its git child | MEASURED; dropped by PI decision | 0.04–0.05 s a call for a re-implementation of git's worktree list that was silently wrong in its first version; on branch `w07-p4-labstatus` |
+| `http` and `async` hooks, a parallel or Rust `lab_status.py`, message batching | probes only | See "Wave 7" |
 | The decision-frame text | proposal, not applied | Denied by the auto-mode classifier as self-modification; `__reports__/wave-06/research-pi/decision_frame_patch.md` |
 
 ## Cost of the study
@@ -411,6 +545,14 @@ Wave 6 (2026-10-21, 17:18–22:23 JST) cost at least USD 53.00 against your budg
   at list price).
 Both are lower bounds in auto mode.
 
+Wave 7 (2026-10-22, 00:25–02:45 JST) cost at least USD 38.28 against the at least 47 left of wave 6's
+100:
+- 35.80 for this checkout's session, the PI and its 21 subagents included (36.78 at close against
+  0.98 at opening, list price, session open);
+- 2.48 for the headless runs under `/private/tmp/murmuration-w07/`, exact from cost-state, all
+  sessions ended.
+Both are lower bounds in auto mode.
+
 The PI set itself a cap of about USD 60 for wave 2. Wave 2 spent about 78, so the PI overran its own
 cap by about 18. The USD 70–90 proposed for the whole study after wave 1 was never confirmed, and it
 was overrun too. The user's budget for wave 2 was six hours. Wave 2 ran from 12:30 to about 17:00 JST.
@@ -419,16 +561,17 @@ was overrun too. The user's budget for wave 2 was six hours. Wave 2 ran from 12:
 
 Items 2, 3, 13 and 14 were done before wave 5. Wave 5 settled 1(d). Wave 5's changes landed on the
 local `main` at fed7a08. Wave 6 settles 9 (the lean starts landed, w06-c9) and 20 (w06-c1), and adds
-25 to 31.
+25 to 31. Wave 7 settles 24 and 28, adds to 23, 27 and 31, and adds 32 to 38.
 
 **Yours: the guardrails, since the engineering is now the lab's.**
 
 | Item | What it is | Cost |
 |:--|:--|:--|
-| The managed setting | *Added by you on 2026-10-22 at 00:08, and read by Claude Code, but a `-p` run with the skip-permissions flag still ran in bypass mode (n = 1; `__reports__/wave-06/research-pi/managed_setting_check.md`). The guard stays until a bypass attempt is shown refused.* An interactive check, or one `-p` run with a debug log on your yes, would narrow it down | minutes |
+| The managed setting | *Added by you on 2026-10-22 at 00:08 and read by Claude Code, but probably not the active managed tier on this account:* Claude Code 2.1.304 takes one managed source, first-wins (server-managed, then MDM, then the file), and `~/.claude/remote-settings.json` holds `channelsEnabled`, which counts as server-managed content, so the file would be dropped (CHECKED by reading the binary, not run; `__reports__/wave-07/explorer-w07-f/00-findings_v0.md`). Two tests settle it, both yours: `/status` in an interactive session (which managed source is named), and the report's test 2 (a `touch` under the skip-permissions flag in a scratch folder, with a debug file). If the server tier wins, the key belongs there, or `managedSourcesBehavior: "merge"` there. The guard stays until a bypass attempt is shown refused | minutes |
 | The lab's past bypass runs | 32 `claude` runs in bypass mode, 16 under a scratch config dir, 7 escaping user settings, 8 settings writes, waves 1–6. Listed in reproducer-w06-7's section of `__pondus__/w06-c11.md` | reading |
 | The decision-frame text | `__reports__/wave-06/research-pi/decision_frame_patch.md`: the PI stops handing engineering back; you keep the question, the budget and the guardrails. The classifier refused to let the PI apply it to itself | apply or not |
 | Item 18 | gateway API keys printed by a wave-4 reproducer; rotate them if you want | minutes |
+| Your own hooks | Outside the plugin, and the largest hook costs this wave saw on your machine: colgrep-mcp's `colgrep_policy` PreToolUse hook (`uv run`) at a median 194 ms per Bash call (p90 554, up to 431 ms median under load), and `inject_plan_directive.py` at 177–206 ms per prompt (explorer-w07-g, explorer-w07-c, author-w07-2). Exec form and a lean start would help them as they helped the lab's | your repositories |
 
 Changes reach a running PI only once they are on main's working tree (item 1(e)).
 
@@ -452,12 +595,19 @@ Changes reach a running PI only once they are on main's working tree (item 1(e))
 | 20 | *Settled in wave 6 (w06-c1): request 0 at 46,738 tokens, denied tools absent.* **The Desktop check of w05-c7.** One new Desktop session with the denylist on main: read the first request's usage and the tool names in its snapshot. About 31–49k tokens means it works; about 75k means the app injects regardless | you, then the PI | minutes |
 | 21 | **The experiment pipeline, now the lab's critical path.** Run one pilot cell first; launch cells side by side; find out why batches stopped at 9; give headless drivers `CLAUDE_CODE_SHELL=/bin/bash` (first Bash call 0.5 s against 5.7–10 s; same tools resolved, PI check n = 1); keep timing records without account identifiers | a claim | about USD 5 |
 | 22 | Costs outside the plugin: the skill listing re-entering the PI's context (19 times in waves 1–3); cache-prefix rewrites; a PI request for every hand-back; colgrep-mcp's own hook (119 ms per Bash, one 10 s timeout); your `.zshrc` (4.4–5.7 s per new shell) | notes; yours where it is your config | — |
-| 23 | **Auto mode's classifier.** About 0.45–0.75 s per Bash call, roughly 10 worker-minutes a wave, and its cost is in no record. Narrow allow rules for read-only commands skip it. Lab scripts (`python3 -I scripts/…`) need a PreToolUse hook that answers "allow", which changes what your safety layer sees | you | — |
-| 24 | Whether the `lab_status.py` cache is worth its code: 0.6 s saved per call against 147 lines, two defects found by the verifier, and a known limit (same size and mtime) | you | — |
+| 23 | **Auto mode's classifier.** About 0.45–0.75 s per Bash call, roughly 10 worker-minutes a wave, and its cost is in no record. Narrow allow rules for read-only commands skip it. Lab scripts (`python3 -I scripts/…`) need a PreToolUse hook that answers "allow", which changes what your safety layer sees. Wave 7: 628 ms median wait on a trivial Bash call, about 1.9% of worker wall; a PreToolUse hook hides behind it; a Read never reaches it (explorer-w07-g) | you | — |
+| 24 | *Settled in wave 7:* the cache stays; dropping its `git` child saves 0.04–0.05 s a call and was not landed (w07-c4). A parallel or Rust re-parse (0.33 s cold) does not beat the warm cache (0.39 s) | — | — |
 | 25 | **The guard's live cost under real load.** 1 start per Bash call; median 0.73 s and max 7.64 s under five parallel starts, no timeout in 211 starts; the 20 s timeout was not run live (w06-c13) | a check in the next wave | small |
 | 26 | **Guard false denials grow with guard work.** 26 strict in 4,637 recorded calls, but 16 more among this wave's own notes about the guard; prose that names `claude` and the flag in a heredoc is denied. A frozen labelled replay set would make the measure stable | a check | small |
-| 27 | **A threshold above the physical ceiling.** Three lean builds were judged by thresholds at or past what the change could reach (w04-c5, w05-c4, w06-c9). The procedure has no step that checks a registered threshold against a measured ceiling (S-w06-research-pi-2) | a protocol claim | — |
-| 28 | **`user_words.py` records session-to-session messages as the user's** (S-w06-research-pi-1) | a fix | small |
+| 27 | **A threshold above the physical ceiling.** Three lean builds were judged by thresholds at or past what the change could reach (w04-c5, w05-c4, w06-c9). The procedure has no step that checks a registered threshold against a measured ceiling (S-w06-research-pi-2). Wave 7 gated on signs over paired runs instead of sizes, which held five times; but P4's ceiling was read from two unpaired medians and was three times too high (S-w07-author-w07-4-1). The step the procedure lacks: measure the ceiling paired before registering | a protocol claim | — |
+| 28 | *Settled in wave 7 (w07-c5):* `user_words.py` keeps only what a person typed, by the transcript's origin marker, from an async hook. The three wrong entries already in `user_words.md` (10-21 17:18 and 10-22 00:22, spawned sessions' first messages; 10-22 00:12 "say ok", your own `-p` test) stay as written; no agent edits that file. The first typed prompt in the Desktop after the merge is the live check | — | — |
 | 29 | **The PI's orientation reads.** The first turn is 21–32% of PI spend; this session's preface went from 47k to about 137k tokens before the first dispatch | a probe | about USD 3 |
 | 30 | **`$` share.** 45% of lab Bash calls carry an unresolved expansion, which matches every `if` hook rule; any future gated hook costs that much | notes | — |
-| 31 | **A resident hook server, if the platform changes.** It would land if a failed server were announced by the platform, or reconnected across sessions (w06-c4, S-w06-author-w06-4-1) | watch the platform | — |
+| 31 | **A resident hook server, if the platform changes.** It would land if a failed server were announced by the platform, or reconnected across sessions (w06-c4, S-w06-author-w06-4-1). Wave 7: `http` hooks cost 2 ms, fail loudly on PreToolUse and PostToolUse with `onFailure: "block"`, end the session on PostToolBatch and are silent on SubagentStop (explorer-w07-c) | watch the platform | — |
+| 32 | **The Rust guard's residual gap and its other platforms.** A binary right on the 12 self-test payloads and wrong elsewhere installs silently. `scripts/git-hooks/pre-commit` (rebuild, manifest, fuzz replay) is written, not installed: `ln -s ../../scripts/git-hooks/pre-commit .git/hooks/pre-commit`. `.github/workflows/guard-binaries.yml` would build Linux and Windows targets; pushing it is visible outside this machine. Until then those platforms get the Python guard through the launcher | you | minutes |
+| 33 | What a human sees of the installer's fallback notice (exit 0, stderr plus `additionalContext`); the model sees it | a check | small |
+| 34 | 61 of 72 verifiers and authors spend an early request loading the deferred `SendMessage` with `ToolSearch`; no plugin-side lever found | a probe | small |
+| 35 | Small checks: the fast-mode factor 2.0 and USD 0.01 a search against a fetched pricing page; the 3–7% gap between the CLI's `total_cost_usd` and a list-price recomputation (S-w07-author-w07-6-2) | a check | small |
+| 36 | **`budget` and `handback` as subcommands of the same binary.** The budget hook is the one a worker waits on after every tool call (41 ms in exec form); the guard pilot is the template | a claim | about USD 8 |
+| 37 | **The Desktop after the merge.** The first Desktop session on main is the check of four things no headless run covers: the installer in the Desktop's data folder before the first Bash call, a typed prompt recorded by origin, an author's 1-hour writes, and the PI's request 0 with the deferred names of your MCP servers | you, then the PI | minutes |
+| 38 | **Cache and long outputs.** Re-writes after 5-minute gaps were 15.8% of worker spend and tool results over 5,000 characters 29.7% of cache-read spend (ESTIMATEs). Authors now keep 1 hour; reproducers and explorers lose by it. Shorter outputs from lab scripts are the untried lever | a claim | about USD 3 |
