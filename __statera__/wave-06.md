@@ -238,6 +238,16 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     supports identical outputs, a positive saving and a working fallback without `_json`. If it does
     not, nothing lands.
 
+- HH:MM (this commit), after author-w06-5 returned (w06-c11, E3 v3; w06-c12, the restatement of w06-c10):
+  - k1–k5 pass. v3 denies 8 of 9 of what the gated rows let through, the `bash` heredoc included, at
+    exactly 1 start per Bash call. k6 as counted fails: 113 of 4,553 replayed lab Bash calls are
+    denied, against 55. But the amendment defines a false denial as a command that only mentions the
+    words and runs no `claude`. 38 of the 113 are `CLAUDE_CONFIG_DIR=` probe runs, which start
+    `claude` and escape user settings. 21 are Bash writes of settings files. Both are what the guard
+    exists to stop. So k6 turns on classification, and that is the verifier's to do:
+    reproducer-w06-7 classifies the 113 and verifies w06-c12. v3 lands if k6 passes as registered.
+    Otherwise v2 lands, if w06-c12 stands.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -249,11 +259,12 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | author-w06-3 | author | E1 stage 1: can a resident server carry Murmuration's hooks (w06-c3) | 134e3ac: passes on the letter; a dead or hung restart is silent or slow |
 | reproducer-w06-3 | reproducer | verify w06-c3, then w06-c5, w06-c6 | ESCALATE on w06-c3 (6b79137): m4 vacuous as registered; restated as w06-c5 (OVERSTATED), then w06-c6 (SUPPORTED, 710bda9) |
 | guide-w06-perm | claude-code-guide | which permission-hardening mechanisms the platform documents | `__reports__/wave-06/research-pi/permission_mechanisms.md`: plugin = hooks only; hard = managed settings |
-| reproducer-w06-5 | reproducer | verify w06-c10 (lands if supported), w06-c8, w06-c7 | |
+| reproducer-w06-5 | reproducer | verify w06-c10 (lands if supported), w06-c8, w06-c7 | 80c4d61: c10 OVERSTATED (the heredoc route and others missing), c8 and c7 SUPPORTED |
 | author-w06-5 | author | E3: the permission guard in the plugin (w06-c7, c8, c10), own worktree | c77e696 on `w06-e3-guard`: v0 rule fails (g1 42/50, spawns on `$`); resumed for v1 (w06-c8: h3 fails), v2 (w06-c10, 7d2fc81: h1–h6 pass) |
 | author-w06-4 | author | E1 stage 2: the port, s1–s4 (w06-c4) | 8cdfd7b: s1, s3 pass; s2 (20.8%) and s4 (+320) fail; reverted b79e81c |
 | reproducer-w06-4 | reproducer | verify w06-c4 | OVERSTATED (38d3273): s4's title and s3b's cumulative reading; the decision stands |
 | author-w06-6 | author | E2: lean starts, same registrations and outputs (w06-c9) | 6157777 on `w06-e2-lean`: e1, e3, e4 pass; e2 22 ms against 25 |
+| reproducer-w06-7 | reproducer | verify w06-c11 (classify k6's 113) and w06-c12 | |
 | reproducer-w06-6 | reproducer | verify w06-c9 (outputs, saving, `_json` fallback) | |
 | explorer-w06-c | explorer | the PI's wake-ups and cost per wake-up in waves 4–5; what idle time could carry; one session per wave | 7c14a2d: idle is free (1-hour cache); wake-ups are hand-backs; preface 21–32% of PI spend |
 
@@ -264,9 +275,11 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | w06-c3 | E1 stage 1, resident server carries the hooks | superseded by w06-c5 |
 | w06-c5 | E1 stage 1 restated | superseded by w06-c6 (verdict OVERSTATED: "fails v0" went beyond v0's letter) |
 | w06-c6 | E1 stage 1: a resident server carries the hooks' fields, firing, effects at 1–6 ms; m4 (a) vacuous, (b) meets v0's letter and fails its intent (silent loss of deny and block), (c) 20 s a tool boundary | MEASURED |
-| w06-c10 | E3 v2: 3 Bash rows, a content check that denies only added words, settings-path rows; h1–h6 pass (incident form denied, 0 spawns on ordinary commands, fails closed, engineering edits allowed) | unverified MEASURED |
-| w06-c8 | E3 v1: 3 Bash rows + script-content check; h1, h2, h4, h5 pass, h3 fails (inconsistent as registered); not landed | unverified MEASURED |
-| w06-c7 | E3 v0: 25 gated guard rows deny 42 of 50 attacks, fail closed 9 of 9, start 19 processes on a `$` command; the rule is not met | unverified MEASURED |
+| w06-c11 | E3 v3: one unconditional Bash row; k1–k5 pass; k6 depends on classifying 113 denials | unverified MEASURED |
+| w06-c12 | E3 v2 restated with the full let-through list | unverified MEASURED |
+| w06-c10 | E3 v2: 3 Bash rows, a content check that denies only added words, settings-path rows; h1–h6 pass (incident form denied, 0 spawns on ordinary commands, fails closed, engineering edits allowed) | superseded by w06-c12 (verdict OVERSTATED) |
+| w06-c8 | E3 v1: 3 Bash rows + script-content check; h1, h2, h4, h5 pass, h3 fails (inconsistent as registered); not landed | MEASURED |
+| w06-c7 | E3 v0: 25 gated guard rows deny 42 of 50 attacks, fail closed 9 of 9, start 19 processes on a `$` command; the rule is not met | MEASURED |
 | w06-c9 | E2: lean starts with identical outputs (197/197) save about 20 ms a worker start; e2's 25 ms in every pair is not met | unverified MEASURED |
 | w06-c4 | E1 stage 2: resident server, outputs equal 197/197, outage handled, but s2 and s4 miss; not landed | below MEASURED: restate (not restated; nothing depends on it) |
 | w06-c2 | Disposing puzzles at the hand-back wake-up costs no extra request (the implied saving is not shown) | below ESTIMATE: restate; not restated, the bullet is reverted |
