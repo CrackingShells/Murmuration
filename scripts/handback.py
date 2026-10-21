@@ -282,25 +282,19 @@ def selftest():
     print("PASS handback")
 
 
-def run(event, now=None):
-    """What the hook does for one event: the report check (PreToolUse) or the save (other events). Returns the answer to print, or None.
-    The process below and the resident hook server (hook_server.py) both call this, so the two cannot differ."""
-    answer = None
-    try:
-        answer = gate(event)
-    except Exception:
-        pass   # a failing check never blocks an agent
-    if event.get("hook_event_name") != "PreToolUse":
-        handle(event, now)
-    return answer
-
-
 def main():
     try:
         event = json.loads(sys.stdin.read() or "{}")
-        answer = run(event) if isinstance(event, dict) else None
-        if answer:
-            print(json.dumps(answer))
+        if isinstance(event, dict):
+            answer = None
+            try:
+                answer = gate(event)
+            except Exception:
+                pass   # a failing check never blocks an agent
+            if event.get("hook_event_name") != "PreToolUse":
+                handle(event)
+            if answer:
+                print(json.dumps(answer))
     except Exception:
         pass
     return 0

@@ -836,7 +836,7 @@ def selftest():
     # 7. the registration: the check on PostToolBatch, the ceiling on PostToolUse, the dispatch on Agent
     hooks = json.load(open(os.path.join(HERE, "..", "hooks", "hooks.json")))["hooks"]
     for event, matcher in (("SubagentStart", None), ("PostToolBatch", None), ("PostToolUse", None), ("SubagentStop", None), ("PreToolUse", "Agent|Task")):
-        assert any(h.get("type") == "mcp_tool" and h["input"].get("script") == "budget" and g.get("matcher") == matcher for g in hooks[event] for h in g["hooks"]), (event, matcher)
+        assert any(("budget.py" in h["command"]) and g.get("matcher") == matcher for g in hooks[event] for h in g["hooks"]), (event, matcher)
     assert subprocess.run([sys.executable, os.path.abspath(__file__)], input="not json", capture_output=True, text=True).returncode == 0
     print("PASS budget")
 

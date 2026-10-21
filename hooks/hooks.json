@@ -28,24 +28,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/outage.py\" || echo '{\"hookSpecificOutput\": {\"hookEventName\": \"SubagentStart\", \"additionalContext\": \"Hooks down: python3 cannot run the hook scripts of the lab. The budget notes, the 150% block and the hand-back capture are not running for this run. Go on; start your hand-back with a line `HOOKS DOWN: <what you saw>`.\"}}'",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/budget.py\"",
             "timeout": 10
-          },
-          {
-            "type": "mcp_tool",
-            "server": "plugin:murmuration:hooks",
-            "tool": "hook",
-            "input": {
-              "script": "budget",
-              "hook_event_name": "${hook_event_name}",
-              "cwd": "${cwd}",
-              "agent_id": "${agent_id}",
-              "agent_type": "${agent_type}",
-              "transcript_path": "${transcript_path}",
-              "agent_transcript_path": "${agent_transcript_path}",
-              "permission_mode": "${permission_mode}"
-            },
-            "timeout": 3
           }
         ]
       }
@@ -55,23 +39,9 @@
         "matcher": "Agent|Task",
         "hooks": [
           {
-            "type": "mcp_tool",
-            "server": "plugin:murmuration:hooks",
-            "tool": "hook",
-            "input": {
-              "script": "budget",
-              "hook_event_name": "${hook_event_name}",
-              "cwd": "${cwd}",
-              "agent_id": "${agent_id}",
-              "agent_type": "${agent_type}",
-              "transcript_path": "${transcript_path}",
-              "agent_transcript_path": "${agent_transcript_path}",
-              "permission_mode": "${permission_mode}",
-              "tool_name": "${tool_name}",
-              "tool_input": "${tool_input}",
-              "tool_use_id": "${tool_use_id}"
-            },
-            "timeout": 3
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/budget.py\"",
+            "timeout": 10
           }
         ]
       },
@@ -80,25 +50,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/outage.py\"",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/handback.py\"",
             "timeout": 10
-          },
-          {
-            "type": "mcp_tool",
-            "server": "plugin:murmuration:hooks",
-            "tool": "hook",
-            "input": {
-              "script": "handback",
-              "hook_event_name": "${hook_event_name}",
-              "cwd": "${cwd}",
-              "agent_id": "${agent_id}",
-              "agent_type": "${agent_type}",
-              "transcript_path": "${transcript_path}",
-              "agent_transcript_path": "${agent_transcript_path}",
-              "permission_mode": "${permission_mode}",
-              "tool_name": "${tool_name}"
-            },
-            "timeout": 3
           }
         ]
       }
@@ -107,21 +60,9 @@
       {
         "hooks": [
           {
-            "type": "mcp_tool",
-            "server": "plugin:murmuration:hooks",
-            "tool": "hook",
-            "input": {
-              "script": "budget",
-              "hook_event_name": "${hook_event_name}",
-              "cwd": "${cwd}",
-              "agent_id": "${agent_id}",
-              "agent_type": "${agent_type}",
-              "transcript_path": "${transcript_path}",
-              "agent_transcript_path": "${agent_transcript_path}",
-              "permission_mode": "${permission_mode}",
-              "tool_name": "${tool_name}"
-            },
-            "timeout": 3
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/budget.py\"",
+            "timeout": 10
           }
         ]
       },
@@ -129,31 +70,8 @@
         "matcher": "SubagentHandback",
         "hooks": [
           {
-            "type": "mcp_tool",
-            "server": "plugin:murmuration:hooks",
-            "tool": "hook",
-            "input": {
-              "script": "handback",
-              "hook_event_name": "${hook_event_name}",
-              "cwd": "${cwd}",
-              "agent_id": "${agent_id}",
-              "agent_type": "${agent_type}",
-              "transcript_path": "${transcript_path}",
-              "agent_transcript_path": "${agent_transcript_path}",
-              "permission_mode": "${permission_mode}",
-              "tool_name": "${tool_name}",
-              "tool_input": "${tool_input}"
-            },
-            "timeout": 3
-          }
-        ]
-      },
-      {
-        "matcher": "Agent|Task",
-        "hooks": [
-          {
             "type": "command",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/outage.py\"",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/handback.py\"",
             "timeout": 10
           }
         ]
@@ -163,37 +81,14 @@
       {
         "hooks": [
           {
-            "type": "mcp_tool",
-            "server": "plugin:murmuration:hooks",
-            "tool": "hook",
-            "input": {
-              "script": "handback",
-              "hook_event_name": "${hook_event_name}",
-              "cwd": "${cwd}",
-              "agent_id": "${agent_id}",
-              "agent_type": "${agent_type}",
-              "transcript_path": "${transcript_path}",
-              "agent_transcript_path": "${agent_transcript_path}",
-              "permission_mode": "${permission_mode}",
-              "last_assistant_message": "${last_assistant_message}"
-            },
-            "timeout": 3
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/handback.py\"",
+            "timeout": 10
           },
           {
-            "type": "mcp_tool",
-            "server": "plugin:murmuration:hooks",
-            "tool": "hook",
-            "input": {
-              "script": "budget",
-              "hook_event_name": "${hook_event_name}",
-              "cwd": "${cwd}",
-              "agent_id": "${agent_id}",
-              "agent_type": "${agent_type}",
-              "transcript_path": "${transcript_path}",
-              "agent_transcript_path": "${agent_transcript_path}",
-              "permission_mode": "${permission_mode}"
-            },
-            "timeout": 3
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/budget.py\"",
+            "timeout": 10
           }
         ]
       }
@@ -202,21 +97,9 @@
       {
         "hooks": [
           {
-            "type": "mcp_tool",
-            "server": "plugin:murmuration:hooks",
-            "tool": "hook",
-            "input": {
-              "script": "budget",
-              "hook_event_name": "${hook_event_name}",
-              "cwd": "${cwd}",
-              "agent_id": "${agent_id}",
-              "agent_type": "${agent_type}",
-              "transcript_path": "${transcript_path}",
-              "agent_transcript_path": "${agent_transcript_path}",
-              "permission_mode": "${permission_mode}",
-              "tool_calls": "${tool_calls}"
-            },
-            "timeout": 3
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/budget.py\"",
+            "timeout": 10
           }
         ]
       }
