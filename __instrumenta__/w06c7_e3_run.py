@@ -115,6 +115,8 @@ def match(R, cases):
     used, rows = set(), []
     for c in cases:
         want = c["input"] if "input" in c else {"command": c["command"]}
+        if c.get("match"):          # compare only these fields (a long Write content the model may not reproduce byte for byte)
+            want = {k: want[k] for k in c["match"]}
         hit = None
         for k, (n, i, r) in enumerate(cs):
             if k in used or n != c["tool"]:

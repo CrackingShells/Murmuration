@@ -151,4 +151,5 @@ def main():
     print("done", E.S + "/e3_results_%s_%s.json" % (sha, mode + ("_s%d" % SH if NSH > 1 else "")))
 
 
-main()
+if __name__ == "__main__":
+    main()
