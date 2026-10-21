@@ -1,0 +1,63 @@
+{"variant": "execstamp", "session": 0, "idx": 0, "dur_ms": 427, "issue_ms": 1792597465528.0, "fin_ms": 1792597465951.0, "load1": 14.84765625, "main_ms": 1792597465950.928, "hook_ppid": 35164}
+{"variant": "true", "session": 0, "idx": 1, "dur_ms": 66, "issue_ms": 1792597467357.0, "fin_ms": 1792597467415.0, "load1": 14.84765625}
+{"variant": "rsnostd", "session": 0, "idx": 2, "dur_ms": 74, "issue_ms": 1792597468380.0, "fin_ms": 1792597468447.0, "load1": 14.84765625}
+{"variant": "pysi", "session": 0, "idx": 3, "dur_ms": 70, "issue_ms": 1792597469639.0, "fin_ms": 1792597469702.0, "load1": 14.84765625}
+{"variant": "stamp", "session": 0, "idx": 4, "dur_ms": 62, "issue_ms": 1792597470544.0, "fin_ms": 1792597470598.0, "load1": 14.84765625, "main_ms": 1792597470598.087, "hook_ppid": 35164}
+{"variant": "execstamp", "session": 0, "idx": 5, "dur_ms": 62, "issue_ms": 1792597471868.0, "fin_ms": 1792597471920.0, "load1": 14.84765625, "main_ms": 1792597471919.631, "hook_ppid": 35164}
+{"variant": "rsnostd", "session": 0, "idx": 6, "dur_ms": 47, "issue_ms": 1792597472927.0, "fin_ms": 1792597472963.0, "load1": 14.84765625}
+{"variant": "shellprobe", "session": 0, "idx": 7, "dur_ms": 119, "issue_ms": 1792597474008.0, "fin_ms": 1792597474118.0, "load1": 14.84765625}
+{"variant": "rsrelease", "session": 0, "idx": 8, "dur_ms": 74, "issue_ms": 1792597475087.0, "fin_ms": 1792597475154.0, "load1": 14.84765625}
+{"variant": "shellprobe", "session": 0, "idx": 9, "dur_ms": 54, "issue_ms": 1792597476161.0, "fin_ms": 1792597476206.0, "load1": 14.84765625}
+{"variant": "execcnoop", "session": 0, "idx": 10, "dur_ms": 133, "issue_ms": 1792597477125.0, "fin_ms": 1792597477248.0, "load1": 14.84765625}
+{"variant": "rsrelease", "session": 0, "idx": 11, "dur_ms": 75, "issue_ms": 1792597478423.0, "fin_ms": 1792597478497.0, "load1": 14.84765625}
+{"variant": "true", "session": 0, "idx": 12, "dur_ms": 120, "issue_ms": 1792597479425.0, "fin_ms": 1792597479536.0, "load1": 14.84765625}
+{"variant": "execcnoop", "session": 0, "idx": 13, "dur_ms": 54, "issue_ms": 1792597480433.0, "fin_ms": 1792597480476.0, "load1": 14.84765625}
+{"variant": "execstamp", "session": 0, "idx": 14, "dur_ms": 65, "issue_ms": 1792597481422.0, "fin_ms": 1792597481475.0, "load1": 14.84765625, "main_ms": 1792597481474.85, "hook_ppid": 35164}
+{"variant": "rsrelease", "session": 0, "idx": 15, "dur_ms": 51, "issue_ms": 1792597482462.0, "fin_ms": 1792597482505.0, "load1": 14.84765625}
+{"variant": "execstamp", "session": 0, "idx": 16, "dur_ms": 66, "issue_ms": 1792597483454.0, "fin_ms": 1792597483512.0, "load1": 14.84765625, "main_ms": 1792597483511.82, "hook_ppid": 35164}
+{"variant": "rsnostd", "session": 0, "idx": 17, "dur_ms": 64, "issue_ms": 1792597484512.0, "fin_ms": 1792597484576.0, "load1": 14.84765625}
+{"variant": "cnoop", "session": 0, "idx": 18, "dur_ms": 65, "issue_ms": 1792597485646.0, "fin_ms": 1792597485700.0, "load1": 14.84765625}
+{"variant": "colon", "session": 0, "idx": 19, "dur_ms": 47, "issue_ms": 1792597486697.0, "fin_ms": 1792597486741.0, "load1": 14.84765625}
+{"variant": "cnoop", "session": 0, "idx": 20, "dur_ms": 49, "issue_ms": 1792597487733.0, "fin_ms": 1792597487780.0, "load1": 14.84765625}
+{"variant": "cnoop", "session": 0, "idx": 21, "dur_ms": 82, "issue_ms": 1792597488728.0, "fin_ms": 1792597488810.0, "load1": 14.84765625}
+{"variant": "rsrelease", "session": 0, "idx": 22, "dur_ms": 98, "issue_ms": 1792597489797.0, "fin_ms": 1792597489895.0, "load1": 14.84765625}
+{"variant": "colon", "session": 0, "idx": 23, "dur_ms": 69, "issue_ms": 1792597490893.0, "fin_ms": 1792597490958.0, "load1": 14.84765625}
+{"variant": "execcnoop", "session": 0, "idx": 24, "dur_ms": 52, "issue_ms": 1792597491944.0, "fin_ms": 1792597491986.0, "load1": 14.84765625}
+{"variant": "true", "session": 0, "idx": 25, "dur_ms": 123, "issue_ms": 1792597493020.0, "fin_ms": 1792597493134.0, "load1": 14.84765625}
+{"variant": "pysi", "session": 0, "idx": 26, "dur_ms": 54, "issue_ms": 1792597494077.0, "fin_ms": 1792597494121.0, "load1": 14.84765625}
+{"variant": "pysi", "session": 0, "idx": 27, "dur_ms": 122, "issue_ms": 1792597495096.0, "fin_ms": 1792597495214.0, "load1": 14.84765625}
+{"variant": "colon", "session": 0, "idx": 28, "dur_ms": 163, "issue_ms": 1792597496139.0, "fin_ms": 1792597496300.0, "load1": 14.84765625}
+{"variant": "shc", "session": 0, "idx": 29, "dur_ms": 96, "issue_ms": 1792597497260.0, "fin_ms": 1792597497351.0, "load1": 14.84765625}
+{"variant": "shc", "session": 0, "idx": 30, "dur_ms": 81, "issue_ms": 1792597498343.0, "fin_ms": 1792597498418.0, "load1": 14.84765625}
+{"variant": "pysi", "session": 0, "idx": 31, "dur_ms": 107, "issue_ms": 1792597499377.0, "fin_ms": 1792597499477.0, "load1": 14.84765625}
+{"variant": "rsnostd", "session": 0, "idx": 32, "dur_ms": 120, "issue_ms": 1792597500466.0, "fin_ms": 1792597500580.0, "load1": 14.84765625}
+{"variant": "stamp", "session": 0, "idx": 33, "dur_ms": 71, "issue_ms": 1792597501539.0, "fin_ms": 1792597501594.0, "load1": 14.84765625, "main_ms": 1792597501594.404, "hook_ppid": 35164}
+{"variant": "pysi", "session": 0, "idx": 34, "dur_ms": 99, "issue_ms": 1792597502621.0, "fin_ms": 1792597502719.0, "load1": 14.84765625}
+{"variant": "cnoop", "session": 0, "idx": 35, "dur_ms": 75, "issue_ms": 1792597503728.0, "fin_ms": 1792597503794.0, "load1": 14.84765625}
+{"variant": "rsrelease", "session": 0, "idx": 36, "dur_ms": 48, "issue_ms": 1792597504756.0, "fin_ms": 1792597504796.0, "load1": 14.84765625}
+{"variant": "rsnostd", "session": 0, "idx": 37, "dur_ms": 67, "issue_ms": 1792597505753.0, "fin_ms": 1792597505810.0, "load1": 14.84765625}
+{"variant": "execcnoop", "session": 0, "idx": 38, "dur_ms": 108, "issue_ms": 1792597506761.0, "fin_ms": 1792597506862.0, "load1": 14.84765625}
+{"variant": "stamp", "session": 0, "idx": 39, "dur_ms": 71, "issue_ms": 1792597507911.0, "fin_ms": 1792597507971.0, "load1": 14.84765625, "main_ms": 1792597507970.7441, "hook_ppid": 35164}
+{"variant": "execstamp", "session": 0, "idx": 40, "dur_ms": 94, "issue_ms": 1792597509084.0, "fin_ms": 1792597509177.0, "load1": 14.84765625, "main_ms": 1792597509176.8042, "hook_ppid": 35164}
+{"variant": "true", "session": 0, "idx": 41, "dur_ms": 123, "issue_ms": 1792597510187.0, "fin_ms": 1792597510296.0, "load1": 14.84765625}
+{"variant": "shc", "session": 0, "idx": 42, "dur_ms": 227, "issue_ms": 1792597511248.0, "fin_ms": 1792597511439.0, "load1": 14.84765625}
+{"variant": "colon", "session": 0, "idx": 43, "dur_ms": 74, "issue_ms": 1792597512601.0, "fin_ms": 1792597512675.0, "load1": 14.84765625}
+{"variant": "colon", "session": 0, "idx": 44, "dur_ms": 70, "issue_ms": 1792597513644.0, "fin_ms": 1792597513713.0, "load1": 14.84765625}
+{"variant": "shellprobe", "session": 0, "idx": 45, "dur_ms": 102, "issue_ms": 1792597514646.0, "fin_ms": 1792597514744.0, "load1": 14.84765625}
+{"variant": "shc", "session": 0, "idx": 46, "dur_ms": 115, "issue_ms": 1792597515717.0, "fin_ms": 1792597515829.0, "load1": 14.84765625}
+{"variant": "stamp", "session": 0, "idx": 47, "dur_ms": 111, "issue_ms": 1792597516811.0, "fin_ms": 1792597516914.0, "load1": 14.84765625, "main_ms": 1792597516913.944, "hook_ppid": 35164}
+{"variant": "rsrelease", "session": 0, "idx": 48, "dur_ms": 108, "issue_ms": 1792597517944.0, "fin_ms": 1792597518034.0, "load1": 14.84765625}
+{"variant": "execcnoop", "session": 0, "idx": 49, "dur_ms": 60, "issue_ms": 1792597519084.0, "fin_ms": 1792597519137.0, "load1": 14.84765625}
+{"variant": "cnoop", "session": 0, "idx": 50, "dur_ms": 83, "issue_ms": 1792597520133.0, "fin_ms": 1792597520201.0, "load1": 14.84765625}
+{"variant": "shc", "session": 0, "idx": 51, "dur_ms": 90, "issue_ms": 1792597521322.0, "fin_ms": 1792597521406.0, "load1": 14.84765625}
+{"variant": "rsnostd", "session": 0, "idx": 52, "dur_ms": 87, "issue_ms": 1792597522449.0, "fin_ms": 1792597522528.0, "load1": 14.84765625}
+{"variant": "stamp", "session": 0, "idx": 53, "dur_ms": 88, "issue_ms": 1792597523576.0, "fin_ms": 1792597523663.0, "load1": 14.84765625, "main_ms": 1792597523662.507, "hook_ppid": 35164}
+{"variant": "execstamp", "session": 0, "idx": 54, "dur_ms": 87, "issue_ms": 1792597524784.0, "fin_ms": 1792597524869.0, "load1": 14.84765625, "main_ms": 1792597524868.258, "hook_ppid": 35164}
+{"variant": "true", "session": 0, "idx": 55, "dur_ms": 104, "issue_ms": 1792597526003.0, "fin_ms": 1792597526107.0, "load1": 14.84765625}
+{"variant": "shc", "session": 0, "idx": 56, "dur_ms": 108, "issue_ms": 1792597527247.0, "fin_ms": 1792597527346.0, "load1": 14.84765625}
+{"variant": "stamp", "session": 0, "idx": 57, "dur_ms": 92, "issue_ms": 1792597528344.0, "fin_ms": 1792597528429.0, "load1": 14.84765625, "main_ms": 1792597528428.404, "hook_ppid": 35164}
+{"variant": "colon", "session": 0, "idx": 58, "dur_ms": 60, "issue_ms": 1792597529833.0, "fin_ms": 1792597529885.0, "load1": 14.84765625}
+{"variant": "shellprobe", "session": 0, "idx": 59, "dur_ms": 68, "issue_ms": 1792597530961.0, "fin_ms": 1792597531021.0, "load1": 14.84765625}
+{"variant": "shc", "session": 0, "idx": 60, "dur_ms": 91, "issue_ms": 1792597532043.0, "fin_ms": 1792597532134.0, "load1": 14.84765625}
+{"variant": "stamp", "session": 0, "idx": 61, "dur_ms": 96, "issue_ms": 1792597533635.0, "fin_ms": 1792597533730.0, "load1": 14.84765625, "main_ms": 1792597533729.532, "hook_ppid": 35164}
+{"variant": "shc", "session": 0, "idx": 62, "dur_ms": 103, "issue_ms": 1792597536059.0, "fin_ms": 1792597536157.0, "load1": 14.84765625}

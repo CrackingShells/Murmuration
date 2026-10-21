@@ -1,0 +1,11 @@
+c_noop	/private/tmp/murmuration-w07/explorer-w07-a/bin/c_noop
+bin_sh_colon	/bin/sh	-c	:
+bin_sh_empty	/bin/sh	-c	
+bin_sh_exit	/bin/sh	-c	exit 0
+bin_dash_colon	/bin/dash	-c	:
+bin_bash_colon	/bin/bash	-c	:
+bash_posix_colon	/bin/bash	--posix	-c	:
+sh_copy_colon	/private/tmp/murmuration-w07/explorer-w07-a/bin/sh_copy	-c	:
+dash_copy_colon	/private/tmp/murmuration-w07/explorer-w07-a/bin/dash_copy	-c	:
+sh_noargs_version	/bin/sh	--version
+bash_version	/bin/bash	--version
