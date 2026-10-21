@@ -5,7 +5,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/user_words.py\"",
+            "command": "python3",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/user_words.py"],
             "timeout": 10
           }
         ]
@@ -17,7 +18,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/resume_brief.py\"",
+            "command": "python3",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/resume_brief.py"],
             "timeout": 10
           }
         ]
@@ -28,7 +30,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py\" budget",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py", "budget"],
             "timeout": 10
           }
         ]
@@ -40,7 +43,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           }
@@ -52,217 +56,248 @@
           {
             "type": "command",
             "if": "Write(**/.claude/settings*.json)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Write(**/managed-settings*)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Write(**/managed-settings.d/**)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Write(**/*.py)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Write(**/*.sh)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Write(**/*.bash)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Write(**/*.zsh)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Write(**/*.js)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Write(**/*.ts)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Write(**/*.mjs)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Edit(**/.claude/settings*.json)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Edit(**/managed-settings*)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Edit(**/managed-settings.d/**)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Edit(**/*.py)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Edit(**/*.sh)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Edit(**/*.bash)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Edit(**/*.zsh)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Edit(**/*.js)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Edit(**/*.ts)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "Edit(**/*.mjs)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "NotebookEdit(**/.claude/settings*.json)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "NotebookEdit(**/managed-settings*)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "NotebookEdit(**/managed-settings.d/**)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "NotebookEdit(**/*.py)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "NotebookEdit(**/*.sh)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "NotebookEdit(**/*.bash)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "NotebookEdit(**/*.zsh)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "NotebookEdit(**/*.js)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "NotebookEdit(**/*.ts)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "NotebookEdit(**/*.mjs)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           },
           {
             "type": "command",
             "if": "NotebookEdit(**/*.ipynb)",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"],
             "timeout": 20,
             "onFailure": "block"
           }
@@ -273,7 +308,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py\" budget",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py", "budget"],
             "timeout": 10
           }
         ]
@@ -283,7 +319,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py\" handback",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py", "handback"],
             "timeout": 10
           }
         ]
@@ -294,7 +331,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py\" budget",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py", "budget"],
             "timeout": 10
           }
         ]
@@ -304,7 +342,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py\" handback",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py", "handback"],
             "timeout": 10
           }
         ]
@@ -315,12 +354,14 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py\" handback",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py", "handback"],
             "timeout": 10
           },
           {
             "type": "command",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py\" budget",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py", "budget"],
             "timeout": 10
           }
         ]
@@ -331,7 +372,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py\" budget",
+            "command": "python3",
+            "args": ["-S", "-I", "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py", "budget"],
             "timeout": 10
           }
         ]
