@@ -1,0 +1,6 @@
+2026-10-21T16:00:04.446Z [DEBUG] Hooks: Config-based async hook, backgrounding process async_hook_63480
+2026-10-21T16:00:04.446Z [DEBUG] Hooks: Registering async hook async_hook_63480 (UserPromptSubmit) with timeout 10000ms
+2026-10-21T16:00:04.446Z [DEBUG] Hooks: UserPromptSubmit [python3 "<work>/v1run/mixed-plugin/crash_words.py"] (plugin w07c5-mixed@inline) moved to the background (2ms)
+2026-10-21T16:00:04.649Z [DEBUG] Hooks: UserPromptSubmit [python3 ~/.claude/hooks/inject_plan_directive.py] finished with status 0 (206ms)
+2026-10-21T16:00:04.725Z [DEBUG] Hooks: UserPromptSubmit [python3 "<work>/v1run/mixed-plugin/main_words.py"] (plugin w07c5-mixed@inline) finished with status 0 (282ms)
+2026-10-21T16:00:04.827Z [ERROR] "Hook UserPromptSubmit (UserPromptSubmit) error: status code 1\nstderr:\nTraceback (most recent call last):\n  File \"<work>/v1run/mixed-plugin/crash_words.py\", line 36, in <module>\n    import w07c5_no_such_module\nModuleNotFoundError: No module named 'w07c5_no_such_module'"

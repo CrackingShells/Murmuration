@@ -1,0 +1,25 @@
+transcripts 1849, text user records 3001
+
+(category from fields, record_mark, text rule stores) -> n
+1872 ('sdk-desktop', False, True)
+444 ('peer', False, True)
+290 ('other', None, True)
+261 ('task-notification', False, False)
+96 ('human', True, True)
+26 ('sdk-desktop', False, False)
+8 ('scheduled', False, True)
+4 ('sdk-cli', True, True)
+
+hook-time replay at each prompt's first record: (category, verdict of tail lookup) -> n
+1898 ('sdk-desktop', False)
+443 ('peer', False)
+261 ('task-notification', False)
+96 ('human', True)
+8 ('scheduled', False)
+5 ('other', None)
+4 ('sdk-cli', True)
+
+expected by rule: human True, sdk-cli True, peer/task-notification/scheduled/sdk-desktop False, other None (text rule decides)
+errors (decision differs from expected, or replay differs from direct): 0
+prompt ids whose records disagree (True and False both marked): 0 []
+text rule stores 2714 records; the origin rule additionally drops 2324 of them; human-origin records stored by both: 96, human-origin records dropped by the new rule: 0
