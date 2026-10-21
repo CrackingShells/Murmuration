@@ -8,6 +8,7 @@ OUT = os.path.join(REPO, "__reports__", "wave-06", "author-w06-5")
 commit = sys.argv[1] if len(sys.argv) > 1 else "HEAD"
 mode = sys.argv[2] if len(sys.argv) > 2 else "full"
 quick = mode == "quick"
+SH, NSH = [int(x) for x in os.environ.get("SHARD", "0/1").split("/")]   # shard i of n: this process takes the cases whose index mod n is i, in its own arena (set W06C7_S per shard)
 sha = subprocess.run(["git", "-C", REPO, "rev-parse", "--short", commit], capture_output=True, text=True, check=True).stdout.strip()
 PLUG = "%s/export_%s" % (E.S, sha)
 
@@ -22,7 +23,7 @@ def export(dest, mutate=None):
 
 
 def load(name):
-    return E.sub(json.load(open("%s/e3_%s.json" % (E.LISTS, name))))
+    return [c for k, c in enumerate(E.sub(json.load(open("%s/e3_%s.json" % (E.LISTS, name))))) if k % NSH == SH]
 
 
 def dbg_guard(R):
@@ -50,7 +51,7 @@ def run_list(prefix, plugin, cases, chunk):
     todo = [cases[k:k + chunk] for k in range(0, len(cases), chunk)]
     for ci, ch in enumerate(todo):
         for attempt in (0, 1):
-            R = E.session("%s_%d_%d" % (prefix, ci, attempt), plugin, ch)
+            R = E.session("%s%d_%d_%d" % (prefix, SH, ci, attempt), plugin, ch)
             rows = E.match(R, ch)
             info = json.load(open(R + "/cases.json"))
             n, ms = dbg_guard(R)
@@ -96,7 +97,7 @@ def main():
         results["mention"] = run_list("men", PLUG, load("mention"), 1)
         results["g5"] = run_list("g5", PLUG, load("evasions"), 1)
     # g3 fail-closed: the guard unreadable, crashing, the interpreter missing, and the control without onFailure
-    probe = [c for c in attacks if c["id"] in ("a01", "a05", "a08")][:1 if quick else 3]
+    probe = [c for c in E.sub(json.load(open("%s/e3_attacks.json" % E.LISTS))) if c["id"] in ("a01", "a05", "a08")][:1 if quick else 3]
     variants = {}
 
     def unreadable(d):
@@ -127,6 +128,8 @@ def main():
     for name, mut in (("unreadable", unreadable), ("crash", crash), ("nopython", nopython), ("control_crash_no_onFailure", control), ("control_nopython_no_onFailure", nopython_control)):
         if quick and name not in ("unreadable", "control_crash_no_onFailure"):
             continue
+        if NSH > 1 and name != ("unreadable", "crash", "nopython", "control_crash_no_onFailure", "control_nopython_no_onFailure")[SH % 5]:
+            continue
         d = export("%s/export_%s_%s" % (E.S, sha, name), mut)
         variants[name] = run_list("g3_" + name, d, probe, 1)
         if name == "unreadable":
@@ -144,8 +147,8 @@ def main():
     gaps = [c for c in load("attacks") if c["id"] in ("b04", "b05", "d01", "d02", "d09", "d12", "d13")]
     gaps = gaps[:1] if quick else gaps
     results["single_row"] = dict(ordinary=run_list("sr_ord", d, ordinary, 7), gaps=run_list("sr_gap", d, gaps, 1))
-    json.dump(results, open(E.S + "/e3_results_%s_%s.json" % (sha, mode), "w"), indent=1)
-    print("done", E.S + "/e3_results_%s_%s.json" % (sha, mode))
+    json.dump(results, open(E.S + "/e3_results_%s_%s.json" % (sha, mode + ("_s%d" % SH if NSH > 1 else "")), "w"), indent=1)
+    print("done", E.S + "/e3_results_%s_%s.json" % (sha, mode + ("_s%d" % SH if NSH > 1 else "")))
 
 
 main()

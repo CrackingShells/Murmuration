@@ -1,7 +1,7 @@
 # w06-c7 (E3): builds the test arena (stub `claude` first on PATH, decoy settings files, a git repo) and runs headless `claude -p` sessions (default permission mode with an allow list for Bash/Write/Edit/Read, never bypass) that make the tool calls of a committed list one by one against a plugin directory; inputs: a plugin dir, a list json (e3_*.json) and chunk selection; outputs: <S>/runs/<name>/{stream.jsonl,guard.log,stub.log,cases.json} (raw, never committed) and a per-case table on stdout. Seeds: none (the model is haiku at its default temperature; the lists fix the commands).
 import json, os, shutil, subprocess, sys, time, hashlib
 
-S = "/private/tmp/murmuration-w06/author-w06-5"
+S = os.environ.get("W06C7_S", "/private/tmp/murmuration-w06/author-w06-5")
 T = S + "/arena"
 HERE = os.path.dirname(os.path.abspath(__file__))
 LISTS = os.path.join(HERE, "..", "__reports__", "wave-06", "author-w06-5")
