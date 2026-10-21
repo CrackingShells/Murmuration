@@ -76,3 +76,15 @@ its numbers in the synthesis.
 
 **Not covered, said now:** Linux and Windows (no target built here), the Desktop app, and
 `budget.py` and `handback.py`.
+
+## Note added before the run (02:50, after explorer-w07-g; the rule above is unchanged)
+
+explorer-w07-g found that in auto mode a PreToolUse hook runs alongside the permission classifier
+(median 628 ms on a trivial Bash call), so the guard's start is mostly hidden on Bash calls: the
+wait to dispatch was 642 ms with the 194 ms colgrep hook and 631 ms without (CHECKED, n = 14 per
+arm), though the lab-plugin arms were 150–236 ms slower than that overlap predicts
+(S-w07-explorer-w07-g-2). So what B saves in auto mode is CPU time, which is energy (the user's
+"all machines on the planet were spending 1% less electricity"), and wall time only in default
+mode, on the Write/Edit rows (no classifier), and wherever the overlap does not hold. g3 measures
+the CPU and the start; g4 measures the hook's recorded duration, not the tool call's wall. The
+claim must state which of the three it shows.

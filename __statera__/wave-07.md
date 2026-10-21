@@ -233,6 +233,30 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
     `/private/tmp/murmuration-w07/` 1.22, so at least USD 15.35 of the 47
     [source: `scripts/lab_status.py --spend` and `--project /private/tmp/murmuration-w07 --spend`, 02:35].
 
+- 02:50, after explorer-w07-g returned:
+  - **The Bash call's 1.5 s is the classifier and the program, not the hooks.** In paired
+    headless arms, a trivial Bash call's tool phase is 55 ms in default mode and 709 ms in auto
+    mode, 628 ms of it the classifier's wait; the worker-like arm (auto, colgrep hook, lab plugin)
+    is 1,054 ms. The workers' 1.49 s median is not a trivial call: 1,623 of 1,869 run a program
+    (median 1.72 s); bare `ls`/`cat` take 1.02 s. The missing 0.6–0.9 s of b is accounted for.
+    The classifier's wait doubles between identical sessions (528 against 1,015 ms) and does not
+    grow with context from 42k to 102k tokens.
+  - **A PreToolUse hook hides behind the classifier in auto mode** (CHECKED): the wait to dispatch
+    is 642 ms with the colgrep hook, 631 ms without. The PostToolUse hook is not hidden (70–80 ms a
+    call). The lab's hooks are about 0.5% of summed worker wall, the classifier about 1.9%
+    (ESTIMATE). So P5's guard saves CPU and energy in auto mode and wall only elsewhere; a note says
+    so in its protocol before its run. The budget's PostToolUse is the hook a worker actually waits
+    on; it follows the guard if the pilot holds.
+  - **Four reads, four ways (n = 1 each):** four Reads in one message 2.83 s; one chained `cat`
+    3.39 s; four Bash calls in one message 3.79 s; four Reads in four messages 5.11 s. Reads never
+    reach the classifier. The lesson for the workers' text, if any: independent reads go out as
+    Reads in one message, not as Bash. Not yet a claim: b found 0.8–1.6% of requests batchable.
+  - **The subagent cache lifetime has a plugin-side lever** (CHECKED by reading the binary):
+    `experimental: {cacheTtl: "1h"}` in an agent file. The break-even nets authors +USD 4.49 of
+    43.90 over three waves and loses on the others. Registered P6 v0
+    (`__reports__/wave-07/05-protocol_p6_cachettl_v0.md`), authors only, exact counts from the usage
+    records. author-w07-6 runs it as w07-c7.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -245,10 +269,11 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | explorer-w07-f | explorer | read-only: where Claude Code enforces `disableBypassPermissionsMode`; how `user_words.py` can tell a session's message from the user's (item 28) | 70629c1: first-wins managed tier, the file probably dropped; `origin.kind` marks typed prompts |
 | author-w07-1 | author | w07-c1: P1, the PI without the skills listing | 9a942f3 (branch w07-p1-skill): p1 and p5 fail; does not land |
 | reproducer-w07-1 | reproducer | verify w07-c1 offline, for the numbers the synthesis quotes | d72b8d3: OVERSTATED (matched range 10.6–11.0k) |
-| explorer-w07-g | explorer | split the classifier-decided Bash call's 1.5 s; four ways of the same reads; subagent cache lifetime | |
+| explorer-w07-g | explorer | split the classifier-decided Bash call's 1.5 s; four ways of the same reads; subagent cache lifetime | 3292ed5: classifier 628 ms, hooks hidden behind it; `cacheTtl` frontmatter |
 | author-w07-3 | author | w07-c3: P3, every hook row in exec form | |
 | author-w07-4 | author | w07-c4: P4, `lab_status.py` without the git child, usage fields priced | |
 | author-w07-5 | author | w07-c6: P5, the permission guard as a Rust binary in exec form | |
+| author-w07-6 | author | w07-c7: P6, a 1-hour cache for authors | |
 | author-w07-2 | author | w07-c2: P2, `user_words.py` keeps only typed prompts | e84afec (branch w07-p2-origin): q1 passes, q2 fails (record written after the hook); resumed for v1 as w07-c5 |
 
 ## Claims of this wave
