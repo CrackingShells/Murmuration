@@ -15,9 +15,13 @@ What a resident process could change, and what is done about it:
               the call answers at once. On PostToolBatch and SubagentStart the answer is a note to the agent (to the PI too, on its own thread)
               that the notes and the 150% block may not be running, at most once per agent per 10 minutes.
   a death     the platform restarts a stopped server at its next hook (w06-c3, m4a); a server that cannot start leaves only a
-              `hook_non_blocking_error` record in the transcript, which `lab_status.py` reads and reports.
+              `hook_non_blocking_error` record in the transcript, which `lab_status.py` reports, and the probe above tells a worker that starts
+              after the break; a worker running when it breaks and stays broken is not told (the 150% block is off for it).
 
     hook_server.py             serve MCP on stdin and stdout
+    hook_server.py --probe     exit 0 when the server's code loads (budget.py and handback.py import), else 1; `hooks.json` runs it at each
+                               SubagentStart as a `command` and, when it fails or cannot run, prints a note to the worker: a server that cannot
+                               start leaves no answer of its own to carry one
     hook_server.py --selftest  check the server on a temporary project
 """
 import datetime
@@ -208,6 +212,8 @@ def selftest():
         assert [f["kind"] for f in faults][-3:] == ["exception"] * 3 and not any(f["agent_id"] is None for f in faults[-3:]), faults
         proc.stdin.close()
         proc.wait()
+        assert subprocess.run([sys.executable, os.path.abspath(__file__), "--probe"]).returncode == 0
+        assert subprocess.run([sys.executable, os.path.join(tmp, "scripts", "hook_server.py"), "--probe"]).returncode == 1, "the broken budget.py of the copy"
         assert clean(dict(script="x", a="", b="1", tool_input='{"k": ""}')) == {"b": "1", "tool_input": {"k": ""}}
         # not in a lab: nothing is written
         with tempfile.TemporaryDirectory() as bare:
@@ -218,5 +224,11 @@ def selftest():
 if __name__ == "__main__":
     if "--selftest" in sys.argv[1:]:
         selftest()
+        sys.exit(0)
+    if "--probe" in sys.argv[1:]:
+        try:
+            modules()
+        except Exception:
+            sys.exit(1)
         sys.exit(0)
     serve()

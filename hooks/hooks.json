@@ -27,6 +27,11 @@
       {
         "hooks": [
           {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/hook_server.py\" --probe || echo '{\"hookSpecificOutput\": {\"hookEventName\": \"SubagentStart\", \"additionalContext\": \"Hook server down: the budget notes, the 150% block and the hand-back capture are not running for this run (hook_server.py does not load). Go on; say so in your hand-back.\"}}'",
+            "timeout": 10
+          },
+          {
             "type": "mcp_tool",
             "server": "plugin:murmuration:hooks",
             "tool": "hook",
