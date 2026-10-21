@@ -19,7 +19,9 @@ Initializing creates, without overwriting anything that exists:
     __design__/framing.md        the framing, from the research-loop template
     __instrumenta__/             helper scripts, one file each, named for what it does
     .ignore                      the folders colgrep, ripgrep and fd leave out: saved hand-backs, raw/, runs/, generated/
-and builds the colgrep index of the lab once (the `colgrep` command; skipped, with a line saying so, when it is absent),
+and builds the colgrep index of the lab once (the `colgrep` command; skipped, with a line saying so, when it is absent;
+the line says from colgrep's own report whether an index was built, was already up to date, or the lab joined the
+index of a folder above it),
 and merges into `.claude/settings.local.json` (personal settings; not for version control):
     "agent": "murmuration:research-pi"      new sessions in the folder open as the research PI
     permissions.deny: Bash(pkill:*), Bash(killall:*)
@@ -177,6 +179,35 @@ def ensure_ignore(root):
     return "added the lab's block to the existing %s" % IGNORE_FILE
 
 
+INDEXED_RE = re.compile(r"^(Indexed|Index is up to date for) (.+?)(?: \(subdir: [^)]*\))? \(((?:added|\d+ file).*)\)\s*$", re.M)
+
+
+def describe_index(report, root):
+    """One line saying what `colgrep init` reported for `root`, from its own output (`report`).
+
+    colgrep names the folder it indexed: `Indexed <folder> (added: ...)` after a build or update,
+    `Index is up to date for <folder> (N files)` when there was nothing to do. A folder other than
+    the lab means the lab sits inside an index that was there already, so none was built for it.
+    Output in any other shape is passed on as it is.
+    """
+    match = None
+    for match in INDEXED_RE.finditer(report):
+        pass  # the last such line
+    if not match:
+        text = " ".join(report.split())
+        return "ran `colgrep init`; it said: %s" % (text[-200:] or "nothing")
+    built = match.group(1) == "Indexed"
+    folder, detail = match.group(2), match.group(3)
+    if not built and detail.startswith("0 file"):
+        return "no colgrep index: colgrep found no files to index in %s (%s)" % (folder, detail)
+    if os.path.realpath(folder) != os.path.realpath(root):
+        return ("no new colgrep index: the lab is inside the index of %s, which colgrep %s (%s); searches from the lab "
+                "use it" % (folder, "updated" if built else "found up to date", detail))
+    if built:
+        return "built the colgrep index of the lab (%s), without the paths in .ignore" % detail
+    return "the colgrep index of the lab was already there and up to date (%s)" % detail
+
+
 def build_index(root):
     """Build the colgrep index of the lab once. Returns one line saying what happened; never raises."""
     exe = shutil.which("colgrep")
@@ -185,12 +216,12 @@ def build_index(root):
                 "of each file")
     try:
         out = subprocess.run([exe, "init", "-y", "--color", "never", os.path.abspath(root)], capture_output=True,
-                             text=True, timeout=INDEX_TIMEOUT)
+                             text=True, errors="replace", timeout=INDEX_TIMEOUT)
     except (OSError, subprocess.SubprocessError) as err:
         return "colgrep index not built (%s); a first search builds it" % type(err).__name__
     if out.returncode != 0:
         return "colgrep index not built (exit %d); a first search builds it" % out.returncode
-    return "built the colgrep index (`colgrep init`), without the paths in .ignore"
+    return describe_index(out.stderr + "\n" + out.stdout, root)  # colgrep reports on stderr
 
 
 def initialize(root, question, now=None, index=True):
@@ -348,7 +379,35 @@ def selftest():
         # The instruments folder and the ignore file are there; the index is built, or its absence is said.
         assert os.path.isdir(os.path.join(proj, "__instrumenta__")) and load(os.path.join(proj, IGNORE_FILE)) == IGNORE_BLOCK
         assert any(d.startswith("wrote .ignore") for d in done), done
-        assert any(d.startswith("built the colgrep index") for d in done) == bool(shutil.which("colgrep")), done
+        assert any(d.startswith("built the colgrep index of the lab") for d in done) == bool(shutil.which("colgrep")), done
+        # The line follows what colgrep reports (the shapes of its output, then the real command on two cases).
+        here = os.path.join(tmp, "lab")
+        say = lambda text, folder=here: describe_index(text, folder)
+        assert say("Indexed %s (added: 3, changed: 0, deleted: 0, unchanged: 0)\n" % here).startswith("built the colgrep index of the lab")
+        assert say("Index is up to date for %s (3 files)\n" % here).startswith("the colgrep index of the lab was already there")
+        joined = say("Index is up to date for %s (9 files)\n" % tmp)
+        assert joined.startswith("no new colgrep index: the lab is inside the index of %s" % tmp) and "built" not in joined, joined
+        assert "updated" in say("Indexed %s (added: 1, changed: 0, deleted: 0, unchanged: 8)\n" % tmp)
+        sub = say("Indexed %s (subdir: lab) (added: 1, changed: 0, deleted: 0, unchanged: 8)\n" % tmp)  # as colgrep 1.6.2 prints it
+        assert sub.startswith("no new colgrep index: the lab is inside the index of %s, which" % tmp) and "subdir" not in sub, sub
+        assert say("Index is up to date for %s (0 files)\n" % here).startswith("no colgrep index: colgrep found no files"), "0 files is not an index"
+        assert say("something new\n").startswith("ran `colgrep init`; it said: something new")
+        if shutil.which("colgrep"):
+            case_parent = os.path.join(tmp, "indexed-parent")
+            case_lab = os.path.join(case_parent, "lab")
+            os.makedirs(case_lab)
+            with open(os.path.join(case_parent, "a.py"), "w") as fh:
+                fh.write("def f(): pass\n")
+            fresh_line = build_index(case_parent)  # a folder with no index: one is built
+            print("SELFTEST fresh index:      " + fresh_line)
+            assert fresh_line.startswith("built the colgrep index of the lab"), fresh_line
+            with open(os.path.join(case_lab, "b.py"), "w") as fh:
+                fh.write("def g(): pass\n")
+            joined_line = build_index(case_lab)  # a lab inside the indexed folder: its index is used
+            print("SELFTEST lab in a parent:  " + joined_line)
+            assert joined_line.startswith("no new colgrep index: the lab is inside the index of ") and "built" not in joined_line.split(":")[0], joined_line
+            assert os.path.realpath(case_parent) in joined_line, joined_line
+            subprocess.run(["colgrep", "clear", "--color", "never", case_parent], capture_output=True)
         if shutil.which("colgrep"):
             # what colgrep lists for the lab: instruments and the lab's own notes in; hand-backs, raw runs, tables out
             for rel, text in (("__instrumenta__/walk_logs.py", '"""Walks log files and tallies lines per file."""\ndef walk(): pass\n'),
@@ -369,6 +428,19 @@ def selftest():
             for rel in ("__statera__/handbacks", "data", "notes"):
                 shutil.rmtree(os.path.join(proj, rel))
             os.remove(os.path.join(proj, "__instrumenta__", "walk_logs.py"))
+        # colgrep output that is not UTF-8 must not stop the init (a ValueError would read as bad settings)
+        fake_bin = os.path.join(tmp, "fake-bin")
+        os.makedirs(fake_bin)
+        with open(os.path.join(fake_bin, "colgrep"), "w") as fh:
+            fh.write("#!/bin/sh\nprintf '\\377\\376 odd' >&2\n")
+        os.chmod(os.path.join(fake_bin, "colgrep"), 0o755)
+        save_path = os.environ["PATH"]
+        os.environ["PATH"] = fake_bin
+        try:
+            odd = build_index(proj)
+            assert odd.startswith("ran `colgrep init`; it said:") and "odd" in odd, odd
+        finally:
+            os.environ["PATH"] = save_path
         # colgrep absent: no index, a line that says so, and the lab is made all the same
         save_path = os.environ["PATH"]
         os.environ["PATH"] = os.path.join(tmp, "empty-bin")

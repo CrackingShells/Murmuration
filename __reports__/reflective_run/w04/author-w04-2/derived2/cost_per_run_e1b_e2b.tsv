@@ -1,0 +1,14 @@
+cell	arm	name	total_cost_usd	sonnet_usd	haiku_usd	wall_s	cap
+e1b-a1	A	explorer-w04-e1ba1	0.3984	0.3892	0.0092	338.0	''
+e1b-a2	A	explorer-w04-e1ba2	0.3141	0.3065	0.0076	244.3	''
+e1b-a3	A	explorer-w04-e1ba3	0.3393	0.3309	0.0083	291.0	''
+e1b-b1	Bp	explorer-w04-e1bb1	0.2956	0.2877	0.0079	243.6	''
+e1b-b2	Bp	explorer-w04-e1bb2	0.3453	0.3372	0.008	263.7	''
+e1b-b3	Bp	explorer-w04-e1bb3	0.3292	0.3214	0.0077	264.0	''
+e2b-a1	N	explorer-w04-e2ba1	0.2853	0.2792	0.0061	155.1	''
+e2b-a2	N	explorer-w04-e2ba2	0.3426	0.3362	0.0064	175.0	''
+e2b-a3	N	explorer-w04-e2ba3	0.3305	0.3237	0.0068	199.7	''
+e2b-c1	C	explorer-w04-e2bc1	0.5961	0.5875	0.0086	284.9	''
+e2b-c2	C	explorer-w04-e2bc2	0.4649	0.4573	0.0076	242.9	''
+e2b-c3	C	explorer-w04-e2bc3	0.4754	0.4684	0.007	219.2	''
+TOTAL			4.5167

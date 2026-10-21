@@ -1,0 +1,578 @@
+[
+ {
+  "id": "pt1r1",
+  "task": "t1",
+  "pilot": false,
+  "tool_calls": 5,
+  "first_search_kind": "bash_list_or_read",
+  "first_search_index": 0,
+  "first_script_index": 3,
+  "searched_before_script": true,
+  "n_searches": 2,
+  "search_kinds": [
+   "bash_list_or_read",
+   "bash_list_or_read"
+  ],
+  "search_result_chars": 2163,
+  "baseline_ls_chars": 16801,
+  "baseline_first_lines_chars": 57762,
+  "baseline_chars": 74563,
+  "new_files": [],
+  "modified": [],
+  "ran_existing": [
+   "binary_max_distinct_substrings_bruteforce.py"
+  ],
+  "closest_start_script_of_new_files": {},
+  "s5_methods": [
+   "ls",
+   "read_named_files"
+  ],
+  "s6_overwritten_unrelated": [],
+  "tool_errors": [
+   "Glob"
+  ],
+  "ran_fit": true,
+  "ran_near": false,
+  "total_cost_usd": 0.08384060000000002,
+  "sequence": [
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt1r1/lab; ls; ls __instrumenta__ __pondus__ __design__ __scrupuli__ 2>&1 | head -30;",
+   "Glob {\"pattern\": \"**/research-loop*/**\"}",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt1r1/lab; cat __instrumenta__/binary_max_distinct_substrings_bruteforce.py; ls __pon",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt1r1/lab; git log --oneline -1 -- __instrumenta__/binary_max_distinct_substrings_bru",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt1r1/lab; cat > __pondus__/w04-c9.md <<'EOF'\\n---\\nid: w04-c9\\nauthor: author-w04-3-"
+  ]
+ },
+ {
+  "id": "pt1r2",
+  "task": "t1",
+  "pilot": false,
+  "tool_calls": 4,
+  "first_search_kind": "bash_list_or_read",
+  "first_search_index": 0,
+  "first_script_index": 2,
+  "searched_before_script": true,
+  "n_searches": 2,
+  "search_kinds": [
+   "bash_list_or_read",
+   "bash_list_or_read"
+  ],
+  "search_result_chars": 2212,
+  "baseline_ls_chars": 16801,
+  "baseline_first_lines_chars": 57762,
+  "baseline_chars": 74563,
+  "new_files": [],
+  "modified": [],
+  "ran_existing": [
+   "binary_max_distinct_substrings_bruteforce.py"
+  ],
+  "closest_start_script_of_new_files": {},
+  "s5_methods": [
+   "ls",
+   "read_named_files"
+  ],
+  "s6_overwritten_unrelated": [],
+  "tool_errors": [],
+  "ran_fit": true,
+  "ran_near": false,
+  "total_cost_usd": 0.0769415,
+  "sequence": [
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt1r2/lab; ls; ls __instrumenta__ __pondus__ __design__ __scrupuli__ 2>&1 | head -30;",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt1r2/lab; cat __instrumenta__/binary_max_distinct_substrings_bruteforce.py; ls __pon",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt1r2/lab; time python3 __instrumenta__/binary_max_distinct_substrings_bruteforce.py ",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt1r2/lab; \\ncat > __pondus__/w04-c9.md <<'EOF'\\nid: w04-c9\\nauthor: author-w04-3-pt1"
+  ]
+ },
+ {
+  "id": "pt1r3",
+  "task": "t1",
+  "pilot": false,
+  "tool_calls": 6,
+  "first_search_kind": "bash_list_or_read",
+  "first_search_index": 0,
+  "first_script_index": 2,
+  "searched_before_script": true,
+  "n_searches": 3,
+  "search_kinds": [
+   "bash_list_or_read",
+   "bash_list_or_read",
+   "bash_list_or_read"
+  ],
+  "search_result_chars": 2608,
+  "baseline_ls_chars": 16801,
+  "baseline_first_lines_chars": 57762,
+  "baseline_chars": 74563,
+  "new_files": [
+   "binary_max_distinct_substrings_suffix_lcp_check.py"
+  ],
+  "modified": [],
+  "ran_existing": [
+   "binary_max_distinct_substrings_bruteforce.py"
+  ],
+  "closest_start_script_of_new_files": {
+   "binary_max_distinct_substrings_suffix_lcp_check.py": [
+    "binary_max_distinct_substrings_bruteforce.py",
+    0.43
+   ]
+  },
+  "s5_methods": [
+   "ls",
+   "read_named_files"
+  ],
+  "s6_overwritten_unrelated": [],
+  "tool_errors": [],
+  "ran_fit": true,
+  "ran_near": false,
+  "total_cost_usd": 0.0988828,
+  "sequence": [
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt1r3/lab; ls; ls __instrumenta__ __pondus__ __design__ __scrupuli__ 2>&1 | head -40;",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt1r3/lab; cat __instrumenta__/binary_max_distinct_substrings_bruteforce.py; ls __pon",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt1r3/lab; time python3 __instrumenta__/binary_max_distinct_substrings_bruteforce.py ",
+   "Bash {\"command\": \"cat /private/tmp/murmuration-w04/author-w04-3/runs_b/pt1r3/lab/__statera__/wave-01.md | head -30\"}",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt1r3/lab\\ncat > __instrumenta__/binary_max_distinct_substrings_suffix_lcp_check.py <",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt1r3/lab\\nsed -i '' 's/^- Helper commit: .*/- Helper commit: 97bc5ba (cite as __inst"
+  ]
+ },
+ {
+  "id": "pt2r1",
+  "task": "t2",
+  "pilot": false,
+  "tool_calls": 6,
+  "first_search_kind": "bash_list_or_read",
+  "first_search_index": 0,
+  "first_script_index": 2,
+  "searched_before_script": true,
+  "n_searches": 2,
+  "search_kinds": [
+   "bash_list_or_read",
+   "bash_list_or_read"
+  ],
+  "search_result_chars": 2764,
+  "baseline_ls_chars": 16801,
+  "baseline_first_lines_chars": 57762,
+  "baseline_chars": 74563,
+  "new_files": [
+   "collatz_peak_value_max_over_range.py"
+  ],
+  "modified": [],
+  "ran_existing": [],
+  "closest_start_script_of_new_files": {
+   "collatz_peak_value_max_over_range.py": [
+    "collatz_trajectory_print.py",
+    0.41
+   ]
+  },
+  "s5_methods": [
+   "ls",
+   "ls_grep",
+   "read_named_files"
+  ],
+  "s6_overwritten_unrelated": [],
+  "tool_errors": [],
+  "ran_fit": false,
+  "ran_near": false,
+  "total_cost_usd": 0.0903494,
+  "sequence": [
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt2r1/lab; ls; ls __instrumenta__ __pondus__ __scrupuli__ __design__ 2>&1 | head -50;",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt2r1/lab; ls __instrumenta__ | grep -i collatz; head -30 __instrumenta__/collatz_tra",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt2r1/lab; cat > __instrumenta__/collatz_peak_value_max_over_range.py <<'EOF'\\n# comp",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt2r1/lab; ls ~/.claude/skills/*/ 2>/dev/null | head -20; find / -path '*research-loo",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt2r1/lab; cat > __pondus__/w04-c9.md <<'EOF'\\n# w04-c9\\nauthor: author-w04-3-pt2r1\\n",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt2r1/lab; c=$(git rev-parse --short HEAD); sed -i '' \\\"s/@<commit>/@$c/\\\" __pondus__"
+  ]
+ },
+ {
+  "id": "pt2r2",
+  "task": "t2",
+  "pilot": false,
+  "tool_calls": 6,
+  "first_search_kind": "bash_list_or_read",
+  "first_search_index": 0,
+  "first_script_index": 4,
+  "searched_before_script": true,
+  "n_searches": 3,
+  "search_kinds": [
+   "bash_list_or_read",
+   "bash_list_or_read",
+   "colgrep_search"
+  ],
+  "search_result_chars": 6832,
+  "baseline_ls_chars": 16801,
+  "baseline_first_lines_chars": 57762,
+  "baseline_chars": 74563,
+  "new_files": [
+   "collatz_highest_peak.py"
+  ],
+  "modified": [],
+  "ran_existing": [],
+  "closest_start_script_of_new_files": {
+   "collatz_highest_peak.py": [
+    "collatz_longest_stopping_time.py",
+    0.52
+   ]
+  },
+  "s5_methods": [
+   "colgrep",
+   "ls",
+   "ls_grep",
+   "read_named_files"
+  ],
+  "s6_overwritten_unrelated": [],
+  "tool_errors": [],
+  "ran_fit": false,
+  "ran_near": false,
+  "total_cost_usd": 0.08933710000000002,
+  "sequence": [
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt2r2/lab; ls; ls __instrumenta__ __pondus__ __scrupuli__ __design__ 2>&1 | head -30;",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt2r2/lab; ls __instrumenta__ | grep -i collatz; head -5 __instrumenta__/collatz_traj",
+   "ToolSearch {\"query\": \"select:mcp__plugin_colgrep-mcp_colgrep__search\", \"max_results\": 1}",
+   "colgrep.search {\"query\": \"Collatz highest peak value over a range of starts\", \"paths\": [\"__instrumenta__\"], \"limit\": 5}",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt2r2/lab\\ncat > __instrumenta__/collatz_highest_peak.py <<'EOF'\\n# finds, among star",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt2r2/lab\\ngit add __instrumenta__/collatz_highest_peak.py && git commit -qm \\\"instru"
+  ]
+ },
+ {
+  "id": "pt2r3",
+  "task": "t2",
+  "pilot": false,
+  "tool_calls": 6,
+  "first_search_kind": "bash_list_or_read",
+  "first_search_index": 0,
+  "first_script_index": 2,
+  "searched_before_script": true,
+  "n_searches": 2,
+  "search_kinds": [
+   "bash_list_or_read",
+   "bash_list_or_read"
+  ],
+  "search_result_chars": 3615,
+  "baseline_ls_chars": 16801,
+  "baseline_first_lines_chars": 57762,
+  "baseline_chars": 74563,
+  "new_files": [
+   "collatz_highest_peak_start.py"
+  ],
+  "modified": [],
+  "ran_existing": [],
+  "closest_start_script_of_new_files": {
+   "collatz_highest_peak_start.py": [
+    "collatz_longest_stopping_time.py",
+    0.26
+   ]
+  },
+  "s5_methods": [
+   "ls",
+   "ls_grep",
+   "read_named_files"
+  ],
+  "s6_overwritten_unrelated": [],
+  "tool_errors": [],
+  "ran_fit": false,
+  "ran_near": false,
+  "total_cost_usd": 0.0868056,
+  "sequence": [
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt2r3/lab; ls; ls __instrumenta__ __pondus__ __scrupuli__ __design__ 2>&1 | head -30;",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt2r3/lab; ls __instrumenta__ | grep -i collatz; head -20 __instrumenta__/collatz_tra",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt2r3/lab; cat > __instrumenta__/collatz_highest_peak_start.py <<'EOF'\\n# finds, amon",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt2r3/lab; cat > __pondus__/w04-c9.md <<'EOF'\\nid: w04-c9\\nauthor: author-w04-3-pt2r3",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt2r3/lab; sed -i 's/ (1819, 3711, 4879, ... 159487)//' __scrupuli__/wave-04-author-w",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/pt2r3/lab; sed -i '' 's/ (1819, 3711, 4879, ... 159487)//' __scrupuli__/wave-04-autho"
+  ]
+ },
+ {
+  "id": "qt1r1",
+  "task": "t1",
+  "pilot": false,
+  "tool_calls": 6,
+  "first_search_kind": "bash_list_or_read",
+  "first_search_index": 0,
+  "first_script_index": 3,
+  "searched_before_script": true,
+  "n_searches": 3,
+  "search_kinds": [
+   "bash_list_or_read",
+   "bash_list_or_read",
+   "bash_list_or_read"
+  ],
+  "search_result_chars": 1934,
+  "baseline_ls_chars": 16801,
+  "baseline_first_lines_chars": 57762,
+  "baseline_chars": 74563,
+  "new_files": [
+   "binary_max_distinct_substrings_suffix_sort_crosscheck.py"
+  ],
+  "modified": [],
+  "ran_existing": [
+   "binary_max_distinct_substrings_bruteforce.py"
+  ],
+  "closest_start_script_of_new_files": {
+   "binary_max_distinct_substrings_suffix_sort_crosscheck.py": [
+    "sequence_lucas_by_recurrence.py",
+    0.23
+   ]
+  },
+  "s5_methods": [
+   "ls",
+   "ls_grep",
+   "read_named_files"
+  ],
+  "s6_overwritten_unrelated": [],
+  "tool_errors": [],
+  "ran_fit": true,
+  "ran_near": false,
+  "total_cost_usd": 0.08993020000000002,
+  "sequence": [
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt1r1/lab; ls; ls __design__ __pondus__ __scrupuli__ 2>&1 | head -30; ls -1 __instrum",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt1r1/lab; ls __instrumenta__ | grep -i -E \\\"substr|distinct|factor|binary\\\" | head; ",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt1r1/lab; cat __instrumenta__/binary_max_distinct_substrings_bruteforce.py; git stat",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt1r1/lab; time python3 __instrumenta__/binary_max_distinct_substrings_bruteforce.py ",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt1r1/lab; cat > __instrumenta__/binary_max_distinct_substrings_suffix_sort_crosschec",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt1r1/lab; cat > __pondus__/w04-c9.md <<'E'\\n---\\nid: w04-c9\\nauthor: author-w04-3-qt"
+  ]
+ },
+ {
+  "id": "qt1r2",
+  "task": "t1",
+  "pilot": false,
+  "tool_calls": 4,
+  "first_search_kind": "bash_list_or_read",
+  "first_search_index": 0,
+  "first_script_index": 2,
+  "searched_before_script": true,
+  "n_searches": 2,
+  "search_kinds": [
+   "bash_list_or_read",
+   "bash_list_or_read"
+  ],
+  "search_result_chars": 5376,
+  "baseline_ls_chars": 16801,
+  "baseline_first_lines_chars": 57762,
+  "baseline_chars": 74563,
+  "new_files": [
+   "binary_max_distinct_substrings_suffix_automaton_crosscheck.py"
+  ],
+  "modified": [],
+  "ran_existing": [
+   "binary_max_distinct_substrings_bruteforce.py"
+  ],
+  "closest_start_script_of_new_files": {
+   "binary_max_distinct_substrings_suffix_automaton_crosscheck.py": [
+    "binary_max_distinct_substrings_bruteforce.py",
+    0.29
+   ]
+  },
+  "s5_methods": [
+   "ls",
+   "ls_grep",
+   "ls_head_100_of_429",
+   "read_named_files"
+  ],
+  "s6_overwritten_unrelated": [],
+  "tool_errors": [],
+  "ran_fit": true,
+  "ran_near": false,
+  "total_cost_usd": 0.0958414,
+  "sequence": [
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt1r2/lab; ls; ls -1 __instrumenta__ | wc -l; ls __instrumenta__ | head -100; ls __po",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt1r2/lab; cat __instrumenta__/binary_max_distinct_substrings_bruteforce.py; head -1 ",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt1r2/lab; ls __instrumenta__ | grep -i -E \\\"automaton|suffix\\\"; cat > __instrumenta_",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt1r2/lab; git add __instrumenta__/binary_max_distinct_substrings_suffix_automaton_cr"
+  ]
+ },
+ {
+  "id": "qt1r3",
+  "task": "t1",
+  "pilot": false,
+  "tool_calls": 4,
+  "first_search_kind": "bash_list_or_read",
+  "first_search_index": 0,
+  "first_script_index": 2,
+  "searched_before_script": true,
+  "n_searches": 2,
+  "search_kinds": [
+   "bash_list_or_read",
+   "bash_list_or_read"
+  ],
+  "search_result_chars": 5344,
+  "baseline_ls_chars": 16801,
+  "baseline_first_lines_chars": 57762,
+  "baseline_chars": 74563,
+  "new_files": [
+   "binary_max_distinct_substrings_lcp_crosscheck.py"
+  ],
+  "modified": [],
+  "ran_existing": [
+   "binary_max_distinct_substrings_bruteforce.py"
+  ],
+  "closest_start_script_of_new_files": {
+   "binary_max_distinct_substrings_lcp_crosscheck.py": [
+    "digit_sum_of_N_in_base_2.py",
+    0.21
+   ]
+  },
+  "s5_methods": [
+   "ls",
+   "ls_grep",
+   "ls_head_100_of_429",
+   "read_named_files"
+  ],
+  "s6_overwritten_unrelated": [],
+  "tool_errors": [],
+  "ran_fit": true,
+  "ran_near": false,
+  "total_cost_usd": 0.093434,
+  "sequence": [
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt1r3/lab; ls; ls -1 __instrumenta__ | wc -l; ls __instrumenta__ | head -100; ls __po",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt1r3/lab; head -30 __instrumenta__/binary_max_distinct_substrings_bruteforce.py; hea",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt1r3/lab; ls __instrumenta__ | grep -i crosscheck; cat > __instrumenta__/binary_max_",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt1r3/lab; git add __instrumenta__/binary_max_distinct_substrings_lcp_crosscheck.py &"
+  ]
+ },
+ {
+  "id": "qt2r1",
+  "task": "t2",
+  "pilot": false,
+  "tool_calls": 6,
+  "first_search_kind": "bash_list_or_read",
+  "first_search_index": 0,
+  "first_script_index": 2,
+  "searched_before_script": true,
+  "n_searches": 2,
+  "search_kinds": [
+   "bash_list_or_read",
+   "bash_list_or_read"
+  ],
+  "search_result_chars": 5926,
+  "baseline_ls_chars": 16801,
+  "baseline_first_lines_chars": 57762,
+  "baseline_chars": 74563,
+  "new_files": [
+   "collatz_highest_peak.py"
+  ],
+  "modified": [],
+  "ran_existing": [],
+  "closest_start_script_of_new_files": {
+   "collatz_highest_peak.py": [
+    "collatz_longest_stopping_time.py",
+    0.41
+   ]
+  },
+  "s5_methods": [
+   "head_over_all_files",
+   "ls",
+   "ls_grep",
+   "ls_head_100_of_429",
+   "read_named_files"
+  ],
+  "s6_overwritten_unrelated": [],
+  "tool_errors": [],
+  "ran_fit": false,
+  "ran_near": false,
+  "total_cost_usd": 0.10425140000000002,
+  "sequence": [
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt2r1/lab; ls; ls -1 __instrumenta__ | wc -l; ls __instrumenta__ | head -100; ls __po",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt2r1/lab; ls __instrumenta__ | grep -i -E \\\"collatz|peak|max\\\"; for f in __instrumen",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt2r1/lab; ls __instrumenta__/collatz_highest_peak.py 2>&1 | head -1\\ncat > __instrum",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt2r1/lab; find ~/.claude -ipath \\\"*research-loop*\\\" 2>/dev/null | head; cat __stater",
+   "Bash {\"command\": \"cat ~/.claude/plugins/cache/murmuration-local/murmuration/0.1.0/skills/research-loop/SKILL.md | grep -n -i -B3 -A25 \\\"claim h",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt2r1/lab; git add __instrumenta__/collatz_highest_peak.py && git commit -qm \\\"instru"
+  ]
+ },
+ {
+  "id": "qt2r2",
+  "task": "t2",
+  "pilot": false,
+  "tool_calls": 4,
+  "first_search_kind": "bash_list_or_read",
+  "first_search_index": 0,
+  "first_script_index": 2,
+  "searched_before_script": true,
+  "n_searches": 2,
+  "search_kinds": [
+   "bash_list_or_read",
+   "bash_list_or_read"
+  ],
+  "search_result_chars": 6007,
+  "baseline_ls_chars": 16801,
+  "baseline_first_lines_chars": 57762,
+  "baseline_chars": 74563,
+  "new_files": [
+   "collatz_peak_value_max_over_starts.py"
+  ],
+  "modified": [],
+  "ran_existing": [],
+  "closest_start_script_of_new_files": {
+   "collatz_peak_value_max_over_starts.py": [
+    "collatz_longest_stopping_time.py",
+    0.3
+   ]
+  },
+  "s5_methods": [
+   "head_over_all_files",
+   "ls",
+   "ls_grep",
+   "ls_head_100_of_429",
+   "read_named_files"
+  ],
+  "s6_overwritten_unrelated": [],
+  "tool_errors": [],
+  "ran_fit": false,
+  "ran_near": false,
+  "total_cost_usd": 0.0855183,
+  "sequence": [
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt2r2/lab; ls -1 __instrumenta__ | wc -l; ls __instrumenta__ | head -100; ls __pondus",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt2r2/lab; head -3 __instrumenta__/collatz_*.py; ls __instrumenta__ | grep -i -E \\\"pe",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt2r2/lab; ls __instrumenta__/collatz_peak_value_max_over_starts.py 2>&1 | head -1\\nc",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt2r2/lab; git add __instrumenta__/collatz_peak_value_max_over_starts.py && git commi"
+  ]
+ },
+ {
+  "id": "qt2r3",
+  "task": "t2",
+  "pilot": false,
+  "tool_calls": 4,
+  "first_search_kind": "bash_list_or_read",
+  "first_search_index": 0,
+  "first_script_index": 2,
+  "searched_before_script": true,
+  "n_searches": 2,
+  "search_kinds": [
+   "bash_list_or_read",
+   "bash_list_or_read"
+  ],
+  "search_result_chars": 5196,
+  "baseline_ls_chars": 16801,
+  "baseline_first_lines_chars": 57762,
+  "baseline_chars": 74563,
+  "new_files": [
+   "collatz_peak_value_max_start.py"
+  ],
+  "modified": [],
+  "ran_existing": [
+   "collatz_trajectory_print.py"
+  ],
+  "closest_start_script_of_new_files": {
+   "collatz_peak_value_max_start.py": [
+    "collatz_longest_stopping_time.py",
+    0.39
+   ]
+  },
+  "s5_methods": [
+   "head_over_all_files",
+   "ls",
+   "ls_grep",
+   "ls_head_100_of_429",
+   "read_named_files"
+  ],
+  "s6_overwritten_unrelated": [],
+  "tool_errors": [],
+  "ran_fit": false,
+  "ran_near": false,
+  "total_cost_usd": 0.07195489999999999,
+  "sequence": [
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt2r3/lab; ls; ls -1 __instrumenta__ | wc -l; ls __instrumenta__ | head -100; ls __po",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt2r3/lab; ls __instrumenta__ | grep -i -E \\\"collatz|peak|hail\\\"; for f in __instrume",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt2r3/lab; ls __instrumenta__/collatz_peak_value_max_start.py 2>&1 | head -1\\ncat > _",
+   "Bash {\"command\": \"cd /private/tmp/murmuration-w04/author-w04-3/runs_b/qt2r3/lab; git add __instrumenta__/collatz_peak_value_max_start.py && git commit -qm "
+  ]
+ }
+]

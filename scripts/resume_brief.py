@@ -2,7 +2,8 @@
 """Hand a resumed or compacted session what it needs to pick the work back up.
 
 Runs as a SessionStart hook (matcher `resume|compact`). In an initialized lab project (one with a
-`__statera__/` folder) it prints, on stdout, the current wave note and the open puzzles; the
+`__statera__/` folder, found from the session's first recorded `cwd`, else the payload `cwd`, else
+CLAUDE_PROJECT_DIR: see `user_words.project_root`) it prints, on stdout, the current wave note and the open puzzles; the
 platform adds that output to the session's context. Anywhere else it prints nothing.
 
 The current wave note is the highest-numbered `__statera__/wave-NN.md` without a `closed:` date,
@@ -21,16 +22,14 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import lab_status  # noqa: E402  (a sibling script, imported for the puzzle and wave readers)
+import user_words  # noqa: E402  (a sibling script: one rule for which lab a hook event belongs to)
 
-
-def project_root(event_cwd=None):
-    """The project directory: CLAUDE_PROJECT_DIR, else the hook's `cwd`, else the current one."""
-    return os.environ.get("CLAUDE_PROJECT_DIR") or event_cwd or os.getcwd()
+project_root = user_words.project_root  # session's first cwd, else payload cwd, else CLAUDE_PROJECT_DIR; None outside a lab
 
 
 def brief(root):
     """The brief for a project as text, or '' when the project is not a lab."""
-    if not os.path.isdir(os.path.join(root, "__statera__")):
+    if not root or not os.path.isdir(os.path.join(root, "__statera__")):
         return ""
     out = ["# Lab brief (resumed session)", ""]
     wave = lab_status.current_wave(root)
@@ -95,11 +94,74 @@ def selftest():
         os.remove(os.path.join(tmp, "__scrupuli__", "wave-01-explorer.md"))
         out = run()
         assert "none among the puzzles that could be read" in out and "has text but no `## S-wNN" in out, out
-        assert run({"CLAUDE_PROJECT_DIR": os.path.join(tmp, "elsewhere")}) == ""
+        # CLAUDE_PROJECT_DIR no longer outranks the payload cwd (the lab above cwd is found first)
+        assert "WAVE TWO BODY" in run({"CLAUDE_PROJECT_DIR": os.path.join(tmp, "elsewhere")})
         proc = subprocess.run([sys.executable, os.path.abspath(__file__)], input="not json",
                               capture_output=True, text=True, cwd=tmp, env={**os.environ, "CLAUDE_PROJECT_DIR": ""})
         assert proc.returncode == 0
+    selftest_e0()
     print("PASS resume_brief")
+
+
+def selftest_e0():
+    """The E0 cases for a resumed session: the brief comes from the session's lab, not from CLAUDE_PROJECT_DIR or the shell's cwd."""
+    import subprocess
+    import tempfile
+
+    def lab(path, body, git):
+        os.makedirs(os.path.join(path, "__statera__"))
+        with open(os.path.join(path, "__statera__", "wave-01.md"), "w") as fh:
+            fh.write("# Wave 01\n\nopened: 2026-01-01\n\n%s\n" % body)
+        if git == "dir":
+            os.makedirs(os.path.join(path, ".git"))
+        else:
+            with open(os.path.join(path, ".git"), "w") as fh:
+                fh.write("gitdir: /elsewhere/.git/worktrees/x\n")
+
+    def session(path, cwds):
+        with open(path, "w") as fh:
+            fh.write(json.dumps({"type": "queue-operation"}) + "\n")
+            for cwd in cwds:
+                fh.write(json.dumps({"type": "user", "cwd": cwd}) + "\n")
+        return path
+
+    with tempfile.TemporaryDirectory() as tmp:
+        main, wt, other = (os.path.join(tmp, d) for d in ("main", "wt", "other"))
+        lab(main, "MAIN BODY", "dir")
+        lab(wt, "WT BODY", "file")
+        lab(other, "OTHER BODY", "dir")
+        plain = os.path.join(tmp, "plain")
+        os.makedirs(os.path.join(plain, ".git"))
+
+        def run(cwd, transcript=None, project_dir=None, source="compact"):
+            env = dict(os.environ)
+            env.pop("CLAUDE_PROJECT_DIR", None)
+            if project_dir:
+                env["CLAUDE_PROJECT_DIR"] = project_dir
+            event = {"cwd": cwd, "source": source}
+            if transcript:
+                event["transcript_path"] = transcript
+            proc = subprocess.run([sys.executable, os.path.abspath(__file__)], input=json.dumps(event),
+                                  capture_output=True, text=True, env=env, cwd=tmp)
+            assert proc.returncode == 0, proc.stderr
+            return proc.stdout
+
+        who = lambda out: sorted(w for w in ("MAIN BODY", "WT BODY", "OTHER BODY") if w in out)
+        # Desktop worktree pair: CLAUDE_PROJECT_DIR = main checkout, session started in the worktree
+        assert who(run(wt, session(os.path.join(tmp, "a"), [wt]), main)) == ["WT BODY"]
+        assert who(run(wt, None, main)) == ["WT BODY"]  # no transcript path in the payload
+        # the shell sits in another checkout when the session is compacted
+        for moved in (main, other, plain):
+            assert who(run(moved, session(os.path.join(tmp, "b"), [wt, moved]), main)) == ["WT BODY"], moved
+        # started in main, shell now in the worktree
+        assert who(run(wt, session(os.path.join(tmp, "c"), [main, wt]), main)) == ["MAIN BODY"]
+        # headless start in a lab, with and without CLAUDE_PROJECT_DIR
+        assert who(run(main, session(os.path.join(tmp, "d"), [main]))) == ["MAIN BODY"]
+        assert who(run(main, session(os.path.join(tmp, "d"), [main]), main, "resume")) == ["MAIN BODY"]
+        # no lab anywhere: silent
+        assert run(plain, session(os.path.join(tmp, "e"), [plain]), plain) == ""
+        assert run(plain) == ""
+        assert run(plain, None, os.path.join(tmp, "nowhere")) == ""
 
 
 def main():
@@ -112,7 +174,7 @@ def main():
             event = json.loads(raw) if raw.strip() else {}
         except ValueError:
             event = {}
-        text = brief(project_root(event.get("cwd") if isinstance(event, dict) else None))
+        text = brief(project_root(event))
         if text:
             print(text)
     except Exception:

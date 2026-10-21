@@ -1,0 +1,44 @@
+# w04-c1 raw tables (printed output of the commands in the claim; raw run folders stay in /private/tmp/murmuration-w04/author-w04-1/, not in git)
+
+## hook_payload_dump probe, headless, started in a linked worktree (run1; hook env CLAUDE_PROJECT_DIR was set by the platform to the start directory although the launch environment said main)
+--- case A
+SessionStart cwd= wtA ENV= wtA exists False size None [] ''
+UserPromptSubmit cwd= wtA ENV= wtA exists False size None [] 'Reply OK.'
+--- case B
+SessionStart cwd= wtA ENV= wtA exists False size None [] ''
+UserPromptSubmit cwd= wtA ENV= wtA exists False size None [] 'Reply OK.'
+UserPromptSubmit cwd= wtA ENV= wtA exists True size 268560 [('queue-operation', ''), ('queue-operation', ''), ('user', 'wtA'), ('attachment', 'wtA'), ('attachment', 'wtA'), ('attachment', 'wtA')] 'Run the shell command: cd /private/tmp/m'
+UserPromptSubmit cwd= wtA ENV= wtA exists True size 328493 [('queue-operation', ''), ('queue-operation', ''), ('user', 'wtA'), ('attachment', 'wtA'), ('attachment', 'wtA'), ('attachment', 'wtA')] 'Reply OK.'
+
+## hook_lab_landing_run (run3): which lab received each prompt; hook command sets CLAUDE_PROJECT_DIR=main
+shipped = HEAD 41c75ea scripts; changed = this commit; payloadfirst = w01-c10 rule (mutant m2 in the selftest check)
+(printed lines, copied from the three runs of run3)
+
+## wall time per invocation, 30 alternating pairs, quiet machine (paired.txt)
+== user_words ev
+median 40.8 ms  min 38.8  max 63.6  (n=30) before/scripts/user_words.py
+median 42.2 ms  min 40.0  max 85.7  (n=30) after/scripts/user_words.py
+paired difference (second minus first): median +1.4 ms, mean +1.0 ms
+== user_words ev_nocwd
+median 40.8 ms  min 39.3  max 44.2  (n=30) before/scripts/user_words.py
+median 42.8 ms  min 41.0  max 48.8  (n=30) after/scripts/user_words.py
+paired difference (second minus first): median +1.7 ms, mean +1.8 ms
+== resume_brief ev
+median 68.7 ms  min 65.0  max 114.1  (n=30) before/scripts/resume_brief.py
+median 73.3 ms  min 69.5  max 104.3  (n=30) after/scripts/resume_brief.py
+paired difference (second minus first): median +4.6 ms, mean +3.6 ms
+== resume_brief ev_nocwd
+median 69.7 ms  min 65.5  max 120.3  (n=30) before/scripts/resume_brief.py
+median 75.5 ms  min 70.5  max 128.7  (n=30) after/scripts/resume_brief.py
+paired difference (second minus first): median +5.0 ms, mean +5.0 ms
+
+## landing table (printed by hook_lab_landing_run.py, run3)
+shipped prompt 1: payload cwd wtA, transcript on disk False -> lab ['main']
+shipped prompt 2: payload cwd wtA, transcript on disk True -> lab ['main']
+shipped prompt 3: payload cwd other, transcript on disk True -> lab ['main']
+changed prompt 1: payload cwd wtA, transcript on disk False -> lab ['wtA']
+changed prompt 2: payload cwd wtA, transcript on disk True -> lab ['wtA']
+changed prompt 3: payload cwd other, transcript on disk True -> lab ['wtA']
+payloadfirst prompt 1: payload cwd wtA, transcript on disk False -> lab ['wtA']
+payloadfirst prompt 2: payload cwd wtA, transcript on disk True -> lab ['wtA']
+payloadfirst prompt 3: payload cwd other, transcript on disk True -> lab ['other']

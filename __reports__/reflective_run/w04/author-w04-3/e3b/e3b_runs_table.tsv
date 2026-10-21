@@ -1,0 +1,25 @@
+set	id	arm	task	kind	s1_search_before_script	s2_reuse	s3_search_call_result_chars	s4_total_cost_usd	s5_methods	colgrep_calls	s6_overwritten_unrelated	new_files	tool_errors
+429 scripts (rule)	pt1r1	P	t1	fit	True	reuse_as_is	2163	0.0838	ls+read_named_files	0	0	0	Glob
+429 scripts (rule)	pt1r2	P	t1	fit	True	reuse_as_is	2212	0.0769	ls+read_named_files	0	0	0	
+429 scripts (rule)	pt1r3	P	t1	fit	True	reuse_as_is	2608	0.0989	ls+read_named_files	0	0	1	
+429 scripts (rule)	pt2r1	P	t2	near fit	True	new_after_seeing_header	2764	0.0903	ls+ls_grep+read_named_files	0	0	1	
+429 scripts (rule)	pt2r2	P	t2	near fit	True	new_after_seeing_header	6832	0.0893	colgrep+ls+ls_grep+read_named_files	1	0	1	
+429 scripts (rule)	pt2r3	P	t2	near fit	True	new_after_seeing_header	3615	0.0868	ls+ls_grep+read_named_files	0	0	1	
+429 scripts (rule)	qt1r1	Q	t1	fit	True	reuse_as_is	1934	0.0899	ls+ls_grep+read_named_files	0	0	1	
+429 scripts (rule)	qt1r2	Q	t1	fit	True	reuse_as_is	5376	0.0958	ls+ls_grep+ls_head_100_of_429+read_named_files	0	0	1	
+429 scripts (rule)	qt1r3	Q	t1	fit	True	reuse_as_is	5344	0.0934	ls+ls_grep+ls_head_100_of_429+read_named_files	0	0	1	
+429 scripts (rule)	qt2r1	Q	t2	near fit	True	new_after_seeing_header	5926	0.1043	head_over_all_files+ls+ls_grep+ls_head_100_of_429+read_named_files	0	0	1	
+429 scripts (rule)	qt2r2	Q	t2	near fit	True	new_after_seeing_header	6007	0.0855	head_over_all_files+ls+ls_grep+ls_head_100_of_429+read_named_files	0	0	1	
+429 scripts (rule)	qt2r3	Q	t2	near fit	True	new_after_seeing_header	5196	0.072	head_over_all_files+ls+ls_grep+ls_head_100_of_429+read_named_files	0	0	1	
+336 scripts (precondition not met)	pt1r1	P	t1	fit	True	reuse_as_is	2892	0.1047	ls+read_named_files	0	0	1	Glob
+336 scripts (precondition not met)	pt1r2	P	t1	fit	True	reuse_as_is	5281	0.1431	ls+read_named_files	0	0	1	Glob
+336 scripts (precondition not met)	pt1r3	P	t1	fit	True	reuse_as_is	2153	0.1024	ls+read_named_files	0	0	1	
+336 scripts (precondition not met)	pt2r1	P	t2	near fit	True	new_after_seeing_header	2704	0.089	ls+ls_grep+read_named_files	0	0	1	
+336 scripts (precondition not met)	pt2r2	P	t2	near fit	True	new_after_seeing_header	3693	0.0869	ls+ls_grep+read_named_files	0	0	1	Glob
+336 scripts (precondition not met)	pt2r3	P	t2	near fit	True	new_after_seeing_header	3113	0.1046	ls+ls_grep+read_named_files	0	0	1	
+336 scripts (precondition not met)	qt1r1	Q	t1	fit	True	reuse_as_is	1447	0.1435	ls+ls_grep+ls_head_100_of_336+read_named_files	0	0	1	
+336 scripts (precondition not met)	qt1r2	Q	t1	fit	True	reuse_as_is	5566	0.1122	ls+ls_grep+ls_head_100_of_336+read_named_files	0	0	1	
+336 scripts (precondition not met)	qt1r3	Q	t1	fit	True	reuse_as_is	5289	0.088	ls+ls_head_100_of_336+read_named_files	0	0	0	
+336 scripts (precondition not met)	qt2r1	Q	t2	near fit	True	new_after_seeing_header	4723	0.0812	ls+ls_grep+ls_head_100_of_336+read_named_files	0	0	1	
+336 scripts (precondition not met)	qt2r2	Q	t2	near fit	True	new_after_seeing_header	4728	0.1164	ls+ls_grep+ls_head_100_of_336+read_named_files	0	0	2	Bash
+336 scripts (precondition not met)	qt2r3	Q	t2	near fit	True	new_after_seeing_header	5340	0.1019	head_over_all_files+ls+ls_grep+ls_head_100_of_336	0	0	2	

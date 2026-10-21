@@ -1,0 +1,48 @@
+## symbols
+- arm A, B, C: A = branch at 41c75ea unchanged; B = A plus one line in `agents/explorer.md`; C = A with `budget.py`'s `handle()` returning None (log kept).
+- X, XA, XB, XC: the exploratory task (150 files, brief asks for the list in the hand-back) run on arms A, B, C.
+- capped / uncapped: a run with / without `--max-budget-usd` on the `claude -p` call.
+
+## S-w04-author-w04-2-1
+`--max-budget-usd` shows the worker the whole session's spend. With the flag the platform puts a `budget_usd` attachment (`used`, `total`, `remaining`) into the worker's transcript at every request (88 of 88 in x-c3), next to the hook's notes. The wave-3 driver passed `--max-budget-usd 2.5` too, so the wave-3 workers that handed back at 75 to 99% (open item 10) also had a second spend channel with a total that contradicts the brief's 0.30. Open item 10's "5 of 8" is therefore confounded the way my first arm C was. Not checked: whether the wave-3 transcripts contain the attachment (they are in the Trash with the raw runs).
+refs: /private/tmp/murmuration-w04/author-w04-2/runs/x-c3 worker transcript (`"type": "budget_usd"`), `__reports__/reflective_run/w04/author-w04-2/derived/results_all_runs.tsv` column platform_budget_attachments, `__reports__/reflective_run/w04/author-w04-2/01-addendum_v1.md`, `__reports__/reflective_run/w03/author-w03-1/e2e_drive.py` (the `--cap` default 2.5)
+
+## S-w04-author-w04-2-2
+A worker that ends on `maxTurns: 150` leaves no trace in the harness. In the 2 uncapped XC runs the explorer made 150 tool calls (one `cat` per file) and stopped with no hand-back; the hook's log has no `end` line, `__statera__/handbacks/` was never created, and the parent was told "hit its 150-turn limit ... never delivered its list" with the text unavailable. SubagentStop apparently does not fire, or fires without being logged. A worker with a spend-blind budget (no notes, no platform figure) reached 1.6 and 1.9 times B and lost everything. What does a PI see in a real session when this happens, and should the lab hold a hook for it?
+refs: /private/tmp/murmuration-w04/author-w04-2/runs/ux-c1/lab/__statera__/harness.jsonl (last line a would-be note at frac 1.4466, no `end`), runs/ux-c2/stdout.jsonl (the parent's `result`), `__reports__/reflective_run/w04/author-w04-2/derived/cell_ux-c1.json`
+
+## S-w04-author-w04-2-3
+The deny hardly exists when the brief names the report; it exists when the brief asks for the list in the hand-back. In E1 (brief names the report) 0 of 6 unchanged-arm runs were denied; in X (list in the hand-back) 3 of 3 capped and 2 of 2 uncapped were. The brief wording, not the agent file, decides, although `agents/explorer.md` says "Your deliverable is one findings report" in both. What do the principal investigator's real briefs say? The wave-3 explorers' own hand-backs ("I did not write the findings report ... because the task asked only for the list in the hand-back") show them following the brief over the agent file. Perhaps the check should be where briefs are written (the brief template in `briefs.md`), not in the explorer file.
+refs: `__reports__/reflective_run/w04/author-w04-2/derived/summary_by_arm.tsv` (rows E1E2-* against X-*), derived/cell_x-a1.json (`first_handback`: "I did not write the findings report ... since the task asked only for the list")
+
+## S-w04-author-w04-2-4
+The line written for arm B produces reports, not reports in the template's shape. In capped XB the 3 explorers wrote a report before handing back, but none has the template's front matter and six headings (0 of 3); the deny's reason names "the findings template of the research-loop skill" and the line does not, and the uncapped XA reports, written after the deny, also lack the shape (0 of 2) because the worker wrote them with a shell one-liner. The protocol's m3 asks for "in the template's shape"; the check (`has_report`) asks only for a file whose path carries the name. If the line is adopted, should it say "from the template"?
+refs: runs/x-b1/lab/__reports__/wave-04/explorer-w04-xb1/00-findings_v0.md (headings "What was run", "Observations", "List"), runs/ux-a1 report, derived/results_all_runs.tsv column report_shape
+
+## S-w04-author-w04-2-5
+The accuracy metric of E2 never discriminates: items correct = items done in all 33 runs (every transcribed row was right). A worker that copies one sentence per `cat` does not make mistakes, so "accuracy within 15%" in the rule is vacuous for this task. A task that needs a small computation per file (a sum, a comparison) would give the accuracy metric a chance to move. Also the first-clause rule "median n1 >= 0.9" is met by any arm that completes a task of 1.1 times B, so it cannot tell compliance from anxiety at that size.
+refs: derived/results_all_runs.tsv columns items_done, items_correct; `__pondus__/w04-c3.md` (Results, "Read it with its limit")
+
+## S-w04-author-w04-2-6
+Workers quote the last note, not the present figure. ux-a2's hand-back says "stopped at 75% of the USD 0.30 budget"; by the transcript's price table it was at 0.86 at the call. x-b1's "the budget reached 76% at f085" was written after f087. A worker's "n4 reason" in the hand-back is a stale reading of the last note, so the figure in a hand-back's text is not a measurement of where it stopped. Related: the hook's figure underestimates the cost (pilot-a 1.17 by estimate, 0.361/0.30 = 1.20 by the model's `costUSD`).
+refs: derived/cell_ux-a2.json (`first_handback`), derived/cell_x-b1.json, derived/results_all_runs.tsv (usd_sonnet against frac_end)
+
+## S-w04-author-w04-2-7
+Small oddities. (a) A cell named `pilot-A` (capital letter) made the hook log the explorer as `explorer-w04-pilot`: `budget.py` and `handback.py` read the name with `[a-z0-9-]+`, so an uppercase letter silently truncates it; the report check still matched. The naming convention forbids capitals, so no change is asked, but the truncation is silent. (b) The haiku parent twice said "the Agent tool has no `name` parameter" (ux-c1, ux-c2 results) although the dispatch carried the name in the prompt; the hook found it there. (c) In arm C the hook still logs `note` lines that were not delivered (by design of my patch: logging stays on); a reader of a C `harness.jsonl` must know that, and the log has no field that says "delivered". (d) `summary_by_arm.tsv` of the quick command labels its cells "X-uncapped" (the set label is chosen by the cell name's prefix).
+refs: runs/pilot-A/lab/__statera__/harness.jsonl (name `explorer-w04-pilot`), runs/ux-c1/stdout.jsonl, `__instrumenta__/budget_arms_summary.py`
+
+## S-w04-author-w04-2-8
+B' as worded does not produce the template's shape, and neither does the deny's own wording. In E1b, A's reports (written after a deny whose text says "with the findings template of the research-loop skill") were in shape 0 of 3; B''s (line says "from the template") 1 of 3. The explorers write a report as a shell one-liner or a free-form file. If the shape matters, the lever is not wording: a check in `handback.py` for the six headings, or the headings in the explorer file. Not run.
+refs: `__reports__/reflective_run/w04/author-w04-2/derived2/results_e1b_e2b.tsv` column report_shape; runs/e1b-b1 and e1b-b3 reports (free-form), runs/e1b-b2 (in shape)
+
+## S-w04-author-w04-2-9
+Every explorer did the arithmetic by script, so E2b's accuracy metric barely moved (1 wrong row in 369). The "small derived value" did not make items fallible, because a worker with Bash computes a sum with awk. An item that cannot be scripted (a judgement per file) would be needed for accuracy to vary. Also: the explorers departed from the brief's "one file per call" to save budget (e2b-a2 read f046 to f070 in one call because "one call per file would have gone past the budget"): a worker with the notes adapts its method to the budget, which a compliance-or-anxiety reading has to count as a third outcome.
+refs: runs/e2b-a2/lab hand-back (derived2/cell_e2b-a2.json first_handback), derived2/results_e1b_e2b.tsv
+
+## S-w04-author-w04-2-10
+The cap given for E1b and E2b (USD 4.5 of headless spend) was exceeded by USD 0.017 (4.5167) with no pilot and a task sized offline. The offline size model (cache reads and writes per request from an earlier transcript, plus a fixed output allowance) predicted 1.5 B; the measured full deliverable was 1.49 to 1.98 B on the hook basis: right on average, with a 33% spread across three runs of one seed family. One C run (e2b-c1) reached 1.98 B, close to the 2 B limit the protocol set for turns.
+refs: derived2/cost_per_run_e1b_e2b.tsv, derived2/results_e1b_e2b.tsv column frac_end
+
+## S-w04-author-w04-2-11
+B'' still let one explorer be denied. In e1c-b2 the first hand-back came at 0.90 B with no report, the deny followed, and the explorer wrote the report and handed back again at 1.09 (overshoot 0.20), although the line says "before you hand back, also when a budget note says to hand back". 1 of 3 here, 0 of 3 for B' in E1b: not a difference n = 3 can bear, but the line is a request, not a gate. And shape tracks whether the explorer opens `report_findings.md` (3 of 3 openers in shape, 0 of 6 non-openers across E1b and E1c): the lever is the opening, and a Read of the template could be asked for explicitly or a heading check added to `handback.py`. Arm A of E1c is E1b's A, run 30 minutes earlier: no run side by side.
+refs: derived3/results_e1c.tsv, derived3/cell_e1c-b2.json, runs/e1c-b2/lab/__statera__/harness.jsonl (deny line)

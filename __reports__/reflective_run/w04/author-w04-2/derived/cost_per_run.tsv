@@ -1,0 +1,35 @@
+cell	set	arm	name	total_cost_usd	sonnet_usd	haiku_usd	wall_s	cap
+pilot-a	pilot (excluded)	A-pilot	explorer-w04-pilotA	0.3701	0.3613	0.0088	323.1	1.5 (not recorded by the first driver)
+pilot-c	pilot (excluded)	C-pilot	explorer-w04-pilotC	0.3401	0.3312	0.0089	315.7	1.5 (not recorded by the first driver)
+e1-a1	E1/E2 capped	A	explorer-w04-e1a1	0.3583	0.3493	0.009	317.4	1.5 (not recorded by the first driver)
+e1-a2	E1/E2 capped	A	explorer-w04-e1a2	0.291	0.2828	0.0083	284.3	1.5 (not recorded by the first driver)
+e1-a3	E1/E2 capped	A	explorer-w04-e1a3	0.3203	0.3117	0.0085	295.7	1.5 (not recorded by the first driver)
+e1-b1	E1/E2 capped	B	explorer-w04-e1b1	0.3144	0.3063	0.0081	272.2	1.5 (not recorded by the first driver)
+e1-b2	E1/E2 capped	B	explorer-w04-e1b2	0.3739	0.3644	0.0095	339.6	1.5 (not recorded by the first driver)
+e1-b3	E1/E2 capped	B	explorer-w04-e1b3	0.3233	0.3147	0.0086	295.4	1.5 (not recorded by the first driver)
+e2-c1	E1/E2 capped	C	explorer-w04-e2c1	0.3194	0.3109	0.0086	294.0	1.5 (not recorded by the first driver)
+e2-c2	E1/E2 capped	C	explorer-w04-e2c2	0.3453	0.3367	0.0085	299.3	1.5 (not recorded by the first driver)
+e2-c3	E1/E2 capped	C	explorer-w04-e2c3	0.3213	0.3105	0.0108	408.5	1.5 (not recorded by the first driver)
+u-a1	E1/E2 uncapped	A	explorer-w04-ua1	0.3174	0.3089	0.0085	292.8	
+u-a2	E1/E2 uncapped	A	explorer-w04-ua2	0.3656	0.3564	0.0092	335.3	
+u-a3	E1/E2 uncapped	A	explorer-w04-ua3	0.3411	0.3322	0.0089	315.8	
+u-b1	E1/E2 uncapped	B	explorer-w04-ub1	0.2972	0.2894	0.0079	263.7	
+u-b2	E1/E2 uncapped	B	explorer-w04-ub2	0.2844	0.2767	0.0077	247.4	
+u-b3	E1/E2 uncapped	B	explorer-w04-ub3	0.3323	0.3233	0.0089	320.7	
+u-c1	E1/E2 uncapped	C	explorer-w04-uc1	0.3349	0.3255	0.0094	335.4	
+u-c2	E1/E2 uncapped	C	explorer-w04-uc2	0.3426	0.334	0.0086	313.7	
+u-c3	E1/E2 uncapped	C	explorer-w04-uc3	0.3236	0.3146	0.0089	310.3	
+x-a1	X capped (exploratory)	XA	explorer-w04-xa1	0.3707	0.3623	0.0084	276.0	1.5 (not recorded by the first driver)
+x-a2	X capped (exploratory)	XA	explorer-w04-xa2	0.4465	0.4366	0.0098	344.8	1.5 (not recorded by the first driver)
+x-a3	X capped (exploratory)	XA	explorer-w04-xa3	0.3672	0.3582	0.009	299.9	1.5 (not recorded by the first driver)
+x-b1	X capped (exploratory)	XB	explorer-w04-xb1	0.3118	0.3027	0.0091	323.3	1.5 (not recorded by the first driver)
+x-b2	X capped (exploratory)	XB	explorer-w04-xb2	0.3231	0.3133	0.0098	348.9	1.5 (not recorded by the first driver)
+x-b3	X capped (exploratory)	XB	explorer-w04-xb3	0.33	0.3211	0.0089	300.4	1.5 (not recorded by the first driver)
+x-c1	X capped (exploratory)	XC	explorer-w04-xc1	0.3709	0.3611	0.0098	339.4	1.5 (not recorded by the first driver)
+x-c2	X capped (exploratory)	XC	explorer-w04-xc2	0.3216	0.3132	0.0084	273.2	1.5 (not recorded by the first driver)
+x-c3	X capped (exploratory)	XC	explorer-w04-xc3	0.4018	0.3924	0.0094	314.4	1.5 (not recorded by the first driver)
+ux-a1	X uncapped (exploratory)	XA	explorer-w04-uxa1	0.3435	0.3343	0.0092	347.0	
+ux-a2	X uncapped (exploratory)	XA	explorer-w04-uxa2	0.3061	0.2971	0.009	358.0	
+ux-c1	X uncapped (exploratory)	XC	explorer-w04-uxc1	0.496	0.484	0.012	518.8	
+ux-c2	X uncapped (exploratory)	XC	explorer-w04-uxc2	0.5977	0.5847	0.0131	558.8	
+TOTAL				11.6033

@@ -14,6 +14,7 @@ If you leave the brief, say where and why in your first line.
 
 Your deliverable is one findings report, `__reports__/wave-NN/<your name>/00-findings_v0.md`, from the
 report template of the research-loop skill, and a short hand-back message that points to it.
+Write your findings report from the research-loop skill's template (`templates/report_findings.md` in the skill's base directory) before you hand back, also when a budget note says to hand back.
 Bring back raw material, not conclusions: figures, tables, sample rows, the exact outputs of what
 you ran, with their paths. Next to the case that fits the emerging story best, put the case that
 fits it worst. When you survey prior work, give the identifier you actually fetched (arXiv id, DOI
