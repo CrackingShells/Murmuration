@@ -33,3 +33,21 @@ already parses them.
 | k5 load | as v2's h5: 10 of 10 `$(...)` calls with five parallel sessions run, none blocked; median and max hook time reported, max under 10 s |
 
 **Rule.** Land v3 instead of v2 if k1–k5 all pass. Otherwise land v2, if its verification supports it.
+
+## Amendment before any v3 run (after reproducer-w06-5's verdict on w06-c10)
+
+reproducer-w06-5 found two things:
+- The heredoc route is the lab's usual one, and it is not seen by `if` rows (its k01, k02).
+- Replaying 4,513 real lab Bash calls through the decision function gives a bracket of about 55–76
+  false denials, commands that only mention the words and run no `claude`.
+
+An unconditional row sees heredoc bodies, so it would also deny every heredoc that only quotes the
+words (wave notes, commit messages). Therefore, before any v3 run:
+- G1 in v3 denies the bypass words only when the same command text, heredoc bodies included, also
+  names `claude` (the CLI or `claude_agent_sdk`). G2 already requires a `claude` invocation.
+- The matcher also routes `NotebookEdit` to the Write/Edit rows. MultiEdit is not a tool in 2.1.304.
+- **k6 false denials:** replaying reproducer-w06-5's 4,513 real lab Bash calls through v3's decision
+  function, without the `if` gate since v3 has none, gives no more false denials than the low end of
+  v2's bracket (55). The count and a sample of ten are reported.
+
+The rule becomes: land v3 instead of v2 if k1–k6 all pass.
