@@ -1,0 +1,3 @@
+2026-10-21T16:11:17.220Z [DEBUG] Hooks: UserPromptSubmit [python3 ~/.claude/hooks/inject_plan_directive.py] finished with status 0 (153ms)
+2026-10-21T16:11:17.249Z [DEBUG] Hooks: UserPromptSubmit [python3 "/private/tmp/murmuration-w07/reproducer-w07-2/live/exp-main-crash/scripts/user_words.py"] (plugin murmuration@inline) finished with status 1 (182ms)
+2026-10-21T16:11:17.249Z [ERROR] "Hook UserPromptSubmit (UserPromptSubmit) error: status code 1\nstderr:\nTraceback (most recent call last):\n  File \"/private/tmp/murmuration-w07/reproducer-w07-2/live/exp-main-crash/scripts/user_words.py\", line 25, in <module>\n    import repro_no_such_module\nModuleNotFoundError: No module named 'repro_no_such_module'"

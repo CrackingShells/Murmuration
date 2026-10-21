@@ -1,0 +1,1 @@
+Run these Bash commands strictly one per message, in this exact order, each as its own tool call, waiting for each result before the next, and carry on even if one is blocked or refused: `echo t1`, then `echo t2`, then `echo SLEEPY1`, then `echo t4`, then `echo t5`, then `echo SLEEPY2`, then `echo t7`, then `echo t8`. Then reply with the word done.

@@ -1,0 +1,210 @@
+{
+ "hooks": {
+  "PostToolUse": [
+   {
+    "matcher": "Bash",
+    "hooks": [
+     {
+      "type": "command",
+      "command": "python3",
+      "args": [
+       "-S",
+       "-I",
+       "${CLAUDE_PLUGIN_ROOT}/scripts/hook.py",
+       "sib0"
+      ]
+     },
+     {
+      "type": "command",
+      "command": "python3",
+      "args": [
+       "-S",
+       "-I",
+       "${CLAUDE_PLUGIN_ROOT}/scripts/hook.py",
+       "sib1"
+      ]
+     },
+     {
+      "type": "command",
+      "command": "python3",
+      "args": [
+       "-S",
+       "-I",
+       "${CLAUDE_PLUGIN_ROOT}/scripts/hook.py",
+       "sib2"
+      ]
+     },
+     {
+      "type": "command",
+      "command": "python3",
+      "args": [
+       "-S",
+       "-I",
+       "${CLAUDE_PLUGIN_ROOT}/scripts/hook.py",
+       "sib3"
+      ]
+     },
+     {
+      "type": "command",
+      "command": "python3",
+      "args": [
+       "-S",
+       "-I",
+       "${CLAUDE_PLUGIN_ROOT}/scripts/hook.py",
+       "sib4"
+      ]
+     },
+     {
+      "type": "command",
+      "command": "python3",
+      "args": [
+       "-S",
+       "-I",
+       "${CLAUDE_PLUGIN_ROOT}/scripts/hook.py",
+       "sib5"
+      ]
+     },
+     {
+      "type": "command",
+      "command": "python3",
+      "args": [
+       "-S",
+       "-I",
+       "${CLAUDE_PLUGIN_ROOT}/scripts/hook.py",
+       "sib6"
+      ]
+     },
+     {
+      "type": "command",
+      "command": "python3",
+      "args": [
+       "-S",
+       "-I",
+       "${CLAUDE_PLUGIN_ROOT}/scripts/hook.py",
+       "sib7"
+      ]
+     }
+    ]
+   }
+  ],
+  "PreToolUse": [
+   {
+    "matcher": "Bash",
+    "hooks": [
+     {
+      "type": "command",
+      "command": "python3",
+      "args": [
+       "-S",
+       "-I",
+       "${CLAUDE_PLUGIN_ROOT}/scripts/hook.py",
+       "sibpre0",
+       "--only",
+       "SLEEPY",
+       "--sleep",
+       "0.5"
+      ]
+     },
+     {
+      "type": "command",
+      "command": "python3",
+      "args": [
+       "-S",
+       "-I",
+       "${CLAUDE_PLUGIN_ROOT}/scripts/hook.py",
+       "sibpre1",
+       "--only",
+       "SLEEPY",
+       "--sleep",
+       "0.5"
+      ]
+     },
+     {
+      "type": "command",
+      "command": "python3",
+      "args": [
+       "-S",
+       "-I",
+       "${CLAUDE_PLUGIN_ROOT}/scripts/hook.py",
+       "sibpre2",
+       "--only",
+       "SLEEPY",
+       "--sleep",
+       "0.5"
+      ]
+     },
+     {
+      "type": "command",
+      "command": "python3",
+      "args": [
+       "-S",
+       "-I",
+       "${CLAUDE_PLUGIN_ROOT}/scripts/hook.py",
+       "sibpre3",
+       "--only",
+       "SLEEPY",
+       "--sleep",
+       "0.5"
+      ]
+     },
+     {
+      "type": "command",
+      "command": "python3",
+      "args": [
+       "-S",
+       "-I",
+       "${CLAUDE_PLUGIN_ROOT}/scripts/hook.py",
+       "sibpre4",
+       "--only",
+       "SLEEPY",
+       "--sleep",
+       "0.5"
+      ]
+     },
+     {
+      "type": "command",
+      "command": "python3",
+      "args": [
+       "-S",
+       "-I",
+       "${CLAUDE_PLUGIN_ROOT}/scripts/hook.py",
+       "sibpre5",
+       "--only",
+       "SLEEPY",
+       "--sleep",
+       "0.5"
+      ]
+     },
+     {
+      "type": "command",
+      "command": "python3",
+      "args": [
+       "-S",
+       "-I",
+       "${CLAUDE_PLUGIN_ROOT}/scripts/hook.py",
+       "sibpre6",
+       "--only",
+       "SLEEPY",
+       "--sleep",
+       "0.5"
+      ]
+     },
+     {
+      "type": "command",
+      "command": "python3",
+      "args": [
+       "-S",
+       "-I",
+       "${CLAUDE_PLUGIN_ROOT}/scripts/hook.py",
+       "sibpre7",
+       "--only",
+       "SLEEPY",
+       "--sleep",
+       "0.5"
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

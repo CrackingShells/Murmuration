@@ -1,0 +1,8 @@
+## http_pre command-hook bodies 13 http bodies 11
+| PreToolUse | pairs 11 | fully equal 11 | only http [] | only command [] | differing {} |
+## http_post command-hook bodies 13 http bodies 11
+| PostToolUse | pairs 11 | fully equal 11 | only http [] | only command [] | differing {} |
+## http_sub command-hook bodies 6 http bodies 8
+| PostToolBatch | pairs 3 | fully equal 3 | only http [] | only command [] | differing {} |
+| SubagentStart | pairs 1 | fully equal 1 | only http [] | only command [] | differing {} |
+| SubagentStop | pairs 2 | fully equal 2 | only http [] | only command [] | differing {} |

@@ -1,0 +1,2 @@
+2026-10-21T16:10:54.538Z [DEBUG] Hooks: UserPromptSubmit [python3 ~/.claude/hooks/inject_plan_directive.py] finished with status 0 (353ms)
+2026-10-21T16:10:54.609Z [DEBUG] Hooks: UserPromptSubmit [python3 "/private/tmp/murmuration-w07/reproducer-w07-2/live/exp-main/scripts/user_words.py"] (plugin murmuration@inline) finished with status 0 (424ms)

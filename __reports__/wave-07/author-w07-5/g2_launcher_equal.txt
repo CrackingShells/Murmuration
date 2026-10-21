@@ -1,0 +1,13 @@
+rust /var/folders/nw/ddpd99c119j47w3s4gzv7sb00000gn/T/g2off_1iwmf3k2/datal/bin/murmuration | python /private/tmp/murmuration-w07/author-w07-5/wt/scripts/permission_guard.py | 191 s | jobs 8 | seed 0
+set            events   denied   differ  stderr non-empty (py, rs)
+registered        121       71        0  (0, 0)
+malformed           4        3        0  (0, 0)
+fuzz_bash        1500      672        0  (0, 0)
+fuzz_write        300      127        0  (0, 0)
+typeconf          189       83        0  (3, 3)
+stress              4        0        0  (0, 0)
+  STRESS tc:huge_cmd                  python   0.27 s (rc 0)   rust   0.25 s (rc 0)
+  STRESS tc:long_run_settings         python   0.80 s (rc 0)   rust   0.78 s (rc 0)
+  STRESS tc:long_word                 python  40.00 s (rc timeout)   rust  40.00 s (rc timeout)
+  STRESS tc:many_quotes               python   0.24 s (rc 0)   rust   0.23 s (rc 0)
+gated sets equal | work folder /private/tmp/murmuration-w07/author-w07-5/eq_launcher

@@ -1,0 +1,14 @@
+{"name": "f00", "rc": 0, "wall_s": 9.5, "session_id": "64d14ae2-c28f-4989-9831-4a69bc14d91c", "cost_usd": 0.00651983, "env_dropped": [], "resume": false, "plugin": "both", "stderr": ""}
+{"name": "f01", "rc": 0, "wall_s": 7.34, "session_id": "f01b52e0-544b-4e40-bd78-93045a0f544a", "cost_usd": 0.00572119, "env_dropped": [], "resume": false, "plugin": "both", "stderr": ""}
+{"name": "f02", "rc": 0, "wall_s": 8.07, "session_id": "a328582e-7a26-4a97-b5b0-40ee1901b6d1", "cost_usd": 0.00571739, "env_dropped": [], "resume": false, "plugin": "both", "stderr": ""}
+{"name": "f03", "rc": 0, "wall_s": 8.21, "session_id": "5e183c61-84b6-4884-bedd-5aeadd8b7169", "cost_usd": 0.00572139, "env_dropped": [], "resume": false, "plugin": "both", "stderr": ""}
+{"name": "f04", "rc": 0, "wall_s": 8.17, "session_id": "4b1f20cb-f2a9-43e5-87c8-3b2c0c04d17f", "cost_usd": 0.00572239, "env_dropped": [], "resume": false, "plugin": "both", "stderr": ""}
+{"name": "f05", "rc": 0, "wall_s": 7.01, "session_id": "90697883-6388-4a2b-9e99-1c1ee1e661b2", "cost_usd": 0.0055801900000000005, "env_dropped": [], "resume": false, "plugin": "both", "stderr": ""}
+{"name": "f06", "rc": 0, "wall_s": 7.36, "session_id": "695eaa3e-547e-41ca-a19e-0f277ebb50a0", "cost_usd": 0.00572159, "env_dropped": [], "resume": false, "plugin": "both", "stderr": ""}
+{"name": "f07", "rc": 0, "wall_s": 7.27, "session_id": "56690fc1-064d-499a-a657-0a41869dbffb", "cost_usd": 0.00572079, "env_dropped": [], "resume": false, "plugin": "both", "stderr": ""}
+{"name": "f08", "rc": 0, "wall_s": 7.54, "session_id": "feaf9933-784c-4b4a-a1ad-31e7bd98bda4", "cost_usd": 0.00572179, "env_dropped": [], "resume": false, "plugin": "both", "stderr": ""}
+{"name": "f09", "rc": 0, "wall_s": 7.38, "session_id": "16c525c2-2820-4571-85d5-cd82c1bf0ac3", "cost_usd": 0.00572159, "env_dropped": [], "resume": false, "plugin": "both", "stderr": ""}
+{"name": "t00", "rc": 0, "wall_s": 6.68, "session_id": "9cf37dfe-5970-48a5-9510-c78eefcbc5d8", "cost_usd": 0.00529497, "env_dropped": ["CLAUDE_CODE_ENTRYPOINT", "CLAUDE_CODE_CHILD_SESSION", "CLAUDE_CODE_SESSION_ATTENDED", "CLAUDE_CODE_HOST_SESSION_ID", "CLAUDE_CODE_SESSION_ID", "CLAUDECODE", "CLAUDE_CODE_DESKTOP_APP_VERSION", "CLAUDE_AGENT_SDK_VERSION", "CLAUDE_CODE_ENTRYPOINT_ON_REQUESTS", "CLAUDE_CODE_MESSAGING_SOCKET", "CLAUDE_CODE_MESSAGING_TOKEN"], "resume": false, "plugin": "both", "stderr": ""}
+{"name": "p00", "rc": 0, "wall_s": 9.24, "session_id": "4d78c637-7327-4913-8e05-e0e1f49d1db1", "cost_usd": 0.00571719, "env_dropped": [], "resume": false, "plugin": "probe", "stderr": ""}
+{"name": "r-f00", "rc": 0, "wall_s": 8.94, "session_id": "64d14ae2-c28f-4989-9831-4a69bc14d91c", "cost_usd": 0.0073154299999999995, "env_dropped": [], "resume": true, "plugin": "both", "stderr": ""}
+{"name": "r-p00", "rc": 0, "wall_s": 9.42, "session_id": "4d78c637-7327-4913-8e05-e0e1f49d1db1", "cost_usd": 0.01096078, "env_dropped": [], "resume": true, "plugin": "probe", "stderr": ""}

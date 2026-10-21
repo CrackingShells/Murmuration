@@ -1,0 +1,383 @@
+{"variant": "cnoop", "session": 0, "idx": 0, "dur_ms": 104, "issue_ms": 1792597578746.0, "fin_ms": 1792597578841.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 1, "dur_ms": 129, "issue_ms": 1792597579876.0, "fin_ms": 1792597580004.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 2, "dur_ms": 43, "issue_ms": 1792597580991.0, "fin_ms": 1792597581026.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 3, "dur_ms": 109, "issue_ms": 1792597582041.0, "fin_ms": 1792597582149.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 4, "dur_ms": 64, "issue_ms": 1792597583115.0, "fin_ms": 1792597583159.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 5, "dur_ms": 98, "issue_ms": 1792597584177.0, "fin_ms": 1792597584270.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 0, "idx": 6, "dur_ms": 96, "issue_ms": 1792597585395.0, "fin_ms": 1792597585491.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 7, "dur_ms": 72, "issue_ms": 1792597586548.0, "fin_ms": 1792597586620.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 8, "dur_ms": 85, "issue_ms": 1792597587750.0, "fin_ms": 1792597587835.0, "load1": 4.20751953125, "main_ms": 1792597587834.893, "hook_ppid": 37171}
+{"variant": "shc", "session": 0, "idx": 9, "dur_ms": 165, "issue_ms": 1792597588883.0, "fin_ms": 1792597589038.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 0, "idx": 10, "dur_ms": 114, "issue_ms": 1792597590237.0, "fin_ms": 1792597590348.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 0, "idx": 11, "dur_ms": 62, "issue_ms": 1792597591444.0, "fin_ms": 1792597591499.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 0, "idx": 12, "dur_ms": 100, "issue_ms": 1792597592517.0, "fin_ms": 1792597592609.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 13, "dur_ms": 65, "issue_ms": 1792597593632.0, "fin_ms": 1792597593696.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 0, "idx": 14, "dur_ms": 396, "issue_ms": 1792597594748.0, "fin_ms": 1792597595137.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 15, "dur_ms": 182, "issue_ms": 1792597596118.0, "fin_ms": 1792597596298.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 16, "dur_ms": 116, "issue_ms": 1792597597293.0, "fin_ms": 1792597597402.0, "load1": 4.20751953125, "main_ms": 1792597597402.092, "hook_ppid": 37171}
+{"variant": "stamp_bash", "session": 0, "idx": 17, "dur_ms": 71, "issue_ms": 1792597598421.0, "fin_ms": 1792597598484.0, "load1": 4.20751953125, "main_ms": 1792597598483.9292, "hook_ppid": 37171}
+{"variant": "shc", "session": 0, "idx": 18, "dur_ms": 68, "issue_ms": 1792597599463.0, "fin_ms": 1792597599525.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 19, "dur_ms": 54, "issue_ms": 1792597600491.0, "fin_ms": 1792597600532.0, "load1": 4.20751953125, "main_ms": 1792597600531.73, "hook_ppid": 37171}
+{"variant": "stamp", "session": 0, "idx": 20, "dur_ms": 78, "issue_ms": 1792597601566.0, "fin_ms": 1792597601632.0, "load1": 4.20751953125, "main_ms": 1792597601632.173, "hook_ppid": 37171}
+{"variant": "stamp_bash", "session": 0, "idx": 21, "dur_ms": 80, "issue_ms": 1792597602659.0, "fin_ms": 1792597602733.0, "load1": 4.20751953125, "main_ms": 1792597602732.728, "hook_ppid": 37171}
+{"variant": "shc", "session": 0, "idx": 22, "dur_ms": 102, "issue_ms": 1792597603703.0, "fin_ms": 1792597603780.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 23, "dur_ms": 84, "issue_ms": 1792597604805.0, "fin_ms": 1792597604865.0, "load1": 4.20751953125, "main_ms": 1792597604864.971, "hook_ppid": 37171}
+{"variant": "colon_bash", "session": 0, "idx": 24, "dur_ms": 66, "issue_ms": 1792597605913.0, "fin_ms": 1792597605979.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 0, "idx": 25, "dur_ms": 408, "issue_ms": 1792597607053.0, "fin_ms": 1792597607455.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 26, "dur_ms": 89, "issue_ms": 1792597608450.0, "fin_ms": 1792597608528.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 27, "dur_ms": 50, "issue_ms": 1792597609534.0, "fin_ms": 1792597609574.0, "load1": 4.20751953125, "main_ms": 1792597609574.426, "hook_ppid": 37171}
+{"variant": "execcnoop", "session": 0, "idx": 28, "dur_ms": 195, "issue_ms": 1792597610595.0, "fin_ms": 1792597610780.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 0, "idx": 29, "dur_ms": 53, "issue_ms": 1792597611850.0, "fin_ms": 1792597611891.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 30, "dur_ms": 99, "issue_ms": 1792597612960.0, "fin_ms": 1792597613059.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 31, "dur_ms": 98, "issue_ms": 1792597614068.0, "fin_ms": 1792597614165.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 32, "dur_ms": 119, "issue_ms": 1792597615162.0, "fin_ms": 1792597615281.0, "load1": 4.20751953125, "main_ms": 1792597615281.203, "hook_ppid": 37171}
+{"variant": "cnoop", "session": 0, "idx": 33, "dur_ms": 122, "issue_ms": 1792597616269.0, "fin_ms": 1792597616384.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 34, "dur_ms": 152, "issue_ms": 1792597617397.0, "fin_ms": 1792597617527.0, "load1": 4.20751953125, "main_ms": 1792597617526.559, "hook_ppid": 37171}
+{"variant": "shc", "session": 0, "idx": 35, "dur_ms": 181, "issue_ms": 1792597618514.0, "fin_ms": 1792597618695.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 36, "dur_ms": 79, "issue_ms": 1792597619744.0, "fin_ms": 1792597619812.0, "load1": 4.20751953125, "main_ms": 1792597619811.695, "hook_ppid": 37171}
+{"variant": "cnoop", "session": 0, "idx": 37, "dur_ms": 79, "issue_ms": 1792597620835.0, "fin_ms": 1792597620908.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 38, "dur_ms": 115, "issue_ms": 1792597621937.0, "fin_ms": 1792597622044.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 39, "dur_ms": 43, "issue_ms": 1792597623399.0, "fin_ms": 1792597623427.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 40, "dur_ms": 89, "issue_ms": 1792597624528.0, "fin_ms": 1792597624603.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 0, "idx": 41, "dur_ms": 64, "issue_ms": 1792597625633.0, "fin_ms": 1792597625689.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 42, "dur_ms": 31, "issue_ms": 1792597626719.0, "fin_ms": 1792597626739.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 43, "dur_ms": 94, "issue_ms": 1792597627783.0, "fin_ms": 1792597627876.0, "load1": 4.20751953125, "main_ms": 1792597627875.76, "hook_ppid": 37171}
+{"variant": "execcnoop", "session": 0, "idx": 44, "dur_ms": 93, "issue_ms": 1792597628886.0, "fin_ms": 1792597628978.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 0, "idx": 45, "dur_ms": 78, "issue_ms": 1792597630058.0, "fin_ms": 1792597630117.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 46, "dur_ms": 101, "issue_ms": 1792597631177.0, "fin_ms": 1792597631273.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 47, "dur_ms": 60, "issue_ms": 1792597632308.0, "fin_ms": 1792597632358.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 48, "dur_ms": 75, "issue_ms": 1792597633417.0, "fin_ms": 1792597633479.0, "load1": 4.20751953125, "main_ms": 1792597633478.9639, "hook_ppid": 37171}
+{"variant": "stamp_bash", "session": 0, "idx": 49, "dur_ms": 97, "issue_ms": 1792597634550.0, "fin_ms": 1792597634646.0, "load1": 4.20751953125, "main_ms": 1792597634645.677, "hook_ppid": 37171}
+{"variant": "shc", "session": 0, "idx": 50, "dur_ms": 98, "issue_ms": 1792597635739.0, "fin_ms": 1792597635827.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 0, "idx": 51, "dur_ms": 137, "issue_ms": 1792597636888.0, "fin_ms": 1792597637002.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 52, "dur_ms": 97, "issue_ms": 1792597638069.0, "fin_ms": 1792597638160.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 53, "dur_ms": 90, "issue_ms": 1792597639159.0, "fin_ms": 1792597639249.0, "load1": 4.20751953125, "main_ms": 1792597639248.749, "hook_ppid": 37171}
+{"variant": "cnoop", "session": 0, "idx": 54, "dur_ms": 96, "issue_ms": 1792597640269.0, "fin_ms": 1792597640365.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 55, "dur_ms": 98, "issue_ms": 1792597641531.0, "fin_ms": 1792597641629.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 0, "idx": 56, "dur_ms": 109, "issue_ms": 1792597642896.0, "fin_ms": 1792597643005.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 57, "dur_ms": 74, "issue_ms": 1792597644365.0, "fin_ms": 1792597644428.0, "load1": 4.20751953125, "main_ms": 1792597644428.0598, "hook_ppid": 37171}
+{"variant": "pysi", "session": 0, "idx": 58, "dur_ms": 76, "issue_ms": 1792597645524.0, "fin_ms": 1792597645590.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 59, "dur_ms": 58, "issue_ms": 1792597646632.0, "fin_ms": 1792597646686.0, "load1": 4.20751953125, "main_ms": 1792597646685.632, "hook_ppid": 37171}
+{"variant": "execcnoop", "session": 0, "idx": 60, "dur_ms": 77, "issue_ms": 1792597647842.0, "fin_ms": 1792597647890.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 0, "idx": 61, "dur_ms": 54, "issue_ms": 1792597648886.0, "fin_ms": 1792597648928.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 62, "dur_ms": 56, "issue_ms": 1792597649925.0, "fin_ms": 1792597649978.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 63, "dur_ms": 91, "issue_ms": 1792597651172.0, "fin_ms": 1792597651263.0, "load1": 4.20751953125, "main_ms": 1792597651263.0442, "hook_ppid": 37171}
+{"variant": "shc", "session": 0, "idx": 64, "dur_ms": 104, "issue_ms": 1792597652380.0, "fin_ms": 1792597652483.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 0, "idx": 65, "dur_ms": 117, "issue_ms": 1792597653611.0, "fin_ms": 1792597653717.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 66, "dur_ms": 204, "issue_ms": 1792597654952.0, "fin_ms": 1792597655130.0, "load1": 4.20751953125, "main_ms": 1792597655129.981, "hook_ppid": 37171}
+{"variant": "cnoop", "session": 0, "idx": 67, "dur_ms": 217, "issue_ms": 1792597656150.0, "fin_ms": 1792597656344.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 68, "dur_ms": 76, "issue_ms": 1792597657713.0, "fin_ms": 1792597657789.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 0, "idx": 69, "dur_ms": 101, "issue_ms": 1792597658915.0, "fin_ms": 1792597659003.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 70, "dur_ms": 332, "issue_ms": 1792597660070.0, "fin_ms": 1792597660391.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 0, "idx": 71, "dur_ms": 287, "issue_ms": 1792597661407.0, "fin_ms": 1792597661680.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 72, "dur_ms": 209, "issue_ms": 1792597662708.0, "fin_ms": 1792597662914.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 73, "dur_ms": 143, "issue_ms": 1792597664035.0, "fin_ms": 1792597664171.0, "load1": 4.20751953125, "main_ms": 1792597664170.808, "hook_ppid": 37171}
+{"variant": "stamp_bash", "session": 0, "idx": 74, "dur_ms": 53, "issue_ms": 1792597665217.0, "fin_ms": 1792597665258.0, "load1": 4.20751953125, "main_ms": 1792597665258.03, "hook_ppid": 37171}
+{"variant": "shc", "session": 0, "idx": 75, "dur_ms": 122, "issue_ms": 1792597666285.0, "fin_ms": 1792597666397.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 76, "dur_ms": 96, "issue_ms": 1792597667439.0, "fin_ms": 1792597667524.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 77, "dur_ms": 98, "issue_ms": 1792597668878.0, "fin_ms": 1792597668975.0, "load1": 4.20751953125, "main_ms": 1792597668974.517, "hook_ppid": 37171}
+{"variant": "execcnoop", "session": 0, "idx": 78, "dur_ms": 93, "issue_ms": 1792597670024.0, "fin_ms": 1792597670108.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 0, "idx": 79, "dur_ms": 694, "issue_ms": 1792597671163.0, "fin_ms": 1792597671849.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 80, "dur_ms": 117, "issue_ms": 1792597672873.0, "fin_ms": 1792597672989.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 81, "dur_ms": 145, "issue_ms": 1792597674076.0, "fin_ms": 1792597674213.0, "load1": 4.20751953125, "main_ms": 1792597674212.8079, "hook_ppid": 37171}
+{"variant": "shc", "session": 0, "idx": 82, "dur_ms": 67, "issue_ms": 1792597675272.0, "fin_ms": 1792597675332.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 0, "idx": 83, "dur_ms": 88, "issue_ms": 1792597676359.0, "fin_ms": 1792597676438.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 84, "dur_ms": 77, "issue_ms": 1792597677458.0, "fin_ms": 1792597677524.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 85, "dur_ms": 66, "issue_ms": 1792597678583.0, "fin_ms": 1792597678639.0, "load1": 4.20751953125, "main_ms": 1792597678639.324, "hook_ppid": 37171}
+{"variant": "cnoop", "session": 0, "idx": 86, "dur_ms": 81, "issue_ms": 1792597679754.0, "fin_ms": 1792597679823.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 87, "dur_ms": 69, "issue_ms": 1792597681081.0, "fin_ms": 1792597681136.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 0, "idx": 88, "dur_ms": 64, "issue_ms": 1792597682078.0, "fin_ms": 1792597682133.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 89, "dur_ms": 45, "issue_ms": 1792597683173.0, "fin_ms": 1792597683203.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 90, "dur_ms": 66, "issue_ms": 1792597684193.0, "fin_ms": 1792597684250.0, "load1": 4.20751953125, "main_ms": 1792597684250.1492, "hook_ppid": 37171}
+{"variant": "cnoop_bash", "session": 0, "idx": 91, "dur_ms": 137, "issue_ms": 1792597685269.0, "fin_ms": 1792597685401.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 0, "idx": 92, "dur_ms": 102, "issue_ms": 1792597686515.0, "fin_ms": 1792597686615.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 93, "dur_ms": 218, "issue_ms": 1792597687597.0, "fin_ms": 1792597687805.0, "load1": 4.20751953125, "main_ms": 1792597687805.27, "hook_ppid": 37171}
+{"variant": "pysi", "session": 0, "idx": 94, "dur_ms": 114, "issue_ms": 1792597688902.0, "fin_ms": 1792597689008.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 0, "idx": 95, "dur_ms": 198, "issue_ms": 1792597690186.0, "fin_ms": 1792597690376.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 0, "idx": 96, "dur_ms": 63, "issue_ms": 1792597691673.0, "fin_ms": 1792597691722.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 0, "idx": 97, "dur_ms": 55, "issue_ms": 1792597693338.0, "fin_ms": 1792597693376.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 0, "idx": 98, "dur_ms": 345, "issue_ms": 1792597694452.0, "fin_ms": 1792597694790.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 99, "dur_ms": 82, "issue_ms": 1792597695879.0, "fin_ms": 1792597695952.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 100, "dur_ms": 93, "issue_ms": 1792597697314.0, "fin_ms": 1792597697402.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 101, "dur_ms": 77, "issue_ms": 1792597698434.0, "fin_ms": 1792597698497.0, "load1": 4.20751953125, "main_ms": 1792597698497.2769, "hook_ppid": 37171}
+{"variant": "stamp_bash", "session": 0, "idx": 102, "dur_ms": 69, "issue_ms": 1792597699532.0, "fin_ms": 1792597699588.0, "load1": 4.20751953125, "main_ms": 1792597699588.141, "hook_ppid": 37171}
+{"variant": "shc", "session": 0, "idx": 103, "dur_ms": 189, "issue_ms": 1792597700816.0, "fin_ms": 1792597700963.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 0, "idx": 104, "dur_ms": 192, "issue_ms": 1792597702008.0, "fin_ms": 1792597702192.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 0, "idx": 105, "dur_ms": 131, "issue_ms": 1792597703219.0, "fin_ms": 1792597703348.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 106, "dur_ms": 66, "issue_ms": 1792597704424.0, "fin_ms": 1792597704478.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 107, "dur_ms": 33, "issue_ms": 1792597705449.0, "fin_ms": 1792597705470.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 108, "dur_ms": 108, "issue_ms": 1792597706459.0, "fin_ms": 1792597706559.0, "load1": 4.20751953125, "main_ms": 1792597706558.782, "hook_ppid": 37171}
+{"variant": "pysi", "session": 0, "idx": 109, "dur_ms": 73, "issue_ms": 1792597707583.0, "fin_ms": 1792597707648.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 0, "idx": 110, "dur_ms": 145, "issue_ms": 1792597708837.0, "fin_ms": 1792597708975.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 111, "dur_ms": 320, "issue_ms": 1792597710008.0, "fin_ms": 1792597710325.0, "load1": 4.20751953125, "main_ms": 1792597710325.391, "hook_ppid": 37171}
+{"variant": "shc", "session": 0, "idx": 112, "dur_ms": 75, "issue_ms": 1792597711376.0, "fin_ms": 1792597711446.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 113, "dur_ms": 35, "issue_ms": 1792597712462.0, "fin_ms": 1792597712486.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 0, "idx": 114, "dur_ms": 71, "issue_ms": 1792597713740.0, "fin_ms": 1792597713797.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 115, "dur_ms": 53, "issue_ms": 1792597715195.0, "fin_ms": 1792597715232.0, "load1": 4.20751953125, "main_ms": 1792597715232.324, "hook_ppid": 37171}
+{"variant": "colon_bash", "session": 0, "idx": 116, "dur_ms": 45, "issue_ms": 1792597716480.0, "fin_ms": 1792597716515.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 0, "idx": 117, "dur_ms": 143, "issue_ms": 1792597717638.0, "fin_ms": 1792597717773.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 118, "dur_ms": 257, "issue_ms": 1792597718901.0, "fin_ms": 1792597719153.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 119, "dur_ms": 96, "issue_ms": 1792597720305.0, "fin_ms": 1792597720391.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 120, "dur_ms": 72, "issue_ms": 1792597721444.0, "fin_ms": 1792597721500.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 121, "dur_ms": 146, "issue_ms": 1792597722656.0, "fin_ms": 1792597722792.0, "load1": 4.20751953125, "main_ms": 1792597722791.759, "hook_ppid": 37171}
+{"variant": "execcnoop", "session": 0, "idx": 122, "dur_ms": 69, "issue_ms": 1792597723902.0, "fin_ms": 1792597723962.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 0, "idx": 123, "dur_ms": 59, "issue_ms": 1792597725314.0, "fin_ms": 1792597725364.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 0, "idx": 124, "dur_ms": 137, "issue_ms": 1792597726458.0, "fin_ms": 1792597726590.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 125, "dur_ms": 51, "issue_ms": 1792597727658.0, "fin_ms": 1792597727693.0, "load1": 4.20751953125, "main_ms": 1792597727693.222, "hook_ppid": 37171}
+{"variant": "colon", "session": 0, "idx": 126, "dur_ms": 49, "issue_ms": 1792597730414.0, "fin_ms": 1792597730449.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 0, "idx": 127, "dur_ms": 40, "issue_ms": 1792597731496.0, "fin_ms": 1792597731532.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 128, "dur_ms": 592, "issue_ms": 1792597732718.0, "fin_ms": 1792597733281.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 0, "idx": 129, "dur_ms": 75, "issue_ms": 1792597734452.0, "fin_ms": 1792597734520.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 130, "dur_ms": 69, "issue_ms": 1792597735700.0, "fin_ms": 1792597735759.0, "load1": 4.20751953125, "main_ms": 1792597735758.7798, "hook_ppid": 37171}
+{"variant": "shellprobe_bash", "session": 0, "idx": 131, "dur_ms": 56, "issue_ms": 1792597737019.0, "fin_ms": 1792597737063.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 0, "idx": 132, "dur_ms": 120, "issue_ms": 1792597738179.0, "fin_ms": 1792597738296.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 133, "dur_ms": 71, "issue_ms": 1792597739472.0, "fin_ms": 1792597739531.0, "load1": 4.20751953125, "main_ms": 1792597739530.5222, "hook_ppid": 37171}
+{"variant": "stamp_bash", "session": 0, "idx": 134, "dur_ms": 124, "issue_ms": 1792597741535.0, "fin_ms": 1792597741657.0, "load1": 4.20751953125, "main_ms": 1792597741657.054, "hook_ppid": 37171}
+{"variant": "shc", "session": 0, "idx": 135, "dur_ms": 100, "issue_ms": 1792597742708.0, "fin_ms": 1792597742803.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 0, "idx": 136, "dur_ms": 51, "issue_ms": 1792597744943.0, "fin_ms": 1792597744985.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 137, "dur_ms": 73, "issue_ms": 1792597746117.0, "fin_ms": 1792597746165.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 138, "dur_ms": 173, "issue_ms": 1792597747226.0, "fin_ms": 1792597747386.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 139, "dur_ms": 175, "issue_ms": 1792597748441.0, "fin_ms": 1792597748616.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 0, "idx": 140, "dur_ms": 174, "issue_ms": 1792597749708.0, "fin_ms": 1792597749871.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 141, "dur_ms": 49, "issue_ms": 1792597750878.0, "fin_ms": 1792597750924.0, "load1": 4.20751953125, "main_ms": 1792597750924.18, "hook_ppid": 37171}
+{"variant": "execcnoop", "session": 0, "idx": 142, "dur_ms": 66, "issue_ms": 1792597751931.0, "fin_ms": 1792597751997.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 143, "dur_ms": 41, "issue_ms": 1792597753032.0, "fin_ms": 1792597753062.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 0, "idx": 144, "dur_ms": 97, "issue_ms": 1792597754075.0, "fin_ms": 1792597754158.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 145, "dur_ms": 415, "issue_ms": 1792597755259.0, "fin_ms": 1792597755665.0, "load1": 4.20751953125, "main_ms": 1792597755664.7659, "hook_ppid": 37171}
+{"variant": "cnoop", "session": 0, "idx": 146, "dur_ms": 62, "issue_ms": 1792597756750.0, "fin_ms": 1792597756802.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 0, "idx": 147, "dur_ms": 57, "issue_ms": 1792597757904.0, "fin_ms": 1792597757962.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 148, "dur_ms": 75, "issue_ms": 1792597759064.0, "fin_ms": 1792597759131.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 149, "dur_ms": 115, "issue_ms": 1792597760178.0, "fin_ms": 1792597760274.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 0, "idx": 150, "dur_ms": 48, "issue_ms": 1792597761351.0, "fin_ms": 1792597761389.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 151, "dur_ms": 588, "issue_ms": 1792597762497.0, "fin_ms": 1792597763082.0, "load1": 4.20751953125, "main_ms": 1792597763081.871, "hook_ppid": 37171}
+{"variant": "execcnoop", "session": 0, "idx": 152, "dur_ms": 162, "issue_ms": 1792597764138.0, "fin_ms": 1792597764299.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 0, "idx": 153, "dur_ms": 182, "issue_ms": 1792597765294.0, "fin_ms": 1792597765467.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 154, "dur_ms": 50, "issue_ms": 1792597766423.0, "fin_ms": 1792597766461.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 155, "dur_ms": 77, "issue_ms": 1792597767529.0, "fin_ms": 1792597767587.0, "load1": 4.20751953125, "main_ms": 1792597767586.805, "hook_ppid": 37171}
+{"variant": "pysi", "session": 0, "idx": 156, "dur_ms": 78, "issue_ms": 1792597768803.0, "fin_ms": 1792597768871.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 0, "idx": 157, "dur_ms": 186, "issue_ms": 1792597769917.0, "fin_ms": 1792597770092.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 158, "dur_ms": 251, "issue_ms": 1792597771144.0, "fin_ms": 1792597771392.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 159, "dur_ms": 117, "issue_ms": 1792597772498.0, "fin_ms": 1792597772609.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 160, "dur_ms": 114, "issue_ms": 1792597773669.0, "fin_ms": 1792597773774.0, "load1": 4.20751953125, "main_ms": 1792597773773.835, "hook_ppid": 37171}
+{"variant": "execcnoop", "session": 0, "idx": 161, "dur_ms": 69, "issue_ms": 1792597774802.0, "fin_ms": 1792597774858.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 0, "idx": 162, "dur_ms": 67, "issue_ms": 1792597775903.0, "fin_ms": 1792597775960.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 0, "idx": 163, "dur_ms": 79, "issue_ms": 1792597777049.0, "fin_ms": 1792597777120.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 164, "dur_ms": 428, "issue_ms": 1792597778169.0, "fin_ms": 1792597778584.0, "load1": 4.20751953125, "main_ms": 1792597778583.4932, "hook_ppid": 37171}
+{"variant": "colon", "session": 0, "idx": 165, "dur_ms": 90, "issue_ms": 1792597779727.0, "fin_ms": 1792597779817.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 166, "dur_ms": 75, "issue_ms": 1792597780920.0, "fin_ms": 1792597780982.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 0, "idx": 167, "dur_ms": 109, "issue_ms": 1792597782040.0, "fin_ms": 1792597782139.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 168, "dur_ms": 141, "issue_ms": 1792597783231.0, "fin_ms": 1792597783353.0, "load1": 4.20751953125, "main_ms": 1792597783352.926, "hook_ppid": 37171}
+{"variant": "shellprobe_bash", "session": 0, "idx": 169, "dur_ms": 73, "issue_ms": 1792597784402.0, "fin_ms": 1792597784463.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 0, "idx": 170, "dur_ms": 66, "issue_ms": 1792597785625.0, "fin_ms": 1792597785683.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 0, "idx": 171, "dur_ms": 287, "issue_ms": 1792597786780.0, "fin_ms": 1792597787057.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 0, "idx": 172, "dur_ms": 532, "issue_ms": 1792597788120.0, "fin_ms": 1792597788642.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 173, "dur_ms": 49, "issue_ms": 1792597789681.0, "fin_ms": 1792597789716.0, "load1": 4.20751953125, "main_ms": 1792597789716.3252, "hook_ppid": 37171}
+{"variant": "cnoop_bash", "session": 0, "idx": 174, "dur_ms": 62, "issue_ms": 1792597790784.0, "fin_ms": 1792597790831.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 175, "dur_ms": 206, "issue_ms": 1792597791943.0, "fin_ms": 1792597792137.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 176, "dur_ms": 56, "issue_ms": 1792597793205.0, "fin_ms": 1792597793246.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 177, "dur_ms": 85, "issue_ms": 1792597794272.0, "fin_ms": 1792597794346.0, "load1": 4.20751953125, "main_ms": 1792597794345.9998, "hook_ppid": 37171}
+{"variant": "shellprobe_bash", "session": 0, "idx": 178, "dur_ms": 62, "issue_ms": 1792597795480.0, "fin_ms": 1792597795533.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 0, "idx": 179, "dur_ms": 61, "issue_ms": 1792597796553.0, "fin_ms": 1792597796597.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 0, "idx": 180, "dur_ms": 66, "issue_ms": 1792597797791.0, "fin_ms": 1792597797842.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 0, "idx": 181, "dur_ms": 79, "issue_ms": 1792597798860.0, "fin_ms": 1792597798928.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 182, "dur_ms": 51, "issue_ms": 1792597799994.0, "fin_ms": 1792597800035.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 183, "dur_ms": 98, "issue_ms": 1792597801079.0, "fin_ms": 1792597801161.0, "load1": 4.20751953125, "main_ms": 1792597801160.738, "hook_ppid": 37171}
+{"variant": "colon_bash", "session": 0, "idx": 184, "dur_ms": 46, "issue_ms": 1792597802203.0, "fin_ms": 1792597802237.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 185, "dur_ms": 68, "issue_ms": 1792597803320.0, "fin_ms": 1792597803377.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 0, "idx": 186, "dur_ms": 47, "issue_ms": 1792597804387.0, "fin_ms": 1792597804416.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 187, "dur_ms": 47, "issue_ms": 1792597805460.0, "fin_ms": 1792597805496.0, "load1": 4.20751953125, "main_ms": 1792597805496.4219, "hook_ppid": 37171}
+{"variant": "execcnoop", "session": 0, "idx": 188, "dur_ms": 65, "issue_ms": 1792597806532.0, "fin_ms": 1792597806583.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 189, "dur_ms": 85, "issue_ms": 1792597807719.0, "fin_ms": 1792597807797.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 0, "idx": 190, "dur_ms": 61, "issue_ms": 1792597808857.0, "fin_ms": 1792597808907.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 191, "dur_ms": 51, "issue_ms": 1792597809908.0, "fin_ms": 1792597809938.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 0, "idx": 192, "dur_ms": 52, "issue_ms": 1792597811085.0, "fin_ms": 1792597811121.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 193, "dur_ms": 1046, "issue_ms": 1792597812351.0, "fin_ms": 1792597813382.0, "load1": 4.20751953125, "main_ms": 1792597813382.16, "hook_ppid": 37171}
+{"variant": "pysi", "session": 0, "idx": 194, "dur_ms": 396, "issue_ms": 1792597814463.0, "fin_ms": 1792597814845.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 0, "idx": 195, "dur_ms": 161, "issue_ms": 1792597816036.0, "fin_ms": 1792597816191.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 196, "dur_ms": 53, "issue_ms": 1792597817244.0, "fin_ms": 1792597817289.0, "load1": 4.20751953125, "main_ms": 1792597817289.0261, "hook_ppid": 37171}
+{"variant": "cnoop", "session": 0, "idx": 197, "dur_ms": 49, "issue_ms": 1792597818367.0, "fin_ms": 1792597818401.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 198, "dur_ms": 115, "issue_ms": 1792597819459.0, "fin_ms": 1792597819562.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 0, "idx": 199, "dur_ms": 351, "issue_ms": 1792597820651.0, "fin_ms": 1792597821001.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 200, "dur_ms": 163, "issue_ms": 1792597822128.0, "fin_ms": 1792597822281.0, "load1": 4.20751953125, "main_ms": 1792597822281.134, "hook_ppid": 37171}
+{"variant": "colon", "session": 0, "idx": 201, "dur_ms": 42, "issue_ms": 1792597823584.0, "fin_ms": 1792597823610.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 202, "dur_ms": 158, "issue_ms": 1792597824605.0, "fin_ms": 1792597824756.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 0, "idx": 203, "dur_ms": 80, "issue_ms": 1792597825863.0, "fin_ms": 1792597825929.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 0, "idx": 204, "dur_ms": 122, "issue_ms": 1792597827036.0, "fin_ms": 1792597827152.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 205, "dur_ms": 50, "issue_ms": 1792597828320.0, "fin_ms": 1792597828355.0, "load1": 4.20751953125, "main_ms": 1792597828355.247, "hook_ppid": 37171}
+{"variant": "shellprobe_bash", "session": 0, "idx": 206, "dur_ms": 74, "issue_ms": 1792597829401.0, "fin_ms": 1792597829457.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 207, "dur_ms": 43, "issue_ms": 1792597830545.0, "fin_ms": 1792597830574.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 0, "idx": 208, "dur_ms": 65, "issue_ms": 1792597831634.0, "fin_ms": 1792597831682.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 209, "dur_ms": 78, "issue_ms": 1792597832771.0, "fin_ms": 1792597832840.0, "load1": 4.20751953125, "main_ms": 1792597832839.763, "hook_ppid": 37171}
+{"variant": "pysi", "session": 0, "idx": 210, "dur_ms": 54, "issue_ms": 1792597834017.0, "fin_ms": 1792597834059.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 0, "idx": 211, "dur_ms": 67, "issue_ms": 1792597835155.0, "fin_ms": 1792597835190.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 0, "idx": 212, "dur_ms": 136, "issue_ms": 1792597836261.0, "fin_ms": 1792597836390.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 0, "idx": 213, "dur_ms": 33, "issue_ms": 1792597837461.0, "fin_ms": 1792597837480.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 214, "dur_ms": 188, "issue_ms": 1792597838464.0, "fin_ms": 1792597838642.0, "load1": 4.20751953125, "main_ms": 1792597838641.576, "hook_ppid": 37171}
+{"variant": "execcnoop", "session": 0, "idx": 215, "dur_ms": 118, "issue_ms": 1792597839771.0, "fin_ms": 1792597839873.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 216, "dur_ms": 70, "issue_ms": 1792597840979.0, "fin_ms": 1792597841039.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 0, "idx": 217, "dur_ms": 48, "issue_ms": 1792597842093.0, "fin_ms": 1792597842132.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 218, "dur_ms": 68, "issue_ms": 1792597843183.0, "fin_ms": 1792597843238.0, "load1": 4.20751953125, "main_ms": 1792597843237.961, "hook_ppid": 37171}
+{"variant": "pysi", "session": 0, "idx": 219, "dur_ms": 54, "issue_ms": 1792597844299.0, "fin_ms": 1792597844345.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 0, "idx": 220, "dur_ms": 72, "issue_ms": 1792597845420.0, "fin_ms": 1792597845476.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 0, "idx": 221, "dur_ms": 62, "issue_ms": 1792597846567.0, "fin_ms": 1792597846611.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 222, "dur_ms": 69, "issue_ms": 1792597847715.0, "fin_ms": 1792597847770.0, "load1": 4.20751953125, "main_ms": 1792597847769.628, "hook_ppid": 37171}
+{"variant": "colon", "session": 0, "idx": 223, "dur_ms": 51, "issue_ms": 1792597848822.0, "fin_ms": 1792597848863.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 0, "idx": 224, "dur_ms": 51, "issue_ms": 1792597849938.0, "fin_ms": 1792597849968.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 0, "idx": 225, "dur_ms": 75, "issue_ms": 1792597851014.0, "fin_ms": 1792597851074.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 226, "dur_ms": 64, "issue_ms": 1792597852242.0, "fin_ms": 1792597852284.0, "load1": 4.20751953125, "main_ms": 1792597852284.4622, "hook_ppid": 37171}
+{"variant": "pysi", "session": 0, "idx": 227, "dur_ms": 73, "issue_ms": 1792597853656.0, "fin_ms": 1792597853716.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 0, "idx": 228, "dur_ms": 61, "issue_ms": 1792597854664.0, "fin_ms": 1792597854718.0, "load1": 4.20751953125, "main_ms": 1792597854718.033, "hook_ppid": 37171}
+{"variant": "cnoop", "session": 0, "idx": 229, "dur_ms": 107, "issue_ms": 1792597856321.0, "fin_ms": 1792597856414.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 0, "idx": 230, "dur_ms": 31, "issue_ms": 1792597857537.0, "fin_ms": 1792597857568.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 0, "idx": 231, "dur_ms": 98, "issue_ms": 1792597858651.0, "fin_ms": 1792597858739.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 0, "idx": 232, "dur_ms": 70, "issue_ms": 1792597859802.0, "fin_ms": 1792597859861.0, "load1": 4.20751953125, "main_ms": 1792597859860.61, "hook_ppid": 37171}
+{"variant": "colon", "session": 0, "idx": 233, "dur_ms": 52, "issue_ms": 1792597860903.0, "fin_ms": 1792597860947.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 0, "idx": 234, "dur_ms": 88, "issue_ms": 1792597862265.0, "fin_ms": 1792597862298.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 0, "idx": 235, "dur_ms": 174, "issue_ms": 1792597863373.0, "fin_ms": 1792597863517.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 0, "idx": 236, "dur_ms": 187, "issue_ms": 1792597864621.0, "fin_ms": 1792597864791.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 0, "idx": 237, "dur_ms": 64, "issue_ms": 1792597869406.0, "fin_ms": 1792597869457.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 1, "idx": 0, "dur_ms": 165, "issue_ms": 1792597884320.0, "fin_ms": 1792597884480.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 1, "idx": 1, "dur_ms": 97, "issue_ms": 1792597885512.0, "fin_ms": 1792597885599.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 1, "idx": 2, "dur_ms": 65, "issue_ms": 1792597886794.0, "fin_ms": 1792597886852.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 1, "idx": 3, "dur_ms": 84, "issue_ms": 1792597887827.0, "fin_ms": 1792597887906.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 1, "idx": 4, "dur_ms": 175, "issue_ms": 1792597888921.0, "fin_ms": 1792597889086.0, "load1": 4.20751953125, "main_ms": 1792597889086.2678, "hook_ppid": 45456}
+{"variant": "colon_bash", "session": 1, "idx": 5, "dur_ms": 50, "issue_ms": 1792597890110.0, "fin_ms": 1792597890150.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 1, "idx": 6, "dur_ms": 61, "issue_ms": 1792597891223.0, "fin_ms": 1792597891281.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 1, "idx": 7, "dur_ms": 49, "issue_ms": 1792597892465.0, "fin_ms": 1792597892510.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 1, "idx": 8, "dur_ms": 65, "issue_ms": 1792597893416.0, "fin_ms": 1792597893480.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 1, "idx": 9, "dur_ms": 47, "issue_ms": 1792597894546.0, "fin_ms": 1792597894579.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 1, "idx": 10, "dur_ms": 89, "issue_ms": 1792597895676.0, "fin_ms": 1792597895762.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 1, "idx": 11, "dur_ms": 88, "issue_ms": 1792597896703.0, "fin_ms": 1792597896781.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 1, "idx": 12, "dur_ms": 65, "issue_ms": 1792597897716.0, "fin_ms": 1792597897775.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 13, "dur_ms": 64, "issue_ms": 1792597899003.0, "fin_ms": 1792597899063.0, "load1": 4.20751953125, "main_ms": 1792597899062.977, "hook_ppid": 45456}
+{"variant": "stamp_bash", "session": 1, "idx": 14, "dur_ms": 66, "issue_ms": 1792597900235.0, "fin_ms": 1792597900292.0, "load1": 4.20751953125, "main_ms": 1792597900291.867, "hook_ppid": 45456}
+{"variant": "cnoop_bash", "session": 1, "idx": 15, "dur_ms": 114, "issue_ms": 1792597901325.0, "fin_ms": 1792597901432.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 16, "dur_ms": 58, "issue_ms": 1792597902558.0, "fin_ms": 1792597902607.0, "load1": 4.20751953125, "main_ms": 1792597902607.303, "hook_ppid": 45456}
+{"variant": "cnoop_bash", "session": 1, "idx": 17, "dur_ms": 67, "issue_ms": 1792597903750.0, "fin_ms": 1792597903811.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 1, "idx": 18, "dur_ms": 77, "issue_ms": 1792597904773.0, "fin_ms": 1792597904842.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 1, "idx": 19, "dur_ms": 75, "issue_ms": 1792597905874.0, "fin_ms": 1792597905939.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 1, "idx": 20, "dur_ms": 50, "issue_ms": 1792597906878.0, "fin_ms": 1792597906925.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 1, "idx": 21, "dur_ms": 71, "issue_ms": 1792597907908.0, "fin_ms": 1792597907967.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 1, "idx": 22, "dur_ms": 53, "issue_ms": 1792597908879.0, "fin_ms": 1792597908921.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 1, "idx": 23, "dur_ms": 35, "issue_ms": 1792597909934.0, "fin_ms": 1792597909954.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 1, "idx": 24, "dur_ms": 73, "issue_ms": 1792597910914.0, "fin_ms": 1792597910976.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 1, "idx": 25, "dur_ms": 64, "issue_ms": 1792597911970.0, "fin_ms": 1792597912023.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 1, "idx": 26, "dur_ms": 74, "issue_ms": 1792597913181.0, "fin_ms": 1792597913239.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 1, "idx": 27, "dur_ms": 81, "issue_ms": 1792597914307.0, "fin_ms": 1792597914372.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 28, "dur_ms": 47, "issue_ms": 1792597915360.0, "fin_ms": 1792597915397.0, "load1": 4.20751953125, "main_ms": 1792597915396.823, "hook_ppid": 45456}
+{"variant": "pysi", "session": 1, "idx": 29, "dur_ms": 69, "issue_ms": 1792597916458.0, "fin_ms": 1792597916519.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 30, "dur_ms": 66, "issue_ms": 1792597917529.0, "fin_ms": 1792597917587.0, "load1": 4.20751953125, "main_ms": 1792597917586.7231, "hook_ppid": 45456}
+{"variant": "pysi", "session": 1, "idx": 31, "dur_ms": 108, "issue_ms": 1792597918746.0, "fin_ms": 1792597918854.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 1, "idx": 32, "dur_ms": 118, "issue_ms": 1792597919818.0, "fin_ms": 1792597919933.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 33, "dur_ms": 63, "issue_ms": 1792597921024.0, "fin_ms": 1792597921073.0, "load1": 4.20751953125, "main_ms": 1792597921073.392, "hook_ppid": 45456}
+{"variant": "cnoop_bash", "session": 1, "idx": 34, "dur_ms": 112, "issue_ms": 1792597922007.0, "fin_ms": 1792597922101.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 1, "idx": 35, "dur_ms": 181, "issue_ms": 1792597923082.0, "fin_ms": 1792597923255.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 1, "idx": 36, "dur_ms": 1505, "issue_ms": 1792597924346.0, "fin_ms": 1792597925849.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 1, "idx": 37, "dur_ms": 204, "issue_ms": 1792597926794.0, "fin_ms": 1792597926991.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 1, "idx": 38, "dur_ms": 62, "issue_ms": 1792597928186.0, "fin_ms": 1792597928240.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 1, "idx": 39, "dur_ms": 72, "issue_ms": 1792597929234.0, "fin_ms": 1792597929294.0, "load1": 4.20751953125, "main_ms": 1792597929294.0989, "hook_ppid": 45456}
+{"variant": "colon_bash", "session": 1, "idx": 40, "dur_ms": 103, "issue_ms": 1792597930380.0, "fin_ms": 1792597930467.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 1, "idx": 41, "dur_ms": 125, "issue_ms": 1792597931483.0, "fin_ms": 1792597931598.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 1, "idx": 42, "dur_ms": 71, "issue_ms": 1792597932482.0, "fin_ms": 1792597932547.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 1, "idx": 43, "dur_ms": 105, "issue_ms": 1792597933634.0, "fin_ms": 1792597933738.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 1, "idx": 44, "dur_ms": 88, "issue_ms": 1792597934754.0, "fin_ms": 1792597934817.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 1, "idx": 45, "dur_ms": 80, "issue_ms": 1792597935792.0, "fin_ms": 1792597935868.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 1, "idx": 46, "dur_ms": 147, "issue_ms": 1792597936978.0, "fin_ms": 1792597937116.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 1, "idx": 47, "dur_ms": 117, "issue_ms": 1792597938189.0, "fin_ms": 1792597938291.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 48, "dur_ms": 73, "issue_ms": 1792597939262.0, "fin_ms": 1792597939321.0, "load1": 4.20751953125, "main_ms": 1792597939320.7522, "hook_ppid": 45456}
+{"variant": "stamp_bash", "session": 1, "idx": 49, "dur_ms": 49, "issue_ms": 1792597940329.0, "fin_ms": 1792597940374.0, "load1": 4.20751953125, "main_ms": 1792597940374.34, "hook_ppid": 45456}
+{"variant": "cnoop_bash", "session": 1, "idx": 50, "dur_ms": 86, "issue_ms": 1792597941496.0, "fin_ms": 1792597941578.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 51, "dur_ms": 63, "issue_ms": 1792597942499.0, "fin_ms": 1792597942545.0, "load1": 4.20751953125, "main_ms": 1792597942544.985, "hook_ppid": 45456}
+{"variant": "cnoop_bash", "session": 1, "idx": 52, "dur_ms": 63, "issue_ms": 1792597943714.0, "fin_ms": 1792597943767.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 1, "idx": 53, "dur_ms": 87, "issue_ms": 1792597944774.0, "fin_ms": 1792597944840.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 1, "idx": 54, "dur_ms": 101, "issue_ms": 1792597945750.0, "fin_ms": 1792597945851.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 55, "dur_ms": 74, "issue_ms": 1792597946937.0, "fin_ms": 1792597947010.0, "load1": 4.20751953125, "main_ms": 1792597947009.7678, "hook_ppid": 45456}
+{"variant": "pysi", "session": 1, "idx": 56, "dur_ms": 100, "issue_ms": 1792597948041.0, "fin_ms": 1792597948140.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 1, "idx": 57, "dur_ms": 105, "issue_ms": 1792597949178.0, "fin_ms": 1792597949276.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 58, "dur_ms": 109, "issue_ms": 1792597950245.0, "fin_ms": 1792597950348.0, "load1": 4.20751953125, "main_ms": 1792597950348.435, "hook_ppid": 45456}
+{"variant": "cnoop_bash", "session": 1, "idx": 59, "dur_ms": 90, "issue_ms": 1792597951458.0, "fin_ms": 1792597951548.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 1, "idx": 60, "dur_ms": 55, "issue_ms": 1792597952634.0, "fin_ms": 1792597952666.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 1, "idx": 61, "dur_ms": 109, "issue_ms": 1792597953639.0, "fin_ms": 1792597953747.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 62, "dur_ms": 61, "issue_ms": 1792597954695.0, "fin_ms": 1792597954746.0, "load1": 4.20751953125, "main_ms": 1792597954745.984, "hook_ppid": 45456}
+{"variant": "pysi", "session": 1, "idx": 63, "dur_ms": 105, "issue_ms": 1792597955759.0, "fin_ms": 1792597955863.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 1, "idx": 64, "dur_ms": 32, "issue_ms": 1792597956879.0, "fin_ms": 1792597956899.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 65, "dur_ms": 89, "issue_ms": 1792597957962.0, "fin_ms": 1792597958051.0, "load1": 4.20751953125, "main_ms": 1792597958050.05, "hook_ppid": 45456}
+{"variant": "cnoop", "session": 1, "idx": 66, "dur_ms": 68, "issue_ms": 1792597958953.0, "fin_ms": 1792597959014.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 1, "idx": 67, "dur_ms": 286, "issue_ms": 1792597959954.0, "fin_ms": 1792597960229.0, "load1": 4.20751953125, "main_ms": 1792597960229.303, "hook_ppid": 45456}
+{"variant": "stamp_bash", "session": 1, "idx": 68, "dur_ms": 69, "issue_ms": 1792597961244.0, "fin_ms": 1792597961298.0, "load1": 4.20751953125, "main_ms": 1792597961297.782, "hook_ppid": 45456}
+{"variant": "colon", "session": 1, "idx": 69, "dur_ms": 61, "issue_ms": 1792597962337.0, "fin_ms": 1792597962384.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 1, "idx": 70, "dur_ms": 72, "issue_ms": 1792597963344.0, "fin_ms": 1792597963415.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 1, "idx": 71, "dur_ms": 99, "issue_ms": 1792597964362.0, "fin_ms": 1792597964457.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 1, "idx": 72, "dur_ms": 47, "issue_ms": 1792597965515.0, "fin_ms": 1792597965537.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 1, "idx": 73, "dur_ms": 217, "issue_ms": 1792597966499.0, "fin_ms": 1792597966704.0, "load1": 4.20751953125, "main_ms": 1792597966703.867, "hook_ppid": 45456}
+{"variant": "colon_bash", "session": 1, "idx": 74, "dur_ms": 672, "issue_ms": 1792597967698.0, "fin_ms": 1792597968365.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 1, "idx": 75, "dur_ms": 334, "issue_ms": 1792597969321.0, "fin_ms": 1792597969654.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 1, "idx": 76, "dur_ms": 453, "issue_ms": 1792597970680.0, "fin_ms": 1792597971127.0, "load1": 4.20751953125, "main_ms": 1792597971121.855, "hook_ppid": 45456}
+{"variant": "cnoop", "session": 1, "idx": 77, "dur_ms": 147, "issue_ms": 1792597972144.0, "fin_ms": 1792597972286.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 1, "idx": 78, "dur_ms": 76, "issue_ms": 1792597973229.0, "fin_ms": 1792597973290.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 1, "idx": 79, "dur_ms": 116, "issue_ms": 1792597974358.0, "fin_ms": 1792597974472.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 1, "idx": 80, "dur_ms": 174, "issue_ms": 1792597975620.0, "fin_ms": 1792597975787.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 1, "idx": 81, "dur_ms": 136, "issue_ms": 1792597976766.0, "fin_ms": 1792597976895.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 82, "dur_ms": 129, "issue_ms": 1792597977776.0, "fin_ms": 1792597977896.0, "load1": 4.20751953125, "main_ms": 1792597977896.27, "hook_ppid": 45456}
+{"variant": "pysi", "session": 1, "idx": 83, "dur_ms": 170, "issue_ms": 1792597978877.0, "fin_ms": 1792597979042.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 1, "idx": 84, "dur_ms": 59, "issue_ms": 1792597980042.0, "fin_ms": 1792597980092.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 1, "idx": 85, "dur_ms": 228, "issue_ms": 1792597981056.0, "fin_ms": 1792597981268.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 1, "idx": 86, "dur_ms": 125, "issue_ms": 1792597982332.0, "fin_ms": 1792597982456.0, "load1": 4.20751953125, "main_ms": 1792597982456.1401, "hook_ppid": 45456}
+{"variant": "execcnoop", "session": 1, "idx": 87, "dur_ms": 64, "issue_ms": 1792597983626.0, "fin_ms": 1792597983683.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 88, "dur_ms": 143, "issue_ms": 1792597984850.0, "fin_ms": 1792597984983.0, "load1": 4.20751953125, "main_ms": 1792597984982.582, "hook_ppid": 45456}
+{"variant": "colon_bash", "session": 1, "idx": 89, "dur_ms": 73, "issue_ms": 1792597985949.0, "fin_ms": 1792597986002.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 1, "idx": 90, "dur_ms": 99, "issue_ms": 1792597987004.0, "fin_ms": 1792597987090.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 1, "idx": 91, "dur_ms": 53, "issue_ms": 1792597988102.0, "fin_ms": 1792597988140.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 1, "idx": 92, "dur_ms": 81, "issue_ms": 1792597989153.0, "fin_ms": 1792597989224.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 1, "idx": 93, "dur_ms": 43, "issue_ms": 1792597990239.0, "fin_ms": 1792597990270.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 1, "idx": 94, "dur_ms": 134, "issue_ms": 1792597991263.0, "fin_ms": 1792597991386.0, "load1": 4.20751953125, "main_ms": 1792597991385.684, "hook_ppid": 45456}
+{"variant": "shc", "session": 1, "idx": 95, "dur_ms": 163, "issue_ms": 1792597992473.0, "fin_ms": 1792597992624.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 1, "idx": 96, "dur_ms": 161, "issue_ms": 1792597993554.0, "fin_ms": 1792597993707.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 1, "idx": 97, "dur_ms": 106, "issue_ms": 1792597994666.0, "fin_ms": 1792597994765.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 1, "idx": 98, "dur_ms": 77, "issue_ms": 1792597995847.0, "fin_ms": 1792597995906.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 1, "idx": 99, "dur_ms": 74, "issue_ms": 1792597996859.0, "fin_ms": 1792597996930.0, "load1": 4.20751953125, "main_ms": 1792597996930.145, "hook_ppid": 45456}
+{"variant": "shc", "session": 1, "idx": 100, "dur_ms": 112, "issue_ms": 1792597998070.0, "fin_ms": 1792597998182.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 101, "dur_ms": 90, "issue_ms": 1792597999188.0, "fin_ms": 1792597999269.0, "load1": 4.20751953125, "main_ms": 1792597999269.016, "hook_ppid": 45456}
+{"variant": "colon", "session": 1, "idx": 102, "dur_ms": 62, "issue_ms": 1792598000352.0, "fin_ms": 1792598000403.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 1, "idx": 103, "dur_ms": 48, "issue_ms": 1792598001575.0, "fin_ms": 1792598001602.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 1, "idx": 104, "dur_ms": 134, "issue_ms": 1792598002590.0, "fin_ms": 1792598002719.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 105, "dur_ms": 86, "issue_ms": 1792598003620.0, "fin_ms": 1792598003705.0, "load1": 4.20751953125, "main_ms": 1792598003704.75, "hook_ppid": 45456}
+{"variant": "cnoop_bash", "session": 1, "idx": 106, "dur_ms": 107, "issue_ms": 1792598004685.0, "fin_ms": 1792598004792.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 1, "idx": 107, "dur_ms": 32, "issue_ms": 1792598006150.0, "fin_ms": 1792598006173.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 1, "idx": 108, "dur_ms": 130, "issue_ms": 1792598007156.0, "fin_ms": 1792598007285.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 1, "idx": 109, "dur_ms": 86, "issue_ms": 1792598008469.0, "fin_ms": 1792598008555.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 1, "idx": 110, "dur_ms": 197, "issue_ms": 1792598009632.0, "fin_ms": 1792598009822.0, "load1": 4.20751953125, "main_ms": 1792598009821.544, "hook_ppid": 45456}
+{"variant": "pysi", "session": 1, "idx": 111, "dur_ms": 646, "issue_ms": 1792598010797.0, "fin_ms": 1792598011437.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 1, "idx": 112, "dur_ms": 881, "issue_ms": 1792598012405.0, "fin_ms": 1792598013266.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 1, "idx": 113, "dur_ms": 206, "issue_ms": 1792598014282.0, "fin_ms": 1792598014484.0, "load1": 4.20751953125}
+{"variant": "shellprobe_bash", "session": 1, "idx": 114, "dur_ms": 100, "issue_ms": 1792598015582.0, "fin_ms": 1792598015674.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 1, "idx": 115, "dur_ms": 177, "issue_ms": 1792598016779.0, "fin_ms": 1792598016949.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 1, "idx": 116, "dur_ms": 149, "issue_ms": 1792598018108.0, "fin_ms": 1792598018248.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 1, "idx": 117, "dur_ms": 31, "issue_ms": 1792598019395.0, "fin_ms": 1792598019409.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 1, "idx": 118, "dur_ms": 72, "issue_ms": 1792598020544.0, "fin_ms": 1792598020605.0, "load1": 4.20751953125, "main_ms": 1792598020604.866, "hook_ppid": 45456}
+{"variant": "stamp_bash", "session": 1, "idx": 119, "dur_ms": 63, "issue_ms": 1792598021693.0, "fin_ms": 1792598021745.0, "load1": 4.20751953125, "main_ms": 1792598021745.378, "hook_ppid": 45456}
+{"variant": "pysi", "session": 1, "idx": 120, "dur_ms": 70, "issue_ms": 1792598022908.0, "fin_ms": 1792598022958.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 1, "idx": 121, "dur_ms": 86, "issue_ms": 1792598024120.0, "fin_ms": 1792598024195.0, "load1": 4.20751953125}
+{"variant": "shc", "session": 1, "idx": 122, "dur_ms": 86, "issue_ms": 1792598025323.0, "fin_ms": 1792598025402.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 1, "idx": 123, "dur_ms": 30, "issue_ms": 1792598026437.0, "fin_ms": 1792598026454.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 1, "idx": 124, "dur_ms": 65, "issue_ms": 1792598027449.0, "fin_ms": 1792598027497.0, "load1": 4.20751953125, "main_ms": 1792598027497.0088, "hook_ppid": 45456}
+{"variant": "shellprobe_bash", "session": 1, "idx": 125, "dur_ms": 67, "issue_ms": 1792598028639.0, "fin_ms": 1792598028697.0, "load1": 4.20751953125}
+{"variant": "colon_bash", "session": 1, "idx": 126, "dur_ms": 42, "issue_ms": 1792598029749.0, "fin_ms": 1792598029782.0, "load1": 4.20751953125}
+{"variant": "cnoop", "session": 1, "idx": 127, "dur_ms": 59, "issue_ms": 1792598030985.0, "fin_ms": 1792598031028.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 1, "idx": 128, "dur_ms": 126, "issue_ms": 1792598032033.0, "fin_ms": 1792598032150.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 1, "idx": 129, "dur_ms": 70, "issue_ms": 1792598033218.0, "fin_ms": 1792598033280.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 130, "dur_ms": 60, "issue_ms": 1792598034292.0, "fin_ms": 1792598034339.0, "load1": 4.20751953125, "main_ms": 1792598034338.655, "hook_ppid": 45456}
+{"variant": "shc", "session": 1, "idx": 131, "dur_ms": 120, "issue_ms": 1792598035315.0, "fin_ms": 1792598035426.0, "load1": 4.20751953125}
+{"variant": "cnoop_bash", "session": 1, "idx": 132, "dur_ms": 173, "issue_ms": 1792598036432.0, "fin_ms": 1792598036582.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 1, "idx": 133, "dur_ms": 105, "issue_ms": 1792598037764.0, "fin_ms": 1792598037832.0, "load1": 4.20751953125, "main_ms": 1792598037831.605, "hook_ppid": 45456}
+{"variant": "colon", "session": 1, "idx": 134, "dur_ms": 43, "issue_ms": 1792598038829.0, "fin_ms": 1792598038863.0, "load1": 4.20751953125}
+{"variant": "stamp_bash", "session": 1, "idx": 135, "dur_ms": 60, "issue_ms": 1792598039944.0, "fin_ms": 1792598039990.0, "load1": 4.20751953125, "main_ms": 1792598039990.398, "hook_ppid": 45456}
+{"variant": "shellprobe_bash", "session": 1, "idx": 136, "dur_ms": 152, "issue_ms": 1792598041019.0, "fin_ms": 1792598041166.0, "load1": 4.20751953125}
+{"variant": "pysi", "session": 1, "idx": 137, "dur_ms": 64, "issue_ms": 1792598042422.0, "fin_ms": 1792598042476.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 1, "idx": 138, "dur_ms": 55, "issue_ms": 1792598043503.0, "fin_ms": 1792598043547.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 1, "idx": 139, "dur_ms": 70, "issue_ms": 1792598044838.0, "fin_ms": 1792598044889.0, "load1": 4.20751953125, "main_ms": 1792598044888.624, "hook_ppid": 45456}
+{"variant": "colon_bash", "session": 1, "idx": 140, "dur_ms": 81, "issue_ms": 1792598045966.0, "fin_ms": 1792598046041.0, "load1": 4.20751953125}
+{"variant": "execcnoop", "session": 1, "idx": 141, "dur_ms": 166, "issue_ms": 1792598046997.0, "fin_ms": 1792598047156.0, "load1": 4.20751953125}
+{"variant": "colon", "session": 1, "idx": 142, "dur_ms": 82, "issue_ms": 1792598048534.0, "fin_ms": 1792598048603.0, "load1": 4.20751953125}
+{"variant": "stamp", "session": 1, "idx": 143, "dur_ms": 98, "issue_ms": 1792598049649.0, "fin_ms": 1792598049735.0, "load1": 4.20751953125, "main_ms": 1792598049734.933, "hook_ppid": 45456}
+{"variant": "colon", "session": 1, "idx": 144, "dur_ms": 127, "issue_ms": 1792598059317.0, "fin_ms": 1792598059429.0, "load1": 4.20751953125}

@@ -1,0 +1,154 @@
+{
+ "registered": [],
+ "malformed": [],
+ "recorded": [],
+ "fuzz_bash": [],
+ "fuzz_write": [],
+ "typeconf": [
+  [
+   "tc:cmd_list",
+   [
+    0,
+    "{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"deny\", \"permissionDecisionReason\": \"permission_guard (G?): the guard could not read the event (TypeError). Skipping or loosening Claude Code's permission layer is the user's decision, not the lab's. Do not run it in another form or through a script; tell the user what you wanted and wait for their yes in their own message.\"}}",
+    "{\"tool\": null, \"what\": \"\", \"decision\": \"deny\", \"group\": \"G?\"}\n"
+   ],
+   [
+    0,
+    "{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"deny\", \"permissionDecisionReason\": \"permission_guard (G?): the guard could not read the event (UnsupportedType). Skipping or loosening Claude Code's permission layer is the user's decision, not the lab's. Do not run it in another form or through a script; tell the user what you wanted and wait for their yes in their own message.\"}}",
+    "{\"tool\": null, \"what\": \"\", \"decision\": \"deny\", \"group\": \"G?\"}\n"
+   ]
+  ],
+  [
+   "tc:content_float",
+   [
+    0,
+    "",
+    "{\"tool\": \"Write\", \"what\": \"/h/x.py\", \"decision\": \"allow\", \"group\": null}\n"
+   ],
+   [
+    0,
+    "{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"deny\", \"permissionDecisionReason\": \"permission_guard (G?): the guard could not read the event (UnsupportedType). Skipping or loosening Claude Code's permission layer is the user's decision, not the lab's. Do not run it in another form or through a script; tell the user what you wanted and wait for their yes in their own message.\"}}",
+    "{\"tool\": null, \"what\": \"\", \"decision\": \"deny\", \"group\": \"G?\"}\n"
+   ]
+  ],
+  [
+   "tc:content_float_ns",
+   [
+    0,
+    "",
+    "{\"tool\": \"NotebookEdit\", \"what\": \"\", \"decision\": \"allow\", \"group\": null}\n"
+   ],
+   [
+    0,
+    "{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"deny\", \"permissionDecisionReason\": \"permission_guard (G?): the guard could not read the event (UnsupportedType). Skipping or loosening Claude Code's permission layer is the user's decision, not the lab's. Do not run it in another form or through a script; tell the user what you wanted and wait for their yes in their own message.\"}}",
+    "{\"tool\": null, \"what\": \"\", \"decision\": \"deny\", \"group\": \"G?\"}\n"
+   ]
+  ],
+  [
+   "tc:content_float_new",
+   [
+    0,
+    "",
+    "{\"tool\": \"Edit\", \"what\": \"/h/x.py\", \"decision\": \"allow\", \"group\": null}\n"
+   ],
+   [
+    0,
+    "{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"deny\", \"permissionDecisionReason\": \"permission_guard (G?): the guard could not read the event (UnsupportedType). Skipping or loosening Claude Code's permission layer is the user's decision, not the lab's. Do not run it in another form or through a script; tell the user what you wanted and wait for their yes in their own message.\"}}",
+    "{\"tool\": null, \"what\": \"\", \"decision\": \"deny\", \"group\": \"G?\"}\n"
+   ]
+  ],
+  [
+   "tc:content_list",
+   [
+    0,
+    "",
+    "{\"tool\": \"Write\", \"what\": \"/h/x.py\", \"decision\": \"allow\", \"group\": null}\n"
+   ],
+   [
+    0,
+    "{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"deny\", \"permissionDecisionReason\": \"permission_guard (G?): the guard could not read the event (UnsupportedType). Skipping or loosening Claude Code's permission layer is the user's decision, not the lab's. Do not run it in another form or through a script; tell the user what you wanted and wait for their yes in their own message.\"}}",
+    "{\"tool\": null, \"what\": \"\", \"decision\": \"deny\", \"group\": \"G?\"}\n"
+   ]
+  ],
+  [
+   "tc:content_list_ns",
+   [
+    0,
+    "",
+    "{\"tool\": \"NotebookEdit\", \"what\": \"\", \"decision\": \"allow\", \"group\": null}\n"
+   ],
+   [
+    0,
+    "{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"deny\", \"permissionDecisionReason\": \"permission_guard (G?): the guard could not read the event (UnsupportedType). Skipping or loosening Claude Code's permission layer is the user's decision, not the lab's. Do not run it in another form or through a script; tell the user what you wanted and wait for their yes in their own message.\"}}",
+    "{\"tool\": null, \"what\": \"\", \"decision\": \"deny\", \"group\": \"G?\"}\n"
+   ]
+  ],
+  [
+   "tc:content_list_new",
+   [
+    0,
+    "",
+    "{\"tool\": \"Edit\", \"what\": \"/h/x.py\", \"decision\": \"allow\", \"group\": null}\n"
+   ],
+   [
+    0,
+    "{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"deny\", \"permissionDecisionReason\": \"permission_guard (G?): the guard could not read the event (UnsupportedType). Skipping or loosening Claude Code's permission layer is the user's decision, not the lab's. Do not run it in another form or through a script; tell the user what you wanted and wait for their yes in their own message.\"}}",
+    "{\"tool\": null, \"what\": \"\", \"decision\": \"deny\", \"group\": \"G?\"}\n"
+   ]
+  ],
+  [
+   "tc:content_dict",
+   [
+    0,
+    "",
+    "{\"tool\": \"Write\", \"what\": \"/h/x.py\", \"decision\": \"allow\", \"group\": null}\n"
+   ],
+   [
+    0,
+    "{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"deny\", \"permissionDecisionReason\": \"permission_guard (G?): the guard could not read the event (UnsupportedType). Skipping or loosening Claude Code's permission layer is the user's decision, not the lab's. Do not run it in another form or through a script; tell the user what you wanted and wait for their yes in their own message.\"}}",
+    "{\"tool\": null, \"what\": \"\", \"decision\": \"deny\", \"group\": \"G?\"}\n"
+   ]
+  ],
+  [
+   "tc:content_dict_ns",
+   [
+    0,
+    "",
+    "{\"tool\": \"NotebookEdit\", \"what\": \"\", \"decision\": \"allow\", \"group\": null}\n"
+   ],
+   [
+    0,
+    "{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"deny\", \"permissionDecisionReason\": \"permission_guard (G?): the guard could not read the event (UnsupportedType). Skipping or loosening Claude Code's permission layer is the user's decision, not the lab's. Do not run it in another form or through a script; tell the user what you wanted and wait for their yes in their own message.\"}}",
+    "{\"tool\": null, \"what\": \"\", \"decision\": \"deny\", \"group\": \"G?\"}\n"
+   ]
+  ],
+  [
+   "tc:content_dict_new",
+   [
+    0,
+    "",
+    "{\"tool\": \"Edit\", \"what\": \"/h/x.py\", \"decision\": \"allow\", \"group\": null}\n"
+   ],
+   [
+    0,
+    "{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"deny\", \"permissionDecisionReason\": \"permission_guard (G?): the guard could not read the event (UnsupportedType). Skipping or loosening Claude Code's permission layer is the user's decision, not the lab's. Do not run it in another form or through a script; tell the user what you wanted and wait for their yes in their own message.\"}}",
+    "{\"tool\": null, \"what\": \"\", \"decision\": \"deny\", \"group\": \"G?\"}\n"
+   ]
+  ]
+ ],
+ "stress": [
+  [
+   "tc:long_word",
+   [
+    "timeout",
+    "",
+    null
+   ],
+   [
+    0,
+    "",
+    "{\"tool\": \"Bash\", \"what\": \"python3 -c write aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"decision\": \"allow\", \"group\": null}\n"
+   ]
+  ]
+ ]
+}

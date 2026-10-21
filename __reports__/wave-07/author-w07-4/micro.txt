@@ -1,0 +1,3 @@
+worktrees listed: 13; equal: True; load1 3.14
+A: median 42.93 ms, min 40.78, max 119.48 (n=200)
+B: median 0.52 ms, min 0.34, max 0.79 (n=200)

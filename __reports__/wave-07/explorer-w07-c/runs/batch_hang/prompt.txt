@@ -1,0 +1,1 @@
+Run these Bash commands strictly one per message, in this exact order, each as its own tool call, waiting for each result before the next, and carry on even if one is blocked or refused: `echo first`, then `echo second`. Then reply with one line: what happened after each, and any hook message or error you saw, word for word.

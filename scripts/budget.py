@@ -847,16 +847,19 @@ def selftest():
         assert "USD 3.00 and 20 minutes (the defaults for your role" in got, got
 
     # 7. the registration: the check on PostToolBatch, the ceiling on PostToolUse, the dispatch on Agent
+    import shlex
     hooks = json.load(open(os.path.join(HERE, "..", "hooks", "hooks.json")))["hooks"]
+
+    def argv(h):   # a row's argument vector: exec form (`command` plus `args`, w07-c3) or the shell's own word splitting
+        return [h["command"]] + h["args"] if "args" in h else shlex.split(h["command"])
     for event, matcher in (("SubagentStart", None), ("PostToolBatch", None), ("PostToolUse", None), ("SubagentStop", None), ("PreToolUse", "Agent|Task")):
-        assert any(h["command"].endswith('run_hook.py" budget') and g.get("matcher") == matcher for g in hooks[event] for h in g["hooks"]), (event, matcher)
+        assert any(argv(h)[-2].endswith("run_hook.py") and argv(h)[-1] == "budget" and g.get("matcher") == matcher for g in hooks[event] for h in g["hooks"]), (event, matcher)
     assert subprocess.run([sys.executable, os.path.abspath(__file__)], input="not json", capture_output=True, text=True).returncode == 0
 
     # 8. the lean start (w06-c9): the registered command gives what `python3 budget.py` gives; the quiet path imports neither `re` nor `json`; the JSON reader and writer equal `json`
     import random
-    import shlex
-    cmds = [h["command"].replace("${CLAUDE_PLUGIN_ROOT}", os.path.dirname(HERE)) for g in hooks["PostToolUse"] + hooks["SubagentStart"] for h in g["hooks"] if "run_hook.py" in h["command"]]
-    assert cmds and all(shlex.split(c)[:3] == ["python3", "-S", "-I"] for c in cmds), cmds
+    cmds = [[a.replace("${CLAUDE_PLUGIN_ROOT}", os.path.dirname(HERE)) for a in argv(h)] for g in hooks["PostToolUse"] + hooks["SubagentStart"] for h in g["hooks"] if any("run_hook.py" in a for a in argv(h))]
+    assert cmds and all(c[:3] == ["python3", "-S", "-I"] for c in cmds), cmds
     with tempfile.TemporaryDirectory() as tmp:
         os.makedirs(os.path.join(tmp, "__statera__"))
         sub = os.path.join(tmp, "s", "subagents")
@@ -867,7 +870,7 @@ def selftest():
         for name in ("SubagentStart", "PostToolUse", "PostToolBatch"):   # the registered command, then the script run directly, on the same state
             outs = []
             for cmd in cmds[:1] + [None]:
-                proc = subprocess.run(shlex.split(cmd) if cmd else [sys.executable, os.path.abspath(__file__)], input=json.dumps(dict(ev, hook_event_name=name, tool_name="Bash", tool_calls=[])),
+                proc = subprocess.run(cmd if cmd else [sys.executable, os.path.abspath(__file__)], input=json.dumps(dict(ev, hook_event_name=name, tool_name="Bash", tool_calls=[])),
                                       capture_output=True, text=True, env={k: v for k, v in os.environ.items() if k != "CLAUDE_PROJECT_DIR"})
                 assert proc.returncode == 0 and not proc.stderr, (cmd, proc.returncode, proc.stderr)
                 outs.append(proc.stdout)

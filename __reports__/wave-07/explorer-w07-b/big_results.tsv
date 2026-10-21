@@ -1,0 +1,61 @@
+label	name	call	chars	est_tokens	later_requests	reread_usd	head
+w6	author-w06-4	Read	61427	25685.486	122	0.313	/Users/hacker/.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-bl
+w4	author-w04-4	Read	61427	25685.486	119	0.306	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be/scripts
+w6	author-w06-6	Read	32259	13488.988	172	0.232	/Users/hacker/Documents/src/CrackingShells/Murmuration/.claude/worktrees/agent-a7ee55f82e0
+w6	author-w06-3	Read	61427	25685.486	83	0.213	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/blissful-villani-34edd8/scripts/b
+w5	author-w05-3	Read	31889	13334.274	127	0.169	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673/sc
+w6	author-w06-6	Bash:sed	21720	9082.142	167	0.152	
+w5	author-w05-3	Bash:cat	25842	10805.742	133	0.144	
+w6	author-w06-6	Bash:head	20061	8388.437	170	0.143	
+w6	author-w06-5	Bash:git	14045	5872.868	240	0.141	
+w4	author-w04-2	Read	30415	12717.926	105	0.134	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be/__pondu
+w5	author-w05-3	Bash:cat	23539	9842.751	134	0.132	
+w4	author-w04-3	Read	22955	9598.553	115	0.110	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be/__pondu
+w6	author-w06-6	Bash:cat	15220	6364.190	169	0.108	
+w6	author-w06-4	Bash:wc	21506	8992.659	119	0.107	
+w5	author-w05-3	Read	23178	9691.800	109	0.106	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673/sc
+w6	author-w06-4	Bash:cat	20324	8498.410	124	0.105	
+w4	author-w04-2	Bash:cd	23974	10024.644	101	0.101	
+w4	author-w04-4	Read	19401	8112.460	118	0.096	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be/scripts
+w6	author-w06-4	Bash:git	18150	7589.359	125	0.095	
+w6	author-w06-6	Bash:cat	13025	5446.358	172	0.094	
+w6	author-w06-4	Bash:cat	18260	7635.355	121	0.092	
+w5	explorer-w05-d	Read	32259	13488.988	66	0.089	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673/__
+w6	author-w06-5	Bash:sed	8620	3604.423	237	0.085	
+w6	author-w06-6	Bash:sed	12355	5166.200	163	0.084	
+w6	author-w06-6	Bash:sed	11672	4880.606	167	0.082	
+w6	author-w06-5	Bash:cat	7373	3082.994	239	0.074	
+w5	author-w05-3	Read	13956	5835.653	126	0.074	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673/sc
+w6	author-w06-6	Bash:head	10039	4197.773	171	0.072	
+w5	author-w05-3	Bash:cat	12848	5372.346	133	0.071	
+w4	author-w04-4	Bash:uptime;	16533	6913.216	102	0.071	
+w6	reproducer-w06-7	Bash:cd	20870	8726.718	80	0.070	
+w6	author-w06-6	Bash:head	10102	4224.116	164	0.069	
+w6	author-w06-3	Read	19442	8129.604	85	0.069	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/blissful-villani-34edd8/__reports
+w6	author-w06-3	Read	19401	8112.460	83	0.067	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/blissful-villani-34edd8/scripts/h
+w6	author-w06-5	Bash:cd	7221	3019.436	214	0.065	
+w4	author-w04-3	Bash:cd	13464	5629.925	114	0.064	
+w6	author-w06-5	Bash:grep	6213	2597.944	239	0.062	
+w6	author-w06-5	Bash:python3	9459	3955.248	153	0.061	
+w5	author-w05-3	Bash:cat	10780	4507.619	125	0.056	
+w6	reproducer-w06-5	Bash:cd	25927	10841.285	51	0.055	
+w4	author-w04-2	Bash:cd	12731	5323.423	103	0.055	
+w5	author-w05-3	Bash:sed	15604	6524.758	83	0.054	
+w6	explorer-w06-b	Bash:cut	26296	10995.581	48	0.053	
+w6	author-w06-5	Bash:cd	5867	2453.266	215	0.053	
+w6	author-w06-6	Bash:grep	7321	3061.251	166	0.051	
+w4	author-w04-3	Bash:cd	10187	4259.658	113	0.048	
+w6	reproducer-w06-6	Bash:cd	19722	8246.685	58	0.048	
+w4	author-w04-4	Bash:cd	12442	5202.579	91	0.047	
+w5	author-w05-1	Read	17126	7161.177	66	0.047	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673/__
+w5	author-w05-3	Bash:python3	9514	3978.246	115	0.046	
+w5	author-w05-1	Bash:for	16562	6925.342	65	0.045	
+w5	author-w05-3	Bash:sed	8298	3469.780	129	0.045	
+w5	author-w05-3	Bash:sed	8865	3706.869	119	0.044	
+w5	author-w05-3	Bash:sed	8756	3661.291	120	0.044	
+w5	author-w05-3	Read	8225	3439.255	127	0.044	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673/sc
+w5	author-w05-3	Bash:cat	7879	3294.576	132	0.043	
+w6	reproducer-w06-7	Bash:cd	12804	5353.948	81	0.043	
+w6	author-w06-6	Bash:head	6037	2524.350	171	0.043	
+w4	author-w04-4	Read	8493	3551.318	121	0.043	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be/__desig
+w4	author-w04-2	Bash:cd	10011	4186.065	102	0.043	

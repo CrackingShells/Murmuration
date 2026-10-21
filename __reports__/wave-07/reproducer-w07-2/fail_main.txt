@@ -1,0 +1,23 @@
+case                                                 rc  stdout stderr wall s  stored  ok?
+record human                                         0   0      0      0.07    True    ok
+record peer (dropped)                                0   0      0      0.08    True    CHECK want_stored=False
+record absent, 1 KB file                             0   0      0      0.08    True    ok
+no prompt_id                                         0   0      0      0.10    True    ok
+empty transcript                                     0   0      0      0.10    True    ok
+missing file                                         0   0      0      0.05    True    ok
+directory                                            0   0      0      0.06    True    ok
+mode 000                                             0   0      0      0.06    True    ok
+symlink loop                                         0   0      0      0.07    True    ok
+garbage + torn last line                             0   0      0      0.05    True    ok
+binary garbage                                       0   0      0      0.05    True    ok
+record human then torn peer line (same id)           0   0      0      0.09    True    ok
+human record 5 MB from the end (past both windows)   0   0      0      0.09    True    ok
+human typed, record lands 1 s late                   0   0      0      0.07    True    ok
+peer, record lands 1 s late (dropped)                0   0      0      0.05    True    CHECK want_stored=False
+typed, record lands 4 s late (after the wait)        0   0      0      0.05    True    ok
+50 MB multi-line, record absent                      0   0      0      0.05    True    ok
+50 MB single line                                    0   0      0      0.04    True    ok
+FIFO as transcript (open blocks)                     HANG 0      0      14.01   False   CHECK want_stored=True
+human record whose tool-result sibling says peer     0   0      0      0.20    True    ok
+empty prompt text                                    0   0      0      0.19    False   ok
+cases not matching expectation: 3

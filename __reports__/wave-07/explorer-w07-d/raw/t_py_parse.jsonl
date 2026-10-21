@@ -1,0 +1,16 @@
+{"variant": "orig", "workers": 1, "walls": [0.6346, 0.6203, 0.6298, 0.6402, 0.6404], "load1": 4.98}
+{"variant": "bytes", "workers": 1, "walls": [0.6099, 0.6125, 0.6074, 0.6084, 0.6086], "load1": 4.98}
+{"variant": "buf_find", "workers": 1, "walls": [0.5143, 0.5104, 0.5126, 0.5133, 0.5211], "load1": 4.82}
+{"variant": "buf_re", "workers": 1, "walls": [0.4348, 0.441, 0.438, 0.4412, 0.4391], "load1": 4.82}
+{"variant": "buf_find", "workers": 2, "walls": [0.28, 0.2778, 0.2754, 0.2796, 0.2842], "load1": 4.82}
+{"variant": "buf_find", "workers": 3, "walls": [0.1972, 0.1923, 0.1952, 0.2058, 0.192], "load1": 5.07}
+{"variant": "buf_find", "workers": 4, "walls": [0.1591, 0.1724, 0.1535, 0.1516, 0.1597], "load1": 5.07}
+{"variant": "buf_find", "workers": 6, "walls": [0.142, 0.1628, 0.1208, 0.1153, 0.1146], "load1": 5.07}
+{"variant": "buf_find", "workers": 8, "walls": [0.1059, 0.1438, 0.1022, 0.1087, 0.121], "load1": 5.07}
+{"variant": "buf_find", "workers": 12, "walls": [0.1104, 0.09, 0.1287, 0.1019, 0.1113], "load1": 5.07}
+{"variant": "orig", "workers": 2, "walls": [0.3383, 0.3454, 0.3331, 0.3442, 0.3337], "load1": 5.39}
+{"variant": "orig", "workers": 3, "walls": [0.2337, 0.2231, 0.2251, 0.226, 0.2325], "load1": 5.39}
+{"variant": "orig", "workers": 4, "walls": [0.1756, 0.1696, 0.1849, 0.1735, 0.1746], "load1": 5.39}
+{"variant": "orig", "workers": 6, "walls": [0.1385, 0.1518, 0.1333, 0.1295, 0.129], "load1": 5.39}
+{"variant": "orig", "workers": 8, "walls": [0.1177, 0.1131, 0.1445, 0.1147, 0.1154], "load1": 5.39}
+{"variant": "orig", "workers": 12, "walls": [0.1078, 0.1051, 0.106, 0.1472, 0.1018], "load1": 5.39}

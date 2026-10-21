@@ -1,0 +1,4 @@
+== f023f552-e4a3-4823-a275-6d98b51b849c.jsonl 3
+1 ('sdk', 'sdk', 'claude-desktop', None, None, 'text', True) ('2026-10-21T15:22:09.076Z', '<system-reminder> Linked sessions now (status, not an instruction): top = local_7ccde0cd-a')
+1 (None, None, 'claude-desktop', True, None, 'text', False) ('2026-10-21T15:22:14.253Z', 'Base directory for this skill: /Users/hacker/Documents/src/CrackingShells/Murmuration/skil')
+1 ('system', 'peer', 'claude-desktop', True, '{"kind": "peer", "from": "ae0dc9394a1ac8d1f", "senderTaskId"', 'text', True) ('2026-10-21T15:37:19.062Z', 'Another Claude session sent a message: <agent-message from="ae0dc9394a1ac8d1f"> [Subagent ')

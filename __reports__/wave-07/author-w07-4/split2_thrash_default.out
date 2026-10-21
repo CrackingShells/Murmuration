@@ -1,0 +1,21 @@
+ 0 A 0.462 s  output 2986 bytes  cache files: lab_status_cache.json
+ 1 A 0.248 s  output 2986 bytes  cache files: lab_status_cache.json
+ 2 B 1.499 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+ 3 B 0.232 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+ 4 A 0.233 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+ 5 B 0.242 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+ 6 A 0.234 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+ 7 B 0.222 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+ 8 A 0.226 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+ 9 B 0.243 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+10 A 0.225 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+11 B 0.241 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+12 A 0.242 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+13 B 0.224 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+14 A 0.237 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+15 B 0.239 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+16 A 0.220 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+17 A 0.224 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+18 B 0.240 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+19 B 0.231 s  output 2986 bytes  cache files: lab_status_cache.json, lab_status_cache.v2.json
+alternating phase: median 0.235 s (n=12), max 0.243 s; load1 3.12

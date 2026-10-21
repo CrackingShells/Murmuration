@@ -1,0 +1,10 @@
+same set of paths: True 8 8
+import lab_status (first, in-process): 0.0073 s
+git worktree list (subprocess)                   med 0.0535  min 0.0513  max 0.0545
+worktree list from .git files                    med 0.0003  min 0.0003  max 0.0006
+find_sessions                                    med 0.0230  min 0.0223  max 0.0695
+Cache(): json.load of 3.1 MB                     med 0.0151  min 0.0141  max 0.0190
+load_sessions, warm cache (incl. Cache load)     med 0.0963  min 0.0947  max 0.1088
+load_sessions, no cache (parse everything)       med 0.7389  min 0.7277  max 1.3044
+report_spend total, no cache                     med 0.7778  min 0.7487  max 0.8456
+report_spend total, warm cache                   med 0.2024  min 0.1899  max 0.3029

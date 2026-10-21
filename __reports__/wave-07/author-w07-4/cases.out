@@ -1,0 +1,39 @@
+case | A | B | same | A ms | B ms
+repo main | ['repo', 'other/deep/wt-far', 'wt plain', 'wt-detached-é', 'wt-locked', 'wt-locked-gone', 'wt-removed'] | ['repo', 'other/deep/wt-far', 'wt plain', 'wt-detached-é', 'wt-locked', 'wt-locked-gone', 'wt-removed'] | SAME | 142.4 | 0.6
+repo main subfolder | ['repo', 'other/deep/wt-far', 'wt plain', 'wt-detached-é', 'wt-locked', 'wt-locked-gone', 'wt-removed'] | ['repo', 'other/deep/wt-far', 'wt plain', 'wt-detached-é', 'wt-locked', 'wt-locked-gone', 'wt-removed'] | SAME | 90.5 | 0.4
+repo via symlink | ['repo', 'other/deep/wt-far', 'wt plain', 'wt-detached-é', 'wt-locked', 'wt-locked-gone', 'wt-removed'] | ['repo', 'other/deep/wt-far', 'wt plain', 'wt-detached-é', 'wt-locked', 'wt-locked-gone', 'wt-removed'] | SAME | 64.4 | 0.4
+repo via symlink subfolder | ['repo', 'other/deep/wt-far', 'wt plain', 'wt-detached-é', 'wt-locked', 'wt-locked-gone', 'wt-removed'] | ['repo', 'other/deep/wt-far', 'wt plain', 'wt-detached-é', 'wt-locked', 'wt-locked-gone', 'wt-removed'] | SAME | 41.4 | 0.4
+from linked 'wt plain' | ['repo', 'other/deep/wt-far', 'wt plain', 'wt-detached-é', 'wt-locked', 'wt-locked-gone', 'wt-removed'] | ['repo', 'other/deep/wt-far', 'wt plain', 'wt-detached-é', 'wt-locked', 'wt-locked-gone', 'wt-removed'] | SAME | 40.5 | 0.4
+from linked detached | ['repo', 'other/deep/wt-far', 'wt plain', 'wt-detached-é', 'wt-locked', 'wt-locked-gone', 'wt-removed'] | ['repo', 'other/deep/wt-far', 'wt plain', 'wt-detached-é', 'wt-locked', 'wt-locked-gone', 'wt-removed'] | SAME | 40.6 | 0.4
+from linked far | ['repo', 'other/deep/wt-far', 'wt plain', 'wt-detached-é', 'wt-locked', 'wt-locked-gone', 'wt-removed'] | ['repo', 'other/deep/wt-far', 'wt plain', 'wt-detached-é', 'wt-locked', 'wt-locked-gone', 'wt-removed'] | SAME | 40.8 | 0.4
+from linked locked | ['repo', 'other/deep/wt-far', 'wt plain', 'wt-detached-é', 'wt-locked', 'wt-locked-gone', 'wt-removed'] | ['repo', 'other/deep/wt-far', 'wt plain', 'wt-detached-é', 'wt-locked', 'wt-locked-gone', 'wt-removed'] | SAME | 40.3 | 0.4
+repo without worktrees | ['solo'] | ['solo'] | SAME | 40.6 | 0.2
+git dir unreadable (chmod 000 .git) | [] | [] | SAME | 65.3 | 63.6
+worktrees dir unreadable (chmod 000 .git/worktrees) | ['f-nowt-perm'] | ['f-nowt-perm'] | SAME | 48.0 | 40.4
+from linked worktree, admin dir unreadable | [] | [] | SAME | 38.9 | 39.4
+gitdir points at a missing path (worktree removed) | ['f-gitdir-missing', 'f-gitdir-missing-wt'] | ['f-gitdir-missing', 'f-gitdir-missing-wt'] | SAME | 40.6 | 0.3
+gitdir file empty | ['f-gitdir-empty'] | ['f-gitdir-empty'] | SAME | 39.7 | 0.2
+gitdir file garbage | ['f-gitdir-garbage', 'f-gitdir-garbage/.git/worktrees/f-gitdir-garbage-wt/not a path'] | ['f-gitdir-garbage', 'f-gitdir-garbage/.git/worktrees/f-gitdir-garbage-wt/not a path'] | SAME | 40.4 | 40.9
+gitdir file relative | ['f-gitdir-relative', 'f-gitdir-relative/f-gitdir-relative-wt'] | ['f-gitdir-relative', 'f-gitdir-relative/f-gitdir-relative-wt'] | SAME | 41.5 | 43.6
+gitdir file without /.git | ['f-gitdir-nosuffix', 'f-gitdir-nosuffix-wt'] | ['f-gitdir-nosuffix', 'f-gitdir-nosuffix-wt'] | SAME | 42.7 | 42.2
+gitdir is a directory | ['f-gitdir-isdir'] | ['f-gitdir-isdir'] | SAME | 43.0 | 41.9
+gitdir file absent | ['f-gitdir-absent'] | ['f-gitdir-absent'] | SAME | 64.5 | 62.8
+stray file in .git/worktrees | ['f-stray-file', 'f-stray-file-wt'] | ['f-stray-file', 'f-stray-file-wt'] | SAME | 44.7 | 0.2
+HEAD missing: not a repository for git | [] | [] | SAME | 39.6 | 39.2
+linked worktree's .git file garbage | [] | [] | SAME | 38.9 | 40.0
+linked worktree whose admin dir is gone | [] | [] | SAME | 39.8 | 39.7
+commondir points nowhere (from the linked worktree) | [] | [] | SAME | 38.9 | 39.3
+core.worktree set | ['f-corewt', 'f-corewt-wt'] | ['f-corewt', 'f-corewt-wt'] | SAME | 40.1 | 40.8
+GIT_DIR set in the environment | ['f-env', 'f-env-wt'] | ['f-env', 'f-env-wt'] | SAME | 41.3 | 41.5
+bare repository | ['bare.git'] | ['bare.git'] | SAME | 41.1 | 40.7
+separate git dir (.git is a file) | ['sepgit'] | ['sepgit'] | SAME | 40.1 | 40.2
+submodule | ['sm/.git/modules/mod'] | ['sm/.git/modules/mod'] | SAME | 41.4 | 40.5
+below a repo: plain folder two levels down | ['outer', 'outer-wt'] | ['outer', 'outer-wt'] | SAME | 41.7 | 0.3
+below a repo: folder that does not exist | [] | [] | SAME | 49.0 | 50.6
+below a repo: a file | [] | [] | SAME | 52.5 | 51.9
+below a repo: a bare repository | ['outer/inner.git'] | ['outer/inner.git'] | SAME | 44.5 | 57.8
+below a repo: inside .git | ['outer', 'outer-wt'] | ['outer', 'outer-wt'] | SAME | 183.8 | 214.5
+folder that is not a repository | [] | [] | SAME | 129.1 | 107.5
+folder that does not exist | [] | [] | SAME | 66.1 | 76.5
+empty string root | ['/Users/hacker/Documents/src/CrackingShells/Murmuration', '/private/tmp/murmuration-w07/author-w07-1/wt', '/private/tmp/murmuration-w07/author-w07-2/wt', '/private/tmp/murmuration-w07/author-w07-3/wt', '/private/tmp/murmuration-w07/author-w07-4/wt', '/private/tmp/murmuration-w07/author-w07-6/wt', '/Users/hacker/Documents/src/CrackingShells/Murmuration/.claude/worktrees/agent-a7ee55f82e05b38a6', '/Users/hacker/Documents/src/CrackingShells/Murmuration/.claude/worktrees/agent-ad975b2e44c301492', '/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/blissful-villani-34edd8', '/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673', '/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e', '/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be', '/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/xenodochial-franklin-bc67fb'] | ['/Users/hacker/Documents/src/CrackingShells/Murmuration', '/private/tmp/murmuration-w07/author-w07-1/wt', '/private/tmp/murmuration-w07/author-w07-2/wt', '/private/tmp/murmuration-w07/author-w07-3/wt', '/private/tmp/murmuration-w07/author-w07-4/wt', '/private/tmp/murmuration-w07/author-w07-6/wt', '/Users/hacker/Documents/src/CrackingShells/Murmuration/.claude/worktrees/agent-a7ee55f82e05b38a6', '/Users/hacker/Documents/src/CrackingShells/Murmuration/.claude/worktrees/agent-ad975b2e44c301492', '/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/blissful-villani-34edd8', '/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673', '/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e', '/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be', '/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/xenodochial-franklin-bc67fb'] | SAME | 54.1 | 0.6
+cases: 37, different: 0

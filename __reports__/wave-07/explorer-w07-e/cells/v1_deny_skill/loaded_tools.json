@@ -1,0 +1,1 @@
+{"cell": "v1_deny_skill", "loaded": ["Agent", "Bash", "Edit", "ListAgents", "Read", "ScheduleWakeup", "ToolSearch", "DeferredToolPlaceholder", "Write", "advisor"]}

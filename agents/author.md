@@ -4,6 +4,8 @@ description: Murmuration author. Turns a hunch into a labelled claim by proof or
 model: sonnet
 tools: Read, Glob, Grep, Bash, Write, Edit, ToolSearch, SendMessage, mcp__WolframToolkit__*, mcp__plugin_colgrep-mcp_colgrep__*, mcp__arxiv__*
 maxTurns: 150
+experimental:
+  cacheTtl: "1h"
 skills:
   - research-loop
 ---

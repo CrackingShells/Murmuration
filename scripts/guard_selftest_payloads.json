@@ -1,0 +1,14 @@
+[
+  {"name": "allow_bash", "raw": "{\"tool_name\": \"Bash\", \"tool_input\": {\"command\": \"ls -la\"}, \"cwd\": \"/h/proj\"}"},
+  {"name": "g1_bypass_flag", "raw": "{\"tool_name\": \"Bash\", \"tool_input\": {\"command\": \"claude -p hi --dangerously-skip-permissions\"}, \"cwd\": \"/h/proj\"}"},
+  {"name": "g1_mode_word", "raw": "{\"tool_name\": \"Bash\", \"tool_input\": {\"command\": \"env FOO=1 claude -p hi --permission-mode bypassPermissions\"}, \"cwd\": \"/h/proj\"}"},
+  {"name": "g2_config_dir", "raw": "{\"tool_name\": \"Bash\", \"tool_input\": {\"command\": \"CLAUDE_CONFIG_DIR=/tmp/x claude -p hi\"}, \"cwd\": \"/h/proj\"}"},
+  {"name": "g3_redirect", "raw": "{\"tool_name\": \"Bash\", \"tool_input\": {\"command\": \"echo '{}' > .claude/settings.json\"}, \"cwd\": \"/h/proj\"}"},
+  {"name": "g3_write", "raw": "{\"tool_name\": \"Write\", \"tool_input\": {\"file_path\": \"/h/proj/.claude/settings.local.json\", \"content\": \"{}\"}, \"cwd\": \"/h/proj\"}"},
+  {"name": "g4_script_adds_word", "raw": "{\"tool_name\": \"Write\", \"tool_input\": {\"file_path\": \"/h/proj/new_script.py\", \"content\": \"mode = 'bypassPermissions'\"}, \"cwd\": \"/h/proj\"}"},
+  {"name": "allow_write_md", "raw": "{\"tool_name\": \"Write\", \"tool_input\": {\"file_path\": \"/h/proj/notes.md\", \"content\": \"hello\"}, \"cwd\": \"/h/proj\"}"},
+  {"name": "allow_mention_only", "raw": "{\"tool_name\": \"Bash\", \"tool_input\": {\"command\": \"grep -rn bypassPermissions docs\"}, \"cwd\": \"/h/proj\"}"},
+  {"name": "malformed_text", "raw": "not json"},
+  {"name": "malformed_empty", "raw": ""},
+  {"name": "malformed_null_input", "raw": "{\"tool_name\": \"Bash\", \"tool_input\": null}"}
+]

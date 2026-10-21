@@ -1,0 +1,24 @@
+# Lab status
+
+Current wave note: __statera__/wave-01.md
+
+## Open puzzles (0)
+none raised: `__scrupuli__/` holds no puzzles
+
+## Claims (1, 0 disputed, 1 warnings)
+- w99-c1  unverified (no label)
+    ! no `label:` line in the claim head
+
+## Spend (USD: Claude Code's cost-state where a session has ended, else list price of 2026-10-19)
+TOTAL  USD 0.01   (exact, all sessions ended)
+
+where          sessions  agent files  USD   basis
+-------------  --------  -----------  ----  -----
+this checkout  1                   2  0.01  exact
+
+agent                                  model      msgs  list-price USD  output tokens
+-------------------------------------  ---------  ----  --------------  -------------
+murmuration:research-pi (main thread)  haiku-5-5     2            0.01          1,006
+author-w99-2                           haiku-5-5     3           0.00+           160+
+explorer-w99-1                         haiku-5-5     6           0.00+           219+
+`+` = at least: some of that agent's output tokens are stored at their start-of-stream value. Agent rows are priced from transcripts at list price and add up to 0.01 of the 0.01 total above; the rest is what only cost-state records.

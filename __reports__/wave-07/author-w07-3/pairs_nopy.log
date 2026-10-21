@@ -1,0 +1,2 @@
+pair 1 load_start 4.49 load_end 4.61 | nopy_1_A A nopy rc 1 wall_s 3.9 load 4.60791015625 | nopy_1_B B nopy rc 1 wall_s 3.9 load 4.60791015625
+pair 1 load_start 3.29 load_end 3.28 | nopy_1_A A nopy rc 0 wall_s 14.6 load 3.30810546875 | nopy_1_B B nopy rc 0 wall_s 16.4 load 3.283203125

@@ -1,0 +1,6 @@
+c_noop	/private/tmp/murmuration-w07/explorer-w07-a/bin/c_noop
+usr_bin_true	/usr/bin/true
+killed_sh_copy	/private/tmp/murmuration-w07/explorer-w07-a/bin/sh_copy	-c	:
+enoexec_garbage	/private/tmp/murmuration-w07/explorer-w07-a/fresh/garbage_x
+enoent	/private/tmp/murmuration-w07/explorer-w07-a/fresh/nonexistent
+static_unsigned_killed	/private/tmp/murmuration-w07/explorer-w07-a/bin/static_exit

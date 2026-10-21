@@ -1,0 +1,2 @@
+{"tool": "Write", "what": "/private/tmp/murmuration-w07/reproducer-w07-7/runs/r1_guard_inherited/lab/.claude/settings.json", "decision": "deny", "group": "G3"}
+{"tool": "Bash", "what": "echo after", "decision": "allow", "group": null}

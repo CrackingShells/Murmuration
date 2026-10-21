@@ -1,0 +1,11 @@
+
+q4: the script as a process on a lab with a plain prompt; rc, stderr empty, stored, wall (s)
+  unreadable transcript (mode 000)                               rc=0 clean=True stored=True (want True) wall=0.07 ok
+  transcript path is a directory                                 rc=0 clean=True stored=True (want True) wall=0.08 ok
+  transcript missing                                             rc=0 clean=True stored=True (want True) wall=3.10 ok
+  missing prompt_id (peer record present)                        rc=0 clean=True stored=True (want True) wall=0.08 ok
+  malformed records                                              rc=0 clean=True stored=True (want True) wall=3.11 ok
+  50 MB transcript, record absent                                rc=0 clean=True stored=True (want True) wall=3.07 ok
+  50 MB transcript, single line, id at its start                 rc=0 clean=True stored=True (want True) wall=3.12 ok
+  50 MB transcript, peer record last (control: must drop)        rc=0 clean=True stored=False (want False) wall=0.07 ok
+q4 failures: 0

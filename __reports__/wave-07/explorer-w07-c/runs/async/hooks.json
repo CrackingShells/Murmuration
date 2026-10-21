@@ -1,0 +1,86 @@
+{
+ "hooks": {
+  "PreToolUse": [
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.py\" pre-async-deny --only ASYNCDENY --emit deny",
+      "async": true
+     }
+    ],
+    "matcher": "Bash"
+   }
+  ],
+  "PostToolUse": [
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.py\" post-sync-fast --dump /private/tmp/murmuration-w07/explorer-w07-c/runs/async/truth.jsonl"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.py\" post-async-slow --only A-SLOW --sleep 6 --emit ctx",
+      "async": true
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.py\" post-async-fail --only A-FAIL --exit 1 --stderr ASYNC-FAIL-STDERR",
+      "async": true
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.py\" post-async-rewake --only A-REWAKE --sleep 2 --exit 2 --stderr REWAKE-NONCE",
+      "asyncRewake": true
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.py\" post-sync-slow --only B-SYNC --sleep 3 --emit ctx"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.py\" post-async-blk --only A-BLOCK --emit block",
+      "async": true
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.py\" post-async-last --only Z-END --sleep 8 --emit ctx",
+      "async": true
+     }
+    ],
+    "matcher": "Bash"
+   }
+  ]
+ }
+}

@@ -1,0 +1,19 @@
+usr_bin_true	/usr/bin/true
+sh_colon	/bin/sh	-c	:
+bash_colon	/bin/bash	-c	:
+zsh_colon	/bin/zsh	-c	:
+c_noop	/private/tmp/murmuration-w07/explorer-w07-a/bin/c_noop
+asm_noop	/private/tmp/murmuration-w07/explorer-w07-a/bin/asm_noop
+rs_default	/private/tmp/murmuration-w07/explorer-w07-a/bin/rs_default
+rs_release	/private/tmp/murmuration-w07/explorer-w07-a/bin/rs_release
+rs_small	/private/tmp/murmuration-w07/explorer-w07-a/bin/rs_small
+rs_abort	/private/tmp/murmuration-w07/explorer-w07-a/bin/rs_abort
+rs_strip	/private/tmp/murmuration-w07/explorer-w07-a/bin/rs_strip
+rs_lto	/private/tmp/murmuration-w07/explorer-w07-a/bin/rs_lto
+rs_nomain	/private/tmp/murmuration-w07/explorer-w07-a/bin/rs_nomain
+rs_nostd	/private/tmp/murmuration-w07/explorer-w07-a/bin/rs_nostd
+sh_c_c_noop	/bin/sh	-c	/private/tmp/murmuration-w07/explorer-w07-a/bin/c_noop
+sh_c_rs_release	/bin/sh	-c	/private/tmp/murmuration-w07/explorer-w07-a/bin/rs_release
+sh_c_rs_nostd	/bin/sh	-c	/private/tmp/murmuration-w07/explorer-w07-a/bin/rs_nostd
+py_SI_pass	/Users/hacker/miniforge3/bin/python3	-S	-I	-c	pass
+py_pass	/Users/hacker/miniforge3/bin/python3	-c	pass

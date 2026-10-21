@@ -1,0 +1,108 @@
+load { 8.93 7.67 5.62 }
+rep 1 threads 1 wall_s 0.0954 thread_s read 0.035 scan 0.025 serde 0.030 lines 57541 passed 15227
+rep 2 threads 1 wall_s 0.0996 thread_s read 0.038 scan 0.026 serde 0.030 lines 57541 passed 15227
+rep 3 threads 1 wall_s 0.0951 thread_s read 0.036 scan 0.024 serde 0.029 lines 57541 passed 15227
+rep 4 threads 1 wall_s 0.0953 thread_s read 0.035 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 5 threads 1 wall_s 0.0915 thread_s read 0.034 scan 0.023 serde 0.028 lines 57541 passed 15227
+rep 6 threads 1 wall_s 0.0897 thread_s read 0.033 scan 0.023 serde 0.028 lines 57541 passed 15227
+rep 7 threads 1 wall_s 0.0894 thread_s read 0.034 scan 0.023 serde 0.027 lines 57541 passed 15227
+rep 8 threads 1 wall_s 0.0900 thread_s read 0.034 scan 0.023 serde 0.028 lines 57541 passed 15227
+load { 8.93 7.67 5.62 }
+rep 1 threads 2 wall_s 0.0630 thread_s read 0.037 scan 0.025 serde 0.033 lines 57541 passed 15227
+rep 2 threads 2 wall_s 0.0578 thread_s read 0.034 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 3 threads 2 wall_s 0.0569 thread_s read 0.034 scan 0.023 serde 0.030 lines 57541 passed 15227
+rep 4 threads 2 wall_s 0.0572 thread_s read 0.034 scan 0.023 serde 0.029 lines 57541 passed 15227
+rep 5 threads 2 wall_s 0.0568 thread_s read 0.035 scan 0.023 serde 0.029 lines 57541 passed 15227
+rep 6 threads 2 wall_s 0.0566 thread_s read 0.035 scan 0.023 serde 0.029 lines 57541 passed 15227
+rep 7 threads 2 wall_s 0.0571 thread_s read 0.035 scan 0.023 serde 0.029 lines 57541 passed 15227
+rep 8 threads 2 wall_s 0.0567 thread_s read 0.035 scan 0.023 serde 0.029 lines 57541 passed 15227
+load { 8.93 7.67 5.62 }
+rep 1 threads 3 wall_s 0.0571 thread_s read 0.035 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 2 threads 3 wall_s 0.0571 thread_s read 0.035 scan 0.023 serde 0.029 lines 57541 passed 15227
+rep 3 threads 3 wall_s 0.0589 thread_s read 0.036 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 4 threads 3 wall_s 0.0580 thread_s read 0.038 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 5 threads 3 wall_s 0.0565 thread_s read 0.035 scan 0.023 serde 0.029 lines 57541 passed 15227
+rep 6 threads 3 wall_s 0.0571 thread_s read 0.036 scan 0.023 serde 0.029 lines 57541 passed 15227
+rep 7 threads 3 wall_s 0.0580 thread_s read 0.037 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 8 threads 3 wall_s 0.0600 thread_s read 0.037 scan 0.024 serde 0.031 lines 57541 passed 15227
+load { 8.93 7.67 5.62 }
+rep 1 threads 4 wall_s 0.0489 thread_s read 0.037 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 2 threads 4 wall_s 0.0494 thread_s read 0.037 scan 0.024 serde 0.031 lines 57541 passed 15227
+rep 3 threads 4 wall_s 0.0484 thread_s read 0.036 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 4 threads 4 wall_s 0.0482 thread_s read 0.036 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 5 threads 4 wall_s 0.0483 thread_s read 0.036 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 6 threads 4 wall_s 0.0485 thread_s read 0.037 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 7 threads 4 wall_s 0.0535 thread_s read 0.039 scan 0.024 serde 0.032 lines 57541 passed 15227
+rep 8 threads 4 wall_s 0.0490 thread_s read 0.037 scan 0.024 serde 0.030 lines 57541 passed 15227
+load { 8.70 7.65 5.62 }
+rep 1 threads 5 wall_s 0.0485 thread_s read 0.038 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 2 threads 5 wall_s 0.0521 thread_s read 0.046 scan 0.027 serde 0.034 lines 57541 passed 15227
+rep 3 threads 5 wall_s 0.0509 thread_s read 0.040 scan 0.026 serde 0.032 lines 57541 passed 15227
+rep 4 threads 5 wall_s 0.0501 thread_s read 0.038 scan 0.025 serde 0.031 lines 57541 passed 15227
+rep 5 threads 5 wall_s 0.0488 thread_s read 0.039 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 6 threads 5 wall_s 0.0495 thread_s read 0.038 scan 0.024 serde 0.031 lines 57541 passed 15227
+rep 7 threads 5 wall_s 0.0482 thread_s read 0.038 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 8 threads 5 wall_s 0.0482 thread_s read 0.038 scan 0.024 serde 0.030 lines 57541 passed 15227
+load { 8.70 7.65 5.62 }
+rep 1 threads 6 wall_s 0.0493 thread_s read 0.044 scan 0.027 serde 0.032 lines 57541 passed 15227
+rep 2 threads 6 wall_s 0.0481 thread_s read 0.041 scan 0.025 serde 0.031 lines 57541 passed 15227
+rep 3 threads 6 wall_s 0.0482 thread_s read 0.041 scan 0.025 serde 0.031 lines 57541 passed 15227
+rep 4 threads 6 wall_s 0.0489 thread_s read 0.039 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 5 threads 6 wall_s 0.0479 thread_s read 0.039 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 6 threads 6 wall_s 0.0481 thread_s read 0.040 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 7 threads 6 wall_s 0.0480 thread_s read 0.039 scan 0.024 serde 0.030 lines 57541 passed 15227
+rep 8 threads 6 wall_s 0.0478 thread_s read 0.039 scan 0.024 serde 0.030 lines 57541 passed 15227
+load { 8.70 7.65 5.62 }
+rep 1 threads 7 wall_s 0.0535 thread_s read 0.052 scan 0.030 serde 0.035 lines 57541 passed 15227
+rep 2 threads 7 wall_s 0.0523 thread_s read 0.050 scan 0.029 serde 0.034 lines 57541 passed 15227
+rep 3 threads 7 wall_s 0.0525 thread_s read 0.055 scan 0.031 serde 0.034 lines 57541 passed 15227
+rep 4 threads 7 wall_s 0.0558 thread_s read 0.053 scan 0.030 serde 0.036 lines 57541 passed 15227
+rep 5 threads 7 wall_s 0.0558 thread_s read 0.060 scan 0.037 serde 0.038 lines 57541 passed 15227
+rep 6 threads 7 wall_s 0.0553 thread_s read 0.063 scan 0.036 serde 0.038 lines 57541 passed 15227
+rep 7 threads 7 wall_s 0.0518 thread_s read 0.056 scan 0.030 serde 0.035 lines 57541 passed 15227
+rep 8 threads 7 wall_s 0.0538 thread_s read 0.050 scan 0.030 serde 0.035 lines 57541 passed 15227
+load { 8.70 7.65 5.62 }
+rep 1 threads 8 wall_s 0.0402 thread_s read 0.059 scan 0.031 serde 0.040 lines 57541 passed 15227
+rep 2 threads 8 wall_s 0.0386 thread_s read 0.053 scan 0.029 serde 0.037 lines 57541 passed 15227
+rep 3 threads 8 wall_s 0.0372 thread_s read 0.053 scan 0.030 serde 0.035 lines 57541 passed 15227
+rep 4 threads 8 wall_s 0.0378 thread_s read 0.051 scan 0.030 serde 0.036 lines 57541 passed 15227
+rep 5 threads 8 wall_s 0.0390 thread_s read 0.050 scan 0.029 serde 0.035 lines 57541 passed 15227
+rep 6 threads 8 wall_s 0.0371 thread_s read 0.052 scan 0.029 serde 0.035 lines 57541 passed 15227
+rep 7 threads 8 wall_s 0.0367 thread_s read 0.049 scan 0.027 serde 0.035 lines 57541 passed 15227
+rep 8 threads 8 wall_s 0.0368 thread_s read 0.049 scan 0.028 serde 0.034 lines 57541 passed 15227
+load { 8.70 7.65 5.62 }
+rep 1 threads 9 wall_s 0.0385 thread_s read 0.058 scan 0.031 serde 0.038 lines 57541 passed 15227
+rep 2 threads 9 wall_s 0.0373 thread_s read 0.056 scan 0.031 serde 0.036 lines 57541 passed 15227
+rep 3 threads 9 wall_s 0.0369 thread_s read 0.055 scan 0.030 serde 0.036 lines 57541 passed 15227
+rep 4 threads 9 wall_s 0.0367 thread_s read 0.056 scan 0.031 serde 0.036 lines 57541 passed 15227
+rep 5 threads 9 wall_s 0.0384 thread_s read 0.055 scan 0.030 serde 0.036 lines 57541 passed 15227
+rep 6 threads 9 wall_s 0.0391 thread_s read 0.050 scan 0.029 serde 0.036 lines 57541 passed 15227
+rep 7 threads 9 wall_s 0.0405 thread_s read 0.050 scan 0.028 serde 0.037 lines 57541 passed 15227
+rep 8 threads 9 wall_s 0.0378 thread_s read 0.054 scan 0.030 serde 0.036 lines 57541 passed 15227
+load { 8.70 7.65 5.62 }
+rep 1 threads 10 wall_s 0.0372 thread_s read 0.060 scan 0.032 serde 0.037 lines 57541 passed 15227
+rep 2 threads 10 wall_s 0.0382 thread_s read 0.059 scan 0.031 serde 0.035 lines 57541 passed 15227
+rep 3 threads 10 wall_s 0.0375 thread_s read 0.057 scan 0.031 serde 0.036 lines 57541 passed 15227
+rep 4 threads 10 wall_s 0.0387 thread_s read 0.056 scan 0.029 serde 0.036 lines 57541 passed 15227
+rep 5 threads 10 wall_s 0.0368 thread_s read 0.058 scan 0.031 serde 0.036 lines 57541 passed 15227
+rep 6 threads 10 wall_s 0.0390 thread_s read 0.056 scan 0.030 serde 0.035 lines 57541 passed 15227
+rep 7 threads 10 wall_s 0.0370 thread_s read 0.058 scan 0.030 serde 0.037 lines 57541 passed 15227
+rep 8 threads 10 wall_s 0.0381 thread_s read 0.081 scan 0.029 serde 0.034 lines 57541 passed 15227
+load { 8.70 7.65 5.62 }
+rep 1 threads 11 wall_s 0.0374 thread_s read 0.066 scan 0.034 serde 0.038 lines 57541 passed 15227
+rep 2 threads 11 wall_s 0.0367 thread_s read 0.065 scan 0.034 serde 0.039 lines 57541 passed 15227
+rep 3 threads 11 wall_s 0.0376 thread_s read 0.064 scan 0.034 serde 0.037 lines 57541 passed 15227
+rep 4 threads 11 wall_s 0.0380 thread_s read 0.061 scan 0.033 serde 0.040 lines 57541 passed 15227
+rep 5 threads 11 wall_s 0.0367 thread_s read 0.068 scan 0.031 serde 0.038 lines 57541 passed 15227
+rep 6 threads 11 wall_s 0.0366 thread_s read 0.063 scan 0.033 serde 0.036 lines 57541 passed 15227
+rep 7 threads 11 wall_s 0.0392 thread_s read 0.066 scan 0.031 serde 0.036 lines 57541 passed 15227
+rep 8 threads 11 wall_s 0.0370 thread_s read 0.065 scan 0.031 serde 0.037 lines 57541 passed 15227
+load { 8.70 7.65 5.62 }
+rep 1 threads 12 wall_s 0.0382 thread_s read 0.068 scan 0.034 serde 0.040 lines 57541 passed 15227
+rep 2 threads 12 wall_s 0.0377 thread_s read 0.069 scan 0.034 serde 0.039 lines 57541 passed 15227
+rep 3 threads 12 wall_s 0.0375 thread_s read 0.069 scan 0.035 serde 0.039 lines 57541 passed 15227
+rep 4 threads 12 wall_s 0.0367 thread_s read 0.073 scan 0.031 serde 0.039 lines 57541 passed 15227
+rep 5 threads 12 wall_s 0.0399 thread_s read 0.063 scan 0.034 serde 0.040 lines 57541 passed 15227
+rep 6 threads 12 wall_s 0.0465 thread_s read 0.082 scan 0.049 serde 0.044 lines 57541 passed 15227
+rep 7 threads 12 wall_s 0.0369 thread_s read 0.070 scan 0.034 serde 0.036 lines 57541 passed 15227
+rep 8 threads 12 wall_s 0.0375 thread_s read 0.067 scan 0.034 serde 0.036 lines 57541 passed 15227

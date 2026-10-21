@@ -1,0 +1,22 @@
+categories (field values) and the script's record_mark verdict:
+  2114  origin:human                                  True
+  2015  none:sdk/sdk/claude-desktop                   False
+  1480  origin:task-notification                      False
+  1474  none:None/None/claude-desktop                 None
+   688  origin:peer                                   False
+    51  none:system/scheduled/claude-desktop          False
+    50  none:sdk/None/claude-desktop                  False
+    17  none:sdk/sdk/sdk-cli                          True
+     9  none:None/None/cli                            None
+     6  none:None/sdk/claude-desktop                  False
+     3  none:sdk/None/sdk-cli                         True
+     2  none:None/None/sdk-cli                        None
+     1  none:None/peer/claude-desktop                 False
+
+user words entries: 63
+entries with no transcript match by 40 chars: 8
+entries whose every matching record is dropped by the origin rule: 3
+    'Background (from the session that started this one):\nMurmuration is a ' {'none:sdk/sdk/claude-desktop': 3}
+    'Background (from the session that started this one):\nMurmuration is a ' {'none:sdk/sdk/claude-desktop': 3}
+   Murmuration 'Background (from the session that started this one):\nMurmuration is a ' {'none:sdk/sdk/claude-desktop': 3}
+entries by set of marks of matching records: {('False', 'True'): 6, ('True',): 46, ('False',): 3}

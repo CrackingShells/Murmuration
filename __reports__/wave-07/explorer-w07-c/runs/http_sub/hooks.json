@@ -1,0 +1,93 @@
+{
+ "hooks": {
+  "SubagentStart": [
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.py\" truth --dump /private/tmp/murmuration-w07/explorer-w07-c/runs/http_sub/truth.jsonl"
+     }
+    ]
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62312/ctx",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ]
+     }
+    ]
+   }
+  ],
+  "SubagentStop": [
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.py\" truth --dump /private/tmp/murmuration-w07/explorer-w07-c/runs/http_sub/truth.jsonl"
+     }
+    ]
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62312/blockonce",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ]
+     }
+    ]
+   }
+  ],
+  "PostToolBatch": [
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.py\" truth --dump /private/tmp/murmuration-w07/explorer-w07-c/runs/http_sub/truth.jsonl"
+     }
+    ]
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62312/ctx",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ]
+     }
+    ]
+   }
+  ],
+  "PreToolUse": [
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62312/ok",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ]
+     }
+    ],
+    "matcher": "Bash"
+   }
+  ]
+ }
+}

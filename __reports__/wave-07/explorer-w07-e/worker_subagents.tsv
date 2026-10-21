@@ -1,0 +1,492 @@
+type	class	n_calls	tools	toolsearch_queries
+explorer	probe	29	Bash:26,SubagentHandback:2,Write:1	
+explorer	probe	76	Bash:74,SubagentHandback:2	
+explorer	probe	3	SubagentHandback:2,Read:1	
+explorer	probe	6	Bash:3,SubagentHandback:2,Read:1	
+author	probe	1	Bash:1	
+explorer	probe	11	Bash:9,SubagentHandback:2	
+explorer	probe	11	Bash:9,SubagentHandback:2	
+explorer	probe	8	Bash:4,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:4,Read:1,SubagentHandback:1	
+explorer	probe	14	Bash:11,SubagentHandback:2,Read:1	
+explorer	probe	7	Bash:4,SubagentHandback:2,Read:1	
+explorer	probe	105	Bash:103,SubagentHandback:2	
+author	probe	1	Bash:1	
+author	probe	13	Bash:11,Read:1,SubagentHandback:1	
+author	probe	13	Bash:11,Read:1,SubagentHandback:1	
+explorer	probe	150	Bash:150	
+explorer	probe	81	Bash:78,SubagentHandback:2,Read:1	
+explorer	probe	6	Bash:4,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:3,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	8	Bash:4,SubagentHandback:2,Read:1,Write:1	
+explorer	probe	9	Bash:7,SubagentHandback:2	
+explorer	probe	89	Bash:86,SubagentHandback:2,Read:1	
+explorer	probe	28	Bash:24,SubagentHandback:2,Write:2	
+explorer	probe	84	Bash:81,SubagentHandback:2,Read:1	
+explorer	probe	3	SubagentHandback:2,Read:1	
+explorer	probe	10	Bash:9,SubagentHandback:1	
+explorer	probe	3	SubagentHandback:2,Read:1	
+explorer	probe	95	Bash:94,SubagentHandback:1	
+explorer	probe	79	Bash:77,SubagentHandback:2	
+author	probe	4	Bash:2,SubagentHandback:2	
+explorer	probe	8	Bash:4,SubagentHandback:2,Read:1,Write:1	
+author	probe	1	Bash:1	
+explorer	probe	36	Bash:33,SubagentHandback:3	
+author	probe	13	Bash:11,Read:1,SubagentHandback:1	
+author	probe	22	Bash:11,Read:10,SubagentHandback:1	
+explorer	probe	2	Bash:2	
+explorer	probe	80	Bash:76,SubagentHandback:2,Write:2	
+explorer	probe	39	Bash:36,SubagentHandback:2,Read:1	
+explorer	probe	150	Bash:150	
+explorer	probe	22	Bash:20,SubagentHandback:2	
+author	probe	4	Bash:2,SubagentHandback:2	
+explorer	probe	25	Bash:25	
+explorer	probe	28	Bash:26,SubagentHandback:2	
+explorer	probe	28	Bash:24,SubagentHandback:2,Write:2	
+author	probe	5	Bash:4,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	143	Bash:141,SubagentHandback:2	
+explorer	probe	11	Bash:9,SubagentHandback:2	
+explorer	probe	8	Bash:3,Write:2,SubagentHandback:2,Read:1	
+explorer	probe	7	Bash:2,Write:2,SubagentHandback:2,Read:1	
+author	probe	13	Bash:11,Read:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+author	probe	6	Bash:4,ToolSearch:1,SubagentHandback:1	select:mcp__plugin_colgrep-mcp_colgrep__find_files
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:2,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:5,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,SubagentHandback:2,Read:1	
+explorer	probe	27	Bash:25,SubagentHandback:2	
+explorer	probe	28	Bash:25,Write:2,SubagentHandback:1	
+explorer	probe	89	Bash:88,SubagentHandback:1	
+explorer	probe	81	Bash:80,SubagentHandback:1	
+explorer	probe	5	Bash:3,Write:1,SubagentHandback:1	
+explorer	probe	45	Bash:43,SubagentHandback:2	
+explorer	probe	27	Bash:24,SubagentHandback:2,Write:1	
+explorer	probe	28	Bash:25,SubagentHandback:2,Write:1	
+explorer	probe	28	Bash:26,SubagentHandback:2	
+author	probe	5	Bash:3,Glob:1,SubagentHandback:1	
+explorer	probe	16	Bash:13,SubagentHandback:2,Write:1	
+explorer	probe	5	Bash:3,SubagentHandback:2	
+explorer	probe	90	Bash:86,SubagentHandback:2,Read:1,Write:1	
+explorer	probe	8	Bash:3,Write:2,SubagentHandback:2,Read:1	
+explorer	probe	13	Bash:10,SubagentHandback:2,Read:1	
+explorer	probe	7	Bash:6,Read:1	
+author	wave	41	Bash:33,Read:4,SubagentHandback:2,ToolSearch:1,SendMessage:1	select:SendMessage
+reproducer	wave	33	Bash:27,mcp__plugin_colgrep-mcp_colgrep__search:2,ToolSearch:1,SendMessage:1,Monitor:1,SubagentHandback:1	select:SendMessage,mcp__plugin_colgrep-mcp_colgrep
+reproducer	wave	24	Bash:19,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage,mcp__plugin_colgrep-mcp_colgrep
+author	wave	29	Bash:22,Read:2,SubagentHandback:2,Edit:1,ToolSearch:1,SendMessage:1	select:SendMessage
+reproducer	wave	20	Bash:15,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage,mcp__plugin_colgrep-mcp_colgrep
+author	wave	125	Bash:112,Read:5,Write:5,SubagentHandback:1,ToolSearch:1,SendMessage:1	select:SendMessage
+author	wave	115	Bash:99,SubagentHandback:6,SendMessage:5,Read:4,ToolSearch:1	select:SendMessage
+reproducer	wave	28	Bash:23,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+reproducer	wave	31	Bash:25,Read:2,SubagentHandback:2,ToolSearch:1,SendMessage:1	select:SendMessage
+reproducer	wave	35	Bash:28,Read:2,mcp__plugin_colgrep-mcp_colgrep__search:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:mcp__plugin_colgrep-mcp_colgrep__search,Sen
+reproducer	wave	55	Bash:50,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage,mcp__plugin_colgrep-mcp_colgrep
+author	wave	121	Bash:105,SubagentHandback:6,Read:3,Write:3,SendMessage:3,ToolSearch:1	select:mcp__plugin_colgrep-mcp_colgrep__search,mcp
+reproducer	wave	37	Bash:32,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:mcp__plugin_colgrep-mcp_colgrep__search,mcp
+reproducer	wave	45	Bash:37,Read:3,SendMessage:2,SubagentHandback:2,ToolSearch:1	select:SendMessage
+reproducer	wave	31	Bash:26,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+explorer	probe	8	Bash:4,SubagentHandback:2,Read:1,Write:1	
+explorer	probe	35	Bash:31,SubagentHandback:3,Read:1	
+author	probe	13	Bash:11,Read:1,SubagentHandback:1	
+author	probe	13	Bash:11,Read:1,SubagentHandback:1	
+author	probe	13	Bash:11,Read:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:4,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,SubagentHandback:2,Read:1,Write:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+author	probe	17	Bash:15,Read:1,SubagentHandback:1	
+explorer	probe	94	Bash:91,SubagentHandback:2,Read:1	
+explorer	probe	5	Bash:3,SubagentHandback:2	
+explorer	probe	11	Bash:9,SubagentHandback:2	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:4,Read:1,SubagentHandback:1	
+explorer	probe	82	Bash:81,SubagentHandback:1	
+explorer	probe	16	Bash:14,SubagentHandback:2	
+explorer	probe	12	Bash:10,SubagentHandback:2	
+explorer	probe	49	Bash:48,SubagentHandback:1	
+explorer	probe	95	Bash:94,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:4,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+proof-adversary	probe	7	Read:3,Bash:3,SubagentHandback:1	
+author	probe	6	Bash:3,Read:2,SubagentHandback:1	
+proof-adversary	probe	10	Bash:4,Read:3,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+author	probe	4	Bash:2,Read:1,SubagentHandback:1	
+author	probe	12	Bash:7,SubagentHandback:2,Read:1,ToolSearch:1,SendMessage:1	select:SendMessage
+explorer	probe	19	Bash:7,WebFetch:5,Read:2,WebSearch:2,ToolSearch:1,mcp__arxiv__search_papers:1,SubagentHandback:1	select:WebFetch,WebSearch,mcp__arxiv__search_paper
+reproducer	probe	15	Bash:9,Read:3,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+proof-adversary	probe	5	Read:2,Bash:2,SubagentHandback:1	
+author	probe	14	Bash:6,SubagentHandback:3,Read:2,mcp__arxiv__search_papers:1,ToolSearch:1,SendMessage:1	select:SendMessage
+author	probe	18	Bash:13,SubagentHandback:2,Read:1,ToolSearch:1,SendMessage:1	select:SendMessage
+reproducer	probe	11	Bash:6,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+proof-adversary	probe	5	Read:2,Bash:2,SubagentHandback:1	
+explorer	probe	30	Bash:25,Read:4,SubagentHandback:1	
+proof-adversary	probe	6	Read:3,Bash:2,SubagentHandback:1	
+author	wave	64	Bash:52,Read:4,SubagentHandback:4,ToolSearch:2,SendMessage:2	select:Monitor|select:SendMessage
+reproducer	wave	35	Bash:28,Read:3,ToolSearch:1,SendMessage:1,Monitor:1,SubagentHandback:1	select:SendMessage
+explorer	wave	73	Bash:66,Read:5,Monitor:1,SubagentHandback:1	
+explorer	wave	43	Bash:34,Read:2,ToolSearch:2,mcp__plugin_colgrep-mcp_colgrep__search:1,Write:1,mcp__context7__resolve-library-id:1,mcp__context7__query-docs:1,SubagentHandback:1	select:mcp__plugin_colgrep-mcp_colgrep__search|select:mcp__context7__resolve-library-id,mcp__cont
+reproducer	wave	35	Bash:32,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage,mcp__plugin_colgrep-mcp_colgrep
+reproducer	wave	35	Bash:29,Read:2,SubagentHandback:2,ToolSearch:1,SendMessage:1	select:SendMessage
+explorer	wave	44	Bash:36,Read:5,ToolSearch:1,Write:1,SubagentHandback:1	select:mcp__plugin_colgrep-mcp_colgrep__search
+reproducer	wave	35	Bash:25,Read:3,mcp__plugin_colgrep-mcp_colgrep__search:3,ToolSearch:1,Write:1,SendMessage:1,SubagentHandback:1	select:mcp__plugin_colgrep-mcp_colgrep__search,Sen
+author	wave	74	Bash:59,Read:6,mcp__plugin_colgrep-mcp_colgrep__search:3,SubagentHandback:3,ToolSearch:1,Write:1,SendMessage:1	select:mcp__plugin_colgrep-mcp_colgrep__search,Sen
+author	wave	143	Bash:130,Read:5,SubagentHandback:3,Write:2,SendMessage:2,ToolSearch:1	select:SendMessage
+explorer	wave	48	Bash:38,Read:4,mcp__context7__query-docs:2,ToolSearch:1,mcp__context7__resolve-library-id:1,mcp__plugin_colgrep-mcp_colgrep__search:1,SubagentHandback:1	select:mcp__context7__resolve-library-id,mcp__cont
+explorer	wave	42	Bash:32,Read:5,mcp__context7__query-docs:2,ToolSearch:1,mcp__context7__resolve-library-id:1,SubagentHandback:1	select:mcp__context7__resolve-library-id,mcp__cont
+reproducer	wave	52	Bash:49,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+explorer	wave	56	Bash:48,Write:3,mcp__plugin_colgrep-mcp_colgrep__search:2,bash:1,ToolSearch:1,SubagentHandback:1	select:mcp__plugin_colgrep-mcp_colgrep__search
+reproducer	wave	31	Bash:24,Read:3,SubagentHandback:2,ToolSearch:1,SendMessage:1	select:SendMessage
+explorer	probe	14	Bash:12,SubagentHandback:2	
+explorer	probe	3	SubagentHandback:2,Read:1	
+explorer	probe	59	Bash:58,SubagentHandback:1	
+explorer	probe	22	Bash:20,SubagentHandback:2	
+explorer	probe	22	Bash:21,SubagentHandback:1	
+explorer	probe	15	Bash:13,SubagentHandback:2	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	12	Bash:10,SubagentHandback:2	
+explorer	probe	93	Bash:92,SubagentHandback:1	
+explorer	probe	36	Bash:35,SubagentHandback:1	
+author	probe	18	Bash:17,SubagentHandback:1	
+author	probe	19	Bash:18,SubagentHandback:1	
+explorer	probe	11	Bash:9,Read:2	
+proof-adversary	probe	6	Read:3,Bash:2,SubagentHandback:1	
+reproducer	probe	10	Bash:5,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+proof-adversary	probe	7	Read:4,Bash:2,SubagentHandback:1	
+explorer	probe	26	WebFetch:11,Bash:9,WebSearch:2,Read:1,ToolSearch:1,mcp__arxiv__search_papers:1,SubagentHandback:1	select:WebFetch,mcp__arxiv__search_papers,mcp__arx
+proof-adversary	probe	7	Read:3,Bash:3,SubagentHandback:1	
+author	probe	9	Bash:4,Read:2,SubagentHandback:2,SendMessage:1	
+author	probe	6	Bash:4,Read:1,SubagentHandback:1	
+author	probe	10	Bash:5,Read:4,SubagentHandback:1	
+author	probe	5	Bash:3,Read:1,SubagentHandback:1	
+author	probe	12	Bash:7,SubagentHandback:2,Read:1,ToolSearch:1,SendMessage:1	select:SendMessage
+proof-adversary	probe	9	Read:3,Bash:3,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	3	SubagentHandback:2,Read:1	
+explorer	probe	22	Bash:21,SubagentHandback:1	
+explorer	probe	3	SubagentHandback:2,Read:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:4,Read:1,SubagentHandback:1	
+explorer	probe	93	Bash:91,Read:1,SubagentHandback:1	
+explorer	probe	9	Bash:6,SubagentHandback:2,Read:1	
+explorer	probe	12	Bash:10,SubagentHandback:2	
+author	probe	17	Read:9,Bash:7,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:3,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	6	Bash:3,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	6	Bash:4,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:3,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	15	Bash:13,SubagentHandback:2	
+explorer	probe	22	Bash:20,SubagentHandback:2	
+explorer	wave	22	Bash:18,Read:2,Write:1,bash:1	
+explorer	wave	26	Bash:21,WebFetch:3,ToolSearch:1,mcp__plugin_colgrep-mcp_colgrep__search:1	select:WebFetch,mcp__plugin_colgrep-mcp_colgrep__s
+explorer	wave	43	Bash:33,Read:5,ToolSearch:2,mcp__context7__query-docs:2,mcp__context7__resolve-library-id:1	select:mcp__plugin_colgrep-mcp_colgrep__search|select:mcp__context7__resolve-library-id,mcp__cont
+explorer	wave	19	Bash:16,WebFetch:3	
+explorer	wave	23	Bash:20,Read:1,ToolSearch:1,mcp__plugin_colgrep-mcp_colgrep__search:1	select:mcp__plugin_colgrep-mcp_colgrep__search
+explorer	wave	15	Bash:13,ToolSearch:1,mcp__plugin_colgrep-mcp_colgrep__search:1	select:mcp__plugin_colgrep-mcp_colgrep__search
+explorer	probe	41	Bash:40,SubagentHandback:1	
+explorer	probe	93	Bash:91,Read:1,SubagentHandback:1	
+author	probe	17	Read:9,Bash:6,Edit:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,SubagentHandback:2	
+explorer	probe	3	Read:1,Bash:1,SubagentHandback:1	
+explorer	probe	3	SubagentHandback:2,Read:1	
+author	probe	5	Bash:4,SubagentHandback:1	
+explorer	probe	8	Read:2,Bash:2,WebFetch:2,ToolSearch:1,SubagentHandback:1	select:WebFetch
+proof-adversary	probe	7	Bash:4,Read:2,SubagentHandback:1	
+author	probe	6	Bash:4,Read:1,SubagentHandback:1	
+author	probe	5	Bash:4,SubagentHandback:1	
+explorer	probe	6	Bash:3,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	3	SubagentHandback:2,Read:1	
+explorer	probe	5	Bash:3,SubagentHandback:2	
+explorer	probe	153	Bash:149,SubagentHandback:3,Read:1	
+explorer	probe	5	Bash:3,SubagentHandback:2	
+author	probe	22	Bash:11,Read:10,SubagentHandback:1	
+explorer	probe	92	Bash:91,SubagentHandback:1	
+explorer	probe	6	Bash:4,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:4,Read:1,SubagentHandback:1	
+explorer	probe	83	Bash:82,SubagentHandback:1	
+author	probe	14	Bash:13,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	14	Bash:11,SubagentHandback:2,Read:1	
+explorer	probe	66	Bash:64,Read:1,SubagentHandback:1	
+explorer	probe	12	Bash:9,SubagentHandback:2,Write:1	
+explorer	probe	73	Bash:72,SubagentHandback:1	
+explorer	probe	3	SubagentHandback:2,Read:1	
+explorer	probe	3	SubagentHandback:2,Read:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	6	Bash:4,Read:1,SubagentHandback:1	
+author	probe	5	Bash:4,SubagentHandback:1	
+author	probe	18	Read:11,Bash:6,SubagentHandback:1	
+explorer	probe	14	Bash:10,SubagentHandback:2,Read:1,Write:1	
+explorer	probe	91	Bash:90,SubagentHandback:1	
+explorer	probe	80	Bash:78,SubagentHandback:2	
+explorer	probe	23	Bash:21,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:6,SubagentHandback:1	
+explorer	probe	73	Bash:72,SubagentHandback:1	
+explorer	probe	93	Bash:91,Read:1,SubagentHandback:1	
+explorer	probe	3	SubagentHandback:2,Read:1	
+explorer	probe	3	SubagentHandback:2,Read:1	
+author	probe	16	Read:9,Bash:6,SubagentHandback:1	
+explorer	probe	9	Bash:8,SubagentHandback:1	
+explorer	probe	94	Bash:92,Read:1,SubagentHandback:1	
+explorer	probe	24	Bash:23,SubagentHandback:1	
+explorer	probe	77	Bash:75,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:2,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:3,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	5	Bash:2,Read:1,Write:1,SubagentHandback:1	
+author	probe	1	Bash:1	
+explorer	probe	8	Bash:4,SubagentHandback:2,Read:1,Write:1	
+explorer	probe	92	Bash:91,SubagentHandback:1	
+explorer	probe	89	Bash:87,Read:1,SubagentHandback:1	
+explorer	probe	70	Bash:69,SubagentHandback:1	
+author	probe	16	Read:9,Bash:6,SubagentHandback:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	3	SubagentHandback:2,Read:1	
+explorer	probe	3	SubagentHandback:2,Read:1	
+explorer	probe	23	Bash:21,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+author	probe	17	Read:9,Bash:7,SubagentHandback:1	
+explorer	probe	14	Bash:13,SubagentHandback:1	
+explorer	probe	93	Bash:91,Read:1,SubagentHandback:1	
+explorer	probe	72	Bash:71,SubagentHandback:1	
+explorer	probe	93	Bash:91,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,SubagentHandback:2,Read:1	
+explorer	probe	8	Bash:4,SubagentHandback:2,Read:1,Write:1	
+explorer	probe	4	Bash:1,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	73	Bash:72,SubagentHandback:1	
+explorer	probe	6	Bash:3,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	15	Bash:13,SubagentHandback:2	
+explorer	probe	20	Bash:16,SubagentHandback:2,Read:1,Write:1	
+explorer	probe	6	Bash:4,Read:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+reproducer	probe	4	ToolSearch:1,SendMessage:1,Bash:1,SubagentHandback:1	select:SendMessage
+author	probe	2	Bash:1,SubagentHandback:1	
+explorer	probe	93	Bash:91,Read:1,SubagentHandback:1	
+author	probe	6	Bash:5,SubagentHandback:1	
+author	probe	19	Read:11,Bash:7,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	6	Bash:2,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	92	Bash:91,SubagentHandback:1	
+explorer	probe	7	Bash:3,SubagentHandback:2,Read:1,Write:1	
+explorer	probe	7	Bash:3,SubagentHandback:2,Read:1,Write:1	
+explorer	probe	92	Bash:91,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:3,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	41	Bash:40,SubagentHandback:1	
+explorer	probe	41	Bash:40,SubagentHandback:1	
+explorer	probe	6	Bash:2,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:3,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:3,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	6	Bash:3,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	6	Bash:2,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	3	SubagentHandback:2,Read:1	
+explorer	probe	16	Bash:15,SubagentHandback:1	
+explorer	probe	93	Bash:90,Write:2,SubagentHandback:1	
+author	probe	4	Bash:3,SubagentHandback:1	
+reproducer	probe	4	ToolSearch:1,SendMessage:1,Bash:1,SubagentHandback:1	select:SendMessage
+author	probe	4	Bash:3,SubagentHandback:1	
+explorer	probe	7	Bash:4,SubagentHandback:2,Read:1	
+explorer	probe	7	Bash:4,SubagentHandback:2,Read:1	
+reproducer	wave	30	Bash:25,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+author	wave	69	Bash:60,Write:3,SubagentHandback:3,Read:1,Monitor:1,SendMessage:1	
+reproducer	wave	31	Bash:24,Read:3,SubagentHandback:2,ToolSearch:1,SendMessage:1	select:SendMessage
+author	wave	118	Bash:107,Write:4,SubagentHandback:3,ToolSearch:2,mcp__plugin_colgrep-mcp_colgrep__doctor:1,SendMessage:1	select:mcp__plugin_colgrep-mcp_colgrep__doctor,mcp|select:SendMessage
+explorer	wave	57	Bash:43,WebFetch:10,WebSearch:2,ToolSearch:1,SubagentHandback:1	select:WebFetch,WebSearch
+explorer	wave	63	Bash:59,Write:2,Read:1,SubagentHandback:1	
+reproducer	wave	17	Bash:13,Read:1,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+reproducer	wave	33	Bash:30,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+explorer	wave	111	Bash:101,SubagentHandback:4,Read:3,Write:2,ToolSearch:1	select:Monitor
+author	wave	183	Bash:165,SubagentHandback:7,Read:3,SendMessage:3,ToolSearch:2,bash:1,Write:1,Monitor:1	select:Monitor|select:SendMessage
+author	wave	63	Bash:53,Read:3,Write:3,SubagentHandback:2,ToolSearch:1,SendMessage:1	select:SendMessage
+reproducer	wave	61	Bash:47,Read:9,Write:1,ToolSearch:1,SendMessage:1,Edit:1,SubagentHandback:1	select:SendMessage
+author	wave	57	Bash:41,Read:6,SubagentHandback:5,ToolSearch:2,SendMessage:2,mcp__plugin_colgrep-mcp_colgrep__search:1	select:mcp__plugin_colgrep-mcp_colgrep__search|select:SendMessage
+explorer	wave	55	Bash:46,Read:5,ToolSearch:1,Write:1,Edit:1,SubagentHandback:1	select:Monitor
+reproducer	wave	32	Bash:23,Read:4,SendMessage:2,SubagentHandback:2,ToolSearch:1	select:SendMessage
+explorer	wave	72	Bash:60,Read:4,mcp__context7__query-docs:4,ToolSearch:1,mcp__context7__resolve-library-id:1,Write:1,SubagentHandback:1	select:mcp__context7__resolve-library-id,mcp__cont
+author	wave	54	Bash:45,Read:4,SubagentHandback:3,SendMessage:2	
+explorer	wave	55	Bash:49,Read:3,Write:2,SubagentHandback:1	
+author	wave	129	Bash:118,Read:4,Write:3,SubagentHandback:2,ToolSearch:1,SendMessage:1	select:SendMessage
+reproducer	wave	31	Bash:26,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+explorer	wave	68	Bash:61,Write:4,Read:1,Edit:1,SubagentHandback:1	
+reproducer	wave	32	Bash:26,Read:3,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+reproducer	wave	26	Bash:23,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+author	wave	66	Bash:48,SubagentHandback:6,Edit:4,Write:3,SendMessage:3,Skill:1,ToolSearch:1	context7 resolve library id query docs
+author	wave	76	Bash:68,SubagentHandback:5,SendMessage:2,ToolSearch:1	select:SendMessage
+reproducer	wave	23	Bash:18,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+reproducer	wave	27	Bash:23,Read:2,SendMessage:1,SubagentHandback:1	
+reproducer	wave	35	Bash:30,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+reproducer	wave	46	Bash:41,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+reproducer	wave	54	Bash:48,Read:2,SubagentHandback:2,ToolSearch:1,SendMessage:1	select:SendMessage
+reproducer	wave	19	Bash:15,Read:1,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+author	wave	58	Bash:26,Edit:17,Write:8,Read:2,SubagentHandback:2,SendMessage:2,ToolSearch:1	select:SendMessage
+reproducer	wave	27	Bash:21,Read:2,ToolSearch:1,SendMessage:1,Monitor:1,SubagentHandback:1	select:SendMessage
+reproducer	wave	41	Bash:36,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+author	wave	86	Bash:49,Edit:12,Write:11,SubagentHandback:6,Read:3,SendMessage:3,ToolSearch:2	select:SendMessage|context7 resolve library docs
+reproducer	wave	55	Bash:49,Read:2,Monitor:1,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+explorer	wave	62	Bash:39,WebFetch:11,Read:8,Write:2,ToolSearch:1,SubagentHandback:1	select:WebFetch,mcp__context7__resolve-library-id,
+reproducer	wave	43	Bash:37,Read:2,ToolSearch:1,SendMessage:1,Monitor:1,SubagentHandback:1	select:SendMessage
+reproducer	wave	38	Bash:32,Read:2,SubagentHandback:2,ToolSearch:1,SendMessage:1	select:SendMessage
+reproducer	wave	17	Bash:13,Read:1,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+reproducer	wave	41	Bash:34,Read:2,SendMessage:2,ToolSearch:1,Monitor:1,SubagentHandback:1	select:SendMessage
+explorer	wave	65	Bash:55,Write:6,Read:2,Edit:1,SubagentHandback:1	
+reproducer	wave	40	Bash:31,Read:3,SubagentHandback:3,SendMessage:2,ToolSearch:1	select:SendMessage
+author	wave	75	Bash:66,Write:4,SubagentHandback:3,ToolSearch:1,SendMessage:1	select:SendMessage
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	85	Bash:82,SubagentHandback:2,Read:1	
+explorer	probe	6	Bash:3,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:3,SubagentHandback:2,Read:1	
+explorer	probe	6	Bash:3,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	87	Bash:85,SubagentHandback:2	
+author	probe	15	Bash:13,Read:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:2,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	5	SubagentHandback:2,Bash:2,Read:1	
+author	probe	4	Bash:2,SubagentHandback:2	
+explorer	probe	3	SubagentHandback:2,Read:1	
+author	probe	15	Bash:13,Read:1,SubagentHandback:1	
+explorer	probe	8	Bash:4,SubagentHandback:2,Read:1,Write:1	
+explorer	probe	6	Bash:3,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	98	Bash:95,SubagentHandback:2,Read:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	5	Bash:2,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	35	Bash:31,SubagentHandback:3,Read:1	
+explorer	probe	77	Bash:75,SubagentHandback:2	
+author	probe	2	Bash:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,SubagentHandback:2,Read:1	
+explorer	probe	7	Bash:4,SubagentHandback:2,Read:1	
+explorer	probe	3	SubagentHandback:2,Read:1	
+author	probe	13	Bash:11,Read:1,SubagentHandback:1	
+explorer	probe	8	Bash:3,Write:2,SubagentHandback:2,Read:1	
+author	probe	2	Bash:1,SubagentHandback:1	
+explorer	probe	6	Bash:2,SubagentHandback:2,Read:1,Write:1	
+author	probe	13	Bash:11,Read:1,SubagentHandback:1	
+explorer	probe	84	Bash:81,SubagentHandback:2,Read:1	
+author	probe	3	Bash:2,SubagentHandback:1	
+proof-adversary	probe	8	Bash:5,Read:2,SubagentHandback:1	
+explorer	probe	93	Bash:91,Read:1,SubagentHandback:1	
+explorer	probe	21	Bash:20,SubagentHandback:1	
+explorer	probe	23	Bash:20,SubagentHandback:2,Write:1	
+explorer	probe	7	Bash:3,SubagentHandback:2,Read:1,Write:1	
+author	probe	1	Bash:1	
+explorer	probe	87	Bash:85,Read:1,SubagentHandback:1	
+author	probe	1	Bash:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+author	probe	13	Bash:11,Read:1,SubagentHandback:1	
+author	probe	4	Bash:2,SubagentHandback:2	
+explorer	probe	35	Bash:31,SubagentHandback:3,Read:1	
+author	probe	13	Bash:11,Read:1,SubagentHandback:1	
+explorer	probe	13	Bash:11,Read:1,SubagentHandback:1	
+explorer	probe	6	Bash:3,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	6	Bash:3,Read:1,Write:1,SubagentHandback:1	
+author	probe	18	Read:10,Bash:7,SubagentHandback:1	
+explorer	probe	3	SubagentHandback:2,Read:1	
+explorer	probe	7	Bash:3,Read:1,ToolSearch:1,WebFetch:1,SubagentHandback:1	select:WebFetch
+author	probe	5	Bash:3,Read:1,SubagentHandback:1	
+proof-adversary	probe	5	Read:2,Bash:2,SubagentHandback:1	
+explorer	probe	97	Bash:96,SubagentHandback:1	
+explorer	probe	41	Bash:40,SubagentHandback:1	
+author	probe	1	Bash:1	
+explorer	probe	6	Bash:3,SubagentHandback:2,Read:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	5	Bash:2,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	44	Bash:41,SubagentHandback:2,Read:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+author	probe	13	Bash:11,Read:1,SubagentHandback:1	
+proof-adversary	probe	8	Bash:5,Read:2,SubagentHandback:1	
+author	probe	6	Bash:4,Read:1,SubagentHandback:1	
+proof-adversary	probe	6	Read:3,Bash:2,SubagentHandback:1	
+proof-adversary	probe	7	Read:4,Bash:2,SubagentHandback:1	
+explorer	probe	8	Bash:5,Read:2,SubagentHandback:1	
+proof-adversary	probe	5	Read:2,Bash:2,SubagentHandback:1	
+explorer	probe	9	WebFetch:4,Read:2,ToolSearch:1,Bash:1,SubagentHandback:1	select:WebFetch
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	93	Bash:91,Read:1,SubagentHandback:1	
+explorer	probe	21	Bash:20,SubagentHandback:1	
+explorer	probe	22	Bash:20,SubagentHandback:2	
+reproducer	wave	88	Bash:82,SubagentHandback:3,SendMessage:2,ToolSearch:1	select:SendMessage,mcp__plugin_colgrep-mcp_colgrep
+author	wave	219	Bash:164,Write:40,Edit:9,SubagentHandback:3,Read:1,ToolSearch:1,SendMessage:1	select:SendMessage
+reproducer	wave	40	Bash:35,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage,mcp__plugin_colgrep-mcp_colgrep
+reproducer	wave	35	Bash:30,SubagentHandback:2,ToolSearch:1,mcp__plugin_colgrep-mcp_colgrep__search:1,Edit:1	select:mcp__plugin_colgrep-mcp_colgrep__search
+reproducer	wave	71	Bash:67,SubagentHandback:2,ToolSearch:1,SendMessage:1	select:SendMessage
+author	wave	22	Bash:20,Read:1,SubagentHandback:1	
+explorer	wave	55	Bash:49,Write:3,ToolSearch:1,mcp__context7__query-docs:1,SubagentHandback:1	select:mcp__context7__resolve-library-id,mcp__cont
+explorer	wave	59	Bash:47,mcp__context7__query-docs:8,ToolSearch:1,mcp__context7__resolve-library-id:1,mcp__plugin_colgrep-mcp_colgrep__search:1,SubagentHandback:1	select:mcp__context7__resolve-library-id,mcp__cont
+reproducer	wave	29	Bash:24,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+author	wave	269	Bash:207,Write:34,Edit:10,SubagentHandback:9,SendMessage:4,Read:3,ToolSearch:2	context7 docs|select:SendMessage
+author	wave	128	Bash:118,Write:4,Read:2,SubagentHandback:2,ToolSearch:1,SendMessage:1	select:SendMessage
+reproducer	wave	56	Bash:47,Write:4,Read:2,ToolSearch:1,SendMessage:1,SubagentHandback:1	select:SendMessage
+explorer	wave	42	Bash:40,ToolSearch:1,SubagentHandback:1	select:mcp__plugin_colgrep-mcp_colgrep__search,mcp
+reproducer	wave	45	Bash:35,Read:3,SubagentHandback:3,ToolSearch:2,mcp__plugin_colgrep-mcp_colgrep__search:1,SendMessage:1	select:mcp__plugin_colgrep-mcp_colgrep__search|select:SendMessage
+reproducer	wave	32	Bash:24,Read:2,ToolSearch:2,mcp__plugin_colgrep-mcp_colgrep__search:1,Write:1,SendMessage:1,SubagentHandback:1	select:mcp__plugin_colgrep-mcp_colgrep__search|select:SendMessage
+author	wave	91	Bash:76,Read:5,ToolSearch:4,SubagentHandback:4,Write:1,SendMessage:1	select:mcp__plugin_colgrep-mcp_colgrep__search|context7 query docs|+context7 resolve library id query-docs|select:SendMessage
+author	probe	13	Bash:11,Read:1,SubagentHandback:1	
+explorer	probe	75	Bash:74,SubagentHandback:1	
+explorer	probe	7	Bash:4,Read:1,Write:1,SubagentHandback:1	
+explorer	probe	5	Bash:3,Read:1,SubagentHandback:1	
+explorer	probe	5	SubagentHandback:2,Bash:2,Read:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	3	SubagentHandback:2,Read:1	
+author	probe	13	Bash:11,Read:1,SubagentHandback:1	
+explorer	probe	21	Bash:20,SubagentHandback:1	
+explorer	probe	22	Bash:20,SubagentHandback:2	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	7	Bash:3,Write:2,Read:1,SubagentHandback:1	
+explorer	probe	93	Bash:91,Read:1,SubagentHandback:1	
+explorer	probe	44	Bash:42,SubagentHandback:2	
+reproducer	probe	9	Bash:8,SubagentHandback:1	
+proof-adversary	probe	7	Read:3,Bash:3,SubagentHandback:1	
+author	probe	17	Bash:16,SubagentHandback:1	
+proof-adversary	probe	8	Bash:4,Read:3,SubagentHandback:1	
+explorer	probe	24	WebFetch:12,Bash:6,Read:2,WebSearch:2,ToolSearch:1,SubagentHandback:1	select:WebFetch,WebSearch
+author	probe	5	Bash:4,SubagentHandback:1	
+author	probe	5	Bash:4,SubagentHandback:1	
+reproducer	probe	6	Read:3,Bash:2,SubagentHandback:1	
+proof-adversary	probe	7	Bash:4,Read:2,SubagentHandback:1	

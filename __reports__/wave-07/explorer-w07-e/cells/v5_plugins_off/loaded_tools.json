@@ -1,0 +1,1 @@
+{"cell": "v5_plugins_off", "loaded": ["Agent", "Bash", "Edit", "ListAgents", "Read", "ScheduleWakeup", "Skill", "ToolSearch", "DeferredToolPlaceholder", "Write", "advisor"]}

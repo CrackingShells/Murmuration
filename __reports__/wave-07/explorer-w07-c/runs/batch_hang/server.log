@@ -1,0 +1,1 @@
+{"ts_ns": 1792597060493310000, "path": "/hang", "token_ok": true, "event": "PostToolBatch", "tool": "", "keys": ["cwd", "effort", "hook_event_name", "permission_mode", "prompt_id", "scratchpad_dir", "session_id", "tool_calls", "transcript_path"], "size": 752, "ctype": "application/json", "ua": "axios/1.15.2", "tool_use_id": null, "agent_id": null, "reply": "hang-start"}
