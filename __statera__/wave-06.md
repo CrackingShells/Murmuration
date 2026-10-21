@@ -102,14 +102,34 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     the waits saves seconds. The PI should not do more while it waits. What it costs is how much it
     reads to orient, and each wake-up re-reading a large context (measured at the close below).
 
+- HH:MM (this commit), after explorer-w06-a and explorer-w06-b returned:
+  - **Rust is not the larger move; a hook with no process is.** Both probes, run independently,
+    agree. As the platform records it, Rust saves about 30 ms a start against python (a), and against
+    a lean `python3 -S -I` start the gap is inside the noise (b). Over wave 4 that is about 1% of the
+    wave. The price is a port of about 1900 lines into an estimated 3000–4500, binaries committed per
+    platform, and a diff no human can review. The 322–605 ms the platform recorded is contention:
+    hooks of one event start together, and each sibling adds about 40 ms (a). `durationMs` is the
+    time to the script's first instruction, and the shell and `.zshrc` play no part (a). An
+    `mcp_tool` hook on a resident server costs 2–3 ms (b; platform probe rows 5–6). So SA1's
+    "hook entry point" comes back in a new shape: a resident server, possibly still Python, that
+    hooks call without starting a process. That is E1, pre-registered in
+    `__reports__/wave-06/00-experiment_protocol_v0.md`, with a feasibility stage and a port stage
+    whose rules are fixed now.
+  - **Why the lean builds failed (b): on their rules, not on the idea.** w04-c5 kept every output
+    (291 of 291 replays) and missed a 50% wall threshold at 48.4%, which a platform floor of 38–60 ms
+    a start made nearly unreachable. w05-c4 changed behaviour (11 of 197 transcripts). If E1 fails,
+    the fallback is E2: the changes that are identical by construction. w04-c5 is reconsidered there
+    on outputs and CPU time.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
 |:--|:--|:--|:--|
 | reproducer-w06-2 | reproducer | verify w06-c2, the dispose-as-they-land bullet (ESTIMATE) | OVERSTATED (6845cee): no saving; 69 s, off the critical path; bullet reverted |
 | reproducer-w06-1 | reproducer | verify w06-c1, the Desktop check of w05-c7 on this session's request 0 | SUPPORTED; paired with the wave-5 PI on 2.1.304: 74,966 → 46,738, the 29 removed tools = the line's matches |
-| explorer-w06-a | explorer | platform-visible cost of a do-nothing hook in sh, Python and a compiled binary; where the 322–605 ms goes | |
-| explorer-w06-b | explorer | inventory of the plugin's recurring waste; why each lean build failed; SA1 sized, not built | |
+| explorer-w06-a | explorer | platform-visible cost of a do-nothing hook in sh, Python and a compiled binary; where the 322–605 ms goes | f38adb0: Rust −30 ms a start; the gap is siblings starting together |
+| explorer-w06-b | explorer | inventory of the plugin's recurring waste; why each lean build failed; SA1 sized, not built | 28859d5: `mcp_tool` 2 ms against 104; lean builds failed on rules; SA1 sized |
+| author-w06-3 | author | E1 stage 1: can a resident server carry Murmuration's hooks (w06-c3) | |
 | explorer-w06-c | explorer | the PI's wake-ups and cost per wake-up in waves 4–5; what idle time could carry; one session per wave | 7c14a2d: idle is free (1-hour cache); wake-ups are hand-backs; preface 21–32% of PI spend |
 
 ## Claims of this wave
@@ -127,6 +147,14 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | S-w06-explorer-w06-c-2 | followed: w06-c2 (the close adds a row where a later result changed a disposition; how often that happens is untested) |
 | S-w06-explorer-w06-c-3 | parked: the platform sets the lifetime (main thread 1 h, subagents 5 min); the plugin's lever is how workers wait (w05-c1, on main) |
 | S-w06-explorer-w06-c-4 | followed: this session's own preface is measured at the close (Notes) |
+| S-w06-explorer-w06-a-1 | parked: an ordering effect between languages; the language is not taken forward (E1) |
+| S-w06-explorer-w06-a-2 | parked: the exec floor belongs to the kernel and the platform; a hook that starts no process avoids it (E1) |
+| S-w06-explorer-w06-a-3 | followed: E1 (one resident server removes Murmuration's own siblings); the user's own sibling hooks are their config (synthesis item 22) |
+| S-w06-explorer-w06-b-1 | parked: the language is not taken forward (E1, "Why this experiment") |
+| S-w06-explorer-w06-b-2 | followed: E1, metric m3 tests the allowlist question directly |
+| S-w06-explorer-w06-b-3 | followed: E1's rules are written with the platform floor known; w04-c5 is reconsidered under E2 if E1 fails |
+| S-w06-explorer-w06-b-4 | parked: `user_words.py` stays a `command` hook under E1; counting it changes no decision |
+| S-w06-explorer-w06-b-5 | parked: the Rust-against-Python rerun decides nothing once the language is not taken forward |
 | S-w06-reproducer-w06-2-1 | followed: the bullet of w06-c2 reverted on this evidence |
 | S-w06-reproducer-w06-2-2 | parked: no estimate priced on wave 4's close is carried forward |
 | S-w06-reproducer-w06-2-3 | followed: the bullet reverted, so step 1 needs no change |
