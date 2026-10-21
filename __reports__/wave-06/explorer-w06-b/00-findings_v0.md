@@ -78,7 +78,7 @@ Prior work: nothing fetched beyond context7's Claude Code documentation (`/websi
 - Cross-compiling (windows, linux arm64), a code-signing or Gatekeeper effect on a committed binary on macOS, and the Windows behaviour of the present plugin.
 - Platform-visible per-start cost of a worker start on a 5 MB transcript (the stub runs outside a lab and exits early; budget.py's 104 ms is its no-op path).
 - `user_words.py`'s count per wave: explorer-w05-d's table has 0 for it (its counter does not see prompts); no number for task notifications.
-- The interleaved run was cut at 72 of 72 calls by my 280 s timeout after the debug log held most rows (n = 16 to 31 per cell); a longer rerun at lower load would tighten the Rust-versus-Python ordering.
+- The interleaved session was cut by my 280 s timeout before its 72 calls ended; the table parses what its debug log held (n = 16 to 31 per cell; the later two sessions never ran); a longer rerun at lower load would tighten the Rust-versus-Python ordering.
 
 ## Steering questions
 
