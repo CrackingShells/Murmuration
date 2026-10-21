@@ -1,0 +1,23 @@
+case                                                 rc  stdout stderr wall s  stored  ok?
+record human                                         0   0      0      0.04    True    ok
+record peer (dropped)                                0   0      0      0.04    False   ok
+record absent, 1 KB file                             0   0      0      3.07    True    ok
+no prompt_id                                         0   0      0      0.12    True    ok
+empty transcript                                     0   0      0      3.14    True    ok
+missing file                                         0   0      0      3.09    True    ok
+directory                                            0   0      0      0.08    True    ok
+mode 000                                             0   0      0      0.05    True    ok
+symlink loop                                         0   0      0      0.05    True    ok
+garbage + torn last line                             0   0      0      3.08    True    ok
+binary garbage                                       0   0      0      3.06    True    ok
+record human then torn peer line (same id)           0   0      0      0.07    True    ok
+human record 5 MB from the end (past both windows)   0   0      0      3.07    True    ok
+human typed, record lands 1 s late                   0   0      0      1.03    True    ok
+peer, record lands 1 s late (dropped)                0   0      0      1.04    False   ok
+typed, record lands 4 s late (after the wait)        0   0      0      3.25    True    ok
+50 MB multi-line, record absent                      0   0      0      3.16    True    ok
+50 MB single line                                    0   0      0      3.11    True    ok
+FIFO as transcript (open blocks)                     HANG 0      0      14.00   False   CHECK want_stored=True
+human record whose tool-result sibling says peer     0   0      0      0.06    True    ok
+empty prompt text                                    0   0      0      0.05    False   ok
+cases not matching expectation: 1

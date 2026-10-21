@@ -1,0 +1,33 @@
+session  env   plugin           bg ms     hook finish after start s  entries  write-start user->api entrypoint origin
+s0       s     exp-branch       2         0.245                      2        96.75     0.229     sdk-cli    None
+i0       i     exp-branch       2         0.131                      0        None      0.131     claude-desktop None
+m-i0     i     exp-main         None      0.109                      1        0.11      0.149     claude-desktop None
+i1       i     exp-branch       1         0.152                      0        None      0.151     claude-desktop None
+m-i1     i     exp-main         None      0.248                      1        0.24      0.307     claude-desktop None
+c0       c     exp-branch       1         0.152                      1        0.13      0.152     sdk-cli    None
+m-c0     c     exp-main         None      0.146                      1        0.14      0.194     sdk-cli    None
+i2       i     exp-branch       2         0.157                      0        None      0.158     claude-desktop None
+c1       c     exp-branch       1         0.261                      1        0.24      0.263     sdk-cli    None
+m-c1     c     exp-main         None      0.424                      1        0.42      0.463     sdk-cli    None
+s1       s     exp-branch       2         0.398                      1        0.39      0.352     sdk-cli    None
+s0r      s     exp-branch       1         0.315                      2        0.31      0.229     sdk-cli    None
+x-sync   i     exp-main-crash   None      0.182                      0        None      0.226     claude-desktop None   ERROR line at +0.18s
+x-async  i     exp-branch-crash 1         None                       0        None      0.242     claude-desktop None   ERROR line at +0.26s
+v0-i0    i     exp-v0           None      0.597                      1        0.59      0.634     claude-desktop None
+v0-i1    i     exp-v0           None      0.449                      1        0.45      0.495     claude-desktop None
+user->first api-request, v1 async: n=7 median 0.158 min 0.131 max 0.352
+user->first api-request, main sync: n=4 median 0.250 min 0.149 max 0.463
+
+resumed session s0 -> s0r, entries:
+# The user's words
+
+Prompts as the user typed them, each under its date. Written by the lab's hook and by `/lab`. Read it; never edit it.
+
+## 2026-10-22 01:09
+
+Reply with the single word ok.
+
+## 2026-10-22 01:11
+
+Reply with the word again.
+

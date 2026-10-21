@@ -1,0 +1,26 @@
+transcripts 1867, text user records 3027
+
+(category from fields, record_mark, text rule stores) -> n
+1887 ('sdk-desktop', False, True)
+447 ('peer', False, True)
+290 ('other', None, True)
+263 ('task-notification', False, False)
+96 ('human', True, True)
+28 ('sdk-desktop', False, False)
+8 ('scheduled', False, True)
+8 ('sdk-cli', True, True)
+
+hook-time replay at each prompt's first record: (category, verdict of tail lookup) -> n
+1915 ('sdk-desktop', False)
+446 ('peer', False)
+263 ('task-notification', False)
+96 ('human', True)
+8 ('scheduled', False)
+8 ('sdk-cli', True)
+5 ('other', None)
+
+expected by rule: human True, sdk-cli True, peer/task-notification/scheduled/sdk-desktop False, other None (text rule decides)
+errors (decision differs from expected, or replay differs from direct): 0
+prompt ids whose records disagree (True and False both marked): 0 []
+text rule stores 2736 records; the origin rule additionally drops 2342 of them; human-origin records stored by both: 96, human-origin records dropped by the new rule: 0
+python3 -I __instrumenta__/w07c2_q1_classify.py scripts/user_words.py  1.07s user 0.29s system 98% cpu 1.376 total

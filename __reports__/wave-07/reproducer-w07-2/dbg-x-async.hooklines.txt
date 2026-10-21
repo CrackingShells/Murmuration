@@ -1,0 +1,5 @@
+2026-10-21T16:11:26.068Z [DEBUG] Hooks: Config-based async hook, backgrounding process async_hook_77530
+2026-10-21T16:11:26.068Z [DEBUG] Hooks: Registering async hook async_hook_77530 (UserPromptSubmit) with timeout 10000ms
+2026-10-21T16:11:26.068Z [DEBUG] Hooks: UserPromptSubmit [python3 "/private/tmp/murmuration-w07/reproducer-w07-2/live/exp-branch-crash/scripts/user_words.py"] (plugin murmuration@inline) moved to the background (1ms)
+2026-10-21T16:11:26.257Z [DEBUG] Hooks: UserPromptSubmit [python3 ~/.claude/hooks/inject_plan_directive.py] finished with status 0 (191ms)
+2026-10-21T16:11:26.326Z [ERROR] "Hook UserPromptSubmit (UserPromptSubmit) error: status code 1\nstderr:\nTraceback (most recent call last):\n  File \"/private/tmp/murmuration-w07/reproducer-w07-2/live/exp-branch-crash/scripts/user_words.py\", line 36, in <module>\n    import repro_no_such_module\nModuleNotFoundError: No module named 'repro_no_such_module'"
