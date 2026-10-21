@@ -436,6 +436,11 @@ verifier who had not done the work. Every number below is MEASURED unless marked
   360 s, P(net ≤ 0) = 0.34 by bootstrap (ESTIMATE). The time a resumed author saves by reading
   rather than re-writing was not measured. One line, and a key the platform stops honouring falls
   back to 5 minutes.
+  By type over waves 4–6 (added after the close, `__instrumenta__/w07_ttl_by_type.py`): a 1-hour
+  cache pays when a worker's re-written prefix exceeds 0.385 of its cache writes. Explorers sit at
+  0.000 and verifiers at 0.14–0.17 under both counting rules, so for them it only adds cost; authors
+  sit at 0.30–0.51, across the line, with the sign resting on wave 4's unrecorded pauses. Authors
+  are the only type for which it is defensible, and for them it is a bet near break-even.
 - **The permission guard as one Rust binary, SA1's pilot (w07-c6 · MEASURED; w07-c8 · below
   MEASURED: restate, landed on its verifier's wording by PI decision).** `murmuration guard`, std
   only, about 410 KB a target, committed for `aarch64-apple-darwin` and `x86_64-apple-darwin`. Its

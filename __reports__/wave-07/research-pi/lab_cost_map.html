@@ -218,6 +218,17 @@ details summary{cursor:pointer;color:var(--text-secondary);margin-top:6px}
   </div>
   <div class="sw"><svg id="spend" viewBox="0 0 1080 300" width="100%" role="img" aria-label="Stacked bars of spend per wave by role, and wave 7's lower bound"></svg></div>
   <p class="note">USD at list price for the PI and workers, headless from cost-state. Waves 4–6 come from explorer-w06-c's script; wave 7 from <code>scripts/lab_status.py</code>'s own transcript parser and prices, over this session's main thread and its 21 subagent files up to the close (02:45 JST). Wave 7's workers did all the building: six explorers, six authors, seven verifier runs and one helper for this page; the last row splits them. Every figure is a lower bound: the session was open, and auto mode's classifier is in no cost record. The 38.28 quoted at 02:41 was read before the last closing requests.</p>
+
+  <h3 style="margin-top:22px">3b · Is a 1-hour cache worth it? The break-even by agent type</h3>
+  <p class="note">A 1-hour cache entry costs more to write (USD 4.00 per million tokens for Sonnet, against 2.50 for a 5-minute one) and the same to read (0.10). It pays only when a worker pauses for more than 5 minutes and less than an hour, because then the 5-minute entry has expired and the whole prefix must be written again. Per worker, let W be every token it wrote to cache and R the prefix tokens it had to write again after such pauses. With a 1-hour cache it saves R × (2.50 − 0.10) and pays (W − R) × (4.00 − 2.50) more, so it is worth it exactly when <b>R / W &gt; 1.5 / 3.9 = 0.385</b>. That threshold is arithmetic on the prices; R and W come from the 47 workers of waves 4–6 (<code>__instrumenta__/w07_ttl_by_type.py</code>).</p>
+  <table style="margin:6px 0 10px">
+    <tr><th>Type</th><th>Workers</th><th>Requests, mean</th><th>Life, mean</th><th>Pauses over 5 min (of all pauses)</th><th>Why they pause</th></tr>
+    <tr><td>authors</td><td>13</td><td>101</td><td>54 min</td><td>15 of 1,305</td><td>they wait for a verifier's questions, and for long runs</td></tr>
+    <tr><td>verifiers</td><td>24</td><td>37</td><td>11 min</td><td>3 of 858</td><td>short lives; they rarely wait</td></tr>
+    <tr><td>explorers</td><td>9</td><td>47</td><td>17 min</td><td>2 of 415</td><td>they probe and hand back; nobody questions them</td></tr>
+  </table>
+  <div class="sw"><svg id="ttl" viewBox="0 0 1080 270" width="100%" role="img" aria-label="R over W per worker and per type against the 0.385 break-even line"></svg></div>
+  <p class="note">Each dot is one worker, placed at the wider of the two counts (hover for both, its life and its USD). The band is its type, pooled, between two ways of counting R: only pauses whose length the records show to be over 5 minutes (left end), or every request that lost more than half its prefix, which also takes in wave 4, where pause lengths were not recorded (right end). <b>Explorers and verifiers are far below the line under both counts</b>: a 1-hour cache would only add cost, USD 2.25 and 2.34–2.67 over three waves. <b>Authors straddle the line</b>: 0.30 to 0.51, a net of −2.15 to +3.31 USD over three waves, and the sign turns on wave 4's unrecorded pauses. So the 1-hour cache is defensible for authors and wrong for the others, but for authors it is a bet near the break-even, not a proven saving. That agrees with w07-c7's verifier (P(net ≤ 0) = 0.34) and corrects my earlier "authors win".</p>
 </div>
 
 <!-- 4. GRAVEYARD -->
@@ -404,6 +415,35 @@ const spend=[
   bindTips(svg);
 })();
 
+/* ---------- 3b. 1-hour cache break-even ---------- */
+const ttlw=[["author-w04-1","author",0.0,0.472,-0.281,0.064,5.7,36],["reproducer-w04-1","reproducer",0.0,0.0,-0.097,-0.097,3.8,29],["reproducer-w04-3","reproducer",0.0,0.0,-0.13,-0.13,7.5,33],["author-w04-2","author",0.0,0.706,-1.231,1.028,53.6,107],["reproducer-w04-2","reproducer",0.0,0.0,-0.103,-0.103,8.2,31],["reproducer-w04-10","reproducer",0.0,0.0,-0.089,-0.089,0.3,18],["reproducer-w04-6","reproducer",0.0,0.0,-0.083,-0.083,1.5,26],["reproducer-w04-4","reproducer",0.0,0.0,-0.138,-0.138,7.0,33],["reproducer-w04-5","reproducer",0.0,0.0,-0.201,-0.201,11.3,51],["author-w04-3","author",0.0,0.268,-0.618,-0.187,40.1,116],["author-w04-4","author",0.26,0.74,-0.632,1.795,38.9,122],["author-w04-6","author",0.0,0.0,-0.089,-0.089,0.8,24],["reproducer-w04-7","reproducer",0.0,0.0,-0.112,-0.112,0.8,21],["reproducer-w04-9","reproducer",0.0,0.0,-0.118,-0.118,1.5,29],["reproducer-w04-8","reproducer",0.0,0.439,-0.289,0.041,3.9,40],["explorer-w05-b","explorer",0.0,0.0,-0.205,-0.205,10.8,39],["author-w05-2","author",0.0,0.0,-0.247,-0.247,30.6,60],["reproducer-w05-5","reproducer",0.0,0.0,-0.133,-0.133,12.6,33],["explorer-w05-e","explorer",0.0,0.0,-0.148,-0.148,8.8,45],["reproducer-w05-8","reproducer",0.0,0.0,-0.099,-0.099,4.9,25],["author-w05-3","author",0.477,0.477,0.248,0.248,65.5,136],["reproducer-w05-1","reproducer",0.0,0.0,-0.136,-0.136,14.7,29],["explorer-w05-a","explorer",0.0,0.0,-0.255,-0.255,9.1,39],["reproducer-w05-3","reproducer",0.0,0.0,-0.108,-0.108,7.3,32],["explorer-w05-d","explorer",0.0,0.0,-0.263,-0.263,21.1,67],["explorer-w05-f","explorer",0.0,0.0,-0.434,-0.434,26.5,36],["reproducer-w05-6","reproducer",0.0,0.0,-0.112,-0.112,6.1,32],["reproducer-w05-4","reproducer",0.0,0.0,-0.161,-0.161,15.3,51],["explorer-w05-c","explorer",0.0,0.0,-0.301,-0.301,13.1,55],["author-w05-1","author",0.467,0.467,0.107,0.107,67.1,68],["reproducer-w06-5","reproducer",0.0,0.0,-0.247,-0.247,12.9,53],["reproducer-w06-2","reproducer",0.0,0.0,-0.132,-0.132,5.8,27],["reproducer-w06-1","reproducer",0.0,0.0,-0.118,-0.118,4.3,28],["reproducer-w06-4","reproducer",0.0,0.0,-0.131,-0.131,14.0,36],["reproducer-w06-7","reproducer",0.445,0.445,0.097,0.097,33.2,83],["author-w06-6","author",0.449,0.449,0.154,0.154,80.9,174],["reproducer-w06-8","reproducer",0.436,0.436,0.033,0.033,15.2,35],["reproducer-w06-3","reproducer",0.0,0.0,-0.148,-0.148,13.6,40],["explorer-w06-c","explorer",0.0,0.0,-0.22,-0.22,10.3,51],["author-w06-3","author",0.0,0.0,-0.709,-0.709,106.1,87],["reproducer-w06-6","reproducer",0.47,0.47,0.087,0.087,55.4,67],["explorer-w06-a","explorer",0.0,0.0,-0.172,-0.172,29.3,40],["author-w06-4","author",0.488,0.488,0.226,0.226,79.1,126],["author-w06-5","author",0.616,0.616,1.016,1.016,130.8,241],["author-w06-7","author",0.0,0.0,-0.097,-0.097,6.5,21],["explorer-w06-b","explorer",0.0,0.0,-0.256,-0.256,25.5,52]];
+(function(){
+  const svg=$("#ttl"),L=170,R=1000,max=0.8,sx=v=>L+(R-L)*v/max,thr=1.5/3.9;
+  const rows=[["author","authors","−2.15 to +3.31"],["reproducer","verifiers","−2.67 to −2.34"],["explorer","explorers","−2.25"]];
+  const top=30,rowH=72;
+  for(let v=0;v<=max+1e-9;v+=0.1){const x=sx(v);el("line",{x1:x,y1:top-10,x2:x,y2:top+rows.length*rowH-14,stroke:"var(--grid)"},svg);
+    txt(svg,{x,y:top+rows.length*rowH+4,"text-anchor":"middle","font-size":"11",class:"muted"},v.toFixed(1))}
+  txt(svg,{x:(L+R)/2,y:top+rows.length*rowH+22,"text-anchor":"middle","font-size":"11.5",class:"sec"},"R / W: share of a worker's cache writes that a 1-hour cache would have avoided");
+  el("line",{x1:sx(thr),y1:top-18,x2:sx(thr),y2:top+rows.length*rowH-14,stroke:"var(--warn)","stroke-width":2,"stroke-dasharray":"5 3"},svg);
+  txt(svg,{x:sx(thr)+6,y:top-8,"font-size":"11.5","font-weight":"600",style:"fill:var(--warn)"},"break-even 0.385: right of it, 1 hour pays");
+  rows.forEach(([t,lab,net],i)=>{
+    const y=top+i*rowH+18, ws=ttlw.filter(w=>w[1]===t);
+    const sum=(k)=>ws.reduce((a,w)=>a+w[k],0);
+    txt(svg,{x:0,y:y+4,"font-size":"13","font-weight":"600"},lab);
+    txt(svg,{x:0,y:y+21,"font-size":"11",class:"sec"},"net USD, 3 waves: "+net);
+    const pool=(k)=>{let Rr=0,Ww=0;return null};
+    const lo=Math.min(...ws.map(w=>w[2])),hi=Math.max(...ws.map(w=>w[3]));
+    const band=t==="author"?[0.303,0.509]:t==="reproducer"?[0.137,0.168]:[0,0];
+    const g=el("g",{"data-tip":`${lab}, pooled R/W: ${band[0].toFixed(3)} (pauses recorded over 5 min) to ${band[1].toFixed(3)} (every large prefix loss). Net of a 1-hour cache over waves 4–6: ${net} USD.`},svg);
+    el("rect",{x:sx(band[0])-3,y:y-9,width:Math.max(sx(band[1])-sx(band[0]),0)+6,height:18,rx:9,fill:t==="author"?"var(--s2)":"var(--text-muted)","fill-opacity":0.35},g);
+    ws.forEach((w,k)=>{const jit=((k%5)-2)*4.5;
+      const gg=el("g",{"data-tip":`${w[0]}: R/W ${w[2].toFixed(2)} to ${w[3].toFixed(2)}; net ${w[4]>=0?"+":""}${w[4].toFixed(2)} to ${w[5]>=0?"+":""}${w[5].toFixed(2)} USD; ${w[7]} requests over ${w[6]} min.`},svg);
+      el("circle",{cx:sx(w[3]),cy:y+jit,r:7,class:"hit"},gg);
+      el("circle",{cx:sx(w[3]),cy:y+jit,r:3.4,fill:t==="author"?"var(--s2)":"var(--text-secondary)","fill-opacity":0.85},gg)});
+  });
+  bindTips(svg);
+})();
+
 /* ---------- 4. graveyard ---------- */
 const moves=[
   ["landed","On main","Every hook row in exec form (w07-c3)","No shell between the platform and the hook. Guard start 123 → 42 ms. Budget PostToolUse 104.5 → 41 ms. Pooled medians, 10 of 10 pairs."],
@@ -532,6 +572,10 @@ const moves=[
 /* ---------- 7. sources ---------- */
 const src=[
   /* wave 7 */
+  ["1-hour cache break-even, any worker","R/W > 1.5/3.9 = 0.385 (Sonnet: 5-minute write 2.50, 1-hour write 4.00, read 0.10 USD per million tokens)","CHECKED (arithmetic on the price table)","scripts/lab_status.py PRICES"],
+  ["Pooled R/W by type, waves 4–6 (two counting rules)","authors 0.303–0.509 · verifiers 0.137–0.168 · explorers 0.000","MEASURED (counts from records)","__instrumenta__/w07_ttl_by_type.py; __reports__/wave-07/research-pi/ttl_by_type.json"],
+  ["Net of a 1-hour cache by type, waves 4–6","authors −2.15 to +3.31 · verifiers −2.67 to −2.34 · explorers −2.25 USD","ESTIMATE","same"],
+  ["Lives by type, waves 4–6","authors 13 workers, 101 requests and 54 min mean, 15 of 1,305 pauses over 5 min · verifiers 24, 37, 11 min, 3 of 858 · explorers 9, 47, 17 min, 2 of 415","MEASURED","same"],
   ["Spend, wave 7, by role (to 02:45)","PI 15.86 · authors 10.07 · explorers 7.32 · verifiers 4.17 · page helper 1.08 · headless 2.48 (USD; 40.98 in all)","MEASURED (lower bound)","scripts/lab_status.py parse_transcript and message_usd over session f023f552 and its subagents; headless: lab_status.py --project /private/tmp/murmuration-w07 --spend"],
   ["Sonnet prices used for the cache examples","input 2.00, cache read 0.10, 5-minute write 2.50, 1-hour write 4.00 USD per million tokens","CITED (the lab's price table)","scripts/lab_status.py PRICES"],
   ["Cache lifetime","5 minutes from last use for a subagent, 1 hour for the main thread, renewed on each hit","CITED (UNVERIFIED this wave)","Anthropic prompt-caching documentation; __pondus__/w07-c7.md for the 5-minute default and the 1-hour key"],
