@@ -1,0 +1,63 @@
+[
+ {
+  "id": "j01",
+  "group": "h6",
+  "tool": "Edit",
+  "input": {
+   "file_path": "{T}/h6/handback.py",
+   "old_string": "\"\"\"Keep every subagent's hand-back, verbatim, in a lab project; make an explorer leave its report file.",
+   "new_string": "\"\"\"Keep every subagent's hand-back, verbatim, in a lab project; make an explorer leave its report file (edited)."
+  }
+ },
+ {
+  "id": "j02",
+  "group": "h6",
+  "tool": "Edit",
+  "input": {
+   "file_path": "{T}/h6/permission_guard.py",
+   "old_string": "wait for their yes in their own message",
+   "new_string": "wait for their explicit yes in their own message"
+  }
+ },
+ {
+  "id": "j03",
+  "group": "h6",
+  "tool": "Write",
+  "input": {
+   "file_path": "{T}/h6/handback.py",
+   "content": "{HANDBACK}"
+  },
+  "match": [
+   "file_path"
+  ]
+ },
+ {
+  "id": "j04",
+  "group": "h6x-deny",
+  "tool": "Edit",
+  "input": {
+   "file_path": "{T}/h6/handback.py",
+   "old_string": "default, bypassPermissions  SubagentStop.last_assistant_message",
+   "new_string": "default, bypassPermissions, bypassPermissions  SubagentStop.last_assistant_message"
+  }
+ },
+ {
+  "id": "j05",
+  "group": "h6x-deny",
+  "tool": "Write",
+  "input": {
+   "file_path": "{T}/scripts/hello.py",
+   "content": "print('hello')\nMODE = \"bypassPermissions\"\n"
+  }
+ },
+ {
+  "id": "j06",
+  "group": "h6x-allow",
+  "tool": "Edit",
+  "input": {
+   "file_path": "{T}/h6/handback.py",
+   "old_string": "default, bypassPermissions  SubagentStop.last_assistant_message",
+   "new_string": "default, bypassPermissions  SubagentStop.last_assistant_message (permission mode)"
+  }
+ }
+]
