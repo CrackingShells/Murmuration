@@ -300,6 +300,20 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
     silent no-op guard. So the README's minimum must say 2.1.295 in the same landing.
   - reproducer-w07-3 verifies, with the missing live note, the failure cases and its own pairs.
 
+- 03:40, after author-w07-4's split and author-w07-6 returned:
+  - **w07-c4's landing build** (`w07-p4b-usage`, 1bc47d0): change 2 only, byte-identical output on
+    a frozen clone, fast mode and web search priced. An old and a new script sharing one cache made
+    every call cold (0.955 s against 0.25 s); a cache file named by its version removes that.
+    reproducer-w07-4 verifies.
+  - **w07-c7 (P6):** the agent-file key is honoured for a plugin author (all writes 1-hour in B,
+    all 5-minute in A), and after a 422 s gap B read 99.98% of its context against A's 40.8%. c1–c3
+    pass, so it lands by its rule if reproducer-w07-6 supports it. The money is nearly even: the
+    author's recomputation over 19 authors with a gap rule nets +USD 0.87 of 47.80 (ESTIMATE),
+    explorer-w07-g's +4.49 counted every re-write as saved, and the sign turns if re-writes fall
+    below 0.385 of write tokens (observed 0.414). What the rule did not price is time: a resumed
+    author reading 100k+ tokens instead of re-writing them starts its answer sooner. I keep the
+    rule as registered; the synthesis states the estimate with its fragility.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -317,7 +331,9 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | reproducer-w07-3 | reproducer | verify w07-c3, with the missing live note and failure cases | |
 | author-w07-4 | author | w07-c4: P4, `lab_status.py` without the git child, usage fields priced | 627fb4d: o1–o4 pass, 0.051 s a call; change 1 dropped by PI decision; change 2 split for landing |
 | author-w07-5 | author | w07-c6: P5, the permission guard as a Rust binary in exec form | |
-| author-w07-6 | author | w07-c7: P6, a 1-hour cache for authors | |
+| author-w07-6 | author | w07-c7: P6, a 1-hour cache for authors | 6041f28: c1–c3 pass; c4 +USD 0.87 of 47.80, fragile |
+| reproducer-w07-4 | reproducer | verify w07-c4's landing build (change 2) | |
+| reproducer-w07-6 | reproducer | verify w07-c7, c2 rerun apart | |
 | reproducer-w07-2 | reproducer | verify w07-c2 and w07-c5, with the missing controls | |
 | author-w07-2 | author | w07-c2: P2, `user_words.py` keeps only typed prompts | e84afec (branch w07-p2-origin): q1 passes, q2 fails (record written after the hook); resumed for v1 as w07-c5; 7fbee58: v1 r1, r2, r4 pass; r3 and crash controls missing |
 
