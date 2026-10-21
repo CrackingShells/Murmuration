@@ -22,7 +22,7 @@ or URL); if you could not verify a source, write UNVERIFIED instead of dropping 
 
 Helper code is a file in `__instrumenta__/`, named for what it does; its first line says what it
 computes, from which inputs, to which outputs. Before you write one, search that folder once with
-colgrep `search` (`paths: ["__instrumenta__"]`, `limit: 5`); without colgrep, Glob the folder and read
+colgrep `search` (`paths: ["<your working directory>/__instrumenta__"]` as an absolute path, `limit: 5`; a relative path is resolved against the search server's folder, which is not always the lab); without colgrep, Glob the folder and read
 the first lines. Reuse the script that fits, extend the one that almost does, otherwise write a new
 file. Short appends, such as a verdict section, stay shell appends.
 Cite a script in your report as `__instrumenta__/<file>@<commit>`.
