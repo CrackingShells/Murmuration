@@ -1,0 +1,7 @@
+size aarch64-apple-darwin: 419184 bytes
+size x86_64-apple-darwin: 407600 bytes
+dependencies: murmuration v0.1.0 (/private/tmp/murmuration-w07/author-w07-5/wt/rust)
+lines of Rust: ['1900', '1748', '416']
+(a) fresh copy of the committed binary, first exec ms: median 151.8 (min 140.7, max 203.8), later execs of the same file median 24.1; first minus later median 127.8, first slower in 12 of 12
+(b) fresh build (clean, new hash each), build seconds [2.67, 2.66, 2.65]; first exec ms [479.2, 489.9, 473.1]; later execs median ms [21.3, 20.9, 21.5]
+load average (1.90283203125, 3.06640625, 3.6396484375)

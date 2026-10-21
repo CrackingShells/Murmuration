@@ -1,0 +1,11 @@
+1 fresh data folder: (0,) target sha == source sha: True mode 755
+2 second run, nothing to copy: (0,) mtime unchanged: True
+3 target differs (appended byte), replaced: (0,) equal again: True
+4 target absent, copied: (0,) True
+5 unwritable data folder: exit 1 stdout '' stderr 'murmuration install: cannot install the permission guard into /var/folders/nw/ddpd99c119j47w3s4gzv7sb00000gn/T/g2off_1iwmf3k2/ro/data (PermissionError: [Errno 1'
+6 data path under a plain file: exit 1 stderr 'murmuration install: cannot install the permission guard into /var/folders/nw/ddpd99c119j47w3s4gzv7sb00000gn/T/g2off_1iw'
+7 CLAUDE_PLUGIN_DATA unset: exit 1 stderr 'murmuration install: CLAUDE_PLUGIN_ROOT or CLAUDE_PLUGIN_DATA is not set; the permission guard binary is not installed a'
+8 CLAUDE_PLUGIN_ROOT unset: exit 1 stderr 'murmuration install: CLAUDE_PLUGIN_ROOT or CLAUDE_PLUGIN_DATA is not set; the permission guard binary is not installed a'
+9 no binary for the platform (bin/ absent): exit 0 launcher: '#!/bin/sh\nexec python3 -S -I \'/private/tmp/murmuration-w07/author-w07-5/S/exp_Bnobin/scripts/permission_guard.py\' "$@"\n' mode 755
+10 launcher again: (0,)
+launcher path for check_guard_equal.py: /var/folders/nw/ddpd99c119j47w3s4gzv7sb00000gn/T/g2off_1iwmf3k2/datal/bin/murmuration
