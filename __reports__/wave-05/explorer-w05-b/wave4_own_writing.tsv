@@ -1,0 +1,14 @@
+kind	calls	chars
+Bash other commands	58	50636
+Agent (brief/message)	16	37132
+assistant text	54	19508
+SendMessage (brief/message)	13	12567
+Bash heredoc write	10	11270
+Write (other file)	1	6904
+Write (wave note/synthesis/design)	1	4947
+other tool calls: mcp__ccd_turn__update_plan	3	2013
+Edit (wave note/synthesis/design)	1	683
+other tool calls: mcp__ccd_turn__wrap_up	1	276
+other tool calls: Read	1	123
+other tool calls: ToolSearch	1	49
+other tool calls: Skill	1	38

@@ -1,0 +1,7 @@
+n	t_utc	gap_s	prev_ctx	rewritten_tokens	is_context_reset	share_of_all_cache_write_tokens	first_item
+276	2026-10-19T07:41:39	64	966526	41043	1	0.020	tool result: Bash: lab scripts: git add hooks/hooks.json scripts/budget.py skill
+289	2026-10-19T08:53:30	4163	117588	0	1	0.000	tool result: mcp__ccd_turn__wrap_up: mcp__ccd_turn__wrap_up
+291	2026-10-19T09:02:53	479	128614	80215	0	0.038	human prompt: The arms A to B4 are very good: don't they prove the system 
+305	2026-10-19T10:39:37	4419	166932	166932	0	0.080	human prompt: Speaking about sustainability, I am seeing an insane number 
+355	2026-10-19T13:19:38	5073	246492	246492	0	0.117	tool result: mcp__ccd_turn__wrap_up: mcp__ccd_turn__wrap_up
+364	2026-10-19T14:52:11	5429	266605	266605	0	0.127	tool result: mcp__ccd_turn__wrap_up: mcp__ccd_turn__wrap_up

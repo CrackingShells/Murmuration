@@ -1,0 +1,13 @@
+n	t_iso	cache_write	cache_read	ctx	gap_s	reset	first_item
+0	00:27:31	74630	0	74632	0	0	hook notices: hook_success
+3	00:27:56	13348	86705	100055	5	0	tool result: Bash: file view (cat/sed/head/tail): cat __statera__/wave-03.md
+35	00:38:14	12872	192015	204889	126	0	peer message (worker report or reply): Another Claude session sent a message: <agent-message from="
+74	01:39:37	11204	281657	292863	16	0	tool result: Bash: write via heredoc: cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; pyt
+1	00:27:38	10060	74630	84692	4	0	tool result: mcp__ccd_turn__update_plan: mcp__ccd_turn__update_plan
+22	00:32:42	9904	153122	163028	6	0	tool result: Bash: other: cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; rm 
+27	00:34:55	8771	170798	179571	6	0	tool result: Agent tool result (sync): author-w04-1
+5	00:28:30	8562	104063	112627	9	0	tool result: Bash: lab scripts: cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be && p
+100	01:51:16	7101	337545	344648	5	0	tool result: Bash: lab scripts: cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be; cat
+12	00:30:19	6941	128453	135396	5	0	tool result: Bash: lab scripts: S=/private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmura
+58	01:29:19	5970	247784	253756	13	0	tool result: Agent tool result (sync): reproducer-w04-7
+71	01:38:57	5961	272997	278960	9	0	tool result: Agent tool result (sync): reproducer-w04-9

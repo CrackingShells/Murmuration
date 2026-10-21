@@ -1,0 +1,18 @@
+what	seconds	count	share_of_session_wall_time
+model time within requests (first to last assistant record)	462	114	0.088
+waiting for peer message (worker hand-back)	2511	22	0.477
+idle > 600 s	1547	2	0.294
+tools: Bash	508	59	0.097
+tools incl. Agent (dispatch)	134	11	0.025
+tools: SendMessage	46	10	0.009
+tools: mcp__ccd_turn__wrap_up	10	1	0.002
+tools: Bash,Read	9	1	0.002
+tools: Edit,mcp__ccd_turn__update_plan	8	1	0.002
+tools: Bash,Write	7	1	0.001
+tools: Bash,ToolSearch	6	1	0.001
+tools: Bash,SendMessage	4	1	0.001
+tools: mcp__ccd_turn__update_plan	4	1	0.001
+tools: Skill,mcp__ccd_turn__update_plan	4	1	0.001
+tools: Write	2	1	0.001
+IDLE request 46	937	1	peer+task-notification after tools=
+IDLE request 50	610	1	peer after tools=

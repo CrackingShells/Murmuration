@@ -1,0 +1,39 @@
+category	wave4_tokens_entered	wave4_share_of_PI_list_price	waves123_tokens_entered	waves123_share_of_PI_list_price(chars-proportional)
+PI own output (text + tool calls)	82554	0.3529	322126	0.2775
+base context at start (system, tools, memory, skills)	74632	0.2174	74457	0.0742
+tool result: Bash: lab scripts	29777	0.0731	67260	0.0367
+peer message (worker report or reply)	41290	0.0698	172594	0.0905
+tool result: Bash: other	28217	0.0651	40951	0.0201
+listing/deltas (skills, tools, mcp)	18594	0.0459	372608	0.2405
+tool result: Bash: file view (cat/sed/head/tail)	12949	0.0370	19052	0.0143
+tool result: Bash: write via heredoc	18149	0.0310	36013	0.0208
+other attachments (total_tokens_reminder)	16379	0.0309	17818	0.0081
+task notification	16174	0.0263	38111	0.0192
+subagent hand-back (queued)	7399	0.0111	48590	0.0369
+tool result: Bash: ls/find/wc/ps	4442	0.0111	5991	0.0040
+skill body load	3494	0.0101	2808	0.0028
+tool result: Agent tool result (sync)	2685	0.0054	21672	0.0131
+other attachments (silent_turn_reminder)	2399	0.0053	1313	0.0006
+tool result: Read (whole file)	1555	0.0045	22179	0.0186
+other attachments (environment)	1078	0.0030	4022	0.0017
+tool result: Bash: git	0	0.0000	9921	0.0064
+other attachments (edited_text_file)	0	0.0000	3861	0.0020
+tool result: mcp__plugin_colgrep-mcp_colgrep__index_prune			846	0.0001
+other attachments (command_permissions)	0	0.0000	17	0.0000
+tool result: Skill	0	0.0000	14	0.0000
+tool result: mcp__plugin_colgrep-mcp_colgrep__list_indexes			3926	0.0013
+tool result: mcp__plugin_colgrep-mcp_colgrep__index_status			949	0.0003
+queued human message/other			1182	0.0007
+tool result: mcp__ccd_session__mark_chapter			116	0.0001
+human prompt			2299	0.0009
+tool result: AskUserQuestion			540	0.0003
+tool result: SendMessage	0	0.0000	3221	0.0015
+tool result: mcp__ccd_turn__update_plan	0	0.0000	241	0.0001
+context after reset (compaction/restart)			91499	0.0151
+tool result: mcp__ccd_session__start_session			169	0.0000
+other attachments (auto_mode)			66	0.0000
+tool result: Write	0	0.0000	1711	0.0008
+tool result: Bash: python/claude run			1508	0.0006
+tool result: ToolSearch			0	0.0000
+tool result: Edit	0	0.0000	509	0.0001
+tool result: mcp__ccd_turn__wrap_up	0	0.0000	997	0.0003

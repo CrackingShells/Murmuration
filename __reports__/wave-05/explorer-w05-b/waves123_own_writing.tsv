@@ -1,0 +1,21 @@
+kind	calls	chars
+Agent (brief/message)	44	137182
+assistant text	179	122626
+Bash other commands	146	107822
+Bash heredoc write	62	77163
+Write (other file)	8	47463
+SendMessage (brief/message)	31	40813
+Write (wave note/synthesis/design)	6	37187
+other tool calls: mcp__ccd_turn__update_plan	26	7044
+other tool calls: mcp__ccd_turn__wrap_up	12	5821
+Edit (wave note/synthesis/design)	7	4411
+other tool calls: mcp__ccd_session__start_session	1	2732
+other tool calls: AskUserQuestion	1	2594
+other tool calls: ToolSearch	5	398
+other tool calls: Read	3	368
+other tool calls: mcp__ccd_session__mark_chapter	3	323
+other tool calls: Skill	2	179
+other tool calls: mcp__plugin_colgrep-mcp_colgrep__index_status	1	107
+other tool calls: ReadMcpResourceTool	1	66
+other tool calls: mcp__plugin_colgrep-mcp_colgrep__list_indexes	2	40
+other tool calls: mcp__plugin_colgrep-mcp_colgrep__index_prune	1	17

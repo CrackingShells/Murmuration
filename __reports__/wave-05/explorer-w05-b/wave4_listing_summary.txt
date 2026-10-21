@@ -1,0 +1,1 @@
+wave4: 1 skill_listing re-entries after request 0; median delta of peer turns without listing 1875; extra tokens 10997; carry cost at list price = 0.025 of the list-price total (114 requests)
