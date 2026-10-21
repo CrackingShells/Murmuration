@@ -73,7 +73,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     user. D moves from "the lab decides" to "the user applies or not". Whether the classifier will
     also stop a merge into main of other plugin files is not known yet; it will show at the first one.
 
-- 17:4x (this commit), after explorer-w06-c and reproducer-w06-1 returned:
+- 17:34 (74d4fff), after explorer-w06-c and reproducer-w06-1 returned:
   - **The PI's idle time is not waste.** All 256 PI requests of waves 4–5 wrote 1-hour cache, and
     every idle gap (the longest 2975 s) was a full cache hit. Idle costs no tokens. The PI's money is
     in its wake-ups, and 46 of 47 later wake-ups were hand-backs. Wake-ups that changed nothing cost
