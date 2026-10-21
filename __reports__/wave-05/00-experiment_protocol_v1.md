@@ -157,3 +157,14 @@ Metrics: m1 to m4 as in E6, plus m5, the dummy MCP tool present in D's tool list
 Decision rule: **D is proposed** if D's m1 is at least 15,000 tokens below A's in 3 of 3 pairs,
 D passes m2 in 3 of 3 with no m3, and m5 holds. If both B (E6) and D are proposed, D supersedes B
 on the branch tip, because it keeps tools that B silently drops. The user decides which lands.
+
+## v2 note (2026-10-21, after E5 ran; post hoc, recorded by PI decision on w05-c1's ESCALATE)
+
+E5's worker ran as a subagent dispatched by a haiku main thread, not as a headless main thread.
+The change was made after the main-thread pilot, before the six decision runs. It was not entered
+here at the time. That pilot showed that a headless main thread writes 1-hour cache entries, so a
+9-minute wait shows no cold request. Subagents write 5-minute entries, as every wave-4 worker did.
+The registered text says "an author-type worker", so the switch is not a literal breach. But it
+was a choice made after seeing a pilot, and it is recorded as that. PI decision: E5 is read as
+testing the subagent case, which is the case of every Murmuration worker. The m2 clause would also
+have proposed B in main-thread mode (524 s in the pilot).
