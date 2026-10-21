@@ -1,22 +1,14 @@
 #!/usr/bin/env python3
 """The resident hook server: runs `budget.py` and `handback.py` in one long-lived process, so a hook starts no process.
 
-A stdio MCP server (Python standard library), bundled through `.mcp.json`. `hooks/hooks.json` registers `type: mcp_tool` rows that call its
-one tool, `hook`, with the payload fields as arguments (`${field}`) and `script: budget|handback`. The tool is not listed to the model (`tools/list`
-is empty; the platform calls a tool it does not list, measured in w06-c4), so no agent's request carries it. The server calls the same
-functions the scripts call (`budget.handle`, `handback.run`), with the same event; nothing else decides an answer.
-
-What a resident process could change, and what is done about it:
-  state       every state of the budget and the hand-back is on disk (`__statera__/.harness/`, under the file lock); the server keeps none of it.
-  code        a fresh process ran the current file. The server compares the two files' modification times at each call and reloads them
-              when they changed; a file that no longer loads keeps the loaded version, and the fault is logged.
-  fields      the platform substitutes an absent field as "" and an object as a JSON string: "" is dropped, `tool_input` and `tool_calls` are parsed.
-  a fault     an exception in a handler, or a handler over DEADLINE seconds, is logged as a `hook_fault` line in `__statera__/harness.jsonl` and
-              the call answers at once. On PostToolBatch and SubagentStart the answer is a note to the agent (to the PI too, on its own thread)
-              that the notes and the 150% block may not be running, at most once per agent per 10 minutes.
-  a death     the platform restarts a stopped server at its next hook (w06-c3, m4a); a server that cannot start leaves only a
-              `hook_non_blocking_error` record in the transcript, which `lab_status.py` reports and `outage.py` (a `command` hook at the events
-              that are rare) turns into text for the worker and the PI.
+A stdio MCP server (standard library), bundled by `.mcp.json`. `hooks/hooks.json` has `type: mcp_tool` rows that call its tool `hook` with the payload
+fields (`${field}`) and `script: budget|handback`. The tool is not listed (`tools/list` is empty; the platform calls an unlisted tool, w06-c4), so no
+request carries it. It calls the functions the scripts call (`budget.handle`, `handback.run`) with the same event; nothing else decides an answer.
+A resident process differs from a fresh one in four ways: state (none: all on disk, under the file lock), code (the files' mtimes are compared at each
+call and the modules reloaded; one that no longer loads keeps the loaded version and logs it), fields (the platform substitutes "" for an absent
+field and a JSON string for an object: undone in `clean`) and faults (an exception or a handler over DEADLINE seconds is logged as a `hook_fault`
+line in `__statera__/harness.jsonl`; on PostToolBatch and SubagentStart the agent gets a note, once per 10 minutes). A server that cannot restart
+is what `outage.py` reports.
 
     hook_server.py             serve MCP on stdin and stdout
     hook_server.py --selftest  check the server on a temporary project
@@ -153,15 +145,16 @@ def serve():
 
 
 def selftest():
+    import shutil
     import subprocess
     import tempfile
     with tempfile.TemporaryDirectory() as tmp:
         os.makedirs(os.path.join(tmp, "__statera__"))
-        sess = os.path.join(tmp, "s")
-        os.makedirs(os.path.join(sess, "subagents"))
+        shutil.copytree(HERE, os.path.join(tmp, "scripts"), ignore=shutil.ignore_patterns("__pycache__"))   # a copy whose files the test edits
+        sess, src = os.path.join(tmp, "s"), os.path.join(tmp, "scripts", "budget.py")
         ev = dict(script="budget", hook_event_name="SubagentStart", cwd=tmp, agent_id="a1", agent_type="murmuration:author", transcript_path=sess + ".jsonl",
                   agent_transcript_path="", permission_mode="", tool_input="", tool_calls="")
-        proc = subprocess.Popen([sys.executable, os.path.abspath(__file__)], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True, cwd="/")
+        proc = subprocess.Popen([sys.executable, os.path.join(tmp, "scripts", "hook_server.py")], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True, cwd="/")
 
         def rpc(n, method, params=None):
             proc.stdin.write(json.dumps({"jsonrpc": "2.0", "id": n, "method": method, "params": params or {}}) + "\n")
@@ -169,49 +162,33 @@ def selftest():
             return json.loads(proc.stdout.readline())["result"]
 
         def tool(n, **kw):
-            text = rpc(n, "tools/call", {"name": "hook", "arguments": kw})["content"][0]["text"]
+            text = rpc(n, "tools/call", {"name": "hook", "arguments": dict(ev, **kw)})["content"][0]["text"]
             return json.loads(text) if text else None
 
+        def ctx(got):
+            return got["hookSpecificOutput"]["additionalContext"]
+
+        def faults():
+            return [json.loads(x)["kind"] for x in open(os.path.join(tmp, "__statera__", "harness.jsonl")) if '"hook_fault"' in x]
+
         assert rpc(1, "initialize", {"protocolVersion": "2025-03-26"})["protocolVersion"] == "2025-03-26" and rpc(2, "tools/list") == {"tools": []}
-        start = tool(3, **ev)["hookSpecificOutput"]["additionalContext"]
-        assert "USD 3.00 and 20 minutes" in start, start   # the real budget.py answered, from a process whose cwd is not the lab
-        assert tool(4, **dict(ev, script="handback", hook_event_name="PreToolUse", tool_name="SubagentHandback", agent_type="murmuration:explorer")) is not None, "the report check ran"
-        assert tool(5, **dict(ev, hook_event_name="PostToolBatch", tool_calls='[{"tool_name": "Bash"}]')) is None
-        # the files change under the server: the next call runs the new code; a file that does not load keeps the old one and the fault is logged
-        import shutil
-        shutil.copytree(HERE, os.path.join(tmp, "scripts"), ignore=shutil.ignore_patterns("__pycache__"))
-        p2 = subprocess.Popen([sys.executable, os.path.join(tmp, "scripts", "hook_server.py")], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True, cwd="/")
-        proc, old = p2, proc
-        old.stdin.close()
-        old.wait()
-        assert "USD 3.00" in tool(6, **dict(ev, agent_id="a6"))["hookSpecificOutput"]["additionalContext"]
-        src = os.path.join(tmp, "scripts", "budget.py")
-        text = open(src).read()
+        assert "USD 3.00 and 20 minutes" in ctx(tool(3)), "the real budget.py answered, from a process whose cwd is not the lab"
+        assert tool(4, script="handback", hook_event_name="PreToolUse", tool_name="SubagentHandback", agent_type="murmuration:explorer") is not None, "the report check ran"
+        assert tool(5, hook_event_name="PostToolBatch", tool_calls='[{"tool_name": "Bash"}]') is None
+        text = open(src).read()   # the file changes under the server: new code at the next call; a file that does not load: the old code, and a log line
         open(src, "w").write(text.replace('"author": 3.0,', '"author": 4.0,', 1))
         os.utime(src, (time.time() + 5, time.time() + 5))
-        assert "USD 4.00" in tool(7, **dict(ev, agent_id="a2"))["hookSpecificOutput"]["additionalContext"], "a changed script is reloaded"
+        assert "USD 4.00" in ctx(tool(6, agent_id="a2")), "a changed script is reloaded"
         open(src, "w").write("def broken(:\n")
         os.utime(src, (time.time() + 10, time.time() + 10))
-        got = tool(8, **dict(ev, agent_id="a3"))
-        assert "USD 4.00" in got["hookSpecificOutput"]["additionalContext"], "a script that does not load: the loaded code answers"
-        faults = [json.loads(x) for x in open(os.path.join(tmp, "__statera__", "harness.jsonl")) if '"hook_fault"' in x]
-        assert [f["kind"] for f in faults] == ["reload"], faults
-        # a handler that raises: logged, a note on PostToolBatch, once per agent per NOTE_EVERY; none on a PostToolUse
-        proc.stdin.close()
-        proc.wait()
-        proc = subprocess.Popen([sys.executable, os.path.join(tmp, "scripts", "hook_server.py")], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True, cwd="/")
-        rpc(1, "initialize")
-        note = tool(9, **dict(ev, hook_event_name="PostToolBatch", tool_calls="not json"))
-        assert "Hook server fault (exception)" in note["hookSpecificOutput"]["additionalContext"], note
-        assert tool(10, **dict(ev, hook_event_name="PostToolBatch", tool_calls="not json")) is None, "one note per agent per 10 minutes"
-        assert tool(11, **dict(ev, hook_event_name="PostToolUse", agent_id="a9", tool_input="not json")) is None
-        faults = [json.loads(x) for x in open(os.path.join(tmp, "__statera__", "harness.jsonl")) if '"hook_fault"' in x]
-        assert [f["kind"] for f in faults][-3:] == ["exception"] * 3 and not any(f["agent_id"] is None for f in faults[-3:]), faults
+        assert "USD 4.00" in ctx(tool(7, agent_id="a3")) and faults() == ["reload"], "a script that does not load: the loaded code answers"
+        note = tool(8, hook_event_name="PostToolBatch", tool_calls="not json")   # a handler that raises: logged, a note once per agent, none on other events
+        assert "Hook server fault (exception)" in ctx(note) and tool(9, hook_event_name="PostToolBatch", tool_calls="not json") is None
+        assert tool(10, hook_event_name="PostToolUse", agent_id="a9", tool_input="not json") is None and faults() == ["reload"] + ["exception"] * 3
         proc.stdin.close()
         proc.wait()
         assert clean(dict(script="x", a="", b="1", tool_input='{"k": ""}')) == {"b": "1", "tool_input": {"k": ""}}
-        # not in a lab: nothing is written
-        with tempfile.TemporaryDirectory() as bare:
+        with tempfile.TemporaryDirectory() as bare:   # not in a lab: nothing is written
             assert fault(dict(cwd=bare, hook_event_name="PostToolBatch"), "x", "y") is None and not os.listdir(bare)
     print("PASS hook_server")
 

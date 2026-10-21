@@ -1,17 +1,13 @@
 #!/usr/bin/env python3
 """Tell the worker and the PI that the hooks are down, with a hook that does not depend on the resident hook server.
 
-The server's hooks are `mcp_tool` rows; when the server cannot restart, every one of them fails with a `hook_non_blocking_error` record in the
-transcript and nothing the model sees (w06-c3, m4b). This script runs as a `command` hook at the three events that are rare (once per worker or per
-dispatch, not per tool call) and reads those records, which the platform writes in the main transcript and in each subagent's:
-
-  SubagentStart               the worker's note: the server does not load (`hook_server.modules()` raises), or the PI's transcript holds failures of the
-                              last 10 minutes. `additionalContext`.
-  PreToolUse(Agent|Task)      the PI, at a dispatch, with no agent_id: failures in its own transcript since the last note. `additionalContext`, and a
-                              `hook_fault` line (kind `down`) in `__statera__/harness.jsonl`.
-  PreToolUse(SubagentHandback) the worker, at its hand-back: failures in its own transcript. The first hand-back is denied, once, with a reason that
-                              asks for the line `HOOKS DOWN: ...` at the top of the hand-back, which is how the PI is told by the worker.
-A failure is a `hook_non_blocking_error` whose stderr names `plugin:murmuration:hooks`. Nothing is written outside a lab. The script never fails an agent.
+When the server cannot restart, each `mcp_tool` hook fails with a `hook_non_blocking_error` record in the transcript (main and subagent) and nothing the
+model sees (w06-c3, m4b). This `command` hook runs at events that are rare (once per worker or dispatch, not per tool call) and reads those records:
+  SubagentStart                the worker: the server code does not load, or the PI's transcript holds failures of the last 10 minutes.
+  PreToolUse(Agent|Task)       the PI at a dispatch: failures in its transcript since the last note. `additionalContext`.
+  PreToolUse(SubagentHandback) the worker at its hand-back: failures in its transcript. The first hand-back is denied once and asked to start with
+                               `HOOKS DOWN: ...`, which tells the PI. A `hook_fault` line (kind `down`) goes to `__statera__/harness.jsonl` each time.
+A failure is a `hook_non_blocking_error` whose stderr names `plugin:murmuration:hooks`. Nothing is written outside a lab; it never fails an agent.
 
     outage.py              read a hook event from stdin
     outage.py --selftest   check the script on a temporary project

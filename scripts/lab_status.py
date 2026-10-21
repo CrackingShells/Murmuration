@@ -789,39 +789,23 @@ def report_spend(root):
 
 
 def report_hooks(root, days=7):
-    """Hook failures: the platform's `hook_non_blocking_error` and `hook_cancelled` records in the transcripts of the lab's sessions touched in the
-    last `days` days (a hook server that cannot start leaves nothing else), and the `hook_fault` lines the hook server wrote to `__statera__/harness.jsonl`."""
+    """Hook failures: the hook server's failure records (`outage.failures`) in the lab's transcripts touched in the last `days` days, and the `hook_fault` lines of `__statera__/harness.jsonl`."""
     import time
-    count, files, faults = collections.Counter(), 0, collections.Counter()
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import outage
+    n, files, faults = 0, 0, collections.Counter()
     for main in find_sessions(lab_roots(root, git_worktrees(root))):
         for f in [main] + glob.glob(os.path.join(main[:-6], "subagents", "**", "agent-*.jsonl"), recursive=True):
-            try:
-                if os.path.getmtime(f) < time.time() - days * 86400:
-                    continue
-                files += 1
-                with open(f, encoding="utf-8", errors="replace") as fh:
-                    for line in fh:
-                        if '"hook_non_blocking_error"' in line or '"hook_cancelled"' in line:
-                            att = (json.loads(line).get("attachment") or {})
-                            if att.get("type") in ("hook_non_blocking_error", "hook_cancelled"):
-                                count[(att["type"], att.get("hookName"), "server" if "plugin:murmuration:hooks" in str(att.get("stderr")) else "")] += 1
-            except (OSError, ValueError):
-                continue
+            if os.path.getmtime(f) > time.time() - days * 86400:
+                files, n = files + 1, n + outage.failures(f, tail=1 << 40)[0]
     try:
-        with open(os.path.join(root, "__statera__", "harness.jsonl"), encoding="utf-8") as fh:
-            for line in fh:
-                if '"hook_fault"' in line:
-                    faults[json.loads(line).get("kind")] += 1
+        faults.update(json.loads(l).get("kind") for l in open(os.path.join(root, "__statera__", "harness.jsonl")) if '"hook_fault"' in l)
     except (OSError, ValueError):
         pass
-    out = ["## Hook failures", ""]
-    if not count and not faults:
-        return out + ["None recorded (%d transcripts touched in the last %d days; no `hook_fault` line)." % (files, days)]
-    for (kind, hook, server), n in sorted(count.items(), key=lambda x: -x[1]):
-        out.append("- %d x %s on %s%s" % (n, kind, hook, " (the hook server: not connected or failed; its budget notes and hand-back capture did not run for those calls)" if server else ""))
-    for kind, n in faults.items():
-        out.append("- %d x hook_fault `%s` (the hook server caught it and logged it in `__statera__/harness.jsonl`)" % (n, kind))
-    return out
+    if not n and not faults:
+        return ["## Hook failures", "", "None recorded (%d transcripts touched in the last %d days; no `hook_fault` line)." % (files, days)]
+    return ["## Hook failures", "", "- %d hook calls of the hook server failed (`hook_non_blocking_error` in %d transcripts): its budget notes and hand-back capture did not run for them" % (n, files)] + \
+           ["- %d x hook_fault `%s` (logged by the hook server or outage.py in `__statera__/harness.jsonl`)" % (c, k) for k, c in faults.items()]
 
 
 # ---------------------------------------------------------------- report and selftest
@@ -1326,17 +1310,17 @@ def selftest():
             finally:
                 os.chmod(os.path.dirname(cache_file), 0o700)
 
-        # ---- Hook failures: the platform's error records in a main transcript and in a subagent's, and the hook server's own `hook_fault` lines
+        # ---- Hook failures: the server's error records in a main transcript and a subagent's, and the `hook_fault` lines
         assert "None recorded" in "\n".join(report_hooks(root))
-        att = lambda kind, **kw: json.dumps({"type": "attachment", "cwd": real, "attachment": dict(type=kind, hookName="PostToolUse:Bash", **kw)}) + "\n"
-        _write(os.path.join(folder, "hk1.jsonl"), json.dumps({"type": "user", "cwd": real}) + "\n" + att("hook_non_blocking_error", stderr='MCP server "plugin:murmuration:hooks" is not connected') * 3 + att("hook_success"))
-        _write(os.path.join(folder, "hk1", "subagents", "agent-x.jsonl"), att("hook_cancelled") + att("hook_non_blocking_error", stderr="boom"))
-        _write(os.path.join(root, "__statera__", "harness.jsonl"), json.dumps({"event": "hook_fault", "kind": "exception"}) + "\n" + json.dumps({"event": "note"}) + "\n")
+        att = lambda kind, **kw: json.dumps({"type": "attachment", "cwd": real, "timestamp": "2026-10-21T10:00:00Z", "attachment": dict(type=kind, hookName="PostToolUse:Bash", **kw)}) + "\n"
+        err = att("hook_non_blocking_error", stderr='MCP server "plugin:murmuration:hooks" is not connected')
+        _write(os.path.join(folder, "hk1.jsonl"), json.dumps({"type": "user", "cwd": real}) + "\n" + err * 3 + att("hook_success"))
+        _write(os.path.join(folder, "hk1", "subagents", "agent-x.jsonl"), err + att("hook_non_blocking_error", stderr="another server"))
+        _write(os.path.join(root, "__statera__", "harness.jsonl"), json.dumps({"event": "hook_fault", "kind": "down"}) + "\n" + json.dumps({"event": "note"}) + "\n")
         text = "\n".join(report_hooks(root))
-        assert "- 3 x hook_non_blocking_error on PostToolUse:Bash (the hook server" in text and "- 1 x hook_cancelled on PostToolUse:Bash\n" in text + "\n" and "- 1 x hook_non_blocking_error on PostToolUse:Bash\n" in text + "\n", text
-        assert "- 1 x hook_fault `exception`" in text and "hook_success" not in text, text
+        assert "- 4 hook calls of the hook server failed" in text and "- 1 x hook_fault `down`" in text, text
         os.utime(os.path.join(folder, "hk1.jsonl"), (1e9, 1e9))
-        assert "- 3 x hook_non_blocking_error" not in "\n".join(report_hooks(root)), "a transcript untouched for 7 days is not read"
+        assert "- 1 hook calls" in "\n".join(report_hooks(root)), "a transcript untouched for 7 days is not read"
         os.unlink(os.path.join(folder, "hk1.jsonl"))
         os.unlink(os.path.join(root, "__statera__", "harness.jsonl"))
 

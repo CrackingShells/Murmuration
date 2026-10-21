@@ -8,7 +8,7 @@ R = "%s/runs/%s" % (S, name)
 lab = R + "/lab"
 shutil.rmtree(R, ignore_errors=True)
 os.makedirs(lab + "/__statera__"); os.makedirs(lab + "/__reports__")
-plug = "%s/export_%s%s" % (S, commit, "_wrap" if wrap else "")
+plug = "%s/export_%s%s" % (S, commit, ("_wrap_" + name) if wrap else "")   # one export per wrapped run: a server that failed to connect is not retried for the same plugin path (observed: out_c0 and out_a0 never connected after out_b0 and out_b1 failed)
 if not os.path.isdir(plug):   # git archive of the commit; the agents' models become haiku (cost), and with --wrap the server starts through a wrapper (pid file, refuse file)
     os.makedirs(plug)
     subprocess.run("git -C %s archive %s | tar -x -C %s" % (os.environ.get("REPO", os.getcwd()), commit, plug), shell=True, check=True)
@@ -35,10 +35,11 @@ B = "Run Bash `echo a-%s`, then Bash `echo b-%s`. "
 SC = {
     "base": lead([(str(i), worker(i, B % (i, i))) for i in range(2)]),
     "block": lead([("0", worker(0, "Run Bash `sleep 12`, then Bash `echo c`, then Bash `echo d`. ", "0.1"))]),
-    "outage_a": ("Step 1: run Bash `echo before`. Step 2: run Bash `kill $(cat %s/server.pid); sleep 2`. Step 3: run Bash `echo after-1`. " % S) + lead([("0", worker(0, B % (0, 0)))])[len("Step 1: run Bash `echo main-1`. "):].replace("Step 2:", "Step 4:").replace("Step 3:", "Step 5:"),
+    "outage_a": ("Step 1: run Bash `echo before`. Step 2: run Bash `echo %s > %s/refuse; kill $(cat %s/server.pid); sleep 2`. Step 3: run Bash `echo after-1`, then Bash `echo after-2`. " % (os.environ.get("REFUSE", "none"), S, S)) + lead([("0", worker(0, B % (0, 0)))])[len("Step 1: run Bash `echo main-1`. "):].replace("Step 2:", "Step 4:").replace("Step 3:", "Step 5:"),
 }
 SC["outage_b"] = SC["outage_c"] = SC["outage_a"]
 SC["mutant"] = SC["base"]
+open(S + "/refuse", "w").write("none"); open(S + "/server.starts", "w").write("")
 perm = os.environ.get("PERM", "auto")
 cmd = ["claude", "-p", SC[scen], "--model", "haiku", "--agent", "murmuration:research-pi", "--plugin-dir", plug, "--permission-mode", perm,
        "--debug-file", R + "/dbg.log", "--output-format", "json"]
