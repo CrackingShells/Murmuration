@@ -1,3 +1,7 @@
 ## S-w06-research-pi-1
 `scripts/user_words.py` recorded the task message that the session which started this one sent, as a user prompt under 2026-10-21 (the long "You are the PI of the Murmuration reflective run, wave 6" brief), next to the user's real 19:27 words. The file promises the user's words verbatim. A session-to-session message is not the user's, and nothing in the record tells them apart. The `promptSource` / `turnOrigin` fields of the transcript's user records may carry the difference. Not checked.
 refs: __statera__/user_words.md (the 2026-10-21 entry before 19:27); this session's transcript, first `user` record (fields `promptSource`, `turnOrigin`)
+
+## S-w06-research-pi-2
+Third lean build, third threshold miss: w04-c5 (48.4% against 50%), w05-c4, now w06-c9 (22 ms against 25 ms in every pair). Each time the threshold sat at or beyond the physical ceiling of the change. This time I set it after explorer-w06-b had measured that ceiling and flagged exactly this (S-w06-explorer-w06-b-3). On a quiet machine no Python start can save more than 26.1 ms here, and "every pair" under a noise of ±30 ms makes 25 ms close to unreachable. The lab's pre-registration guards against fitting a rule to results, but nothing in the procedure asks the PI to check a threshold against the measured ceiling before registering it. A rule that cannot pass decides nothing.
+refs: __reports__/wave-06/02-experiment_protocol_e2_v0.md (e2); w06-c9 on branch w06-e2-lean (per-pair table); __scrupuli__/wave-06-explorer-w06-b.md (S-3)
