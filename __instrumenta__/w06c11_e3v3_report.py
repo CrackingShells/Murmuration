@@ -97,7 +97,7 @@ x01 = h3x.get("x01", {}).get("spawns_for_case")
 wr = {k: h3[k]["spawns_for_case"] for k, c in o0.items() if c["tool"] != "Bash" and k in h3}
 wr["i13(.md)"] = h3x.get("i13", {}).get("spawns_for_case")
 ok3 = all(n == 1 for n in bash.values()) and x01 == 1 and not any(wr.values())
-p("## k3 cost: starts per ordinary Bash call (must be exactly 1): %s; `echo $(date +%s)`: %s; non-script Writes/Edits and the .md Write (must be 0): %s -> %s" % (
+p("## k3 cost: starts per ordinary Bash call (must be exactly 1): %s; `echo $(date +%%s)`: %s; non-script Writes/Edits and the .md Write (must be 0): %s -> %s" % (
     json.dumps({n: [k for k, v in bash.items() if v == n] for n in sorted(set(bash.values()))}), x01, json.dumps(wr), PASS(ok3)))
 p("")
 # k4
@@ -131,7 +131,7 @@ p("")
 p("Sample of ten (random.Random(0), first 220 characters of the call):")
 p("")
 for l in random.Random(0).sample(denied, 10):
-    p("- `%s`" % esc(l)[:260])
+    p("- `%s`" % l.replace("|", "\\|").replace("`", "")[:230])
 p("")
 p("## Rule: land v3 instead of v2 if k1 to k6 all pass -> %s" % PASS(all([ok1, ok2, ok3, ok4, ok5, ok6])))
 open(os.path.join(E.LISTS, "e3v3_results_%s.md" % sha), "w").write("\n".join(L) + "\n")
