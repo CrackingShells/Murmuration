@@ -392,6 +392,21 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
     the merge to main is followed at once by a headless smoke run from main's own tree, and is
     reverted if it fails.
 
+- 05:30, after reproducer-w07-5's verdict on w07-c6 (SUPPORTED):
+  - Every number reproduced on its own seeds (g1 20,926 events, 0 differences; g3 600 of 600;
+    g4 6 of 6, median 15.8 ms under higher load). The checker caught both mutants, one only through
+    the fuzz. 12 concurrent installers, 0 failures. The real binary could not be made to panic.
+    The odd-type differences are all stricter in Rust, and the 300 kB word is a fix.
+  - **Four gaps, and one is a guardrail risk:** nothing ties `bin/` to its source (bytes are not
+    reproducible: the LC_UUID follows the build path), so an edit to `permission_guard.py` would
+    silently stop applying wherever the binary runs. Also the x86_64 binary has no artifact, the
+    installed-plugin path is unrun, and a flipped byte still runs.
+  - **PI decision: v0 does not land as it is.** Registered P5 v1
+    (`__reports__/wave-07/04-protocol_p5_rustguard_v1.md`): a manifest of hashes; the installer
+    installs the binary only when its hash, the sources' hashes and a self-test all agree, and
+    otherwise installs the Python launcher and says so to the session. Doubt resolves to the
+    reference, visibly. author-w07-5 (warm) runs it as w07-c8; reproducer-w07-5 checks it.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -409,7 +424,7 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | reproducer-w07-3 | reproducer | verify w07-c3, with the missing live note and failure cases | 9658909: SUPPORTED |
 | author-w07-4 | author | w07-c4: P4, `lab_status.py` without the git child, usage fields priced | 627fb4d: o1–o4 pass, 0.051 s a call; change 1 dropped by PI decision; change 2 split for landing |
 | author-w07-5 | author | w07-c6: P5, the permission guard as a Rust binary in exec form | bd27a00: g1–g4 pass; 0 differences in 20,847; −16 ms CPU a start |
-| reproducer-w07-5 | reproducer | verify w07-c6: reproducible build, installer races, checker mutation | |
+| reproducer-w07-5 | reproducer | verify w07-c6: reproducible build, installer races, checker mutation | 1cc0348: SUPPORTED, four gaps; v1 registered |
 | author-w07-6 | author | w07-c7: P6, a 1-hour cache for authors | 6041f28: c1–c3 pass; c4 +USD 0.87 of 47.80, fragile |
 | reproducer-w07-4 | reproducer | verify w07-c4's landing build (change 2) | ffd1f6b: SUPPORTED at c473203 |
 | reproducer-w07-6 | reproducer | verify w07-c7, c2 rerun apart | 033e274: ESCALATE (restatement); PI: lands by rule |
