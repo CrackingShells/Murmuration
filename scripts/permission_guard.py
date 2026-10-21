@@ -233,11 +233,11 @@ def g3_bash(cmd, segs, cwd):
             targets += [t for t in args if not t.startswith("-")]
         elif prog in ("sed", "perl", "awk", "gawk", "ruby") and any(t.startswith(("-i", "--in-place", "-pi", "-ni")) or t == "inplace" for t in args):
             targets += [t for t in args if not t.startswith("-")]
-        elif prog in ("cp", "mv"):        # only the destination is written: the last argument, or the value of -t / --target-directory
+        elif prog == "cp":                # only the destination is written: the last argument, or the value of -t / --target-directory
             plain = [t for t in args if not t.startswith("-")]
             tdir = [args[j + 1] for j, t in enumerate(args[:-1]) if t in ("-t", "--target-directory")] + [t.split("=", 1)[1] for t in args if t.startswith("--target-directory=")]
             targets += tdir if tdir else plain[-1:]
-        elif prog in ("install", "ln", "rsync", "rm", "truncate", "unlink", "shred", "chmod", "chown", "touch"):
+        elif prog in ("mv", "install", "ln", "rsync", "rm", "truncate", "unlink", "shred", "chmod", "chown", "touch"):    # mv removes its source: every argument is a target
             targets += [t for t in args if not t.startswith("-")]
         elif prog == "dd":
             targets += [t[3:] for t in args if t.startswith("of=")]
@@ -373,6 +373,9 @@ def selftest():
         ("Bash", {"command": "cp -t .claude /tmp/settings.json"}, False),
         ("Bash", {"command": "cp -t /h/proj/.claude/settings.json /tmp/a"}, True),
         ("Bash", {"command": "mv /tmp/x .claude/settings.json"}, True),
+        ("Bash", {"command": "mv .claude/settings.json /tmp/old"}, True),
+        ("Bash", {"command": "mv .claude/settings.local.json .claude/settings.local.json.off"}, True),
+        ("Bash", {"command": "mv /tmp/a /tmp/b"}, False),
         ("Bash", {"command": "rm .claude/settings.json"}, True),
         ("Bash", {"command": "ls 2>&1; echo ok"}, False),
         ("Bash", {"command": "CLAUDE_CONFIG_DIR=/x claude -p y"}, True),

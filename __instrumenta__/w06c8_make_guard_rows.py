@@ -10,7 +10,7 @@ SCRIPTS = ["**/*.py", "**/*.sh", "**/*.bash", "**/*.zsh", "**/*.js", "**/*.ts", 
 
 
 def handler(rule):
-    h = {"type": "command", "command": CMD, "timeout": 10, "onFailure": "block"}
+    h = {"type": "command", "command": CMD, "timeout": 20, "onFailure": "block"}
     if rule:
         h = dict(h, **{"if": rule})
         h = {k: h[k] for k in ("type", "if", "command", "timeout", "onFailure")}
