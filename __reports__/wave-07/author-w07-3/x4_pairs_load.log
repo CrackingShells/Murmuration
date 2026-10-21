@@ -1,0 +1,11 @@
+pair 90 load_start 6.35 load_end 5.57 | pair_90_B B pair rc 0 wall_s 48.2 load 5.5712890625 | pair_90_A A pair rc 0 wall_s 40.2 load 6.0537109375
+pair 1 load_start 5.29 load_end 3.94 | pair_1_A A pair rc 0 wall_s 46.9 load 3.9404296875 | pair_1_B B pair rc 0 wall_s 34.8 load 4.47509765625
+pair 2 load_start 3.94 load_end 3.93 | pair_2_B B pair rc 0 wall_s 44.0 load 3.92626953125 | pair_2_A A pair rc 0 wall_s 38.6 load 4.2685546875
+pair 3 load_start 3.93 load_end 3.75 | pair_3_A A pair rc 0 wall_s 35.8 load 3.994140625 | pair_3_B B pair rc 0 wall_s 42.9 load 3.75390625
+pair 4 load_start 3.75 load_end 4.13 | pair_4_B B pair rc 0 wall_s 43.9 load 4.14111328125 | pair_4_A A pair rc 0 wall_s 49.8 load 4.12939453125
+pair 5 load_start 4.13 load_end 3.86 | pair_5_A A pair rc 0 wall_s 41.1 load 3.86474609375 | pair_5_B B pair rc 0 wall_s 43.2 load 3.86474609375
+pair 6 load_start 3.86 load_end 3.81 | pair_6_B B pair rc 0 wall_s 44.2 load 3.8115234375 | pair_6_A A pair rc 0 wall_s 44.8 load 3.8115234375
+pair 7 load_start 3.81 load_end 3.45 | pair_7_A A pair rc 0 wall_s 39.2 load 3.486328125 | pair_7_B B pair rc 0 wall_s 42.7 load 3.447265625
+pair 8 load_start 3.45 load_end 2.97 | pair_8_B B pair rc 0 wall_s 45.3 load 2.9677734375 | pair_8_A A pair rc 0 wall_s 39.9 load 2.96533203125
+pair 9 load_start 2.97 load_end 3.74 | pair_9_A A pair rc 0 wall_s 40.7 load 3.7421875 | pair_9_B B pair rc 0 wall_s 44.1 load 3.7421875
+pair 10 load_start 3.74 load_end 3.65 | pair_10_B B pair rc 0 wall_s 37.4 load 3.654296875 | pair_10_A A pair rc 0 wall_s 36.0 load 3.654296875

@@ -1,0 +1,45 @@
+== tool_results
+ A (3):
+    0  ERR PreToolUse:Bash hook error: [python3 -S -I "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"]: failed; blocking because onFailure is "block" | Traceback (most recent call last): |   File "<EXPORT>/scripts/permission_guard.py", line 1, in <module> |     1 / 0   # w07-c3 crash scenario |     ~~^~~ | ZeroDivisionError: division by zero
+    1  OK  1	x | 2	
+    2  ERR PreToolUse:Bash hook error: [python3 -S -I "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"]: failed; blocking because onFailure is "block" | Traceback (most recent call last): |   File "<EXPORT>/scripts/permission_guard.py", line 1, in <module> |     1 / 0   # w07-c3 crash scenario |     ~~^~~ | ZeroDivisionError: division by zero
+ B (3):
+    0  ERR PreToolUse:Bash hook error: [python3 -S -I ${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py]: failed; blocking because onFailure is "block" | Traceback (most recent call last): |   File "<EXPORT>/scripts/permission_guard.py", line 1, in <module> |     1 / 0   # w07-c3 crash scenario |     ~~^~~ | ZeroDivisionError: division by zero
+    1  OK  1	x | 2	
+    2  ERR PreToolUse:Bash hook error: [python3 -S -I ${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py]: failed; blocking because onFailure is "block" | Traceback (most recent call last): |   File "<EXPORT>/scripts/permission_guard.py", line 1, in <module> |     1 / 0   # w07-c3 crash scenario |     ~~^~~ | ZeroDivisionError: division by zero
+ -> SAME up to quotes/spacing
+== attachments
+ A (4):
+    0  hook_non_blocking_error PostToolBatch exit=1 stderr=Failed with non-blocking status code: Traceback (most recent call last): |   File "<EXPORT>/scripts/run_hook.py", line 11, in <module> |     __import__(sys.argv[1])
+    1  hook_non_blocking_error PostToolUse exit=1 stderr=Failed with non-blocking status code: Traceback (most recent call last): |   File "<EXPORT>/scripts/run_hook.py", line 11, in <module> |     __import__(sys.argv[1])
+    2  hook_non_blocking_error PostToolBatch exit=1 stderr=Failed with non-blocking status code: Traceback (most recent call last): |   File "<EXPORT>/scripts/run_hook.py", line 11, in <module> |     __import__(sys.argv[1])
+    3  hook_non_blocking_error PostToolBatch exit=1 stderr=Failed with non-blocking status code: Traceback (most recent call last): |   File "<EXPORT>/scripts/run_hook.py", line 11, in <module> |     __import__(sys.argv[1])
+ B (4):
+    0  hook_non_blocking_error PostToolBatch exit=1 stderr=Failed with non-blocking status code: Traceback (most recent call last): |   File "<EXPORT>/scripts/run_hook.py", line 11, in <module> |     __import__(sys.argv[1])
+    1  hook_non_blocking_error PostToolUse exit=1 stderr=Failed with non-blocking status code: Traceback (most recent call last): |   File "<EXPORT>/scripts/run_hook.py", line 11, in <module> |     __import__(sys.argv[1])
+    2  hook_non_blocking_error PostToolBatch exit=1 stderr=Failed with non-blocking status code: Traceback (most recent call last): |   File "<EXPORT>/scripts/run_hook.py", line 11, in <module> |     __import__(sys.argv[1])
+    3  hook_non_blocking_error PostToolBatch exit=1 stderr=Failed with non-blocking status code: Traceback (most recent call last): |   File "<EXPORT>/scripts/run_hook.py", line 11, in <module> |     __import__(sys.argv[1])
+ -> SAME text
+== debug
+ A (6):
+    0  Hooks: PreToolUse:Bash [python3 -S -I "<EXPORT>/scripts/permission_guard.py"] (plugin murmuration@inline) finished with status 1 (295ms)
+    1  Hooks: PostToolBatch [python3 -S -I "<EXPORT>/scripts/run_hook.py" budget] (plugin murmuration@inline) finished with status 1 (97ms)
+    2  Hooks: PostToolUse:Read [python3 -S -I "<EXPORT>/scripts/run_hook.py" budget] (plugin murmuration@inline) finished with status 1 (158ms)
+    3  Hooks: PostToolBatch [python3 -S -I "<EXPORT>/scripts/run_hook.py" budget] (plugin murmuration@inline) finished with status 1 (213ms)
+    4  Hooks: PreToolUse:Bash [python3 -S -I "<EXPORT>/scripts/permission_guard.py"] (plugin murmuration@inline) finished with status 1 (114ms)
+    5  Hooks: PostToolBatch [python3 -S -I "<EXPORT>/scripts/run_hook.py" budget] (plugin murmuration@inline) finished with status 1 (55ms)
+ B (6):
+    0  Hooks: PreToolUse:Bash [python3 -S -I <EXPORT>/scripts/permission_guard.py] (plugin murmuration@inline) finished with status 1 (72ms)
+    1  Hooks: PostToolBatch [python3 -S -I <EXPORT>/scripts/run_hook.py budget] (plugin murmuration@inline) finished with status 1 (124ms)
+    2  Hooks: PostToolUse:Read [python3 -S -I <EXPORT>/scripts/run_hook.py budget] (plugin murmuration@inline) finished with status 1 (37ms)
+    3  Hooks: PostToolBatch [python3 -S -I <EXPORT>/scripts/run_hook.py budget] (plugin murmuration@inline) finished with status 1 (37ms)
+    4  Hooks: PreToolUse:Bash [python3 -S -I <EXPORT>/scripts/permission_guard.py] (plugin murmuration@inline) finished with status 1 (51ms)
+    5  Hooks: PostToolBatch [python3 -S -I <EXPORT>/scripts/run_hook.py budget] (plugin murmuration@inline) finished with status 1 (76ms)
+ -> SAME up to quotes/spacing
+== final answer
+ A: Bash `echo w07c3-m1`: blocked. The PreToolUse hook `permission_guard.py` failed, and its `onFailure` is set to `block`. Hook message, verbatim: `ZeroDivisionError: division by zero` (`1 / 0   # w07-c3 crash scenario`).
+Read `/private/tmp/murmuration-w07/author-w07-3/runs/RUN/lab/__reports__/x.txt`: ran. It contains `x`.
+Bash `echo w07c3-m2`: blocked, with the same hook error and the same `ZeroDivisionError` traceback.
+ B: 1. `echo w07c3-m1`: blocked. Hook message: `PreToolUse:Bash hook error: [python3 -S -I ${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py]: failed; blocking because onFailure is "block"`, followed by `ZeroDivisionError: division by zero` (from `permission_guard.py` line 1, `1 / 0   # w07-c3 crash scenario`).
+2. Read `/private/tmp/murmuration-w07/author-w07-3/runs/RUN/lab/__reports__/x.txt`: ran. The file contains `x`.
+3. `echo w07c3-m2`: blocked. Same hook message and `ZeroDivisionError` tracebac

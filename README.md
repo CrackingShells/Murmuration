@@ -69,7 +69,7 @@ delete: start Claude Code in it with `COLGREP_DATA_DIR=<folder>/.colgrep`.
 
 ## Requirements
 
-- Claude Code 2.1.271 or later.
+- Claude Code 2.1.295 or later (the permission guard fails closed through `onFailure: "block"`, added in 2.1.295; exec-form hooks need 2.1.139).
 - Python 3 (standard library only) for the hooks and the status script.
 
 ## Tools by role
