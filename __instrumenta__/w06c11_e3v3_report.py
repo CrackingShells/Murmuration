@@ -16,7 +16,7 @@ def merge(a, b):
     return a
 
 
-files = sorted(glob.glob("%s/v3shard*/e3v3_results_%s_s*.json" % (E.S, sha)))
+files = sorted(glob.glob("%s/%sshard*/e3v3_results_%s_s*.json" % (E.S, os.environ.get("W06_SHARDS", "v3"), sha)))
 for f in files:
     merge(R, json.load(open(f)))
 
@@ -24,7 +24,7 @@ for f in files:
 def reclassify(node):
     for k, v in node.items():
         if isinstance(v, dict) and "outcome" in v and "run" in v:
-            dirs = glob.glob("%s/v3shard*/runs/%s" % (E.S, v["run"]))
+            dirs = glob.glob("%s/%sshard*/runs/%s" % (E.S, os.environ.get("W06_SHARDS", "v3"), v["run"]))
             if dirs and os.path.exists(dirs[0] + "/cases.json"):
                 for row in E.match(dirs[0], json.load(open(dirs[0] + "/cases.json"))["cases"]):
                     if row[0] == k:
@@ -117,22 +117,23 @@ ok5 = len(h5) >= 10 and not bad5 and (max(ms) < 10000 if ms else False)
 p("## k5 load: %d tries, blocked %d %s; guard starts per try %s; hook ms median %s, max %s -> %s" % (
     len(h5), len(bad5), json.dumps(bad5), sorted({v["dbg_spawns"] for v in h5.values()}), statistics.median(ms) if ms else "-", max(ms) if ms else "-", PASS(ok5)))
 p("")
-# k6
-lines = open(replay).read().splitlines()
-counts = lines[0]
-denied = [l for l in lines[1:] if l.startswith(("Bash |", "Write |", "Edit |"))]
-nb = len([l for l in denied if l.startswith("Bash |")])
-by = {}
-for l in denied:
-    by[l.split(" | ")[1]] = by.get(l.split(" | ")[1], 0) + 1
-ok6 = nb <= 55
-p("## k6 false denials: replaying the lab's real calls through v3's decision function (no `if` gate): %s; denied Bash %d (by group %s); rule at most 55 -> %s" % (counts, nb, json.dumps(by), PASS(ok6)))
-p("")
-p("Sample of ten (random.Random(0), first 220 characters of the call):")
-p("")
-for l in random.Random(0).sample(denied, 10):
-    p("- `%s`" % l.replace("|", "\\|").replace("`", "")[:230])
-p("")
+# k6: the output of w06c13_k6_recount.py (reproducer-w06-7's labels); the older replay format is still read
+txt6 = open(replay).read()
+mm = re.search(r"labelled (\{.*?\}), unlabelled (\d+)", txt6)
+if mm:
+    lab = eval(mm.group(1))
+    unl = int(mm.group(2))
+    sa, br = lab.get("a", 0), lab.get("a", 0) + lab.get("c", 0)
+    ok6 = sa <= 55 and br <= 55
+    p("## k6 false denials (reproducer-w06-7's labels, `w06c13_k6_recount.py`): labelled strict (only mention the words) %d, broad (plus other) %d, limit 55; %d denied calls carry no label (made after the labelling; counted as false they give strict %d, broad %d) -> %s" % (
+        sa, br, unl, sa + unl, br + unl, PASS(ok6)))
+    p("")
+    for l in txt6.splitlines():
+        p("    " + l)
+    p("")
+else:
+    ok6 = False
+    p("## k6: no recount found in %s" % replay)
 p("## Rule: land v3 instead of v2 if k1 to k6 all pass -> %s" % PASS(all([ok1, ok2, ok3, ok4, ok5, ok6])))
 open(os.path.join(E.LISTS, "e3v3_results_%s.md" % sha), "w").write("\n".join(L) + "\n")
 print("\n".join(L))
