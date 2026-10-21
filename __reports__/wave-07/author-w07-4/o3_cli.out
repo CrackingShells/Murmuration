@@ -1,0 +1,13 @@
+f-nogit-perm: rc A 0 B 0; stdout same True; stderr empty A True B True; 0.19 s / 0.10 s -> SAME
+f-nowt-perm: rc A 0 B 0; stdout same True; stderr empty A True B True; 0.10 s / 0.10 s -> SAME
+f-gitdir-missing: rc A 0 B 0; stdout same True; stderr empty A True B True; 0.09 s / 0.05 s -> SAME
+f-gitdir-garbage: rc A 0 B 0; stdout same True; stderr empty A True B True; 0.10 s / 0.11 s -> SAME
+f-nohead: rc A 0 B 0; stdout same True; stderr empty A True B True; 0.09 s / 0.09 s -> SAME
+f-dotgit-garbage-wt: rc A 0 B 0; stdout same True; stderr empty A True B True; 0.09 s / 0.09 s -> SAME
+sep: rc A 0 B 0; stdout same True; stderr empty A True B True; 0.09 s / 0.10 s -> SAME
+bare.git: rc A 0 B 0; stdout same True; stderr empty A True B True; 0.09 s / 0.10 s -> SAME
+not-a-repo: rc A 0 B 0; stdout same True; stderr empty A True B True; 0.10 s / 0.10 s -> SAME
+nope: rc A 0 B 0; stdout same True; stderr empty A True B True; 0.09 s / 0.09 s -> SAME
+outer/plain/nope: rc A 0 B 0; stdout same True; stderr empty A True B True; 0.09 s / 0.09 s -> SAME
+outer/inner.git: rc A 0 B 0; stdout same True; stderr empty A True B True; 0.09 s / 0.10 s -> SAME
+outer/plain/sub: rc A 0 B 0; stdout same True; stderr empty A True B True; 0.09 s / 0.06 s -> SAME

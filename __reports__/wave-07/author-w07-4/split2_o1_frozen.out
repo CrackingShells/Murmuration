@@ -1,0 +1,18 @@
+cloned 235 project folders
+frozen files: 686, 292.5 MB; lines with speed fast: 0; lines with web_search_requests > 0: 0
+worktree lists equal: True
+A cold --spend: 0.835 s, 2985 bytes, sha 791e6ffb34b5b27c
+A warm --spend: 0.196 s, 2985 bytes, sha 791e6ffb34b5b27c
+A cold full: 14983 bytes, sha 8825771a5493c60c
+A warm full: 14983 bytes, sha 8825771a5493c60c
+B cold --spend: 0.852 s, 2985 bytes, sha 791e6ffb34b5b27c
+B warm --spend: 0.196 s, 2985 bytes, sha 791e6ffb34b5b27c
+B cold full: 14983 bytes, sha 8825771a5493c60c
+B warm full: 14983 bytes, sha 8825771a5493c60c
+A full again: sha 8825771a5493c60c (equal to A's earlier full: True)
+spend cold: A == B byte for byte: True
+spend warm: A == B byte for byte: True
+full cold: A == B byte for byte: True
+full warm: A == B byte for byte: True
+spend: A cold == A warm: True; B cold == B warm: True
+full: A cold == A warm: True; B cold == B warm: True

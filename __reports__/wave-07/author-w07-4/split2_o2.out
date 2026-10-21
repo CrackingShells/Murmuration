@@ -1,0 +1,6 @@
+A: ['main thread  opus-5-5     5           64.00      3,000,000']
+B: ['main thread  opus-5-5     5          104.05      3,000,000']
+B via cache, first run ['main thread  opus-5-5     5          104.05      3,000,000']; second run (from the cache) ['main thread  opus-5-5     5          104.05      3,000,000']; same: True; cache version 2
+B ignores a cache file of version 1: True
+expected B 104.05, got 104.05; expected A 64.00, got 64.0; message_usd direct: fast 40.00, 3 searches 0.03
+o2: PASS
