@@ -1,4 +1,4 @@
-# w06-c9 verifier: compares handback.loads / handback.dumps of a plugin tree with json.loads / json.dumps on fixed edge cases and random values; inputs: argv[1] = plugin root, optional argv[2] = mask letter (A none-module, B empty-module, C no-encoder, D no-scanner, E scanner raises TypeError); output: counts and the first mismatches
+# w06-c9 verifier: compares handback.loads / handback.dumps of a plugin tree with json.loads / json.dumps on fixed edge cases and random values; inputs: argv[1] = plugin root, optional argv[2] = mask letter (A none-module, B empty-module, C no-encoder, D no-scanner); output: counts and the first mismatches
 import json, math, random, sys
 root = sys.argv[1]
 mask = sys.argv[2] if len(sys.argv) > 2 else ""
@@ -10,10 +10,9 @@ if mask:
         m = types.ModuleType("_json")
         if mask == "C": m.make_scanner = r.make_scanner
         if mask == "D": m.encode_basestring_ascii = r.encode_basestring_ascii
-        if mask == "E":   # w06-c9 hardening check: an encoder and a scanner whose constructor raises TypeError
+        if mask == "E":
             m.encode_basestring_ascii = r.encode_basestring_ascii
-            def bad(ctx): raise TypeError("signature changed")
-            m.make_scanner = bad
+            m.make_scanner = lambda ctx: 1 / 0
         sys.modules["_json"] = m
 sys.path.insert(0, root + "/scripts")
 import handback as H
