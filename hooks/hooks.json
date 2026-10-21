@@ -6,7 +6,8 @@
           {
             "type": "command",
             "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/user_words.py\"",
-            "timeout": 10
+            "timeout": 10,
+            "async": true
           }
         ]
       }

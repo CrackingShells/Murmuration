@@ -1,0 +1,5 @@
+2026-10-21T15:59:03.507Z [DEBUG] Hooks: Config-based async hook, backgrounding process async_hook_60524
+2026-10-21T15:59:03.507Z [DEBUG] Hooks: Registering async hook async_hook_60524 (UserPromptSubmit) with timeout 10000ms
+2026-10-21T15:59:03.508Z [DEBUG] Hooks: UserPromptSubmit [python3 "<work>/v1run/export/scripts/user_words.py"] (plugin murmuration@inline) moved to the background (2ms)
+2026-10-21T15:59:03.922Z [DEBUG] Hooks: UserPromptSubmit [python3 ~/.claude/hooks/inject_plan_directive.py] finished with status 0 (417ms)
+2026-10-21T15:59:03.993Z [DEBUG] Hooks: async_hook_60524 (UserPromptSubmit) produced no response payload — skipping attachment

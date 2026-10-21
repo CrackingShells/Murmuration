@@ -1,0 +1,43 @@
+session  env       backgrounded(ms)  hook ran (s)  entries  last write after hook start (s)  user->first api-request (s)  record entrypoint
+f00      inherited 2                 0.234         0        None                             0.235                        claude-desktop
+f01      terminal  1                 0.690         2        62.917                           0.401                        sdk-cli
+f02      inherited 2                 0.485         0        None                             0.478                        claude-desktop
+f03      terminal  2                 0.303         1        0.299                            0.299                        sdk-cli
+f04      inherited 1                 0.349         0        None                             0.237                        claude-desktop
+f05      terminal  2                 0.280         1        0.277                            0.275                        sdk-cli
+f06      inherited 1                 0.494         0        None                             0.365                        claude-desktop
+f07      terminal  2                 0.338         1        0.322                            0.339                        sdk-cli
+f08      inherited 4                 0.290         0        None                             0.280                        claude-desktop
+f09      terminal  2                 0.196         1        0.160                            0.197                        sdk-cli
+t-resume terminal  2                 0.401         2        0.398                            0.401                        sdk-cli
+mixed    inherited None              None          1        None                             0.329                        claude-desktop
+
+r3: platform backgrounded the user_words hook in 11 of 11 sessions (mixed excluded); recorded start cost ms: [1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 4]
+r3: time from user record to first api-request, v1 sessions (s): median 0.299 min 0.197 max 0.478 (n=11)
+r3: main's script sync in the mixed session (n=1): user->first api-request 0.329 s
+
+r2 inherited-env sessions (rule: drop): [('f00', 0, '0.234'), ('f02', 0, '0.485'), ('f04', 0, '0.349'), ('f06', 0, '0.494'), ('f08', 0, '0.290')]
+r2 terminal-like sessions (rule: keep, found if written < 1.5 s after hook start; the fallback writes at 3 s): [('f01', 2, '62.917'), ('f03', 1, '0.299'), ('f05', 1, '0.277'), ('f07', 1, '0.322'), ('f09', 1, '0.160')]
+r2: sessions where the async hook found the record in time and its outcome matches the rule: 10 of 10
+
+r4: lab-f01 (first prompt, then the resumed prompt), entries in file order:
+# The user's words
+
+Prompts as the user typed them, each under its date. Written by the lab's hook and by `/lab`. Read it; never edit it.
+
+## 2026-10-22 00:58
+
+Reply with the single word ok.
+
+## 2026-10-22 00:59
+
+Reply with the word again.
+
+
+r5, the mixed session (main's script sync, a crashing copy of the v1 script as a sync row and as an async row with the same command): hook lines of the debug log
+  2026-10-21T16:00:04.446Z [DEBUG] Hooks: Config-based async hook, backgrounding process async_hook_63480
+  2026-10-21T16:00:04.446Z [DEBUG] Hooks: Registering async hook async_hook_63480 (UserPromptSubmit) with timeout 10000ms
+  2026-10-21T16:00:04.446Z [DEBUG] Hooks: UserPromptSubmit [python3 "<work>/v1run/mixed-plugin/crash_words.py"] (plugin w07c5-mixed@inline) moved to the background (2ms)
+  2026-10-21T16:00:04.649Z [DEBUG] Hooks: UserPromptSubmit [python3 ~/.claude/hooks/inject_plan_directive.py] finished with status 0 (206ms)
+  2026-10-21T16:00:04.725Z [DEBUG] Hooks: UserPromptSubmit [python3 "<work>/v1run/mixed-plugin/main_words.py"] (plugin w07c5-mixed@inline) finished with status 0 (282ms)
+  2026-10-21T16:00:04.827Z [ERROR] "Hook UserPromptSubmit (UserPromptSubmit) error: status code 1\nstderr:\nTraceback (most recent call last):\n  File \"<work>/v1run/mixed-plugin/crash_words.py\", line 36, in <module>\n    import w07c5_no_such_module\nModuleNotFoundError: No module named 'w07c5_no_such_module'"
