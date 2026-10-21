@@ -107,7 +107,16 @@ evidence comes from.
 - Changes to the plugin: every change to `agents/`, `skills/`, `scripts/`, `hooks/` or
   `.claude-plugin/` is a claim with a verdict. Since wave 2 (the user's 12:50 answer: "decide
   that based on experiment on the new architecture") a change may be applied on the study branch
-  once its claim stands; nothing is merged to `main`. Prototypes live under `__reports__/reflective_run/`.
+  once its claim stands. Prototypes live under `__reports__/reflective_run/`.
+- **Who decides (the user, 2026-10-21 17:06).** "The guardrails are morals, legals, ethics. Things
+  that are about engineering and about the Murmuration system, I don't have anything to decide."
+  - The lab decides what lands, on the evidence and the verdicts, and merges it into the local
+    `main`, which is the copy every session runs (explorer-w05-e).
+  - The user keeps moral, legal, ethical and safety questions: credentials, the permission layer,
+    other people's data.
+  - The user also keeps anything visible outside this machine: pushing, publishing, messages.
+  - A report to the user states what was decided and why. It does not hand engineering choices back
+    as questions.
 - Headless `claude -p` probes run in folders OUTSIDE this worktree (e.g. the PI's scratchpad):
   runs below it register the plugin in the user's `~/.claude/plugins/installed_plugins.json`
   (w01-c14). Never commit raw run output: hook payloads and OTel bodies carry account identifiers.
