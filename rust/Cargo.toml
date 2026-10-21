@@ -1,0 +1,16 @@
+[package]
+name = "murmuration"
+version = "0.1.0"
+edition = "2021"
+description = "One binary for the Murmuration plugin's hooks: `guard` today; `budget` and `handback` may join it."
+license = "MIT"
+publish = false
+
+[dependencies]
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+strip = true
+# panic stays "unwind": `guard` catches a panic and denies the call

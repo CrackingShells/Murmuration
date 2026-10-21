@@ -25,3 +25,4 @@ probes/out/
 
 # local development marketplace (the published entry lives in Nest)
 .claude-plugin/marketplace.json
+rust/target/
