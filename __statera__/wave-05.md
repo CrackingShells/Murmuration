@@ -76,16 +76,43 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
     the speed of its experiments.** This moves the weight of the wave from hooks and the PI toward
     how workers run and check experiments: pilot one cell before a batch, batch width, waits that
     can still read messages. I hold that until b, c and d return.
+- 15:5x, after b, c and d returned:
+  - **Four probes point at one mechanism: how a worker waits.**
+    - 80% of worker Bash time is 48 calls of 60 s or more (d).
+    - Every mid-run cache lapse is a single wait longer than 5 minutes, about 17% of worker list
+      price (c).
+    - A message sent to a worker in such a wait goes unread for 1.5–2.5 minutes (a).
+    - The harness points workers to Monitor, which none of them has (c).
+    - This becomes w05-c1 (E5).
+  - Orientation is small (about 3%, c), and re-reads are negligible (b, c). **Trimming the skill or
+    framing is dropped:** it would save 1–3%.
+  - The PI's cost is structural: about 53k tokens of tool schemas re-read on every request (b).
+    This becomes w05-c3 (E6), tested because the lever is a CONJECTURE.
+  - Hooks and `lab_status.py` are real but small (156 s and 0.8 s per wave, d). They become
+    w05-c4 and w05-c5, with a per-wave metric instead of E4's two separate thresholds.
+  - An unexplained 0.85 s per Bash call in auto mode is larger than all the plugin's hooks (d).
+    That is explorer-w05-f.
+  - Parked for now, with reasons in the dispositions at close:
+    - the listing re-injection of waves 1–3 (2.5% in wave 4);
+    - cache expiry while the human is away after `wrap_up` (an app behaviour);
+    - the PI's wake-ups per hand-back (the PI cannot batch notifications);
+    - "pilot one cell first" and side-by-side cells. These are written into the E5–E8 protocol as
+      practice, not tested as claims.
+  - Pre-registration committed at e0fc3ab before any run.
 
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
 |:--|:--|:--|:--|
 | explorer-w05-a | explorer | wall-clock anatomy of wave 4: timeline, waits, critical path; USD 4, 30 min | yes; Gantt, 6 puzzles |
-| explorer-w05-b | explorer | PI main-thread token anatomy (wave 4 and waves 1–3); USD 4, 30 min | |
-| explorer-w05-c | explorer | worker orientation, waste and resume costs (wave 4, vs 2–3); USD 4, 30 min | |
-| explorer-w05-d | explorer | non-model overhead: hook starts, lab_status, lab_init, Python start; USD 4, 30 min | |
+| explorer-w05-b | explorer | PI main-thread token anatomy (wave 4 and waves 1–3); USD 4, 30 min | yes; structural cost, tools-schema lever, 5 puzzles |
+| explorer-w05-c | explorer | worker orientation, waste and resume costs (wave 4, vs 2–3); USD 4, 30 min | yes; cache lapses in long waits, 6 puzzles |
+| explorer-w05-d | explorer | non-model overhead: hook starts, lab_status, lab_init, Python start; USD 4, 30 min | yes; auto-mode 0.85 s/call found, 5 puzzles |
 | explorer-w05-e | explorer | leanest way for a worktree session to run its own branch of the plugin; USD 4, 30 min | yes; cause found (--project-config-root), 4 puzzles |
+| author-w05-1 | author | w05-c1 (E5, how a worker waits), then w05-c2 (colgrep path); USD 12, 75 min, runs ≤ USD 15 | |
+| author-w05-2 | author | w05-c3 (E6, `tools:` for the PI); USD 5, 40 min, runs ≤ USD 5 | |
+| author-w05-3 | author | w05-c4 (E7, lean hooks v2), then w05-c5 (E8, lab_status); USD 10, 75 min | |
+| explorer-w05-f | explorer | auto mode's per-call cost and the first-Bash shell start; USD 3, 25 min, runs ≤ USD 2 | |
 
 ## Claims of this wave
 
