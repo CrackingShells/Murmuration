@@ -227,7 +227,8 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | author-w06-3 | author | E1 stage 1: can a resident server carry Murmuration's hooks (w06-c3) | 134e3ac: passes on the letter; a dead or hung restart is silent or slow |
 | reproducer-w06-3 | reproducer | verify w06-c3, then w06-c5, w06-c6 | ESCALATE on w06-c3 (6b79137): m4 vacuous as registered; restated as w06-c5 (OVERSTATED), then w06-c6 (SUPPORTED, 710bda9) |
 | guide-w06-perm | claude-code-guide | which permission-hardening mechanisms the platform documents | `__reports__/wave-06/research-pi/permission_mechanisms.md`: plugin = hooks only; hard = managed settings |
-| author-w06-5 | author | E3: the permission guard in the plugin (w06-c7), own worktree | c77e696 on `w06-e3-guard`: v0 rule fails (g1 42/50, spawns on `$`); resumed for v1 (w06-c8) |
+| reproducer-w06-5 | reproducer | verify w06-c10 (lands if supported), w06-c8, w06-c7 | |
+| author-w06-5 | author | E3: the permission guard in the plugin (w06-c7, c8, c10), own worktree | c77e696 on `w06-e3-guard`: v0 rule fails (g1 42/50, spawns on `$`); resumed for v1 (w06-c8: h3 fails), v2 (w06-c10, 7d2fc81: h1–h6 pass) |
 | author-w06-4 | author | E1 stage 2: the port, s1–s4 (w06-c4) | 8cdfd7b: s1, s3 pass; s2 (20.8%) and s4 (+320) fail; reverted b79e81c |
 | reproducer-w06-4 | reproducer | verify w06-c4 | OVERSTATED (38d3273): s4's title and s3b's cumulative reading; the decision stands |
 | author-w06-6 | author | E2: lean starts, same registrations and outputs (w06-c9) | |
@@ -240,6 +241,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | w06-c3 | E1 stage 1, resident server carries the hooks | superseded by w06-c5 |
 | w06-c5 | E1 stage 1 restated | superseded by w06-c6 (verdict OVERSTATED: "fails v0" went beyond v0's letter) |
 | w06-c6 | E1 stage 1: a resident server carries the hooks' fields, firing, effects at 1–6 ms; m4 (a) vacuous, (b) meets v0's letter and fails its intent (silent loss of deny and block), (c) 20 s a tool boundary | MEASURED |
+| w06-c10 | E3 v2: 3 Bash rows, a content check that denies only added words, settings-path rows; h1–h6 pass (incident form denied, 0 spawns on ordinary commands, fails closed, engineering edits allowed) | unverified MEASURED |
 | w06-c8 | E3 v1: 3 Bash rows + script-content check; h1, h2, h4, h5 pass, h3 fails (inconsistent as registered); not landed | unverified MEASURED |
 | w06-c7 | E3 v0: 25 gated guard rows deny 42 of 50 attacks, fail closed 9 of 9, start 19 processes on a `$` command; the rule is not met | unverified MEASURED |
 | w06-c4 | E1 stage 2: resident server, outputs equal 197/197, outage handled, but s2 and s4 miss; not landed | below MEASURED: restate (not restated; nothing depends on it) |
