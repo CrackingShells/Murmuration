@@ -168,6 +168,26 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
     the plugin. It moves by thousands of tokens with the user's MCP servers' connection timing
     (S-w07-author-w07-1-1). reproducer-w07-1 checks the numbers the synthesis will quote.
 
+- 02:00, after explorer-w07-d returned:
+  - **Parallel-first does not pay in `lab_status.py`, and the reason is the algorithm.** Cold, the
+    script takes 0.90 s, 0.65 s of it Python parsing 274 MB. A forked pool of 12 or a Rust helper
+    on 6 threads brings that to about 0.32–0.33 s. The warm cache it already has takes 0.39–0.42 s,
+    and 0.155 s of that is a `git worktree list` child, not parsing. So the user's "know your
+    algorithms" comes first here: an incremental cache beats a parallel re-parse, and the remaining
+    waste is a process start. I do not ship a pool or Rust for it.
+  - **What the machine taught:** parse scaling flattens at the 6 performance cores (Python pool
+    6.0x at 12 workers; Rust 87 ms on one thread, 16–17 ms on 10–12, efficiency 0.42–0.53); each
+    efficiency core adds about 0.3–0.5 of a performance core. On macOS, `spawn` (the default start
+    method) costs 63–172 ms a pool against 2–10 ms for `fork`, which would cancel the gain. Rust's
+    parser is 7x Python's on one core, yet the whole script would gain little, because the fixed
+    costs are elsewhere. A rayon split by file size plateaued; one task per file was 2x faster.
+  - **A silent under-count:** `merge_usage` drops `speed` and `server_tool_use`, so fast mode and
+    web searches are never priced (S-w07-explorer-w07-d-2). No record has them yet.
+  - Registered P4 v0 (`__reports__/wave-07/03-protocol_p4_labstatus_v0.md`): drop the git child
+    with a fallback, and carry the two usage fields, sign-test rule. author-w07-4 runs it as w07-c4.
+  - The other serial CPU loop, `w06c13_v7_diff_two_guards.py`, goes from 8.7 s to 1.7 s at 6
+    workers; it is a one-off instrument, so nothing to land. Headless cells are API-bound.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -175,13 +195,14 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | explorer-w07-a | explorer | what an exec costs on this machine and through the platform's hook path: sh, C, Rust, Python; dyld, signing, `sh -c` | |
 | explorer-w07-b | explorer | the agent loop's time from transcripts: model, classifier, tools, hooks per turn; tool calls per request; what batching would save | be092ae: hooks 0.13% of wall; batching ≤ 1.6%; cache re-writes 15.8% of spend; Bash 1.5 s a call |
 | explorer-w07-c | explorer | hooks without a process per call: `async: true`, `http` with `onFailure: block`, merged rows; fields, latency, dead-server behaviour | 8383dad: exec form 36 ms against 116; http 2 ms, loud on Pre/Post only; async silent on failure |
-| explorer-w07-d | explorer | serial loops and algorithms in the lab's code: profile `lab_status.py` and the replays; scaling curves for parallel Python, a better algorithm, Rust | |
+| explorer-w07-d | explorer | serial loops and algorithms in the lab's code: profile `lab_status.py` and the replays; scaling curves for parallel Python, a better algorithm, Rust | 19d5dce: warm cache beats pool and Rust; the git child is 0.155 s; scaling flat past 6 P-cores |
 | explorer-w07-e | explorer | the PI's skills listing and the workers' allowlists: what can be excluded, and how, without losing `research-loop` | 546a4b9: `Skill` denied −11.7–12.0k tokens; listing all or none; Wolfram never called but costs names only |
 | explorer-w07-f | explorer | read-only: where Claude Code enforces `disableBypassPermissionsMode`; how `user_words.py` can tell a session's message from the user's (item 28) | 70629c1: first-wins managed tier, the file probably dropped; `origin.kind` marks typed prompts |
 | author-w07-1 | author | w07-c1: P1, the PI without the skills listing | 9a942f3 (branch w07-p1-skill): p1 and p5 fail; does not land |
 | reproducer-w07-1 | reproducer | verify w07-c1 offline, for the numbers the synthesis quotes | |
 | explorer-w07-g | explorer | split the classifier-decided Bash call's 1.5 s; four ways of the same reads; subagent cache lifetime | |
 | author-w07-3 | author | w07-c3: P3, every hook row in exec form | |
+| author-w07-4 | author | w07-c4: P4, `lab_status.py` without the git child, usage fields priced | |
 | author-w07-2 | author | w07-c2: P2, `user_words.py` keeps only typed prompts | |
 
 ## Claims of this wave
