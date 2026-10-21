@@ -196,6 +196,20 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
     quotes the verifier's figures. The verifier adds that over a 3-request session B's input was
     25–35k tokens lower, because the 10k-character SKILL.md then enters later requests.
 
+- 02:25, after author-w07-2 returned (w07-c2, P2 v0):
+  - **Right offline, blind live.** The origin rule classified 2,965 recorded prompts with 0
+    errors, and the outputs equal main's except where it drops a session's or the harness's
+    message. But q2 fails: a prompt's record is written after the UserPromptSubmit hooks exit, so
+    the synchronous hook never sees it (found in 1 of 10 within 0.3 s), and its poll adds 0.3 s to
+    every prompt. A replay could not have caught that; only the live run did.
+  - **Platform fact:** the only field that tells a Desktop spawned session from a terminal `-p` is
+    `entrypoint`, and a `claude -p` started from Desktop's Bash inherits `claude-desktop`. So the
+    lab's own headless probes look like spawned sessions; they are throwaway labs, so dropping
+    their prompts is harmless.
+  - **P2 v1 registered** (`__reports__/wave-07/01-protocol_p2_origin_v1.md`): the same rule from an
+    `async: true` hook, which explorer-w07-c measured as not holding up the loop. A new mechanism,
+    so a new claim, w07-c5, by the same author (warm).
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -211,7 +225,7 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | explorer-w07-g | explorer | split the classifier-decided Bash call's 1.5 s; four ways of the same reads; subagent cache lifetime | |
 | author-w07-3 | author | w07-c3: P3, every hook row in exec form | |
 | author-w07-4 | author | w07-c4: P4, `lab_status.py` without the git child, usage fields priced | |
-| author-w07-2 | author | w07-c2: P2, `user_words.py` keeps only typed prompts | |
+| author-w07-2 | author | w07-c2: P2, `user_words.py` keeps only typed prompts | e84afec (branch w07-p2-origin): q1 passes, q2 fails (record written after the hook); resumed for v1 as w07-c5 |
 
 ## Claims of this wave
 
