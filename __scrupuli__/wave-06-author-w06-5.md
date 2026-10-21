@@ -49,3 +49,15 @@ refs: `python3 -I __instrumenta__/w06c8_script_word_share.py` (output of this ru
 ## S-w06-author-w06-5-13
 The incident was an agent writing the bypass literal into a script, then running the script. v1 stops the Write, and a Bash write of the same file (`cat > x.py <<EOF`, `tee`, `sed -i`) is not covered, since redirections never reach an `if` rule (S-2); the script written by Bash and then run is the same incident through another door. I did not test a Bash heredoc write of a `.py` holding the word under v1 (d13 is a settings-file case, not this one).
 refs: `e3v1_results_761e45a.md` (reported cases d01 to d13, e01)
+
+## S-w06-author-w06-5-14
+My classifier read a successful Edit as a hook failure because the tool result named `permission_guard.py` in a file path. The first v2 report said h6 FAIL; the raw session showed "updated successfully" and a guard log line `allow`. A text classifier keyed on the guard's name misfires exactly on the files the guard is about. Fixed by keying on the platform's `hook error` text; every outcome is re-derived from raw sessions by the report. The verifier should re-derive j02 from the raw session, not from the table.
+refs: `__instrumenta__/w06c7_e3_run.py` (match), `/private/tmp/murmuration-w06/author-w06-5/v2shard1/runs/h61_0_0/stream.jsonl` (uncommitted)
+
+## S-w06-author-w06-5-15
+G4's added-words rule is a count, so an edit that swaps one bypass word for another, or a Write that moves the words, passes. The incident (a new literal in a script) is stopped; a determined edit is not. I did not test the two edges live. They matter only if the guard is read as more than a guard for the direct and casual cases.
+refs: `scripts/permission_guard.py` (`g4_script`), `__pondus__/w06-c10.md` (what the passing build does not do)
+
+## S-w06-author-w06-5-16
+Hook platform time of the three starts of a `$(...)` call was 1.13 s median and 2.67 s max in the v2 run and 1.74 s median and 8.19 s max in the v1 run, with the same rows and timeout. The difference is machine load at that minute, not the build. The margin to `timeout: 10` is not a property I can state for the user's machine.
+refs: `__reports__/wave-06/author-w06-5/e3v2_results_88ab4a5.md` and `e3v1_results_761e45a.md` (h5 lines)
