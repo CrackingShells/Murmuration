@@ -107,6 +107,12 @@ def brief(rid, secs):
             "Budget: USD 3.00\nTime: min 25" % (rid, seed_of(rid), REF_PARTS, seed_of(rid)))
 
 
+def dispatch_prompt(rid, secs):
+    """The worker is a subagent (as in wave 4: a main-thread headless worker gets a 1-hour cache TTL, a subagent a 5-minute one); a cheap haiku main thread dispatches it."""
+    return ("Dispatch one worker with the Agent tool: subagent_type murmuration:author, and as its prompt exactly the text between the two lines of dashes, unchanged. "
+            "When it hands back, stop; do not do its work yourself.\n---\n%s\n---" % brief(rid, secs))
+
+
 def snapshot_tree(root_pid):
     out = subprocess.run(["ps", "-ax", "-o", "pid=,ppid=,lstart=,command="], capture_output=True, text=True).stdout
     rows = {}
@@ -119,6 +125,17 @@ def snapshot_tree(root_pid):
         nxt = {p for p, (pp, _, _) in rows.items() if pp in frontier and p not in kids}
         kids |= nxt; frontier = nxt
     return {p: (rows[p][1], rows[p][2][:100]) for p in kids}
+
+
+def final_result_seen(path):
+    """True when a `result` record follows the first completion notice of the dispatched agent (the first `result` is the dispatcher's own, printed while the worker still runs)."""
+    seen_done = False
+    for l in open(path):
+        if '"subtype":"task_notification"' in l and '"handback"' in l:
+            seen_done = True
+        elif seen_done and '"type":"result"' in l:
+            return True
+    return False
 
 
 def run(root, commit, secs, ids):
@@ -141,7 +158,10 @@ def run(root, commit, secs, ids):
                        text=True, capture_output=True, env=env, cwd=lab, timeout=300, check=True)
         open(os.path.join(lab, ".gitignore"), "a").write(".claude/settings.local.json\n.colgrep/\nref/\njob/\n")
         open(os.path.join(base, "brief.txt"), "w").write(brief(rid, secs))
-        cmd = ["claude", "-p", "--plugin-dir", plugin, "--agent", "murmuration:author", "--permission-mode", "auto", "--output-format", "stream-json", "--verbose", brief(rid, secs)]
+        cfg = os.path.join(lab, ".claude", "settings.local.json")
+        if os.path.exists(cfg):                      # lab_init sets "agent": research-pi; the dispatcher must be the plain cheap main thread
+            c = json.load(open(cfg)); c.pop("agent", None); json.dump(c, open(cfg, "w"), indent=1)
+        cmd = ["claude", "-p", "--plugin-dir", plugin, "--model", "haiku", "--permission-mode", "auto", "--output-format", "stream-json", "--verbose", dispatch_prompt(rid, secs)]
         t0 = time.time()
         p = subprocess.Popen(cmd, cwd=lab, env=env, stdin=subprocess.DEVNULL, stdout=open(os.path.join(base, "run.jsonl"), "w"), stderr=open(os.path.join(base, "run.err"), "w"))
         procs[rid] = dict(p=p, t0=t0, seen={}, result_at=None, base=base)
@@ -153,7 +173,7 @@ def run(root, commit, secs, ids):
             r = procs[rid]; p = r["p"]
             for pid, v in snapshot_tree(p.pid).items():
                 r["seen"].setdefault(pid, v)
-            if r["result_at"] is None and '"type":"result"' in open(os.path.join(r["base"], "run.jsonl")).read()[-6000:]:
+            if r["result_at"] is None and final_result_seen(os.path.join(r["base"], "run.jsonl")):
                 r["result_at"] = time.time()
             done = p.poll() is not None
             if r["result_at"] is None and done:
@@ -201,7 +221,7 @@ def metrics(root, rid, secs):
         if d.get("type") == "result":
             res = d
         session = d.get("session_id", session)
-    tp = load_transcript(session)
+    tp = sorted(glob.glob(os.path.expanduser("~/.claude/projects/*/%s/subagents/agent-*.jsonl" % session)), key=os.path.getsize)[-1]
     reqs, calls, order = {}, {}, []
     for l in open(tp):
         d = json.loads(l); m = d.get("message") if isinstance(d.get("message"), dict) else None
