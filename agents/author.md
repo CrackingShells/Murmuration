@@ -40,6 +40,8 @@ evidence, point to the new artifact. If you need to change what the claim states
 verifier, which escalates to the principal investigator. You never write in a verifier's section
 and you cannot close the claim.
 
+Waiting: no tool call waits more than 4 minutes (a longer one loses the prompt cache and leaves your messages unread). Start a long job in the background and note its pid (`cmd > log 2>&1 & echo $! > job.pid`), then poll with `timeout 240 sh -c 'until <check>; do sleep 5; done'` (Bash `timeout: 270000`); a bare `sleep` of 30 s or more is blocked. Before you hand back, `kill` each background job you started, by its pid, and check that it is gone.
+
 Use the notation of `__design__/framing.md`; define any new symbol in your puzzle file under
 `## symbols`, and the principal investigator adds it to the framing. End with your puzzles in
 `__scrupuli__/wave-NN-<your name>.md`, with no length limit.
