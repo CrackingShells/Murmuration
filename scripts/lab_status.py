@@ -629,11 +629,11 @@ class Cache:
 
 
 def cache_path(root):
-    """`$LAB_STATUS_CACHE`, else the lab's `__statera__/.harness/lab_status_cache.json` (git-ignored); None for a folder that is no lab (`--spend` needs none), `-` or `off` in the variable: no cache."""
+    """`$LAB_STATUS_CACHE`, else the lab's `__statera__/.harness/lab_status_cache.v<CACHE_VERSION>.json` (git-ignored; the name carries the version, so a script of another version keeps its own file and neither rewrites the other's; old files are left alone); None for a folder that is no lab (`--spend` needs none), `-` or `off` in the variable: no cache."""
     given = os.environ.get("LAB_STATUS_CACHE")
     if given:
         return None if given in ("-", "off") else given
-    return os.path.join(root, "__statera__", ".harness", "lab_status_cache.json") if os.path.isdir(os.path.join(root, "__statera__")) else None
+    return os.path.join(root, "__statera__", ".harness", "lab_status_cache.v%d.json" % CACHE_VERSION) if os.path.isdir(os.path.join(root, "__statera__")) else None
 
 
 def read_transcript(path, warnings):
@@ -1185,11 +1185,16 @@ def selftest():
 
         # The transcript cache (w05-c5): the same report with it and without it, cold and warm; invalidated by a change of size or of modification time; a bad file is ignored; written atomically.
         cache_file = cache_path(root)
-        assert cache_file == os.path.join(root, "__statera__", ".harness", "lab_status_cache.json"), cache_file
+        assert cache_file == os.path.join(root, "__statera__", ".harness", "lab_status_cache.v%d.json" % CACHE_VERSION), cache_file
         spend = lambda: "\n".join(report_spend(root))
         os.environ["LAB_STATUS_CACHE"] = "off"
         plain = spend()
         del os.environ["LAB_STATUS_CACHE"]
+        older = os.path.join(os.path.dirname(cache_file), "lab_status_cache.json")   # the file of a script of version 1: left alone
+        _write(older, '{"v": 1, "files": {}}')
+        spend()
+        assert open(older).read() == '{"v": 1, "files": {}}' and os.path.exists(cache_file), "a cache file of another version is neither read nor rewritten"
+        os.unlink(older)
         if os.path.exists(cache_file):
             os.unlink(cache_file)
         assert spend() == plain, "cold: the cache changes nothing"
@@ -1252,7 +1257,7 @@ def selftest():
             spend()
         finally:
             os.replace = real_replace
-        assert len(seen_rename) == 1 and re.fullmatch(r"lab_status_cache\.json\.\d+\.tmp", seen_rename[0][0]) and seen_rename[0][1:] == (CACHE_VERSION, CACHE_VERSION), seen_rename
+        assert len(seen_rename) == 1 and re.fullmatch(r"lab_status_cache\.v\d+\.json\.\d+\.tmp", seen_rename[0][0]) and seen_rename[0][1:] == (CACHE_VERSION, CACHE_VERSION), seen_rename
 
         def failing(src, dst):
             raise OSError("no rename")
