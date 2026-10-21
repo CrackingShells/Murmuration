@@ -98,17 +98,43 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
     messages; 00:12 "say ok" is the user's own `-p` test). No agent edits that file; the synthesis
     names them.
 
+- 01:20, after explorer-w07-b returned:
+  - **The hooks are 0.13% of a worker's wall.** Over waves 4–6 (47 workers, 2,633 requests), a
+    worker's wall is 30.8% model requests, 20.1% tool phases under 120 s, 25.5% longer ones, 22.3%
+    idle waits for a message, 1.3% client gaps; thinking is 41% of model time (MEASURED). The lab
+    spent six waves on the smallest line of this table. The user's "1% we know we can save" still
+    stands for the hooks, but the order of the work changes.
+  - **Parallel-first at the message level is already done, inside the shell.** 92% of worker
+    requests carry one call, yet batching independent calls would have saved 0.8–1.6% of requests
+    (ESTIMATE, after a hand audit of 62 pairs): 75% of Bash calls already chain three or more
+    statements, serially, and the next call usually needs the last result. I drop message batching
+    as a lever.
+  - **What is larger than the hooks, by size:** cache re-writes after gaps over 300 s (23 misses,
+    15.8% of worker spend); tool results over 5,000 characters re-read by every later request
+    (29.7% of cache-read spend); retries after refusals (8.5% of wave 6's requests: the
+    worktree-isolation refusal of complex `git`, the harness's `sleep N` refusal); and every Bash
+    call decided by the classifier, median 1.54 s against 0.01 s for one decided by mode or rule and
+    0.16 s for a Read. Only part of the 1.5 s is the classifier's measured 0.45–0.75 s.
+  - **Next:** explorer-w07-g splits the Bash call's 1.5 s (auto against default mode, plugin hooks
+    on and off, classifier time against context length, four ways of doing the same reads) and
+    looks for a subagent cache-lifetime setting. Allow rules would remove the classifier, but they
+    are the user's permission layer (item 23); what the lab can change is which tool its workers
+    reach for.
+  - Effort (thinking, S-w07-explorer-w07-b-5) is not varied this wave: the lab has no measure of a
+    worker's quality that a lower effort could be checked against.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
 |:--|:--|:--|:--|
 | explorer-w07-a | explorer | what an exec costs on this machine and through the platform's hook path: sh, C, Rust, Python; dyld, signing, `sh -c` | |
-| explorer-w07-b | explorer | the agent loop's time from transcripts: model, classifier, tools, hooks per turn; tool calls per request; what batching would save | |
+| explorer-w07-b | explorer | the agent loop's time from transcripts: model, classifier, tools, hooks per turn; tool calls per request; what batching would save | be092ae: hooks 0.13% of wall; batching ≤ 1.6%; cache re-writes 15.8% of spend; Bash 1.5 s a call |
 | explorer-w07-c | explorer | hooks without a process per call: `async: true`, `http` with `onFailure: block`, merged rows; fields, latency, dead-server behaviour | |
 | explorer-w07-d | explorer | serial loops and algorithms in the lab's code: profile `lab_status.py` and the replays; scaling curves for parallel Python, a better algorithm, Rust | |
 | explorer-w07-e | explorer | the PI's skills listing and the workers' allowlists: what can be excluded, and how, without losing `research-loop` | 546a4b9: `Skill` denied −11.7–12.0k tokens; listing all or none; Wolfram never called but costs names only |
 | explorer-w07-f | explorer | read-only: where Claude Code enforces `disableBypassPermissionsMode`; how `user_words.py` can tell a session's message from the user's (item 28) | 70629c1: first-wins managed tier, the file probably dropped; `origin.kind` marks typed prompts |
 | author-w07-1 | author | w07-c1: P1, the PI without the skills listing | |
+| explorer-w07-g | explorer | split the classifier-decided Bash call's 1.5 s; four ways of the same reads; subagent cache lifetime | |
 | author-w07-2 | author | w07-c2: P2, `user_words.py` keeps only typed prompts | |
 
 ## Claims of this wave
