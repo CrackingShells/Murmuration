@@ -277,6 +277,11 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | S-w06-author-w06-4-5 | followed: the reading that the safety net, not the server, consumed the margin |
 | S-w06-author-w06-4-6 | parked: string substitution of fields; relevant only to `mcp_tool` hooks |
 | S-w06-author-w06-4-7 | parked: request-0 jitter, as in S-w06-author-w06-3-1 |
+| S-w06-reproducer-w06-4-1 | followed: E2's e2 is written on per-start medians in every pair, not on per-run sums, which vary 3× |
+| S-w06-reproducer-w06-4-2 | followed: the intended reading stated (all production code the build adds) |
+| S-w06-reproducer-w06-4-3 | followed: the intended reading stated (cumulative over the outage) |
+| S-w06-reproducer-w06-4-4 | parked: a limit of the test design; the server is out |
+| S-w06-reproducer-w06-4-5 | parked: true and by design; b200173 is the permissions guardrail, not part of the build |
 | S-w06-explorer-w06-a-1 | parked: an ordering effect between languages; the language is not taken forward (E1) |
 | S-w06-explorer-w06-a-2 | parked: the exec floor belongs to the kernel and the platform; a hook that starts no process avoids it (E1) |
 | S-w06-explorer-w06-a-3 | followed: E1 (one resident server removes Murmuration's own siblings); the user's own sibling hooks are their config (synthesis item 22) |
