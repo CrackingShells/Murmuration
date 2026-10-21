@@ -196,7 +196,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     (`__reports__/wave-06/02-experiment_protocol_e2_v0.md`, dbd32e7): the same registrations, the
     same outputs, less work before the first answer.
 
-- HH:MM (this commit), after author-w06-5 returned (w06-c8, E3 v1):
+- 20:43 (f118d72), after author-w06-5 returned (w06-c8, E3 v1):
   - **v1 does not land: h3 fails, and the inconsistency is mine.** The row I registered,
     `Bash(*setting-sources*)`, must match the four legal `--setting-sources user,project,local` calls
     of the ordinary list. h1, h2, h4 and h5 pass. The incident form, the c4aaebb script written as a
