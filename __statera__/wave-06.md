@@ -89,11 +89,24 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
   - The `waves.md` edit went through the Edit tool without a denial. The decision-frame edit stays
     unapplied: a denial of the kind I hit is not something to retry with another tool.
 
+- 17:5x (this commit), after reproducer-w06-2's verdict on w06-c2 (OVERSTATED):
+  - **The bullet is reverted; nothing about the idle PI lands.** Wave 4's 101 rows took 69 s and
+    were written while the last verifier ran, so they were never on the user's wait. The context
+    effect is about USD 0.03. Only 48 of 104 rows pointed to objects that exist before the close. The
+    bullet also adds friction: `/lab-status` shows disposed puzzles as open until the note closes,
+    and two rows for one puzzle have no rule. By the user's own rule a change with no advantage is
+    itself waste, so it is taken out. I keep disposing as workers return in this note, as practice,
+    not as procedure.
+  - **The answer to the user's question about the idle PI, as it stands:** the PI's idle time costs
+    nothing (1-hour cache, every gap a full hit), and it is not on the critical path. Work moved into
+    the waits saves seconds. The PI should not do more while it waits. What it costs is how much it
+    reads to orient, and each wake-up re-reading a large context (measured at the close below).
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
 |:--|:--|:--|:--|
-| reproducer-w06-2 | reproducer | verify w06-c2, the dispose-as-they-land bullet (ESTIMATE) | |
+| reproducer-w06-2 | reproducer | verify w06-c2, the dispose-as-they-land bullet (ESTIMATE) | OVERSTATED (6845cee): no saving; 69 s, off the critical path; bullet reverted |
 | reproducer-w06-1 | reproducer | verify w06-c1, the Desktop check of w05-c7 on this session's request 0 | SUPPORTED; paired with the wave-5 PI on 2.1.304: 74,966 → 46,738, the 29 removed tools = the line's matches |
 | explorer-w06-a | explorer | platform-visible cost of a do-nothing hook in sh, Python and a compiled binary; where the 322–605 ms goes | |
 | explorer-w06-b | explorer | inventory of the plugin's recurring waste; why each lean build failed; SA1 sized, not built | |
@@ -103,6 +116,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 
 | Claim | Statement | Current label |
 |:--|:--|:--|
+| w06-c2 | Disposing puzzles at the hand-back wake-up costs no extra request (the implied saving is not shown) | below ESTIMATE: restate; not restated, the bullet is reverted |
 | w06-c1 | The `disallowedTools:` line holds on the Desktop: request 0 at 46,738 tokens, no denied tool loaded (n = 1, plus the verifier's same-version pair) | MEASURED |
 
 ## Puzzle dispositions (at close)
@@ -113,6 +127,10 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | S-w06-explorer-w06-c-2 | followed: w06-c2 (the close adds a row where a later result changed a disposition; how often that happens is untested) |
 | S-w06-explorer-w06-c-3 | parked: the platform sets the lifetime (main thread 1 h, subagents 5 min); the plugin's lever is how workers wait (w05-c1, on main) |
 | S-w06-explorer-w06-c-4 | followed: this session's own preface is measured at the close (Notes) |
+| S-w06-reproducer-w06-2-1 | followed: the bullet of w06-c2 reverted on this evidence |
+| S-w06-reproducer-w06-2-2 | parked: no estimate priced on wave 4's close is carried forward |
+| S-w06-reproducer-w06-2-3 | followed: the bullet reverted, so step 1 needs no change |
+| S-w06-reproducer-w06-2-4 | parked: it limits a test that is no longer run |
 | S-w06-reproducer-w06-1-1 | followed: resolved by its writer in S-w06-reproducer-w06-1-5 (snapshot form against wire form) |
 | S-w06-reproducer-w06-1-2 | followed: this session's later request shapes checked at the close (Notes) |
 | S-w06-reproducer-w06-1-3 | parked: the names come from the platform's own listings (agent types, skills, the browser paragraph); the plugin cannot remove them, and a call to an absent tool fails visibly |

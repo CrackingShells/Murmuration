@@ -24,10 +24,6 @@ it is worth this wave: the reason for the wave in plain words, not a task list.
   no result has changed by mid-wave is a sign that you are following a list, not the evidence.
 - **Read raw material yourself.** For every agent that returns, open at least one raw artifact it
   points to (a figure, a table, a log, its puzzle file), not only its summary.
-- **Dispose of puzzles as they land.** When an agent hands back, write the dispositions of its
-  puzzles in the wave note during that same wake-up: you were woken anyway, and your context is
-  smaller than it will be at the close. At the close, add a row only where a later result changed
-  a disposition.
 - **Turn a hunch into a claim** when you judge it worth hardening. Assign the claim id
   (`wNN-cK`), dispatch the author, then the verifier, in the order given in the research-loop
   skill ("Author and verifier, in order"). You do not relay their conversation; it is logged in
