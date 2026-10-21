@@ -291,6 +291,7 @@ def main():
     ap.add_argument("--recorded-sample", type=int, default=0)
     ap.add_argument("--recorded", nargs="*", default=None)
     ap.add_argument("--out", default=None)
+    ap.add_argument("--sets", default=None, help="comma list of sets to run (registered,malformed,recorded,fuzz_bash,fuzz_write,typeconf,stress); default all")
     a = ap.parse_args()
     if a.quick:
         a.fuzz, a.fuzz_write, a.recorded_sample = 300, 60, a.recorded_sample or 200
@@ -316,6 +317,8 @@ def main():
     tc = typeconf_events()
     sets["typeconf"] = [e for e in tc if not e[0].startswith(("tc:huge", "tc:long_", "tc:many_"))]
     sets["stress"] = [e for e in tc if e[0].startswith(("tc:huge", "tc:long_", "tc:many_"))]
+    if a.sets:
+        sets = {k: v for k, v in sets.items() if k in a.sets.split(",")}
     py_cmd = [sys.executable, "-S", "-I", a.python_guard]
     rust_cmd = [a.rust, "guard"]
     jobs, owner = [], []
