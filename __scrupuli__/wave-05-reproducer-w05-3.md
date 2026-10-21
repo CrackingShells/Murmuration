@@ -11,5 +11,5 @@ The measured B is e0fc3ab plus one line, but the branch tip tree (baba44f) has o
 refs: `git diff e0fc3ab baba44f --stat -- hooks scripts`
 
 ## S-w05-reproducer-w05-3-4
-Request 0 of arm B is 15,013 against a threshold gap of 15,000: 497 tokens of slack in the registered rule, and the three pair differences differ by 2 tokens. The rule's constant (15,000) was registered before the measurement of schema sizes, yet the list was written after the pilot. The rule then decides little: it passes by construction once the list is cut by schema size. Is a margin of that kind a result or a tuning?
-refs: __reports__/wave-05/author-w05-2/e6_table_A_B.tsv
+Request 0 of arm B is 15,013 against a threshold of 15,000: 497 tokens of slack, and the three pair differences differ by 2 tokens. The author says the list was written after reading schema sizes (haiku probe p_A, p_D1 at 15:12-15:13) but before the pilot pair (list commit 15:14:27, pilot-A 15:14:51), and that the 15,000 constant was registered before any size was seen. The file times agree with that. Still, when a registered threshold is cleared by about 3% by a list cut by schema size, the rule decides little. Is a margin of that kind a result or a tuning?
+refs: __reports__/wave-05/author-w05-2/e6_table_A_B.tsv; ~/.claude/projects/-private-tmp-murmuration-w05-author-w05-2-p-A and -p-D1 (transcript mtimes)
