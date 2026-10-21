@@ -13,7 +13,7 @@ wrote it there, not to this worktree, for the reason found in wave 4 (open item 
 
 > note: make sure you are always running the latest version of the plugin on yourself
 
-Later in the session (in the chat; not yet in any `user_words.md`, see the Notes below):
+Later in the session (sent mid-turn; the hook recorded both in the main checkout's file at 14:3x):
 
 > i note that you never consider replan or reassessment as part of the plan for the purpose of
 > pushing forward. It feels a bit strange or uncanny given the point of your agent system is to be
@@ -54,11 +54,23 @@ Later in the session (in the chat; not yet in any `user_words.md`, see the Notes
 - 14:5x, after finding the in-place load: the first step becomes "run this branch on myself"
   before any dispatch, and the plugin's delivery path becomes a probe in the portfolio rather than
   a setup chore.
+- 14:5x, after `/reload-plugins` re-read `murmuration-local` from the main checkout: a Desktop
+  worktree session reads the **main** checkout's `.claude/settings.local.json`, so a worktree-only
+  switch cannot be made with settings files. The user chose to merge wave 4 first. Merged into
+  local main as 4c675ec (not pushed), and the worktree-local marketplace was removed. The main
+  settings file was left byte-identical. Consequence for this wave: my own changes reach me only
+  when they land on main. Until then, experiments run headless with `--plugin-dir` pointed at this
+  branch.
 
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
 |:--|:--|:--|:--|
+| explorer-w05-a | explorer | wall-clock anatomy of wave 4: timeline, waits, critical path; USD 4, 30 min | |
+| explorer-w05-b | explorer | PI main-thread token anatomy (wave 4 and waves 1–3); USD 4, 30 min | |
+| explorer-w05-c | explorer | worker orientation, waste and resume costs (wave 4, vs 2–3); USD 4, 30 min | |
+| explorer-w05-d | explorer | non-model overhead: hook starts, lab_status, lab_init, Python start; USD 4, 30 min | |
+| explorer-w05-e | explorer | leanest way for a worktree session to run its own branch of the plugin; USD 4, 30 min | |
 
 ## Claims of this wave
 
@@ -82,5 +94,10 @@ Later in the session (in the chat; not yet in any `user_words.md`, see the Notes
   `.claude-plugin/marketplace.json` named `murmuration-w5` (gitignored), declared and enabled in
   this worktree's own `.claude/settings.local.json`, with `murmuration-local` disabled there. It
   takes effect at `/reload-plugins` or on reopening the session.
-- The user's mid-turn chat messages (the re-plan remark, the budget) did not go through
-  UserPromptSubmit as separate prompts. Whether the hook recorded them is to be checked.
+- The user's mid-turn messages did reach UserPromptSubmit and were recorded, in the main checkout's
+  file. Their dialog answers were not, as in waves 2–4. Quoted here so the lab keeps them:
+  (14:4x) "You can do worktree local this session but for the future should we add a
+  project-scope or local-scope hook to always run plugin reinstall/update on SessionStart or
+  Resume?"; (14:5x) chose "Merge wave 4 first".
+- The probes were dispatched after the merge but before a second `/reload-plugins`. Wave 4 changed
+  `agents/explorer.md` by one line, so these explorers may carry the pre-merge definition.
