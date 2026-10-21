@@ -9,7 +9,7 @@ decision-required: confirm
 
 # Where the PI main thread spends its tokens: findings (v0)
 
-Stayed inside the brief. Spend figures (USD) are not quoted; shares are of the PI main thread's list-price total, with the formula stated. Scripts are at the working-tree state of c928bd1 plus uncommitted additions, to be committed together with this report (cite them as `__instrumenta__/<file>@<commit of this report>`).
+Stayed inside the brief. Spend figures (USD) are not quoted; shares are of the PI main thread's list-price total, with the formula stated. Scripts are at the working-tree state of c928bd1 plus uncommitted additions, to be committed together with this report (cite them as `__instrumenta__/<file>@dbff7c7`).
 
 ## Result
 
@@ -50,7 +50,7 @@ Per-category table as a raw artifact: `__reports__/wave-05/explorer-w05-b/per_ca
 - Workers' own cost (subagents' base context of platform tools, since their `tools:` lists still leave WebFetch, WebSearch, MCP globs) and waits between author, verifier and exchange: only the PI main thread was asked for. The PI waits for worker messages 48% of wave-4 wall time, which says the critical path is the workers, not the PI.
 - No probe was run: whether `tools:` shrinks the base context in the Desktop app, whether the skill-listing re-entry can be avoided, and what causes it (see puzzles). A probe needs one headless run of the PI with and without the allowlist (about 75k tokens of cache write each) and reading `prompt_snapshot`.
 - Model-time versus tool-time split is a lower bound (the first assistant record of a request is written when its first block is done).
-- The 95-record `total_tokens_reminder` items get an implausible fitted 1.97 tokens per character (a 94-character string): their 3.1% share in wave 4 is a fitting artifact; their true carry is well under 1%.
+- The 89 `total_tokens_reminder` items get an implausible fitted 1.97 tokens per character (a 94-character string): their 3.1% share in wave 4 is a fitting artifact; their true carry is well under 1%.
 
 ## Steering questions
 
