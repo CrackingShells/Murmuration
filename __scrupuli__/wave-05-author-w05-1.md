@@ -14,7 +14,7 @@ The stop-your-jobs clause is untested and the hazard may not arise in headless. 
 refs: `__reports__/wave-05/author-w05-1/metrics.json` (m6 fields); `__scrupuli__/wave-05-explorer-w05-c.md` puzzle 1.
 
 ## S-w05-author-w05-1-4
-The platform moves a Bash call past 120 s into the background unless the call carries `timeout:`. A worker that forgets it (arm A's pilot-A2 had `timeout: 130000`, A1 `timeout 580` with a long tool timeout) gets "moved to the background ... you will be notified"; the notice reaches it only between tool rounds. This is a second mechanism for waits that read no messages, and a third for the cold resume after the job ends. I did not test the notification path (a worker that backgrounds its job and ends the turn). Wave 4's waits of 313 to 602 s imply their calls carried `timeout:` up to 600000.
+The platform moves a Bash call past 120 s into the background unless the call carries `timeout:`. A worker that forgets it gets (seen in a probe, not in the six E5 runs, where every wait carried `timeout:`) "moved to the background ... you will be notified"; the notice reaches it only between tool rounds. This is a second mechanism for waits that read no messages, and a third for the cold resume after the job ends. I did not test the notification path (a worker that backgrounds its job and ends the turn). Wave 4's waits of 313 to 602 s imply their calls carried `timeout:` up to 600000.
 refs: `__reports__/wave-05/author-w05-1/pilot_tools/README.md` probe 2 side finding; `/private/tmp/murmuration-w05/author-w05-1/pilot-tools/run2_nohooks.jsonl` (task bpfhzz8vx).
 
 ## S-w05-author-w05-1-5
