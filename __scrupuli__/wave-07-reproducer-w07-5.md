@@ -17,3 +17,11 @@ refs: __instrumenta__/w07c6_rv_crash_inputs.py
 ## S-w07-reproducer-w07-5-5
 g4 on my machine gives a 15.8 ms median saving (6 pairs, load 3.0) against the claim's 23.5 ms (19 pairs, load 2.7); the first B call in pair 0 took 170 ms (first exec of a freshly copied binary). Same sign everywhere; the size depends on load.
 refs: /private/tmp/murmuration-w07/reproducer-w07-5/S/runs/g4_rows.jsonl
+
+## S-w07-reproducer-w07-5-6
+The v1 installer ties the binary to a manifest and the sources' hashes to the same manifest, but nothing ties the binary to those sources or to the Python guard's decisions beyond 12 payloads: a marker stub and an honest build of a source with `echo` added to the inert list both installed with no notice and both allow what the Python guard denies. The manifest is also written by a script in the same tree, so it is tamper-evidence against accidents, not against an edit that rebuilds it. Only a reproducible or CI-built hashed artifact would close this.
+refs: /private/tmp/murmuration-w07/reproducer-w07-5/v8_faults.txt (rows stub_marker, mutant_build), __instrumenta__/w07c8_rv_faults.py
+
+## S-w07-reproducer-w07-5-7
+The fallback notice reaches the model (additionalContext, and a hook_response in the stream) but no one checked what a human sees at exit 0; and it gives no remedy. Also the fallback launcher costs more per call than the binary (first guard call 429 ms vs 50 ms in my two h4 sessions; `sh` plus Python), so a silent fallback is also a slowdown nobody asked for.
+refs: /private/tmp/murmuration-w07/reproducer-w07-5/S8/h4/Hfault.jsonl, Hfault.dbg, Hclean.dbg
