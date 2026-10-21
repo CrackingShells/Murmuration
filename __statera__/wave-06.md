@@ -180,6 +180,22 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
   - **What stays the user's:** only managed settings hold against a child that changes its flags,
     environment or cwd. The line is in the report, and adding it is the user's choice.
 
+- HH:MM (this commit), after author-w06-4 returned (w06-c4, E1 stage 2):
+  - **The resident server does not land.** s1 passes: 197 of 197 replays EQUAL, and the replay can
+    fail. s3a–c pass, with a gap: a worker that kills the server mid-run tells the PI nothing. s2
+    fails: 19.5% median and 20.8% pooled against at most 20%, with 3 of 6 pairs over. s4 fails: +320
+    production lines against +300. The author reverted it on the branch tip (b79e81c), and I checked
+    that the plugin files equal 134e3ac apart from the Permissions paragraphs. I do not re-measure
+    until it passes. The miss is not just a threshold. The margin goes to the outage announcement,
+    which a resident server needs because it can die silently. And a server that failed twice did
+    not reconnect in later sessions (S-w06-author-w06-4-1). The Python hooks cannot fail that way,
+    and that is an advantage, so keeping them is not waste by the user's rule.
+  - **So the larger move is answered.** Rust saves about 1% of a wave. A resident server saves about
+    80% of the hook time but brings a failure mode whose safety net costs as much as the margin.
+    Neither lands. What remains is the waste inside each Python start. That is E2
+    (`__reports__/wave-06/02-experiment_protocol_e2_v0.md`, this commit): the same registrations, the
+    same outputs, less work before the first answer.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -192,7 +208,9 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | reproducer-w06-3 | reproducer | verify w06-c3, then w06-c5, w06-c6 | ESCALATE on w06-c3 (6b79137): m4 vacuous as registered; restated as w06-c5 (OVERSTATED), then w06-c6 (SUPPORTED, 710bda9) |
 | guide-w06-perm | claude-code-guide | which permission-hardening mechanisms the platform documents | `__reports__/wave-06/research-pi/permission_mechanisms.md`: plugin = hooks only; hard = managed settings |
 | author-w06-5 | author | E3: the permission guard in the plugin (w06-c7), own worktree | c77e696 on `w06-e3-guard`: v0 rule fails (g1 42/50, spawns on `$`); resumed for v1 (w06-c8) |
-| author-w06-4 | author | E1 stage 2: the port, s1–s4 (w06-c4) | |
+| author-w06-4 | author | E1 stage 2: the port, s1–s4 (w06-c4) | 8cdfd7b: s1, s3 pass; s2 (20.8%) and s4 (+320) fail; reverted b79e81c |
+| reproducer-w06-4 | reproducer | verify w06-c4 | |
+| author-w06-6 | author | E2: lean starts, same registrations and outputs (w06-c9) | |
 | explorer-w06-c | explorer | the PI's wake-ups and cost per wake-up in waves 4–5; what idle time could carry; one session per wave | 7c14a2d: idle is free (1-hour cache); wake-ups are hand-backs; preface 21–32% of PI spend |
 
 ## Claims of this wave
@@ -203,6 +221,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | w06-c5 | E1 stage 1 restated | superseded by w06-c6 (verdict OVERSTATED: "fails v0" went beyond v0's letter) |
 | w06-c6 | E1 stage 1: a resident server carries the hooks' fields, firing, effects at 1–6 ms; m4 (a) vacuous, (b) meets v0's letter and fails its intent (silent loss of deny and block), (c) 20 s a tool boundary | MEASURED |
 | w06-c7 | E3 v0: 25 gated guard rows deny 42 of 50 attacks, fail closed 9 of 9, start 19 processes on a `$` command; the rule is not met | unverified MEASURED |
+| w06-c4 | E1 stage 2: resident server, outputs equal 197/197, outage handled, but s2 and s4 miss; not landed | unverified MEASURED |
 | w06-c2 | Disposing puzzles at the hand-back wake-up costs no extra request (the implied saving is not shown) | below ESTIMATE: restate; not restated, the bullet is reverted |
 | w06-c1 | The `disallowedTools:` line holds on the Desktop: request 0 at 46,738 tokens, no denied tool loaded (n = 1, plus the verifier's same-version pair) | MEASURED |
 
@@ -230,6 +249,13 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | S-w06-author-w06-5-7 | parked: three evasions untested because haiku declined; they are reported as untested, not as caught |
 | S-w06-author-w06-5-8 | parked: fixed by its writer before the full run |
 | S-w06-author-w06-5-9 | followed: PI decision above (v0 not landed, v1) |
+| S-w06-author-w06-4-1 | followed: one of the reasons the resident server does not land (reassessment after author-w06-4) |
+| S-w06-author-w06-4-2 | parked: undocumented platform behaviour that does not matter once the server is out |
+| S-w06-author-w06-4-3 | parked: the hang cost with `timeout: 3`; the server is out |
+| S-w06-author-w06-4-4 | followed: the s3a gap is named in the decision not to land |
+| S-w06-author-w06-4-5 | followed: the reading that the safety net, not the server, consumed the margin |
+| S-w06-author-w06-4-6 | parked: string substitution of fields; relevant only to `mcp_tool` hooks |
+| S-w06-author-w06-4-7 | parked: request-0 jitter, as in S-w06-author-w06-3-1 |
 | S-w06-explorer-w06-a-1 | parked: an ordering effect between languages; the language is not taken forward (E1) |
 | S-w06-explorer-w06-a-2 | parked: the exec floor belongs to the kernel and the platform; a hook that starts no process avoids it (E1) |
 | S-w06-explorer-w06-a-3 | followed: E1 (one resident server removes Murmuration's own siblings); the user's own sibling hooks are their config (synthesis item 22) |
