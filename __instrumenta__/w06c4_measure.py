@@ -29,7 +29,7 @@ def hook_ms(name):
     """(command ms by script, mcp_tool ms list) the platform recorded in one run."""
     cmd, mcp = {}, []
     for line in dbg(name):
-        m = re.search(r"Hooks: (\S+) \[python3 \"[^\"]*/scripts/(budget|handback|outage|user_words|resume_brief)\.py\"[^\]]*\].* finished with status \d+ \((\d+)ms\)", line)
+        m = re.search(r"Hooks: (\S+) \[python3 (?:-\S+ )*\"[^\"]*/scripts/(budget|handback|outage|user_words|resume_brief)\.py\"[^\]]*\].* finished with status \d+ \((\d+)ms\)", line)
         if m:
             cmd.setdefault(m.group(2), []).append(int(m.group(3)))
     main, subs, _ = transcripts(name)
@@ -70,14 +70,16 @@ def s3():
         cm, tm = count(main)
         ws = [count(f) for f in subs]
         fw = sum(x[0]["hook_non_blocking_error"] for x in ws)
-        settles = []
+        bounds, pend = [], []   # a boundary: the longest PostToolUse settle since the last boundary plus the PostToolBatch settle that closes it (they run one after the other)
         for line in dbg(n):
-            m = re.search(r"classic\.(PostToolUse|PostToolBatch) settled in (\d+)ms", line)
-            if m:
-                settles.append((m.group(1), int(m.group(2))))
-        bounds = [(settles[i][1] + settles[i + 1][1]) for i in range(len(settles) - 1) if settles[i][0] == "PostToolUse" and settles[i + 1][0] == "PostToolBatch"]
-        slow = [b for b in bounds if b >= 1000]
-        print("| %s | %d | %d err, %d cancelled / %d err | %s | %s | %d / %s | final: %s |" % (n, starts, cm["hook_non_blocking_error"], cm["hook_cancelled"], fw, slow, max(bounds or [0]), tm, [x[1] for x in ws],
+            m = re.search(r"classic\.(PostToolUse|PostToolBatch) settled in ([\d.]+)ms", line)
+            if m and m.group(1) == "PostToolUse":
+                pend.append(float(m.group(2)))
+            elif m:
+                bounds.append(max(pend or [0]) + float(m.group(2)))
+                pend = []
+        slow = [round(b) for b in bounds if b >= 1000]
+        print("| %s | %d | %d err, %d cancelled / %d err | %s | %s | %d / %s | final: %s |" % (n, starts, cm["hook_non_blocking_error"], cm["hook_cancelled"], fw, slow, round(max(bounds or [0])), tm, [x[1] for x in ws],
                                                                                           (run.get("result") or "")[:0]))
 
 

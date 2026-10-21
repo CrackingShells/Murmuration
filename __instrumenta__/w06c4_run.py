@@ -38,6 +38,11 @@ SC = {
     "outage_a": ("Step 1: run Bash `echo before`. Step 2: run Bash `echo %s > %s/refuse; kill $(cat %s/server.pid); sleep 2`. Step 3: run Bash `echo after-1`, then Bash `echo after-2`. " % (os.environ.get("REFUSE", "none"), S, S)) + lead([("0", worker(0, B % (0, 0)))])[len("Step 1: run Bash `echo main-1`. "):].replace("Step 2:", "Step 4:").replace("Step 3:", "Step 5:"),
 }
 SC["outage_b"] = SC["outage_c"] = SC["outage_a"]
+# s3c: the effects after a kill and an automatic restart: the 150% block (Time 0.1 min, a 12 s sleep) and the report check (the worker is told to write no file: the first hand-back is denied)
+SC["outage_fx"] = SC["outage_a"].replace(worker(0, B % (0, 0)), worker(0, "Run Bash `sleep 12`, then Bash `echo c`, then Bash `echo d`. Write no file. ", "0.1"))
+# the server dies and cannot restart in the middle of a worker's run (the worker kills it)
+SC["outage_mid"] = lead([("0", worker(0, "Run Bash `echo %s > %s/refuse; kill $(cat %s/server.pid); sleep 2`, then Bash `echo after-1`, then Bash `echo after-2`. Write no file. " % (os.environ.get("REFUSE", "exit"), S, S)))])
+SC["main_fx"] = lead([("0", worker(0, "Run Bash `sleep 12`, then Bash `echo c`, then Bash `echo d`. Write no file. ", "0.1"))])
 SC["mutant"] = SC["base"]
 open(S + "/refuse", "w").write("none"); open(S + "/server.starts", "w").write("")
 perm = os.environ.get("PERM", "auto")
