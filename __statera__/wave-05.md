@@ -132,9 +132,9 @@ Later in the session (sent mid-turn; the hook recorded both in the main checkout
 | explorer-w05-d | explorer | non-model overhead: hook starts, lab_status, lab_init, Python start; USD 4, 30 min | yes; auto-mode 0.85 s/call found, 5 puzzles |
 | explorer-w05-e | explorer | leanest way for a worktree session to run its own branch of the plugin; USD 4, 30 min | yes; cause found (--project-config-root), 4 puzzles |
 | author-w05-1 | author | w05-c1 (E5, how a worker waits), then w05-c2 (colgrep path); USD 12, 75 min, runs ≤ USD 15 | |
-| author-w05-2 | author | w05-c3 (E6, `tools:` for the PI); USD 5, 40 min, runs ≤ USD 5; resumed for w05-c6 (E6b denylist), USD 3, 25 min | w05-c3 filed: E6 proposes B; connectors dropped (unmetered) |
+| author-w05-2 | author | w05-c3 (E6, `tools:` for the PI); USD 5, 40 min, runs ≤ USD 5; resumed for w05-c6 (E6b denylist), USD 3, 25 min | w05-c3 filed: E6 proposes B; connectors dropped (unmetered); w05-c6: E6b proposes D (tip b554266); w05-c7 restates w05-c6 |
 | reproducer-w05-3 | reproducer | verify w05-c3 at baba44f/36e1b47; USD 2.5, 20 min | SUPPORTED; title arithmetic loose (medians vs mean) |
-| reproducer-w05-6 | reproducer | verify w05-c6; USD 2, 20 min | |
+| reproducer-w05-6 | reproducer | verify w05-c6; USD 2, 20 min; resumed for w05-c7, USD 0.6, 6 min | w05-c6 OVERSTATED (presence not use; four entries unrun; Artifact a judgement); w05-c7 SUPPORTED |
 | author-w05-3 | author | w05-c4 (E7, lean hooks v2), then w05-c5 (E8, lab_status); USD 10, 75 min | |
 | explorer-w05-f | explorer | auto mode's per-call cost and the first-Bash shell start; USD 3, 25 min, runs ≤ USD 2 | yes; hidden classifier per call; bash shell 0.5 s first call; 4 puzzles |
 
