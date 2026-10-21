@@ -1,0 +1,96 @@
+{"name": "v2 k=306", "round": 0, "wall_ms": 752.5192499997502, "cpu_ms": 647.905, "rc": 0}
+{"name": "v1 k=306", "round": 0, "wall_ms": 699.6682910012169, "cpu_ms": 628.2699999999999, "rc": 0}
+{"name": "3 x git worktree list (/usr/bin/git)", "round": 0, "wall_ms": 205.78112499970302, "cpu_ms": 51.299, "rc": 0}
+{"name": "python3 -c 'import lab_status' only (imports)", "round": 0, "wall_ms": 84.53258300141897, "cpu_ms": 39.499, "rc": 0}
+{"name": "1 x git worktree list (/usr/bin/git)", "round": 0, "wall_ms": 72.88595899990469, "cpu_ms": 16.51, "rc": 0}
+{"name": "v3 k=306", "round": 0, "wall_ms": 303.50429200007056, "cpu_ms": 232.529, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 0, "wall_ms": 58.986750000258326, "cpu_ms": 10.875, "rc": 0}
+{"name": "v0 k=306", "round": 0, "wall_ms": 827.2804999996879, "cpu_ms": 666.2629999999999, "rc": 0}
+{"name": "v3 k=306", "round": 1, "wall_ms": 312.16779100032, "cpu_ms": 226.903, "rc": 0}
+{"name": "v2 k=306", "round": 1, "wall_ms": 686.8378750004922, "cpu_ms": 596.6279999999999, "rc": 0}
+{"name": "v0 k=306", "round": 1, "wall_ms": 863.6568340007216, "cpu_ms": 672.232, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 1, "wall_ms": 60.29504199977964, "cpu_ms": 11.559, "rc": 0}
+{"name": "1 x git worktree list (/usr/bin/git)", "round": 1, "wall_ms": 73.75387499996577, "cpu_ms": 16.854999999999997, "rc": 0}
+{"name": "v1 k=306", "round": 1, "wall_ms": 705.8380840007885, "cpu_ms": 635.0499999999998, "rc": 0}
+{"name": "python3 -c 'import lab_status' only (imports)", "round": 1, "wall_ms": 107.15133299891022, "cpu_ms": 37.504, "rc": 0}
+{"name": "3 x git worktree list (/usr/bin/git)", "round": 1, "wall_ms": 162.87808299966855, "cpu_ms": 44.953, "rc": 0}
+{"name": "3 x git worktree list (/usr/bin/git)", "round": 2, "wall_ms": 154.03429100115318, "cpu_ms": 44.882, "rc": 0}
+{"name": "python3 -c 'import lab_status' only (imports)", "round": 2, "wall_ms": 81.87529199858545, "cpu_ms": 40.13399999999999, "rc": 0}
+{"name": "v3 k=306", "round": 2, "wall_ms": 300.9850409998762, "cpu_ms": 227.354, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 2, "wall_ms": 59.30037500002072, "cpu_ms": 11.185999999999998, "rc": 0}
+{"name": "v2 k=306", "round": 2, "wall_ms": 664.073667001503, "cpu_ms": 592.521, "rc": 0}
+{"name": "v0 k=306", "round": 2, "wall_ms": 842.0873329996539, "cpu_ms": 658.355, "rc": 0}
+{"name": "1 x git worktree list (/usr/bin/git)", "round": 2, "wall_ms": 83.44125000076019, "cpu_ms": 16.166, "rc": 0}
+{"name": "v1 k=306", "round": 2, "wall_ms": 702.2876669998368, "cpu_ms": 630.247, "rc": 0}
+{"name": "python3 -c 'import lab_status' only (imports)", "round": 3, "wall_ms": 109.71508300099231, "cpu_ms": 37.506, "rc": 0}
+{"name": "v3 k=306", "round": 3, "wall_ms": 310.1100000003498, "cpu_ms": 227.881, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 3, "wall_ms": 71.08137500108569, "cpu_ms": 11.557, "rc": 0}
+{"name": "v1 k=306", "round": 3, "wall_ms": 705.8118330005527, "cpu_ms": 628.851, "rc": 0}
+{"name": "v0 k=306", "round": 3, "wall_ms": 858.5135829998762, "cpu_ms": 666.1440000000001, "rc": 0}
+{"name": "3 x git worktree list (/usr/bin/git)", "round": 3, "wall_ms": 161.5252080009668, "cpu_ms": 44.074000000000005, "rc": 0}
+{"name": "v2 k=306", "round": 3, "wall_ms": 674.7017500001675, "cpu_ms": 603.535, "rc": 0}
+{"name": "1 x git worktree list (/usr/bin/git)", "round": 3, "wall_ms": 91.04783300062991, "cpu_ms": 18.480999999999998, "rc": 0}
+{"name": "1 x git worktree list (/usr/bin/git)", "round": 4, "wall_ms": 80.79466600065643, "cpu_ms": 18.564999999999998, "rc": 0}
+{"name": "v3 k=306", "round": 4, "wall_ms": 306.9119169995247, "cpu_ms": 233.45, "rc": 0}
+{"name": "v2 k=306", "round": 4, "wall_ms": 683.5740000005899, "cpu_ms": 595.3960000000001, "rc": 0}
+{"name": "v1 k=306", "round": 4, "wall_ms": 741.7627499999071, "cpu_ms": 632.3129999999999, "rc": 0}
+{"name": "3 x git worktree list (/usr/bin/git)", "round": 4, "wall_ms": 207.004166999468, "cpu_ms": 51.386, "rc": 0}
+{"name": "python3 -c 'import lab_status' only (imports)", "round": 4, "wall_ms": 83.10908299972652, "cpu_ms": 38.205000000000005, "rc": 0}
+{"name": "v0 k=306", "round": 4, "wall_ms": 822.4405420005496, "cpu_ms": 660.9689999999999, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 4, "wall_ms": 54.54045799888263, "cpu_ms": 11.207999999999998, "rc": 0}
+{"name": "3 x git worktree list (/usr/bin/git)", "round": 5, "wall_ms": 157.35383400169667, "cpu_ms": 44.199000000000005, "rc": 0}
+{"name": "v0 k=306", "round": 5, "wall_ms": 833.557791000203, "cpu_ms": 674.587, "rc": 0}
+{"name": "v2 k=306", "round": 5, "wall_ms": 684.3022090015438, "cpu_ms": 603.9639999999999, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 5, "wall_ms": 84.11920800062944, "cpu_ms": 12.501, "rc": 0}
+{"name": "1 x git worktree list (/usr/bin/git)", "round": 5, "wall_ms": 82.22616700004437, "cpu_ms": 19.099999999999998, "rc": 0}
+{"name": "v3 k=306", "round": 5, "wall_ms": 305.89420800060907, "cpu_ms": 231.943, "rc": 0}
+{"name": "python3 -c 'import lab_status' only (imports)", "round": 5, "wall_ms": 84.9566249999043, "cpu_ms": 34.935, "rc": 0}
+{"name": "v1 k=306", "round": 5, "wall_ms": 696.9080840008246, "cpu_ms": 623.032, "rc": 0}
+{"name": "1 x git worktree list (/usr/bin/git)", "round": 6, "wall_ms": 89.141833001122, "cpu_ms": 17.661, "rc": 0}
+{"name": "v1 k=306", "round": 6, "wall_ms": 716.9436250005674, "cpu_ms": 640.641, "rc": 0}
+{"name": "v3 k=306", "round": 6, "wall_ms": 321.7991670007905, "cpu_ms": 226.047, "rc": 0}
+{"name": "v0 k=306", "round": 6, "wall_ms": 869.5436660000269, "cpu_ms": 662.4599999999999, "rc": 0}
+{"name": "python3 -c 'import lab_status' only (imports)", "round": 6, "wall_ms": 75.92925000062678, "cpu_ms": 32.937, "rc": 0}
+{"name": "3 x git worktree list (/usr/bin/git)", "round": 6, "wall_ms": 154.6016669999517, "cpu_ms": 42.043, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 6, "wall_ms": 55.366833999869414, "cpu_ms": 13.115, "rc": 0}
+{"name": "v2 k=306", "round": 6, "wall_ms": 685.4428329988878, "cpu_ms": 613.1419999999999, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 7, "wall_ms": 97.5849169990397, "cpu_ms": 10.523, "rc": 0}
+{"name": "v0 k=306", "round": 7, "wall_ms": 964.0122089986107, "cpu_ms": 672.0840000000001, "rc": 0}
+{"name": "v1 k=306", "round": 7, "wall_ms": 717.6501249996363, "cpu_ms": 635.617, "rc": 0}
+{"name": "python3 -c 'import lab_status' only (imports)", "round": 7, "wall_ms": 108.42241699901933, "cpu_ms": 37.266, "rc": 0}
+{"name": "v2 k=306", "round": 7, "wall_ms": 683.6994999994204, "cpu_ms": 604.023, "rc": 0}
+{"name": "3 x git worktree list (/usr/bin/git)", "round": 7, "wall_ms": 206.35399999991932, "cpu_ms": 51.5, "rc": 0}
+{"name": "1 x git worktree list (/usr/bin/git)", "round": 7, "wall_ms": 74.03149999845482, "cpu_ms": 17.167, "rc": 0}
+{"name": "v3 k=306", "round": 7, "wall_ms": 307.0319580001524, "cpu_ms": 232.49599999999998, "rc": 0}
+{"name": "v3 k=306", "round": 8, "wall_ms": 302.465624999968, "cpu_ms": 222.964, "rc": 0}
+{"name": "v1 k=306", "round": 8, "wall_ms": 720.2147080006398, "cpu_ms": 627.413, "rc": 0}
+{"name": "python3 -c 'import lab_status' only (imports)", "round": 8, "wall_ms": 103.41779200098244, "cpu_ms": 34.815, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 8, "wall_ms": 63.13337500068883, "cpu_ms": 11.484, "rc": 0}
+{"name": "1 x git worktree list (/usr/bin/git)", "round": 8, "wall_ms": 75.41924999895855, "cpu_ms": 17.851, "rc": 0}
+{"name": "v2 k=306", "round": 8, "wall_ms": 680.3735419998702, "cpu_ms": 609.2239999999999, "rc": 0}
+{"name": "3 x git worktree list (/usr/bin/git)", "round": 8, "wall_ms": 205.4562090015679, "cpu_ms": 51.462999999999994, "rc": 0}
+{"name": "v0 k=306", "round": 8, "wall_ms": 821.5773339998123, "cpu_ms": 662.944, "rc": 0}
+{"name": "v2 k=306", "round": 9, "wall_ms": 735.0719999994908, "cpu_ms": 632.7779999999999, "rc": 0}
+{"name": "v0 k=306", "round": 9, "wall_ms": 800.1321669999015, "cpu_ms": 654.2719999999999, "rc": 0}
+{"name": "v3 k=306", "round": 9, "wall_ms": 300.2709580014198, "cpu_ms": 223.09099999999998, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 9, "wall_ms": 66.56908399963868, "cpu_ms": 11.539000000000001, "rc": 0}
+{"name": "python3 -c 'import lab_status' only (imports)", "round": 9, "wall_ms": 83.57154199984507, "cpu_ms": 37.191, "rc": 0}
+{"name": "1 x git worktree list (/usr/bin/git)", "round": 9, "wall_ms": 72.06170800054679, "cpu_ms": 15.959999999999999, "rc": 0}
+{"name": "3 x git worktree list (/usr/bin/git)", "round": 9, "wall_ms": 196.2826250000944, "cpu_ms": 45.79, "rc": 0}
+{"name": "v1 k=306", "round": 9, "wall_ms": 703.9449590010918, "cpu_ms": 633.281, "rc": 0}
+{"name": "v1 k=306", "round": 10, "wall_ms": 753.3947920001083, "cpu_ms": 658.828, "rc": 0}
+{"name": "v2 k=306", "round": 10, "wall_ms": 668.570957999691, "cpu_ms": 595.716, "rc": 0}
+{"name": "1 x git worktree list (/usr/bin/git)", "round": 10, "wall_ms": 100.85820800122747, "cpu_ms": 18.465999999999998, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 10, "wall_ms": 60.302791998765315, "cpu_ms": 12.902999999999999, "rc": 0}
+{"name": "3 x git worktree list (/usr/bin/git)", "round": 10, "wall_ms": 156.04808299940487, "cpu_ms": 45.087, "rc": 0}
+{"name": "python3 -c 'import lab_status' only (imports)", "round": 10, "wall_ms": 80.54504199935764, "cpu_ms": 38.523, "rc": 0}
+{"name": "v0 k=306", "round": 10, "wall_ms": 825.9329169995908, "cpu_ms": 668.059, "rc": 0}
+{"name": "v3 k=306", "round": 10, "wall_ms": 311.41604099866527, "cpu_ms": 228.605, "rc": 0}
+{"name": "v0 k=306", "round": 11, "wall_ms": 820.3846670003259, "cpu_ms": 655.157, "rc": 0}
+{"name": "python3 -c 'import lab_status' only (imports)", "round": 11, "wall_ms": 82.20408299894189, "cpu_ms": 35.394, "rc": 0}
+{"name": "python3 -S -I -c pass", "round": 11, "wall_ms": 53.66895800034399, "cpu_ms": 10.603, "rc": 0}
+{"name": "v3 k=306", "round": 11, "wall_ms": 299.78004099939426, "cpu_ms": 224.907, "rc": 0}
+{"name": "3 x git worktree list (/usr/bin/git)", "round": 11, "wall_ms": 164.79504099879705, "cpu_ms": 43.46999999999999, "rc": 0}
+{"name": "1 x git worktree list (/usr/bin/git)", "round": 11, "wall_ms": 70.33416699960071, "cpu_ms": 17.23, "rc": 0}
+{"name": "v1 k=306", "round": 11, "wall_ms": 694.1887920002046, "cpu_ms": 625.002, "rc": 0}
+{"name": "v2 k=306", "round": 11, "wall_ms": 709.5741249995626, "cpu_ms": 610.173, "rc": 0}

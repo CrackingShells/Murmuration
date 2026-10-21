@@ -1,0 +1,371 @@
+{
+ "main": {
+  "tool_calls": 104,
+  "error_calls": 3,
+  "batches": 89,
+  "handback_calls": 0,
+  "handback_attempts": 0,
+  "dispatches": 15,
+  "prompts": 0,
+  "resumes": 0,
+  "by_tool": {
+   "Bash": 66,
+   "Agent": 15,
+   "SendMessage": 13,
+   "mcp__ccd_turn__update_plan": 3,
+   "Write": 2,
+   "Skill": 1,
+   "Read": 1,
+   "ToolSearch": 1
+  },
+  "first": "2026-10-20T00:27:20.386Z",
+  "last": "2026-10-20T01:55:24.877Z"
+ },
+ "workers": [
+  {
+   "tool_calls": 39,
+   "error_calls": 2,
+   "batches": 36,
+   "handback_calls": 2,
+   "handback_attempts": 2,
+   "dispatches": 0,
+   "prompts": 0,
+   "resumes": 0,
+   "by_tool": {
+    "Bash": 31,
+    "Read": 4,
+    "SubagentHandback": 2,
+    "ToolSearch": 1,
+    "SendMessage": 1
+   },
+   "first": "2026-10-20T00:34:50.182Z",
+   "last": "2026-10-20T00:51:32.248Z",
+   "name": "author-w04-1",
+   "bytes": 594087
+  },
+  {
+   "tool_calls": 29,
+   "error_calls": 2,
+   "batches": 29,
+   "handback_calls": 1,
+   "handback_attempts": 1,
+   "dispatches": 0,
+   "prompts": 0,
+   "resumes": 0,
+   "by_tool": {
+    "Bash": 24,
+    "Read": 2,
+    "ToolSearch": 1,
+    "SendMessage": 1,
+    "SubagentHandback": 1
+   },
+   "first": "2026-10-20T00:45:40.922Z",
+   "last": "2026-10-20T00:52:26.703Z",
+   "name": "reproducer-w04-1",
+   "bytes": 399094
+  },
+  {
+   "tool_calls": 36,
+   "error_calls": 1,
+   "batches": 33,
+   "handback_calls": 1,
+   "handback_attempts": 1,
+   "dispatches": 0,
+   "prompts": 0,
+   "resumes": 0,
+   "by_tool": {
+    "Bash": 31,
+    "Read": 2,
+    "ToolSearch": 1,
+    "SendMessage": 1,
+    "SubagentHandback": 1
+   },
+   "first": "2026-10-20T01:24:48.215Z",
+   "last": "2026-10-20T01:36:29.076Z",
+   "name": "reproducer-w04-3",
+   "bytes": 475463
+  },
+  {
+   "tool_calls": 110,
+   "error_calls": 5,
+   "batches": 107,
+   "handback_calls": 6,
+   "handback_attempts": 6,
+   "dispatches": 0,
+   "prompts": 0,
+   "resumes": 3,
+   "by_tool": {
+    "Bash": 94,
+    "SubagentHandback": 6,
+    "SendMessage": 5,
+    "Read": 4,
+    "ToolSearch": 1
+   },
+   "first": "2026-10-20T00:34:50.196Z",
+   "last": "2026-10-20T01:51:33.189Z",
+   "name": "author-w04-2",
+   "bytes": 1449523
+  },
+  {
+   "tool_calls": 29,
+   "error_calls": 4,
+   "batches": 31,
+   "handback_calls": 1,
+   "handback_attempts": 1,
+   "dispatches": 0,
+   "prompts": 0,
+   "resumes": 0,
+   "by_tool": {
+    "Bash": 25,
+    "ToolSearch": 1,
+    "mcp__plugin_colgrep-mcp_colgrep__search": 1,
+    "SendMessage": 1,
+    "SubagentHandback": 1
+   },
+   "first": "2026-10-20T01:24:48.018Z",
+   "last": "2026-10-20T01:35:34.372Z",
+   "name": "reproducer-w04-2",
+   "bytes": 416767
+  },
+  {
+   "tool_calls": 18,
+   "error_calls": 2,
+   "batches": 18,
+   "handback_calls": 1,
+   "handback_attempts": 1,
+   "dispatches": 0,
+   "prompts": 0,
+   "resumes": 0,
+   "by_tool": {
+    "Bash": 13,
+    "Read": 2,
+    "ToolSearch": 1,
+    "SendMessage": 1,
+    "SubagentHandback": 1
+   },
+   "first": "2026-10-20T01:38:57.976Z",
+   "last": "2026-10-20T01:41:08.527Z",
+   "name": "reproducer-w04-10",
+   "bytes": 320661
+  },
+  {
+   "tool_calls": 27,
+   "error_calls": 1,
+   "batches": 26,
+   "handback_calls": 1,
+   "handback_attempts": 1,
+   "dispatches": 0,
+   "prompts": 0,
+   "resumes": 0,
+   "by_tool": {
+    "Bash": 22,
+    "Read": 2,
+    "ToolSearch": 1,
+    "SendMessage": 1,
+    "SubagentHandback": 1
+   },
+   "first": "2026-10-20T00:38:20.641Z",
+   "last": "2026-10-20T00:42:05.356Z",
+   "name": "reproducer-w04-6",
+   "bytes": 367027
+  },
+  {
+   "tool_calls": 34,
+   "error_calls": 1,
+   "batches": 33,
+   "handback_calls": 1,
+   "handback_attempts": 1,
+   "dispatches": 0,
+   "prompts": 0,
+   "resumes": 0,
+   "by_tool": {
+    "Bash": 28,
+    "Read": 2,
+    "ToolSearch": 1,
+    "mcp__plugin_colgrep-mcp_colgrep__search": 1,
+    "SendMessage": 1,
+    "SubagentHandback": 1
+   },
+   "first": "2026-10-20T01:08:50.065Z",
+   "last": "2026-10-20T01:18:59.519Z",
+   "name": "reproducer-w04-4",
+   "bytes": 469254
+  },
+  {
+   "tool_calls": 53,
+   "error_calls": 2,
+   "batches": 51,
+   "handback_calls": 1,
+   "handback_attempts": 1,
+   "dispatches": 0,
+   "prompts": 0,
+   "resumes": 0,
+   "by_tool": {
+    "Bash": 48,
+    "Read": 2,
+    "ToolSearch": 1,
+    "SendMessage": 1,
+    "SubagentHandback": 1
+   },
+   "first": "2026-10-20T01:29:29.597Z",
+   "last": "2026-10-20T01:48:12.869Z",
+   "name": "reproducer-w04-5",
+   "bytes": 783359
+  },
+  {
+   "tool_calls": 119,
+   "error_calls": 2,
+   "batches": 116,
+   "handback_calls": 6,
+   "handback_attempts": 6,
+   "dispatches": 0,
+   "prompts": 0,
+   "resumes": 3,
+   "by_tool": {
+    "Bash": 103,
+    "SubagentHandback": 6,
+    "Read": 3,
+    "Write": 3,
+    "SendMessage": 3,
+    "ToolSearch": 1
+   },
+   "first": "2026-10-20T00:34:50.207Z",
+   "last": "2026-10-20T01:41:27.606Z",
+   "name": "author-w04-3",
+   "bytes": 1669895
+  },
+  {
+   "tool_calls": 123,
+   "error_calls": 2,
+   "batches": 120,
+   "handback_calls": 1,
+   "handback_attempts": 1,
+   "dispatches": 0,
+   "prompts": 0,
+   "resumes": 0,
+   "by_tool": {
+    "Bash": 110,
+    "Read": 5,
+    "Write": 5,
+    "SubagentHandback": 1,
+    "ToolSearch": 1,
+    "SendMessage": 1
+   },
+   "first": "2026-10-20T00:34:50.216Z",
+   "last": "2026-10-20T01:55:00.054Z",
+   "name": "author-w04-4",
+   "bytes": 1886511
+  },
+  {
+   "tool_calls": 28,
+   "error_calls": 1,
+   "batches": 24,
+   "handback_calls": 2,
+   "handback_attempts": 2,
+   "dispatches": 0,
+   "prompts": 0,
+   "resumes": 0,
+   "by_tool": {
+    "Bash": 21,
+    "Read": 2,
+    "SubagentHandback": 2,
+    "Edit": 1,
+    "ToolSearch": 1,
+    "SendMessage": 1
+   },
+   "first": "2026-10-20T00:35:49.754Z",
+   "last": "2026-10-20T00:41:36.063Z",
+   "name": "author-w04-6",
+   "bytes": 379617
+  },
+  {
+   "tool_calls": 22,
+   "error_calls": 2,
+   "batches": 21,
+   "handback_calls": 1,
+   "handback_attempts": 1,
+   "dispatches": 0,
+   "prompts": 0,
+   "resumes": 0,
+   "by_tool": {
+    "Bash": 17,
+    "Read": 2,
+    "ToolSearch": 1,
+    "SendMessage": 1,
+    "SubagentHandback": 1
+   },
+   "first": "2026-10-20T01:29:06.622Z",
+   "last": "2026-10-20T01:32:48.449Z",
+   "name": "reproducer-w04-7",
+   "bytes": 398288
+  },
+  {
+   "tool_calls": 29,
+   "error_calls": 2,
+   "batches": 29,
+   "handback_calls": 2,
+   "handback_attempts": 2,
+   "dispatches": 0,
+   "prompts": 0,
+   "resumes": 1,
+   "by_tool": {
+    "Bash": 23,
+    "Read": 2,
+    "SubagentHandback": 2,
+    "ToolSearch": 1,
+    "SendMessage": 1
+   },
+   "first": "2026-10-20T01:38:48.265Z",
+   "last": "2026-10-20T01:44:29.700Z",
+   "name": "reproducer-w04-9",
+   "bytes": 449909
+  },
+  {
+   "tool_calls": 43,
+   "error_calls": 2,
+   "batches": 40,
+   "handback_calls": 2,
+   "handback_attempts": 2,
+   "dispatches": 0,
+   "prompts": 0,
+   "resumes": 1,
+   "by_tool": {
+    "Bash": 35,
+    "Read": 3,
+    "SendMessage": 2,
+    "SubagentHandback": 2,
+    "ToolSearch": 1
+   },
+   "first": "2026-10-20T01:38:48.258Z",
+   "last": "2026-10-20T01:53:38.562Z",
+   "name": "reproducer-w04-8",
+   "bytes": 593390
+  }
+ ],
+ "starts": {
+  "main": {
+   "PostToolBatch||budget.py": 89,
+   "PostToolUse||budget.py": 104,
+   "PostToolUse|SubagentHandback|handback.py": 0,
+   "PreToolUse|Agent|Task|budget.py": 15,
+   "PreToolUse|SubagentHandback|handback.py": 0,
+   "UserPromptSubmit||user_words.py": 0
+  },
+  "workers": {
+   "PostToolBatch||budget.py": 714,
+   "PostToolUse||budget.py": 739,
+   "PostToolUse|SubagentHandback|handback.py": 29,
+   "PreToolUse|SubagentHandback|handback.py": 29,
+   "SubagentStart||budget.py": 23,
+   "SubagentStop||budget.py": 23,
+   "SubagentStop||handback.py": 23
+  }
+ },
+ "totals": {
+  "main_tool_calls": 104,
+  "worker_tool_calls": 739,
+  "workers": 15,
+  "main_starts": 208,
+  "worker_starts": 1580
+ }
+}

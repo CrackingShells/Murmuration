@@ -1,0 +1,12 @@
+tool                         headless w04 (n, med s) PI session w04 (n, med s)
+Bash                               5092       1.03        721       1.36
+Read                                 24       0.22         38       0.16
+Write                                 4       1.18         10       0.22
+Edit                                  0        nan          2       1.69
+SendMessage                           4       1.46         35       1.01
+SubagentHandback                     71       0.91         29       1.07
+ToolSearch                           16       0.79         16       0.14
+Agent                                60       0.97         16       1.69
+Monitor                               0        nan          1       0.00
+headless Bash<3s n 4207 q10/q25/q50/q75 s [0.74, 0.85, 0.97, 1.14]
+PI Bash<3s n 557 q10/q25/q50/q75 s [0.97, 1.08, 1.23, 1.5]
