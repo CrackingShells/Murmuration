@@ -292,6 +292,8 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | author-w06-5 | author | E3: the permission guard in the plugin (w06-c7, c8, c10), own worktree | c77e696 on `w06-e3-guard`: v0 rule fails (g1 42/50, spawns on `$`); resumed for v1 (w06-c8: h3 fails), v2 (w06-c10, 7d2fc81: h1–h6 pass) |
 | author-w06-4 | author | E1 stage 2: the port, s1–s4 (w06-c4) | 8cdfd7b: s1, s3 pass; s2 (20.8%) and s4 (+320) fail; reverted b79e81c |
 | reproducer-w06-4 | reproducer | verify w06-c4 | OVERSTATED (38d3273): s4's title and s3b's cumulative reading; the decision stands |
+| author-w06-7 | author | the guard's lean start (w06-c14) | 0ee7652: identical decisions, −6.6 ms a start |
+| reproducer-w06-8 | reproducer | smoke test of the combined build; then w06-c14 | 6c826d3: (a)–(d) pass in 4 sessions |
 | author-w06-6 | author | E2: lean starts, same registrations and outputs (w06-c9) | 6157777 on `w06-e2-lean`: e1, e3, e4 pass; e2 22 ms against 25 |
 | reproducer-w06-7 | reproducer | verify w06-c11 (classify k6's 113) and w06-c12 | 7f3593b: c11 OVERSTATED (k6 passes once classified), c12 SUPPORTED |
 | reproducer-w06-6 | reproducer | verify w06-c9 (outputs, saving, `_json` fallback) | SUPPORTED (feb12b4): outputs identical, saving 20–28 ms; two fallback gaps |
@@ -304,7 +306,9 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | w06-c3 | E1 stage 1, resident server carries the hooks | superseded by w06-c5 |
 | w06-c5 | E1 stage 1 restated | superseded by w06-c6 (verdict OVERSTATED: "fails v0" went beyond v0's letter) |
 | w06-c6 | E1 stage 1: a resident server carries the hooks' fields, firing, effects at 1–6 ms; m4 (a) vacuous, (b) meets v0's letter and fails its intent (silent loss of deny and block), (c) 20 s a tool boundary | MEASURED |
-| w06-c11 | E3 v3: one unconditional Bash row; k1–k5 pass; k6 depends on classifying 113 denials | below MEASURED: restate (w06-c13) |
+| w06-c13 | E3 v3 with three parser fixes and the mv correction (1ace83e): lands | MEASURED (SUPPORTED after changed_by) |
+| w06-c14 | The guard's rows start as `python3 -S -I`: identical decisions on 660 events, about 7 ms less a start | unverified MEASURED |
+| w06-c11 | E3 v3: one unconditional Bash row; k1–k5 pass; k6 depends on classifying 113 denials | superseded by w06-c13 |
 | w06-c12 | E3 v2 restated with the full let-through list | MEASURED |
 | w06-c10 | E3 v2: 3 Bash rows, a content check that denies only added words, settings-path rows; h1–h6 pass (incident form denied, 0 spawns on ordinary commands, fails closed, engineering edits allowed) | superseded by w06-c12 (verdict OVERSTATED) |
 | w06-c8 | E3 v1: 3 Bash rows + script-content check; h1, h2, h4, h5 pass, h3 fails (inconsistent as registered); not landed | MEASURED |
@@ -400,6 +404,10 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | S-w06-reproducer-w06-8-5 | parked: the user's colgrep policy hook is their config (synthesis item 22) |
 | S-w06-research-pi-1 | followed: synthesis open item 28 |
 | S-w06-research-pi-2 | followed: synthesis open item 27 |
+| S-w06-author-w06-7-1 | parked: 6.6 ms is what a lean start can buy here; fewer guard starts would mean an `if` gate, which costs more at a 45% `$` share (E3 v3) |
+| S-w06-author-w06-7-2 | parked: its end-to-end command check is the one that can fail, and it passed |
+| S-w06-author-w06-7-3 | parked: `user_words.py` runs once per prompt and `resume_brief.py` only on resume; their start is not on a worker's path |
+| S-w06-author-w06-7-4 | parked: the platform's wording of a fail-closed block |
 | S-w06-explorer-w06-a-1 | parked: an ordering effect between languages; the language is not taken forward (E1) |
 | S-w06-explorer-w06-a-2 | parked: the exec floor belongs to the kernel and the platform; a hook that starts no process avoids it (E1) |
 | S-w06-explorer-w06-a-3 | followed: E1 (one resident server removes Murmuration's own siblings); the user's own sibling hooks are their config (synthesis item 22) |
