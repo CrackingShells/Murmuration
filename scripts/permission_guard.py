@@ -11,7 +11,7 @@ Inside the script, any exception also becomes a deny (fail closed).
     permission_guard.py --selftest   check the decision function on the committed lists of w06-c7 and on small cases
 
 Denied (the user's yes is needed; the message says so):
-  G1  a Bash command that, outside a read-only search, carries the words of the bypass: `bypassPermissions`, `--permission-mode bypass...`,
+  G1  (v3: only when the command text, heredoc bodies included, also names `claude` or `claude_agent_sdk`) a Bash command that, outside a read-only search, carries the words of the bypass: `bypassPermissions`, `--permission-mode bypass...`,
       `--dangerously-...` flags, `skipDangerousModePermissionPrompt`. Commands that only search for the words (grep, rg, jq, git log, ...) pass.
   G2  a `claude` child that leaves the user's settings and hooks: `--setting-sources` without `user`, `--bare`, `--safe-mode`,
       `--settings` carrying `disableAllHooks`; and any `CLAUDE_CONFIG_DIR=` assignment.
@@ -165,7 +165,13 @@ def protected(path, cwd, unknown_dir=False):
     return base in ("settings.json", "settings.local.json") and parent == ".claude"
 
 
+NAMES_CLAUDE = re.compile(r"(?<![\w.\-])claude(?![\w.\-/])|claude_agent_sdk")
+
+
 def g1(cmd, segs):
+    """G1 (v3): the bypass words, only when the same command text (heredoc bodies included) also names `claude` (the CLI) or `claude_agent_sdk`."""
+    if not NAMES_CLAUDE.search(cmd):
+        return None
     bad = [s for s, toks in segs if BYPASS.search(s) or BYPASS.search(" ".join(toks))]
     hit = [s for s, toks in segs if (BYPASS.search(s) or BYPASS.search(" ".join(toks))) and not inert(toks)]
     if hit:
@@ -238,7 +244,7 @@ def g3_edit(inp, cwd):
     return None
 
 
-SCRIPT_EXT = (".py", ".sh", ".bash", ".zsh", ".js", ".ts", ".mjs")
+SCRIPT_EXT = (".py", ".sh", ".bash", ".zsh", ".js", ".ts", ".mjs", ".ipynb")
 SRC = re.compile(r"""--setting-sources["'\s=,\[\]]*([A-Za-z,]*)""")
 
 
@@ -252,10 +258,12 @@ def _hits(text):
 def g4_script(inp, cwd=""):
     """G4 (v2): Write or Edit of a script file that ADDS the bypass words or a literal `--setting-sources` value without `user`.
     Edit: more of them in `new_string` than in `old_string`. Write over an existing file: more than the file holds now. Write of a new file: any."""
-    p = inp.get("file_path") or inp.get("path") or ""
+    p = inp.get("file_path") or inp.get("path") or inp.get("notebook_path") or ""
     if not p.lower().endswith(SCRIPT_EXT):
         return None
-    if "content" in inp:
+    if "new_source" in inp:         # NotebookEdit: the replaced cell is not known to the hook, so any occurrence counts
+        new, old = _hits(str(inp.get("new_source") or "")), []
+    elif "content" in inp:
         new, old = _hits(str(inp.get("content") or "")), []
         try:
             with open(os.path.join(cwd or "", os.path.expanduser(p)), errors="replace") as fh:
@@ -335,7 +343,12 @@ def selftest():
         ("Bash", {"command": "claude -p x --permission-mode bypassPermissions"}, True),
         ("Bash", {"command": "grep -rn bypassPermissions docs"}, False),
         ("Bash", {"command": "grep bypassPermissions x | claude --dangerously-skip-permissions"}, True),
-        ("Bash", {"command": "git commit -m 'bypassPermissions'"}, True),
+        ("Bash", {"command": "git commit -m 'bypassPermissions'"}, False),
+        ("Bash", {"command": "python3 - <<'EOF'\nimport subprocess\nsubprocess.run(['claude','-p','hi','--dangerously-skip-permissions'])\nEOF"}, True),
+        ("Bash", {"command": "bash <<'EOF'\nclaude -p hi --permission-mode bypassPermissions\nEOF"}, True),
+        ("Bash", {"command": "cat <<'EOF'\nthe bypassPermissions mode is documented\nEOF"}, False),
+        ("NotebookEdit", {"notebook_path": "/h/n.ipynb", "new_source": "mode = 'bypassPermissions'"}, True),
+        ("NotebookEdit", {"notebook_path": "/h/n.ipynb", "new_source": "print(1)"}, False),
         ("Bash", {"command": "echo $CLAUDE_CONFIG_DIR"}, False),
         ("Bash", {"command": "CLAUDE_CONFIG_DIR=/x claude -p y"}, True),
         ("Bash", {"command": "claude -p y --setting-sources local,user"}, False),

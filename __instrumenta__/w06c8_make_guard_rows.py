@@ -1,4 +1,4 @@
-# w06-c8 (E3 v1): puts the v1 permission-guard rows into hooks/hooks.json under PreToolUse (replacing any earlier guard rows, keeping every other row); inputs: hooks/hooks.json, `--arm A` (registered: three Bash rows) or `--arm B` (reported variant: the `--setting-sources` row replaced by four rows that spare `user` first); outputs: hooks/hooks.json rewritten, or with `--out FILE` a copy written there; prints the row count. Run from the repository root: python3 -I __instrumenta__/w06c8_make_guard_rows.py [--arm A|B] [--out FILE]
+# w06-c8 (E3 v1): puts the v1 permission-guard rows into hooks/hooks.json under PreToolUse (replacing any earlier guard rows, keeping every other row); inputs: hooks/hooks.json, `--arm A` (registered v1/v2: three Bash rows), `--arm C` (v3: one Bash row with no `if`) or `--arm B` (reported variant: the `--setting-sources` row replaced by four rows that spare `user` first); outputs: hooks/hooks.json rewritten, or with `--out FILE` a copy written there; prints the row count. Run from the repository root: python3 -I __instrumenta__/w06c8_make_guard_rows.py [--arm A|B] [--out FILE]
 import json, os, sys
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
@@ -10,13 +10,23 @@ SCRIPTS = ["**/*.py", "**/*.sh", "**/*.bash", "**/*.zsh", "**/*.js", "**/*.ts", 
 
 
 def handler(rule):
-    return {"type": "command", "if": rule, "command": CMD, "timeout": 10, "onFailure": "block"}
+    h = {"type": "command", "command": CMD, "timeout": 10, "onFailure": "block"}
+    if rule:
+        h = dict(h, **{"if": rule})
+        h = {k: h[k] for k in ("type", "if", "command", "timeout", "onFailure")}
+    return h
 
 
 def groups(arm="A"):
-    bash = BASH_A if arm == "A" else BASH_B
-    return [{"matcher": "Bash", "hooks": [handler("Bash(%s)" % r) for r in bash]},
-            {"matcher": "Write|Edit", "hooks": [handler("%s(%s)" % (t, p)) for t in ("Write", "Edit") for p in SETTINGS + SCRIPTS]}]
+    if arm == "C":      # v3: one Bash row with no `if`
+        bash_hooks = [handler(None)]
+    else:
+        bash_hooks = [handler("Bash(%s)" % r) for r in (BASH_A if arm == "A" else BASH_B)]
+    tools, pats, matcher = ("Write", "Edit"), SETTINGS + SCRIPTS, "Write|Edit"
+    if arm == "C":      # v3 also routes NotebookEdit to the same path rows (notebooks count as scripts)
+        tools, pats, matcher = ("Write", "Edit", "NotebookEdit"), SETTINGS + SCRIPTS + ["**/*.ipynb"], "Write|Edit|NotebookEdit"
+    return [{"matcher": "Bash", "hooks": bash_hooks},
+            {"matcher": matcher, "hooks": [handler("%s(%s)" % (t, p)) for t in tools for p in pats if not (t != "NotebookEdit" and p.endswith(".ipynb"))]}]
 
 
 def apply(cfg, arm="A"):

@@ -56,21 +56,6 @@
         "hooks": [
           {
             "type": "command",
-            "if": "Bash(*bypassPermissions*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 10,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*dangerously-skip-permissions*)",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
-            "timeout": 10,
-            "onFailure": "block"
-          },
-          {
-            "type": "command",
-            "if": "Bash(*setting-sources*)",
             "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
             "timeout": 10,
             "onFailure": "block"
@@ -78,7 +63,7 @@
         ]
       },
       {
-        "matcher": "Write|Edit",
+        "matcher": "Write|Edit|NotebookEdit",
         "hooks": [
           {
             "type": "command",
@@ -216,6 +201,83 @@
           {
             "type": "command",
             "if": "Edit(**/*.mjs)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "NotebookEdit(**/.claude/settings*.json)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "NotebookEdit(**/managed-settings*)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "NotebookEdit(**/managed-settings.d/**)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "NotebookEdit(**/*.py)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "NotebookEdit(**/*.sh)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "NotebookEdit(**/*.bash)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "NotebookEdit(**/*.zsh)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "NotebookEdit(**/*.js)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "NotebookEdit(**/*.ts)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "NotebookEdit(**/*.mjs)",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "NotebookEdit(**/*.ipynb)",
             "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py\"",
             "timeout": 10,
             "onFailure": "block"

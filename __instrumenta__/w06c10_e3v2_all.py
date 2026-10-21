@@ -7,10 +7,14 @@ import w06c8_e3v1_all as V
 import w06c8_make_guard_rows as M
 
 
+ARM = os.environ.get("W06_ARM", "A")        # A: v2 (three Bash `if` rows); C: v3 (one Bash row, no `if`)
+PFX = "e3v3" if ARM == "C" else "e3v2"
+
+
 def main():
     quick, sha, SH, NSH = A.quick, A.sha, A.SH, A.NSH
     res = {"commit": sha, "shard": SH}
-    plug = A.export("%s/export_%s_A" % (E.S, sha), V.with_arm("A"))
+    plug = A.export("%s/export_%s_A" % (E.S, sha), V.with_arm(ARM))
     E.arena()
     os.makedirs(E.T + "/h6")
     for f in ("handback.py", "permission_guard.py"):
@@ -64,7 +68,7 @@ def main():
     for k, name in enumerate(muts):
         if (NSH > 1 and k % NSH != SH) or (quick and name != "unreadable"):
             continue
-        dd = A.export("%s/export_%s_v2_%s" % (E.S, sha, name), V.with_arm("A", muts[name]))
+        dd = A.export("%s/export_%s_v2_%s" % (E.S, sha, name), V.with_arm(ARM, muts[name]))
         res["h4"][name] = A.run_list("h4" + name, dd, probe[:1] if quick else probe, 1)
         if name == "unreadable":
             os.chmod(dd + "/scripts/permission_guard.py", 0o644)
@@ -80,7 +84,14 @@ def main():
             [t.start() for t in ths]
             [t.join() for t in ths]
         res["h5"] = out
-    json.dump(res, open("%s/e3v2_results_%s_s%d.json" % (E.S, sha, SH), "w"), indent=1)
+    if ARM == "C":      # k2 (the 7 v0 pass-throughs and the two heredoc bypass flags) and the mention-only commands, reported
+        k2 = json.loads(json.dumps(json.load(open(E.LISTS + "/e3v3_cases.json"))).replace("{T}", E.T))
+        k2 = [byid[i] for i in ("b04", "b11", "d01", "d02", "d09", "d12", "d13")] + k2
+        if quick:
+            k2 = [c for c in k2 if c["id"] in ("b04", "d01", "k01")]
+        res["k2"] = A.run_list("k2", plug, S(k2), 1)
+        res["mention"] = A.run_list("men", plug, S(V.full("mention")), 1)
+    json.dump(res, open("%s/%s_results_%s_s%d.json" % (E.S, PFX, sha, SH), "w"), indent=1)
     print("done")
 
 
