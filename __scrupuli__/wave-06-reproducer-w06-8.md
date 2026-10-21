@@ -17,3 +17,11 @@ refs: /private/tmp/murmuration-w06/reproducer-w06-8/runs/bypass_default/stream.j
 ## S-w06-reproducer-w06-8-5
 Each Bash call starts two PreToolUse:Bash hooks on this machine, the guard and the user's colgrep-mcp policy hook (`uv run --no-project --quiet python ...`, 9 finishes in ordinary_auto). Counting "PreToolUse:Bash starts" from the stream gives 18 for 9 calls; only `guard.log` or the debug-file command string separates the two. Any future "once per Bash call" check must key on the command, not the hook name.
 refs: /private/tmp/murmuration-w06/reproducer-w06-8/runs/ordinary_auto/dbg.log, /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/blissful-villani-34edd8/__instrumenta__/w06c14_combo_smoke_check.py
+
+## S-w06-reproducer-w06-8-6
+The guard answers an event whose `tool_input` is null (and probably one with no `command` key) with allow, while empty stdin, non-JSON, `[]` and an integer `command` give deny. Equal under both starts, so it is not a w06-c14 matter, but the fail-closed story is not uniform: a Bash event with no command is let through.
+refs: `python3 -I __instrumenta__/w06c14_v2_cmd_equal_own.py <old tree> <new tree>` (row "malformed: null tool_input")
+
+## S-w06-reproducer-w06-8-7
+w06-c14's live fail-closed test uses an unreadable script, exit 2, which the platform blocks by convention whatever `onFailure` says; it does not show that `"onFailure": "block"` does anything. My crash test (exit 1) does: the call was blocked in both trees. Whether the field is documented or only the exit-2 rule holds on another platform version is not established here.
+refs: /private/tmp/murmuration-w06/reproducer-w06-8/runs/r2_crashnew_failclosed_default/stream.jsonl, /private/tmp/murmuration-w06/reproducer-w06-8/runs/r2_crashnew_failclosed_default/dbg.log
