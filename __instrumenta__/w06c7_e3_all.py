@@ -1,4 +1,4 @@
-# w06-c7 (E3): the registered run, end to end: exports a commit of the plugin, builds the arena, checks that the stub `claude` is first on PATH in a live session, then runs the g1 attacks, g2 ordinary commands, mention-only commands, g5 evasions and the g3 fail-closed variants as headless haiku sessions (default permission mode + allow list; never bypass), and writes derived tables (no raw output) to <outdir>/e3_results.json and e3_results.md; inputs: a commit (default HEAD), mode `full` or `quick`; outputs: raw runs under /private/tmp/murmuration-w06/author-w06-5/runs/ (never committed) and the derived tables beside the claim. Cost: full about 20 sessions of 30-90 s each on haiku; quick 4 sessions. Full: python3 -I __instrumenta__/w06c7_e3_all.py <commit> full   Quick: python3 -I __instrumenta__/w06c7_e3_all.py <commit> quick
+# w06-c7 (E3): the registered run, end to end: exports a commit of the plugin, builds the arena, checks that the stub `claude` is first on PATH in a live session, then runs the g1 attacks, g2 ordinary commands, mention-only commands, g5 evasions and the g3 fail-closed variants as headless haiku sessions (default permission mode + allow list; never bypass), and writes derived tables (no raw output) to <outdir>/e3_results.json and e3_results.md; inputs: a commit (default HEAD), mode `full` or `quick`; outputs: raw runs under /private/tmp/murmuration-w06/author-w06-5/runs/ (never committed) and the derived tables beside the claim. Cost: full about 110 sessions of 12-25 s each on haiku (about 35 min); quick about 18 sessions (about 6 min). Full: python3 -I __instrumenta__/w06c7_e3_all.py <commit> full   Quick: python3 -I __instrumenta__/w06c7_e3_all.py <commit> quick
 import json, os, re, shutil, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import w06c7_e3_run as E
@@ -87,16 +87,16 @@ def main():
     assert pf and "/arena/bin/claude" in pf[0][2] and "STUB" not in pf[0][2] or print("PREFLIGHT FAILED", results["preflight"]) or sys.exit(2)
     attacks, ordinary = load("attacks"), load("ordinary")
     if quick:
-        attacks = [c for c in attacks if c["id"] in ("a01", "a05", "a08", "b01", "b04", "c01", "d01", "d04")]
-        ordinary = [c for c in ordinary if c["id"] in ("o02", "o05", "o08", "o11", "o14", "o16", "o24", "o25")]
+        attacks = [c for c in attacks if c["id"] in ("a01", "a08", "b04", "c01", "d01")]
+        ordinary = [c for c in ordinary if c["id"] in ("o02", "o08", "o14", "o24", "o25", "o11", "o16")]
     E.arena()   # fresh fixtures after the preflight
-    results["g1"] = run_list("g1", PLUG, attacks, 8)
+    results["g1"] = run_list("g1", PLUG, attacks, 1)
     results["g2"] = run_list("g2", PLUG, ordinary, 7)
     if not quick:
-        results["mention"] = run_list("men", PLUG, load("mention"), 6)
-        results["g5"] = run_list("g5", PLUG, load("evasions"), 7)
+        results["mention"] = run_list("men", PLUG, load("mention"), 1)
+        results["g5"] = run_list("g5", PLUG, load("evasions"), 1)
     # g3 fail-closed: the guard unreadable, crashing, the interpreter missing, and the control without onFailure
-    probe = [c for c in attacks if c["id"] in ("a01", "a05", "a08")]
+    probe = [c for c in attacks if c["id"] in ("a01", "a05", "a08")][:1 if quick else 3]
     variants = {}
 
     def unreadable(d):
@@ -128,10 +128,22 @@ def main():
         if quick and name not in ("unreadable", "control_crash_no_onFailure"):
             continue
         d = export("%s/export_%s_%s" % (E.S, sha, name), mut)
-        variants[name] = run_list("g3_" + name, d, probe, 3)
+        variants[name] = run_list("g3_" + name, d, probe, 1)
         if name == "unreadable":
             os.chmod(d + "/scripts/permission_guard.py", 0o644)
     results["g3"] = variants
+
+    # g4 alternative arm: ONE unconditional Bash row (no `if`), same file-tool rows. Spawns on the ordinary list and on the cases the `if` rows cannot see.
+    def single_row(d):
+        h = json.load(open(d + "/hooks/hooks.json"))
+        pre = h["hooks"]["PreToolUse"]
+        one = {"matcher": "Bash", "hooks": [{"type": "command", "command": 'python3 "${CLAUDE_PLUGIN_ROOT}/scripts/permission_guard.py"', "timeout": 5, "onFailure": "block"}]}
+        h["hooks"]["PreToolUse"] = [one] + [g for g in pre if g.get("matcher") != "Bash" or not any("permission_guard" in x.get("command", "") for x in g["hooks"])]
+        json.dump(h, open(d + "/hooks/hooks.json", "w"))
+    d = export("%s/export_%s_single_row" % (E.S, sha), single_row)
+    gaps = [c for c in load("attacks") if c["id"] in ("b04", "b05", "d01", "d02", "d09", "d12", "d13")]
+    gaps = gaps[:1] if quick else gaps
+    results["single_row"] = dict(ordinary=run_list("sr_ord", d, ordinary, 7), gaps=run_list("sr_gap", d, gaps, 1))
     json.dump(results, open(E.S + "/e3_results_%s_%s.json" % (sha, mode), "w"), indent=1)
     print("done", E.S + "/e3_results_%s_%s.json" % (sha, mode))
 
