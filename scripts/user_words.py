@@ -15,6 +15,17 @@ front of the typed text (`<system-reminder>`, `<artifact-view-context>`, `<side-
 are cut first, and the app's `<pasted_content>` wrapper is removed around pasted text; what is
 left is stored.
 
+The platform also marks who sent a prompt, in the transcript record of that prompt (not in the hook
+payload): `origin.kind` is `human` for typed prompts and `!` commands, `peer` for another session's
+message, `task-notification` for a finished background task; `promptSource`/`turnOrigin` are
+`system`/`scheduled` for the harness's own prompts and `sdk` for the first message of a session started
+by another session (or by `claude -p`). The hook finds the record by the payload's `prompt_id` in the
+tail of the transcript (polling at most ORIGIN_WAIT seconds, since the record may land just after the
+hook starts) and drops what the record marks as not typed by a person; an `sdk` prompt is kept only when
+the record's `entrypoint` is `sdk-cli` (a headless run from a person's own terminal). When there is no
+`prompt_id`, no transcript, no record in time, or a record without a known mark, the text rule above
+decides, as it did before.
+
 The script never blocks a prompt and always exits 0. Anything unexpected is dropped silently.
 
 Usage:
@@ -26,6 +37,7 @@ import json
 import os
 import re
 import sys
+import time
 
 NON_USER_PREFIXES = ("<cross-session-message ", "<task-notification>", "<agent-message from=")
 LAB_COMMAND = re.compile(r"^/(?:murmuration:)?lab(?:-status)?(?:\s|$)")
@@ -42,6 +54,11 @@ STORE = "__statera__"
 FILE_NAME = "user_words.md"
 HEAD_LINES = 200  # how much of a transcript session_cwd() may read
 HEAD_BYTES = 1 << 20
+ORIGIN_WAIT = 0.3  # seconds the hook may wait for the prompt's record to reach the transcript
+ORIGIN_STEP = 0.025
+TAIL_BYTES = (1 << 18, 1 << 22)  # tail windows: 256 KiB, then 4 MiB when the record starts before the first one
+DROP_KINDS = ("peer", "task-notification")  # `origin.kind` values: another session, a finished background task
+DROP_TURNS = ("peer", "task_notification", "scheduled")  # `turnOrigin` values of harness-sent prompts
 HEADER = (
     "# The user's words\n\n"
     "Prompts as the user typed them, each under its date. Written by the lab's hook and by "
@@ -78,6 +95,99 @@ def strip_leading(prompt):
 def unwrap_pasted(text):
     """The text with the paste wrapper removed, one level, and leading blank lines dropped."""
     return re.sub(r"\A\s*\n", "", PASTED.sub(lambda m: m.group(2), text))
+
+
+def record_mark(record):
+    """What a transcript user record says about its sender: True typed by a person, False not, None unknown."""
+    origin = record.get("origin")
+    kind = origin.get("kind") if isinstance(origin, dict) else None
+    if kind == "human":
+        return True
+    if kind in DROP_KINDS:
+        return False
+    if isinstance(kind, str):  # a kind this script does not know: leave it to the text rule
+        return None
+    source, turn = record.get("promptSource"), record.get("turnOrigin")
+    if source == "system" or turn in DROP_TURNS:
+        return False
+    if turn == "human":
+        return True
+    if source == "sdk" or turn == "sdk":  # the first message of a session started by another session or by `claude -p`
+        entry = record.get("entrypoint")
+        if entry == "sdk-cli":
+            return True
+        return False if isinstance(entry, str) else None
+    return None
+
+
+def scan_tail(buf, prompt_id, whole):
+    """The marks of the transcript user records with `promptId == prompt_id` in `buf`, the end of a transcript.
+
+    Returns (verdict, cut): verdict is True/False/None as for record_mark (False wins over True when the
+    records of one prompt disagree: the platform marked one of them as not typed); cut is True when
+    nothing was found and the first line of `buf` was dropped as possibly partial, so a longer window may
+    still hold the record (a record starts with its id, and may be longer than the window).
+    """
+    needle = prompt_id.encode("utf-8", "replace")
+    lines = buf.split(b"\n")
+    cut = False
+    marks = []
+    for i, line in enumerate(lines):
+        if i == 0 and not whole:
+            cut = True  # the window may start inside this line
+            continue
+        if needle not in line:
+            continue
+        try:
+            record = json.loads(line)
+        except ValueError:
+            continue
+        if not isinstance(record, dict) or record.get("type") != "user" or record.get("promptId") != prompt_id:
+            continue
+        if "toolUseResult" in record or record.get("sourceToolAssistantUUID"):
+            continue
+        marks.append(record_mark(record))
+    known = [m for m in marks if m is not None]
+    return (min(known) if known else None), (cut and not known)
+
+
+def read_tail(path, size):
+    """The last `size` bytes of the file and whether they are the whole file."""
+    with open(path, "rb") as fh:
+        end = fh.seek(0, os.SEEK_END)
+        start = max(0, end - size)
+        fh.seek(start)
+        return fh.read(end - start), start == 0, end
+
+
+def human_prompt(event, wait=None):
+    """True when the transcript says a person typed the prompt, False when it says another session or
+    the harness sent it, None when that is not known (no `prompt_id`, no transcript, record not there in
+    `wait` seconds, record without a known mark). Reads only the tail of the transcript."""
+    pid, path = event.get("prompt_id"), event.get("transcript_path")
+    if not isinstance(pid, str) or not pid or not isinstance(path, str) or not path:
+        return None
+    deadline = time.monotonic() + (ORIGIN_WAIT if wait is None else wait)
+    seen = None
+    while True:
+        try:
+            size = os.stat(path).st_size
+            if size != seen:  # nothing new on disk since the last look: do not read again
+                seen = size
+                for window in TAIL_BYTES:
+                    buf, whole, _ = read_tail(path, window)
+                    verdict, cut = scan_tail(buf, pid, whole)
+                    if verdict is not None:
+                        return verdict
+                    if not cut:
+                        break
+        except FileNotFoundError:
+            pass  # the first prompt of a session may come before the file exists
+        except (OSError, ValueError):
+            return None
+        if time.monotonic() >= deadline:
+            return None
+        time.sleep(ORIGIN_STEP)
 
 
 def session_cwd(transcript_path):
@@ -188,7 +298,114 @@ def handle(event):
     root = project_root(event)
     if not words.strip() or root is None:
         return None
+    try:
+        typed = human_prompt(event)
+    except Exception:  # whatever goes wrong in the lookup, the text rule above has decided
+        typed = None
+    if typed is False:  # the transcript marks it as another session's or the harness's
+        return None
     return append_words(root, words)
+
+
+def selftest_origin():
+    """The origin cases: what the transcript record of the prompt (found by `prompt_id`) decides, and every fallback."""
+    import subprocess
+    import tempfile
+    import threading
+
+    pid = "11111111-2222-3333-4444-555555555555"
+
+    def rec(promptId=pid, text="the words", **fields):
+        record = {"type": "user", "promptId": promptId, "message": {"role": "user", "content": text}}
+        record.update(fields)
+        return record
+
+    def fire(tmp, records, text="the words", extra=None, raw=None, late=None, size=None):
+        """Run the hook once on a lab in `tmp`; return True when `text` was stored."""
+        lab = os.path.join(tmp, "lab")
+        os.makedirs(os.path.join(lab, STORE), exist_ok=True)
+        tpath = os.path.join(tmp, "t.jsonl")
+        with open(tpath, "w") as fh:
+            for r in records or []:
+                fh.write(json.dumps(r) + "\n")
+            fh.write(raw or "")
+            if size:
+                fh.write(json.dumps({"type": "attachment", "pad": "x" * size}) + "\n")
+        event = {"prompt": text, "cwd": lab, "prompt_id": pid, "transcript_path": tpath, "hook_event_name": "UserPromptSubmit"}
+        event.update(extra or {})
+        env = dict(os.environ)
+        env.pop("CLAUDE_PROJECT_DIR", None)
+        proc = subprocess.Popen([sys.executable, os.path.abspath(__file__)], stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE, text=True, env=env, cwd=tmp)
+        if late is not None:  # the record reaches the file after the hook has started
+            def append():
+                time.sleep(0.1)
+                with open(tpath, "a") as fh:
+                    fh.write(json.dumps(late) + "\n")
+            threading.Thread(target=append).start()
+        out, err = proc.communicate(json.dumps(event))
+        assert proc.returncode == 0 and out == "", (proc.returncode, out, err)
+        words = os.path.join(lab, STORE, FILE_NAME)
+        return os.path.exists(words) and text in open(words, encoding="utf-8").read()
+
+    def run(want, *args, **kw):
+        with tempfile.TemporaryDirectory() as tmp:
+            assert fire(tmp, *args, **kw) == want, (want, repr((args, kw))[:300])
+
+    human = dict(origin={"kind": "human"}, promptSource="sdk", turnOrigin="human", entrypoint="claude-desktop")
+    # who sent it, by the platform's own marker
+    run(True, [rec(**human)])
+    run(False, [rec(origin={"kind": "peer"}, promptSource="system", turnOrigin="peer", isMeta=True, entrypoint="claude-desktop")])
+    run(False, [rec(origin={"kind": "task-notification"}, promptSource="system", entrypoint="claude-desktop")])
+    run(False, [rec(promptSource="system", turnOrigin="scheduled", isMeta=True)])
+    run(False, [rec(promptSource="sdk", turnOrigin="sdk", entrypoint="claude-desktop")])  # a session started by another session
+    run(True, [rec(promptSource="sdk", turnOrigin="sdk", entrypoint="sdk-cli")])  # a person's own `claude -p`
+    run(True, [rec(turnOrigin="human")])
+    # a mark this script does not know, or none: the text rule decides (it stores plain words)
+    run(True, [rec(origin={"kind": "something-new"}, promptSource="sdk", entrypoint="claude-desktop")])
+    run(True, [rec()])
+    run(True, [rec(promptSource="sdk", turnOrigin="sdk")])  # sdk without an entrypoint
+    run(True, [rec(origin="human")])  # origin is not an object
+    # the lookup is by prompt_id, in the tail, among other records
+    other = rec(promptId="99999999-2222-3333-4444-555555555555", origin={"kind": "peer"}, promptSource="system", turnOrigin="peer")
+    run(True, [other])  # another prompt's record says peer; ours is not there: fallback
+    run(False, [other, rec(origin={"kind": "peer"}, promptSource="system", turnOrigin="peer"),
+                {"type": "attachment", "x": 1}, {"type": "assistant", "message": {}}])
+    # a tool result that carries the same promptId and a human mark does not outvote the record of the prompt
+    run(False, [rec(origin={"kind": "peer"}, promptSource="system", turnOrigin="peer"), rec(toolUseResult={"x": 1}, **human)])
+    run(False, [rec(promptSource="sdk", turnOrigin="sdk", entrypoint="claude-desktop"), rec(sourceToolAssistantUUID="u", **human)])
+    # one prompt, several records: an unmarked companion does not hide the marked one, a marked non-human one wins
+    run(False, [rec(isMeta=True, text="skill text"), rec(origin={"kind": "peer"}, promptSource="system", turnOrigin="peer")])
+    run(True, [rec(isMeta=True, text="skill text"), rec(**human)])
+    # fallbacks that must neither raise, hang nor lose the prompt
+    run(True, [rec(origin={"kind": "peer"})], extra={"prompt_id": None})
+    run(True, [rec(origin={"kind": "peer"})], extra={"prompt_id": 7})
+    run(True, [rec(origin={"kind": "peer"})], extra={"prompt_id": ""})
+    run(True, [rec(origin={"kind": "peer"})], extra={"transcript_path": None})
+    run(True, [rec(origin={"kind": "peer"})], extra={"transcript_path": 12})
+    run(True, [rec(origin={"kind": "peer"})], extra={"transcript_path": "/nonexistent/dir/t.jsonl"})
+    run(True, [rec(origin={"kind": "peer"})], extra={"transcript_path": tempfile.gettempdir()})  # a directory
+    run(True, [], raw='{"type":"user","promptId":"%s","origin":{"kind":"pe\n' % pid)  # a malformed record
+    run(True, [], raw='{"type":"user","promptId":"%s","origin":[1,2]}\n[1,2,%s]\n' % (pid, pid.replace("-", "")))
+    run(True, [], raw="not json at all %s\n" % pid)
+    # a record that arrives after the hook has started is still found (the wait is 0.3 s)
+    run(False, [], late=rec(origin={"kind": "peer"}, promptSource="system", turnOrigin="peer"))
+    run(True, [], late=rec(**human))
+    # a record longer than the first window is found in the second; one longer than both falls back
+    run(False, [rec(origin={"kind": "peer"}, promptSource="system", turnOrigin="peer", pad="x" * (TAIL_BYTES[0] + 5))])
+    run(False, [rec(origin={"kind": "peer"}, promptSource="system", turnOrigin="peer")], size=TAIL_BYTES[0] * 2)
+    run(True, [rec(origin={"kind": "peer"}, promptSource="system", turnOrigin="peer", pad="x" * (TAIL_BYTES[1] + 5))])
+    # a big transcript with the record nowhere in it: the prompt is kept after at most the wait
+    t0 = time.monotonic()
+    run(True, [rec(promptId="other", origin={"kind": "peer"})], size=TAIL_BYTES[1] + 10)
+    assert time.monotonic() - t0 < 3
+    # decision function, direct
+    assert human_prompt({"prompt_id": pid, "transcript_path": "/nonexistent/t.jsonl"}, wait=0) is None
+    assert scan_tail(b"", pid, True) == (None, False)
+    assert record_mark({"origin": {"kind": "human"}, "turnOrigin": "sdk"}) is True
+    assert record_mark({"origin": {"kind": "peer"}, "turnOrigin": "human"}) is False
+    assert record_mark({"promptSource": "sdk", "entrypoint": None}) is None
+    assert record_mark({}) is None
 
 
 def selftest_lab_root():
@@ -411,6 +628,7 @@ def selftest():
                 got = re.split(r"^## \d{4}-\d{2}-\d{2} \d{2}:\d{2}\n\n", body, flags=re.M)[-1][:-1]
             assert got == want, (prompt, got, want)
     selftest_lab_root()
+    selftest_origin()
     print("PASS user_words")
 
 
