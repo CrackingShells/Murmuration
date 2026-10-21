@@ -4,7 +4,8 @@
 When the server cannot restart, each `mcp_tool` hook fails with a `hook_non_blocking_error` record in the transcript (main and subagent) and nothing the
 model sees (w06-c3, m4b). This `command` hook runs at events that are rare (once per worker or dispatch, not per tool call) and reads those records:
   SubagentStart                the worker: the server code does not load, or the PI's transcript holds failures of the last 10 minutes.
-  PreToolUse(Agent|Task)       the PI at a dispatch: failures in its transcript since the last note. `additionalContext`.
+  PostToolUse(Agent|Task)      the PI after a dispatch (a foreground worker's end, a background one's launch): failures since the last note in its transcript and
+                               its workers'. `additionalContext`.
   PreToolUse(SubagentHandback) the worker at its hand-back: failures in its transcript. The first hand-back is denied once and asked to start with
                                `HOOKS DOWN: ...`, which tells the PI. A `hook_fault` line (kind `down`) goes to `__statera__/harness.jsonl` each time.
 A failure is a `hook_non_blocking_error` whose stderr names `plugin:murmuration:hooks`. Nothing is written outside a lab; it never fails an agent.
@@ -13,6 +14,7 @@ A failure is a `hook_non_blocking_error` whose stderr names `plugin:murmuration:
     outage.py --selftest   check the script on a temporary project
 """
 import datetime
+import glob
 import json
 import os
 import sys
@@ -85,13 +87,14 @@ def answer(event, now=None):
             say(root, event, why)
             return reply(kind, additionalContext="Hooks down: %s. The budget notes, the 150%% block and the hand-back capture may not be running for this run. "
                                                  "Go on; start your hand-back with a line `HOOKS DOWN: <what you saw>`." % why)
-    elif kind == "PreToolUse" and event.get("tool_name") in ("Agent", "Task") and not aid and main:
+    elif kind == "PostToolUse" and event.get("tool_name") in ("Agent", "Task") and not aid and main:
         seen = os.path.join(root, "__statera__", ".harness", "outage.seen")
         try:
             since = float(open(seen).read())
         except (OSError, ValueError):
             since = 0.0
-        n, newest = failures(main, since)
+        found = [failures(f, since) for f in [main] + glob.glob(main[:-6] + "/subagents/agent-*.jsonl")]
+        n, newest = sum(x[0] for x in found), max(x[1] for x in found)
         if n:
             say(root, event, "%d hook calls failed since the last note" % n)
             open(seen, "w").write(str(newest))
@@ -158,10 +161,11 @@ def selftest():
         got = fire(tmp, hook_event_name="SubagentStart", agent_id="a1", **ev)
         assert "2 hook calls of the hook server failed in the last 10 minutes" in got["additionalContext"] and "HOOKS DOWN" in got["additionalContext"], got
         assert fire(tmp, hook_event_name="SubagentStart", **ev) is None, "the main thread is not a worker"
-        # the PI at a dispatch: the failures since the last note, once
-        pre = dict(hook_event_name="PreToolUse", tool_name="Agent", **ev)
+        # the PI after a dispatch: the failures since the last note, once
+        pre = dict(hook_event_name="PostToolUse", tool_name="Agent", **ev)
+        open(os.path.join(sess, "subagents", "agent-a0.jsonl"), "w").write(rec(stamp(40)))   # a worker's failure counts for the PI
         got = fire(tmp, **pre)
-        assert got["hookEventName"] == "PreToolUse" and "Hooks down: 3 calls" in got["additionalContext"], got
+        assert got["hookEventName"] == "PostToolUse" and "Hooks down: 4 calls" in got["additionalContext"], got
         assert fire(tmp, **pre) is None, "told once"
         open(sess + ".jsonl", "a").write(rec(stamp(1)))
         assert "Hooks down: 1 calls" in fire(tmp, **pre)["additionalContext"], "a later failure is told again"

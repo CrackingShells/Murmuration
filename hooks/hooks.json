@@ -55,11 +55,6 @@
         "matcher": "Agent|Task",
         "hooks": [
           {
-            "type": "command",
-            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/outage.py\"",
-            "timeout": 10
-          },
-          {
             "type": "mcp_tool",
             "server": "plugin:murmuration:hooks",
             "tool": "hook",
@@ -150,6 +145,16 @@
               "tool_input": "${tool_input}"
             },
             "timeout": 3
+          }
+        ]
+      },
+      {
+        "matcher": "Agent|Task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/outage.py\"",
+            "timeout": 10
           }
         ]
       }
