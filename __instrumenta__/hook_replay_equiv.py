@@ -16,6 +16,7 @@ ap.add_argument("--new")
 ap.add_argument("--fx")
 ap.add_argument("--child", nargs=3, metavar=("SCRIPTS", "LAB", "EVENTS"))
 ap.add_argument("--max-steps", type=int, default=0)
+ap.add_argument("--dump", help="write the old and the new snapshot (after normalisation) of each transcript to DIR/<transcript>.old.json and .new.json")
 ap.add_argument("--merged", action="store_true", help="w05-c4: the new version has no PostToolBatch registration: it gets no PostToolBatch events, and the answers are compared as the sequence of non-empty answers with the event name normalised (the old version's note at a step's PostToolBatch is the new one's at that step's PostToolUse); `sent` and `ceil_req` are not compared")
 ap.add_argument("transcripts", nargs="*")
 args = ap.parse_args()
@@ -175,6 +176,10 @@ for t in args.transcripts:
                     out.append([sc, now, ans])
             return out
         old["answers"], new["answers"] = norm(old), norm(new)
+    if args.dump:
+        os.makedirs(args.dump, exist_ok=True)
+        for tag_, snap_ in (("old", old), ("new", new)):
+            json.dump(snap_, open(os.path.join(args.dump, os.path.basename(t) + "." + tag_ + ".json"), "w"), indent=1)
     for key in ("answers", "log", "handbacks", "state"):
         if old[key] != new[key]:
             if isinstance(old[key], list):

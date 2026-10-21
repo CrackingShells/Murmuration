@@ -21,6 +21,9 @@ ap.add_argument("--out", required=True)
 ap.add_argument("--seed", type=int, default=20261020)
 ap.add_argument("--only", default="", help="substring filter on case ids")
 ap.add_argument("--no-floors", action="store_true")
+ap.add_argument("--paired", action="store_true", help="w05-c4: the variants of one case run back to back (random order inside the pair), cases shuffled between pairs, so that a ratio is a ratio of neighbours in time")
+ap.add_argument("--stdin", choices=("file", "sock"), default="file", help="sock: the payload goes through a socketpair, as the platform feeds a hook (measured, w04-c5)")
+ap.add_argument("--pad", type=int, default=0, help="a tool_response string of this many bytes in every payload that has one")
 ap.add_argument("--spawn", choices=("popen", "posix"), default="popen", help="popen: subprocess.Popen (forks this Python); posix: os.posix_spawn of `sh -c 'cd LAB && COMMAND'`, a lighter start whose own overhead is smaller")
 args = ap.parse_args()
 
@@ -86,6 +89,8 @@ def payload(name, kind, agent=None, **over):
         if "agent_transcript_path" in p:
             p["agent_transcript_path"] = os.path.join(L["sess"], "subagents", "agent-%s.jsonl" % agent)
     p.update(over)
+    if args.pad and "tool_response" in p:
+        p["tool_response"] = {"stdout": "x" * args.pad}
     return json.dumps(p) + "\n"
 
 
@@ -106,8 +111,22 @@ def run_cmd(name, command, stdin_text, extra_env=None):
     env = dict(os.environ, CLAUDE_PLUGIN_ROOT=variants[name])
     env.pop("CLAUDE_PROJECT_DIR", None)
     inp = os.path.join(FX, "stdin.json")
-    open(inp, "w").write(stdin_text)
-    fh = open(inp)
+    feeder = None
+    if args.stdin == "sock":
+        import socket, threading
+        sa, fh = socket.socketpair()
+
+        def feed():
+            try:
+                sa.sendall(stdin_text.encode())
+            except OSError:
+                pass
+            sa.close()
+        feeder = threading.Thread(target=feed)
+        feeder.start()
+    else:
+        open(inp, "w").write(stdin_text)
+        fh = open(inp)
     if args.spawn == "posix":
         r_out, w_out = os.pipe()
         r_err, w_err = os.pipe()
@@ -129,6 +148,8 @@ def run_cmd(name, command, stdin_text, extra_env=None):
         os.close(r_out)
         os.close(r_err)
         fh.close()
+        if feeder:
+            feeder.join()
         return wall, (ru.ru_utime + ru.ru_stime) * 1000, os.waitstatus_to_exitcode(status), out, err
     t0 = time.perf_counter()
     p = subprocess.Popen(["/bin/sh", "-c", command], stdin=fh, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=LABS[name]["lab"], env=env)
@@ -162,8 +183,9 @@ def seed_worker(name, agent):
     st.update(B=1e6, T=1e6, brief_read=True, warned=True)
     json.dump(st, open(path, "w"))
     # one unmeasured check: the transcript's raises are applied once, and the page cache is warm
-    for script, cmd in hooks_of(name, "PostToolBatch"):
-        run_cmd(name, cmd, payload(name, "a_batch", agent))
+    check = ("PostToolBatch", "a_batch") if hooks_of(name, "PostToolBatch") else ("PostToolUse", "a_post")   # w05-c4: a variant without a PostToolBatch registration checks at PostToolUse
+    for script, cmd in hooks_of(name, check[0]):
+        run_cmd(name, cmd, payload(name, check[1], agent))
     st = json.load(open(path))
     st.update(B=1e6, T=1e6)
     json.dump(st, open(path, "w"))
@@ -230,6 +252,14 @@ WARM = 2
 for rnd_i in range(-WARM, args.n):
     order = list(cells)
     rnd.shuffle(order)
+    if args.paired:   # neighbours in time: group the cells of one case, floors stay where the shuffle put them
+        ids = sorted({c["case"][0] for c in order if c["kind"] == "hook"}); rnd.shuffle(ids)
+        grouped = []
+        for i in ids:
+            g = [c for c in order if c["kind"] == "hook" and c["case"][0] == i]
+            rnd.shuffle(g)
+            grouped += g
+        order = grouped + [c for c in order if c["kind"] == "floor"]
     for c in order:
         if c["kind"] == "floor":
             fh = open(os.path.join(FX, "stdin.json"), "w")
