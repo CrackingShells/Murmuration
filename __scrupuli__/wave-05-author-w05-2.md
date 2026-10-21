@@ -29,3 +29,11 @@ refs: __reports__/wave-05/author-w05-2/e6_costs_per_run.tsv; __reports__/wave-05
 ## S-w05-author-w05-2-8
 In every smoke run the tiny explorer was stopped once by the SubagentHandback hook ("your findings report is not yet at __reports__/explorer-smoke/00-findings_v0.md. Write it there …"), although the PI's brief said "Write no file" and the task was a one-line answer. The hook's demand is the explorer role's deliverable rule, applied to a probe that has none. A tiny worker therefore pays an extra write-and-handback round. Not an E6 matter, but it is a cost per dispatch that the gate adds to cheap tasks.
 refs: /private/tmp/murmuration-w05/author-w05-2/runs/B1/stdout.jsonl (the `PreToolUse:SubagentHandback hook error` tool_result with agent_id); scripts/handback.py
+
+## S-w05-author-w05-2-9
+In E6b, cell a6D3 took 145.7 s of wall time against 53 to 72 s for the other five, with the same token counts (request 0 14,841, 10 requests) and a normal cost (0.1740). Nothing in the table explains 90 extra seconds. A hook, a slow explorer, or a wait in the platform? I did not open the transcript timestamps.
+refs: /private/tmp/murmuration-w05/author-w05-2/runs/a6D3/stdout.jsonl; __reports__/wave-05/author-w05-2/e6b_costs_per_run.tsv
+
+## S-w05-author-w05-2-10
+Both E6 and E6b pass their rules, and the two passes differ by only about 1k to 1.5k tokens on the Desktop projection. The threshold of 15,000 was met by 497 (B) and 687 (D) tokens. A rule built as "at least X tokens" could not tell a list that is lean from one that merely drops the one big schema (Artifact is 74% of everything either line removes); the real decision between B and D was about connectors and future tools, which only the E6b addendum made visible, after the fact. What metric would have forced that question in the first protocol?
+refs: __pondus__/w05-c3.md; __pondus__/w05-c6.md; __reports__/wave-05/00-experiment_protocol_v1.md
