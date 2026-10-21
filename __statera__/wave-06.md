@@ -261,7 +261,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     out. And the fallback accepts a BOM that main rejects. author-w06-6 applies both and re-runs the
     replay and the masks; mask E must come out EQUAL.
 
-- HH:MM (this commit), after reproducer-w06-7's verdicts (w06-c11 OVERSTATED, w06-c12 SUPPORTED):
+- 21:34 (8404640), after reproducer-w06-7's verdicts (w06-c11 OVERSTATED, w06-c12 SUPPORTED):
   - **k6 passes as registered.** Of the 113 denials in the replay of the lab's own Bash calls, 26 are
     strict false denials (50 on the broad reading), against a limit of 55. 63 are the acts the guard
     exists to stop, and 24 are other. So E3 v3 lands under its rule, after three fixes the verifier
