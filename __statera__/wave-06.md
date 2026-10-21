@@ -248,6 +248,19 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     reproducer-w06-7 classifies the 113 and verifies w06-c12. v3 lands if k6 passes as registered.
     Otherwise v2 lands, if w06-c12 stands.
 
+- HH:MM (this commit), after reproducer-w06-6's verdict on w06-c9 (SUPPORTED):
+  - **PI decision: E2 lands, against its own registered threshold.** e1 reproduces: 197 of 197 in
+    both modes, 814 real command starts EQUAL, on Python 3.9, 3.12 and 3.14, and the read-only folder
+    is harmless. The saving is positive, 20–28 ms a start, in 12 of 13 quiet pairs. e2's "25 ms in
+    every pair" fails on any set of pairs, because the per-pair scatter is about 20 ms and the ceiling
+    is about 26 ms. The rule could not decide, so I decide. Identical behaviour plus a consistent
+    saving is the user's "something we can reclaim". This is an override of a pre-registered rule,
+    stated as one, and the report names it.
+  - **Two fixes come first.** The verifier found that a non-ImportError from `make_scanner` would
+    silently make every hook a no-op, which is the kind of silent loss that kept the resident server
+    out. And the fallback accepts a BOM that main rejects. author-w06-6 applies both and re-runs the
+    replay and the masks; mask E must come out EQUAL.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -265,7 +278,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | reproducer-w06-4 | reproducer | verify w06-c4 | OVERSTATED (38d3273): s4's title and s3b's cumulative reading; the decision stands |
 | author-w06-6 | author | E2: lean starts, same registrations and outputs (w06-c9) | 6157777 on `w06-e2-lean`: e1, e3, e4 pass; e2 22 ms against 25 |
 | reproducer-w06-7 | reproducer | verify w06-c11 (classify k6's 113) and w06-c12 | |
-| reproducer-w06-6 | reproducer | verify w06-c9 (outputs, saving, `_json` fallback) | |
+| reproducer-w06-6 | reproducer | verify w06-c9 (outputs, saving, `_json` fallback) | SUPPORTED (feb12b4): outputs identical, saving 20–28 ms; two fallback gaps |
 | explorer-w06-c | explorer | the PI's wake-ups and cost per wake-up in waves 4–5; what idle time could carry; one session per wave | 7c14a2d: idle is free (1-hour cache); wake-ups are hand-backs; preface 21–32% of PI spend |
 
 ## Claims of this wave
@@ -280,7 +293,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | w06-c10 | E3 v2: 3 Bash rows, a content check that denies only added words, settings-path rows; h1–h6 pass (incident form denied, 0 spawns on ordinary commands, fails closed, engineering edits allowed) | superseded by w06-c12 (verdict OVERSTATED) |
 | w06-c8 | E3 v1: 3 Bash rows + script-content check; h1, h2, h4, h5 pass, h3 fails (inconsistent as registered); not landed | MEASURED |
 | w06-c7 | E3 v0: 25 gated guard rows deny 42 of 50 attacks, fail closed 9 of 9, start 19 processes on a `$` command; the rule is not met | MEASURED |
-| w06-c9 | E2: lean starts with identical outputs (197/197) save about 20 ms a worker start; e2's 25 ms in every pair is not met | unverified MEASURED |
+| w06-c9 | E2: lean starts with identical outputs (197/197) save about 20 ms a worker start; e2's 25 ms in every pair is not met | MEASURED |
 | w06-c4 | E1 stage 2: resident server, outputs equal 197/197, outage handled, but s2 and s4 miss; not landed | below MEASURED: restate (not restated; nothing depends on it) |
 | w06-c2 | Disposing puzzles at the hand-back wake-up costs no extra request (the implied saving is not shown) | below ESTIMATE: restate; not restated, the bullet is reverted |
 | w06-c1 | The `disallowedTools:` line holds on the Desktop: request 0 at 46,738 tokens, no denied tool loaded (n = 1, plus the verifier's same-version pair) | MEASURED |
