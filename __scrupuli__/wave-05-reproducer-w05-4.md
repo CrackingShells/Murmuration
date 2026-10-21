@@ -21,3 +21,7 @@ refs: __pondus__/w05-c4.md (m4, scope)
 ## S-w05-reproducer-w05-4-6
 My independent result text names "agent-a7779c3c1800fb1b5... records 34-37 of the second list entry"; the second list entry is agent-a41c53b7f77ba2588 (records 34-37 show A, A, U, U with one message id). Appended text is not rewritten; this is the correction.
 refs: /private/tmp/murmuration-w05/reproducer-w05-4/list291.txt line 2
+
+## S-w05-reproducer-w05-4-7
+Correction to puzzle 4: the saving's interval on my run is 50.9 to 58.2% (new/old 0.418 to 0.491), not "42 to 58". My verdict section in `__pondus__/w05-c4.md` is appended but not committed, because the file also holds the author's uncommitted amendments and I commit only my own paths.
+refs: /private/tmp/murmuration-w05/reproducer-w05-4/m2_sum.txt
