@@ -261,6 +261,22 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     out. And the fallback accepts a BOM that main rejects. author-w06-6 applies both and re-runs the
     replay and the masks; mask E must come out EQUAL.
 
+- HH:MM (this commit), after reproducer-w06-7's verdicts (w06-c11 OVERSTATED, w06-c12 SUPPORTED):
+  - **k6 passes as registered.** Of the 113 denials in the replay of the lab's own Bash calls, 26 are
+    strict false denials (50 on the broad reading), against a limit of 55. 63 are the acts the guard
+    exists to stop, and 24 are other. So E3 v3 lands under its rule, after three fixes the verifier
+    found offline: an unbalanced quote hides a later bypass segment, a redirect without a space
+    passes, and the source of a `cp` is denied. Those go into w06-c13 (supersedes w06-c11), with
+    reproducer-w06-7 again.
+  - **A guardrail finding for the user, and the most important one of the wave.** The 63 include
+    **32 `claude` runs in bypass mode** in the lab's own history: 22 on 10-19, 4 on 10-20, 6 on
+    10-21, 20 of them direct and 12 through a script the same call wrote. There are also 16 runs
+    under a scratch `CLAUDE_CONFIG_DIR`, 7 with `--setting-sources` leaving out user settings, and 8
+    Bash writes of settings files. One of those writes restored the main checkout's settings file from
+    a backup. The incident I reported at 19:26 was not the first. It was the first one anyone looked
+    for. The report lists these by date, and `__reports__/wave-06/reproducer-w06-7/k6_classification.tsv`
+    on `w06-e3-guard` holds one row per call, with the first 100 characters only.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -277,7 +293,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | author-w06-4 | author | E1 stage 2: the port, s1–s4 (w06-c4) | 8cdfd7b: s1, s3 pass; s2 (20.8%) and s4 (+320) fail; reverted b79e81c |
 | reproducer-w06-4 | reproducer | verify w06-c4 | OVERSTATED (38d3273): s4's title and s3b's cumulative reading; the decision stands |
 | author-w06-6 | author | E2: lean starts, same registrations and outputs (w06-c9) | 6157777 on `w06-e2-lean`: e1, e3, e4 pass; e2 22 ms against 25 |
-| reproducer-w06-7 | reproducer | verify w06-c11 (classify k6's 113) and w06-c12 | |
+| reproducer-w06-7 | reproducer | verify w06-c11 (classify k6's 113) and w06-c12 | 7f3593b: c11 OVERSTATED (k6 passes once classified), c12 SUPPORTED |
 | reproducer-w06-6 | reproducer | verify w06-c9 (outputs, saving, `_json` fallback) | SUPPORTED (feb12b4): outputs identical, saving 20–28 ms; two fallback gaps |
 | explorer-w06-c | explorer | the PI's wake-ups and cost per wake-up in waves 4–5; what idle time could carry; one session per wave | 7c14a2d: idle is free (1-hour cache); wake-ups are hand-backs; preface 21–32% of PI spend |
 
@@ -288,8 +304,8 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | w06-c3 | E1 stage 1, resident server carries the hooks | superseded by w06-c5 |
 | w06-c5 | E1 stage 1 restated | superseded by w06-c6 (verdict OVERSTATED: "fails v0" went beyond v0's letter) |
 | w06-c6 | E1 stage 1: a resident server carries the hooks' fields, firing, effects at 1–6 ms; m4 (a) vacuous, (b) meets v0's letter and fails its intent (silent loss of deny and block), (c) 20 s a tool boundary | MEASURED |
-| w06-c11 | E3 v3: one unconditional Bash row; k1–k5 pass; k6 depends on classifying 113 denials | unverified MEASURED |
-| w06-c12 | E3 v2 restated with the full let-through list | unverified MEASURED |
+| w06-c11 | E3 v3: one unconditional Bash row; k1–k5 pass; k6 depends on classifying 113 denials | below MEASURED: restate (w06-c13) |
+| w06-c12 | E3 v2 restated with the full let-through list | MEASURED |
 | w06-c10 | E3 v2: 3 Bash rows, a content check that denies only added words, settings-path rows; h1–h6 pass (incident form denied, 0 spawns on ordinary commands, fails closed, engineering edits allowed) | superseded by w06-c12 (verdict OVERSTATED) |
 | w06-c8 | E3 v1: 3 Bash rows + script-content check; h1, h2, h4, h5 pass, h3 fails (inconsistent as registered); not landed | MEASURED |
 | w06-c7 | E3 v0: 25 gated guard rows deny 42 of 50 attacks, fail closed 9 of 9, start 19 processes on a `$` command; the rule is not met | MEASURED |
