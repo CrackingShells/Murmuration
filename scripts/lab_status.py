@@ -660,7 +660,7 @@ def load_sessions(mains, warnings):
             for key, msg in found.items():
                 have = owned.get(key)
                 if have is None:
-                    owned[key] = dict(msg, label=label, sub=is_sub, own=(msg["sid"] == sid))
+                    owned[key] = dict(msg, label=label, sub=is_sub, own=(msg["sid"] == sid), usage=dict(msg["usage"]))   # a copy: merge_usage below must not change what the cache holds
                     continue
                 copies += 1
                 merge_usage(have["usage"], msg["usage"])
@@ -702,7 +702,15 @@ def report_spend(root):
     path = cache_path(root)
     _cache[:] = [Cache(path)] if path else []
     try:
-        sessions, copies = load_sessions(find_sessions(roots), warnings)
+        try:
+            sessions, copies = load_sessions(find_sessions(roots), warnings)
+        except Exception:   # an entry of the cache that is valid JSON but not what was written: read everything again and replace the file
+            if not _cache:
+                raise
+            _cache[:] = [Cache(path)]
+            _cache[0].files, _cache[0].dirty = {}, True
+            warnings.clear()
+            sessions, copies = load_sessions(find_sessions(roots), warnings)
         if _cache:
             _cache[0].save()
     finally:
@@ -1197,10 +1205,72 @@ def selftest():
         assert spend() == fresh, "the same size, another time: read again"
         good = json.load(open(cache_file))
         for junk in ("{not json", '{"v": 0, "files": {}}', '{"v": %d, "files": 5}' % CACHE_VERSION, "[]",
-                     json.dumps(dict(good, v=CACHE_VERSION + 1, files={p: e[:2] + [[], None, None] for p, e in good["files"].items()}))):   # the last: another version, with emptied entries of the right stamps
+                     json.dumps(dict(good, v=CACHE_VERSION + 1, files={p: e[:2] + [[], None, None] for p, e in good["files"].items()})),
+                     ) + tuple(json.dumps(dict(good, files={p: e[:2] + [bad, e[3], e[4]] for p, e in good["files"].items()})) for bad in (5, [[1]], [["k", "not a dict"]], [["k", {"usage": None}]], [["k", {"model": "m"}]])):   # the last: another version, with emptied entries of the right stamps; then entries that are valid JSON of the right stamps but not what was written (the report reads everything again)
             open(cache_file, "w").write(junk)
             assert spend() == fresh, "a cache file that is unusable is ignored: " + junk[:40]
             assert json.load(open(cache_file))["v"] == CACHE_VERSION, "and replaced"
+        # a message copied into a second file: merging the copy must not change what the cache holds for the first (a cache that shares the usage dict fails here)
+        cp1, cp2 = os.path.join(folder, "s7.jsonl"), os.path.join(folder, "s8.jsonl")
+        _write(cp1, head("s7", real) + record("cm1", sonnet, 1, 10, sid="s7"))
+        _write(cp2, head("s8", real) + record("cm1", sonnet, 1, 5000, sid="s7"))
+        for step in ("both files", "copy removed"):
+            os.environ["LAB_STATUS_CACHE"] = "off"
+            ref = spend()
+            del os.environ["LAB_STATUS_CACHE"]
+            assert spend() == ref and spend() == ref, "a copy in two files, " + step
+            if step == "both files":
+                os.unlink(cp2)
+        assert cp2 not in json.load(open(cache_file))["files"], "an entry of a file that is gone is dropped at the write"
+        # the write: a complete temporary file named with the process id exists when the rename happens and the old file is still whole then; a failed rename leaves the old file and no temporary
+        real_replace, seen_rename = os.replace, []
+
+        def spy(src, dst):
+            seen_rename.append((os.path.basename(src), json.load(open(src))["v"], json.load(open(dst))["v"]))
+            real_replace(src, dst)
+        os.replace = spy
+        try:
+            open(cp1, "a").write(record("cm2", sonnet, 1, 7, sid="s7"))
+            spend()
+        finally:
+            os.replace = real_replace
+        assert len(seen_rename) == 1 and re.fullmatch(r"lab_status_cache\.json\.\d+\.tmp", seen_rename[0][0]) and seen_rename[0][1:] == (CACHE_VERSION, CACHE_VERSION), seen_rename
+
+        def failing(src, dst):
+            raise OSError("no rename")
+        before_bytes = open(cache_file).read()
+        os.replace = failing
+        try:
+            open(cp1, "a").write(record("cm3", sonnet, 1, 7, sid="s7"))
+            spend()
+        finally:
+            os.replace = real_replace
+        assert open(cache_file).read() == before_bytes and not [x for x in os.listdir(os.path.dirname(cache_file)) if x.endswith(".tmp")], "a failed rename: the old file stays, no temporary is left"
+        spend()
+        stat_a = os.stat(cache_file)
+        spend()
+        stat_b = os.stat(cache_file)
+        assert (stat_a.st_ino, stat_a.st_mtime_ns) == (stat_b.st_ino, stat_b.st_mtime_ns), "a run that changed nothing writes nothing"
+        # a transcript that grows while it is parsed: the stamp is the one from before the parse, so the next run reads it again
+        real_parse = parse_transcript
+
+        def racing(path, warnings):
+            out = real_parse(path, warnings)
+            if path == cp1:
+                open(cp1, "a").write(record("cm4", sonnet, 1, 9, sid="s7"))
+            return out
+        open(cp1, "a").write(record("cm5", sonnet, 1, 1, sid="s7"))
+        globals()["parse_transcript"] = racing
+        try:
+            spend()
+        finally:
+            globals()["parse_transcript"] = real_parse
+        os.environ["LAB_STATUS_CACHE"] = "off"
+        ref = spend()
+        del os.environ["LAB_STATUS_CACHE"]
+        assert spend() == ref, "the stamp is taken before the parse"
+        os.unlink(cp1)
+        spend()
         number = os.path.join(tmp, "nokey.jsonl")   # a message with no id, request id or uuid is keyed by its position, a number that a JSON object key would turn into text
         _write(number, json.dumps({"type": "assistant", "sessionId": "k", "message": {"model": sonnet, "usage": {"input_tokens": 1, "output_tokens": 2}}}) + "\n")
         direct = parse_transcript(number, [])
