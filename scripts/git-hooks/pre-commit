@@ -5,7 +5,7 @@
 set -e
 root=$(git rev-parse --show-toplevel)
 cd "$root"
-if ! git diff --cached --name-only | grep -Eq '^(scripts/permission_guard\.py|rust/)'; then
+if ! git diff --cached --name-only | grep -Eq '^(scripts/permission_guard\.py|rust/|bin/)'; then
   exit 0
 fi
 case "$(uname -s)-$(uname -m)" in
@@ -19,4 +19,7 @@ if [ -n "$target" ]; then
   cp "rust/target/$target/release/murmuration" "bin/$target/murmuration"
   git add "bin/$target/murmuration"
 fi
+# the installer installs a binary only when bin/manifest.json matches the binaries, scripts/permission_guard.py and rust/: write it on every commit that touches any of them
+python3 -I scripts/build_manifest.py
+git add bin/manifest.json
 exec python3 -I scripts/check_guard_equal.py --quick

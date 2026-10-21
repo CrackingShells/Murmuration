@@ -1,0 +1,20 @@
+{
+  "binaries": {
+    "aarch64-apple-darwin": "5f696592222ebf89b9e3b3cc02c41eb3d8de3bf27872fba364a0ee1be082fdc5",
+    "x86_64-apple-darwin": "51f8235fc62d00b971ec81dd45c3ac187619571b04278c31aec60a1b2b5bc2fa"
+  },
+  "format": 1,
+  "permission_guard_py_sha256": "7a3269a57b8196781e7653b00490c7dad06a702b6f7c89e966704a1da1329a28",
+  "rust_sources": {
+    "rust/Cargo.lock": "42f6f460e9a1b42775fdb7f05edf0bde26af0563fad7c3899b5e15753b457369",
+    "rust/Cargo.toml": "5bf67745c1f58f6f4bf233fe6301fc222c364bd67418aca753d03182fb99ffcf",
+    "rust/gen_tables.py": "5938ab5cb1a0109698fe815789659f1fb5e1b1958df429f21fb6f88c73d937a9",
+    "rust/src/guard.rs": "9997016b8235bf76445bfa9dc754d3b02d2a35d2610dd23dbf2517f9bbecf050",
+    "rust/src/json.rs": "0cc5d7d89fbd9c5fc6829b368d99cc80d240f6474c05b8e3df9d0e06ad1075e7",
+    "rust/src/main.rs": "31e96aa26d0db76f49d0d6b3c5a1cf534390ac437050a4cabf420d6759f570fc",
+    "rust/src/shlex.rs": "51f4ac04a5219b0bb5dc06d5c23eeb159ad73065a8a508448f95627481d2ed96",
+    "rust/src/tables.rs": "8ebac8fb74f97550a0e1c1ce7fdce8556521b8305d9f58cc06c3f87146a7634a",
+    "rust/src/text.rs": "18aac9b0fc123ff3a976c05c7c0c71fa93cbc2774a5edd40c64950ee3d34bcf8"
+  },
+  "rust_sources_sha256": "b5262054b89bda4271edf94c3e58b7a308a30958c2edc12454089b7cd24564f5"
+}

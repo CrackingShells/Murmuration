@@ -26,3 +26,17 @@ jobs:
       - run: python3 -I scripts/check_guard_equal.py --no-recorded --rust bin/${{ matrix.target }}/murmuration
       - uses: actions/upload-artifact@v4
         with: { name: "murmuration-${{ matrix.target }}", path: "bin/${{ matrix.target }}/murmuration" }
+  manifest:
+    # one job gathers every target's binary, commits them under bin/<target>/ and writes bin/manifest.json (sha256 of each binary, of scripts/permission_guard.py and of the Rust sources)
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/download-artifact@v4
+        with: { path: artifacts }
+      - run: |
+          for d in artifacts/murmuration-*; do t=${d#artifacts/murmuration-}; mkdir -p bin/$t; cp $d/murmuration bin/$t/murmuration; chmod +x bin/$t/murmuration; done
+          python3 -I scripts/build_manifest.py
+      - uses: actions/upload-artifact@v4
+        with: { name: "bin-and-manifest", path: "bin/" }
