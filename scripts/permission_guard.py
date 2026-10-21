@@ -18,6 +18,10 @@ Denied (the user's yes is needed; the message says so):
   G3  Write, Edit or MultiEdit of a Claude Code settings file (`.claude/settings.json`, `.claude/settings.local.json`, `managed-settings.json`,
       `managed-settings.d/*`), and a Bash command that writes one (redirection, tee, sed -i, cp, mv, rm, ln, dd, truncate, an interpreter's write).
       Reading stays allowed.
+  G4  Write or Edit of a script file (.py .sh .bash .zsh .js .ts .mjs) that ADDS the bypass words or a literal `--setting-sources` value without
+      `user`: Edit, more of them in new_string than in old_string; Write over an existing file, more than the file holds now; a new file, any.
+      This is the form that happened in wave 6 (the flag sat in a script run with `python3`, which no Bash text rule sees). Edits that leave the
+      count alone (handback.py, this file) pass.
 This is a guard for the direct and the casual cases. A script file that holds the flag, a variable built from pieces, base64, a symlink: not seen.
 Only a managed setting (`disableBypassPermissionsMode`) holds against those; a plugin cannot set it.
 
@@ -238,18 +242,33 @@ SCRIPT_EXT = (".py", ".sh", ".bash", ".zsh", ".js", ".ts", ".mjs")
 SRC = re.compile(r"""--setting-sources["'\s=,\[\]]*([A-Za-z,]*)""")
 
 
-def g4_script(inp):
-    """G4: Write/Edit of a script file whose new text carries the bypass words or a literal `--setting-sources` value without `user`."""
+def _hits(text):
+    """The bypass words and the `--setting-sources` values without `user` that a text carries, in order."""
+    out = [m.group(0) for m in BYPASS.finditer(text)]
+    out += ["--setting-sources " + v for v in SRC.findall(text) if v and "user" not in v.split(",")]
+    return out
+
+
+def g4_script(inp, cwd=""):
+    """G4 (v2): Write or Edit of a script file that ADDS the bypass words or a literal `--setting-sources` value without `user`.
+    Edit: more of them in `new_string` than in `old_string`. Write over an existing file: more than the file holds now. Write of a new file: any."""
     p = inp.get("file_path") or inp.get("path") or ""
     if not p.lower().endswith(SCRIPT_EXT):
         return None
-    text = "\n".join([str(inp.get("content") or ""), str(inp.get("new_string") or "")] + [str(e.get("new_string") or "") for e in (inp.get("edits") or []) if isinstance(e, dict)])
-    m = BYPASS.search(text)
-    if m:
-        return "G4", "the new text of the script `%s` carries `%s`" % (os.path.basename(p), m.group(0))
-    for v in SRC.findall(text):
-        if v and "user" not in v.split(","):
-            return "G4", "the new text of the script `%s` starts a child with `--setting-sources %s`, which leaves out the user's settings" % (os.path.basename(p), v)
+    if "content" in inp:
+        new, old = _hits(str(inp.get("content") or "")), []
+        try:
+            with open(os.path.join(cwd or "", os.path.expanduser(p)), errors="replace") as fh:
+                old = _hits(fh.read())
+        except OSError:
+            old = []
+    else:
+        edits = [inp] + [e for e in (inp.get("edits") or []) if isinstance(e, dict)]
+        new = [h for e in edits for h in _hits(str(e.get("new_string") or ""))]
+        old = [h for e in edits for h in _hits(str(e.get("old_string") or ""))]
+    if len(new) > len(old):
+        h = new[len(old)] if len(new) > len(old) else new[0]
+        return "G4", "the edit adds `%s` to the script `%s`" % (h, os.path.basename(p))
     return None
 
 
@@ -261,7 +280,7 @@ def decide(event):
         segs = expand(cmd)
         return g1(cmd, segs) or g2(cmd, segs) or g3_bash(cmd, segs, cwd)
     if tool in ("Write", "Edit", "MultiEdit", "NotebookEdit"):
-        return g3_edit(inp, cwd) or g4_script(inp)
+        return g3_edit(inp, cwd) or g4_script(inp, cwd)
     return None
 
 
