@@ -146,7 +146,7 @@ def main():
         sys.stderr.write("murmuration install: cannot install the permission guard into %s (%s: %s); Bash calls will be blocked until this is fixed\n" % (data, type(exc).__name__, exc))
         return 1
     if state == "launcher":
-        note = "murmuration guard: the permission guard runs as the Python script scripts/permission_guard.py, not the Rust binary, because %s. Decisions are the Python guard's." % reason
+        note = "murmuration guard: the permission guard runs as the Python script scripts/permission_guard.py, not the Rust binary, because %s. Decisions are the Python guard's. To get the binary back, rebuild it with the pre-commit hook or `cargo build --release --offline` followed by `python3 scripts/build_manifest.py`, or reinstall the plugin; until then the Python guard decides, which is correct and slower." % reason
         sys.stderr.write(note + "\n")
         sys.stdout.write(json.dumps({"hookSpecificOutput": {"hookEventName": "SessionStart", "additionalContext": note}}))
     return 0
