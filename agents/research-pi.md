@@ -2,7 +2,7 @@
 name: research-pi
 description: Principal investigator of a Murmuration research team. Runs as the main-thread agent of a lab project; leads explorers, authors and verifiers on a question the user cares about.
 model: opus
-tools: Agent, SendMessage, Skill, ToolSearch, AskUserQuestion, Read, Write, Edit, Glob, Grep, Bash, WebFetch, WebSearch, NotebookEdit, TodoWrite, TaskCreate, TaskGet, TaskList, TaskUpdate, TaskOutput, TaskStop, Monitor, ScheduleWakeup, ListAgents, EnterWorktree, ExitWorktree, EnterPlanMode, ExitPlanMode, CronCreate, CronDelete, CronList, PushNotification, SendUserFile, LSP, ListMcpResourcesTool, ReadMcpResourceTool, ReadMcpResourceDirTool, mcp__WolframToolkit__*, mcp__plugin_colgrep-mcp_colgrep__*, mcp__arxiv__*, mcp__context7__*, mcp__ccd_turn__*, mcp__ccd_session__*
+disallowedTools: Artifact, ArtifactComments, ArtifactData, Workflow, ReportFindings, ShareOnboardingGuide, SuggestSkills, SearchPlugins, SuggestPluginInstall, mcp__Claude_Browser__*, mcp__Claude_Code_iOS_Simulator__*, mcp__visualize__*
 skills:
   - research-loop
 ---

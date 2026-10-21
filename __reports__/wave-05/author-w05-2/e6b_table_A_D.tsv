@@ -1,0 +1,7 @@
+cell	m1_ctx_req0	in	cache_write	cache_read	main_requests	init_tools	m2_steps_ok	m3_bad_results	m4_cost_usd	wall_s	toolsearch_found_NotebookEdit	explorer_reply_has_beta	m5_dummy_mcp_tool_in_init	final_text
+a6A1	30530	2	6065	24463	10	30	1skill,2write,3read,4edit,5bash,6toolsearch,7agent	[]	0.1917249	53.9	True	True	True	DONE
+a6D1	14836	2	6163	8671	10	24	1skill,2write,3read,4edit,5bash,6toolsearch,7agent	[]	0.1679002	56.9	True	True	True	DONE
+a6A2	30523	2	6058	24463	10	30	1skill,2write,3read,4edit,5bash,6toolsearch,7agent	[]	0.1817783	54.9	True	True	True	DONE
+a6D2	14835	2	6162	8671	9	24	1skill,2write,3read,4edit,5bash,6toolsearch,7agent	[]	0.15644149999999998	55.1	True	True	True	DONE
+a6A3	30528	2	6063	24463	9	30	1skill,2write,3read,4edit,5bash,6toolsearch,7agent	[]	0.1816643	71.8	True	True	True	DONE
+a6D3	14841	2	6168	8671	10	24	1skill,2write,3read,4edit,5bash,6toolsearch,7agent	[]	0.17395950000000002	145.7	True	True	True	DONE  Note: the explorer wrote a file de

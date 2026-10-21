@@ -8,7 +8,7 @@ if "--tsv" in args:
 scratch, cells = args[0], args[1:]
 STEPS = [("Skill", "1skill"), ("Write", "2write"), ("Read", "3read"), ("Edit", "4edit"), ("Bash", "5bash"), ("ToolSearch", "6toolsearch"), ("Agent", "7agent")]
 BAD = ("no such tool", "unknown tool", "not available", "permission to use", "was blocked", "refused", "inputvalidationerror", "not allowed", "doesn't want to take this action")
-hdr = ["cell", "m1_ctx_req0", "in", "cache_write", "cache_read", "main_requests", "init_tools", "m2_steps_ok", "m3_bad_results", "m4_cost_usd", "wall_s", "toolsearch_found_NotebookEdit", "explorer_reply_has_beta", "final_text"]
+hdr = ["cell", "m1_ctx_req0", "in", "cache_write", "cache_read", "main_requests", "init_tools", "m2_steps_ok", "m3_bad_results", "m4_cost_usd", "wall_s", "toolsearch_found_NotebookEdit", "explorer_reply_has_beta", "m5_dummy_mcp_tool_in_init", "final_text"]
 rows = []
 for c in cells:
     d = os.path.join(scratch, "runs", c); meta = json.load(open(os.path.join(d, "meta.json")))
@@ -56,7 +56,7 @@ for c in cells:
     ts = [results[i][1] for i in uses if uses[i][0] == "ToolSearch" and i in results]
     ag = [results[i][1] for i in uses if uses[i][0] in ("Agent", "Task") and i in results] + [reply]
     row = [c, sum(first or (0, 0, 0)), *(first or ("", "", "")), nreq, len(init_tools), ",".join(ok), json.dumps(bad), meta.get("total_cost_usd"), meta.get("wall_s"),
-           any("NotebookEdit" in t for t in ts), any("beta" in t.lower() for t in ag), final.replace("\n", " ")[:40]]
+           any("NotebookEdit" in t for t in ts), any("beta" in t.lower() for t in ag), "mcp__dummy__echo" in init_tools, final.replace("\n", " ")[:40]]
     rows.append([str(x) for x in row])
 out = "\t".join(hdr) + "\n" + "\n".join("\t".join(r) for r in rows) + "\n"
 sys.stdout.write(out)

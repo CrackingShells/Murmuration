@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Runs one headless cell of wave-5 E6: the plugin's research-pi as main agent does a fixed smoke task (Skill, Write, Read, Edit, Bash, ToolSearch, Agent->explorer); input: <scratch> <cell> <plugin dir>; output: <scratch>/runs/<cell>/{lab/,stdout.jsonl,stderr.txt,meta.json}, meta.json holding wall time, rc and total_cost_usd.
-usage: w05c3_pi_tools_cell.py <scratch> <cell> <plugin dir> [--model M]   (no --model: the agent file's own model, opus). Stdlib only; the model has no seed.
+usage: w05c3_pi_tools_cell.py <scratch> <cell> <plugin dir> [--model M] [--mcp mcp-config.json]   (no --model: the agent file's own model, opus). Stdlib only; the model has no seed.
 Launch conditions as in __reports__/wave-05/00-experiment_protocol_v0.md 'Common to all runs': outside the repo, CLAUDE_PROJECT_DIR unset, COLGREP_DATA_DIR in the run folder, no --max-budget-usd."""
 import argparse, json, os, shutil, subprocess, sys, time
-ap = argparse.ArgumentParser(); ap.add_argument("scratch"); ap.add_argument("cell"); ap.add_argument("plugin"); ap.add_argument("--model", default="")
+ap = argparse.ArgumentParser(); ap.add_argument("scratch"); ap.add_argument("cell"); ap.add_argument("plugin"); ap.add_argument("--model", default=""); ap.add_argument("--mcp", default="")   # --mcp FILE: an --mcp-config file (E6b: the dummy MCP server in both arms)
 a = ap.parse_args()
 S = os.path.abspath(a.scratch); plugin = os.path.abspath(a.plugin)
 base = os.path.join(S, "runs", a.cell); shutil.rmtree(base, ignore_errors=True)
@@ -21,6 +21,8 @@ prompt = ("This is a smoke test of your tools. Do these seven steps in order, on
           "7. Dispatch one explorer with the Agent tool (subagent_type murmuration:explorer, foreground; the Agent tool has no name field, so the name goes in the prompt): its prompt is exactly: `Your name is explorer-smoke. Budget: USD 0.20. Time: min 3. Read smoke/note.md and reply with its one line. Write no file.`\n")
 cmd = ["claude", "-p", "--agent", "murmuration:research-pi", "--plugin-dir", plugin, "--setting-sources", "project,local", "--strict-mcp-config", "--permission-mode", "auto",
        "--output-format", "stream-json", "--verbose", "--include-hook-events", prompt]
+if a.mcp:
+    cmd[cmd.index("--strict-mcp-config") + 1:cmd.index("--strict-mcp-config") + 1] = ["--mcp-config", os.path.abspath(a.mcp)]
 if a.model:
     cmd[2:2] = ["--model", a.model]
 t0 = time.time()
