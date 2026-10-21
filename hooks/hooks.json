@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/hook_server.py\" --probe || echo '{\"hookSpecificOutput\": {\"hookEventName\": \"SubagentStart\", \"additionalContext\": \"Hook server down: the budget notes, the 150% block and the hand-back capture are not running for this run (hook_server.py does not load). Go on; say so in your hand-back.\"}}'",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/outage.py\" || echo '{\"hookSpecificOutput\": {\"hookEventName\": \"SubagentStart\", \"additionalContext\": \"Hooks down: python3 cannot run the lab's hook scripts. The budget notes, the 150% block and the hand-back capture are not running for this run. Go on; start your hand-back with a line `HOOKS DOWN: <what you saw>`.\"}}'",
             "timeout": 10
           },
           {
@@ -55,6 +55,11 @@
         "matcher": "Agent|Task",
         "hooks": [
           {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/outage.py\"",
+            "timeout": 10
+          },
+          {
             "type": "mcp_tool",
             "server": "plugin:murmuration:hooks",
             "tool": "hook",
@@ -78,6 +83,11 @@
       {
         "matcher": "SubagentHandback",
         "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/outage.py\"",
+            "timeout": 10
+          },
           {
             "type": "mcp_tool",
             "server": "plugin:murmuration:hooks",
