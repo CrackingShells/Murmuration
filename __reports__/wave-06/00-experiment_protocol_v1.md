@@ -29,3 +29,12 @@ s1, s2 and s4 are unchanged. The landing rule is unchanged except for s3, which 
 Stage 2 was dispatched at 19:2x under v0's reading that stage 1 had passed. It continues under v1.
 If s3a–c are not all met, nothing lands. The report then says that under v0 stage 2 should not have
 run at all.
+
+## Correction (after reproducer-w06-3's verdict on w06-c5)
+
+The paragraph "Under v0" above overstates v0. v0's m4 names "a transcript hook-error record, or text
+the model sees". Scenario (b) leaves such a record, so it **meets v0's letter** and fails only its
+intent: no lab script reads that record, and the model sees nothing. Scenario (c) fails v0 only if
+"the turn" means the tool boundary, which was not registered. Read correctly, **under v0's letter
+stage 1 passes and stage 2 runs**. Under its intent, the outage gate fails. v1's s3a–c stand as the
+landing requirements either way. This correction changes the reason given, not the decision.
