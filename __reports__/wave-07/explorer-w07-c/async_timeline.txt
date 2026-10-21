@@ -1,0 +1,58 @@
+       0  tool_use  echo A-SLOW
+    1660    hook START post-sync-fast (echo A-SLOW)
+    1660    hook END   post-sync-fast (echo A-SLOW)
+    1947  tool_result A-SLOW
+    2128    hook START post-async-slow (echo A-SLOW)
+    2946  tool_use  echo step2
+    3602    hook START post-sync-fast (echo step2)
+    3603    hook END   post-sync-fast (echo step2)
+    3976  tool_result step2
+    5004  tool_use  echo step3
+    5744    hook START post-sync-fast (echo step3)
+    5744    hook END   post-sync-fast (echo step3)
+    6251  tool_result step3
+    7402  tool_use  echo B-SYNC
+    8129    hook END   post-async-slow (echo A-SLOW)
+    8193    hook START post-sync-fast (echo B-SYNC)
+    8193    hook END   post-sync-fast (echo B-SYNC)
+    8464    hook START post-sync-slow (echo B-SYNC)
+   11469    hook END   post-sync-slow (echo B-SYNC)
+   11474  RECORD hook_additional_context PostToolUse:Bash ['CMDCTX-NONCE-post-sync-slow-PostToolUse-w5YkWP']
+   11474  tool_result B-SYNC
+   11481  RECORD async_hook_response PostToolUse:Bash {"hookSpecificOutput": {"hookEventName": "PostToolUse", "additionalContext": "CMDCTX-NONCE
+   13213  tool_use  echo A-FAIL
+   13816    hook START post-sync-fast (echo A-FAIL)
+   13816    hook END   post-sync-fast (echo A-FAIL)
+   13899    hook START post-async-fail (echo A-FAIL)
+   13900    hook END   post-async-fail (echo A-FAIL)
+   14289  tool_result A-FAIL
+   14294  RECORD async_hook_response PostToolUse:Bash ASYNC-FAIL-STDERR 
+   15719  tool_use  echo A-REWAKE
+   16357    hook START post-sync-fast (echo A-REWAKE)
+   16357    hook END   post-sync-fast (echo A-REWAKE)
+   16698    hook START post-async-rewake (echo A-REWAKE)
+   18703    hook END   post-async-rewake (echo A-REWAKE)
+   18706  RECORD hook_blocking_error PostToolUse:Bash {'blockingError': '[python3 -S -I "/private/tmp/murmuration-w07/explorer-w07-c/runs/async/
+   18706  tool_result A-REWAKE
+   20664  tool_use  echo ASYNCDENY
+   20863    hook START pre-async-deny (echo ASYNCDENY)
+   20863    hook END   pre-async-deny (echo ASYNCDENY)
+   21303    hook START post-sync-fast (echo ASYNCDENY)
+   21303    hook END   post-sync-fast (echo ASYNCDENY)
+   21735  tool_result ASYNCDENY
+   21740  RECORD async_hook_response PreToolUse:Bash {"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "deny", "perm
+   22661  tool_use  echo A-BLOCK
+   23935    hook START post-sync-fast (echo A-BLOCK)
+   23935    hook END   post-sync-fast (echo A-BLOCK)
+   24863    hook START post-async-blk (echo A-BLOCK)
+   24863    hook END   post-async-blk (echo A-BLOCK)
+   25122  tool_result A-BLOCK
+   25129  RECORD async_hook_response PostToolUse:Bash {"decision": "block", "reason": "CMDBLOCK-NONCE-post-async-blk"} 
+   26138  tool_use  echo step9
+   27056    hook START post-sync-fast (echo step9)
+   27056    hook END   post-sync-fast (echo step9)
+   27730  tool_result step9
+   28678  tool_use  echo Z-END
+   29384    hook START post-sync-fast (echo Z-END)
+   29385    hook END   post-sync-fast (echo Z-END)
+   29869  tool_result Z-END

@@ -1,0 +1,749 @@
+2026-10-21T15:37:05.426Z [DEBUG] Read hooks.json for plugin w7c (enabled=true): /private/tmp/murmuration-w07/explorer-w07-c/runs/http_sub/plugin/hooks/hooks.json
+2026-10-21T15:37:05.527Z [DEBUG] Loading hooks from plugin: w7c
+2026-10-21T15:37:05.533Z [DEBUG] cc-plugin-telemetry: hooks telemetry for: anthropic, collector
+2026-10-21T15:37:05.534Z [DEBUG] hooks module cc-plugin-sec-default@builtin loaded (native, environment 1, tier prepend); events: classic.*,prompt.section,prompt.context,prompt.attachment,prompt.compose,skill.prompt,attribution.text,session.append,session.compact,settings.read,tool.describe,command.describe,agent.offer,agent.spawn,tool.register,tool.list,tool.check,ui.log,env.get,env.set,plugin.register
+2026-10-21T15:37:05.535Z [DEBUG] hooks module cc-plugin-agents-md@builtin loaded (native, environment 2, tier builtin); events: session.start,prompt.context,command.run,session.compact,prompt.submit,turn.start,turn.complete,agent.spawn,tool.call,prompt.mention
+2026-10-21T15:37:05.535Z [DEBUG] hooks module cc-plugin-telemetry@builtin loaded (native, environment 3, tier builtin); events: telemetry.*,telemetry.log,telemetry.mark,session.start,session.end,engine.create
+2026-10-21T15:37:05.535Z [DEBUG] hooks module cc-plugin-plugin-authoring@builtin loaded (native, environment 4, tier builtin); events: skill.prompt,tool.check,tool.call
+2026-10-21T15:37:05.536Z [DEBUG] hooks module cc-plugin-telemetry@builtin engine.create settled in 0.4ms (native hop, next() included)
+2026-10-21T15:37:05.538Z [DEBUG] Registered 7 hooks from 5 plugins
+2026-10-21T15:37:05.539Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): settings.read nested in
+2026-10-21T15:37:05.540Z [DEBUG] hooks module cc-plugin-sec-default@builtin settings.read settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.599Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 25.8ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 18.4ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 18.1ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 18.0ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 18.0ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 17.7ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 17.5ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 17.4ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 17.2ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 17.0ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 16.9ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 16.8ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 16.7ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 16.4ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 16.2ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 16.1ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 15.9ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 15.8ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 15.7ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 15.5ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 15.4ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 15.1ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 15.0ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 14.9ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 14.7ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 14.6ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 13.1ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 12.8ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 12.7ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 12.6ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 12.6ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 12.5ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 12.5ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 12.4ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 12.4ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 12.3ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 12.3ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 12.2ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 12.2ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 12.1ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 12.1ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 12.0ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 12.0ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 11.9ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 11.8ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 11.8ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 11.7ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 11.5ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 11.4ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 11.3ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 11.2ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 11.1ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 11.1ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 11.0ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.9ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.9ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.9ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.8ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.8ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.7ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.7ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.6ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.6ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.5ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.4ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.4ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.3ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.2ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.2ms (native link, next() included)
+2026-10-21T15:37:05.602Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.1ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.0ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 10.0ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.9ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.9ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.8ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.8ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.7ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.7ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.6ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.6ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.5ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.5ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.4ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.4ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.3ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.3ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.2ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.2ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.1ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.1ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.0ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 9.0ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.9ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.9ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.8ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.8ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.7ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.7ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.6ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.6ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.5ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.4ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.4ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.3ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.3ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.2ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.2ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.1ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.1ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.0ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 8.0ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 7.9ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 7.9ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 7.4ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 7.4ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 7.3ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 7.3ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 7.2ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 7.2ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 6.9ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 6.9ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 6.8ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 6.8ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 6.7ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 6.7ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 6.6ms (native link, next() included)
+2026-10-21T15:37:05.603Z [DEBUG] hooks module cc-plugin-sec-default@builtin command.describe settled in 6.6ms (native link, next() included)
+2026-10-21T15:37:05.604Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.SessionStart settled in 22.4ms (native link, next() included)
+2026-10-21T15:37:05.614Z [DEBUG] hooks module cc-plugin-telemetry@builtin (native): telemetry.log nested in cc-plugin-agents-md#0
+2026-10-21T15:37:05.615Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-agents-md#0 > cc-plugin-telemetry#1
+2026-10-21T15:37:05.615Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): settings.read nested in cc-plugin-agents-md#0 > cc-plugin-telemetry#1
+2026-10-21T15:37:05.616Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 1.5ms (native link, next() included)
+2026-10-21T15:37:05.616Z [DEBUG] hooks module cc-plugin-telemetry@builtin session.start settled in 1.8ms (native link, next() included)
+2026-10-21T15:37:05.616Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 1.8ms (native link, next() included)
+2026-10-21T15:37:05.616Z [DEBUG] hooks module cc-plugin-sec-default@builtin settings.read settled in 1.6ms (native link, next() included)
+2026-10-21T15:37:05.617Z [DEBUG] hooks module cc-plugin-agents-md@builtin session.start settled in 2.9ms (native link, next() included)
+2026-10-21T15:37:05.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.618Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.9ms (native link, next() included)
+2026-10-21T15:37:05.624Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.624Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.625Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.625Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.625Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.625Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.625Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.625Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.626Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.627Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.627Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.627Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.627Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.6ms (native link, next() included)
+2026-10-21T15:37:05.627Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:05.627Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:05.627Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:05.627Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.627Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.627Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.627Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.627Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:05.627Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.627Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.627Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.628Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.629Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.6ms (native link, next() included)
+2026-10-21T15:37:05.629Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:05.629Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.629Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.629Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.629Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.629Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:05.629Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:05.629Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.630Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.630Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.630Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.630Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:05.630Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:05.630Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.630Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.630Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.630Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.630Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.630Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.630Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.630Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.634Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.635Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.636Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.636Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.636Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.6ms (native link, next() included)
+2026-10-21T15:37:05.636Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:05.637Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.637Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.637Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:05.637Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.637Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.637Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.637Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.637Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.637Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.637Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.637Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.637Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.637Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.637Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:05.638Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.659Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:05.659Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.659Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.659Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.659Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.659Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.660Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.660Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.660Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.660Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.660Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.660Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.660Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.660Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.660Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.660Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.660Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.663Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.9ms (native link, next() included)
+2026-10-21T15:37:05.663Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.9ms (native link, next() included)
+2026-10-21T15:37:05.663Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.8ms (native link, next() included)
+2026-10-21T15:37:05.663Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.8ms (native link, next() included)
+2026-10-21T15:37:05.663Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.8ms (native link, next() included)
+2026-10-21T15:37:05.663Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.8ms (native link, next() included)
+2026-10-21T15:37:05.663Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.7ms (native link, next() included)
+2026-10-21T15:37:05.663Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.7ms (native link, next() included)
+2026-10-21T15:37:05.663Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.6ms (native link, next() included)
+2026-10-21T15:37:05.663Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.6ms (native link, next() included)
+2026-10-21T15:37:05.663Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.6ms (native link, next() included)
+2026-10-21T15:37:05.663Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.6ms (native link, next() included)
+2026-10-21T15:37:05.663Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:05.663Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:05.663Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:05.664Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:05.664Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:05.664Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:05.664Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:05.664Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:05.664Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:05.664Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:05.665Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.665Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.compose settled in 4.4ms (native link, next() included)
+2026-10-21T15:37:05.713Z [DEBUG] Plugin hooks: skipping reload, plugin-affecting settings unchanged
+2026-10-21T15:37:05.827Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): settings.read nested in
+2026-10-21T15:37:05.828Z [DEBUG] hooks module cc-plugin-sec-default@builtin settings.read settled in 0.7ms (native link, next() included)
+2026-10-21T15:37:05.854Z [DEBUG] hooks module cc-plugin-telemetry@builtin (native): telemetry.log nested in cc-plugin-agents-md#1
+2026-10-21T15:37:05.854Z [DEBUG] hooks module cc-plugin-telemetry@builtin (native): telemetry.mark nested in cc-plugin-agents-md#1
+2026-10-21T15:37:05.854Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:05.854Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.mark settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.854Z [DEBUG] hooks module cc-plugin-agents-md@builtin prompt.context settled in 310.8ms (native link, next() included)
+2026-10-21T15:37:05.854Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.context settled in 311.2ms (native link, next() included)
+2026-10-21T15:37:05.855Z [DEBUG] Artifact publish edits offer frozen: edit_hook=false
+2026-10-21T15:37:05.868Z [DEBUG] Hooks: checkForNewResponses returning 0 responses, 0 hooks still pending
+2026-10-21T15:37:05.869Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 2.6ms (native link, next() included)
+2026-10-21T15:37:05.869Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 2.6ms (native link, next() included)
+2026-10-21T15:37:05.869Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 2.5ms (native link, next() included)
+2026-10-21T15:37:05.869Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 2.5ms (native link, next() included)
+2026-10-21T15:37:05.869Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 2.5ms (native link, next() included)
+2026-10-21T15:37:05.869Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 2.5ms (native link, next() included)
+2026-10-21T15:37:05.869Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 2.4ms (native link, next() included)
+2026-10-21T15:37:05.869Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 2.4ms (native link, next() included)
+2026-10-21T15:37:05.869Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.section settled in 1.1ms (native link, next() included)
+2026-10-21T15:37:05.876Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 1.1ms (native link, next() included)
+2026-10-21T15:37:05.876Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.UserPromptSubmit settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.878Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.878Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.878Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.878Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.878Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.878Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.893Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:05.910Z [DEBUG] hooks module cc-plugin-agents-md@builtin turn.start settled in 1.3ms (native link, next() included)
+2026-10-21T15:37:05.910Z [DEBUG] hooks module cc-plugin-agents-md@builtin prompt.submit settled in 34.0ms (native link, next() included)
+2026-10-21T15:37:05.912Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.912Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.913Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.913Z [DEBUG] hooks module cc-plugin-sec-default@builtin attribution.text settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.913Z [DEBUG] hooks module cc-plugin-sec-default@builtin attribution.text settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:05.913Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.914Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.916Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:05.916Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:05.916Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:05.916Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:05.916Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:05.916Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:05.916Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.916Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:05.916Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:05.920Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.9ms (native link, next() included)
+2026-10-21T15:37:05.920Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.7ms (native link, next() included)
+2026-10-21T15:37:05.920Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.7ms (native link, next() included)
+2026-10-21T15:37:05.920Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.7ms (native link, next() included)
+2026-10-21T15:37:05.920Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.6ms (native link, next() included)
+2026-10-21T15:37:05.920Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.6ms (native link, next() included)
+2026-10-21T15:37:05.920Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.6ms (native link, next() included)
+2026-10-21T15:37:05.920Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:05.920Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:05.920Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:05.920Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:05.920Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:05.920Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:06.311Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.6ms (native link, next() included)
+2026-10-21T15:37:06.390Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:06.522Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:06.692Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:07.246Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.PreToolUse settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:07.247Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.check settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:07.249Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:07.249Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:07.249Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:07.249Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:07.249Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:07.249Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:07.249Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:07.249Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:07.249Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.6ms (native link, next() included)
+2026-10-21T15:37:07.255Z [DEBUG] hooks module cc-plugin-agents-md@builtin turn.start settled in 2.3ms (native link, next() included)
+2026-10-21T15:37:07.255Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.spawn settled in 6.1ms (native link, next() included)
+2026-10-21T15:37:07.255Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 1.0ms (native link, next() included)
+2026-10-21T15:37:07.255Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.PostToolUse settled in 1.7ms (native link, next() included)
+2026-10-21T15:37:07.257Z [DEBUG] Hooks: HTTP hook POST to http://127.0.0.1:62312/ctx
+2026-10-21T15:37:07.257Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 1.0ms (native link, next() included)
+2026-10-21T15:37:07.262Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:07.263Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.263Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.264Z [DEBUG] Hooks: HTTP hook POST to http://127.0.0.1:62312/ctx
+2026-10-21T15:37:07.269Z [DEBUG] Hooks: HTTP hook response status 200, body length 117
+2026-10-21T15:37:07.269Z [DEBUG] Successfully parsed and validated hook JSON output
+2026-10-21T15:37:07.269Z [DEBUG] "Hook SubagentStart:w7c:worker (SubagentStart) success:\n{\"hookSpecificOutput\": {\"hookEventName\": \"SubagentStart\", \"additionalContext\": \"HTTPCTX-NONCE-SubagentStart-341956\"}}"
+2026-10-21T15:37:07.270Z [DEBUG] Hook SubagentStart (http://127.0.0.1:62312/ctx) provided additionalContext (34 chars)
+2026-10-21T15:37:07.270Z [DEBUG] Hooks: HTTP hook response status 200, body length 112
+2026-10-21T15:37:07.270Z [DEBUG] Successfully parsed and validated hook JSON output
+2026-10-21T15:37:07.270Z [DEBUG] "Hook PostToolBatch (PostToolBatch) success:\n{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"HTTPCTX-NONCE-PostToolBatch-x\"}}"
+2026-10-21T15:37:07.270Z [DEBUG] Hook PostToolBatch (http://127.0.0.1:62312/ctx) provided additionalContext (29 chars)
+2026-10-21T15:37:07.381Z [DEBUG] Hooks: SubagentStart:w7c:worker [python3 -S -I "/private/tmp/murmuration-w07/explorer-w07-c/runs/http_sub/plugin/scripts/hook.py" truth --dump /private/tmp/murmuration-w07/explorer-w07-c/runs/http_sub/truth.jsonl] (plugin w7c@inline) finished with status 0 (126ms)
+2026-10-21T15:37:07.381Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-10-21T15:37:07.382Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.SubagentStart settled in 127.7ms (native link, next() included)
+2026-10-21T15:37:07.382Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:07.382Z [DEBUG] Cleared all session hooks for session ab16b6cce52341956
+2026-10-21T15:37:07.384Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.384Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.384Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.384Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.386Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.386Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.386Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.387Z [DEBUG] hooks module cc-plugin-sec-default@builtin attribution.text settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:07.387Z [DEBUG] hooks module cc-plugin-sec-default@builtin attribution.text settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:07.387Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.387Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.388Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:07.388Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:07.388Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:07.388Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.388Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.388Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:07.389Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:07.408Z [DEBUG] Hooks: PostToolBatch [python3 -S -I "/private/tmp/murmuration-w07/explorer-w07-c/runs/http_sub/plugin/scripts/hook.py" truth --dump /private/tmp/murmuration-w07/explorer-w07-c/runs/http_sub/truth.jsonl] (plugin w7c@inline) finished with status 0 (144ms)
+2026-10-21T15:37:07.408Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-10-21T15:37:07.409Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.PostToolBatch settled in 146.1ms (native link, next() included)
+2026-10-21T15:37:07.409Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:07.410Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.410Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.410Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.412Z [DEBUG] Hooks: checkForNewResponses returning 0 responses, 0 hooks still pending
+2026-10-21T15:37:07.413Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 1.8ms (native link, next() included)
+2026-10-21T15:37:07.413Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 1.8ms (native link, next() included)
+2026-10-21T15:37:07.413Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 1.7ms (native link, next() included)
+2026-10-21T15:37:07.413Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 1.7ms (native link, next() included)
+2026-10-21T15:37:07.413Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 1.7ms (native link, next() included)
+2026-10-21T15:37:07.413Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 1.6ms (native link, next() included)
+2026-10-21T15:37:07.413Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 1.6ms (native link, next() included)
+2026-10-21T15:37:07.413Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 1.5ms (native link, next() included)
+2026-10-21T15:37:07.413Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:07.413Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:07.413Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.describe settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:07.414Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:07.415Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.415Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.416Z [DEBUG] hooks module cc-plugin-sec-default@builtin attribution.text settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:07.416Z [DEBUG] hooks module cc-plugin-sec-default@builtin attribution.text settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:07.417Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:07.417Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.417Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:07.417Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:08.384Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 1.3ms (native link, next() included)
+2026-10-21T15:37:08.385Z [DEBUG] Hooks: HTTP hook POST to http://127.0.0.1:62312/ok
+2026-10-21T15:37:08.389Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:08.390Z [DEBUG] Hooks: HTTP hook response status 200, body length 2
+2026-10-21T15:37:08.390Z [DEBUG] Successfully parsed and validated hook JSON output
+2026-10-21T15:37:08.390Z [DEBUG] "Hook PreToolUse:Bash (PreToolUse) success:\n{}"
+2026-10-21T15:37:08.390Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:08.390Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.PreToolUse settled in 8.6ms (native link, next() included)
+2026-10-21T15:37:08.393Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.check settled in 2.0ms (native link, next() included)
+2026-10-21T15:37:08.395Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:08.630Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:08.630Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.PostToolUse settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:08.631Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:08.632Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:08.632Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:08.633Z [DEBUG] Hooks: HTTP hook POST to http://127.0.0.1:62312/ctx
+2026-10-21T15:37:08.634Z [DEBUG] Hooks: HTTP hook response status 200, body length 117
+2026-10-21T15:37:08.634Z [DEBUG] Successfully parsed and validated hook JSON output
+2026-10-21T15:37:08.634Z [DEBUG] "Hook PostToolBatch (PostToolBatch) success:\n{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"HTTPCTX-NONCE-PostToolBatch-341956\"}}"
+2026-10-21T15:37:08.634Z [DEBUG] Hook PostToolBatch (http://127.0.0.1:62312/ctx) provided additionalContext (34 chars)
+2026-10-21T15:37:08.726Z [DEBUG] Hooks: PostToolBatch [python3 -S -I "/private/tmp/murmuration-w07/explorer-w07-c/runs/http_sub/plugin/scripts/hook.py" truth --dump /private/tmp/murmuration-w07/explorer-w07-c/runs/http_sub/truth.jsonl] (plugin w7c@inline) finished with status 0 (94ms)
+2026-10-21T15:37:08.726Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-10-21T15:37:08.727Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.PostToolBatch settled in 94.8ms (native link, next() included)
+2026-10-21T15:37:08.727Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:08.727Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:08.728Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:08.728Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:08.729Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:08.730Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:08.730Z [DEBUG] hooks module cc-plugin-sec-default@builtin attribution.text settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:08.730Z [DEBUG] hooks module cc-plugin-sec-default@builtin attribution.text settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:08.731Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:08.731Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:08.731Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.002Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 1.1ms (native link, next() included)
+2026-10-21T15:37:10.002Z [DEBUG] Hooks: HTTP hook POST to http://127.0.0.1:62312/ok
+2026-10-21T15:37:10.004Z [DEBUG] Hooks: HTTP hook response status 200, body length 2
+2026-10-21T15:37:10.004Z [DEBUG] Successfully parsed and validated hook JSON output
+2026-10-21T15:37:10.004Z [DEBUG] "Hook PreToolUse:Bash (PreToolUse) success:\n{}"
+2026-10-21T15:37:10.006Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:10.006Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.PreToolUse settled in 5.9ms (native link, next() included)
+2026-10-21T15:37:10.009Z [DEBUG] hooks module cc-plugin-sec-default@builtin tool.check settled in 2.0ms (native link, next() included)
+2026-10-21T15:37:10.011Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:10.013Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:10.033Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.6ms (native link, next() included)
+2026-10-21T15:37:10.034Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.PostToolUse settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:10.034Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:10.035Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:10.035Z [DEBUG] Hooks: HTTP hook POST to http://127.0.0.1:62312/ctx
+2026-10-21T15:37:10.037Z [DEBUG] Hooks: HTTP hook response status 200, body length 117
+2026-10-21T15:37:10.037Z [DEBUG] Successfully parsed and validated hook JSON output
+2026-10-21T15:37:10.037Z [DEBUG] "Hook PostToolBatch (PostToolBatch) success:\n{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolBatch\", \"additionalContext\": \"HTTPCTX-NONCE-PostToolBatch-341956\"}}"
+2026-10-21T15:37:10.037Z [DEBUG] Hook PostToolBatch (http://127.0.0.1:62312/ctx) provided additionalContext (34 chars)
+2026-10-21T15:37:10.128Z [DEBUG] Hooks: PostToolBatch [python3 -S -I "/private/tmp/murmuration-w07/explorer-w07-c/runs/http_sub/plugin/scripts/hook.py" truth --dump /private/tmp/murmuration-w07/explorer-w07-c/runs/http_sub/truth.jsonl] (plugin w7c@inline) finished with status 0 (93ms)
+2026-10-21T15:37:10.128Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-10-21T15:37:10.129Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.PostToolBatch settled in 94.8ms (native link, next() included)
+2026-10-21T15:37:10.129Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:10.130Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:10.130Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:10.130Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:10.131Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:10.132Z [DEBUG] hooks module cc-plugin-sec-default@builtin attribution.text settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.132Z [DEBUG] hooks module cc-plugin-sec-default@builtin attribution.text settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.132Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:10.132Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.616Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:10.616Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): settings.read nested in cc-plugin-telemetry
+2026-10-21T15:37:10.616Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:10.616Z [DEBUG] hooks module cc-plugin-sec-default@builtin settings.read settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:10.616Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): env.get nested in cc-plugin-telemetry
+2026-10-21T15:37:10.617Z [DEBUG] hooks module cc-plugin-sec-default@builtin env.get settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:10.633Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.MessageDisplay settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:10.650Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:10.651Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:10.841Z [DEBUG] hooks module cc-plugin-sec-default@builtin (native): ui.log nested in cc-plugin-telemetry
+2026-10-21T15:37:10.842Z [DEBUG] hooks module cc-plugin-sec-default@builtin ui.log settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:12.250Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.Stop settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:12.254Z [DEBUG] hooks module cc-plugin-agents-md@builtin turn.complete settled in 0.6ms (native link, next() included)
+2026-10-21T15:37:14.264Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.6ms (native link, next() included)
+2026-10-21T15:37:14.266Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:14.267Z [DEBUG] Hooks: HTTP hook POST to http://127.0.0.1:62312/blockonce
+2026-10-21T15:37:14.268Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.7ms (native link, next() included)
+2026-10-21T15:37:14.269Z [DEBUG] Hooks: HTTP hook response status 200, body length 55
+2026-10-21T15:37:14.269Z [DEBUG] Successfully parsed and validated hook JSON output
+2026-10-21T15:37:14.269Z [DEBUG] "Hook SubagentStop (SubagentStop) success:\n{\"decision\": \"block\", \"reason\": \"HTTPBLOCK-NONCE-ONCE\"}"
+2026-10-21T15:37:14.270Z [DEBUG] Hook SubagentStop (http://127.0.0.1:62312/blockonce) returned permissionDecision: deny (reason: HTTPBLOCK-NONCE-ONCE)
+2026-10-21T15:37:14.384Z [DEBUG] Hooks: SubagentStop [python3 -S -I "/private/tmp/murmuration-w07/explorer-w07-c/runs/http_sub/plugin/scripts/hook.py" truth --dump /private/tmp/murmuration-w07/explorer-w07-c/runs/http_sub/truth.jsonl] (plugin w7c@inline) finished with status 0 (117ms)
+2026-10-21T15:37:14.384Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-10-21T15:37:14.385Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.SubagentStop settled in 119.4ms (native link, next() included)
+2026-10-21T15:37:14.385Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:14.386Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:14.386Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:14.386Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:14.388Z [DEBUG] hooks module cc-plugin-sec-default@builtin attribution.text settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:14.388Z [DEBUG] hooks module cc-plugin-sec-default@builtin attribution.text settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:14.389Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:17.210Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:17.211Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:17.211Z [DEBUG] Hooks: HTTP hook POST to http://127.0.0.1:62312/blockonce
+2026-10-21T15:37:17.212Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:17.213Z [DEBUG] Hooks: HTTP hook response status 200, body length 2
+2026-10-21T15:37:17.213Z [DEBUG] Successfully parsed and validated hook JSON output
+2026-10-21T15:37:17.213Z [DEBUG] "Hook SubagentStop (SubagentStop) success:\n{}"
+2026-10-21T15:37:17.297Z [DEBUG] Hooks: SubagentStop [python3 -S -I "/private/tmp/murmuration-w07/explorer-w07-c/runs/http_sub/plugin/scripts/hook.py" truth --dump /private/tmp/murmuration-w07/explorer-w07-c/runs/http_sub/truth.jsonl] (plugin w7c@inline) finished with status 0 (86ms)
+2026-10-21T15:37:17.297Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-10-21T15:37:17.298Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.SubagentStop settled in 87.3ms (native link, next() included)
+2026-10-21T15:37:17.298Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:17.298Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:17.298Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:17.300Z [DEBUG] hooks module cc-plugin-agents-md@builtin turn.complete settled in 0.4ms (native link, next() included)
+2026-10-21T15:37:17.317Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.8ms (native link, next() included)
+2026-10-21T15:37:17.361Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.compose settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:17.363Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.5ms (native link, next() included)
+2026-10-21T15:37:17.363Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.UserPromptSubmit settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:17.364Z [DEBUG] Hooks: checkForNewResponses returning 0 responses, 0 hooks still pending
+2026-10-21T15:37:17.364Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 1.1ms (native link, next() included)
+2026-10-21T15:37:17.364Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 1.1ms (native link, next() included)
+2026-10-21T15:37:17.364Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 1.0ms (native link, next() included)
+2026-10-21T15:37:17.364Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 1.0ms (native link, next() included)
+2026-10-21T15:37:17.364Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 1.0ms (native link, next() included)
+2026-10-21T15:37:17.364Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 1.0ms (native link, next() included)
+2026-10-21T15:37:17.364Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 0.9ms (native link, next() included)
+2026-10-21T15:37:17.364Z [DEBUG] hooks module cc-plugin-sec-default@builtin agent.offer settled in 0.9ms (native link, next() included)
+2026-10-21T15:37:17.365Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:17.365Z [DEBUG] hooks module cc-plugin-sec-default@builtin session.append settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:17.368Z [DEBUG] hooks module cc-plugin-agents-md@builtin turn.start settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:17.368Z [DEBUG] hooks module cc-plugin-agents-md@builtin prompt.submit settled in 5.3ms (native link, next() included)
+2026-10-21T15:37:17.368Z [DEBUG] hooks module cc-plugin-sec-default@builtin attribution.text settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:17.368Z [DEBUG] hooks module cc-plugin-sec-default@builtin attribution.text settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:17.369Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.1ms (native link, next() included)
+2026-10-21T15:37:17.369Z [DEBUG] hooks module cc-plugin-sec-default@builtin prompt.attachment settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:21.227Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.MessageDisplay settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:21.240Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.3ms (native link, next() included)
+2026-10-21T15:37:21.241Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:23.343Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.Stop settled in 0.7ms (native link, next() included)
+2026-10-21T15:37:23.348Z [DEBUG] hooks module cc-plugin-agents-md@builtin turn.complete settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:23.355Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.8ms (native link, next() included)
+2026-10-21T15:37:23.362Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 7.0ms (native link, next() included)
+2026-10-21T15:37:23.366Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:23.366Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:23.366Z [DEBUG] hooks module cc-plugin-telemetry@builtin telemetry.log settled in 0.0ms (native link, next() included)
+2026-10-21T15:37:23.625Z [DEBUG] hooks module cc-plugin-sec-default@builtin classic.SessionEnd settled in 0.2ms (native link, next() included)
+2026-10-21T15:37:23.625Z [DEBUG] hooks module cc-plugin-telemetry@builtin session.end settled in 0.1ms (native link, next() included)

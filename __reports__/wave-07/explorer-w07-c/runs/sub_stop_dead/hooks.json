@@ -1,0 +1,32 @@
+{
+ "hooks": {
+  "SubagentStop": [
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62352/ok",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "timeout": 5,
+      "onFailure": "block"
+     }
+    ]
+   }
+  ],
+  "SessionStart": [
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.py\" truth --dump /private/tmp/murmuration-w07/explorer-w07-c/runs/sub_stop_dead/truth.jsonl"
+     }
+    ]
+   }
+  ]
+ }
+}

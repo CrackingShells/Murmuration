@@ -1,0 +1,230 @@
+{
+ "hooks": {
+  "PostToolUse": [
+   {
+    "hooks": [
+     {
+      "type": "command",
+      "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.py\" truth --dump /private/tmp/murmuration-w07/explorer-w07-c/runs/http_post/truth.jsonl"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62031/ok",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "if": "Bash(echo P-OK*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62031/ctx",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "if": "Bash(echo P-CTX*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62031/deny",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "if": "Bash(echo P-DENY*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62031/block",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "if": "Bash(echo P-BLOCK*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62030/ok",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "timeout": 5,
+      "onFailure": "block",
+      "if": "Bash(echo P-DOWN*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62031/hang",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "timeout": 3,
+      "onFailure": "block",
+      "if": "Bash(echo P-HANG*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62031/garbage",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "onFailure": "block",
+      "if": "Bash(echo P-GARB*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62031/array",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "onFailure": "block",
+      "if": "Bash(echo P-ARR*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62031/s500",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "onFailure": "block",
+      "if": "Bash(echo P-S500*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62031/ok",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "onFailure": "block",
+      "if": "Bash(echo P-TOKENV*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62030/ok",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "timeout": 5,
+      "if": "Bash(echo P-DOWNC*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62031/garbage",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "if": "Bash(echo P-GARBC*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62031/hang",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "timeout": 3,
+      "if": "Bash(echo P-HANGC*)"
+     }
+    ],
+    "matcher": "Bash"
+   }
+  ]
+ }
+}

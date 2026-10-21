@@ -1,0 +1,166 @@
+{
+ "hooks": {
+  "PreToolUse": [
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62219/ok",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "timeout": 5,
+      "if": "Bash(echo H-XDOWNC*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62220/garbage",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "if": "Bash(echo H-XGARBC*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62220/hang",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "timeout": 3,
+      "if": "Bash(echo H-XHANGC*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62220/s500",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "if": "Bash(echo H-XS500C*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62220/ok",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "if": "Bash(echo H-XTOKENVC*)"
+     }
+    ],
+    "matcher": "Bash"
+   }
+  ],
+  "PostToolUse": [
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62219/ok",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "timeout": 5,
+      "if": "Bash(echo P-XDOWNC*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62220/garbage",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "if": "Bash(echo P-XGARBC*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62220/hang",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "timeout": 3,
+      "if": "Bash(echo P-XHANGC*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62220/s500",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "allowedEnvVars": [
+       "W7C_TOKEN"
+      ],
+      "if": "Bash(echo P-XS500C*)"
+     }
+    ],
+    "matcher": "Bash"
+   },
+   {
+    "hooks": [
+     {
+      "type": "http",
+      "url": "http://127.0.0.1:62220/ok",
+      "headers": {
+       "X-W7C-Token": "$W7C_TOKEN"
+      },
+      "if": "Bash(echo P-XTOKENVC*)"
+     }
+    ],
+    "matcher": "Bash"
+   }
+  ]
+ }
+}

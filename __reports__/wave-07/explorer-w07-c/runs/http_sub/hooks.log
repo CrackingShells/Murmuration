@@ -1,0 +1,6 @@
+{"label": "truth", "event": "SubagentStart", "tool": "", "tool_use_id": null, "agent_id": "ab16b6cce52341956", "cmd": "", "t0_ns": 1792597027378906000, "t1_ns": 1792597027379132000, "acted": true, "pid": 10845}
+{"label": "truth", "event": "PostToolBatch", "tool": "", "tool_use_id": null, "agent_id": null, "cmd": "", "t0_ns": 1792597027406379000, "t1_ns": 1792597027406548000, "acted": true, "pid": 10846}
+{"label": "truth", "event": "PostToolBatch", "tool": "", "tool_use_id": null, "agent_id": "ab16b6cce52341956", "cmd": "", "t0_ns": 1792597028723123000, "t1_ns": 1792597028723261000, "acted": true, "pid": 10920}
+{"label": "truth", "event": "PostToolBatch", "tool": "", "tool_use_id": null, "agent_id": "ab16b6cce52341956", "cmd": "", "t0_ns": 1792597030126122000, "t1_ns": 1792597030126318000, "acted": true, "pid": 10993}
+{"label": "truth", "event": "SubagentStop", "tool": "", "tool_use_id": null, "agent_id": "ab16b6cce52341956", "cmd": "", "t0_ns": 1792597034380391000, "t1_ns": 1792597034380649000, "acted": true, "pid": 11043}
+{"label": "truth", "event": "SubagentStop", "tool": "", "tool_use_id": null, "agent_id": "ab16b6cce52341956", "cmd": "", "t0_ns": 1792597037294888000, "t1_ns": 1792597037295052000, "acted": true, "pid": 11075}

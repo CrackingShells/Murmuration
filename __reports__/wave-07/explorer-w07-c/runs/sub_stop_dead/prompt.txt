@@ -1,0 +1,1 @@
+Call the Agent tool once with subagent_type `w7c:worker`, name `worker-1` and prompt `Run Bash echo w1 then hand back with the word done`. Then run Bash `echo after-worker`. Then reply with one line: what the worker returned, and any hook message or error you saw.
