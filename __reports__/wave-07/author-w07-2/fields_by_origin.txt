@@ -1,0 +1,59 @@
+(origin.kind, promptSource, turnOrigin, entrypoint, isMeta, userType, has promptId) -> n, example session
+1817 (None, 'sdk', 'sdk', 'claude-desktop', None, 'external', True) 2947f9dc
+424 ('peer', 'system', 'peer', 'claude-desktop', True, 'external', True) 3ccc590f
+262 (None, None, None, 'claude-desktop', True, 'external', True) 2947f9dc
+126 ('task-notification', 'system', 'task_notification', 'claude-desktop', None, 'external', True) 2947f9dc
+121 ('task-notification', 'system', None, 'claude-desktop', None, 'external', True) 3ccc590f
+95 ('human', 'sdk', 'human', 'claude-desktop', None, 'external', True) 2947f9dc
+10 (None, None, None, 'claude-desktop', None, 'external', True) 2947f9dc
+8 (None, 'system', 'scheduled', 'claude-desktop', True, 'external', True) 2947f9dc
+4 (None, None, 'sdk', 'claude-desktop', None, 'external', True) 1d4ce866
+2 (None, None, None, 'claude-desktop', True, 'external', False) 58139aaa
+2 (None, None, None, 'claude-desktop', None, 'external', False) 58139aaa
+1 ('human', None, 'human', 'claude-desktop', None, 'external', True) 566fa912
+1 (None, 'sdk', 'sdk', 'sdk-cli', None, 'external', True) 3c5c3eec
+1 (None, None, 'peer', 'claude-desktop', None, 'external', True) ab96c5ed
+
+keys present in every record of a group, and keys present in only some (n/total)
+(None, 'sdk', 'sdk', 'claude-desktop', None, 'external', True) 1817
+   always: ['cwd', 'entrypoint', 'gitBranch', 'isSidechain', 'message', 'parentUuid', 'permissionMode', 'promptId', 'promptSource', 'sessionId', 'timestamp', 'turnOrigin', 'turnPosition', 'type', 'userType', 'uuid', 'version']
+   some: [('slug', 11)]
+('peer', 'system', 'peer', 'claude-desktop', True, 'external', True) 424
+   always: ['cwd', 'entrypoint', 'gitBranch', 'isMeta', 'isSidechain', 'message', 'origin', 'parentUuid', 'permissionMode', 'promptId', 'promptSource', 'queueSkipAttachments', 'sessionId', 'timestamp', 'turnOrigin', 'turnPosition', 'type', 'userType', 'uuid', 'version']
+   some: [('queueSkipSlashCommands', 423), ('slug', 6)]
+(None, None, None, 'claude-desktop', True, 'external', True) 262
+   always: ['cwd', 'entrypoint', 'gitBranch', 'isMeta', 'isSidechain', 'message', 'parentUuid', 'promptId', 'sessionId', 'timestamp', 'type', 'userType', 'uuid', 'version']
+   some: [('slug', 2), ('sourceToolUseID', 77), ('turnCompanion', 257)]
+('task-notification', 'system', 'task_notification', 'claude-desktop', None, 'external', True) 126
+   always: ['cwd', 'entrypoint', 'gitBranch', 'isSidechain', 'message', 'origin', 'parentUuid', 'permissionMode', 'promptId', 'promptSource', 'queueSkipAttachments', 'sessionId', 'timestamp', 'turnOrigin', 'turnPosition', 'type', 'userType', 'uuid', 'version']
+   some: []
+('task-notification', 'system', None, 'claude-desktop', None, 'external', True) 121
+   always: ['cwd', 'entrypoint', 'gitBranch', 'isSidechain', 'message', 'origin', 'parentUuid', 'permissionMode', 'promptId', 'promptSource', 'queueSkipAttachments', 'queueTranscriptOnly', 'sessionId', 'timestamp', 'type', 'userType', 'uuid', 'version']
+   some: []
+('human', 'sdk', 'human', 'claude-desktop', None, 'external', True) 95
+   always: ['cwd', 'entrypoint', 'gitBranch', 'isSidechain', 'message', 'origin', 'parentUuid', 'permissionMode', 'promptId', 'promptSource', 'sessionId', 'timestamp', 'turnOrigin', 'turnPosition', 'type', 'userType', 'uuid', 'version']
+   some: [('slug', 10)]
+(None, None, None, 'claude-desktop', None, 'external', True) 10
+   always: ['cwd', 'entrypoint', 'gitBranch', 'isSidechain', 'message', 'parentUuid', 'promptId', 'sessionId', 'timestamp', 'type', 'userType', 'uuid', 'version']
+   some: [('isCompactSummary', 1), ('isVisibleInTranscriptOnly', 1), ('repeatsCompactSummary', 1), ('slug', 3), ('turnPosition', 1)]
+(None, 'system', 'scheduled', 'claude-desktop', True, 'external', True) 8
+   always: ['cwd', 'entrypoint', 'gitBranch', 'isMeta', 'isSidechain', 'message', 'parentUuid', 'permissionMode', 'promptId', 'promptSource', 'queueSkipAttachments', 'queueSkipSlashCommands', 'sessionId', 'timestamp', 'turnOrigin', 'turnPosition', 'type', 'userType', 'uuid', 'version']
+   some: []
+(None, None, 'sdk', 'claude-desktop', None, 'external', True) 4
+   always: ['cwd', 'entrypoint', 'gitBranch', 'isSidechain', 'message', 'parentUuid', 'promptId', 'sessionId', 'timestamp', 'turnOrigin', 'turnPosition', 'type', 'userType', 'uuid', 'version']
+   some: []
+(None, None, None, 'claude-desktop', True, 'external', False) 2
+   always: ['cwd', 'entrypoint', 'gitBranch', 'isMeta', 'isSidechain', 'message', 'parentUuid', 'sessionId', 'timestamp', 'type', 'userType', 'uuid', 'version']
+   some: []
+(None, None, None, 'claude-desktop', None, 'external', False) 2
+   always: ['cwd', 'entrypoint', 'gitBranch', 'isSidechain', 'message', 'parentUuid', 'sessionId', 'timestamp', 'type', 'userType', 'uuid', 'version']
+   some: []
+('human', None, 'human', 'claude-desktop', None, 'external', True) 1
+   always: ['cwd', 'entrypoint', 'gitBranch', 'isSidechain', 'message', 'origin', 'parentUuid', 'promptId', 'sessionId', 'timestamp', 'turnOrigin', 'turnPosition', 'type', 'userType', 'uuid', 'version']
+   some: []
+(None, 'sdk', 'sdk', 'sdk-cli', None, 'external', True) 1
+   always: ['cwd', 'entrypoint', 'gitBranch', 'isSidechain', 'message', 'parentUuid', 'permissionMode', 'promptId', 'promptSource', 'sessionId', 'timestamp', 'turnOrigin', 'turnPosition', 'type', 'userType', 'uuid', 'version']
+   some: []
+(None, None, 'peer', 'claude-desktop', None, 'external', True) 1
+   always: ['cwd', 'entrypoint', 'gitBranch', 'isCompactSummary', 'isSidechain', 'isVisibleInTranscriptOnly', 'message', 'parentUuid', 'promptId', 'sessionId', 'slug', 'timestamp', 'turnOrigin', 'turnPosition', 'type', 'userType', 'uuid', 'version']
+   some: []

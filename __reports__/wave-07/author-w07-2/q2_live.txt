@@ -1,0 +1,18 @@
+name  hooks  prompt  wait_s(first readable, from hook start)  file existed at child start  record entrypoint  stored by branch script  payload keys
+f00    both  first  0.374    False claude-desktop True   ['cwd', 'hook_event_name', 'permission_mode', 'prompt', 'prompt_id', 'scratchpad_dir', 'session_id', 'transcript_path']
+f01    both  first  0.332    False claude-desktop True   ['cwd', 'hook_event_name', 'permission_mode', 'prompt', 'prompt_id', 'scratchpad_dir', 'session_id', 'transcript_path']
+f02    both  first  0.360    False claude-desktop True   ['cwd', 'hook_event_name', 'permission_mode', 'prompt', 'prompt_id', 'scratchpad_dir', 'session_id', 'transcript_path']
+f03    both  first  0.305    False claude-desktop True   ['cwd', 'hook_event_name', 'permission_mode', 'prompt', 'prompt_id', 'scratchpad_dir', 'session_id', 'transcript_path']
+f04    both  first  0.382    False claude-desktop True   ['cwd', 'hook_event_name', 'permission_mode', 'prompt', 'prompt_id', 'scratchpad_dir', 'session_id', 'transcript_path']
+f05    both  first  0.311    False claude-desktop True   ['cwd', 'hook_event_name', 'permission_mode', 'prompt', 'prompt_id', 'scratchpad_dir', 'session_id', 'transcript_path']
+f06    both  first  0.327    False claude-desktop True   ['cwd', 'hook_event_name', 'permission_mode', 'prompt', 'prompt_id', 'scratchpad_dir', 'session_id', 'transcript_path']
+f07    both  first  0.365    False claude-desktop True   ['cwd', 'hook_event_name', 'permission_mode', 'prompt', 'prompt_id', 'scratchpad_dir', 'session_id', 'transcript_path']
+f08    both  first  0.299    False claude-desktop True   ['cwd', 'hook_event_name', 'permission_mode', 'prompt', 'prompt_id', 'scratchpad_dir', 'session_id', 'transcript_path']
+f09    both  first  0.313    False claude-desktop True   ['cwd', 'hook_event_name', 'permission_mode', 'prompt', 'prompt_id', 'scratchpad_dir', 'session_id', 'transcript_path']
+t00    both  first  0.325    False sdk-cli        True   ['cwd', 'hook_event_name', 'permission_mode', 'prompt', 'prompt_id', 'session_id', 'transcript_path']
+p00    probe first  0.088    True  claude-desktop None   ['cwd', 'hook_event_name', 'permission_mode', 'prompt', 'prompt_id', 'scratchpad_dir', 'session_id', 'transcript_path']
+r-f00  both  later  0.339    True  claude-desktop True   ['cwd', 'hook_event_name', 'permission_mode', 'prompt', 'prompt_id', 'scratchpad_dir', 'session_id', 'transcript_path']
+r-p00  probe later  0.045    True  claude-desktop None   ['cwd', 'hook_event_name', 'permission_mode', 'prompt', 'prompt_id', 'scratchpad_dir', 'session_id', 'transcript_path']
+
+q2: first prompts with the branch script as a hook: 10 sessions; record readable within 0.3 s of hook start in 1 (threshold 8)
+wait until readable (s), those sessions: min 0.299 median 0.330 max 0.382
