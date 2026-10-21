@@ -287,3 +287,65 @@ say ok
 ## 2026-10-22 00:19
 
 everything is merged in `main` and I can indeed launch wave 7?
+
+## 2026-10-22 00:22
+
+Background (from the session that started this one):
+Murmuration is a Claude Code plugin: a research team (PI, explorers, authors, verifiers) that works in waves with labelled claims and independent verdicts, and the lab is studying its own plugin in this repository (the reflective run). Wave 6 landed on local main at 33582f1: lean hook starts (w06-c9), a fail-closed permission guard (w06-c13, w06-c14), and a Permissions paragraph in every worker file. Rust was sized out at about 30 ms a start, and a resident mcp_tool server was reverted because it fails silently. The user has since asked for a performance-aware mindset everywhere (algorithms, parallel-first), for real exploration beyond the resident-server idea, for Rust to be pursued if it saves what it can, and for the wave to teach what the hardware and Claude Code's agent loop allow.
+
+Task:
+You are the PI of the Murmuration reflective run, wave 7. Load the `murmuration:research-loop` skill first. Then read:
+- `__statera__/wave-06.md` (closed): Reassessments and Notes;
+- `__statera__/synthesis.md`: "Wave 6" and "Still open" items 25–31;
+- `__reports__/wave-06/research-pi/lab_cost_map.html`, skimmed;
+- `__reports__/wave-06/research-pi/permission_mechanisms.md`;
+- the claims w06-c4, c6, c9, c13 and c14, heads and last verdicts;
+- the last entries of `__statera__/user_words.md`.
+Open `__statera__/wave-07.md` from the template.
+
+The user's words after wave 6 (2026-10-21, late), which this wave serves:
+- "Performance-aware programming and Better Software [is] a mindset we should apply everywhere. [...] this extends to 'know your algorithms', leverage 'parallel-first' because the Modern hardware is done that way (this applies to all the parsing or possible for loops). Of course, I know that parallelism also has a cost at the CPU level and that scaling is not linear".
+- "i think you don't have to obsess over this idea [the resident server]. Try explore other possibilities. Don't forget your nature as a research PI. All this also teaches us things about our hardware and limit of optimizing Claude Code's agent loops."
+- "line of codes are not a reference for leanness [...] User experience and efficiency downstream is what matters."
+- On Rust: "we have a dev git hook or within the CI we simply publish the binaries as part of the repo [...] ~2MB per platform [...] I don't see how that exempts us from saving that 1% if we know we can save it."
+
+This is a research wave, not a checklist. Spread cheap probes, reassess in the note each time results come back, and pre-register each experiment's rule in a committed file before running it. Check every threshold against a measured ceiling and the per-pair noise before registering it (open item 27). Judge on downstream time and on behaviour under failure, never on lines of code.
+
+Directions to weigh. These are starting points; follow what the probes find.
+- **Where a tool call's time goes, end to end, and what the platform's limits are.** Measured so far:
+  - auto mode's classifier, 450–750 ms per Bash call;
+  - 30–45 ms of platform overhead per hook, plus about 30 ms of exec (`sh :` costs 33 ms);
+  - Python's start, 55 ms, and a Rust no-op's unexplained extra 18 ms over `sh` (S-w06-explorer-w06-b-1);
+  - hooks of one event starting together, about +40 ms per sibling.
+  What is each made of on this machine (dyld, code signing, the platform's spawn path)? What would a minimal static binary cost? How many tool calls does a worker make per task, and could it batch them?
+- **Parallel-first and algorithms in the lab's own code.** `lab_status.py` parses about 228 MB of JSONL. Replays, transcript scans and experiment pipelines run cells serially; wave 4's critical path was one author's serial headless cells. Measure where serial loops dominate. Then compare a parallel Python, a Rust version and a better algorithm, with scaling curves, not single points.
+- **Hooks without a process per call, several ways, none assumed:**
+  - `async: true` command hooks for notes that need not block (the probe report's row 7);
+  - fewer or merged registrations that keep behaviour, which w05-c4 failed at;
+  - `http` hooks with `"onFailure": "block"` against a resident local server (127.0.0.1, per-session token), so a dead server fails loudly;
+  - a resident server with a different restart design;
+  - SA1 as one lean Rust binary: server, hook client and CLI.
+  Binaries may be built and committed locally. CI publishing, a push or a crates.io release is visible outside this machine, so prepare it and leave the release to the user. Installing a new Rust target is a download, so ask first.
+- **The PI's own context.** In wave 6 the PI's request 0 was 46,738 tokens. The listing of 90 installed skills alone was 30,072 characters, against 41,937 for tool schemas, 9,020 for 105 deferred tool names and 7,657 for the agent-type list. Workers, with `tools:` allowlists, start at 13.9–14.8k tokens and carry no skills listing. Probe whether the PI can drop the listing, for example by denying `Skill` or with `Skill(...)` rules, while still getting `research-loop`.
+- **If the user has added the managed setting** `{"permissions": {"disableBypassPermissionsMode": "disable"}}`, test what of the permission guard's Bash row (124–136 ms per Bash call) is still needed: a child `claude` must refuse bypass, and settings writes must be refused in auto mode. Never edit any settings file yourself.
+
+Decision frame: you decide engineering and land verified changes on the local `main` (`merge --no-ff`). Do not push. The user keeps the guardrails: moral, legal, ethical and safety matters (credentials, the permission layer, other people's data), and anything visible outside this machine.
+
+Rules:
+- headless runs under `/private/tmp/murmuration-w07/<agent name>/`, with `CLAUDE_CODE_SHELL=/bin/bash`, no `--max-budget-usd`, and `--plugin-dir` pointed at an export;
+- default or auto permission mode only, never `bypassPermissions` or `--dangerously-skip-permissions`, and every attack test's `claude` is a stub first on PATH;
+- commit by naming paths;
+- never stop processes by name pattern;
+- quote spend only from `scripts/lab_status.py` or cost-state, as lower bounds in auto mode.
+The permission guard is active on main: a Bash command whose text names `claude` together with a bypass flag is denied, so write notes about them with the Write/Edit tools.
+
+Budget: what remains of the wave-6 USD 100, at least USD 47 (wave 6 spent at least 53.00), unless the user says otherwise.
+
+Done means:
+- every puzzle disposed;
+- the synthesis updated;
+- verified changes landed on local main;
+- the cost map updated;
+- a report that states what was decided, why, and what the wave taught about the hardware and the limits of Claude Code's agent loop.
+
+Shared notes folder for this group of sessions (outside the repo; read siblings' notes there, leave hand-over notes or large findings there instead of pasting them into messages): /Users/hacker/Library/Application Support/Claude/side-session-notes/local_a1cc5690-301c-4ea7-815d-6c9664d6c5c0
