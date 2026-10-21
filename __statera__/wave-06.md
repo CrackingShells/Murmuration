@@ -121,7 +121,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     the fallback is E2: the changes that are identical by construction. w04-c5 is reconsidered there
     on outputs and CPU time.
 
-- HH:MM (this commit), after author-w06-3 returned (w06-c3, stage 1):
+- 19:26 (6b32695), after author-w06-3 returned (w06-c3, stage 1):
   - **Stage 1 passes the gate, but only on its letter.** m1, m2, m3, m5 and m6 pass. As registered,
     m4 has nothing to show: the platform restarts a server stopped by its pid within 71–87 ms. The
     author added two variants. A restart that exits at once drops the Agent deny and the 150% block
