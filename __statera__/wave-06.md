@@ -121,6 +121,22 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     the fallback is E2: the changes that are identical by construction. w04-c5 is reconsidered there
     on outputs and CPU time.
 
+- HH:MM (this commit), after author-w06-3 returned (w06-c3, stage 1):
+  - **Stage 1 passes the gate, but only on its letter.** m1, m2, m3, m5 and m6 pass. As registered,
+    m4 has nothing to show: the platform restarts a server stopped by its pid within 71–87 ms. The
+    author added two variants. A restart that exits at once drops the Agent deny and the 150% block
+    silently, leaving only a `hook_non_blocking_error` record that no lab script reads. A restart that
+    hangs makes one tool boundary wait 20 s. My decision is to run stage 2 under its fixed rules, with
+    those failures as design requirements of s3, not merely as things to measure. Stage 2 runs beside
+    stage 1's verification, because it costs about USD 10 and is stopped if reproducer-w06-3
+    overturns stage 1.
+  - **A guardrail finding, for the user.** author-w06-3 ran some of its headless haiku test sessions
+    in `bypassPermissions` mode (`__instrumenta__/w06c3_run_all.py`, line 25), to read a field that
+    auto mode leaves empty. They ran in `/private/tmp`, on a throwaway plugin, with fixed prompts. My
+    brief did not forbid it, and earlier waves did the same (explorer-w05-f's bypass comparison).
+    The permission layer is the user's, so from this point every brief forbids `bypassPermissions`
+    and `--dangerously-skip-permissions`, and the report names it.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -129,7 +145,9 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | reproducer-w06-1 | reproducer | verify w06-c1, the Desktop check of w05-c7 on this session's request 0 | SUPPORTED; paired with the wave-5 PI on 2.1.304: 74,966 → 46,738, the 29 removed tools = the line's matches |
 | explorer-w06-a | explorer | platform-visible cost of a do-nothing hook in sh, Python and a compiled binary; where the 322–605 ms goes | f38adb0: Rust −30 ms a start; the gap is siblings starting together |
 | explorer-w06-b | explorer | inventory of the plugin's recurring waste; why each lean build failed; SA1 sized, not built | 28859d5: `mcp_tool` 2 ms against 104; lean builds failed on rules; SA1 sized |
-| author-w06-3 | author | E1 stage 1: can a resident server carry Murmuration's hooks (w06-c3) | |
+| author-w06-3 | author | E1 stage 1: can a resident server carry Murmuration's hooks (w06-c3) | 134e3ac: passes on the letter; a dead or hung restart is silent or slow |
+| reproducer-w06-3 | reproducer | verify w06-c3 | |
+| author-w06-4 | author | E1 stage 2: the port, s1–s4 (w06-c4) | |
 | explorer-w06-c | explorer | the PI's wake-ups and cost per wake-up in waves 4–5; what idle time could carry; one session per wave | 7c14a2d: idle is free (1-hour cache); wake-ups are hand-backs; preface 21–32% of PI spend |
 
 ## Claims of this wave
@@ -147,6 +165,13 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | S-w06-explorer-w06-c-2 | followed: w06-c2 (the close adds a row where a later result changed a disposition; how often that happens is untested) |
 | S-w06-explorer-w06-c-3 | parked: the platform sets the lifetime (main thread 1 h, subagents 5 min); the plugin's lever is how workers wait (w05-c1, on main) |
 | S-w06-explorer-w06-c-4 | followed: this session's own preface is measured at the close (Notes) |
+| S-w06-author-w06-3-1 | parked: request-0 jitter of a few tokens; m3 is read as "no difference outside noise", for reproducer-w06-3 to judge |
+| S-w06-author-w06-3-2 | followed: w06-c4 brief (state a resident server keeps across calls) |
+| S-w06-author-w06-3-3 | followed: w06-c4 brief (s3, the hung restart) |
+| S-w06-author-w06-3-4 | followed: w06-c4 brief (s3, who notices a dead server) |
+| S-w06-author-w06-3-5 | parked: a few ms either way; no decision turns on it |
+| S-w06-author-w06-3-6 | followed: w06-c4 brief (identical `mcp_tool` inputs may merge) |
+| S-w06-author-w06-3-7 | followed: w06-c4 brief (SubagentStop once per ending turn) |
 | S-w06-explorer-w06-a-1 | parked: an ordering effect between languages; the language is not taken forward (E1) |
 | S-w06-explorer-w06-a-2 | parked: the exec floor belongs to the kernel and the platform; a hook that starts no process avoids it (E1) |
 | S-w06-explorer-w06-a-3 | followed: E1 (one resident server removes Murmuration's own siblings); the user's own sibling hooks are their config (synthesis item 22) |
