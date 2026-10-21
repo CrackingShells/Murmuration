@@ -283,6 +283,23 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
   - A cache bump makes an old and a new script sharing one cache rewrite each other's file; the
     author measures it before the landing.
 
+- 03:20, after author-w07-3 returned (w07-c3, P3):
+  - **Exec form holds.** x1 (42 of 42 handlers equal after the shell's own splitting, and the
+    check can fail), the scripted x2 (215 of 215 starts equal) and x4 pass: B was lower in 10 of 10
+    pairs for both hooks. Medians per pair: guard 76.8 ms saved (pooled 123 → 42 ms), budget
+    PostToolUse 71.0 ms (104.5 → 41 ms); about 3.0 s of hook time a session. B fails closed when
+    the guard crashes and when `python3` is missing, with different wording and fewer transcript
+    records of the repeated failure (the debug log has all). The live graded budget note in A was
+    not shown (the platform refused the worker's bare `sleep`), so the verifier runs it.
+  - **What it does not show:** a shorter session. Tool-call intervals differed by a median 54 ms
+    with a spread of ±600 ms, and session wall was not lower. That fits explorer-w07-g: the
+    classifier and the model dominate, and a PreToolUse hook hides behind the classifier. So exec
+    form is CPU, energy and hook time, with downstream wall unresolved; the synthesis says so.
+  - **x5:** `args` exists since 2.1.139; `onFailure` since 2.1.295, above the README's stated 2.1.271
+    (a wave-6 slip). A version without `args` would feed the payload to `python3` as a script: a
+    silent no-op guard. So the README's minimum must say 2.1.295 in the same landing.
+  - reproducer-w07-3 verifies, with the missing live note, the failure cases and its own pairs.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -296,7 +313,8 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | author-w07-1 | author | w07-c1: P1, the PI without the skills listing | 9a942f3 (branch w07-p1-skill): p1 and p5 fail; does not land |
 | reproducer-w07-1 | reproducer | verify w07-c1 offline, for the numbers the synthesis quotes | d72b8d3: OVERSTATED (matched range 10.6–11.0k) |
 | explorer-w07-g | explorer | split the classifier-decided Bash call's 1.5 s; four ways of the same reads; subagent cache lifetime | 3292ed5: classifier 628 ms, hooks hidden behind it; `cacheTtl` frontmatter |
-| author-w07-3 | author | w07-c3: P3, every hook row in exec form | |
+| author-w07-3 | author | w07-c3: P3, every hook row in exec form | 2e043b7: x1, x4 pass (10/10, ~71–77 ms a start); x2, x3 mostly; wall unresolved |
+| reproducer-w07-3 | reproducer | verify w07-c3, with the missing live note and failure cases | |
 | author-w07-4 | author | w07-c4: P4, `lab_status.py` without the git child, usage fields priced | 627fb4d: o1–o4 pass, 0.051 s a call; change 1 dropped by PI decision; change 2 split for landing |
 | author-w07-5 | author | w07-c6: P5, the permission guard as a Rust binary in exec form | |
 | author-w07-6 | author | w07-c7: P6, a 1-hour cache for authors | |
