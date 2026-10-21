@@ -1,0 +1,115 @@
+n	t_utc	gap_s	ctx	cache_read	cache_write_1h	cache_write_5m	output	usd_list	trigger	senders	actions
+0	2026-10-20T00:27:31	0	74632	0	74630	0	447	0.6060	human	human	Other:Skill=1,Other:mcp__ccd_turn__update_plan=1
+1	2026-10-20T00:27:38	4	84692	74630	10060	0	340	0.1022	tool_result:Skill+tool_result:mcp__ccd_turn__update_plan		BashRead=1,Other:Read=1
+2	2026-10-20T00:27:49	10	86707	84690	2015	0	408	0.0412	tool_result:Bash+tool_result:Read		BashRead=3
+3	2026-10-20T00:27:56	6	100055	86705	13348	0	738	0.1389	tool_result:Bash		BashRead=1,BashWrite=1
+4	2026-10-20T00:28:19	20	104065	100053	4010	0	1884	0.0898	tool_result:Bash		BashWrite=1
+5	2026-10-20T00:28:30	9	112627	104063	8562	0	766	0.1046	tool_result:Bash		BashRead=1
+6	2026-10-20T00:28:42	10	117409	112625	4782	0	1025	0.0813	tool_result:Bash		BashRead=1
+7	2026-10-20T00:29:03	17	120637	117407	3228	0	2059	0.0905	tool_result:Bash		BashWrite=1
+8	2026-10-20T00:29:15	5	122775	120635	2138	0	205	0.0453	tool_result:Bash		BashRead=1
+9	2026-10-20T00:29:24	8	123141	122773	366	0	266	0.0328	tool_result:Bash		BashRead=1
+10	2026-10-20T00:29:37	13	123552	123139	411	0	839	0.0447	tool_result:Bash		BashWrite=1
+11	2026-10-20T00:30:09	30	128455	123550	4903	0	2985	0.1236	tool_result:Bash		BashRead=1,BashWrite=1
+12	2026-10-20T00:30:19	6	135396	128453	6941	0	399	0.0892	tool_result:Bash		BashRead=2
+13	2026-10-20T00:30:29	9	139999	135394	4603	0	657	0.0771	tool_result:Bash		BashRead=1
+14	2026-10-20T00:30:35	5	141233	139997	1234	0	198	0.0418	tool_result:Bash		BashRead=1
+15	2026-10-20T00:30:40	5	145143	141231	3910	0	272	0.0650	tool_result:Bash		BashRead=1
+16	2026-10-20T00:30:47	6	145454	145141	311	0	433	0.0402	tool_result:Bash		BashRead=1
+17	2026-10-20T00:31:01	12	146133	145452	679	0	1115	0.0568	tool_result:Bash		BashRead=1
+18	2026-10-20T00:31:07	4	149780	146131	3647	0	295	0.0643	task-notification(queued)+tool_result:Bash	done:be0v7br4l(completed)	BashRead=1
+19	2026-10-20T00:31:17	9	151462	149778	1682	0	1170	0.0668	tool_result:Bash		BashWrite=1
+20	2026-10-20T00:31:25	5	152667	151460	1205	0	278	0.0455	tool_result:Bash		Agent=1
+21	2026-10-20T00:32:34	68	153124	152665	457	0	6313	0.1605	tool_result:Agent		BashRead=1
+22	2026-10-20T00:32:42	6	163028	153122	9904	0	411	0.1181	tool_result:Bash		BashWrite=1
+23	2026-10-20T00:32:47	3	163729	163026	701	0	2789	0.0940	tool_result:Bash		Write=1
+24	2026-10-20T00:33:17	3	166643	163727	2914	0	2291	0.1019	tool_result:Write		BashRead=1,Write=1
+25	2026-10-20T00:33:43	7	170196	166641	3553	0	529	0.0723	tool_result:Bash+tool_result:Write		BashWrite=1
+26	2026-10-20T00:34:00	14	170800	170194	604	0	7018	0.1792	tool_result:Bash		Agent=4
+27	2026-10-20T00:34:55	6	179571	170798	8771	0	351	0.1114	tool_result:Agent		BashRead=1
+28	2026-10-20T00:35:09	13	180563	179569	992	0	1110	0.0661	tool_result:Bash		BashRead=1
+29	2026-10-20T00:35:14	4	183018	180561	2455	0	193	0.0596	tool_result:Bash		BashRead=1
+30	2026-10-20T00:35:21	7	185254	183016	2236	0	1328	0.0811	tool_result:Bash		BashWrite=1,Other:ToolSearch=1
+31	2026-10-20T00:35:34	6	188671	185252	3417	0	393	0.0723	tool_result:Bash		SendMessage=1
+32	2026-10-20T00:35:41	6	189203	188669	532	0	1303	0.0681	tool_result:SendMessage		Agent=1
+33	2026-10-20T00:35:52	4	190938	189201	1735	0	894	0.0696	tool_result:Agent		Other:mcp__ccd_turn__update_plan=1,Write=1
+34	2026-10-20T00:36:07	9	192017	190936	1079	0	694	0.0607	tool_result:Edit+tool_result:mcp__ccd_turn__update_plan		
+35	2026-10-20T00:38:14	127	204889	192015	12872	0	651	0.1544	peer	author-w04-6:hand-back	Agent=1
+36	2026-10-20T00:38:22	3	206525	204887	1636	0	31	0.0547	task-notification(queued)+tool_result:Agent	done:author-w04-6(completed)	
+37	2026-10-20T00:41:38	195	207563	206523	1036	0	164	0.0529	peer	author-w04-6:hand-back	
+38	2026-10-20T00:42:08	29	209335	207559	1772	0	212	0.0599	peer	reproducer-w04-6:hand-back	BashRead=1
+39	2026-10-20T00:42:17	8	211817	209331	2484	0	1030	0.0823	task-notification(queued)+tool_result:Bash	done:reproducer-w04-6(completed)	BashWrite=1
+40	2026-10-20T00:42:26	5	213073	211815	1256	0	287	0.0582	tool_result:Bash		BashWrite=1
+41	2026-10-20T00:42:30	4	213646	213071	573	0	111	0.0494	tool_result:Bash		
+42	2026-10-20T00:45:32	182	216380	213644	2732	0	1265	0.0899	peer	author-w04-1:hand-back	Agent=1
+43	2026-10-20T00:45:45	6	218635	216376	2257	0	192	0.0652	task-notification(queued)+tool_result:Agent	done:author-w04-1(completed)	
+44	2026-10-20T00:51:36	350	219810	218633	1173	0	275	0.0586	peer	author-w04-1:hand-back	
+45	2026-10-20T00:52:29	52	221396	219806	1586	0	250	0.0617	peer	reproducer-w04-1:hand-back	
+46	2026-10-20T01:08:09	937	224981	221392	3585	0	1091	0.0948	peer+task-notification	done:reproducer-w04-1(completed),author-w04-3:hand-back	BashRead=1
+47	2026-10-20T01:08:24	14	226906	224977	1927	0	1739	0.0952	task-notification(queued)+tool_result:Bash	done:author-w04-3(completed)	BashWrite=1
+48	2026-10-20T01:08:42	9	228879	226904	1973	0	1461	0.0904	tool_result:Bash		Agent=1,SendMessage=1
+49	2026-10-20T01:08:54	6	230908	228877	2029	0	109	0.0642	tool_result:Agent+tool_result:SendMessage		
+50	2026-10-20T01:19:04	610	232613	230906	1703	0	829	0.0764	peer	reproducer-w04-4:hand-back	SendMessage=1
+51	2026-10-20T01:19:18	9	234126	232609	1515	0	742	0.0735	task-notification(queued)+tool_result:SendMessage	done:reproducer-w04-4(completed)	BashWrite=1
+52	2026-10-20T01:19:23	5	234937	234124	811	0	253	0.0584	tool_result:Bash		
+53	2026-10-20T01:24:09	286	237648	234935	2709	0	2937	0.1274	peer	author-w04-2:hand-back	BashWrite=1
+54	2026-10-20T01:24:32	11	241214	237644	3568	0	2271	0.1215	task-notification(queued)+tool_result:Bash	done:author-w04-2(completed)	Agent=2,SendMessage=1
+55	2026-10-20T01:24:53	7	244493	241212	3279	0	530	0.0851	tool_result:Agent+tool_result:SendMessage		Other:mcp__ccd_turn__update_plan=1
+56	2026-10-20T01:25:00	4	245074	244491	581	0	162	0.0568	tool_result:mcp__ccd_turn__update_plan		
+57	2026-10-20T01:28:59	239	247788	245072	2712	0	1192	0.0946	peer	author-w04-3:hand-back	Agent=1
+58	2026-10-20T01:29:19	14	253756	247784	5970	0	2030	0.1379	peer(queued)+task-notification(queued)+tool_result:Agent	done:author-w04-3(completed),author-w04-4:hand-back,done:author-w04-4(completed)	Agent=1
+59	2026-10-20T01:29:32	4	256224	253754	2468	0	288	0.0763	tool_result:Agent		BashRead=1
+60	2026-10-20T01:29:39	5	257743	256222	1519	0	166	0.0667	tool_result:Bash		
+61	2026-10-20T01:32:24	165	258869	257741	1124	0	1322	0.0870	peer	author-w04-3:hand-back	BashWrite=1
+62	2026-10-20T01:32:37	6	260257	258865	1390	0	407	0.0710	tool_result:Bash		SendMessage=1
+63	2026-10-20T01:32:41	4	260757	260255	500	0	110	0.0583	tool_result:SendMessage		
+64	2026-10-20T01:32:50	9	262613	260755	1854	0	1048	0.0880	peer	reproducer-w04-7:hand-back	BashWrite=1,SendMessage=1
+65	2026-10-20T01:33:03	4	264435	262609	1824	0	164	0.0704	task-notification(queued)+tool_result:Bash+tool_result:SendMessage	done:reproducer-w04-7(completed)	
+66	2026-10-20T01:35:40	157	266310	264433	1873	0	879	0.0855	peer	reproducer-w04-2:hand-back	SendMessage=1
+67	2026-10-20T01:35:47	3	267879	266306	1571	0	108	0.0680	task-notification(queued)+tool_result:SendMessage	done:reproducer-w04-2(completed)	
+68	2026-10-20T01:36:33	45	269939	267877	2058	0	298	0.0760	peer	reproducer-w04-3:hand-back	SendMessage=1
+69	2026-10-20T01:36:36	4	270928	269935	991	0	164	0.0652	task-notification(queued)+tool_result:SendMessage	done:reproducer-w04-3(completed)	
+70	2026-10-20T01:38:33	117	273001	270926	2071	0	1973	0.1102	peer	author-w04-2:hand-back	Agent=2
+71	2026-10-20T01:38:57	10	278960	272997	5961	0	735	0.1170	peer(queued)+task-notification(queued)+tool_result:Agent	done:author-w04-2(completed),author-w04-3:hand-back,done:author-w04-3(completed)	Agent=1
+72	2026-10-20T01:39:04	7	280131	278958	1171	0	748	0.0801	tool_result:Agent		BashWrite=1
+73	2026-10-20T01:39:18	11	281659	280129	1528	0	436	0.0770	tool_result:Bash		BashRead=1
+74	2026-10-20T01:39:37	17	292863	281657	11204	0	1564	0.1773	tool_result:Bash		BashWrite=1
+75	2026-10-20T01:39:42	5	295018	292861	2155	0	253	0.0809	tool_result:Bash		BashRead=1
+76	2026-10-20T01:39:47	4	295303	295016	285	0	155	0.0644	tool_result:Bash		
+77	2026-10-20T01:40:38	51	296516	295301	1211	0	320	0.0752	peer	author-w04-3:hand-back	
+78	2026-10-20T01:41:12	32	298806	296512	2290	0	322	0.0841	peer	reproducer-w04-10:hand-back	SendMessage=1
+79	2026-10-20T01:41:16	4	299793	298802	989	0	95	0.0696	task-notification(queued)+tool_result:SendMessage	done:reproducer-w04-10(completed)	
+80	2026-10-20T01:41:30	14	300664	299791	869	0	647	0.0799	peer	author-w04-3:hand-back	BashWrite=1
+81	2026-10-20T01:41:43	9	301936	300660	1274	0	589	0.0821	task-notification(queued)+tool_result:Bash	done:author-w04-3(completed)	
+82	2026-10-20T01:42:16	33	303740	301934	1802	0	93	0.0767	peer	author-w04-2:hand-back	
+83	2026-10-20T01:43:08	52	305828	303736	2088	0	780	0.0931	peer	reproducer-w04-9:hand-back	SendMessage=1
+84	2026-10-20T01:43:17	4	307278	305824	1452	0	95	0.0747	task-notification(queued)+tool_result:SendMessage	done:reproducer-w04-9(completed)	
+85	2026-10-20T01:43:29	12	309174	307276	1894	0	1245	0.1015	peer	reproducer-w04-8:hand-back	BashWrite=1
+86	2026-10-20T01:43:42	6	311028	309170	1856	0	386	0.0844	task-notification(queued)+tool_result:Bash	done:reproducer-w04-8(completed)	SendMessage=1
+87	2026-10-20T01:43:46	5	312950	311026	1922	0	402	0.0856	peer(queued)+task-notification(queued)+tool_result:SendMessage	author-w04-2:hand-back,done:author-w04-2(completed)	SendMessage=1
+88	2026-10-20T01:43:52	4	313471	312948	521	0	96	0.0687	tool_result:SendMessage		
+89	2026-10-20T01:44:37	44	314687	313469	1214	0	773	0.0879	peer	reproducer-w04-9:hand-back	BashRead=1
+90	2026-10-20T01:44:44	5	317932	314683	3247	0	221	0.0933	task-notification(queued)+tool_result:Bash	done:reproducer-w04-9(completed)	
+91	2026-10-20T01:48:27	223	320745	317930	2811	0	1575	0.1176	peer	reproducer-w04-5:hand-back	BashRead=1
+92	2026-10-20T01:48:35	5	323267	320741	2524	0	640	0.0971	task-notification(queued)+tool_result:Bash	done:reproducer-w04-5(completed)	BashWrite=1
+93	2026-10-20T01:49:00	22	324377	323265	1110	0	504	0.0836	tool_result:Bash		BashWrite=1
+94	2026-10-20T01:49:10	9	325090	324375	713	0	684	0.0843	tool_result:Bash		BashRead=1
+95	2026-10-20T01:49:14	5	326678	325088	1588	0	3060	0.1389	tool_result:Bash		BashWrite=1
+96	2026-10-20T01:49:53	13	329769	326676	3091	0	1136	0.1128	tool_result:Bash		BashRead=1
+97	2026-10-20T01:49:59	4	332942	329767	3173	0	586	0.1031	peer(queued)+task-notification(queued)+tool_result:Bash	author-w04-2:hand-back,done:author-w04-2(completed)	SendMessage=1
+98	2026-10-20T01:50:07	5	333644	332940	702	0	642	0.0851	tool_result:SendMessage		BashRead=1
+99	2026-10-20T01:50:40	30	337547	333642	3903	0	7068	0.2393	tool_result:Bash		BashWrite=1
+100	2026-10-20T01:51:16	6	344648	337545	7101	0	1906	0.1624	tool_result:Bash		BashRead=1
+101	2026-10-20T01:51:34	4	346584	344646	1936	0	3100	0.1464	tool_result:Bash		BashWrite=1
+102	2026-10-20T01:52:06	6	350985	346582	4401	0	233	0.1092	peer(queued)+tool_result:Bash	author-w04-2:hand-back	
+103	2026-10-20T01:53:41	95	352894	350983	1907	0	1511	0.1157	peer	reproducer-w04-8:hand-back	BashWrite=1
+104	2026-10-20T01:53:59	8	355560	352890	2668	0	1357	0.1191	task-notification(queued)+tool_result:Bash	done:reproducer-w04-8(completed)	BashRead=1
+105	2026-10-20T01:54:13	5	357086	355558	1526	0	178	0.0869	tool_result:Bash		BashRead=1
+106	2026-10-20T01:54:18	5	357541	357084	455	0	239	0.0798	tool_result:Bash		BashRead=1
+107	2026-10-20T01:54:26	7	357929	357539	388	0	928	0.0932	tool_result:Bash		BashWrite=1
+108	2026-10-20T01:54:37	6	359111	357927	1182	0	491	0.0909	tool_result:Bash		BashWrite=1
+109	2026-10-20T01:54:43	5	359685	359109	574	0	123	0.0789	tool_result:Bash		BashRead=1
+110	2026-10-20T01:54:47	4	359954	359683	269	0	158	0.0773	tool_result:Bash		BashRead=1
+111	2026-10-20T01:54:54	7	360478	359952	524	0	497	0.0861	tool_result:Bash		BashRead=1
+112	2026-10-20T01:55:00	5	361010	360476	532	0	175	0.0799	tool_result:Bash		Other:mcp__ccd_turn__wrap_up=1
+113	2026-10-20T01:55:11	11	361775	361008	765	0	1869	0.1157	task-notification(queued)+tool_result:mcp__ccd_turn__wrap_up	done:author-w04-4(completed)	

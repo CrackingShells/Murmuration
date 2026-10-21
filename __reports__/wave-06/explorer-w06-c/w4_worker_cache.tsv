@@ -1,0 +1,13 @@
+agent	model	gap_s	prev_ctx	cache_read	tokens_not_read	extra_usd_over_read
+author-w04-1	claude-sonnet-5-5	319	93013	4673	88340	0.2120
+author-w04-2	claude-sonnet-5-5	342	92045	4673	87372	0.2097
+author-w04-2	claude-sonnet-5-5	391	99460	4673	94787	0.2275
+author-w04-2	claude-sonnet-5-5	319	106497	4673	101824	0.2444
+author-w04-2	claude-sonnet-5-5	314	121440	121438	2	0.0000
+author-w04-2	claude-sonnet-5-5	546	126397	4673	121724	0.2921
+author-w04-2	claude-sonnet-5-5	346	178150	4673	173477	0.4163
+author-w04-3	claude-sonnet-5-5	607	115104	4673	110431	0.2650
+author-w04-4	claude-sonnet-5-5	607	298681	4673	294008	0.7056
+author-w04-4	claude-sonnet-5-5	1022	332813	4673	328140	0.7875
+author-w04-4	claude-sonnet-5-5	534	341276	4673	336603	0.8078
+reproducer-w04-8	claude-sonnet-5-5	413	89161	4575	84586	0.2030
