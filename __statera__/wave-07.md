@@ -268,6 +268,21 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
     (`inject_plan_directive.py`, 177–206 ms), not by the lab's.
   - reproducer-w07-2 verifies w07-c2 and w07-c5 together, and runs the two missing controls.
 
+- 03:10, after author-w07-4 returned (w07-c4, P4):
+  - o1–o4 pass by the rule (28 of 30 pairs faster; repeats 24 and 29 of 30). But the saving is
+    0.051 s a call, about a third of the 0.155 s I took as the ceiling: that figure was a
+    difference of two medians under load 3–15, not a paired measure. My registration repeated a
+    small form of item 27: a ceiling read from unpaired medians.
+  - **PI decision: change 1 does not land, change 2 does (pending the verifier).** Change 1 saves
+    a few seconds a wave (about 50 calls) and re-implements git's worktree list; its first version
+    gave the enclosing repository's list for a missing folder and for a bare repository, silently,
+    and got the order wrong where git ignores case. The git child cannot fail that way. That is a
+    failure-mode cost the rule did not price, and by the user's own measure ("efficiency
+    downstream is what matters") a few seconds a wave do not buy it. Change 2 is a correctness fix:
+    fast mode and web searches were never priced. The author splits it onto its own branch.
+  - A cache bump makes an old and a new script sharing one cache rewrite each other's file; the
+    author measures it before the landing.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -282,7 +297,7 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | reproducer-w07-1 | reproducer | verify w07-c1 offline, for the numbers the synthesis quotes | d72b8d3: OVERSTATED (matched range 10.6–11.0k) |
 | explorer-w07-g | explorer | split the classifier-decided Bash call's 1.5 s; four ways of the same reads; subagent cache lifetime | 3292ed5: classifier 628 ms, hooks hidden behind it; `cacheTtl` frontmatter |
 | author-w07-3 | author | w07-c3: P3, every hook row in exec form | |
-| author-w07-4 | author | w07-c4: P4, `lab_status.py` without the git child, usage fields priced | |
+| author-w07-4 | author | w07-c4: P4, `lab_status.py` without the git child, usage fields priced | 627fb4d: o1–o4 pass, 0.051 s a call; change 1 dropped by PI decision; change 2 split for landing |
 | author-w07-5 | author | w07-c6: P5, the permission guard as a Rust binary in exec form | |
 | author-w07-6 | author | w07-c7: P6, a 1-hour cache for authors | |
 | reproducer-w07-2 | reproducer | verify w07-c2 and w07-c5, with the missing controls | |
