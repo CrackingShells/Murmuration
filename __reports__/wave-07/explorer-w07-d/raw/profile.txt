@@ -1,0 +1,34 @@
+git worktree list 0.074 s; find_sessions (listdir+glob+first_cwd of 309 candidate mains) 0.066 s
+files 669 (mains 309), bytes 274225696 (274.2 MB); median 277929, max 11593527, files>1MB 46 holding 98.2 MB
+read whole files into memory (rb):            0.044 s  (6.23 GB/s)
+read + split on b'\n' (58210 lines):       0.167 s
+iterate lines in rb mode:                      0.247 s
+iterate + 3-substring prefilter:               0.492 s; 15227 lines pass (26.2% of lines), 57.5 MB (21.0% of bytes)
+json.loads of the passing lines only:          0.179 s
+original parse_transcript over all files:      0.670 s
+=> original minus (iterate+prefilter+loads) = own logic + text decode: -0.001 s
+types of passing lines: {'assistant': 13476, 'cost-state': 307, 'agent-setting': 544, 'api-request-blob': 900}
+bytes by type among passing: {'assistant': 53845117, 'cost-state': 154784, 'agent-setting': 63598, 'api-request-blob': 3434459}
+         1009947 function calls (1009358 primitive calls) in 1.697 seconds
+
+   Ordered by: cumulative time
+   List reduced from 270 to 14 due to restriction <14>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.003    0.003    1.697    1.697 /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/xenodochial-franklin-bc67fb/scripts/lab_status.py:697(report_spend)
+        1    0.022    0.022    1.481    1.481 /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/xenodochial-franklin-bc67fb/scripts/lab_status.py:644(load_sessions)
+      676    0.002    0.000    1.304    0.002 /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/xenodochial-franklin-bc67fb/scripts/lab_status.py:628(read_transcript)
+      676    0.959    0.001    1.303    0.002 /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/xenodochial-franklin-bc67fb/scripts/lab_status.py:528(parse_transcript)
+    16479    0.008    0.000    0.200    0.000 /Users/hacker/miniforge3/lib/python3.12/json/__init__.py:299(loads)
+    16479    0.014    0.000    0.188    0.000 /Users/hacker/miniforge3/lib/python3.12/json/decoder.py:333(decode)
+    16479    0.160    0.000    0.160    0.000 /Users/hacker/miniforge3/lib/python3.12/json/decoder.py:344(raw_decode)
+        1    0.000    0.000    0.098    0.098 /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/xenodochial-franklin-bc67fb/scripts/lab_status.py:443(git_worktrees)
+        1    0.000    0.000    0.098    0.098 /Users/hacker/miniforge3/lib/python3.12/subprocess.py:506(run)
+        1    0.000    0.000    0.092    0.092 /Users/hacker/miniforge3/lib/python3.12/subprocess.py:1165(communicate)
+        1    0.000    0.000    0.092    0.092 /Users/hacker/miniforge3/lib/python3.12/subprocess.py:2062(_communicate)
+        2    0.000    0.000    0.091    0.046 /Users/hacker/miniforge3/lib/python3.12/selectors.py:402(select)
+        2    0.091    0.046    0.091    0.046 {method 'poll' of 'select.poll' objects}
+        1    0.001    0.001    0.079    0.079 /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/xenodochial-franklin-bc67fb/scripts/lab_status.py:482(find_sessions)
+
+
+

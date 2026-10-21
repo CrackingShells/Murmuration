@@ -1,0 +1,16 @@
+orig      W=1  min 0.620 med 0.635 max 0.640 load 5.0
+bytes     W=1  min 0.607 med 0.609 max 0.613 load 5.0
+buf_find  W=1  min 0.510 med 0.513 max 0.521 load 4.8
+buf_re    W=1  min 0.435 med 0.439 max 0.441 load 4.8
+buf_find  W=2  min 0.275 med 0.280 max 0.284 load 4.8
+buf_find  W=3  min 0.192 med 0.195 max 0.206 load 5.1
+buf_find  W=4  min 0.152 med 0.159 max 0.172 load 5.1
+buf_find  W=6  min 0.115 med 0.121 max 0.163 load 5.1
+buf_find  W=8  min 0.102 med 0.109 max 0.144 load 5.1
+buf_find  W=12 min 0.090 med 0.110 max 0.129 load 5.1
+orig      W=2  min 0.333 med 0.338 max 0.345 load 5.4
+orig      W=3  min 0.223 med 0.226 max 0.234 load 5.4
+orig      W=4  min 0.170 med 0.175 max 0.185 load 5.4
+orig      W=6  min 0.129 med 0.133 max 0.152 load 5.4
+orig      W=8  min 0.113 med 0.115 max 0.144 load 5.4
+orig      W=12 min 0.102 med 0.106 max 0.147 load 5.4

@@ -1,0 +1,46 @@
+# __reports__/wave-07/explorer-w07-d/raw/t_e2e2.jsonl
+cli_nocache    n=9 wall min 0.831 med 0.897 max 1.414  cpu med 0.79  load1 4.9-6.8
+cli_cache      n=9 wall min 0.362 med 0.420 max 0.620  cpu med 0.29  load1 4.9-6.8
+alg_w1         n=9 wall min 0.675 med 0.727 max 0.831  cpu med 0.62  load1 4.9-6.8
+par_w2         n=9 wall min 0.473 med 0.530 max 0.565  cpu med 0.71  load1 4.9-6.8
+par_w4         n=9 wall min 0.399 med 0.433 max 0.710  cpu med 0.74  load1 4.9-6.7
+par_w6         n=9 wall min 0.345 med 0.414 max 0.613  cpu med 0.81  load1 4.9-6.7
+par_w8         n=9 wall min 0.334 med 0.398 max 0.560  cpu med 0.85  load1 4.9-6.7
+par_w12        n=9 wall min 0.314 med 0.372 max 0.517  cpu med 0.92  load1 4.9-6.7
+rust_w1        n=9 wall min 0.403 med 0.455 max 0.767  cpu med 0.34  load1 4.9-6.7
+rust_w2        n=9 wall min 0.372 med 0.441 max 0.689  cpu med 0.34  load1 4.9-6.7
+rust_w4        n=9 wall min 0.366 med 0.427 max 0.523  cpu med 0.36  load1 5.2-6.7
+rust_w6        n=9 wall min 0.330 med 0.389 max 0.557  cpu med 0.38  load1 5.2-6.8
+rust_w8        n=9 wall min 0.326 med 0.389 max 0.551  cpu med 0.39  load1 5.2-6.8
+rust_w12       n=9 wall min 0.336 med 0.408 max 0.620  cpu med 0.41  load1 5.2-6.8
+rsproc_w1      n=9 wall min 0.178 med 0.249 max 0.351  cpu med 0.13  load1 5.2-6.8
+rsproc_w4      n=9 wall min 0.123 med 0.231 max 0.269  cpu med 0.15  load1 5.2-6.8
+rsproc_w6      n=9 wall min 0.098 med 0.144 max 0.249  cpu med 0.17  load1 5.2-6.8
+rsproc_w12     n=9 wall min 0.093 med 0.136 max 0.398  cpu med 0.20  load1 5.2-6.8
+py_noop        n=9 wall min 0.066 med 0.127 max 0.313  cpu med 0.02  load1 5.2-6.8
+# __reports__/wave-07/explorer-w07-d/raw/t_e2e3.jsonl
+cli_cache      n=11 wall min 0.267 med 0.386 max 0.736  cpu med 0.27  load1 4.5-5.2
+cache+nogit    n=11 wall min 0.213 med 0.231 max 0.350  cpu med 0.16  load1 4.5-5.2
+alg+nogit      n=11 wall min 0.646 med 0.688 max 0.707  cpu med 0.61  load1 4.5-5.2
+par6+nogit     n=11 wall min 0.295 med 0.350 max 0.383  cpu med 0.77  load1 4.5-5.2
+par12+nogit    n=11 wall min 0.277 med 0.322 max 0.343  cpu med 0.89  load1 4.5-5.2
+rust6+nogit    n=11 wall min 0.296 med 0.329 max 0.382  cpu med 0.35  load1 4.5-5.2
+cli_nocache    n=11 wall min 0.844 med 0.909 max 1.107  cpu med 0.79  load1 4.5-5.2
+# __reports__/wave-07/explorer-w07-d/raw/t_floor.jsonl
+rs_empty       n=15 wall min 0.050 med 0.061 max 0.197  cpu med 0.01  load1 4.9-5.0
+sh_true        n=15 wall min 0.062 med 0.066 max 0.235  cpu med 0.01  load1 4.9-5.0
+py_noop        n=15 wall min 0.067 med 0.079 max 0.150  cpu med 0.02  load1 4.9-5.0
+py_I_S         n=15 wall min 0.057 med 0.085 max 0.116  cpu med 0.01  load1 4.9-5.0
+# __reports__/wave-07/explorer-w07-d/raw/t_rust_scaling.jsonl
+rs_t1          n=9 wall min 0.169 med 0.172 max 0.253  cpu med 0.13  load1 5.6-6.1
+rs_t2          n=9 wall min 0.135 med 0.145 max 0.305  cpu med 0.13  load1 5.6-6.1
+rs_t3          n=9 wall min 0.138 med 0.147 max 0.265  cpu med 0.13  load1 5.6-6.1
+rs_t4          n=9 wall min 0.125 med 0.130 max 0.209  cpu med 0.13  load1 5.6-6.1
+rs_t5          n=9 wall min 0.125 med 0.134 max 0.179  cpu med 0.15  load1 5.6-6.1
+rs_t6          n=9 wall min 0.129 med 0.135 max 0.225  cpu med 0.15  load1 5.6-6.1
+rs_t7          n=9 wall min 0.127 med 0.147 max 0.199  cpu med 0.16  load1 5.6-6.1
+rs_t8          n=9 wall min 0.115 med 0.128 max 0.203  cpu med 0.17  load1 5.6-6.1
+rs_t10         n=9 wall min 0.116 med 0.122 max 0.212  cpu med 0.17  load1 5.6-6.1
+rs_t12         n=9 wall min 0.113 med 0.134 max 0.210  cpu med 0.18  load1 5.6-6.1
+rs_t1_nofilter n=9 wall min 0.218 med 0.223 max 0.319  cpu med 0.18  load1 5.6-6.1
+rs_t6_nofilter n=9 wall min 0.161 med 0.165 max 0.203  cpu med 0.22  load1 5.6-6.1

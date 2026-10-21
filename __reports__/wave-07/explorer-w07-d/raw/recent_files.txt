@@ -1,0 +1,5 @@
+modified in last    600 s:  12 files,   18.0 MB, orig parse 0.053 s
+modified in last   3600 s:  14 files,   19.2 MB, orig parse 0.049 s
+modified in last  21600 s:  27 files,   44.1 MB, orig parse 0.154 s
+modified in last  86400 s:  49 files,   78.3 MB, orig parse 0.282 s
+681 files total

@@ -1,0 +1,15 @@
+{"name": "orig_nocache", "i": 0, "wall": 1.7564, "user": 0.7186, "sys": 0.1934, "load1": 5.46, "rc": 0}
+{"name": "orig_cache", "i": 0, "wall": 0.6164, "user": 0.2334, "sys": 0.0832, "load1": 5.46, "rc": 0}
+{"name": "py_noop", "i": 0, "wall": 0.3237, "user": 0.0173, "sys": 0.0088, "load1": 5.46, "rc": 0}
+{"name": "orig_nocache", "i": 1, "wall": 1.2995, "user": 0.715, "sys": 0.1413, "load1": 5.46, "rc": 0}
+{"name": "orig_cache", "i": 1, "wall": 0.4514, "user": 0.2255, "sys": 0.0892, "load1": 5.46, "rc": 0}
+{"name": "py_noop", "i": 1, "wall": 0.2009, "user": 0.0174, "sys": 0.008, "load1": 5.46, "rc": 0}
+{"name": "orig_nocache", "i": 2, "wall": 1.052, "user": 0.7366, "sys": 0.1504, "load1": 5.34, "rc": 0}
+{"name": "orig_cache", "i": 2, "wall": 0.4145, "user": 0.2061, "sys": 0.0811, "load1": 5.34, "rc": 0}
+{"name": "py_noop", "i": 2, "wall": 0.0979, "user": 0.0166, "sys": 0.0072, "load1": 5.34, "rc": 0}
+{"name": "orig_nocache", "i": 3, "wall": 1.0058, "user": 0.7283, "sys": 0.1416, "load1": 5.34, "rc": 0}
+{"name": "orig_cache", "i": 3, "wall": 0.4, "user": 0.2035, "sys": 0.0776, "load1": 5.34, "rc": 0}
+{"name": "py_noop", "i": 3, "wall": 0.0922, "user": 0.016, "sys": 0.0067, "load1": 5.34, "rc": 0}
+{"name": "orig_nocache", "i": 4, "wall": 0.9725, "user": 0.7009, "sys": 0.1261, "load1": 5.34, "rc": 0}
+{"name": "orig_cache", "i": 4, "wall": 0.4098, "user": 0.2077, "sys": 0.079, "load1": 5.34, "rc": 0}
+{"name": "py_noop", "i": 4, "wall": 0.0984, "user": 0.0162, "sys": 0.0067, "load1": 5.34, "rc": 0}
