@@ -174,7 +174,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | explorer-w06-a | explorer | platform-visible cost of a do-nothing hook in sh, Python and a compiled binary; where the 322–605 ms goes | f38adb0: Rust −30 ms a start; the gap is siblings starting together |
 | explorer-w06-b | explorer | inventory of the plugin's recurring waste; why each lean build failed; SA1 sized, not built | 28859d5: `mcp_tool` 2 ms against 104; lean builds failed on rules; SA1 sized |
 | author-w06-3 | author | E1 stage 1: can a resident server carry Murmuration's hooks (w06-c3) | 134e3ac: passes on the letter; a dead or hung restart is silent or slow |
-| reproducer-w06-3 | reproducer | verify w06-c3, then w06-c5 | ESCALATE on w06-c3 (6b79137): m4 vacuous as registered; restated as w06-c5 |
+| reproducer-w06-3 | reproducer | verify w06-c3, then w06-c5, w06-c6 | ESCALATE on w06-c3 (6b79137): m4 vacuous as registered; restated as w06-c5 (OVERSTATED), then w06-c6 (SUPPORTED, 710bda9) |
 | guide-w06-perm | claude-code-guide | which permission-hardening mechanisms the platform documents | |
 | author-w06-4 | author | E1 stage 2: the port, s1–s4 (w06-c4) | |
 | explorer-w06-c | explorer | the PI's wake-ups and cost per wake-up in waves 4–5; what idle time could carry; one session per wave | 7c14a2d: idle is free (1-hour cache); wake-ups are hand-backs; preface 21–32% of PI spend |
@@ -184,7 +184,8 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | Claim | Statement | Current label |
 |:--|:--|:--|
 | w06-c3 | E1 stage 1, resident server carries the hooks | superseded by w06-c5 |
-| w06-c5 | E1 stage 1 restated: m1, m2, m5, m6 pass; m4 (a) vacuous, (b) silent loss, (c) 20 s a boundary | unverified MEASURED |
+| w06-c5 | E1 stage 1 restated | superseded by w06-c6 (verdict OVERSTATED: "fails v0" went beyond v0's letter) |
+| w06-c6 | E1 stage 1: a resident server carries the hooks' fields, firing, effects at 1–6 ms; m4 (a) vacuous, (b) meets v0's letter and fails its intent (silent loss of deny and block), (c) 20 s a tool boundary | MEASURED |
 | w06-c2 | Disposing puzzles at the hand-back wake-up costs no extra request (the implied saving is not shown) | below ESTIMATE: restate; not restated, the bullet is reverted |
 | w06-c1 | The `disallowedTools:` line holds on the Desktop: request 0 at 46,738 tokens, no denied tool loaded (n = 1, plus the verifier's same-version pair) | MEASURED |
 
