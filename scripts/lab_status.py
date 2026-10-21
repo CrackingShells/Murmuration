@@ -604,7 +604,7 @@ class Cache:
         try:
             os.makedirs(os.path.dirname(self.path), exist_ok=True)
             gitignore = os.path.join(os.path.dirname(self.path), ".gitignore")
-            if not os.path.exists(gitignore):
+            if os.path.basename(os.path.dirname(self.path)) == ".harness" and not os.path.exists(gitignore):   # the lab's own state folder; a folder named by $LAB_STATUS_CACHE is left as it is
                 with open(gitignore, "w") as fh:
                     fh.write("*\n")
             with open(tmp, "w") as fh:
