@@ -252,12 +252,14 @@ def run(raw, log=None):
         event = json.loads(raw)
         hit = decide(event)
         tool = event.get("tool_name")
+        ti = event.get("tool_input") or {}
+        what = str(ti.get("command") or ti.get("file_path") or "")[:120]
     except Exception as exc:        # fail closed
         hit, tool = ("G?", "the guard could not read the event (%s)" % type(exc).__name__), None
     if log:
         try:
             with open(log, "a") as fh:
-                fh.write(json.dumps(dict(tool=tool, decision="deny" if hit else "allow", group=hit[0] if hit else None)) + "\n")
+                fh.write(json.dumps(dict(tool=tool, what=what, decision="deny" if hit else "allow", group=hit[0] if hit else None)) + "\n")
         except OSError:
             pass
     if not hit:
