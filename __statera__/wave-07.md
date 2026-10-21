@@ -458,15 +458,146 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 
 | Claim | Statement | Current label |
 |:--|:--|:--|
+| w07-c1 | The PI without the skills listing: request 0 10.6-11.0k tokens lower, `research-loop` and its references still followed; a built-in skill such as `dataviz` lost | below MEASURED: restate (not restated; does not land) |
+| w07-c2 | P2 v0: the origin rule is right offline (0 errors) and blind live, because a prompt's record is written after the hook | MEASURED |
+| w07-c3 | Every hook row in exec form: same behaviour, fails closed, guard 123 → 42 ms and budget 104.5 → 41 ms (10 of 10 pairs) | MEASURED |
+| w07-c4 | `lab_status.py` prices fast mode and web searches (landed at c473203); without its git child it saves 0.04-0.05 s a call (not landed) | MEASURED |
+| w07-c5 | P2 v1: the origin rule from an async hook, 10 of 10 decided live, no visible wait; a crash is silent | MEASURED |
+| w07-c6 | The permission guard as a Rust binary: 0 differences in 20,847 events; CPU 17.6 → 1.6 ms a start; fails closed | MEASURED |
+| w07-c7 | Authors with a 1-hour prompt cache: honoured, keeps the cache across a gap and a resume; money undetermined | escalated: PI decides (decided: lands by its rule) |
+| w07-c8 | The installer falls back to the Python guard, visibly, on any doubt the manifest or the self-test can see; a binary right on 12 payloads and wrong elsewhere installs silently | below MEASURED: restate (lands on the verifier's restated wording, by PI decision) |
 
 ## Puzzle dispositions (at close)
 
 | Puzzle | Disposition |
 |:--|:--|
+| S-w07-author-w07-1-1 | followed: w07-c1 (request 0 moves with which MCP servers connected; named in the synthesis) |
+| S-w07-author-w07-1-2 | followed: w07-c1 (the reason it does not land) |
+| S-w07-author-w07-1-3 | parked: B does not land, so the v1 sentence goes nowhere |
+| S-w07-author-w07-1-4 | parked: one "Not logged in" in about 150 headless sessions this wave, at 8 concurrent; the rerun alone passed; a limit to watch, not a fault of the plugin |
+| S-w07-author-w07-1-5 | followed: w07-c1 (the verifier's whole-session figure is the one quoted) |
+| S-w07-author-w07-2-1 | followed: w07-c5 |
+| S-w07-author-w07-2-2 | followed: w07-c5 (the rule keeps a terminal `-p` and drops an inherited one; stated) |
+| S-w07-author-w07-2-3 | followed: w07-c5 (v1's rule required live runs) |
+| S-w07-author-w07-2-4 | parked: the decision rests on 0 errors, not on the totals, which grow with every session |
+| S-w07-author-w07-2-5 | followed: w07-c5 (async removes the wait) |
+| S-w07-author-w07-2-6 | followed: w07-c5 |
+| S-w07-author-w07-2-7 | parked: a platform fact, in the synthesis; on main the only identical rows are the guard's `if` rows, and running once when several match one call is what is wanted |
+| S-w07-author-w07-2-8 | followed: w07-c5 (the cost, accepted and stated) |
+| S-w07-author-w07-2-9 | parked: the user's own `inject_plan_directive.py` hook; named in the report as theirs |
+| S-w07-author-w07-3-1 | followed: w07-c3 (explorer-w07-a's exec counts explain it; the load differed) |
+| S-w07-author-w07-3-2 | parked: only when `python3` is missing, and the first blocked call names the cause; stated in the synthesis |
+| S-w07-author-w07-3-3 | followed: README minimum 2.1.295 in the merge 5e16a53 |
+| S-w07-author-w07-3-4 | followed: the synthesis states downstream wall as unresolved |
+| S-w07-author-w07-3-5 | followed: reproducer-w07-3 ran the graded note live with an `until` loop |
+| S-w07-author-w07-3-6 | parked: `user_words.py` (now async) and `resume_brief.py` run once per prompt or resume, not on a worker's path |
+| S-w07-author-w07-3-7 | parked: open item 26 (guard false denials grow with guard work) |
+| S-w07-author-w07-4-1 | followed: open item 27, with this wave's lesson (a ceiling read from unpaired medians) |
+| S-w07-author-w07-4-2 | followed: w07-c4 (cache file named by its version) |
+| S-w07-author-w07-4-3 | followed: w07-c4 (change 1 dropped by PI decision) |
+| S-w07-author-w07-4-4 | parked: inside the whole-script spread of 0.05-0.15 s; change 1 dropped |
+| S-w07-author-w07-4-5 | parked: change 1 dropped; main's selftest assertion is unchanged |
+| S-w07-author-w07-4-6 | parked: the permission layer's refusal, not retried; correct |
+| S-w07-author-w07-5-1 | followed: w07-c6 (the binary answers in 0.05 s; the Python fallback keeps the hang, named in the synthesis) |
+| S-w07-author-w07-5-2 | followed: w07-c8 (the stamp; the once-per-install cost is stated) |
+| S-w07-author-w07-5-3 | parked: the author's own slip, caught and rerun; reproducer-w07-6 made the same one, and both launchers now assert a non-empty file |
+| S-w07-author-w07-5-4 | followed: reproducer-w07-5's verdict on w07-c6 (Rust is stricter, never looser) |
+| S-w07-author-w07-5-5 | followed: reproducer-w07-5's mutation test |
+| S-w07-author-w07-5-6 | parked: against today's string form the saving is larger; both forms' numbers are in the synthesis |
+| S-w07-author-w07-5-7 | followed: the synthesis (CPU and energy in auto mode, wall in default mode) |
+| S-w07-author-w07-5-8 | parked: once per data folder and version; stated in the synthesis |
+| S-w07-author-w07-5-9 | followed: w07-c8's PI decision (the residual gap named; the pre-commit file is the user's to install) |
+| S-w07-author-w07-5-10 | parked: a git-installed plugin carries the whole tree, and if it did not, the fallback is visible; stated |
+| S-w07-author-w07-6-1 | followed: reproducer-w07-6 reran c2 with A and B apart |
+| S-w07-author-w07-6-2 | parked: a list-price recomputation gap of 3-7% on a headless haiku session; `lab_status.py` reads cost-state where a session has ended; a small check for a later wave (Still open 35) |
+| S-w07-author-w07-6-3 | followed: w07-c7's PI decision (money undetermined) |
+| S-w07-author-w07-6-4 | followed: w07-c7 (withdrawn in the exchange) |
+| S-w07-author-w07-6-5 | parked: the headless author differs from the Desktop's; c3 is scoped to it |
+| S-w07-author-w07-6-6 | parked: one 1-hour write at a cold start; inside c4's estimate |
+| S-w07-explorer-w07-a-1 | parked: separating Falcon, AMFI and syspolicyd needs root or a machine without the endpoint extension; the extension is the user's (and their institution's) |
+| S-w07-explorer-w07-a-2 | followed: w07-c8 (measured at 152-480 ms, paid once per install) |
+| S-w07-explorer-w07-a-3 | followed: w07-c3 and w07-c6 used paired designs |
+| S-w07-explorer-w07-b-1 | followed: explorer-w07-g (accounted for: the classifier and the programs run) |
+| S-w07-explorer-w07-b-2 | followed: explorer-w07-g's four-ways probe; message batching dropped as a lever |
+| S-w07-explorer-w07-b-3 | followed: w07-c7 |
+| S-w07-explorer-w07-b-4 | parked: the worktree-isolation refusal applies to agents started with `isolation: worktree`, which this wave did not use; the agent files' waiting paragraph already forbids a bare `sleep` |
+| S-w07-explorer-w07-b-5 | parked: the lab has no measure of a worker's quality to check a lower effort against |
+| S-w07-explorer-w07-c-1 | parked: the plugin does not use `asyncRewake` |
+| S-w07-explorer-w07-c-2 | parked: `http` hooks not pursued; recorded for open item 31 |
+| S-w07-explorer-w07-c-3 | followed: w07-c3 (and explorer-w07-a: always `/bin/sh -c`) |
+| S-w07-explorer-w07-c-4 | parked: the user's own colgrep-mcp plugin, another repository; in the report as theirs |
+| S-w07-explorer-w07-c-5 | parked: merging the 30 `if` rows would save nothing: an unmatched `if` starts no process, and matched identical rows run once |
+| S-w07-explorer-w07-d-1 | parked: no parallel `lab_status.py` ships; a fact about the hardware, recorded |
+| S-w07-explorer-w07-d-2 | followed: w07-c4 |
+| S-w07-explorer-w07-d-3 | parked: needs active time per agent; open item 21 stays |
+| S-w07-explorer-w07-d-4 | parked: inside the whole-script spread under load |
+| S-w07-explorer-w07-e-1 | followed: w07-c1 (B's body named the root; p2 passed) |
+| S-w07-explorer-w07-e-2 | parked: a tokeniser density fact; no decision turns on it |
+| S-w07-explorer-w07-e-3 | parked: on a main-thread PI the `skills:` line does nothing and costs nothing; left as it is |
+| S-w07-explorer-w07-e-4 | parked: 61 of 72 verifiers and authors spend an early request loading the deferred `SendMessage`; no plugin-side lever found this wave (Still open 34) |
+| S-w07-explorer-w07-e-5 | parked: the listing is all or nothing; `syncClaudeAiSkills` is the user's setting |
+| S-w07-explorer-w07-f-1 | parked: the user's guardrail; their two tests are in the report |
+| S-w07-explorer-w07-f-2 | parked: the user's test 2 settles it |
+| S-w07-explorer-w07-f-3 | followed: w07-c2, w07-c5 |
+| S-w07-explorer-w07-f-4 | parked: `!` commands are the user's own acts (origin human) and are kept; whether they belong in the file is a wording question for the user |
+| S-w07-explorer-w07-g-1 | parked: the classifier is the platform's; nothing in the plugin sets its level |
+| S-w07-explorer-w07-g-2 | parked: under higher load and not resolved at n = 14; the guard is now 16 ms |
+| S-w07-explorer-w07-g-3 | parked: open item 23, the user's |
+| S-w07-explorer-w07-g-4 | followed: w07-c7 |
+| S-w07-reproducer-w07-1-1 | followed: the synthesis quotes the matched range, 10.6-11.0k |
+| S-w07-reproducer-w07-1-2 | parked: a miscount with no effect |
+| S-w07-reproducer-w07-1-3 | followed: the synthesis |
+| S-w07-reproducer-w07-1-4 | followed: the synthesis (request 0 moves with MCP connections) |
+| S-w07-reproducer-w07-1-5 | parked: B does not land |
+| S-w07-reproducer-w07-2-1 | followed: w07-c5 |
+| S-w07-reproducer-w07-2-2 | followed: w07-c5's PI decision |
+| S-w07-reproducer-w07-2-3 | parked: the next typed prompt in the Desktop is the check; named in the synthesis |
+| S-w07-reproducer-w07-2-4 | followed: the synthesis names the three wrong entries |
+| S-w07-reproducer-w07-2-5 | parked: it hangs main's script too, and a transcript path is never a FIFO |
+| S-w07-reproducer-w07-2-6 | parked: not randomised; read as no visible added wait |
+| S-w07-reproducer-w07-3-1 | parked: as S-w07-author-w07-3-2 |
+| S-w07-reproducer-w07-3-2 | followed: README minimum 2.1.295 (5e16a53) |
+| S-w07-reproducer-w07-3-3 | parked: open item 26 |
+| S-w07-reproducer-w07-3-4 | parked: the same sign at both loads |
+| S-w07-reproducer-w07-4-1 | parked: the lab's version-1 cache is replaced by version 2 on main; one cold call |
+| S-w07-reproducer-w07-4-2 | parked: the classifier's refusal, not routed around; o1 on the live tree within a minute's window |
+| S-w07-reproducer-w07-4-3 | parked: UNVERIFIED in the synthesis; fetching the pricing page is a small later check (Still open 35) |
+| S-w07-reproducer-w07-4-4 | parked: the cache's internal shape; the selftest covers it |
+| S-w07-reproducer-w07-5-1 | followed: w07-c8 (hashes and a self-test instead of a byte comparison) |
+| S-w07-reproducer-w07-5-2 | followed: w07-c8 (the pre-commit file runs the fuzz) |
+| S-w07-reproducer-w07-5-3 | followed: w07-c8 (the hash check) |
+| S-w07-reproducer-w07-5-4 | parked: open item 26 |
+| S-w07-reproducer-w07-5-5 | parked: the same sign under higher load |
+| S-w07-reproducer-w07-5-6 | followed: w07-c8's PI decision; the pre-commit and CI files are the user's (Still open 32) |
+| S-w07-reproducer-w07-5-7 | followed: the remedy sentence (5ed6a3d); what a human sees of an exit-0 notice is untested (Still open 33) |
+| S-w07-reproducer-w07-6-1 | parked: a platform fact, in the synthesis |
+| S-w07-reproducer-w07-6-2 | parked: an invalid pair, set aside by its verifier |
+| S-w07-reproducer-w07-6-3 | followed: w07-c7 (wave-4 gaps as lower bounds) |
+| S-w07-reproducer-w07-6-4 | parked: A's 5-minute behaviour across gaps is measured in waves 4-6 |
+| S-w07-reproducer-w07-7-1 | parked: run live in w07-c3 and by reproducer-w07-3; open item 26 |
+| S-w07-reproducer-w07-7-2 | parked: the agent files' waiting paragraph already says it |
+| S-w07-reproducer-w07-7-3 | parked: my brief's count was wrong; seven pass |
+| S-w07-reproducer-w07-7-4 | parked: no entry is the rule's drop; an async hook leaves no decision line, w07-c5's accepted cost |
 
 ## Notes
 
 - The hook wrote this session's task message (from another session) into `user_words.md` as the
-  user's words at 00:22: open item 28, again, in this worktree.
+  user's words at 00:22: open item 28, again, in this worktree. w07-c5 fixes it from now on; the
+  entry stays as the hook wrote it (9ee53bb).
+- **Landed on the local `main` at 3b0448b** (merge --no-ff of this branch; not pushed): w07-c3,
+  w07-c5, w07-c4 (c473203), w07-c7, w07-c6 with w07-c8, the README minimum, the `budget.py`
+  selftest fix. Before the merge I installed the guard binary into this session's plugin data
+  folder (`~/.claude/plugins/data/murmuration-murmuration-local/`), so that a reload of the hooks in
+  a running session would not find it missing. After it, a headless session from main's own tree
+  ran the installer and the binary decided a Bash call in 30 ms.
+- **Spend at close (02:41):** this checkout USD 36.78 at list price against 0.98 at opening, so
+  35.80 for this wave, a lower bound because the session is open; headless under
+  `/private/tmp/murmuration-w07/` 2.48, exact. So **at least USD 38.28 of the at least 47**
+  [source: `scripts/lab_status.py --spend` and `--project /private/tmp/murmuration-w07 --spend`].
+- Models: every worker ran on its agent file's default (Sonnet); headless cells on haiku.
+- Report: `__reports__/wave-07/research-pi/00-wave07_report_v0.md`; figure
+  `__reports__/wave-07/research-pi/lab_cost_map.html`; synthesis section "Wave 7".
+- Agent worktrees of this wave sit under `/private/tmp/murmuration-w07/author-w07-*/wt` on the
+  branches `w07-p1-skill` to `w07-p6-cachettl`; all are merged or recorded, and can be removed.
 
-closed: YYYY-MM-DD
+closed: 2026-10-22
