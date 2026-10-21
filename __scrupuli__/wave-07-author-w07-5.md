@@ -25,3 +25,15 @@ refs: `__instrumenta__/w07c6_make_exports.py` (A rows), `__reports__/wave-07/exp
 ## S-w07-author-w07-5-7
 g4 shows a recorded hook duration, which is the spawn path plus the guard's own work, not a wall saving for the user in auto mode. explorer-w07-g found the PreToolUse hook hidden behind the classifier there (642 against 631 ms to dispatch). I ran g4 in default mode with an allow list, so the classifier is absent; the saving I show for the call's wall is therefore the default-mode one, and for auto mode only CPU (g3) is shown. The first number the PI will want, the energy at 1,788 starts a wave, is a multiplication I did not do (about 16 ms of CPU a start).
 refs: `__reports__/wave-07/author-w07-5/g3_table.md`, `__reports__/wave-07/explorer-w07-g/00-findings_v0.md`
+
+## S-w07-author-w07-5-8
+The installer's cold path costs 853 ms (median of 10, min 807, max 887; one cold run took 1,042 ms; 3,340 ms once under Rosetta with the system Python 3.9) against 38 ms warm and 22 ms for an empty `python3 -S -I`. The cold path is the copy, one first exec of a new file (150 to 480 ms, S-w07-author-w07-5-2) and 12 payloads run twice (the binary and the Python guard). It is paid once per data folder and plugin version, and the SessionStart row's timeout is 10 s, so it fits; but it is 25 times the v0 installer's copy, and h3 ran at load 6.6 (other agents). Not tried: storing the expected outputs in the manifest, which would drop the 12 Python runs (about 0.5 s) at the price of a second thing that can go stale.
+refs: `__reports__/wave-07/author-w07-5/v1/h3.md`
+
+## S-w07-author-w07-5-9
+What the manifest ties, and what it does not. It records that these binaries, this `permission_guard.py` and these Rust sources were together when `build_manifest.py` ran; it does not show that the binary was built from those sources (the builder writes the hashes of whatever is in the tree). The only behavioural tie is the self-test, 12 payloads. A binary that is right on those and wrong elsewhere installs. A reproducible build would close it, and bytes are not reproducible here (LC_UUID follows the output path). Also h1's last column ("decisions equal") is nearly tautological after a fallback, since the launcher is the Python guard; the evidence that carries h1 is the launcher, the notice and the named cause, and h4's live `permission_guard-EDITED` text.
+refs: `__reports__/wave-07/author-w07-5/v1/h1_h2.md`, `__reports__/wave-07/author-w07-5/v1/h4_live.md`
+
+## S-w07-author-w07-5-10
+Hashing `rust/` at every session start needs `rust/` in the installed copy of the plugin. In the `--plugin-dir` exports it is there (I archived it). If a marketplace install left it out, the installer would say "the Rust sources cannot be hashed" and install the launcher: safe and visible, but the saving is lost. Open gap 3 (the installed-plugin path) is therefore still open and is the landing step's smoke run; I did not run an installed copy.
+refs: `scripts/install_binary.py` (`doubt`)
