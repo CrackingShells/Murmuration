@@ -332,6 +332,24 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
   - Protocol note: author-w07-2 added a note to the claim head during verification (open item 5,
     again); it states costs and changes no number.
 
+- 04:15, after reproducer-w07-3 (w07-c3 SUPPORTED) and reproducer-w07-4 (w07-c4 SUPPORTED at
+  c473203):
+  - **Merged into this branch:** `w07-p2-origin` (2500241), `w07-p4b-usage` at c473203 (ad2440a),
+    `w07-p3-exec` (5e16a53). The one conflict, the `user_words` row, takes both: exec form and
+    `async`. The README's minimum goes from 2.1.271 to 2.1.295, which `onFailure: "block"` needs and
+    the guard has relied on since wave 6. The records of w07-c1 and w07-c4's dropped change come
+    from their branches without their plugin edits (a656a69).
+  - **The merge broke one selftest, and a hook did not:** `budget.py`'s selftest matched the hook
+    row's command string, which exec form no longer has. No author or verifier ran it on the
+    combined tree, because each branch was tested alone. Fixed (3c00fc6); all six scripts'
+    selftests pass on the merged tree. The combined smoke run comes after P5 and P6.
+  - reproducer-w07-3 reproduced exec form: the live graded note reached the worker in both arms,
+    the guard 6 of 6 pairs lower (median 81.5 ms), budget 6 of 6 (57.2 ms), session wall unchanged.
+    A missing `python3` blocks in both arms, but B names the cause on the first call only.
+  - reproducer-w07-4: 21 usage shapes priced as intended at c473203; 1bc47d0 crashed `--spend` on
+    an infinite search count. Dropped change 1 saves 0.04–0.05 s a call (9 of 10 pairs). The
+    fast-mode factor and search price are the script's own, UNVERIFIED against a fetched page.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -346,11 +364,11 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | reproducer-w07-1 | reproducer | verify w07-c1 offline, for the numbers the synthesis quotes | d72b8d3: OVERSTATED (matched range 10.6–11.0k) |
 | explorer-w07-g | explorer | split the classifier-decided Bash call's 1.5 s; four ways of the same reads; subagent cache lifetime | 3292ed5: classifier 628 ms, hooks hidden behind it; `cacheTtl` frontmatter |
 | author-w07-3 | author | w07-c3: P3, every hook row in exec form | 2e043b7: x1, x4 pass (10/10, ~71–77 ms a start); x2, x3 mostly; wall unresolved |
-| reproducer-w07-3 | reproducer | verify w07-c3, with the missing live note and failure cases | |
+| reproducer-w07-3 | reproducer | verify w07-c3, with the missing live note and failure cases | 9658909: SUPPORTED |
 | author-w07-4 | author | w07-c4: P4, `lab_status.py` without the git child, usage fields priced | 627fb4d: o1–o4 pass, 0.051 s a call; change 1 dropped by PI decision; change 2 split for landing |
 | author-w07-5 | author | w07-c6: P5, the permission guard as a Rust binary in exec form | |
 | author-w07-6 | author | w07-c7: P6, a 1-hour cache for authors | 6041f28: c1–c3 pass; c4 +USD 0.87 of 47.80, fragile |
-| reproducer-w07-4 | reproducer | verify w07-c4's landing build (change 2) | |
+| reproducer-w07-4 | reproducer | verify w07-c4's landing build (change 2) | ffd1f6b: SUPPORTED at c473203 |
 | reproducer-w07-6 | reproducer | verify w07-c7, c2 rerun apart | |
 | reproducer-w07-2 | reproducer | verify w07-c2 and w07-c5, with the missing controls | SUPPORTED both; async crash silent; v1 lands |
 | author-w07-2 | author | w07-c2: P2, `user_words.py` keeps only typed prompts | e84afec (branch w07-p2-origin): q1 passes, q2 fails (record written after the hook); resumed for v1 as w07-c5; 7fbee58: v1 r1, r2, r4 pass; r3 and crash controls missing |
