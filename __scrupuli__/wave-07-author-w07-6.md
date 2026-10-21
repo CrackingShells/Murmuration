@@ -10,7 +10,7 @@ The CLI's `total_cost_usd` is 3-7% above the cost I recompute from every dedupli
 refs: `__reports__/wave-07/author-w07-6/prices_check.md`
 
 ## S-w07-author-w07-6-3
-The break-even depends on one ratio, tokens re-written after 300-3600 s over all write tokens, and the wave records sit at 0.414 against a threshold of 0.385. Two authors of the same wave (w07-1..4 against w06-5) differ by an order of magnitude in how many such re-writes they have; I cannot say from the transcripts which author behaviours (verifier exchanges, long Bash waits, resumes) produce them, nor whether the wave-7 authors' zero is a change of behaviour (the "wait at most 4.5 minutes" rule in the agent file, added after wave 4?) or chance. If the rule works, the gap bin that 1h saves is shrinking, which makes the net smaller than the replay says.
+The break-even depends on one ratio, tokens re-written after 300-3600 s over all write tokens, and the wave records sit at 0.414 against a threshold of 0.385. The six wave-7 authors have none of these re-writes, and eight authors of waves 4-6 have 14 (author-w06-5 has two, 0.70M tokens); I cannot say from the transcripts which author behaviours (verifier exchanges, long Bash waits, resumes) produce them, nor whether the wave-7 authors' zero is a change of behaviour (the 4.5-minute waiting rule in the agent file; I did not check when it was added) or chance. If the rule works, the gap bin that 1h saves is shrinking, which makes the net smaller than the replay says.
 refs: `__reports__/wave-07/author-w07-6/c4_break_even.md`
 
 ## S-w07-author-w07-6-4
