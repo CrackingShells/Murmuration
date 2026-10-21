@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/budget.py\"",
+            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/budget.py\"",
             "timeout": 10
           }
         ]
@@ -40,7 +40,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/budget.py\"",
+            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/budget.py\"",
             "timeout": 10
           }
         ]
@@ -50,7 +50,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/handback.py\"",
+            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/handback.py\"",
             "timeout": 10
           }
         ]
@@ -61,7 +61,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/budget.py\"",
+            "command": "p=; while IFS= read -r l || [ -n \"$l\" ]; do p=$p$l; done; case $p in *'\"agent_id\"'*) printf '%s\\n' \"$p\" | python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/budget.py\";; esac",
             "timeout": 10
           }
         ]
@@ -71,7 +71,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/handback.py\"",
+            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/handback.py\"",
             "timeout": 10
           }
         ]
@@ -82,12 +82,12 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/handback.py\"",
+            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/handback.py\"",
             "timeout": 10
           },
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/budget.py\"",
+            "command": "python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/budget.py\"",
             "timeout": 10
           }
         ]
@@ -98,7 +98,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/budget.py\"",
+            "command": "p=; while IFS= read -r l || [ -n \"$l\" ]; do p=$p$l; done; case $p in *'\"agent_id\"'*) printf '%s\\n' \"$p\" | python3 -S -I \"${CLAUDE_PLUGIN_ROOT}/scripts/budget.py\";; esac",
             "timeout": 10
           }
         ]
