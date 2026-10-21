@@ -165,7 +165,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     (plugin-shipped settings, `disallowedTools` rule syntax, `disableBypassPermissionsMode` and
     whether a child `claude -p` can skip it, hook matchers). An experiment follows its answer.
 
-- HH:MM (this commit), after author-w06-5 returned (w06-c7, E3 v0):
+- 20:25 (62c2cdd), after author-w06-5 returned (w06-c7, E3 v0):
   - **The v0 guard does not land, by its rule.** g1 is 42 of 50: `CLAUDE_CONFIG_DIR=` forms and
     redirect writes to settings files pass through. The spawn part of g2 fails: a command with an
     unresolved `$` matches every `if` row, which meant 19 serial guard processes, and under load one
