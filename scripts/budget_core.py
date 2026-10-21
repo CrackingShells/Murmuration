@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """The code of budget.py (see its docstring for what the hook does). Kept in a module, apart from the entry script, so that Python caches its bytecode: the entry is
 compiled at every call, the module only when it changes (w04-c5)."""
+import json
 import os
 import sys
 import time
@@ -11,8 +12,6 @@ try:
 except ImportError:   # no file lock on this platform: the request count still keeps parallel calls to one block in practice
     fcntl = None
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, HERE)   # under `python3 -I` the script's folder is not on the path
 import handback_core as handback  # noqa: E402  (a sibling module: one place that finds the lab, the agent's name, and writes the log)
 
 DEFAULT = {"explorer": 3.0, "author": 3.0, "reproducer": 2.0, "proof-adversary": 2.0}
@@ -77,7 +76,7 @@ def usd_of(model, req):
 
 def block_text(block):
     """What a content block adds to the output: its text or thinking, or the JSON of a tool call's input."""
-    return handback.dumps(block["input"], sort_keys=True) if "input" in block else str(block.get("text") or block.get("thinking") or "")
+    return json.dumps(block["input"], sort_keys=True) if "input" in block else str(block.get("text") or block.get("thinking") or "")
 
 
 def block_id(text):
@@ -152,13 +151,13 @@ def _scan(path, carry):
     bf, ob, raises = c["bf"], c["ob"], c["raises"]
     for raw in data[:end].split(b"\n"):
         if not bf and b'"user"' in raw:
-            rec = handback.loads(raw.decode("utf-8", "replace"))
+            rec = json.loads(raw.decode("utf-8", "replace"))
             if rec.get("type") == "user":
                 bf = True
                 if carry is None:
                     brief = plain_text((rec.get("message") or {}).get("content")) or ""
         elif b'"origin"' in raw:
-            rec = handback.loads(raw.decode("utf-8", "replace"))
+            rec = json.loads(raw.decode("utf-8", "replace"))
             att = rec.get("attachment") or {}
             if rec.get("type") == "user":   # a worker resumed by a message: the message is a user record
                 text, origin = plain_text((rec.get("message") or {}).get("content")), rec.get("origin")
@@ -176,7 +175,7 @@ def _scan(path, carry):
                                        ts=epoch(rec.get("timestamp")), n=len(c["keys"]) + len(ob)))
         if b'"usage"' not in raw:
             continue
-        rec = handback.loads(raw.decode("utf-8", "replace"))
+        rec = json.loads(raw.decode("utf-8", "replace"))
         msg, use = rec.get("message") or {}, (rec.get("message") or {}).get("usage")
         if rec.get("type") != "assistant" or not isinstance(use, dict):
             continue
@@ -318,7 +317,7 @@ class locked:
 def load_state(root, aid):
     try:
         with open(state_path(root, aid)) as fh:
-            return handback.loads(fh.read())
+            return json.loads(fh.read())
     except (OSError, ValueError):
         return None
 
@@ -326,7 +325,7 @@ def load_state(root, aid):
 def save_state(root, aid, st):
     tmp = state_path(root, aid) + ".%d.tmp" % os.getpid()
     with open(tmp, "w") as fh:
-        fh.write(handback.dumps(st))
+        fh.write(json.dumps(st))
     os.replace(tmp, state_path(root, aid))
 
 
@@ -394,7 +393,7 @@ def dispatch(event, root, now):
     os.makedirs(pending_dir(root), exist_ok=True)
     key = "%014.3f-%s" % (now, re.sub(r"[^A-Za-z0-9_-]", "", str(event.get("tool_use_id") or os.getpid())))
     with open(os.path.join(pending_dir(root), key + ".json"), "w") as fh:
-        fh.write(handback.dumps(dict(type=kind, B=B, T=T, b_set=b_set, t_set=t_set, t=now, name=name)))
+        fh.write(json.dumps(dict(type=kind, B=B, T=T, b_set=b_set, t_set=t_set, t=now, name=name)))
     warn_floor(root, dict(name=name, type=kind), B if b_set else None, T if t_set else None)
     return None
 
@@ -415,7 +414,7 @@ def claim_pending(root, kind, now):
         names = []
     for path in (os.path.join(pending_dir(root), n) for n in names):
         try:
-            rec = handback.loads(open(path, "rb").read())
+            rec = json.loads(open(path, "rb").read())
         except (OSError, ValueError):
             continue
         if now - rec.get("t", 0) > PENDING_TTL:
@@ -436,7 +435,7 @@ def claim_pending(root, kind, now):
             for p, r in rest:
                 try:
                     with open(p, "w") as fh:
-                        fh.write(handback.dumps(dict(r, ambiguous=True)))
+                        fh.write(json.dumps(dict(r, ambiguous=True)))
                 except OSError:
                     pass
         return rec, mixed
@@ -481,7 +480,7 @@ def handle_locked(event, root, role, aid, kind, now):
                 if not mixed:
                     B, T = rec["B"], rec["T"]
             st = dict(role=role, B=B, T=T, base=seen["usd"] if seen else 0.0, base_recorded=seen["usd_recorded"] if seen else 0.0,
-                      acc=0.0, run_start=now, run_open=True, last_seen=now, k=0, raises_done=len(seen["raises"]) if seen else 0, stops=0, ceil_req=-1,
+                      acc=0.0, run_start=now, run_open=True, last_seen=now, k=0, raises_done=len(seen["raises"]) if seen else 0, stops=0, sent=-1,
                       brief_read=bool(seen), warned=bool(rec) or bool(seen), sc=carry)
             save_state(root, aid, st)
             if rec and rec.get("name"):
@@ -497,7 +496,7 @@ def handle_locked(event, root, role, aid, kind, now):
     if not seen:
         return None
     if st is None:   # no SubagentStart seen (hook added mid-run): start counting from the transcript's beginning
-        st = dict(role=role, B=0.0, T=0.0, base=0.0, base_recorded=0.0, acc=0.0, run_start=now, run_open=True, last_seen=now, k=0, raises_done=0, stops=0, ceil_req=-1,
+        st = dict(role=role, B=0.0, T=0.0, base=0.0, base_recorded=0.0, acc=0.0, run_start=now, run_open=True, last_seen=now, k=0, raises_done=0, stops=0, sent=-1,
                   brief_read=False, warned=False)
     st["sc"] = carry
     if not st["warned"]:   # the brief's own figures, when no dispatch record was seen
@@ -525,43 +524,32 @@ def handle_locked(event, root, role, aid, kind, now):
         fields["active_s"] = round(st["acc"], 1)
         handback.log_line(root, dict(base_log_(), event="end", k=st["k"], stops=st["stops"], **fields))
         return None
-    if kind == "PostToolBatch":
-        calls = [c.get("tool_name") for c in event.get("tool_calls") or [] if isinstance(c, dict)]
-        if "SubagentHandback" in calls:
+    if kind == "PostToolUse" and event.get("tool_name") != "SubagentHandback" and st["sent"] != seen["requests"]:   # one message per request, whatever the number of parallel calls
+        if frac >= HARD_AT:   # the ceiling: a block the worker can answer with its hand-back (a block on PostToolBatch ends the run, so there is no such registration)
+            st["sent"] = seen["requests"]
+            halt = st["stops"] >= HALT_AFTER
+            st["stops"] += 1
             save_state(root, aid, st)
-            return None
-        if frac >= HARD_AT and st["ceil_req"] == seen["requests"]:   # the PostToolUse of this batch has just sent the block: one message per check
-            save_state(root, aid, st)
-            return None
+            handback.log_line(root, dict(base_log_(), event="halt" if halt else "stop", n=st["stops"], **fields))
+            if halt:
+                return {"continue": False, "stopReason": halt_text(used, st["B"], mins, st["T"])}
+            return {"decision": "block", "reason": stop_text(used, st["B"], mins, st["T"])}
         n = due(frac)
-        if frac < OVER_AT and n <= st["k"]:
+        if frac >= OVER_AT or n > st["k"]:   # the next threshold of the schedule, once however many were skipped; and at every check from 1.0
+            st.update(k=n, sent=seen["requests"])
             save_state(root, aid, st)
-            return None
-        st["k"] = n
-        save_state(root, aid, st)
-        handback.log_line(root, dict(base_log_(), event="note", over=frac >= OVER_AT, **fields))
-        return reply(kind, additionalContext=note_text(used, st["B"], mins, st["T"], frac))
-    if kind == "PostToolUse" and event.get("tool_name") != "SubagentHandback" and frac >= HARD_AT and st["ceil_req"] != seen["requests"]:
-        st["ceil_req"] = seen["requests"]   # one block per batch, whatever the number of parallel calls
-        halt = st["stops"] >= HALT_AFTER
-        st["stops"] += 1
-        save_state(root, aid, st)
-        handback.log_line(root, dict(base_log_(), event="halt" if halt else "stop", n=st["stops"], **fields))
-        if halt:
-            return {"continue": False, "stopReason": halt_text(used, st["B"], mins, st["T"])}
-        return {"decision": "block", "reason": stop_text(used, st["B"], mins, st["T"])}
+            handback.log_line(root, dict(base_log_(), event="note", over=frac >= OVER_AT, **fields))
+            return reply(kind, additionalContext=note_text(used, st["B"], mins, st["T"], frac))
     save_state(root, aid, st)
     return None
 
 
-
-
 def main():
     try:
-        event = handback.loads(sys.stdin.buffer.read() or b"{}")   # bytes: the locale decides nothing
+        event = json.loads(sys.stdin.buffer.read() or b"{}")   # bytes: the locale decides nothing
         answer = handle(event) if isinstance(event, dict) else None
         if answer:
-            print(handback.dumps(answer))
+            print(json.dumps(answer))
     except Exception:
         pass
     return 0

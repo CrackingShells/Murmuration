@@ -34,15 +34,13 @@ Usage:
     handback.py              read a hook event from stdin
     handback.py --selftest   check the script on a temporary project (the checks are in handback_selftest.py)
 
-Lean (w04-c5): the code is in `handback_core.py` (cached bytecode, see budget.py); the module imports only `os` and `sys`; `json`, `re`, `hashlib` and `datetime` are imported by the paths that need them (`loads` and `dumps` read and write JSON without importing `json`). The report check looks
+Lean (w04-c5, w05-c4): the code is in `handback_core.py` (Python caches its bytecode where it may); `re`, `hashlib` and `datetime` are imported by the paths that need them. The report check looks
 first for the deny marker (a second hand-back is never searched for), then in the convention's own folder (`__reports__/wave-NN/<name>/`), and walks all of
 `__reports__/` only when both fail.
 """
-import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))   # under `python3 -I` the script's folder is not on the path
-import handback_core  # noqa: E402
+import handback_core
 
 if __name__ == "__main__":
     sys.exit(handback_core.run(sys.argv[1:]))

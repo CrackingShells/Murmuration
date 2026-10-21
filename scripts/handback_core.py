@@ -1,84 +1,8 @@
 #!/usr/bin/env python3
-"""The code of handback.py (see its docstring for what the hook does), in a module so that Python caches its bytecode (w04-c5)."""
+"""The code of handback.py (see its docstring for what the hook does), in a module so that Python can cache its bytecode where it is allowed to (w04-c5, w05-c4)."""
+import json
 import os
 import sys
-
-_SCANNER = []
-
-
-def loads(data):
-    """json.loads for the hooks' own reads (the payload, a transcript line, a state file): the C scanner `json` itself uses, without importing `json`,
-    whose import (json.decoder imports `re`, `enum`, `functools`) costs about 6 ms of CPU. Falls back to `json` where `_json` is missing."""
-    if not _SCANNER:
-        try:
-            from _json import make_scanner
-
-            class ctx:
-                strict, object_hook, object_pairs_hook, parse_float, parse_int = True, None, None, float, int
-                parse_constant = {"-Infinity": float("-inf"), "Infinity": float("inf"), "NaN": float("nan")}.__getitem__
-            _SCANNER.append(make_scanner(ctx))
-        except ImportError:
-            _SCANNER.append(None)
-    scan = _SCANNER[0]
-    if scan is None:
-        import json
-        return json.loads(data)
-    text = data.decode("utf-8") if isinstance(data, (bytes, bytearray)) else data
-    start = len(text) - len(text.lstrip(" \t\n\r"))
-    try:
-        obj, end = scan(text, start)
-    except StopIteration:
-        raise ValueError("no JSON value at %d" % start)
-    if text[end:].strip(" \t\n\r"):
-        raise ValueError("extra data after the JSON value")
-    return obj
-
-
-def dumps(obj, sort_keys=False):
-    """The JSON text json.dumps(obj, sort_keys=sort_keys) gives, for what json.loads yields (dict with str keys, list, str, int, float, bool, None), without importing `json`."""
-    try:
-        from _json import encode_basestring_ascii as quote
-    except ImportError:
-        import json
-        return json.dumps(obj, sort_keys=sort_keys)
-    out = []
-
-    def put(o):
-        if o is None:
-            out.append("null")
-        elif o is True:
-            out.append("true")
-        elif o is False:
-            out.append("false")
-        elif isinstance(o, str):
-            out.append(quote(o))
-        elif isinstance(o, int):
-            out.append(int.__repr__(o))
-        elif isinstance(o, float):
-            out.append("NaN" if o != o else ("Infinity" if o == float("inf") else ("-Infinity" if o == float("-inf") else float.__repr__(o))))
-        elif isinstance(o, (list, tuple)):
-            out.append("[")
-            for i, x in enumerate(o):
-                if i:
-                    out.append(", ")
-                put(x)
-            out.append("]")
-        elif isinstance(o, dict):
-            out.append("{")
-            for i, k in enumerate(sorted(o) if sort_keys else o):
-                if i:
-                    out.append(", ")
-                if not isinstance(k, str):
-                    raise TypeError("a key that is not a string: %r" % (k,))
-                out.append(quote(k))
-                out.append(": ")
-                put(o[k])
-            out.append("}")
-        else:
-            raise TypeError("not JSON: %r" % (o,))
-    put(obj)
-    return "".join(out)
-
 
 STORE, FOLDER = "__statera__", "handbacks"
 # `re`, `hashlib` and `datetime` are imported where a path needs them: a check that does nothing must not pay for them (w04-c5)
@@ -135,7 +59,7 @@ def agent_name(event):
     stem = event.get("agent_transcript_path")
     if not stem and event.get("transcript_path"):
         stem = os.path.join(event["transcript_path"][:-6], "subagents", "agent-%s.jsonl" % aid)
-    for read in (lambda: loads(open(stem[:-6] + ".meta.json", "rb").read()).get("name"),
+    for read in (lambda: json.loads(open(stem[:-6] + ".meta.json", "rb").read()).get("name"),
                  lambda: re.search(r"Your name is ([a-z0-9-]+)", open(stem).read(20000)).group(1)):
         try:
             name = read()
@@ -199,7 +123,6 @@ def handle(event, now=None):
 def log_line(root, record):
     """Append one JSON line to the lab's harness log, in one write so parallel agents never interleave."""
     import datetime
-    import json
     record = dict(record, t=datetime.datetime.now().astimezone().isoformat(timespec="milliseconds"))
     fd = os.open(os.path.join(root, STORE, LOG), os.O_WRONLY | os.O_APPEND | os.O_CREAT)
     try:
@@ -261,7 +184,7 @@ def gate(event):
 
 def main():
     try:
-        event = loads(sys.stdin.buffer.read() or b"{}")   # bytes: the locale decides nothing
+        event = json.loads(sys.stdin.buffer.read() or b"{}")   # bytes: the locale decides nothing
         if isinstance(event, dict):
             answer = None
             try:
@@ -271,7 +194,6 @@ def main():
             if event.get("hook_event_name") != "PreToolUse":
                 handle(event)
             if answer:
-                import json
                 print(json.dumps(answer))
     except Exception:
         pass

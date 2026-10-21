@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Give each Murmuration worker a budget in USD and in minutes and send it plain notes that get denser towards the limit and go on past it.
 
-Runs as a hook on SubagentStart, PreToolUse(Agent), PostToolBatch, PostToolUse and SubagentStop. It reads the hook JSON from
+Runs as a hook on SubagentStart, PreToolUse(Agent), PostToolUse and SubagentStop. It reads the hook JSON from
 stdin. It does nothing outside an initialized lab (a folder with `__statera__/`), for the main thread (except the dispatch
 record below), and for any agent whose type is not `murmuration:<role>`.
 
@@ -13,18 +13,17 @@ record below), and for any agent whose type is not `murmuration:<role>`.
   PreToolUse     On the `Agent` tool (the PI dispatching a worker): the brief's `Budget:` and `Time:` lines are put in a short-lived
   (Agent)        file, because the transcript of a new worker does not exist yet at SubagentStart; the start note reads the file. A
                  figure below the floor (USD 0.30, 3 minutes) is logged as a `warn` line and left as it is.
-  PostToolBatch  The check. It fires once per batch of tool calls, after all have returned and before the next model request
-                 (measured, w03-c1: 109 of 109 batches in 15 headless runs, foreground and background, single and parallel calls,
-                 failed and denied calls included; PostToolUse does not fire for a failed or a denied call and fires once per call). It sends
-                 at most one `additionalContext` note with the current figures: when the larger fraction has passed the next of
-                 0.5, 0.75, 0.875, 0.9375 (one note however many thresholds were skipped), and at every check from 1.0.
-                 Below 1.0 the note is the line `Spent X of USD Y (Z%); t of T min (W%)` and nothing else; from 1.0 the line is
-                 followed by one sentence (finish, or hand back and ask). A batch that holds the hand-back call gets no note.
-  PostToolUse    The hard ceiling only. From 1.5 of the larger fraction: `decision: block` with the line and "hand back now" (the
-                 agent can still call the hand-back tool, which is never blocked), once per batch (the lock and the request count
-                 make parallel calls send one). `decision: block` on PostToolBatch is not used for this: measured, it ends the
-                 worker like `continue: false` (the run stops, no hand-back, no SubagentStop). After HALT_AFTER earlier blocks,
-                 `continue: false`: the backstop; measured earlier (w02-c3) to lose the hand-back, so a backstop and not the stop.
+  PostToolUse    The check, once per request however many tool calls the request made (a counter in the state: parallel calls run
+                 parallel hook processes). It sends one message: below 1.5 of the larger fraction, an `additionalContext` note with the
+                 current figures when the fraction has passed the next of 0.5, 0.75, 0.875, 0.9375 (one note however many thresholds were
+                 skipped) and at every check from 1.0: below 1.0 the line `Spent X of USD Y (Z%); t of T min (W%)` and nothing else, from
+                 1.0 the line followed by one sentence (finish, or hand back and ask). From 1.5: `decision: block` with the line and "hand
+                 back now" (the agent can still call the hand-back tool, which is never blocked). The hand-back call itself gets nothing.
+                 After HALT_AFTER earlier blocks, `continue: false`: the backstop; measured earlier (w02-c3) to lose the hand-back, so a
+                 backstop and not the stop. There is no PostToolBatch registration (w05-c4): `decision: block` on PostToolBatch ends the worker like
+                 `continue: false` (measured: the run stops, no hand-back, no SubagentStop), so the ceiling cannot sit there, and one start per
+                 tool call instead of two is the saving. PostToolUse does not fire for a failed or a denied call (measured, w03-c1: 13 of 172
+                 calls), so a request whose calls all failed is checked at the next call that succeeds.
   SubagentStop   one `end` line in the log, and the run's active time is closed.
 
 The fractions. USD / B and active minutes / T. Active minutes are the minutes between SubagentStart and SubagentStop of each run, summed:
@@ -52,11 +51,11 @@ State per agent: `__statera__/.harness/<agent_id>.json` (git-ignored by a `.giti
 replaced atomically. Log, one JSON line per `start`, `warn`, `raise`, `note`, `stop`, `halt`, `end` and `deny` (the deny is written by
 `handback.py`): `__statera__/harness.jsonl`. `frac` is USD / B, `t_frac` is minutes / T, `which` names the budget that decided.
 
-Lean (w04-c5). A hook process is started on every tool call of every agent, so its cost is paid thousands of times: (1) `hooks/hooks.json` starts it for
-PostToolUse and PostToolBatch through a POSIX sh test that runs Python only when the payload has an `"agent_id"` key (the main thread has none and the script
-acts for no one there), and starts Python with `-S -I` (no site, no environment variables); the code is in `budget_core.py`, so that Python keeps its bytecode in
-`scripts/__pycache__` (`-I` ignores PYTHONDONTWRITEBYTECODE; where the folder cannot be written the module is compiled at each call, as before); (2) the module imports only `os`, `sys`, `time`, `zlib`,
-`fcntl` and the small sibling `handback`, which reads and writes JSON without importing `json`; `re`, `datetime` and `json` are imported when a path needs them; (3) the transcript is read from the byte offset where the last
+Lean (w04-c5, w05-c4). A hook process is started on every tool call of every agent, so its cost is paid thousands of times: (1) `hooks/hooks.json` starts it for
+PostToolUse through a POSIX sh test that runs Python only when the payload has an `"agent_id"` key (the main thread has none and the script acts for no one there);
+the gate reads its input in one block (`$(</dev/stdin)`, where the shell has it, else byte by byte); Python starts as `python3 -S` (no `site`; the environment is
+respected, so PYTHONDONTWRITEBYTECODE stops bytecode being written into the plugin folder, and the code is then compiled at each call); (2) the imports are `json`,
+`os`, `sys`, `time`, `zlib`, `fcntl` and the sibling `handback_core`; `re`, `datetime`, `hashlib` load when a path needs them; (3) the transcript is read from the byte offset where the last
 check stopped (`sc` in the state file: the offset, the last bytes before it as a guard, the cost of every finished request, and the last CARRY_OPEN requests in full);
 the result equals a read from the start (selftest 2b) and a read from the start is made whenever the guard fails, the file shrank, or a record names a finished
 request; (4) the selftest is in `budget_selftest.py`, which is not imported at a call. The file's last line, if it is not yet ended by a newline, waits for the
@@ -69,11 +68,9 @@ Usage:
     budget.py              read a hook event from stdin
     budget.py --selftest   check the script on a temporary project (the checks are in budget_selftest.py)
 """
-import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))   # under `python3 -I` the script's folder is not on the path
-import budget_core  # noqa: E402
+import budget_core
 
 if __name__ == "__main__":
     sys.exit(budget_core.run(sys.argv[1:]))

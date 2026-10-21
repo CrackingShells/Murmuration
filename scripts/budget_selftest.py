@@ -267,8 +267,8 @@ def selftest():
         assert open(os.path.join(tmp, "__statera__", ".harness", ".gitignore")).read() == "*\n"
         assert [x["event"] for x in logged(tmp)] == ["start"] and logged(tmp)[0]["name"] == "reproducer-w09-1" and logged(tmp)[0]["B"] == 1.0 and logged(tmp)[0]["T"] == 100.0 and logged(tmp)[0]["source"] == "brief"
         # the schedule: B = 1.00. 0.49 quiet; 0.50 one note, only the line; again quiet; a jump to 0.80 sends one note, with the figures of now
-        post = dict(hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash", tool_use_id="t")], **ev)
         use = dict(hook_event_name="PostToolUse", tool_name="Bash", **ev)
+        post = use   # the one check (there is no PostToolBatch registration)
         cum = []
 
         def spend(rid, usd):   # one more request of this price
@@ -279,7 +279,7 @@ def selftest():
         assert fire(tmp, **post) is None and fire(tmp, **use) is None
         spend("r2", 0.0105)
         answer = fire(tmp, **post)
-        assert answer["hookSpecificOutput"]["hookEventName"] == "PostToolBatch", answer
+        assert answer["hookSpecificOutput"]["hookEventName"] == "PostToolUse", answer
         got = ctx(answer)
         assert re.fullmatch(r"Spent 0\.50 of USD 1\.00 \(50%\); 0\.\d of 100 min \(0%\)", got), got
         spend("r3", 0.02)
@@ -302,12 +302,13 @@ def selftest():
         assert re.fullmatch(r"Spent 1\.01 of USD 1\.00 \(101%\); 0\.\d of 100 min \(0%\)\. " + re.escape(OVER_SENTENCE), over), over
         spend("r11", 0.01)
         assert ctx(fire(tmp, **post)).endswith(OVER_SENTENCE), "from 1.0 every check sends a note"
-        assert fire(tmp, **dict(post, tool_calls=[dict(tool_name="SubagentHandback")])) is None, "a batch that holds the hand-back gets no note"
-        assert fire(tmp, **use) is None, "PostToolUse sends nothing below the ceiling"
-        assert fire(tmp, hook_event_name="PostToolBatch", **dict(ev, agent_id="a9")) is None, "unknown agent: no transcript, no action"
+        assert fire(tmp, **dict(use, tool_name="SubagentHandback")) is None, "the hand-back call gets no note"
+        assert fire(tmp, **use) is None, "one message per request: a second call on the same request (parallel calls) is quiet"
+        assert fire(tmp, hook_event_name="PostToolUse", **dict(ev, agent_id="a9")) is None, "unknown agent: no transcript, no action"
+        assert fire(tmp, **dict(post, hook_event_name="PostToolBatch")) is None, "a PostToolBatch event is not a check"
         notes = [x for x in logged(tmp) if x["event"] == "note"]
         assert [x["over"] for x in notes] == [False] * 4 + [True] * 2 and [round(x["frac"], 2) for x in notes] == [0.5, 0.8, 0.88, 0.94, 1.01, 1.02], notes
-        # the ceiling: PostToolUse blocks from 1.5; parallel calls (concurrent hook processes) send one block; the batch's PostToolBatch is then quiet
+        # the ceiling: PostToolUse blocks from 1.5; parallel calls (concurrent hook processes) send one block
         spend("r12", 0.49)
         outs = []
         threads = [threading.Thread(target=lambda: outs.append(fire(tmp, **dict(use, tool_use_id="p%d" % i)))) for i in range(4)]
@@ -320,8 +321,7 @@ def selftest():
         spend("r12b", 0.001)
         assert fire(tmp, **dict(use, tool_name="SubagentHandback")) is None, "the hand-back call is never blocked, on a request no block has covered yet"
         spend("r13", 0.01)
-        assert ctx(fire(tmp, **post)).endswith(OVER_SENTENCE), "a later batch gets its note again"
-        assert fire(tmp, **use)["decision"] == "block", "and its block"
+        assert fire(tmp, **use)["decision"] == "block", "a later request gets its block again"
         spend("r14", 0.01)
         assert fire(tmp, **use)["decision"] == "block"
         spend("r15", 0.01)
@@ -353,7 +353,7 @@ def selftest():
         assert "USD 1.00 and 10 minutes (from your brief)" in ctx(start), start
         body = rec_user(brief) + rec_asst("a", 120000)           # 1.20 USD: over budget
         open(tx, "w").write(body)
-        got = ctx(call(T0 + 120, "PostToolBatch", tool_calls=[dict(tool_name="Bash")]))
+        got = ctx(call(T0 + 120, "PostToolUse"))
         assert got.startswith("Spent 1.20 of USD 1.00 (120%); 2.0 of 10 min (20%). If one or two more steps"), got
         call(T0 + 150, "SubagentStop")                           # hand-back: the run lasted 150 s
         st = load_state(tmp, "b1")
@@ -364,7 +364,7 @@ def selftest():
         assert [x["resumed"] for x in logged(tmp) if x["event"] == "start"] == [False, True], logged(tmp)
         body += rec_asst("b", 1000)                              # 0.01 more
         open(tx, "w").write(body)
-        got = ctx(call(R + 10, "PostToolBatch", tool_calls=[dict(tool_name="Bash")]))
+        got = ctx(call(R + 10, "PostToolUse"))
         assert got.startswith("Spent 1.21 of USD 1.00 (121%); 2.7 of 10 min (27%). If one or two"), "no raise line: still over, active time = 150 s + 10 s: " + got
         # a raise by the PI: the message arrives after the start; limit = max(limit, spend at the message) + x, minutes likewise; not over straight away
         call(R + 20, "SubagentStop")
@@ -372,38 +372,38 @@ def selftest():
         call(R2, "SubagentStart")
         body += rec_coord("Budget: USD 1.0\nTime: min 5\nGo on with the check.", ts=datetime.datetime.fromtimestamp(R2 + 1, datetime.timezone.utc).isoformat())
         open(tx, "w").write(body)
-        assert call(R2 + 2, "PostToolBatch", tool_calls=[dict(tool_name="Bash")]) is None, "after a raise to 2.21 / 15.0 min: 55% and 18%: no note until 0.75"
+        assert call(R2 + 2, "PostToolUse") is None, "after a raise to 2.21 / 15.0 min: 55% and 18%: no note until 0.75"
         st = load_state(tmp, "b1")
         assert abs(st["B"] - 2.21) < 1e-4 and abs(st["T"] - (max(10, 171 / 60.0) + 5)) < 0.01 and st["k"] == 1, st   # spent 1.21; 171 s active at the message (150 + 20 + 1)
         raise_log = [x for x in logged(tmp) if x["event"] == "raise"]
         assert len(raise_log) == 1 and raise_log[0]["add_usd"] == 1.0 and raise_log[0]["add_min"] == 5.0 and raise_log[0]["B_before"] == 1.0, raise_log
         body += rec_asst("c", 56000)                             # 1.21 + 0.56 = 1.77: 0.80 of 2.21
         open(tx, "w").write(body)
-        got = ctx(call(R2 + 30, "PostToolBatch", tool_calls=[dict(tool_name="Bash")]))
+        got = ctx(call(R2 + 30, "PostToolUse"))
         assert got.startswith("Spent 1.77 of USD 2.21 (80%); ") and "hand back" not in got, "the schedule resumes above the new fraction: " + got
-        assert call(R2 + 31, "PostToolBatch", tool_calls=[dict(tool_name="Bash")]) is None
+        assert call(R2 + 31, "PostToolUse") is None
         # the same raise is not applied twice; a tool result, another origin and the brief's own lines are no raise
         body += rec_result("Budget: USD 50\nTime: min 50") + rec_coord("Budget: USD 50", kind="peer") + rec_asst("d", 1000)
         open(tx, "w").write(body)
-        call(R2 + 40, "PostToolBatch", tool_calls=[dict(tool_name="Bash")])
+        call(R2 + 40, "PostToolUse")
         assert abs(load_state(tmp, "b1")["B"] - 2.21) < 1e-4 and len([x for x in logged(tmp) if x["event"] == "raise"]) == 1
         # a mid-run raise of the minutes only: the USD limit stays; time over before, not over after
         ev2 = dict(ev, agent_id="b2")
         tx2 = os.path.join(sess, "subagents", "agent-b2.jsonl")
         handle(dict(ev2, hook_event_name="SubagentStart"), now=T0)   # a new worker: no transcript yet
         open(tx2, "w").write(rec_user("Budget: USD 5.00\nTime: min 3\n") + rec_asst("a", 1000))
-        got = ctx(handle(dict(ev2, hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash")]), now=T0 + 200))
+        got = ctx(handle(dict(ev2, hook_event_name="PostToolUse"), now=T0 + 200))
         assert got.startswith("Spent 0.01 of USD 5.00 (0%); 3.3 of 3 min (111%). If one or two"), got
         open(tx2, "a").write(rec_coord("Time: min 4", ts=datetime.datetime.fromtimestamp(T0 + 210, datetime.timezone.utc).isoformat()))
-        assert handle(dict(ev2, hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash")]), now=T0 + 220) is None
+        assert handle(dict(ev2, hook_event_name="PostToolUse"), now=T0 + 220) is None
         st = load_state(tmp, "b2")
         assert st["B"] == 5.0 and abs(st["T"] - (3.5 + 4)) < 0.01, st   # 210 s = 3.5 min active at the message; + 4
         # the mid-run state: a hook added during a run counts from the transcript's start and reads the brief's lines
         ev3 = dict(ev, agent_id="b3")
         open(os.path.join(sess, "subagents", "agent-b3.jsonl"), "w").write(rec_user("Budget: USD 0.20\nTime: min 2\n") + rec_asst("a", 15000))
-        got = ctx(handle(dict(ev3, hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash")]), now=T0))
+        got = ctx(handle(dict(ev3, hook_event_name="PostToolUse"), now=T0))
         assert got.startswith("Spent 0.15 of USD 0.20 (75%)"), got
-        assert handle(dict(ev3, hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash")]), now=T0 + 1) is None, "two thresholds passed at once: one note, then quiet"
+        assert handle(dict(ev3, hook_event_name="PostToolUse"), now=T0 + 1) is None, "two thresholds passed at once: one note, then quiet"
 
     # 5b. parallel calls in process, with a slow state write between load and save: the lock makes them take turns, so one block is sent
     with tempfile.TemporaryDirectory() as tmp:
@@ -447,7 +447,7 @@ def selftest():
         tx = os.path.join(sess, "subagents", "agent-c1.jsonl")
         open(tx, "w").write(rec_user("Your name is explorer-w09-1.\nBudget: USD 0.05\nTime: min 2\n") + rec_asst("a", 1000))
         assert [x for x in logged(tmp) if x["event"] == "start"][-1]["B"] == 3.0   # what the start note could know: the defaults
-        handle(dict(ev, agent_id="c1", hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash")]), now=8.0)
+        handle(dict(ev, agent_id="c1", hook_event_name="PostToolUse"), now=8.0)
         st = load_state(tmp, "c1")
         assert st["B"] == 0.05 and st["T"] == 2.0, "the brief's figure stands, below the floor, and is not raised: %r" % st
         assert len([x for x in logged(tmp) if x["event"] == "warn"]) == 2, "one warning per figure, at the dispatch"
@@ -459,40 +459,45 @@ def selftest():
         got = ctx(handle(dict(ev, agent_id="c2", hook_event_name="SubagentStart"), now=100.0 + PENDING_TTL + 5))
         assert "USD 3.00 and 20 minutes (the defaults for your role" in got, got
 
-    # 7. the registration: the check on PostToolBatch, the ceiling on PostToolUse, the dispatch on Agent
+    # 7. the registration: the check and the ceiling on PostToolUse (no PostToolBatch), the dispatch on Agent
     hooks = json.load(open(os.path.join(HERE, "..", "hooks", "hooks.json")))["hooks"]
-    for event, matcher in (("SubagentStart", None), ("PostToolBatch", None), ("PostToolUse", None), ("SubagentStop", None), ("PreToolUse", "Agent|Task")):
+    for event, matcher in (("SubagentStart", None), ("PostToolUse", None), ("SubagentStop", None), ("PreToolUse", "Agent|Task")):
         assert any(("budget.py" in h["command"]) and g.get("matcher") == matcher for g in hooks[event] for h in g["hooks"]), (event, matcher)
+    assert "PostToolBatch" not in hooks, "a block on PostToolBatch ends the worker: the ceiling is on PostToolUse and the check with it"
     assert subprocess.run([sys.executable, BUDGET], input="not json", capture_output=True, text=True).returncode == 0
-    # 8. the commands of hooks.json, as the platform starts them (`sh -c`): the sh test lets a worker's event through to the script and keeps the main thread's away from Python
+    # 8. the command of hooks.json, as the platform starts it (`sh -c`; also under dash, where `$(</dev/stdin)` is not a read and the loop is): the sh test lets a worker's event
+    # through to the script and keeps the main thread's away from Python
     root = os.path.abspath(os.path.join(HERE, ".."))
-    cmds = {}
-    for event in ("PostToolUse", "PostToolBatch"):
-        found = [h["command"] for g in hooks[event] if g.get("matcher") is None for h in g["hooks"] if "budget.py" in h["command"]]
-        assert len(found) == 1, (event, found)
-        cmds[event] = found[0]
-    assert all(c.count("python3 -S -I ") == 1 and " -B" not in c for c in cmds.values()), cmds
-    for event, cmd in cmds.items():
+    found = [h["command"] for g in hooks["PostToolUse"] if g.get("matcher") is None for h in g["hooks"] if "budget.py" in h["command"]]
+    assert len(found) == 1, found
+    cmd = found[0]
+    every = [h["command"] for groups in hooks.values() for g in groups for h in g["hooks"] if ".py" in h["command"]]
+    assert all(" -I" not in c and " -B" not in c for c in every) and all(c.count("python3 -S ") == 1 for c in every if "user_words" not in c and "resume_brief" not in c), every
+    for shell in [x for x in ("/bin/sh", "/bin/dash") if os.path.exists(x)]:
         with tempfile.TemporaryDirectory() as tmp:
             os.makedirs(os.path.join(tmp, "__statera__"))
             sess = os.path.join(tmp, "s")
             os.makedirs(os.path.join(sess, "subagents"))
-            ev = dict(cwd=tmp, agent_id="g1", agent_type="murmuration:author", transcript_path=sess + ".jsonl", hook_event_name=event, tool_name="Bash",
-                      tool_calls=[dict(tool_name="Bash")], tool_response="the word agent_id inside a result, and \"agent_id\" escaped")
+            ev = dict(cwd=tmp, agent_id="g1", agent_type="murmuration:author", transcript_path=sess + ".jsonl", hook_event_name="PostToolUse", tool_name="Bash",
+                      tool_response="the word agent_id inside a result, and \"agent_id\" escaped")
             open(os.path.join(sess, "subagents", "agent-g1.jsonl"), "w").write(rec_user("Budget: USD 1.00\nTime: min 10\n") + rec_asst("a", 120000))
 
             def sh(payload, text=None):
                 env = dict(os.environ, CLAUDE_PLUGIN_ROOT=root)
                 env.pop("CLAUDE_PROJECT_DIR", None)
-                proc = subprocess.run(["/bin/sh", "-c", cmd], input=text if text is not None else json.dumps(payload) + "\n", capture_output=True, text=True, env=env)
-                assert proc.returncode == 0 and not proc.stderr, (proc.returncode, proc.stderr)
+                proc = subprocess.run([shell, "-c", cmd], input=text if text is not None else json.dumps(payload) + "\n", capture_output=True, text=True, env=env)
+                assert proc.returncode == 0 and not proc.stderr, (shell, proc.returncode, proc.stderr)
                 return proc.stdout
             main_ev = {k: v for k, v in ev.items() if k not in ("agent_id", "agent_type")}
             assert sh(main_ev) == "" and not os.listdir(os.path.join(tmp, "__statera__")), "the main thread: the sh test stops it before Python, nothing is written"
             assert sh(main_ev, json.dumps(main_ev, indent=2)) == "", "a payload on several lines is read whole"
+            big = dict(main_ev, tool_response="x" * 600000)
+            assert sh(big) == "", "a 600 KB main-thread payload is read whole and stopped"
             out = sh(ev)
-            if event == "PostToolBatch":
-                assert "hookSpecificOutput" in out and "Spent 1.20 of USD 1.00 (120%)" in json.loads(out)["hookSpecificOutput"]["additionalContext"], out
+            assert "Spent 1.20 of USD 1.00 (120%)" in json.loads(out)["hookSpecificOutput"]["additionalContext"], out
             assert os.path.exists(os.path.join(tmp, "__statera__", ".harness", "g1.json")), "a worker's event reaches the script"
             sh(ev, json.dumps(ev))   # no newline at the end of the payload: read all the same, no error
+            open(os.path.join(sess, "subagents", "agent-g2.jsonl"), "w").write(rec_user("Budget: USD 1.00\nTime: min 10\n") + rec_asst("a", 1000))
+            sh(dict(ev, agent_id="g2", tool_response="y" * 600000))
+            assert os.path.exists(os.path.join(tmp, "__statera__", ".harness", "g2.json")), "a 600 KB worker payload reaches the script whole"
     print("PASS budget")
