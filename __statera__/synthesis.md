@@ -552,6 +552,10 @@ Wave 7 (2026-10-22, 00:25–02:45 JST) cost at least USD 38.28 against the at le
 - 2.48 for the headless runs under `/private/tmp/murmuration-w07/`, exact from cost-state, all
   sessions ended.
 Both are lower bounds in auto mode.
+By role, recomputed after the close with `lab_status.py`'s own parser over this session's main thread
+and its 21 subagent files up to 02:45 (which takes in the last closing requests the 02:41 reading
+missed): PI 15.86, authors 10.07, explorers 7.32, verifiers 4.17, the helper that drew the cost map
+1.08, headless 2.48; USD 40.98 in all, list price, a lower bound.
 
 The PI set itself a cap of about USD 60 for wave 2. Wave 2 spent about 78, so the PI overran its own
 cap by about 18. The USD 70–90 proposed for the whole study after wave 1 was never confirmed, and it
