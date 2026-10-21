@@ -175,7 +175,8 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
 | explorer-w06-b | explorer | inventory of the plugin's recurring waste; why each lean build failed; SA1 sized, not built | 28859d5: `mcp_tool` 2 ms against 104; lean builds failed on rules; SA1 sized |
 | author-w06-3 | author | E1 stage 1: can a resident server carry Murmuration's hooks (w06-c3) | 134e3ac: passes on the letter; a dead or hung restart is silent or slow |
 | reproducer-w06-3 | reproducer | verify w06-c3, then w06-c5, w06-c6 | ESCALATE on w06-c3 (6b79137): m4 vacuous as registered; restated as w06-c5 (OVERSTATED), then w06-c6 (SUPPORTED, 710bda9) |
-| guide-w06-perm | claude-code-guide | which permission-hardening mechanisms the platform documents | |
+| guide-w06-perm | claude-code-guide | which permission-hardening mechanisms the platform documents | `__reports__/wave-06/research-pi/permission_mechanisms.md`: plugin = hooks only; hard = managed settings |
+| author-w06-5 | author | E3: the permission guard in the plugin (w06-c7), own worktree | |
 | author-w06-4 | author | E1 stage 2: the port, s1–s4 (w06-c4) | |
 | explorer-w06-c | explorer | the PI's wake-ups and cost per wake-up in waves 4–5; what idle time could carry; one session per wave | 7c14a2d: idle is free (1-hour cache); wake-ups are hand-backs; preface 21–32% of PI spend |
 
