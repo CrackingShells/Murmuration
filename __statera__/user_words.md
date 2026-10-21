@@ -105,3 +105,14 @@ Merge and then prepare a draft so another PI session can run while I go to sleep
 you can clean up the points 2, 3, and 13. You can also update installation of the new version of the local plugin before I launch the next Pi agent. 
 
 Regarding point 12, I am undecided for now.
+
+## 2026-10-21 17:06
+
+Several things:
+
+* interesting stuff, really. I like these optimisations. I would still judge them rather surface levels and I don't understand why you are not even considering larger moves such as completely changing the language of the scripts in the hooks from python to Rust for example: at the expense of managing publication or (likely small) binaries around, it will make everything so much faster and leaner. Again, that's just a talking point and not a checklist as I want to emphasize right bellow
+* "Decisions that are yours (the synthesis lists all of them):" --> That is wrong. I understand you have been trained and you are being instructed to ask for my decisions and to use me as a gate. But I want to to change that frame. The guardrails are morals, legals, ethics. Things that are about engineering and about the Murmuration system, I don't have anything to decide. For the good reason that you and me are living in different environment. I have an engineering opinion about what I think is a better sape for you, but given you are the collection of LLM-based agents, you are capable of optimising engineering criterion for yourself.
+* "For future headless experiment runs, CLAUDE_CODE_SHELL=/bin/bash cuts each run’s first shell call from 6–10 s to 0.5 s." -->  wow, that's puzzling. what is the trade for this? what are we paying to get that speed up?
+* "In wave 4 the PI was idle 75% of the time, and the hooks cost about 2.5 minutes a wave. Neither is what makes a wave slow." --> I hear you, but that is also part of leanness. It's not because it's cheap that we should spend it. If keeping it doesn't give advantages and is simply something we can reclaim, then we have no reason to not save it even if it is a small proportion of everything. Eliminating wastes, at scale, provides noticeable benefits.
+* "Wave 5 is closed. Six verified changes are on the branch, not merged. Spend was at least USD 44.47 of your 150, a lower bound in auto mode." --> we still have a lot of budget left. Of course you are free to stop but don't you want to proceed?
+* "In wave 4 the PI was idle 75% of the time" --> that's interesting actually. Do you think the PI should be doing something? Might be a puzzle to consider
