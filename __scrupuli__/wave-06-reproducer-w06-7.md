@@ -11,7 +11,7 @@ Guard holes found offline, none in any case list: `grep -n it's f; claude -p hi 
 refs: `__instrumenta__/w06c11_v7_guard_probe_cases.py`
 
 ## S-w06-reproducer-w06-7-4
-My own automatic rule (the part of the command outside cat/tee heredocs still denies and has a segment whose program is `claude`) disagrees with my manual label on 25 of the 100 or so non-G3 calls, all but 2 in the direction of missing a real run: multi-line `claude -p ... \` continuations and scripts written then run. `split_segments` lets the guard's own parser see these as no `claude` segment. That means the guard may deny them for the right reason through the bypass words and G2 only by luck of the regexes; k2's heredoc case works because the `claude` word is matched in the raw text, not in a segment.
+My own automatic rule (the part of the command outside cat/tee heredocs still denies and has a segment whose program is `claude`) disagrees with my manual label on 25 of the 93 non-G3 calls, all but 2 in the direction of missing a real run: multi-line `claude -p ... \` continuations and scripts written then run. `split_segments` lets the guard's own parser see these as no `claude` segment. That means the guard may deny them for the right reason through the bypass words and G2 only by luck of the regexes; k2's heredoc case works because the `claude` word is matched in the raw text, not in a segment.
 refs: `__instrumenta__/w06c11_v7_labels.py` (second block), `/private/tmp/murmuration-w06/reproducer-w06-7/out/classified.json`
 
 ## S-w06-reproducer-w06-7-5
