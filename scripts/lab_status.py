@@ -518,11 +518,22 @@ def message_usd(model, use):
 
 def merge_usage(into, use):
     """A message id is one API call; its records (one per content block) repeat the usage while
-    `output_tokens` grows during the stream, so each field keeps its maximum."""
+    `output_tokens` grows during the stream, so each field keeps its maximum. `speed` (fast mode) and
+    `server_tool_use.web_search_requests` are kept too, since `message_usd` prices them."""
     for f in USAGE_FIELDS:
         into[f] = max(int(into.get(f) or 0), int(use.get(f) or 0))
     if isinstance(use.get("cache_creation"), dict):
         into["cache_creation"] = use["cache_creation"]
+    if use.get("speed") == "fast":
+        into["speed"] = "fast"
+    tools = use.get("server_tool_use")
+    if isinstance(tools, dict) and tools.get("web_search_requests"):
+        try:
+            n = int(tools["web_search_requests"])
+        except (TypeError, ValueError, OverflowError):   # a string, a list, `Infinity` (Python's json accepts it)
+            n = 0
+        have = into.get("server_tool_use") if isinstance(into.get("server_tool_use"), dict) else {}
+        into["server_tool_use"] = {"web_search_requests": max(n, int(have.get("web_search_requests") or 0))}
 
 
 def parse_transcript(path, warnings):
@@ -561,7 +572,7 @@ def parse_transcript(path, warnings):
     return msgs, cost_state, setting
 
 
-CACHE_VERSION = 1   # change it when parse_transcript returns something else: an older cache file is then ignored
+CACHE_VERSION = 2   # change it when parse_transcript returns something else: an older cache file is then ignored
 _cache = []   # [Cache] while report_spend runs
 
 
@@ -618,11 +629,11 @@ class Cache:
 
 
 def cache_path(root):
-    """`$LAB_STATUS_CACHE`, else the lab's `__statera__/.harness/lab_status_cache.json` (git-ignored); None for a folder that is no lab (`--spend` needs none), `-` or `off` in the variable: no cache."""
+    """`$LAB_STATUS_CACHE`, else the lab's `__statera__/.harness/lab_status_cache.v<CACHE_VERSION>.json` (git-ignored; the name carries the version, so a script of another version keeps its own file and neither rewrites the other's; old files are left alone); None for a folder that is no lab (`--spend` needs none), `-` or `off` in the variable: no cache."""
     given = os.environ.get("LAB_STATUS_CACHE")
     if given:
         return None if given in ("-", "off") else given
-    return os.path.join(root, "__statera__", ".harness", "lab_status_cache.json") if os.path.isdir(os.path.join(root, "__statera__")) else None
+    return os.path.join(root, "__statera__", ".harness", "lab_status_cache.v%d.json" % CACHE_VERSION) if os.path.isdir(os.path.join(root, "__statera__")) else None
 
 
 def read_transcript(path, warnings):
@@ -1094,6 +1105,14 @@ def selftest():
         assert by_sid["s2"]["rows"][("main thread", "claude-mystery-1")]["unpriced"] == 1
         assert abs(message_usd("claude-haiku-5-5", {"input_tokens": 200000}) - 0.5 * 0.2) < 1e-9  # long-prompt Haiku
         assert abs(message_usd(opus, {"output_tokens": 1000000, "speed": "fast"}) - 40.0) < 1e-9
+        merged = {}
+        for part in ({"output_tokens": 5}, {"output_tokens": 1000000, "speed": "fast", "server_tool_use": {"web_search_requests": 1}},
+                     {"output_tokens": 1000000, "server_tool_use": {"web_search_requests": 2, "web_fetch_requests": 4}}):
+            merge_usage(merged, part)
+        assert abs(message_usd(opus, merged) - (40.0 + 0.02)) < 1e-9, "merge_usage keeps fast mode and the largest web-search count"
+        merge_usage(merged, {"output_tokens": 1000000, "speed": "standard", "server_tool_use": {"web_search_requests": 0}})
+        assert merged["speed"] == "fast" and merged["server_tool_use"] == {"web_search_requests": 2}
+        merge_usage({}, {"server_tool_use": {"web_search_requests": float("inf")}})   # must not raise: A printed a report for it
         text = "\n".join(report_spend(root))
         # exact 7.5 (s1) + list price 12.0 (s2) + 2.0 (s3: sonnet f1 only); s3 and s2 are open
         assert "TOTAL  USD 21.50 at least   (7.50 exact + 14.00 at list price for 2 sessions still open)" in text, text
@@ -1167,11 +1186,16 @@ def selftest():
 
         # The transcript cache (w05-c5): the same report with it and without it, cold and warm; invalidated by a change of size or of modification time; a bad file is ignored; written atomically.
         cache_file = cache_path(root)
-        assert cache_file == os.path.join(root, "__statera__", ".harness", "lab_status_cache.json"), cache_file
+        assert cache_file == os.path.join(root, "__statera__", ".harness", "lab_status_cache.v%d.json" % CACHE_VERSION), cache_file
         spend = lambda: "\n".join(report_spend(root))
         os.environ["LAB_STATUS_CACHE"] = "off"
         plain = spend()
         del os.environ["LAB_STATUS_CACHE"]
+        older = os.path.join(os.path.dirname(cache_file), "lab_status_cache.json")   # the file of a script of version 1: left alone
+        _write(older, '{"v": 1, "files": {}}')
+        spend()
+        assert open(older).read() == '{"v": 1, "files": {}}' and os.path.exists(cache_file), "a cache file of another version is neither read nor rewritten"
+        os.unlink(older)
         if os.path.exists(cache_file):
             os.unlink(cache_file)
         assert spend() == plain, "cold: the cache changes nothing"
@@ -1234,7 +1258,7 @@ def selftest():
             spend()
         finally:
             os.replace = real_replace
-        assert len(seen_rename) == 1 and re.fullmatch(r"lab_status_cache\.json\.\d+\.tmp", seen_rename[0][0]) and seen_rename[0][1:] == (CACHE_VERSION, CACHE_VERSION), seen_rename
+        assert len(seen_rename) == 1 and re.fullmatch(r"lab_status_cache\.v\d+\.json\.\d+\.tmp", seen_rename[0][0]) and seen_rename[0][1:] == (CACHE_VERSION, CACHE_VERSION), seen_rename
 
         def failing(src, dst):
             raise OSError("no rename")
