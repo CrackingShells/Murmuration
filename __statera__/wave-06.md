@@ -89,7 +89,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
   - The `waves.md` edit went through the Edit tool without a denial. The decision-frame edit stays
     unapplied: a denial of the kind I hit is not something to retry with another tool.
 
-- 17:5x (this commit), after reproducer-w06-2's verdict on w06-c2 (OVERSTATED):
+- 17:40 (78c3ec8), after reproducer-w06-2's verdict on w06-c2 (OVERSTATED):
   - **The bullet is reverted; nothing about the idle PI lands.** Wave 4's 101 rows took 69 s and
     were written while the last verifier ran, so they were never on the user's wait. The context
     effect is about USD 0.03. Only 48 of 104 rows pointed to objects that exist before the close. The
