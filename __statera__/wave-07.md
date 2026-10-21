@@ -350,6 +350,26 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
     an infinite search count. Dropped change 1 saves 0.04–0.05 s a call (9 of 10 pairs). The
     fast-mode factor and search price are the script's own, UNVERIFIED against a fetched page.
 
+- 04:30, after reproducer-w07-6's ESCALATE of w07-c7:
+  - **What reproduced:** c1 from the raw transcripts (B 17 of 17 writes 1-hour, A 16 of 16
+    5-minute); c2 rerun with A and B apart (A alone read 42.1% after 333 s and re-wrote the rest; B
+    after it read 100%); c3 for the 6-tool headless author only; and, beyond the claim, a B author
+    resumed by SendMessage after 339 s read 100% and wrote 1-hour (n = 1). A's 42% partial read
+    recurs with no B running, so it is a shared block or an earlier 1-hour entry, not B's
+    concurrent write.
+  - **Why it escalated:** the author withdrew "nets slightly positive". Recomputed, the net is
+    +0.87 at a 300 s bound, +0.45 at 330 s, −0.60 at 360 s, −6.70 at 600 s, and a bootstrap over the
+    19 authors gives P(net ≤ 0) = 0.34. Wave 4's gaps are lower bounds (blank model times).
+  - **PI decision: w07-c7 stands as the verifier restates it, and P6 lands by its registered rule**
+    (c1–c3 decide; c4 was registered as reported, not gated). The money's sign is not determined;
+    the time a resumed author gains by reading rather than re-writing its context was not
+    measured; the change is one line, and a key the platform stops honouring falls back to today's
+    5 minutes. The synthesis states all three. A later wave's records decide the sign, since
+    `lab_status.py` sees 1-hour writes.
+  - **Platform fact (reproducer-w07-6's own slip):** an agent file truncated to empty made Claude
+    Code dispatch a generic agent with a 33k context, silently.
+  - Merged `w07-p6-cachettl`.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -369,7 +389,7 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | author-w07-5 | author | w07-c6: P5, the permission guard as a Rust binary in exec form | |
 | author-w07-6 | author | w07-c7: P6, a 1-hour cache for authors | 6041f28: c1–c3 pass; c4 +USD 0.87 of 47.80, fragile |
 | reproducer-w07-4 | reproducer | verify w07-c4's landing build (change 2) | ffd1f6b: SUPPORTED at c473203 |
-| reproducer-w07-6 | reproducer | verify w07-c7, c2 rerun apart | |
+| reproducer-w07-6 | reproducer | verify w07-c7, c2 rerun apart | 033e274: ESCALATE (restatement); PI: lands by rule |
 | reproducer-w07-2 | reproducer | verify w07-c2 and w07-c5, with the missing controls | SUPPORTED both; async crash silent; v1 lands |
 | author-w07-2 | author | w07-c2: P2, `user_words.py` keeps only typed prompts | e84afec (branch w07-p2-origin): q1 passes, q2 fails (record written after the hook); resumed for v1 as w07-c5; 7fbee58: v1 r1, r2, r4 pass; r3 and crash controls missing |
 
