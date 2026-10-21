@@ -58,6 +58,28 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
   No experiment rule is registered yet: rules come after the probes give a ceiling and a per-pair
   noise for what they would measure (open item 27).
 
+- 00:52, after explorer-w07-e returned:
+  - **The listing goes only whole.** Denying `Skill` removed the listing and the Skill schema,
+    about 11.7–12.0k tokens of a headless PI's 31.5k request 0 (37%), and the PI still reached
+    `research-loop` by Read and still ran `/lab-status` (n = 1 per variant, MEASURED). `Skill(...)`
+    deny rules did not touch the listing, `skillOverrides` reached only the non-plugin skills, and
+    disabling 19 plugins left 41 skills listed. So the answer to the user's "aren't there some we
+    know we can exclude?" is: not one by one; the PI can drop all or none.
+  - **What it costs is reach, not the procedure.** A Read of SKILL.md leaves `${CLAUDE_PLUGIN_ROOT}`
+    literal in its reference table (S-w07-explorer-w07-e-1), and the PI called `writing-history`
+    and `dataviz` once each in six sessions. Both are design requirements of B: the body names the
+    root, and says how to find another skill.
+  - **Registered P1 v0** (`__reports__/wave-07/00-protocol_p1_skill_v0.md`, committed before the
+    run), threshold 9,000 tokens against a ceiling of about 11.7k and a noise range of 329.
+    author-w07-1 runs it as w07-c1; reproducer-w07-1 verifies.
+  - **The workers' allowlists:** Wolfram was never called by any worker in six waves, but MCP tools
+    are deferred in workers, so it costs its 15 names (an ESTIMATE of 115–186 tokens), inside the
+    replicate noise. Dropping it is safe and saves almost nothing; I leave it, and say so. The
+    larger worker leak is elsewhere: 61 of 72 reproducers and authors spend an early request on
+    `ToolSearch` for `SendMessage`, because it is deferred (S-w07-explorer-w07-e-4). That is a
+    model request per verifier and author, seconds each; it goes to explorer-w07-b's frame of
+    requests per task when b returns.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -66,7 +88,7 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | explorer-w07-b | explorer | the agent loop's time from transcripts: model, classifier, tools, hooks per turn; tool calls per request; what batching would save | |
 | explorer-w07-c | explorer | hooks without a process per call: `async: true`, `http` with `onFailure: block`, merged rows; fields, latency, dead-server behaviour | |
 | explorer-w07-d | explorer | serial loops and algorithms in the lab's code: profile `lab_status.py` and the replays; scaling curves for parallel Python, a better algorithm, Rust | |
-| explorer-w07-e | explorer | the PI's skills listing and the workers' allowlists: what can be excluded, and how, without losing `research-loop` | |
+| explorer-w07-e | explorer | the PI's skills listing and the workers' allowlists: what can be excluded, and how, without losing `research-loop` | 546a4b9: `Skill` denied −11.7–12.0k tokens; listing all or none; Wolfram never called but costs names only |
 | explorer-w07-f | explorer | read-only: where Claude Code enforces `disableBypassPermissionsMode`; how `user_words.py` can tell a session's message from the user's (item 28) | |
 
 ## Claims of this wave
