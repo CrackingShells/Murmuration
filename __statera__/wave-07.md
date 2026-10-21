@@ -188,6 +188,14 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
   - The other serial CPU loop, `w06c13_v7_diff_two_guards.py`, goes from 8.7 s to 1.7 s at 6
     workers; it is a one-off instrument, so nothing to land. Headless cells are API-bound.
 
+- 02:10, after reproducer-w07-1's verdict on w07-c1 (OVERSTATED):
+  - Every number recomputes from the raw transcripts. The statement's "10.6k–11.9k where the names
+    matched" is too wide: the matched pairs give 10,620–10,952; 11.9k is an unmatched pair. And
+    "unreachable" holds for `dataviz`'s `SKILL.md` body only; its `references/` are readable by
+    path. Not restated, since no decision depends on it (B does not land either way); the synthesis
+    quotes the verifier's figures. The verifier adds that over a 3-request session B's input was
+    25–35k tokens lower, because the 10k-character SKILL.md then enters later requests.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -199,7 +207,7 @@ Budget: what is left of the wave-6 USD 100, at least USD 47 (wave 6 spent at lea
 | explorer-w07-e | explorer | the PI's skills listing and the workers' allowlists: what can be excluded, and how, without losing `research-loop` | 546a4b9: `Skill` denied −11.7–12.0k tokens; listing all or none; Wolfram never called but costs names only |
 | explorer-w07-f | explorer | read-only: where Claude Code enforces `disableBypassPermissionsMode`; how `user_words.py` can tell a session's message from the user's (item 28) | 70629c1: first-wins managed tier, the file probably dropped; `origin.kind` marks typed prompts |
 | author-w07-1 | author | w07-c1: P1, the PI without the skills listing | 9a942f3 (branch w07-p1-skill): p1 and p5 fail; does not land |
-| reproducer-w07-1 | reproducer | verify w07-c1 offline, for the numbers the synthesis quotes | |
+| reproducer-w07-1 | reproducer | verify w07-c1 offline, for the numbers the synthesis quotes | d72b8d3: OVERSTATED (matched range 10.6–11.0k) |
 | explorer-w07-g | explorer | split the classifier-decided Bash call's 1.5 s; four ways of the same reads; subagent cache lifetime | |
 | author-w07-3 | author | w07-c3: P3, every hook row in exec form | |
 | author-w07-4 | author | w07-c4: P4, `lab_status.py` without the git child, usage fields priced | |
