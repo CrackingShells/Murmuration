@@ -102,7 +102,7 @@ Budget: what is left of the wave-5 USD 150, at least USD 105.55 (wave 5 spent at
     the waits saves seconds. The PI should not do more while it waits. What it costs is how much it
     reads to orient, and each wake-up re-reading a large context (measured at the close below).
 
-- HH:MM (this commit), after explorer-w06-a and explorer-w06-b returned:
+- 17:52 (fc9eff9), after explorer-w06-a and explorer-w06-b returned:
   - **Rust is not the larger move; a hook with no process is.** Both probes, run independently,
     agree. As the platform records it, Rust saves about 30 ms a start against python (a), and against
     a lean `python3 -S -I` start the gap is inside the noise (b). Over wave 4 that is about 1% of the
