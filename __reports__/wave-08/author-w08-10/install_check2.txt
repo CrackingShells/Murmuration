@@ -1,0 +1,3 @@
+installer exit 0; stdout ''; stderr ''
+installed file equals bin/aarch64-apple-darwin/murmuration: True; launcher script: False; stamp present: True
+hole-form cases decided as stated by the installed program: 0 wrong

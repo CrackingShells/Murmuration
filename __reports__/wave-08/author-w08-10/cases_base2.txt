@@ -1,0 +1,7 @@
+repo /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-8-928ebd | rust /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-8-928ebd/bin/aarch64-apple-darwin/murmuration | 4564 cases
+hole        2259 cases   allowed (a hole): python 1515   rust 1515
+g3hole       639 cases   allowed (a hole): python  359   rust  359
+g3resid        1 cases   allowed (a hole): python    1   rust    1
+control     1270 cases   denied (a false denial): python    2   rust    2
+g3control    395 cases   denied (a false denial): python    0   rust    0
+python and rust differ on 0 of 4564 cases

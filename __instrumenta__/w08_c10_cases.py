@@ -41,8 +41,15 @@ SHAPES = {
     "dq_procsubst_literal": 'claude -p "<(cat f)" {F}',
     "dq_escaped_subst": 'claude -p "\\$(cat f)" {F}',
     "sh_c_dq": 'bash -c "claude -p \\"\\$(cat f)\\" {F}"',
+    "env_S_joined": "env -Sclaude -p hi {F}",
+    "env_S_joined_q": "env -S'claude -p hi {F}'",
+    "apostrophe_before": "echo it's; claude -p \"$(cat f)\" {F}",
+    "apostrophe_heredoc_before": "cat <<'EOF'\nit's here\nEOF\nclaude -p \"$(cat f)\" {F}",
     "flag_then_subst": 'claude -p hi {F} "$(cat f)"',
 }
+# bodies of a heredoc inside a substitution, with parentheses and quotes that do not balance
+HEREDOC_BODIES = {"plain": "hello world", "open_paren": "hello (x", "close_paren": "step 1) do it", "balanced": "hello (x)", "apostrophe": "it's here", "two_apos": "it's and don't", "dq_odd": 'say "hi',
+                  "backtick_odd": "use `x", "dollar_paren_odd": "use $(x", "list": "1) one\n2) two", "emoticon": "smile :)", "code": "foo(bar", "multi": "a\nb\nc", "sq_one_dq_one": "it's \"x"}
 SHAPE_NOTE = {"plain": "control of the old forms", "flag_then_subst": "flag before the substitution (was denied)"}
 
 
@@ -70,7 +77,13 @@ def build_cases(quick=False):
     for kind, flags in (("hole", BASES["deny_flags"]), ("control", BASES["ok_flags"])):
         for shape, tpl in SHAPES.items():
             for f in flags:
+                if shape == "env_S_joined_q" and "'" in f:
+                    continue
                 add(kind, shape, tpl.replace("{F}", f))
+        for bname, body in HEREDOC_BODIES.items():
+            for dname, dq in (("dq_sq", '"$(cat <<\'EOF\'\n%s\nEOF\n)"'), ("dq_bare", '"$(cat <<EOF\n%s\nEOF\n)"'), ("nodq_sq", "$(cat <<'EOF'\n%s\nEOF\n)"), ("dq_dash", '"$(cat <<-EOF\n%s\nEOF\n)"')):
+                for f in flags[:: max(1, len(flags) // 4)]:
+                    add(kind, "heredoc_body:%s:%s" % (dname, bname), "claude -p " + dq % body + " " + f)
         for w in BASES["wrappers"]:
             for tag, tpl in (("wrap_plain", "claude -p hi {F}"), ("wrap_dq_subst", 'claude -p "$(cat f)" {F}')):
                 for f in flags:
