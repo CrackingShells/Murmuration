@@ -74,6 +74,22 @@ sections a worker needs and do not ask it to read this note.
   platform allows and keeps), explorer-w08-f (are thinking blocks billed again; is `effort` a
   lever). Briefs from now ask for a hand-back of at most about 1,500 characters.
 
+**01:05, explorer-w08-b back.**
+- colgrep cuts markdown into one unit per file whose snippet is the first lines, and `expand`
+  returns the whole file (200 lines by default): for the lab's notes and claims a hit is a path,
+  not evidence, so opening the file is the correct reading of what a hit tells. No worker wrote a
+  reason; thinking blocks are empty in all 68 transcripts. 65% of whole reads (152 of 175 for
+  markdown) are of files the brief names; the unnamed ones are mostly scripts, where colgrep's
+  function units save 94% on the one scored case. A search with no `paths` resolves to the main
+  checkout, stale by 3 days, so a worker in a worktree cannot find this session's files [source:
+  `__reports__/wave-08/explorer-w08-b/00-findings_v0.md`, MEASURED/CONJECTURE as labelled there].
+- So the user's "agents refuse to trust the semantic search" reads, on this evidence, as the tool
+  giving nothing better for markdown, plus briefs that name whole files. The levers: the PI's
+  briefs (mine, applied from wave 8: name sections, not files); a section-level markdown unit in
+  colgrep (the user's colgrep-mcp repository, not this plugin); an absolute lab root in the
+  search hint workers get at start. Documents are 14.3% of worker context USD, with a by-section
+  ceiling of 6.9% (explorer-w08-a), so this is a small lever and I do not open a claim yet.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
