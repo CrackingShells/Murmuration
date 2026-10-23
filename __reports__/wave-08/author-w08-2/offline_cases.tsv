@@ -1,0 +1,34 @@
+case	exit	stdout	stderr_empty	deny_lines_added	markers_added
+not JSON	0	empty	1	0	0
+empty stdin	0	empty	1	0	0
+JSON list	0	empty	1	0	0
+JSON string	0	empty	1	0	0
+tool_input missing	0	empty	1	0	0
+tool_input is a list	0	empty	1	0	0
+tool_input is a string	0	empty	1	0	0
+tool_input is null	0	empty	1	0	0
+message is a number	0	empty	1	0	0
+message is null	0	empty	1	0	0
+message is a list	0	empty	1	0	0
+message is an object	0	empty	1	0	0
+message key absent	0	empty	1	0	0
+message empty	0	empty	1	0	0
+agent_id missing	0	empty	1	0	0
+agent_id is a number	0	empty	1	0	0
+agent_type missing	0	empty	1	0	0
+agent_type general-purpose	0	empty	1	0	0
+agent_type is a list	0	empty	1	0	0
+another tool	0	empty	1	0	0
+cwd missing	0	empty	1	0	0
+no lab above cwd	0	empty	1	0	0
+message exactly N characters	0	empty	1	0	0
+message N characters, bytes over N	0	empty	1	0	0
+message with a lone surrogate, N+1	0	deny-json	1	1	1
+message of 2 million characters	0	deny-json	1	1	1
+message N+1, author (expect deny)	0	deny-json	1	1	1
+message N+1, reproducer (expect deny)	0	deny-json	1	1	1
+message N+1, proof-adversary (expect deny)	0	deny-json	1	1	1
+message N+1, explorer, no report (expect one deny)	0	deny-json	1	1	2
+same author, first over-long (expect deny)	0	deny-json	1	1	1
+same author, second over-long (expect pass)	0	empty	1	0	0
+12 concurrent over-long starts of one agent: denies	0	1 of 12	1		

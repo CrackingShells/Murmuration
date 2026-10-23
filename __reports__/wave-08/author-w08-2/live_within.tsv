@@ -1,0 +1,10 @@
+cell	calls	first_message_chars	delivered_chars	chars_saved_vs_first	pi_saving_usd_at_u	worker_usd_after_first_call_sonnet	net_usd_within_run	sign
+a_nopath_auto	2	13896	14049	-153	-0.0019	0.0201	-0.0220	-
+a_on_auto	2	13215	2508	10707	0.1312	0.0484	0.0828	+
+a_on_auto_r2	2	16193	2751	13442	0.1647	0.0299	0.1348	+
+a_on_auto_r3	2	19060	2682	16378	0.2007	0.0598	0.1409	+
+e_on_auto	2	9608	2680	6928	0.0849	0.0140	0.0709	+
+e_on_auto_r2	2	12136	1595	10541	0.1292	0.0199	0.1093	+
+e_on_auto_r3	1	3859	3859	0	0.0000	0.0000	0.0000	0
+e_repeat_auto	2	14833	14833	0	0.0000	0.0271	-0.0271	-
+e_short_auto	1	456	456	0	0.0000	0.0000	0.0000	0

@@ -1,0 +1,5 @@
+payload	n	median_ms	p90_ms
+over-long (deny path, fresh agent each time)	50	29.7	33.7
+over-long, already denied (pass path)	50	28.7	29.6
+short message (nothing to say)	50	28.6	31.1
+other tool (PostToolUse-like no-op)	50	25.9	45.4

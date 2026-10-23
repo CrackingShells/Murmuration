@@ -1,0 +1,13 @@
+cell	role	arm	mode	files	worker_requests	calls	call_chars	calls_denied	deny_lines	deny_cause	deny_chars	markers	recorded_handbacks	recorded_bytes	pi_chars_delivered	first_items_total	first_items_in_worker_files	first_items_written_before_first_call	first_items_moved_after_first_call	second_items_total	worker_usd_all_sonnet	worker_usd_after_first_call_sonnet	cell_usd_haiku	wall_s	deny_names_path
+a_nopath_auto	author	on	auto	14	5	2	13896|14049	1	1	long	13896	a1c2a551551a6ecc3.long	1	14049	15325	28	0	28	0	28	0.1073	0.0201	0.0197	79.3	1
+a_off_auto	author	off	auto	14	9	1	17338	0	0				1	17338	18614	42	42	4	0	0	0.1945	0.0000	0.0252	104.8	0
+a_on_auto	author	on	auto	14	17	2	13215|2508	1	1	long	13215	ab6114c71868e2c7c.long	1	2508	3784	42	42	4	1	42	0.3184	0.0484	0.0343	148.9	1
+a_on_auto_r2	author	on	auto	14	13	2	16193|2751	1	1	long	16193	af9c6954c0fce280b.long	1	2751	4027	42	42	13	0	42	0.2768	0.0299	0.0306	130.3	1
+a_on_auto_r3	author	on	auto	14	14	2	19060|2682	1	1	long	19060	aedf3460678af019b.long	1	2682	3958	42	42	8	0	42	0.2833	0.0598	0.0332	145.5	1
+e_off_auto	explorer	off	auto	14	6	1	5202	0	0				1	5202	6478	42	42	42	0	0	0.0951	0.0000	0.0155	80.4	0
+e_on_auto	explorer	on	auto	14	10	2	9608|2680	1	1	long	9608	ad27e7160ba4eda48.long	1	2680	3956	42	42	42	0	42	0.1609	0.0140	0.0256	130.0	1
+e_on_auto_r2	explorer	on	auto	14	10	2	12136|1595	1	1	long	12136	a20ec0edf9c762f5a.long	1	1595	2871	42	42	20	0	2	0.1216	0.0199	0.0227	103.4	1
+e_on_auto_r3	explorer	on	auto	14	6	1	3859	0	0				1	3859	5135	42	42	42	0	0	0.1166	0.0000	0.0151	58.8	0
+e_on_default	explorer	on	default	14	7	0		0	0				1	5200	6476	0	0	0	0	0	0.2026	0.0000	0.0178	73.9	0
+e_repeat_auto	explorer	on	auto	14	13	2	14833|14833	1	1	long	14833	a9ffdf8f9e4ff6b70.long	1	14833	16109	42	42	26	0	42	0.1802	0.0271	0.0349	168.2	1
+e_short_auto	explorer	on	auto	4	5	1	456	0	0				1	456	1732	4	4	4	0	0	0.0637	0.0000	0.0108	55.6	0
