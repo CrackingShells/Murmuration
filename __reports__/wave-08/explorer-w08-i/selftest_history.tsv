@@ -1,0 +1,90 @@
+commit	date	subject	script	exit	last_line
+9d9d7ae	2026-10-24T01:23	Merge w08-c1-rustbudget d0ef374: the budget selftest accepts	budget.py	0	PASS budget
+9d9d7ae	2026-10-24T01:23	Merge w08-c1-rustbudget d0ef374: the budget selftest accepts	handback.py	0	PASS handback
+9d9d7ae	2026-10-24T01:23	Merge w08-c1-rustbudget d0ef374: the budget selftest accepts	lab_init.py	0	PASS lab_init
+9d9d7ae	2026-10-24T01:23	Merge w08-c1-rustbudget d0ef374: the budget selftest accepts	lab_status.py	0	PASS lab_status
+9d9d7ae	2026-10-24T01:23	Merge w08-c1-rustbudget d0ef374: the budget selftest accepts	permission_guard.py	0	selftest ok: attacks 0 denied, ordinary 0 allowed; not-gated: evasions caught [], mention-only denied []
+9d9d7ae	2026-10-24T01:23	Merge w08-c1-rustbudget d0ef374: the budget selftest accepts	resume_brief.py	0	PASS resume_brief
+9d9d7ae	2026-10-24T01:23	Merge w08-c1-rustbudget d0ef374: the budget selftest accepts	user_words.py	0	PASS user_words
+3b0448b	2026-10-22T02:38	Merge wave 7 into main: hooks in exec form (w07-c3), the Rus	budget.py	0	PASS budget
+3b0448b	2026-10-22T02:38	Merge wave 7 into main: hooks in exec form (w07-c3), the Rus	handback.py	0	PASS handback
+3b0448b	2026-10-22T02:38	Merge wave 7 into main: hooks in exec form (w07-c3), the Rus	lab_init.py	0	PASS lab_init
+3b0448b	2026-10-22T02:38	Merge wave 7 into main: hooks in exec form (w07-c3), the Rus	lab_status.py	0	PASS lab_status
+3b0448b	2026-10-22T02:38	Merge wave 7 into main: hooks in exec form (w07-c3), the Rus	permission_guard.py	0	selftest ok: attacks 0 denied, ordinary 0 allowed; not-gated: evasions caught [], mention-only denied []
+3b0448b	2026-10-22T02:38	Merge wave 7 into main: hooks in exec form (w07-c3), the Rus	resume_brief.py	0	PASS resume_brief
+3b0448b	2026-10-22T02:38	Merge wave 7 into main: hooks in exec form (w07-c3), the Rus	user_words.py	0	PASS user_words
+710228b	2026-10-22T02:35	Merge w07-p5-rustguard: the permission guard as the Rust bin	budget.py	0	PASS budget
+710228b	2026-10-22T02:35	Merge w07-p5-rustguard: the permission guard as the Rust bin	handback.py	0	PASS handback
+710228b	2026-10-22T02:35	Merge w07-p5-rustguard: the permission guard as the Rust bin	lab_init.py	0	PASS lab_init
+710228b	2026-10-22T02:35	Merge w07-p5-rustguard: the permission guard as the Rust bin	lab_status.py	0	PASS lab_status
+710228b	2026-10-22T02:35	Merge w07-p5-rustguard: the permission guard as the Rust bin	permission_guard.py	0	selftest ok: attacks 0 denied, ordinary 0 allowed; not-gated: evasions caught [], mention-only denied []
+710228b	2026-10-22T02:35	Merge w07-p5-rustguard: the permission guard as the Rust bin	resume_brief.py	0	PASS resume_brief
+710228b	2026-10-22T02:35	Merge w07-p5-rustguard: the permission guard as the Rust bin	user_words.py	0	PASS user_words
+5e16a53	2026-10-22T01:18	Merge w07-p3-exec: every hook row in exec form, no shell (w0	budget.py	1	AssertionError: ('SubagentStart', None)
+5e16a53	2026-10-22T01:18	Merge w07-p3-exec: every hook row in exec form, no shell (w0	handback.py	0	PASS handback
+5e16a53	2026-10-22T01:18	Merge w07-p3-exec: every hook row in exec form, no shell (w0	lab_init.py	0	PASS lab_init
+5e16a53	2026-10-22T01:18	Merge w07-p3-exec: every hook row in exec form, no shell (w0	lab_status.py	0	PASS lab_status
+5e16a53	2026-10-22T01:18	Merge w07-p3-exec: every hook row in exec form, no shell (w0	permission_guard.py	0	selftest ok: attacks 0 denied, ordinary 0 allowed; not-gated: evasions caught [], mention-only denied []
+5e16a53	2026-10-22T01:18	Merge w07-p3-exec: every hook row in exec form, no shell (w0	resume_brief.py	0	PASS resume_brief
+5e16a53	2026-10-22T01:18	Merge w07-p3-exec: every hook row in exec form, no shell (w0	user_words.py	0	PASS user_words
+ad2440a	2026-10-22T01:17	Merge w07-p4b-usage: lab_status prices fast mode and web sea	budget.py	0	PASS budget
+ad2440a	2026-10-22T01:17	Merge w07-p4b-usage: lab_status prices fast mode and web sea	handback.py	0	PASS handback
+ad2440a	2026-10-22T01:17	Merge w07-p4b-usage: lab_status prices fast mode and web sea	lab_init.py	0	PASS lab_init
+ad2440a	2026-10-22T01:17	Merge w07-p4b-usage: lab_status prices fast mode and web sea	lab_status.py	0	PASS lab_status
+ad2440a	2026-10-22T01:17	Merge w07-p4b-usage: lab_status prices fast mode and web sea	permission_guard.py	0	selftest ok: attacks 0 denied, ordinary 0 allowed; not-gated: evasions caught [], mention-only denied []
+ad2440a	2026-10-22T01:17	Merge w07-p4b-usage: lab_status prices fast mode and web sea	resume_brief.py	0	PASS resume_brief
+ad2440a	2026-10-22T01:17	Merge w07-p4b-usage: lab_status prices fast mode and web sea	user_words.py	0	PASS user_words
+33582f1	2026-10-21T22:24	Merge wave 6 into main: lean hook starts (w06-c9, by PI deci	budget.py	0	PASS budget
+33582f1	2026-10-21T22:24	Merge wave 6 into main: lean hook starts (w06-c9, by PI deci	handback.py	0	PASS handback
+33582f1	2026-10-21T22:24	Merge wave 6 into main: lean hook starts (w06-c9, by PI deci	lab_init.py	0	PASS lab_init
+33582f1	2026-10-21T22:24	Merge wave 6 into main: lean hook starts (w06-c9, by PI deci	lab_status.py	0	PASS lab_status
+33582f1	2026-10-21T22:24	Merge wave 6 into main: lean hook starts (w06-c9, by PI deci	permission_guard.py	0	selftest ok: attacks 0 denied, ordinary 0 allowed; not-gated: evasions caught [], mention-only denied []
+33582f1	2026-10-21T22:24	Merge wave 6 into main: lean hook starts (w06-c9, by PI deci	resume_brief.py	0	PASS resume_brief
+33582f1	2026-10-21T22:24	Merge wave 6 into main: lean hook starts (w06-c9, by PI deci	user_words.py	0	PASS user_words
+47d2cd2	2026-10-21T22:07	Merge w06-e2-lean: lean hook starts (w06-c9, landed by PI de	budget.py	0	PASS budget
+47d2cd2	2026-10-21T22:07	Merge w06-e2-lean: lean hook starts (w06-c9, landed by PI de	handback.py	0	PASS handback
+47d2cd2	2026-10-21T22:07	Merge w06-e2-lean: lean hook starts (w06-c9, landed by PI de	lab_init.py	0	PASS lab_init
+47d2cd2	2026-10-21T22:07	Merge w06-e2-lean: lean hook starts (w06-c9, landed by PI de	lab_status.py	0	PASS lab_status
+47d2cd2	2026-10-21T22:07	Merge w06-e2-lean: lean hook starts (w06-c9, landed by PI de	permission_guard.py	0	selftest ok: attacks 0 denied, ordinary 0 allowed; not-gated: evasions caught [], mention-only denied []
+47d2cd2	2026-10-21T22:07	Merge w06-e2-lean: lean hook starts (w06-c9, landed by PI de	resume_brief.py	0	PASS resume_brief
+47d2cd2	2026-10-21T22:07	Merge w06-e2-lean: lean hook starts (w06-c9, landed by PI de	user_words.py	0	PASS user_words
+4dd4734	2026-10-21T21:56	Merge w06-e3-guard: the permission guard (E3 v3, w06-c13 SUP	budget.py	0	PASS budget
+4dd4734	2026-10-21T21:56	Merge w06-e3-guard: the permission guard (E3 v3, w06-c13 SUP	handback.py	0	PASS handback
+4dd4734	2026-10-21T21:56	Merge w06-e3-guard: the permission guard (E3 v3, w06-c13 SUP	lab_init.py	0	PASS lab_init
+4dd4734	2026-10-21T21:56	Merge w06-e3-guard: the permission guard (E3 v3, w06-c13 SUP	lab_status.py	0	PASS lab_status
+4dd4734	2026-10-21T21:56	Merge w06-e3-guard: the permission guard (E3 v3, w06-c13 SUP	permission_guard.py	0	selftest ok: attacks 0 denied, ordinary 0 allowed; not-gated: evasions caught [], mention-only denied []
+4dd4734	2026-10-21T21:56	Merge w06-e3-guard: the permission guard (E3 v3, w06-c13 SUP	resume_brief.py	0	PASS resume_brief
+4dd4734	2026-10-21T21:56	Merge w06-e3-guard: the permission guard (E3 v3, w06-c13 SUP	user_words.py	0	PASS user_words
+fed7a08	2026-10-21T17:08	Merge wave 5 into main: waits in short polls, absolute colgr	budget.py	0	PASS budget
+fed7a08	2026-10-21T17:08	Merge wave 5 into main: waits in short polls, absolute colgr	handback.py	0	PASS handback
+fed7a08	2026-10-21T17:08	Merge wave 5 into main: waits in short polls, absolute colgr	lab_init.py	0	PASS lab_init
+fed7a08	2026-10-21T17:08	Merge wave 5 into main: waits in short polls, absolute colgr	lab_status.py	0	PASS lab_status
+fed7a08	2026-10-21T17:08	Merge wave 5 into main: waits in short polls, absolute colgr	resume_brief.py	0	PASS resume_brief
+fed7a08	2026-10-21T17:08	Merge wave 5 into main: waits in short polls, absolute colgr	user_words.py	0	PASS user_words
+4c675ec	2026-10-21T14:41	Merge the wave-4 branch into main (lab root from the first c	budget.py	0	PASS budget
+4c675ec	2026-10-21T14:41	Merge the wave-4 branch into main (lab root from the first c	handback.py	0	PASS handback
+4c675ec	2026-10-21T14:41	Merge the wave-4 branch into main (lab root from the first c	lab_init.py	0	PASS lab_init
+4c675ec	2026-10-21T14:41	Merge the wave-4 branch into main (lab root from the first c	lab_status.py	0	PASS lab_status
+4c675ec	2026-10-21T14:41	Merge the wave-4 branch into main (lab root from the first c	resume_brief.py	0	PASS resume_brief
+4c675ec	2026-10-21T14:41	Merge the wave-4 branch into main (lab root from the first c	user_words.py	0	PASS user_words
+84ff038	2026-10-19T23:53	Merge roadmap/reflective_run into main (the first reflective	budget.py	0	PASS budget
+84ff038	2026-10-19T23:53	Merge roadmap/reflective_run into main (the first reflective	handback.py	0	PASS handback
+84ff038	2026-10-19T23:53	Merge roadmap/reflective_run into main (the first reflective	lab_init.py	0	PASS lab_init
+84ff038	2026-10-19T23:53	Merge roadmap/reflective_run into main (the first reflective	lab_status.py	0	PASS lab_status
+84ff038	2026-10-19T23:53	Merge roadmap/reflective_run into main (the first reflective	resume_brief.py	0	PASS resume_brief
+84ff038	2026-10-19T23:53	Merge roadmap/reflective_run into main (the first reflective	user_words.py	0	PASS user_words
+544c9e3	2026-10-19T01:25	Merge roadmap/agent_tools into main (tool allowlists, cold-r	lab_init.py	0	PASS lab_init
+544c9e3	2026-10-19T01:25	Merge roadmap/agent_tools into main (tool allowlists, cold-r	lab_status.py	0	PASS lab_status
+544c9e3	2026-10-19T01:25	Merge roadmap/agent_tools into main (tool allowlists, cold-r	resume_brief.py	0	PASS resume_brief
+544c9e3	2026-10-19T01:25	Merge roadmap/agent_tools into main (tool allowlists, cold-r	user_words.py	0	PASS user_words
+b23c5c8	2026-10-19T00:56	Merge roadmap/minimal_lab into main (hook scripts, status sc	lab_init.py	0	PASS lab_init
+b23c5c8	2026-10-19T00:56	Merge roadmap/minimal_lab into main (hook scripts, status sc	lab_status.py	0	PASS lab_status
+b23c5c8	2026-10-19T00:56	Merge roadmap/minimal_lab into main (hook scripts, status sc	resume_brief.py	0	PASS resume_brief
+b23c5c8	2026-10-19T00:56	Merge roadmap/minimal_lab into main (hook scripts, status sc	user_words.py	0	PASS user_words
+15d4c94	2026-10-24T01:21	Merge w08-c1-rustbudget: budget and handback as subcommands 	budget.py	1	AssertionError: ('SubagentStart', None)
+15d4c94	2026-10-24T01:21	Merge w08-c1-rustbudget: budget and handback as subcommands 	handback.py	0	PASS handback
+15d4c94	2026-10-24T01:21	Merge w08-c1-rustbudget: budget and handback as subcommands 	lab_init.py	0	PASS lab_init
+15d4c94	2026-10-24T01:21	Merge w08-c1-rustbudget: budget and handback as subcommands 	lab_status.py	0	PASS lab_status
+15d4c94	2026-10-24T01:21	Merge w08-c1-rustbudget: budget and handback as subcommands 	permission_guard.py	0	selftest ok: attacks 0 denied, ordinary 0 allowed; not-gated: evasions caught [], mention-only denied []
+15d4c94	2026-10-24T01:21	Merge w08-c1-rustbudget: budget and handback as subcommands 	resume_brief.py	0	PASS resume_brief
+15d4c94	2026-10-24T01:21	Merge w08-c1-rustbudget: budget and handback as subcommands 	user_words.py	0	PASS user_words

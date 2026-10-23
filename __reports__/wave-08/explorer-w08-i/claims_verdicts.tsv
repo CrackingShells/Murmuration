@@ -1,0 +1,79 @@
+claim	wave	label	author	verifier	vtype	verdict_sequence	n_verdict_lines	changed_by	current	superseded_by
+w01-c1	w01	MEASURED	author-w01-1	reproducer-w01-1	reproducer	OVERSTATED	1	no	superseded by w01-c14	w01-c14
+w01-c2	w01	MEASURED	author-w01-2	reproducer-w01-2	reproducer	ESCALATE	1	no	escalated: PI decides	
+w01-c3	w01	MEASURED	author-w01-3	reproducer-w01-3	reproducer	SUPPORTED	1	yes	MEASURED	
+w01-c4	w01	MEASURED	author-w01-4	reproducer-w01-4	reproducer	ESCALATE	1	no	superseded by w01-c10, w01-c9	w01-c10,w01-c9
+w01-c5	w01	MEASURED	author-w01-5	reproducer-w01-5	reproducer	ESCALATE	1	yes	superseded by w01-c8	w01-c8
+w01-c6	w01	CONJECTURE	author-w01-6	reproducer-w01-6	reproducer	OVERSTATED	1	no	below CONJECTURE: restate	
+w01-c7	w01	CONJECTURE	author-w01-6	reproducer-w01-7	reproducer	OVERSTATED	1	no	below CONJECTURE: restate	
+w01-c8	w01	MEASURED	author-w01-5	reproducer-w01-8	reproducer	ESCALATE	1	no	escalated: PI decides	
+w01-c9	w01	MEASURED	author-w01-4	reproducer-w01-9	reproducer	OVERSTATED	1	no	superseded by w02-c2	w02-c2
+w01-c10	w01	CONJECTURE	author-w01-4	reproducer-w01-10	reproducer	OVERSTATED	1	yes	below CONJECTURE: restate	
+w01-c11	w01	CONJECTURE	research-pi	reproducer-w01-11	reproducer	OVERSTATED	1	no	superseded by w01-c12	w01-c12
+w01-c12	w01	CONJECTURE	research-pi	reproducer-w01-11	reproducer	OVERSTATED	1	no	superseded by w01-c13	w01-c13
+w01-c13	w01	CONJECTURE	research-pi	reproducer-w01-11	reproducer	SUPPORTED	1	no	CONJECTURE	
+w01-c14	w01	MEASURED	author-w01-1	reproducer-w01-1	reproducer	SUPPORTED	1	no	MEASURED	
+w02-c1	w02	MEASURED	author-w02-1	reproducer-w02-1	reproducer	SUPPORTED	1	no	MEASURED	
+w02-c2	w02	MEASURED	author-w02-2	reproducer-w02-2	reproducer	SUPPORTED	1	no	MEASURED	
+w02-c3	w02	MEASURED	author-w02-3	reproducer-w02-3	reproducer	OVERSTATED	1	no	superseded by w02-c5	w02-c5
+w02-c4	w02	MEASURED	author-w02-4	reproducer-w02-4	reproducer	SUPPORTED>OVERSTATED	2	yes	below MEASURED: restate	
+w02-c5	w02	MEASURED	author-w02-3	reproducer-w02-5	reproducer	SUPPORTED	1	no	MEASURED	
+w02-c6	w02	MEASURED	author-w02-3	reproducer-w02-6	reproducer	SUPPORTED	1	yes	MEASURED	
+w02-c7	w02	MEASURED	research-pi	reproducer-w02-7	reproducer	OVERSTATED	1	no	below MEASURED: restate	
+w02-c8	w02	MEASURED	research-pi	reproducer-w02-8	reproducer	OVERSTATED	1	no	below MEASURED: restate	
+w02-c9	w02	MEASURED	author-w02-1	reproducer-w02-9	reproducer	SUPPORTED	1	no	MEASURED	
+w02-c10	w02	MEASURED	author-w02-4	reproducer-w02-10	reproducer	ESCALATE	1	no	escalated: PI decides	
+w03-c1	w03	MEASURED	author-w03-1	reproducer-w03-1	reproducer	SUPPORTED	1	no	MEASURED	
+w03-c2	w03	MEASURED	author-w03-2	reproducer-w03-2	reproducer	ESCALATE	1	no	escalated: PI decides	
+w04-c1	w04	MEASURED	author-w04-1	reproducer-w04-1	reproducer	SUPPORTED	1	no	MEASURED	
+w04-c2	w04	MEASURED	author-w04-2	reproducer-w04-2	reproducer	OVERSTATED	1	no	superseded by w04-c8	w04-c8
+w04-c3	w04	MEASURED	author-w04-2	reproducer-w04-3	reproducer	OVERSTATED	1	no	superseded by w04-c9	w04-c9
+w04-c4	w04	MEASURED	author-w04-3	reproducer-w04-4	reproducer	ESCALATE	1	no	escalated: PI decides	
+w04-c5	w04	MEASURED	author-w04-4	reproducer-w04-5	reproducer	SUPPORTED	1	no	MEASURED	
+w04-c6	w04	MEASURED	author-w04-6	reproducer-w04-6	reproducer	OVERSTATED>SUPPORTED	2	yes	MEASURED	
+w04-c7	w04	MEASURED	author-w04-3	reproducer-w04-7	reproducer	ESCALATE	1	no	escalated: PI decides	
+w04-c8	w04	MEASURED	author-w04-2	reproducer-w04-8	reproducer	SUPPORTED	1	no	MEASURED	
+w04-c9	w04	MEASURED	author-w04-2	reproducer-w04-9	reproducer	OVERSTATED	1	no	superseded by w04-c11	w04-c11
+w04-c10	w04	MEASURED	author-w04-3	reproducer-w04-10	reproducer	ESCALATE	1	no	escalated: PI decides	
+w04-c11	w04	MEASURED	author-w04-2	reproducer-w04-9	reproducer	SUPPORTED	1	no	MEASURED	
+w04-c12	w04	MEASURED	author-w04-2	reproducer-w04-8	reproducer	SUPPORTED	1	no	MEASURED	
+w05-c1	w05	MEASURED	author-w05-1	reproducer-w05-1	reproducer	ESCALATE	1	no	escalated: PI decides	
+w05-c2	w05	CHECKED	author-w05-1	reproducer-w05-1	reproducer	SUPPORTED	1	no	CHECKED	
+w05-c3	w05	MEASURED	author-w05-2	reproducer-w05-3	reproducer	SUPPORTED	1	no	superseded by w05-c6	w05-c6
+w05-c4	w05	MEASURED	author-w05-3	reproducer-w05-4	reproducer	SUPPORTED	1	no	MEASURED	
+w05-c5	w05	MEASURED	author-w05-3	reproducer-w05-5	reproducer	SUPPORTED	1	yes	MEASURED	
+w05-c6	w05	MEASURED	author-w05-2	reproducer-w05-6	reproducer	OVERSTATED	1	no	superseded by w05-c7	w05-c7
+w05-c7	w05	MEASURED	author-w05-2	reproducer-w05-6	reproducer	SUPPORTED	1	no	MEASURED	
+w05-c8	w05	CHECKED	research-pi	reproducer-w05-8	reproducer	SUPPORTED	1	no	CHECKED	
+w05-c9	w05	CONJECTURE	research-pi	reproducer-w05-8	reproducer	OVERSTATED	1	no	superseded by w05-c10	w05-c10
+w05-c10	w05	CONJECTURE	research-pi	reproducer-w05-8	reproducer	SUPPORTED	1	no	CONJECTURE	
+w06-c1	w06	MEASURED	research-pi	reproducer-w06-1	reproducer	SUPPORTED	1	no	MEASURED	
+w06-c2	w06	ESTIMATE	research-pi	reproducer-w06-2	reproducer	OVERSTATED	1	no	below ESTIMATE: restate	
+w06-c3	w06	MEASURED	author-w06-3	reproducer-w06-3	reproducer	ESCALATE	1	no	superseded by w06-c5	w06-c5
+w06-c4	w06	MEASURED	author-w06-4	reproducer-w06-4	reproducer	OVERSTATED>OVERSTATED	2	no	below MEASURED: restate	
+w06-c5	w06	MEASURED	author-w06-3	reproducer-w06-3	reproducer	OVERSTATED	1	no	superseded by w06-c6	w06-c6
+w06-c6	w06	MEASURED	author-w06-3	reproducer-w06-3	reproducer	SUPPORTED	1	no	MEASURED	
+w06-c7	w06	MEASURED	author-w06-5	reproducer-w06-5	reproducer	SUPPORTED	1	no	MEASURED	
+w06-c8	w06	MEASURED	author-w06-5	reproducer-w06-5	reproducer	SUPPORTED	1	no	MEASURED	
+w06-c9	w06	MEASURED	author-w06-6	reproducer-w06-6	reproducer	SUPPORTED>SUPPORTED	2	no	MEASURED	
+w06-c9	w06	MEASURED	author-w06-6	reproducer-w06-6 (revision: the hardened build 80c8323)	reproducer	SUPPORTED	1	yes	MEASURED	
+w06-c10	w06	MEASURED	author-w06-5	reproducer-w06-5	reproducer	OVERSTATED	1	no	superseded by w06-c12	w06-c12
+w06-c11	w06	MEASURED	author-w06-5	reproducer-w06-7	reproducer	OVERSTATED	1	no	superseded by w06-c13	w06-c13
+w06-c12	w06	MEASURED	author-w06-5	reproducer-w06-7	reproducer	SUPPORTED	1	no	MEASURED	
+w06-c13	w06	MEASURED	author-w06-5	reproducer-w06-7	reproducer	OVERSTATED>OVERSTATED>SUPPORTED	3	yes	MEASURED	
+w06-c14	w06	MEASURED	author-w06-7	reproducer-w06-8	reproducer	SUPPORTED	1	no	MEASURED	
+w07-c1	w07	MEASURED	author-w07-1	reproducer-w07-1	reproducer	OVERSTATED	1	no	below MEASURED: restate	
+w07-c2	w07	MEASURED	author-w07-2	reproducer-w07-2	reproducer	SUPPORTED	1	no	MEASURED	
+w07-c3	w07	MEASURED	author-w07-3	reproducer-w07-3	reproducer	SUPPORTED	1	no	MEASURED	
+w07-c4	w07	MEASURED	author-w07-4	reproducer-w07-4	reproducer	SUPPORTED	1	yes	MEASURED	
+w07-c5	w07	MEASURED	author-w07-2	reproducer-w07-2	reproducer	SUPPORTED	1	no	MEASURED	
+w07-c6	w07	MEASURED	author-w07-5	reproducer-w07-5	reproducer	SUPPORTED	1	no	MEASURED	
+w07-c7	w07	MEASURED		reproducer-w07-6	reproducer	ESCALATE	1	no	escalated: PI decides	
+w07-c8	w07	MEASURED	author-w07-5	reproducer-w07-5	reproducer	OVERSTATED	1	no	below MEASURED: restate	
+w08-c1	w08	MEASURED	author-w08-1	reproducer-w08-1	reproducer	ESCALATE	1	no	superseded by w08-c4	w08-c4
+w08-c2	w08	MEASURED	author-w08-2		none		0	no	unverified MEASURED (the mechanism, live and offline); ESTIMATE (every USD figure and the break-even shares)	
+w08-c3	w08	MEASURED	author-w08-3	reproducer-w08-3	reproducer	SUPPORTED	1	no	MEASURED	
+w08-c4	w08	MEASURED	author-w08-1	reproducer-w08-1	reproducer	SUPPORTED	1	no	MEASURED	
+w08-c6	w08	MEASURED	research-pi	reproducer-w08-6	reproducer	SUPPORTED>SUPPORTED	2	no	MEASURED	
+w08-c7	w08	CONJECTURE	research-pi	reproducer-w08-6	reproducer	OVERSTATED>OVERSTATED>OVERSTATED	3	no	superseded by w08-c8	w08-c8
+w08-c8	w08	CONJECTURE	research-pi	reproducer-w08-6	reproducer	SUPPORTED	1	no	CONJECTURE	

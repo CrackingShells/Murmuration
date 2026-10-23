@@ -1,0 +1,129 @@
+label	role	wave	msgs	usd	lower_bound	output_tokens
+main thread	PI		731	2.3302		137274
+author	author		5	0.0995		522
+verifier	other		4	0.1081		377
+solo	other		2	0.0886		146
+probe:probe-author (main thread)	PI		2	0.1501		585
+v2	other		4	0.1062	+	88
+probe:probe-fm	other		2	0.0364		198
+murmuration:research-pi (main thread)	PI		1202	151.1556		1243076
+reproducer-w02-6	reproducer	w02	35	0.5725	+	1252
+reproducer-w01-11	reproducer	w01	34	0.7102	+	1162
+reproducer-w02-8	reproducer	w02	29	0.6039	+	1961
+explorer-w01-c	explorer	w01	63	1.9501	+	26238
+reproducer-w02-9	reproducer	w02	15	0.1649	+	310
+reproducer-w01-8	reproducer	w01	31	0.7059	+	497
+reproducer-w01-4	reproducer	w01	41	1.0620	+	775
+author-w03-2	author	w03	109	2.7343	+	16846
+reproducer-w01-10	reproducer	w01	20	0.4501	+	1071
+reproducer-w02-7	reproducer	w02	15	0.1908	+	332
+author-w01-2	author	w01	67	3.6881	+	3114
+reproducer-w01-5	reproducer	w01	38	0.8963	+	545
+reproducer-w03-2	reproducer	w03	54	0.9760	+	763
+explorer-w01-e	explorer	w01	49	1.0917	+	777
+reproducer-w03-1	reproducer	w03	53	1.5198	+	2255
+reproducer-w01-7	reproducer	w01	29	0.7738	+	1003
+explorer-w01-f	explorer	w01	46	1.7464	+	14520
+author-w01-3	author	w01	57	2.2437	+	18210
+reproducer-w01-2	reproducer	w01	26	0.4024	+	668
+reproducer-w02-5	reproducer	w02	24	0.4860	+	1800
+reproducer-w02-4	reproducer	w02	26	0.3567	+	1667
+reproducer-w02-3	reproducer	w02	28	0.6457	+	1750
+author-w01-4	author	w01	64	3.0848	+	16185
+author-w01-5	author	w01	62	3.2243	+	37294
+reproducer-w01-3	reproducer	w01	41	0.9298	+	1031
+explorer-w01-d	explorer	w01	62	1.9750	+	13884
+author-w01-6	author	w01	45	3.2977	+	69443
+author-w02-3	author	w02	176	9.0188	+	14822
+reproducer-w02-10	reproducer	w02	17	0.2066	+	203
+author-w01-1	author	w01	72	3.0392	+	25381
+explorer-w02-c	explorer	w02	105	5.6623	+	27939
+reproducer-w01-9	reproducer	w01	25	0.5597	+	171
+author-w02-2	author	w02	51	0.9243	+	1630
+explorer-w01-b	explorer	w01	62	2.0070	+	17694
+reproducer-w02-2	reproducer	w02	31	0.3930	+	248
+author-w03-1	author	w03	125	6.4950	+	39308
+author-w02-4	author	w02	71	1.4430	+	725
+author-w02-1	author	w02	53	1.5091	+	1997
+explorer-w02-a	explorer	w02	50	1.0614	+	5751
+reproducer-w02-1	reproducer	w02	25	0.3382	+	1054
+explorer-w02-b	explorer	w02	64	1.0070	+	3001
+reproducer-w01-1	reproducer	w01	52	1.2116	+	1137
+explorer-w01-a	explorer	w01	52	1.8015	+	21995
+reproducer-w01-6	reproducer	w01	40	0.8920	+	1238
+scribe	other		9	0.0137		1251
+essayist	other		439	1.3370	+	279254
+author-w99-1	author	w99	29	0.0091	+	921
+hbtest:hb	other		19	0.0061	+	820
+author-w99-2	author	w99	8	0.0042	+	1955
+hbtest:hbw	other		50	0.0163		11026
+author-w99-3	author	w99	82	0.0249		17348
+author-w99-4	author	w99	3	0.0014	+	18
+author-w04-1	author	w04	36	0.7040	+	329
+reproducer-w04-1	reproducer	w04	29	0.2971	+	1286
+reproducer-w04-3	reproducer	w04	33	0.4332	+	647
+author-w04-2	author	w04	107	3.6208	+	3245
+reproducer-w04-2	reproducer	w04	31	0.3315	+	359
+reproducer-w04-10	reproducer	w04	18	0.2342	+	521
+reproducer-w04-6	reproducer	w04	26	0.2464	+	1142
+reproducer-w04-4	reproducer	w04	33	0.4452	+	760
+reproducer-w04-5	reproducer	w04	51	0.7518	+	739
+author-w04-3	author	w04	116	3.2047	+	15810
+author-w04-4	author	w04	122	5.9035	+	30303
+author-w04-6	author	w04	24	0.2558	+	510
+reproducer-w04-7	reproducer	w04	21	0.3031	+	497
+reproducer-w04-9	reproducer	w04	29	0.3578	+	930
+reproducer-w04-8	reproducer	w04	40	0.7884	+	2816
+explorer-w05-b	explorer	w05	39	0.7730	+	11342
+author-w05-2	author	w05	60	1.0077	+	607
+reproducer-w05-5	reproducer	w05	33	0.4081	+	314
+explorer-w05-e	explorer	w05	45	0.5175	+	1914
+reproducer-w05-8	reproducer	w05	25	0.2851	+	516
+author-w05-3	author	w05	136	5.0535	+	20637
+reproducer-w05-1	reproducer	w05	29	0.4042	+	581
+explorer-w05-a	explorer	w05	39	0.9087	+	7866
+reproducer-w05-3	reproducer	w05	32	0.3541	+	560
+explorer-w05-d	explorer	w05	67	1.1467	+	644
+explorer-w05-f	explorer	w05	36	0.9646	+	1228
+reproducer-w05-6	reproducer	w05	32	0.3436	+	323
+reproducer-w05-4	reproducer	w05	51	0.6263	+	690
+explorer-w05-c	explorer	w05	55	1.3685	+	24087
+author-w05-1	author	w05	68	1.6863	+	10269
+reproducer-w06-5	reproducer	w06	53	1.0299	+	2971
+reproducer-w06-2	reproducer	w06	27	0.3715	+	815
+reproducer-w06-1	reproducer	w06	28	0.3542	+	922
+reproducer-w06-4	reproducer	w06	36	0.4322	+	599
+reproducer-w06-7	reproducer	w06	83	2.2109	+	1201
+author-w06-6	author	w06	174	5.5013	+	33423
+reproducer-w06-8	reproducer	w06	35	0.6172	+	773
+reproducer-w06-3	reproducer	w06	40	0.5233	+	2165
+explorer-w06-c	explorer	w06	51	1.0109	+	25855
+author-w06-3	author	w06	87	2.7016	+	9216
+reproducer-w06-6	reproducer	w06	67	1.2496	+	636
+explorer-w06-a	explorer	w06	40	0.5838	+	342
+guide-w06-perm	other		9	0.1842	+	22103
+author-w06-4	author	w06	126	4.0294	+	21151
+author-w06-5	author	w06	241	9.9691	+	87924
+author-w06-7	author	w06	21	0.2619	+	243
+explorer-w06-b	explorer	w06	52	0.9964	+	466
+murmuration:explorer	explorer		372	7.3156	+	68787
+murmuration:reproducer	reproducer		280	4.1728	+	23449
+murmuration:author	author		369	10.0720	+	7057
+general-purpose	other		31	1.0802	+	25509
+explorer-w08-f	explorer	w08	74	1.8761		69846
+reproducer-w08-3	reproducer	w08	32	0.7367		25029
+explorer-w08-b	explorer	w08	78	2.4038		86684
+explorer-w08-i	explorer	w08	24	0.5606		14860
+author-w08-2	author	w08	80	3.3794		121378
+explorer-w08-a	explorer	w08	53	1.6072		76278
+explorer-w08-h	explorer	w08	52	2.5720		96220
+author-w08-3	author	w08	83	3.3374		118188
+explorer-w08-c	explorer	w08	30	1.3662		65722
+author-w08-1	author	w08	104	6.5146		232397
+explorer-w08-g	explorer	w08	57	1.6747		68024
+author-w08-5	author	w08	43	1.3633		49392
+explorer-w08-j	explorer	w08	13	0.2974		7866
+explorer-w08-d	explorer	w08	38	1.5799		83497
+reproducer-w08-6	reproducer	w08	22	0.3744		16780
+explorer-w08-e	explorer	w08	79	2.4085		90089
+reproducer-w08-1	reproducer	w08	43	0.8918		33685
