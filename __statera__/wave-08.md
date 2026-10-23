@@ -147,6 +147,26 @@ sections a worker needs and do not ask it to read this note.
   logic, one `unsafe` call, three clippy lints. reproducer-w08-1 dispatched; I decide at its
   verdict.
 
+**explorer-w08-g, author-w08-3, reproducer-w08-1 back.**
+- Batching is not a lever: unchanged Sonnet subagents already send independent Reads together (8
+  of 8, 16 of 16); the one-line nudge changed nothing; merges that past workers missed are worth
+  0.2–2% of worker USD [source: explorer-w08-g's report, MEASURED/ESTIMATE]. With f's effort
+  result, the worker side is near its floor: what a worker pays for is dependent
+  run-read-fix steps, which is the work.
+- w08-c3: compaction with the existing resume brief kept what a PI-like session needed (Opus 1
+  of 1, haiku 3 of 3, at a 150k window on a small lab); the PreCompact hook added nothing and
+  does not land; only the main checkout's `.claude/settings*.json` load under the Desktop's
+  `--project-config-root`, and the guard (G3) refuses writes to them, correctly [source:
+  `__pondus__/w08-c3.md`, unverified MEASURED]. So the landing is a setting in a file the
+  permission layer guards: the user's to write. reproducer-w08-3 dispatched.
+- Name swaps in `start` lines on same-second dispatches of one agent type are real (00:29:22:
+  `a09a86b0…` started as explorer-w08-e and is explorer-w08-f; S-w08-author-w08-3-2); later lines
+  carry the right name. Item 6, still open.
+- w08-c1, ESCALATE: equality reproduced on the verifier's own 651 live wave-8 events, all through
+  the port; 12–13 ms saved per start by its pairs; the title omits the 587 hand-offs and the
+  in-platform miss. Decision: the narrower wording is filed as w08-c4 (supersedes w08-c1),
+  checked by the same verifier; I land on w08-c4 if it holds.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -161,6 +181,7 @@ sections a worker needs and do not ask it to read this note.
 | author-w08-3 | author | w08-c3: a PI compaction threshold with a PreCompact hook carrying the lab state; Opus PI-like run through it | |
 | explorer-w08-g | explorer | worker requests that could have been merged: USD, and one agent-file line tested | |
 | reproducer-w08-1 | reproducer | verify w08-c1 with its own replay set from wave-8 events, the fall-back, `localtime_r`, the title against e3/e4 | |
+| reproducer-w08-3 | reproducer | verify w08-c3: re-score blind, a fresh pair, the settings-location statement, transfer to a real PI | |
 | author-w08-1 | author | w08-c1: `budget` and `handback` as subcommands of the Rust binary, replay-equal, with fallback (item 36) | |
 
 ## Claims of this wave
