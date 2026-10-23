@@ -90,6 +90,20 @@ sections a worker needs and do not ask it to read this note.
   search hint workers get at start. Documents are 14.3% of worker context USD, with a by-section
   ceiling of 6.9% (explorer-w08-a), so this is a small lever and I do not open a claim yet.
 
+**explorer-w08-e back (00:52, 1c44fee).**
+- The PI's auto-compact default on a 1M model is about 967k; `autoCompactWindow` (settings),
+  `CLAUDE_CODE_AUTO_COMPACT_WINDOW` or `--autocompact` set it, 100k–1M, firing at window minus
+  33k; it reaches subagents too. PreCompact can block and its stdout reaches the summary. A
+  compaction costs about USD 0.13 at 170k (haiku runs re-priced at Opus) and leaves 24k + 40k,
+  30k of it the re-sent listings. Codes and user facts survived (28/28), prose detail did not
+  (0/10). Net over the PI history near 250k: USD 31–45, if the PI re-reads under about 45k per
+  compaction [source: explorer-w08-e's report, CITED/MEASURED/ESTIMATE as labelled there].
+- Idle compaction never fired in six Desktop PI sessions; two paid USD 3.4–3.8 re-writes after an
+  hour's pause (S-w08-explorer-w08-e-1).
+- Decision: the largest lever of the wave goes to a claim, w08-c3 (author-w08-3), with a
+  PreCompact hook that writes the lab state into the summary and a PI-like Opus run through a
+  compaction. If it holds, I land it and run on it myself for the rest of the wave.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -101,6 +115,7 @@ sections a worker needs and do not ask it to read this note.
 | author-w08-2 | author | w08-c2: a once-only check that sends back an over-long hand-back, net of the PI reading the report | |
 | explorer-w08-e | explorer | what compaction the platform allows, costs and keeps; the PI lever recomputed | |
 | explorer-w08-f | explorer | are earlier thinking blocks billed again; `effort` frontmatter as a lever on a fixed task | |
+| author-w08-3 | author | w08-c3: a PI compaction threshold with a PreCompact hook carrying the lab state; Opus PI-like run through it | |
 | author-w08-1 | author | w08-c1: `budget` and `handback` as subcommands of the Rust binary, replay-equal, with fallback (item 36) | |
 
 ## Claims of this wave
