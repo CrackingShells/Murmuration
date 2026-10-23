@@ -75,3 +75,11 @@ passing is reported as a CPU saving only.
 
 A message that the Python script would send and the binary does not (or the reverse), a log line with another key or another float spelling, a state file one byte apart (`base` written `0` where
 Python writes `0.0`), a worker that is not blocked at 150 percent, a torn log under concurrency, a pair in which the Rust start is slower, or a stale script that the binary no longer follows. e1 to e4 are built to show each.
+
+## Amendments, written after the runs (the text above is as registered; these say where the runs differ from it)
+
+1. The hooks file has 8 rows for the two subcommands, not 14 (budget: SubagentStart, PreToolUse Agent|Task, PostToolUse, SubagentStop, PostToolBatch; hand-back: PreToolUse, PostToolUse, SubagentStop).
+2. e1, real-clock pass: both implementations run each step back to back in two folders, and the fields that follow the clock are compared with 1.0 s (seconds fields), 0.05 min (`minutes_at`) and 1 s over T (`t_frac`), not 0.15 s: two processes cannot run at one instant. The exact pass has no tolerance. The "corpus from `harness.jsonl` records" was 5 start records; the events are built from the fields the scripts read, with the identities of those records not used beyond the shape.
+3. e2 (v): under concurrent writers the number of log lines depends on the order in which parallel hooks run (a `note` before or after a `block`), in either implementation; the registered "counts equal a serial run" is replaced by: every line whole, one block per agent, no torn state, no stray temporary file.
+4. e4: the live pairs time the main thread's budget rows (the worker path needs a plugin named `murmuration`, whose data folder is the running session's); 12 valid pairs of 13 run (one session failed at start, API error, excluded with its partner).
+5. The rule of e3 was applied per payload and per run as registered; it is reported as it came out, and the replicate run is reported beside the first, not instead of it.

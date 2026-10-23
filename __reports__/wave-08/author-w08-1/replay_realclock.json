@@ -1,0 +1,63 @@
+{
+ "mode": "realclock",
+ "transcripts": 150,
+ "seconds": 150.5,
+ "groups": {
+  "synthetic": {
+   "scenarios": 28,
+   "events": 197,
+   "delegated": 0,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  },
+  "state": {
+   "scenarios": 7,
+   "events": 35,
+   "delegated": 0,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  },
+  "handback": {
+   "scenarios": 6,
+   "events": 39,
+   "delegated": 0,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  },
+  "malformed": {
+   "scenarios": 19,
+   "events": 38,
+   "delegated": 0,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  },
+  "fuzz": {
+   "scenarios": 600,
+   "events": 1200,
+   "delegated": 0,
+   "differing_events": 2,
+   "differing_scenarios": 1
+  },
+  "real": {
+   "scenarios": 300,
+   "events": 2250,
+   "delegated": 0,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  },
+  "nolab": {
+   "scenarios": 1,
+   "events": 2,
+   "delegated": 0,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  }
+ },
+ "total": {
+  "scenarios": 961,
+  "events": 3761,
+  "delegated": 0,
+  "differing_events": 2,
+  "differing_scenarios": 1
+ }
+}

@@ -1,0 +1,63 @@
+{
+ "mode": "exact",
+ "transcripts": 12,
+ "seconds": 32.4,
+ "groups": {
+  "synthetic": {
+   "scenarios": 30,
+   "events": 257,
+   "delegated": 7,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  },
+  "state": {
+   "scenarios": 7,
+   "events": 35,
+   "delegated": 5,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  },
+  "handback": {
+   "scenarios": 6,
+   "events": 39,
+   "delegated": 0,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  },
+  "malformed": {
+   "scenarios": 19,
+   "events": 38,
+   "delegated": 9,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  },
+  "fuzz": {
+   "scenarios": 60,
+   "events": 120,
+   "delegated": 48,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  },
+  "real": {
+   "scenarios": 24,
+   "events": 180,
+   "delegated": 0,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  },
+  "nolab": {
+   "scenarios": 1,
+   "events": 2,
+   "delegated": 0,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  }
+ },
+ "total": {
+  "scenarios": 147,
+  "events": 671,
+  "delegated": 69,
+  "differing_events": 0,
+  "differing_scenarios": 0
+ }
+}

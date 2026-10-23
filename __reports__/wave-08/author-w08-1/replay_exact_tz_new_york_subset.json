@@ -1,0 +1,35 @@
+{
+ "mode": "exact",
+ "transcripts": 150,
+ "seconds": 67.1,
+ "groups": {
+  "synthetic": {
+   "scenarios": 7,
+   "events": 123,
+   "delegated": 0,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  },
+  "handback": {
+   "scenarios": 6,
+   "events": 39,
+   "delegated": 0,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  },
+  "real": {
+   "scenarios": 166,
+   "events": 1245,
+   "delegated": 0,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  }
+ },
+ "total": {
+  "scenarios": 179,
+  "events": 1407,
+  "delegated": 0,
+  "differing_events": 0,
+  "differing_scenarios": 0
+ }
+}
