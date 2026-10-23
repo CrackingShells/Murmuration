@@ -95,7 +95,7 @@ def self_test(root, binary):
 def hook_selftest(root, binary):
     """The name of the first budget or handback step on which the binary and the Python scripts (run by this interpreter) differ, or None.
 
-    The same six events run through each in a temporary lab: stdout and exit code are compared at each step, then the kinds of the lines in harness.jsonl and the hand-back file with its time removed."""
+    The same six events run through each in a temporary lab: stdout and exit code are compared at each step, (the lab's path replaced by `<LAB>`), then the kinds of the lines in harness.jsonl and the hand-back file with its time removed."""
     import re
     import tempfile
     brief = "Your name is reproducer-w09-1.\nBudget: USD 1.00\nTime: min 100\nGo.\n"
@@ -108,7 +108,7 @@ def hook_selftest(root, binary):
         env = dict(os.environ, CLAUDE_PLUGIN_ROOT=root, LC_ALL="en_US.UTF-8")
         env.pop("CLAUDE_PROJECT_DIR", None)
         p = subprocess.run(cmd, input=json.dumps(dict(event, cwd=lab, transcript_path=lab + "/s.jsonl")).encode(), capture_output=True, timeout=10, env=env)
-        return p.returncode, p.stdout, p.stderr
+        return p.returncode, p.stdout.replace(lab.encode(), b"<LAB>"), p.stderr.replace(lab.encode(), b"<LAB>")   # the start note names the lab's absolute path, and each program runs in its own temporary lab
 
     results = []
     for who in ("python", "binary"):
