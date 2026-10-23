@@ -319,6 +319,29 @@ def substitution_texts(cmd, work):
     return texts if len(texts) > 1 or texts[0] != cmd else []
 
 
+def _shell_script(toks, i):
+    """Index of the word a shell reads as the string of `-c` in toks[i:] (its arguments), or None. Options come first: a word of `-` and letters with a `c` among them sets -c (`-lc`, `-ec`, `-c`); a letter `o` or `O` in such a word, and `--rcfile`, `--init-file`, take the next word as their value;
+    `--` or `-` ends the options; any other word is the first non-option, which is the string when -c was set."""
+    c, pend = False, 0
+    while i < len(toks):
+        t = toks[i]
+        if pend:
+            pend -= 1
+        elif t in ("--", "-"):
+            return i + 1 if c and i + 1 < len(toks) else None
+        elif len(t) > 1 and t[0] in "-+" and t[1:].isalpha() and t[1:].isascii():
+            pend = t.count("o") + t.count("O")
+            c = c or (t[0] == "-" and "c" in t)
+        elif t in ("--rcfile", "--init-file"):
+            pend = 1
+        elif len(t) > 1 and t[0] in "-+":                                     # another option
+            pass
+        else:
+            return i if c else None
+        i += 1
+    return None
+
+
 def expand(cmd, depth=0, work=None):
     """Every simple command (list of words) of cmd, descending into `sh -c '...'`, `eval '...'` and `env -S '...'` strings (depth 3). The simple commands of the plain splitter come first, in order; then those of
     the command and of each substitution inside it with the substitutions replaced by one word (so that `claude -p "$(cat f)" --flag` is also seen as `claude -p "SUBST" --flag`). Raises TooComplex."""
@@ -336,10 +359,14 @@ def expand(cmd, depth=0, work=None):
                 out += expand(" ".join([st] + toks[k:]), depth + 1, work)
         if depth < 3 and k < len(toks):
             prog = os.path.basename(toks[k])
-            if prog in SHELLS and "-c" in toks[k + 1:]:
-                j = toks.index("-c", k + 1)
-                if j + 1 < len(toks):
-                    out += expand(toks[j + 1], depth + 1, work)
+            if prog in SHELLS:
+                js = [toks.index("-c", k + 1) + 1] if "-c" in toks[k + 1:] else []      # the word after the first `-c`, as before
+                j = _shell_script(toks, k + 1)                                          # and the string of `-c` as the shell reads its options (`-lc`, `-c -x`, ...)
+                if j is not None and j not in js:
+                    js.append(j)
+                for j in js:
+                    if j < len(toks):
+                        out += expand(toks[j], depth + 1, work)
             elif prog == "eval":
                 out += expand(" ".join(toks[k + 1:]), depth + 1, work)
     return out
