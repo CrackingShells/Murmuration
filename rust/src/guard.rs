@@ -124,34 +124,130 @@ fn is_duration(t: &[u32]) -> bool {
     all || last_unit
 }
 
-/// `program`: the index of the program word and the assignments before it.
-fn program(toks: &[Text]) -> (usize, Vec<Text>) {
+/// `VALUE_OPTS`: per wrapper, the short option letters and the long option names that take their value from the next word.
+const VALUE_OPTS: &[(&str, &str, &[&str])] = &[
+    ("env", "uCSPa", &["--unset", "--chdir", "--split-string", "--argv0"]),
+    ("exec", "a", &[]),
+    ("timeout", "ks", &["--kill-after", "--signal"]),
+    ("gtimeout", "ks", &["--kill-after", "--signal"]),
+    ("nice", "n", &["--adjustment"]),
+    ("ionice", "cnpPu", &["--class", "--classdata", "--pid", "--pgid", "--uid"]),
+    ("stdbuf", "ioe", &["--input", "--output", "--error"]),
+    ("xargs", "nILPsdaERS", &["--max-args", "--max-lines", "--max-procs", "--max-chars", "--delimiter", "--arg-file", "--eof"]),
+    ("caffeinate", "tw", &[]),
+    (
+        "sudo",
+        "ugCDhprtTUR",
+        &["--user", "--group", "--close-from", "--chdir", "--host", "--prompt", "--role", "--type", "--command-timeout", "--other-user", "--chroot"],
+    ),
+    ("time", "fo", &["--format", "--output"]),
+];
+
+/// `name.startswith(t)` for a literal `name`.
+fn name_starts_with(name: &str, t: &[u32]) -> bool {
+    let n = text(name);
+    n.len() >= t.len() && slice(&n, 0, t.len()) == t
+}
+
+/// `_value_option`: the option word `t` of wrapper `w` takes its value from the next word.
+fn value_option(w: &[u32], t: &[u32]) -> bool {
+    let (shorts, longs) = VALUE_OPTS.iter().find(|(n, _, _)| eq(w, n)).map_or(("", &[][..]), |(_, s, l)| (*s, *l));
+    if starts(t, "--") {
+        return !has_char(t, '=') && t.len() > 2 && longs.iter().any(|name| name_starts_with(name, t));
+    }
+    for k in 1..t.len() {
+        if at(t, k).is_some_and(|ch| shorts.chars().any(|sc| cp(sc) == ch)) {
+            return k == t.len() - 1;
+        }
+    }
+    false
+}
+
+/// `_env_string`: the string of `env -S` / `--split-string` in the option word `t` (`toks[i]` is the word after it).
+fn env_string(t: &[u32], toks: &[Text], i: usize) -> Option<Text> {
+    if starts(t, "--") {
+        let eq_at = t.iter().position(|&c| c == cp('='));
+        let name = slice(t, 0, eq_at.unwrap_or(t.len()));
+        if name.len() > 2 && name_starts_with("--split-string", name) {
+            return match eq_at {
+                Some(e) => Some(slice(t, e + 1, t.len()).to_vec()),
+                None => toks.get(i).cloned(),
+            };
+        }
+        return None;
+    }
+    for k in 1..t.len() {
+        let Some(ch) = at(t, k) else {
+            continue;
+        };
+        if "uCSPa".chars().any(|sc| cp(sc) == ch) {
+            if ch != cp('S') {
+                return None;
+            }
+            return if k + 1 < t.len() { Some(slice(t, k + 1, t.len()).to_vec()) } else { toks.get(i).cloned() };
+        }
+    }
+    None
+}
+
+/// What `_scan` finds: the program word's index, the assignments before it, the strings of `env -S`, and whether a wrapper option's value was skipped.
+struct Scan {
+    k: usize,
+    assigns: Vec<Text>,
+    strings: Vec<Text>,
+    skipped: bool,
+}
+
+/// `_scan`.
+fn scan(toks: &[Text]) -> Scan {
     let mut i = 0;
-    let mut assigns: Vec<Text> = Vec::new();
+    let mut sc = Scan { k: 0, assigns: Vec::new(), strings: Vec::new(), skipped: false };
     while let Some(t) = toks.get(i) {
         if in_set(t, KEYWORDS) {
             i += 1;
         } else if is_assign(t) {
-            assigns.push(t.clone());
+            sc.assigns.push(t.clone());
             i += 1;
         } else if in_set(basename(t), WRAP) {
             let w = basename(t);
             let timed = eq(w, "timeout") || eq(w, "gtimeout") || eq(w, "nice");
             i += 1;
-            while let Some(nx) = toks.get(i) {
-                if !(starts(nx, "-") || is_assign(nx) || (timed && is_duration(nx))) {
+            while let Some(o) = toks.get(i) {
+                if !(starts(o, "-") || is_assign(o) || (timed && is_duration(o))) {
                     break;
                 }
-                if is_assign(nx) {
-                    assigns.push(nx.clone());
+                if is_assign(o) {
+                    sc.assigns.push(o.clone());
                 }
                 i += 1;
+                if eq(w, "env") && starts(o, "-") {
+                    if let Some(st) = env_string(o, toks, i) {
+                        sc.strings.push(st);
+                    }
+                }
+                if starts(o, "-") && value_option(w, o) {
+                    if let Some(v) = toks.get(i) {
+                        // a value is never taken for the program, but `claude` is never taken for a value
+                        if !eq(basename(v), "claude") {
+                            i += 1;
+                            sc.skipped = true;
+                        }
+                    }
+                }
             }
         } else {
-            return (i, assigns);
+            sc.k = i;
+            return sc;
         }
     }
-    (toks.len(), assigns)
+    sc.k = toks.len();
+    sc
+}
+
+/// `program`: the index of the program word and the assignments before it.
+fn program(toks: &[Text]) -> (usize, Vec<Text>) {
+    let sc = scan(toks);
+    (sc.k, sc.assigns)
 }
 
 /// `flag_value`: the values given to `--flag`, separate or with `=`.
@@ -167,38 +263,188 @@ fn flag_value(toks: &[Text], flag: &str) -> Vec<Text> {
     out
 }
 
-/// `expand`: every simple command of `cmd`, descending into `sh -c '...'` and `eval '...'` strings to depth 3.
-fn expand(cmd: &[u32], depth: usize) -> Vec<Seg> {
+/// `TooComplex`: more characters looked at while masking command substitutions than `WORK` allows.
+struct TooComplex;
+
+const WORK: usize = 3_000_000;
+
+fn tick(work: &mut usize) -> Result<(), TooComplex> {
+    *work += 1;
+    if *work > WORK {
+        Err(TooComplex)
+    } else {
+        Ok(())
+    }
+}
+
+/// `_close`: the index of the `)` that closes a `$(` whose inside starts at `j`.
+fn close_paren(s: &[u32], j: usize, aware: bool, work: &mut usize) -> Result<Option<usize>, TooComplex> {
+    let (sq, dq, bs) = (cp('\''), cp('"'), cp('\\'));
+    let mut stack: Vec<u32> = vec![cp('P')];
+    let mut k = j;
+    while let Some(c) = at(s, k) {
+        tick(work)?;
+        let top = stack.last().copied().unwrap_or(cp('P'));
+        if top == sq {
+            if c == sq {
+                stack.pop();
+            }
+        } else if c == bs {
+            k += 1;
+        } else if top == dq {
+            if c == dq {
+                stack.pop();
+            } else if starts_at(s, k, "$(") {
+                stack.push(cp('P'));
+                k += 1;
+            }
+        } else if aware && (c == sq || c == dq) {
+            stack.push(c);
+        } else if starts_at(s, k, "$(") {
+            stack.push(cp('P'));
+            k += 1;
+        } else if c == cp('(') {
+            stack.push(cp('P'));
+        } else if c == cp(')') {
+            stack.pop();
+            if stack.is_empty() {
+                return Ok(Some(k));
+            }
+        }
+        k += 1;
+    }
+    Ok(None)
+}
+
+/// `_mask`: the text with every outermost substitution replaced by one word, and the insides that were replaced.
+fn mask(s: &[u32], work: &mut usize) -> Result<(Text, Vec<Text>), TooComplex> {
+    let (sq, dq, bs, bt) = (cp('\''), cp('"'), cp('\\'), cp('`'));
+    let mut out: Text = Text::new();
+    let mut inners: Vec<Text> = Vec::new();
+    let mut i = 0;
+    let mut q: Option<u32> = None;
+    while let Some(c) = at(s, i) {
+        tick(work)?;
+        let mut inner: Option<Text> = None;
+        if q == Some(sq) {
+            out.push(c);
+            if c == sq {
+                q = None;
+            }
+        } else if c == bs {
+            out.extend_from_slice(slice(s, i, i + 2));
+            i += 1;
+        } else if c == bt {
+            let mut k = i + 1;
+            while at(s, k).is_some_and(|x| x != bt) {
+                tick(work)?;
+                k += if at(s, k) == Some(bs) { 2 } else { 1 };
+            }
+            if k < s.len() {
+                inner = Some(slice(s, i + 1, k).to_vec());
+                i = k;
+            } else {
+                out.push(c);
+            }
+        } else if (c == cp('$') || (q.is_none() && (c == cp('<') || c == cp('>')))) && at(s, i + 1) == Some(cp('(')) {
+            let mut j = close_paren(s, i + 2, true, work)?;
+            if j.is_none() {
+                j = close_paren(s, i + 2, false, work)?;
+            }
+            match j {
+                None => {
+                    out.extend_from_slice(slice(s, i, i + 2));
+                    i += 1;
+                }
+                Some(j) => {
+                    inner = Some(slice(s, i + 2, j).to_vec());
+                    i = j;
+                }
+            }
+        } else if q.is_none() && (c == sq || c == dq) {
+            q = Some(c);
+            out.push(c);
+        } else if q == Some(dq) && c == dq {
+            q = None;
+            out.push(c);
+        } else {
+            out.push(c);
+        }
+        if let Some(inn) = inner {
+            out.extend(text(if names_claude(&inn) { "claude" } else { "SUBST" }));
+            inners.push(inn);
+        }
+        i += 1;
+    }
+    Ok((out, inners))
+}
+
+/// `substitution_texts`: the texts to split in addition to `cmd`; empty when `cmd` has no substitution.
+fn substitution_texts(cmd: &[u32], work: &mut usize) -> Result<Vec<Text>, TooComplex> {
+    if !contains(cmd, "$(") && !has_char(cmd, '`') && !contains(cmd, "<(") && !contains(cmd, ">(") {
+        return Ok(Vec::new());
+    }
+    let mut texts: Vec<Text> = Vec::new();
+    let mut queue: std::collections::VecDeque<Text> = std::collections::VecDeque::new();
+    queue.push_back(cmd.to_vec());
+    while let Some(t) = queue.pop_front() {
+        let (m, inners) = mask(&t, work)?;
+        texts.push(m);
+        queue.extend(inners);
+    }
+    let same = texts.len() == 1 && texts.first().is_some_and(|t| t.as_slice() == cmd);
+    Ok(if same { Vec::new() } else { texts })
+}
+
+/// `expand`: every simple command of `cmd`: those of the plain splitter first, in order, then those of the command and of each substitution inside it with the substitutions replaced by one word;
+/// descends into `sh -c '...'`, `eval '...'` and `env -S '...'` strings to depth 3.
+fn expand(cmd: &[u32], depth: usize, work: &mut usize) -> Result<Vec<Seg>, TooComplex> {
     let mut out: Vec<Seg> = Vec::new();
-    for seg in split_segments(cmd) {
+    let mut segs = split_segments(cmd);
+    for t in substitution_texts(cmd, work)? {
+        segs.extend(split_segments(&t));
+    }
+    for seg in segs {
         let toks = words(&seg);
         out.push((seg, toks.clone()));
-        let (k, _) = program(&toks);
+        let sc = scan(&toks);
+        let k = sc.k;
+        if depth < 3 {
+            for st in &sc.strings {
+                let mut parts: Vec<Text> = vec![st.clone()];
+                parts.extend_from_slice(slice_toks(&toks, k));
+                out.extend(expand(&join_with(&parts, ' '), depth + 1, work)?);
+            }
+        }
         if depth < 3 && k < toks.len() {
             let prog = basename(&toks[k]); // INDEX: k < toks.len() checked on the line above
             let rest = slice_toks(&toks, k + 1);
             if in_set(prog, SHELLS) && rest.iter().any(|t| eq(t, "-c")) {
                 if let Some(j) = rest.iter().position(|t| eq(t, "-c")) {
                     if let Some(arg) = rest.get(j + 1) {
-                        out.extend(expand(arg, depth + 1));
+                        out.extend(expand(arg, depth + 1, work)?);
                     }
                 }
             } else if eq(prog, "eval") {
-                out.extend(expand(&join_with(rest, ' '), depth + 1));
+                out.extend(expand(&join_with(rest, ' '), depth + 1, work)?);
             }
         }
     }
-    out
+    Ok(out)
 }
 
 /// `inert`: a read-only search that may carry the words without being an attack.
 fn inert(toks: &[Text]) -> bool {
-    let (k, _) = program(toks);
-    let Some(first) = toks.get(k) else {
+    let sc = scan(toks);
+    // a wrapper option's value was skipped: the program may be one the old reading took for `inert`, so it counts as not inert
+    if sc.skipped {
+        return false;
+    }
+    let Some(first) = toks.get(sc.k) else {
         return false;
     };
     let prog = basename(first);
-    let rest = slice_toks(toks, k + 1);
+    let rest = slice_toks(toks, sc.k + 1);
     if in_set(prog, INERT) {
         return !rest.iter().any(|t| eq(t, "--pre") || starts(t, "--pre="));
     }
@@ -814,7 +1060,10 @@ fn decide(event: &Value) -> Res<Option<Hit>> {
             return Err(Fault::Attribute);
         }
         let cmd = command_text(&inp)?;
-        let segs = expand(&cmd, 0);
+        let mut work = 0;
+        let Ok(segs) = expand(&cmd, 0, &mut work) else {
+            return Ok(hit("G?", text("the command has too many command substitutions to be checked")));
+        };
         if let Some(h) = g1(&cmd, &segs).or_else(|| g2(&segs)) {
             return Ok(Some(h));
         }
