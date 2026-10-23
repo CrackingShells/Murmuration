@@ -263,119 +263,150 @@ fn flag_value(toks: &[Text], flag: &str) -> Vec<Text> {
     out
 }
 
-/// `TooComplex`: more characters looked at while masking command substitutions than `WORK` allows.
+/// `TooComplex`: more characters scanned while masking substitutions than `WORK` allows (a text scanned once costs its length; each nesting level scans its inside again).
 struct TooComplex;
 
-const WORK: usize = 3_000_000;
+const WORK: usize = 10_000_000;
 
-fn tick(work: &mut usize) -> Result<(), TooComplex> {
-    *work += 1;
-    if *work > WORK {
-        Err(TooComplex)
-    } else {
-        Ok(())
+/// A span of a matched substitution: start, end, inside start, inside end.
+type Span = (usize, usize, usize, usize);
+
+/// `_heredoc`: at `<<` (not `<<<`): the delimiter, whether tabs are stripped, and the index after the delimiter word.
+fn heredoc_op(s: &[u32], i: usize) -> Option<(Text, bool, usize)> {
+    let n = s.len();
+    let mut j = i + 2;
+    let mut strip = false;
+    if at(s, j) == Some(cp('-')) {
+        strip = true;
+        j += 1;
     }
-}
-
-/// `_close`: the index of the `)` that closes a `$(` whose inside starts at `j`.
-fn close_paren(s: &[u32], j: usize, aware: bool, work: &mut usize) -> Result<Option<usize>, TooComplex> {
-    let (sq, dq, bs) = (cp('\''), cp('"'), cp('\\'));
-    let mut stack: Vec<u32> = vec![cp('P')];
+    while at(s, j).is_some_and(|c| c == cp(' ') || c == cp('\t')) {
+        j += 1;
+    }
+    let first = at(s, j)?;
+    if first == cp('\'') || first == cp('"') {
+        let k = (j + 1..n).find(|&k| at(s, k) == Some(first))?;
+        return Some((slice(s, j + 1, k).to_vec(), strip, k + 1));
+    }
+    if first == cp('\\') {
+        j += 1;
+    }
     let mut k = j;
-    while let Some(c) = at(s, k) {
-        tick(work)?;
-        let top = stack.last().copied().unwrap_or(cp('P'));
-        if top == sq {
-            if c == sq {
-                stack.pop();
-            }
-        } else if c == bs {
-            k += 1;
-        } else if top == dq {
-            if c == dq {
-                stack.pop();
-            } else if starts_at(s, k, "$(") {
-                stack.push(cp('P'));
-                k += 1;
-            }
-        } else if aware && (c == sq || c == dq) {
-            stack.push(c);
-        } else if starts_at(s, k, "$(") {
-            stack.push(cp('P'));
-            k += 1;
-        } else if c == cp('(') {
-            stack.push(cp('P'));
-        } else if c == cp(')') {
-            stack.pop();
-            if stack.is_empty() {
-                return Ok(Some(k));
-            }
-        }
+    while at(s, k).is_some_and(|c| !" \t\n;&|<>()`".chars().any(|x| cp(x) == c)) {
         k += 1;
     }
-    Ok(None)
+    if k > j { Some((slice(s, j, k).to_vec(), strip, k)) } else { None }
 }
 
-/// `_mask`: the text with every outermost substitution replaced by one word, and the insides that were replaced.
-fn mask(s: &[u32], work: &mut usize) -> Result<(Text, Vec<Text>), TooComplex> {
-    let (sq, dq, bs, bt) = (cp('\''), cp('"'), cp('\\'), cp('`'));
-    let mut out: Text = Text::new();
-    let mut inners: Vec<Text> = Vec::new();
-    let mut i = 0;
-    let mut q: Option<u32> = None;
-    while let Some(c) = at(s, i) {
-        tick(work)?;
-        let mut inner: Option<Text> = None;
-        if q == Some(sq) {
-            out.push(c);
-            if c == sq {
-                q = None;
+/// `_skip_bodies`: `s[i]` is a newline: the index just after the last delimiter line (or the end).
+fn skip_bodies(s: &[u32], i: usize, pend: &[(Text, bool)]) -> usize {
+    let n = s.len();
+    let mut pos = i + 1;
+    for (delim, strip) in pend {
+        loop {
+            let e = (pos..n).find(|&k| at(s, k) == Some(cp('\n'))).unwrap_or(n);
+            let mut line = slice(s, pos, e);
+            if *strip {
+                let t = line.iter().position(|&c| c != cp('\t')).unwrap_or(line.len());
+                line = slice(line, t, line.len());
             }
-        } else if c == bs {
-            out.extend_from_slice(slice(s, i, i + 2));
-            i += 1;
-        } else if c == bt {
-            let mut k = i + 1;
-            while at(s, k).is_some_and(|x| x != bt) {
-                tick(work)?;
-                k += if at(s, k) == Some(bs) { 2 } else { 1 };
+            pos = (e + 1).min(n);
+            if line == delim.as_slice() || e == n {
+                break;
             }
-            if k < s.len() {
-                inner = Some(slice(s, i + 1, k).to_vec());
-                i = k;
-            } else {
-                out.push(c);
-            }
-        } else if (c == cp('$') || (q.is_none() && (c == cp('<') || c == cp('>')))) && at(s, i + 1) == Some(cp('(')) {
-            let mut j = close_paren(s, i + 2, true, work)?;
-            if j.is_none() {
-                j = close_paren(s, i + 2, false, work)?;
-            }
-            match j {
-                None => {
-                    out.extend_from_slice(slice(s, i, i + 2));
-                    i += 1;
-                }
-                Some(j) => {
-                    inner = Some(slice(s, i + 2, j).to_vec());
-                    i = j;
-                }
-            }
-        } else if q.is_none() && (c == sq || c == dq) {
-            q = Some(c);
-            out.push(c);
-        } else if q == Some(dq) && c == dq {
-            q = None;
-            out.push(c);
-        } else {
-            out.push(c);
         }
-        if let Some(inn) = inner {
-            out.extend(text(if names_claude(&inn) { "claude" } else { "SUBST" }));
-            inners.push(inn);
+    }
+    pos
+}
+
+/// `_spans`: one pass with a stack of what is open; the matched substitutions, and whether a quote was still open at the end.
+fn spans(s: &[u32], quotes: bool, work: &mut usize) -> Result<(Vec<Span>, bool), TooComplex> {
+    *work += s.len();
+    if *work > WORK {
+        return Err(TooComplex);
+    }
+    // frame kinds: b'S' single quote, b'D' double quote, b'B' backtick, b'P' parenthesis; the flag is true for a substitution
+    let mut stack: Vec<(u8, usize, bool)> = Vec::new();
+    let mut out: Vec<Span> = Vec::new();
+    let mut pend: Vec<(Text, bool)> = Vec::new();
+    let mut nsub = 0usize;
+    let mut i = 0;
+    while let Some(c) = at(s, i) {
+        let top = stack.last().map(|f| f.0);
+        if top == Some(b'S') {
+            if c == cp('\'') {
+                stack.pop();
+            }
+        } else if c == cp('\\') {
+            i += 1;
+        } else if top == Some(b'B') {
+            if c == cp('`') {
+                if let Some(f) = stack.pop() {
+                    out.push((f.1, i + 1, f.1 + 1, i));
+                }
+            }
+        } else if top == Some(b'D') {
+            if c == cp('"') {
+                stack.pop();
+            } else if starts_at(s, i, "$(") {
+                stack.push((b'P', i, true));
+                nsub += 1;
+                i += 1;
+            } else if c == cp('`') {
+                stack.push((b'B', i, false));
+            }
+        } else if quotes && (c == cp('\'') || c == cp('"')) {
+            stack.push((if c == cp('\'') { b'S' } else { b'D' }, i, false));
+        } else if c == cp('`') {
+            stack.push((b'B', i, false));
+        } else if nsub > 0 && c == cp('<') && starts_at(s, i, "<<") && !starts_at(s, i, "<<<") && heredoc_op(s, i).is_some() {
+            if let Some((d, strip, j)) = heredoc_op(s, i) {
+                pend.push((d, strip));
+                i = j - 1;
+            }
+        } else if nsub > 0 && c == cp('\n') && !pend.is_empty() {
+            i = skip_bodies(s, i, &pend) - 1;
+            pend.clear();
+        } else if (c == cp('$') || c == cp('<') || c == cp('>')) && at(s, i + 1) == Some(cp('(')) {
+            stack.push((b'P', i, true));
+            nsub += 1;
+            i += 1;
+        } else if c == cp('(') {
+            stack.push((b'P', i, false));
+        } else if c == cp(')') {
+            if let Some(f) = stack.pop() {
+                if f.2 {
+                    nsub -= 1;
+                    out.push((f.1, i + 1, f.1 + 2, i));
+                }
+            }
         }
         i += 1;
     }
+    Ok((out, stack.iter().any(|f| f.0 == b'S' || f.0 == b'D')))
+}
+
+/// `_mask`: the text with every outermost matched substitution replaced by one word, and the insides that were replaced.
+fn mask(s: &[u32], work: &mut usize) -> Result<(Text, Vec<Text>), TooComplex> {
+    let (mut sp, open_quote) = spans(s, true, work)?;
+    if open_quote {
+        sp = spans(s, false, work)?.0;
+    }
+    sp.sort_by(|a, b| a.0.cmp(&b.0).then(b.1.cmp(&a.1)));
+    let mut out: Text = Text::new();
+    let mut inners: Vec<Text> = Vec::new();
+    let mut prev = 0;
+    for (st, en, a, b) in sp {
+        if st < prev {
+            continue;
+        }
+        let inner = slice(s, a, b).to_vec();
+        out.extend_from_slice(slice(s, prev, st));
+        out.extend(text(if names_claude(&inner) { "claude" } else { "SUBST" }));
+        inners.push(inner);
+        prev = en;
+    }
+    out.extend_from_slice(slice(s, prev, s.len()));
     Ok((out, inners))
 }
 
@@ -764,7 +795,7 @@ fn protected(path: &[u32], cwd: &Cwd, unknown_dir: bool) -> Res<bool> {
 
 /// `g1` (v3): the bypass words, only when the command also names `claude` or `claude_agent_sdk`.
 fn g1(cmd: &[u32], segs: &[Seg]) -> Option<Hit> {
-    if !names_claude(cmd) {
+    if !names_claude(cmd) && !segs.iter().any(|(sg, _)| names_claude(sg)) {
         return None;
     }
     let carries = |s: &Text, toks: &Vec<Text>| bypass_search(s).is_some() || bypass_search(&join_with(toks, ' ')).is_some();

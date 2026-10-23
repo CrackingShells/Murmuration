@@ -192,92 +192,118 @@ def flag_value(toks, flag):
 
 
 class TooComplex(Exception):
-    """More characters looked at while masking command substitutions than WORK allows: the command is denied rather than half checked."""
+    """More characters scanned while masking command substitutions than WORK allows (a text scanned once costs its length; each nesting level scans its inside again): the command is denied rather than half checked."""
 
 
-WORK = 3000000
+WORK = 10000000
 
 
-def _close(s, j, aware, work):
-    """Index of the `)` that closes a `$(` whose inside starts at j, or None. With aware=True quotes and backslashes are tracked (a `)` in quotes does not close; `$(` nests, also inside double quotes); with aware=False only parentheses count."""
-    stack, k, n = ["P"], j, len(s)
-    while k < n:
-        work[0] += 1
-        if work[0] > WORK:
-            raise TooComplex()
-        c, top = s[k], stack[-1]
-        if top == "'":
+def _heredoc(s, i):
+    """At s[i:i+2] == '<<' (not '<<<'): (delimiter, tabs stripped, index after the delimiter word), or None."""
+    n, j, strip = len(s), i + 2, False
+    if j < n and s[j] == "-":
+        strip, j = True, j + 1
+    while j < n and s[j] in " \t":
+        j += 1
+    if j >= n:
+        return None
+    if s[j] in "'\"":
+        k = s.find(s[j], j + 1)
+        return None if k < 0 else (s[j + 1:k], strip, k + 1)
+    if s[j] == "\\":
+        j += 1
+    k = j
+    while k < n and s[k] not in " \t\n;&|<>()`":
+        k += 1
+    return (s[j:k], strip, k) if k > j else None
+
+
+def _skip_bodies(s, i, pend):
+    """s[i] is a newline that ends a line with heredoc operators: the index just after the last delimiter line (or the end of s)."""
+    n, pos = len(s), i + 1
+    for delim, strip in pend:
+        while True:
+            e = s.find("\n", pos)
+            e = n if e < 0 else e
+            line = s[pos:e].lstrip("\t") if strip else s[pos:e]
+            pos = min(e + 1, n)
+            if line == delim or e == n:
+                break
+    return pos
+
+
+def _spans(s, quotes, work):
+    """(spans, open_quote): one pass over s with a stack of what is open (quotes, backticks, parentheses). A span (start, end, inside_start, inside_end) is a matched `$( )`, `<( )`, `>( )` or backtick pair, at any depth outside backticks.
+    Inside a `$( )`, a heredoc body is skipped as data when the pass looks for the closing `)`: a body with an unmatched parenthesis or quote does not hide the `)`. With quotes=False a quote character is an ordinary character.
+    open_quote: a quote was still open at the end."""
+    work[0] += len(s)
+    if work[0] > WORK:
+        raise TooComplex()
+    stack, spans, pend, nsub, i, n = [], [], [], 0, 0, len(s)
+    while i < n:
+        c = s[i]
+        top = stack[-1][0] if stack else None
+        if top == "S":
             if c == "'":
                 stack.pop()
         elif c == "\\":
-            k += 1
-        elif top == '"':
+            i += 1
+        elif top == "B":
+            if c == "`":
+                f = stack.pop()
+                spans.append((f[1], i + 1, f[1] + 1, i))
+        elif top == "D":
             if c == '"':
                 stack.pop()
-            elif s.startswith("$(", k):
-                stack.append("P")
-                k += 1
-        elif aware and c in "'\"":
-            stack.append(c)
-        elif s.startswith("$(", k):
-            stack.append("P")
-            k += 1
+            elif s.startswith("$(", i):
+                stack.append(("P", i, 1))
+                nsub += 1
+                i += 1
+            elif c == "`":
+                stack.append(("B", i, 0))
+        elif quotes and c in "'\"":
+            stack.append(("S" if c == "'" else "D", i, 0))
+        elif c == "`":
+            stack.append(("B", i, 0))
+        elif nsub and c == "<" and s.startswith("<<", i) and not s.startswith("<<<", i) and _heredoc(s, i):
+            d, strip, j = _heredoc(s, i)
+            pend.append((d, strip))
+            i = j - 1
+        elif nsub and c == "\n" and pend:
+            i = _skip_bodies(s, i, pend) - 1
+            pend = []
+        elif (c == "$" or c in "<>") and s.startswith("(", i + 1):
+            stack.append(("P", i, 1))
+            nsub += 1
+            i += 1
         elif c == "(":
-            stack.append("P")
-        elif c == ")":
-            stack.pop()
-            if not stack:
-                return k
-        k += 1
-    return None
+            stack.append(("P", i, 0))
+        elif c == ")" and stack:
+            f = stack.pop()
+            if f[2]:
+                nsub -= 1
+                spans.append((f[1], i + 1, f[1] + 2, i))
+        i += 1
+    return spans, any(f[0] in "SD" for f in stack)
 
 
 def _mask(s, work):
-    """(s with every outermost `$( )` and backtick substitution replaced by one word, the insides that were replaced). The word is `claude` when the inside names claude (`$(which claude) --flag`), else `SUBST`. Single quotes and backslashes are respected; an unclosed substitution stays as it is."""
-    out, inners, i, q, n = [], [], 0, None, len(s)
-    while i < n:
-        work[0] += 1
-        if work[0] > WORK:
-            raise TooComplex()
-        c = s[i]
-        inner = None
-        if q == "'":
-            out.append(c)
-            if c == "'":
-                q = None
-        elif c == "\\":
-            out.append(s[i:i + 2])
-            i += 1
-        elif c == "`":
-            k = i + 1
-            while k < n and s[k] != "`":
-                work[0] += 1
-                k += 2 if s[k] == "\\" else 1
-            if k < n:
-                inner, i = s[i + 1:k], k
-            else:
-                out.append(c)
-        elif (c == "$" or (q is None and c in "<>")) and s.startswith("(", i + 1):        # $( ), and the process substitutions <( ) and >( ) outside quotes
-            j = _close(s, i + 2, True, work)
-            if j is None:
-                j = _close(s, i + 2, False, work)
-            if j is None:
-                out.append(s[i:i + 2])
-                i += 1
-            else:
-                inner, i = s[i + 2:j], j
-        elif q is None and c in "'\"":
-            q = c
-            out.append(c)
-        elif q == '"' and c == '"':
-            q = None
-            out.append(c)
-        else:
-            out.append(c)
-        if inner is not None:
-            out.append("claude" if NAMES_CLAUDE.search(inner) else "SUBST")
-            inners.append(inner)
-        i += 1
+    """(s with every outermost matched substitution replaced by one word, the insides that were replaced). The word is `claude` when the inside names claude (`$(which claude) --flag`), else `SUBST`. Single quotes and backslashes are respected
+    (as the plain splitter does, a quote left open makes the pass run again with quotes as ordinary characters); an unclosed substitution stays as it is."""
+    spans, open_quote = _spans(s, True, work)
+    if open_quote:
+        spans, _ = _spans(s, False, work)
+    spans.sort(key=lambda t: (t[0], -t[1]))
+    out, inners, prev = [], [], 0
+    for st, en, a, b in spans:
+        if st < prev:
+            continue
+        inner = s[a:b]
+        out.append(s[prev:st])
+        out.append("claude" if NAMES_CLAUDE.search(inner) else "SUBST")
+        inners.append(inner)
+        prev = en
+    out.append(s[prev:])
     return "".join(out), inners
 
 
@@ -352,7 +378,7 @@ NAMES_CLAUDE = re.compile(r"(?<![\w.\-])claude(?![\w.\-/])|claude_agent_sdk")
 
 def g1(cmd, segs):
     """G1 (v3): the bypass words, only when the same command text (heredoc bodies included) also names `claude` (the CLI) or `claude_agent_sdk`."""
-    if not NAMES_CLAUDE.search(cmd):
+    if not NAMES_CLAUDE.search(cmd) and not any(NAMES_CLAUDE.search(sg) for sg, _ in segs):      # also the strings of `env -S<word>` and `sh -c`, where `-Sclaude` glues the word to the option
         return None
     bad = [s for s, toks in segs if BYPASS.search(s) or BYPASS.search(" ".join(toks))]
     hit = [s for s, toks in segs if (BYPASS.search(s) or BYPASS.search(" ".join(toks))) and not inert(toks)]
