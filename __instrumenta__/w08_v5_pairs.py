@@ -9,6 +9,7 @@ ap.add_argument("--shipped")
 ap.add_argument("--scratch", required=True)
 ap.add_argument("--shim", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "w08c1_pyshim.py"))
 ap.add_argument("--only", default="")
+ap.add_argument("--rand", default="", help="n:count, e.g. 4:40 -> random valid orders of n dispatches (seed 1), same-second, with answers dropped at random")
 a = ap.parse_args()
 T0 = 1792700000.125
 XP = "murmuration:explorer"
@@ -129,7 +130,7 @@ def blank(files):
         import re
         s = re.sub(r'"(t|ts|time|t0|run_start|last_seen|at)": ?[0-9.e+-]+', '"T": 0', s)
         s = re.sub(r'"(t|ts|time|at|when)": ?"[^"]*"', '"T": ""', s)
-        out[re.sub(r"^(.*/)?\d{14}\.\d{3}-", r"\1TIME-", k)] = s
+        out[re.sub(r"^(.*/)?\d+\.\d{3}-", r"\1TIME-", k)] = s
     return out
 
 
@@ -189,12 +190,27 @@ def extra_main():
 
 def main():
     scen = []
-    for n in (1, 2, 3):
+    for n in (1, 2, 3) if not a.rand else ():
         for ss in (True, False):
             if n == 3 and not ss:
                 continue
             scen += [(nm, perm, names, ss) for nm, perm, names in order_scenarios(n, ss)]
-    scen = [s for s in scen if a.only in s[0]]
+    if a.rand:
+        import random
+        n, cnt = map(int, a.rand.split(":"))
+        rnd = random.Random(1)
+        scen = []
+        names = ["explorer-w09-%s" % c for c in "efghij"[:n]]
+        for k in range(cnt):
+            items = [("P", i) for i in range(n)] + [("S", i) for i in range(n)] + [("A", i) for i in range(n) if rnd.random() < 0.6]
+            while True:
+                rnd.shuffle(items)
+                pos = {x: j for j, x in enumerate(items)}
+                if all(pos[("P", i)] < pos[("S", i)] and (("A", i) not in pos or pos[("P", i)] < pos[("A", i)]) for i in range(n)) and all(pos[("P", i)] < pos[("P", i + 1)] for i in range(n - 1)):
+                    break
+            scen.append(("rand%d_%d" % (n, k), list(items), names, True))
+        a.only = ""
+    scen = [s for s in scen if a.only in s[0]] if not a.rand else scen
     # restrict n=3 to a deterministic stride to bound time
     keep = []
     c3 = 0
