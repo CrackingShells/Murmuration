@@ -104,6 +104,23 @@ sections a worker needs and do not ask it to read this note.
   PreCompact hook that writes the lab state into the summary and a PI-like Opus run through a
   compaction. If it holds, I land it and run on it myself for the rest of the wave.
 
+**explorer-w08-f back (59720e6).**
+- Thinking blocks are billed again on every later request of a tool loop: context growth equals
+  the previous output with thinking, coefficient 0.997 (0.98–1.01), 168 pairs; about 19% of
+  worker context USD in waves 4–7 by its signature fit [source: explorer-w08-f's report, MEASURED
+  and ESTIMATE as labelled]. So explorer-w08-a's and explorer-w08-d's residual was real.
+- `effort` in agent frontmatter works for subagents (thinking 467 low, 501 default, 613 high,
+  2,711 max), but the default already behaves like low or medium, and on two planted-error
+  verifier tasks (30 runs) every arm got the verdict and cost the same within noise; max cost
+  7–8x. Effort stays out as a lever: nothing to save below the default.
+- Hand-back length, a natural experiment of this wave: the four explorers with no length line
+  handed back about 2,500–5,000 characters; e and f, told "at most about 1,500", handed back
+  about 1,700–1,900 [source: the hand-back messages in this session, character counts by eye,
+  not measured]. w08-c2 measures it properly.
+- What changes: the worker side's lever is now its request count. explorer-w08-g measures what
+  merging independent calls would save in money and whether one agent-file line gets workers to do
+  it.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -116,6 +133,7 @@ sections a worker needs and do not ask it to read this note.
 | explorer-w08-e | explorer | what compaction the platform allows, costs and keeps; the PI lever recomputed | |
 | explorer-w08-f | explorer | are earlier thinking blocks billed again; `effort` frontmatter as a lever on a fixed task | |
 | author-w08-3 | author | w08-c3: a PI compaction threshold with a PreCompact hook carrying the lab state; Opus PI-like run through it | |
+| explorer-w08-g | explorer | worker requests that could have been merged: USD, and one agent-file line tested | |
 | author-w08-1 | author | w08-c1: `budget` and `handback` as subcommands of the Rust binary, replay-equal, with fallback (item 36) | |
 
 ## Claims of this wave
