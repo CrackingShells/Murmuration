@@ -5,10 +5,10 @@ const spend=[
   {w:"Wave 5",pi:11.90,after:6.18,wk:15.85,hl:18.18},
   {w:"Wave 6",pi:16.06,after:7.02,wk:32.03,hl:7.54},
   {w:"Wave 7",pi:15.86,after:11.28,wk:22.64,hl:2.48,roles:[["authors",10.07],["explorers",7.32],["verifiers",4.17],["page helper",1.08]]},
-  {w:"Wave 8 so far",pi:6.10,after:0,wk:27.92,hl:19.91,lb:1,roles:[["authors",13.02],["explorers",13.57],["verifiers",1.33]]},
+  {w:"Wave 8 (open)",pi:16.95,after:0,wk:53.28,hl:21.47,lb:1,roles:[["authors",25.93],["explorers",20.48],["verifiers",6.87]]},
 ];
 (function(){
-  const svg=$("#spend"), L=130,R=1000,max=70,sx=v=>L+(R-L)*Math.min(v,max)/max,rowH=48,top=12,n=spend.length;
+  const svg=$("#spend"), L=130,R=1000,max=100,sx=v=>L+(R-L)*Math.min(v,max)/max,rowH=58,top=12,n=spend.length;
   hatchDef(svg,"hatchpi2");
   const dfs=el("defs",{},svg);const pp=el("pattern",{id:"hpi",width:5,height:5,patternUnits:"userSpaceOnUse",patternTransform:"rotate(45)"},dfs);
   el("rect",{width:5,height:5,fill:"var(--surface-0)"},pp);el("line",{x1:0,y1:0,x2:0,y2:5,stroke:"var(--s1)","stroke-width":2},pp);
@@ -19,12 +19,12 @@ const spend=[
     const y=top+i*rowH;
     if(s.other!==undefined){
       const tot=s.pi+s.other;
-      const g=el("g",{"data-tip":`Waves 1–3 (one session, one worktree, exact): USD ${tot.toFixed(2)}, of which the PI's main thread ${s.pi.toFixed(2)} (explorer-w08-d, session ab96c5ed) and the rest of the worktree ${s.other.toFixed(2)} (workers and sessions started below it; scripts/lab_status.py --spend, 162.14 minus 63.23). Not split by role. The bar is cut at $70.`},svg);
+      const g=el("g",{"data-tip":`Waves 1–3 (one session, one worktree, exact): USD ${tot.toFixed(2)}, of which the PI's main thread ${s.pi.toFixed(2)} (explorer-w08-d, session ab96c5ed) and the rest of the worktree ${s.other.toFixed(2)} (workers and sessions started below it; scripts/lab_status.py --spend, 162.14 minus 63.23). Not split by role. The bar is cut at $100.`},svg);
       el("rect",{x:0,y:y-4,width:1080,height:rowH-8,class:"hit"},g);
       txt(g,{x:0,y:y+20,"font-size":"13","font-weight":"600"},s.w);
       let x=L;const w1=sx(s.pi)-L-2;el("rect",{x,y,width:w1,height:28,rx:4,class:"s1"},g);txt(g,{x:x+8,y:y+18,"font-size":"11.5",style:"fill:#fff"},"PI "+s.pi.toFixed(1));x+=w1+2;
       el("rect",{x,y,width:R-x,height:28,rx:4,fill:"var(--theirs)"},g);txt(g,{x:x+8,y:y+18,"font-size":"11.5",style:"fill:var(--text-primary)"},"rest "+s.other.toFixed(0)+" ▸");
-      txt(g,{x:R+6,y:y+19,"font-size":"12","font-weight":"600"},"$"+tot.toFixed(0)+", workers + headless not split");
+      txt(g,{x:R+6,y:y+19,"font-size":"12","font-weight":"600"},"$"+tot.toFixed(0)+" ▸");
       return}
     const tot=s.pi+s.after+s.wk+s.hl;
     const g=el("g",{"data-tip":`${s.w}: PI ${s.pi.toFixed(2)}${s.after?" (+"+s.after.toFixed(2)+" after the close, same session)":""} · workers ${s.wk.toFixed(2)} · headless ${s.hl.toFixed(2)}${s.lb?" (at least)":""} = ${tot.toFixed(2)} USD. PI share of the wave ${(100*(s.pi+s.after)/tot).toFixed(0)}%.${s.lb?" The wave is open; every figure grows.":""}`},svg);
@@ -33,14 +33,14 @@ const spend=[
     let x=L;[[s.pi,"s1","PI",0],[s.after,"hpi","after",1],[s.wk,"s2","workers",0],[s.hl,"s3","headless",0]].forEach(([v,c,nm,h])=>{
       if(!v)return;const w=sx(v)-L-2;const r=el("rect",{x,y,width:w,height:28,rx:4},g);
       if(h){r.setAttribute("fill","url(#hpi)");r.setAttribute("stroke","var(--s1)")}else r.setAttribute("class",c);
-      if(w>60&&!h){txt(g,{x:x+8,y:y+18,"font-size":"11.5",style:"fill:#fff"},`${nm} ${v.toFixed(1)}`)}
+      if(w>85&&!h){txt(g,{x:x+8,y:y+18,"font-size":"11.5",style:"fill:#fff"},`${nm} ${v.toFixed(1)}`)}
       x+=w+2});
     txt(g,{x:x+8,y:y+19,"font-size":"12.5","font-weight":"600"},(s.lb?"≥ $":"$")+tot.toFixed(1));
   });
   [["Wave 7 workers",spend[4]],["Wave 8 workers",spend[5]]].forEach(([lab,s],k)=>{
     const y=top+(n+k)*rowH;
     txt(svg,{x:0,y:y+20,"font-size":"13","font-weight":"600"},lab);
-    const g=el("g",{"data-tip":lab+", USD at list price, by role: "+s.roles.map(r=>r[0]+" "+r[1].toFixed(2)).join(" · ")+(k?". The present session to 01:25 JST, the explorer writing this page included.":". The largest single worker was author-w07-5 (the Rust guard), 4.30.")},svg);
+    const g=el("g",{"data-tip":lab+", USD at list price, by role: "+s.roles.map(r=>r[0]+" "+r[1].toFixed(2)).join(" · ")+(k?". The present session to 03:57 JST, the explorer writing this page included; a lower bound while it is open.":". The largest single worker was author-w07-5 (the Rust guard), 4.30.")},svg);
     el("rect",{x:0,y:y-4,width:1080,height:rowH-8,class:"hit"},g);
     let x=L;const op=[1,0.75,0.55,0.35];
     s.roles.forEach(([nm,v],i)=>{const w=sx(v)-L-2;el("rect",{x,y,width:w,height:28,rx:4,class:"s2","fill-opacity":op[i]},g);

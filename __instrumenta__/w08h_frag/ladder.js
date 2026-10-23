@@ -4,7 +4,7 @@ const STAT={land:["landed","sw-land"],not:["not landed","sw-not"],user:["yours t
 const LEV=[
  {n:"1-hour cache for the PI",on:"PI spend, USD 144.47 (six sessions)",b:144.47,nb:144.47,lo:43.6,hi:104.0,st:"land",stx:"landed: every PI cache write is 1-hour",lab:"ESTIMATE",
   t:"Low end: net +13.1, +30.7, −0.16 USD for the PI sessions of waves 5–7 (mean +14.55; explorer-w08-c), summed to 43.6. High end: a 5-minute cache would have re-written USD 119.07 that the 1-hour tier read, for a 15.08 premium, over all six sessions (explorer-w08-d), net 104.0. The two do not count the same hits (see the report). It is how the Desktop PI runs, not a setting the lab changed. P(net > 0) 0.99 by one model, n = 3 sessions."},
- {n:"PI compaction near 250k tokens",on:"PI spend, USD 144.47",b:144.47,nb:144.47,lo:31.27,hi:44.78,st:"user",stx:"yours to set: a window key in a guarded settings file",lab:"ESTIMATE",
+ {n:"PI compaction near 250k tokens",on:"PI spend, USD 144.47",b:144.47,nb:144.47,lo:31.27,hi:44.78,st:"user",stx:"yours to set (w08-c3 SUPPORTED): the window key is in a guarded settings file",lab:"ESTIMATE",
   t:"Net of what compaction costs (0.54 USD each, MEASURED at 200k on haiku, re-priced), by what the PI re-reads afterwards: USD 44.78 at 0 tokens, 42.15 at 10k, 31.27 at 45k, 11.37 at 90k (explorer-w08-e; explorer-w08-c3's Opus-priced run gives 43–45 at 2.5–10k and 32.3 at 45k). One real compaction exists in the data; the information lost is not priced. w08-c3 (MEASURED, verified): 15 of 17 PI-like runs on a 150k-window scratch lab answered all five questions after a compaction with the existing resume brief; it does not carry the jump to a real PI at 250k (a 91k floor, larger files), and the settings route through the project file was not run. The setting lives in the main checkout's settings file, which the permission guard refuses to write: the file is yours. The PreCompact hook added nothing and does not land."},
  {n:"Drop the skills listing from the PI",on:"skill listings re-sent, USD 14.78 (six PI sessions)",b:144.47,nb:14.78,lo:2.90,hi:14.78,st:"not",stx:"not landed: built-in skills would be lost",lab:"ESTIMATE",
   t:"The skill listing cost USD 14.78 across six PI sessions, of which 11.88 is session 1's 22 re-injections (explorer-w08-d). The low end, 2.90, is the other five sessions (14.78 − 11.88). Wave 7 measured request 0 about 10.6–11.0k tokens lower without it (w07-c1, below MEASURED: restate). Not landed: built-in skills such as dataviz would be lost."},
@@ -104,4 +104,22 @@ drawLadder();
     txt(g,{x:sx(hi)+8,y:y+13,"font-size":"11.5","font-weight":"600"},lo===hi?lo+" ms":lo+"–"+hi+" ms")});
   svg.setAttribute("viewBox",`0 0 1080 ${top+T.length*rowH+6}`);
   bindTips(svg);
+})();
+
+(function(){
+  const svg=$("#ladSafe"),L=330,R=900,sx=p=>L+(R-L)*p/100,top=26;
+  for(let p=0;p<=100;p+=20){el("line",{x1:sx(p),y1:top-10,x2:sx(p),y2:top+190,stroke:"var(--grid)"},svg);txt(svg,{x:sx(p),y:top-14,"text-anchor":"middle","font-size":"11",class:"muted"},p+"%")}
+  const rows=[
+   ["Guard: flag and wrapper hole forms let through","before 1,515 of 2,259 cases → after 0",[[67.1,"var(--bad)","before 1,515 of 2,259 (67%)"],[0,"var(--ok)","after 0 of 2,259"]],"w08-c13 (MEASURED, SUPPORTED, on main; Python and Rust equal everywhere). The base let 1,515 of 2,259 generated flag and wrapper hole cases through; the branch 0. Not a USD lever: the guard stops runs that would escape your settings."],
+   ["Guard: settings-write (G3) cases let through","before 359 of 639 → after 0",[[56.2,"var(--bad)","before 359 of 639 (56%)"],[0,"var(--ok)","after 0 of 639"]],"w08-c13: 359 of 639 G3 write cases through on the base, 0 on the branch. Out of scope in the claim: a program or flag held in a variable or file, unlisted wrappers (arch, doas, find -exec, ssh …)."],
+   ["Guard: false denials, not changed by c13","113 of 623 labelled-false cases denied (18%)",[[18.1,"var(--warn)","113 of 623 (18%)"]],"explorer-w08-j (MEASURED, frozen set of 739 cases; Python = Rust on all). Of 19 live denials in the lab's own sessions, 17 were false. Two narrower tests would clear 32 of the 113 and open no gap on that set (CONJECTURE, not changed). w08-c13 only tightened."],
+  ];
+  rows.forEach(([n,sub,bars,t],i)=>{const y=top+i*62,g=el("g",{"data-tip":n+". "+t},svg);
+    el("rect",{x:0,y:y-6,width:1080,height:58,class:"hit"},g);txt(g,{x:0,y:y+10,"font-size":"12.5","font-weight":"600"},n);txt(g,{x:0,y:y+26,"font-size":"11",class:"sec"},sub);
+    bars.forEach(([p,c,lab],k)=>{el("rect",{x:sx(0),y:y+k*20-2,width:Math.max(sx(p)-sx(0),2),height:16,rx:3,fill:c},g);txt(g,{x:sx(p)+8,y:y+k*20+11,"font-size":"11.5","font-weight":"600"},lab)})});
+  const y=top+3*62+4,g=el("g",{"data-tip":"Verification (explorer-w08-i, waves 1–8): USD 30.45 in 50 named reproducer rows plus about 4.17 for wave 7's unnamed ones, about 8% of USD 411.93 at its cut and a third of the author cost per claim (ESTIMATE). First verdict of 76 claims: 38 SUPPORTED, 25 OVERSTATED, 13 ESCALATE (MEASURED); every one of the 77 verdict sections is a reproducer's, none a proof-adversary's. 9 of the 47 standing claims (19%, a floor) were flagged later."},svg);
+  el("rect",{x:0,y:y-6,width:1080,height:60,class:"hit"},g);
+  txt(g,{x:0,y:y+10,"font-size":"12.5","font-weight":"600"},"Verification: first verdict of 76 claims");txt(g,{x:0,y:y+26,"font-size":"11",class:"sec"},"about 8% of the lab's spend (USD 30.45 + about 4.17)");
+  let x=sx(0);[[38,"var(--ok)","SUPPORTED 38"],[25,"var(--bad)","OVERSTATED 25"],[13,"var(--warn)","ESCALATE 13"]].forEach(([n,c,lab])=>{const w=(R-L)*n/76;el("rect",{x,y:y-2,width:w-2,height:20,rx:3,fill:c},g);txt(g,{x:x+6,y:y+12,"font-size":"11","font-weight":"700",style:"fill:#fff"},lab);x+=w});
+  txt(g,{x:L,y:y+36,"font-size":"11",class:"sec"},"ESTIMATE for the spend share; MEASURED for the verdict counts");
 })();

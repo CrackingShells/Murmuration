@@ -13,8 +13,8 @@ def cut(s, a, b, new):
     return s[:i] + new + s[j:]
 s = src
 # head, title, tiles
-s = rep(s, "<title>Murmuration after wave 7 (local main)</title>", "<title>Murmuration after wave 8 so far (local main)</title>")
-s = rep(s, "<h1>Murmuration after wave 7 (local main)</h1>", "<h1>Murmuration after wave 8 (so far)</h1>")
+s = rep(s, "<title>Murmuration after wave 7 (local main)</title>", "<title>Murmuration after wave 8 (local main)</title>")
+s = rep(s, "<h1>Murmuration after wave 7 (local main)</h1>", "<h1>Murmuration after wave 8</h1>")
 s = cut(s, '<p class="sub">', '<!-- 1. STRUCTURE -->', F("top.html"))
 # css additions
 s = rep(s, "@media (prefers-reduced-motion: reduce)", F("css.css") + "\n@media (prefers-reduced-motion: reduce)")
@@ -40,7 +40,7 @@ for a, b in [x.split("\n=====\n") for x in F("patches_s5.txt").split("\n#####\n"
 s = cut(s, "/* ---------- 3. spend ---------- */", "/* ---------- 3b. 1-hour cache break-even ---------- */", F("sec3.js"))
 # sources
 s = rep(s, "const src=[\n", "const src=[\n" + F("sources8.js"))
-s = rep(s, "<h2>Sources (table view)</h2>", "<h2>Sources (table view)</h2>\n  <p class=\"note\">Labels are the report's, and never above a claim's current label from <code>scripts/lab_status.py</code> (w08-c3, w08-c4, w08-c6 MEASURED, verified; w08-c2 unverified; w08-c8 CONJECTURE; w07-c1 and w07-c8 below MEASURED: restate; w07-c7 escalated). Rows marked <b>not in the reports</b> are numbers the page needed and could not source.</p>")
+s = rep(s, "<h2>Sources (table view)</h2>", "<h2>Sources (table view)</h2>\n  <p class=\"note\">Labels are the report's, and never above a claim's current label from <code>scripts/lab_status.py</code> (w08-c3, c4, c6, c11, c12, c13 MEASURED, SUPPORTED; w08-c8 CONJECTURE, SUPPORTED; w08-c2 unverified, not landed; w08-c1, c5, c7, c9, c10 superseded; w07-c1 and w07-c8 below MEASURED: restate; w07-c7 escalated). Rows marked <b>not in the reports</b> are numbers the page needed and could not source.</p>")
 # ladder JS goes before section-1 JS
 s = rep(s, "/* ---------- 1. hook chain ---------- */", F("ladder.js") + "\n/* ---------- 1. hook chain ---------- */")
 # card A before section 1

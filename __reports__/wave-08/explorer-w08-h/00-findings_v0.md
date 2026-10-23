@@ -54,3 +54,11 @@ The story is "the PI's cache and compaction dominate; the worker side is near it
 - Scripts cited as `__instrumenta__/w08h_wave_spend.py@<commit>`, `__instrumenta__/w08h_build_cost_map.py@<commit>` (commit of this report).
 - Labels read from `python3 scripts/lab_status.py` at about 01:40 JST: w08-c3, w08-c4, w08-c6 MEASURED (SUPPORTED); w08-c2 unverified; w08-c8 CONJECTURE; w07-c1 and w07-c8 below MEASURED: restate; w07-c7 escalated.
 - Spend: `python3 scripts/lab_status.py --spend` (USD 405.34 at least), `--project /private/tmp/murmuration-w08 --spend` (19.91 at least); waves 4-7 headless from `--project /private/tmp/murmuration-w0N --spend` (26.52, 18.20, 7.54, 2.48; wave 5 reads 18.20 against the map's 18.18).
+
+## Refresh at the close of wave 8 (03:57 JST, 24 October; same file, updated in place)
+
+- Spend (both lower bounds while the session is open): `lab_status.py --spend` USD 442.53 at least (PI 159.23, agent rows 379.47); wave 8 in this checkout PI 16.95 + 22 workers 53.28 (authors 25.93, explorers 20.48, verifiers 6.87) + headless 21.47 (`--project /private/tmp/murmuration-w08`, all ended) = at least 91.71 [source: `wave8_spend_by_agent.tsv`, MEASURED]. At 01:25 the same sum was 53.93.
+- Labels from `lab_status.py`: w08-c3, c4, c6, c11, c12, c13 MEASURED (SUPPORTED); c8 CONJECTURE (SUPPORTED); c2 unverified, not landed; c1, c5, c7, c9, c10 superseded. The compaction row says the setting is the user's.
+- New: a "safety and checking" lane in A (guard holes 1,515 of 2,259 flag/wrapper cases and 359 of 639 G3 write cases to 0, w08-c13; false denials 113 of 623 unchanged, explorer-w08-j; verification about 8% of spend, first verdict of 76 claims 38/25/13, explorer-w08-i), four landed cards (c13, c12, c11, c8) and one superseded card in section 4, and five source rows.
+- The second implementation's size: w08-c12 gives none; the line counts (1,134 + 382 + 574) are from w08-c1's head, and c12 means a budget change is made in both implementations.
+- Not refreshed: the PI-by-source and worker-by-source charts (explorer-w08-d's cut 00:17, explorer-w08-a's waves 4-7), the ladder's USD values (reports unchanged); the ladder's authors-cache and compaction rows keep their ESTIMATE labels.
