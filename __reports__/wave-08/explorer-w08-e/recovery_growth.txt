@@ -1,0 +1,5 @@
+before: requests 1-275: n=275, mean 3244, median 2007, p90 9343, sum 892069
+before: the 100 requests up to 275: n=100, mean 1902, median 1678, p90 3260, sum 190150
+after: 277-288: n=12, mean 2174, median 1824, p90 3968, sum 26089
+jumps over 20k in 277-288: []
+excess growth over the pre-compaction 100-request mean x 12 requests: 3271 tokens (context at 276 91499, at 288 117588)
