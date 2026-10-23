@@ -7,12 +7,19 @@ them.
 
 1. **Your name:** "Your name is <name>." Use the same string as the Agent tool's `name`.
 2. **Read first:** the paths the agent must read (always `__design__/framing.md`; the claim file for
-   a verifier; the relevant raw artifacts).
+   a verifier; the relevant raw artifacts). Name a file to read whole only when the agent needs most
+   of it; for the rest name the section, and say how to reach it (`grep -n` the heading, then
+   `sed -n`). Most whole reads by workers are of files their brief names (152 of 175 markdown reads
+   in waves 4–7, explorer-w08-b).
 3. **The question,** in one or two sentences, quoting the user's words when they apply.
 4. **What to return:** the deliverable paths, and the labels the agent may use. An explorer's
    deliverable is its findings report (`__reports__/wave-NN/<name>/00-findings_v0.md`, from the
-   research-loop skill's report template) plus a short hand-back message that points to it; an
-   author's is the claim head; a verifier's is its verdict section.
+   research-loop skill's report template) plus a hand-back message that points to it; an
+   author's is the claim head; a verifier's is its verdict section. Every brief asks for a
+   hand-back message of at most about 1,500 characters: the path, the result in a few lines, what
+   is not covered. The PI carries every character of it for the rest of its session; with the
+   limit stated, wave 8's first hand-backs were 1,809–2,449 characters (n = 6), without it
+   3,328–5,873 (n = 6) (w08-c6).
    A brief that waives the claim file says in the same sentence that helper code is still a file in
    `__instrumenta__/`: the one run that was told "no claim file is needed" wrote no script file, and
    the six runs that were not told it all did (a difference seen once, not a tested cause).
