@@ -133,6 +133,20 @@ sections a worker needs and do not ask it to read this note.
   1,500 characters"), which costs nothing, stays as my practice; it goes into the PI-practice
   claim at the close.
 
+**author-w08-1 back (w08-c1 filed; claim commits deef5e3, 96a80b4, 5cb807c).**
+- Equality strong: 0 differences byte for byte in 3,821 replayed events, 0 of the 2,250 built on
+  150 real transcripts handed to Python (587 fuzz and odd-state events are, by design); 19 of 19
+  fall-back cases. Time small and only partly inside the registered rules: 7–15 ms a start, about
+  15 ms a tool batch; wall rule met in 11 of 14 payload-runs; in-platform PostToolBatch 9 of 12
+  [source: `__pondus__/w08-c1.md`, unverified MEASURED].
+- My reading of the size: at about 1,000 tool batches a wave that is seconds of worker wall per
+  wave [assumption: request counts from explorer-w08-a, 3,685 worker requests over four waves].
+  The case for landing is the user's "saving that 1% if we know we can save it" and a risk the
+  fall-back makes small: an edit to `budget.py` makes the installer fall back to Python, so a
+  stale port costs speed, not correctness. Against: a second implementation of 1,300 lines of
+  logic, one `unsafe` call, three clippy lints. reproducer-w08-1 dispatched; I decide at its
+  verdict.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -146,6 +160,7 @@ sections a worker needs and do not ask it to read this note.
 | explorer-w08-f | explorer | are earlier thinking blocks billed again; `effort` frontmatter as a lever on a fixed task | |
 | author-w08-3 | author | w08-c3: a PI compaction threshold with a PreCompact hook carrying the lab state; Opus PI-like run through it | |
 | explorer-w08-g | explorer | worker requests that could have been merged: USD, and one agent-file line tested | |
+| reproducer-w08-1 | reproducer | verify w08-c1 with its own replay set from wave-8 events, the fall-back, `localtime_r`, the title against e3/e4 | |
 | author-w08-1 | author | w08-c1: `budget` and `handback` as subcommands of the Rust binary, replay-equal, with fallback (item 36) | |
 
 ## Claims of this wave
