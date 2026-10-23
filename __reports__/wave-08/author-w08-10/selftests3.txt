@@ -1,0 +1,10 @@
+rc=0 scripts/budget.py :: PASS budget
+rc=0 scripts/handback.py :: PASS handback
+rc=0 scripts/lab_init.py :: PASS lab_init
+rc=0 scripts/lab_status.py :: PASS lab_status
+rc=0 scripts/permission_guard.py :: selftest ok: attacks 50 denied, ordinary 28 allowed; not-gated: evasions caught ['e0
+rc=0 scripts/resume_brief.py :: PASS resume_brief
+rc=0 scripts/user_words.py :: PASS user_words
+rc=0 __instrumenta__/budget_arms_analyze.py :: PASS budget_arms_analyze
+rc=0 __instrumenta__/w08_c10_cases.py :: selftest: {'hole': 2259, 'control': 1270, 'g3hole': 639, 'g3control': 395, 'g3r
+finished
