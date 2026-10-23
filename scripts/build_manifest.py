@@ -5,7 +5,7 @@ Python standard library only. Run after the binaries under bin/<target>/ are bui
 
     python3 -I scripts/build_manifest.py [--root DIR]
 
-The manifest holds the sha256 of each bin/<target>/murmuration, the sha256 of scripts/permission_guard.py, the sha256 of each Rust source file (rust/Cargo.toml, Cargo.lock,
+The manifest holds the sha256 of each bin/<target>/murmuration, the sha256 of scripts/permission_guard.py, budget.py, handback.py and run_hook.py (`scripts_sha256`), the sha256 of each Rust source file (rust/Cargo.toml, Cargo.lock,
 gen_tables.py and rust/src/*.rs) and one hash over those (`rust_sources_sha256`). scripts/install_binary.py installs a binary only when all of them still match the tree it runs in.
 `sources_hash()` is also what the installer imports to recompute the source hash, so both sides use one definition.
 """
@@ -15,6 +15,8 @@ import os
 import sys
 
 RUST_FILES = ["rust/Cargo.toml", "rust/Cargo.lock", "rust/gen_tables.py"]
+# the Python scripts the binary stands in for, and the fall-back that runs when it does not: an edit to any of them after the build makes the installer put the launcher in place
+SCRIPTS = ["permission_guard.py", "budget.py", "handback.py", "run_hook.py"]
 
 
 def sha256_file(path):
@@ -43,7 +45,8 @@ def build(root):
         if os.path.isfile(p):
             binaries[target] = sha256_file(p)
     per, combined = sources_hash(root)
-    return {"format": 1, "binaries": binaries, "permission_guard_py_sha256": sha256_file(os.path.join(root, "scripts", "permission_guard.py")),
+    return {"format": 2, "binaries": binaries, "permission_guard_py_sha256": sha256_file(os.path.join(root, "scripts", "permission_guard.py")),
+            "scripts_sha256": {n: sha256_file(os.path.join(root, "scripts", n)) for n in SCRIPTS},
             "rust_sources": per, "rust_sources_sha256": combined}
 
 
