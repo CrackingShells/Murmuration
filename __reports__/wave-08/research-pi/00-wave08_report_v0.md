@@ -33,7 +33,8 @@ headless cells on haiku (two probes on Sonnet and Opus, stated in their reports)
   is what nobody is asked to run: a selftest failed at two merges, wave 7's and this wave's. The
   landing steps now include it (w08-c8); this wave it caught w08-c4's first merge before main.
 - **The guard had two holes**, found by building a frozen labelled replay set of its decisions:
-  a bypass flag after `"$(cat f)"`, and `env -u VAR claude … --setting-sources`. PLACEHOLDER_C13
+  a bypass flag after `"$(cat f)"`, and `env -u VAR claude … --setting-sources`. Both are
+  closed in Python and Rust, tightening only (w08-c13 · MEASURED, verified, landed).
 
 ## What the wave taught about the system's money
 
@@ -58,7 +59,7 @@ headless cells on haiku (two probes on Sonnet and Opus, stated in their reports)
 | w08-c6, w08-c8 (supersedes w08-c7) | landed | briefs: hand-back limit, sections; notes: times from a tool; landing steps |
 | w08-c11 (supersedes w08-c9) | landed, four decision sections appended | a human reading `/lab-status` saw decided escalations as undecided |
 | w08-c12 (supersedes w08-c5) | landed | names right or marked unconfirmed, never confidently wrong |
-| PLACEHOLDER_C13ROW |  |  |
+| w08-c13 (supersedes w08-c10) | landed | closes two guard holes, loosens nothing, Python = Rust; its first version was OVERSTATED |
 | w08-c3 | the setting is yours; the PreCompact hook stays out | the hook added nothing; the file is guarded |
 | w08-c2 | not landed | 1–2% at best, negative if the PI opens the file, which its rules say to do |
 | effort, batching, rtk, script caps | stay out | measured at or near zero for this lab |

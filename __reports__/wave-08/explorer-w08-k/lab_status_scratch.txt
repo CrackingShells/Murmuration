@@ -1,0 +1,12 @@
+1:## Claims (83, 0 disputed, 6 warnings)
+27:- w03-c2  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w03-2: ESCALATE  [PI decision: __statera__/wave-03.md:136]
+29:    ! supersedes w01-c10 (the rule only; the Desktop conjecture of w01-c10 stays with that claim), which is not a claim file
+32:- w04-c4  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w04-4: ESCALATE  [PI decision: __statera__/wave-04.md:223]
+35:- w04-c7  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w04-7: ESCALATE  [PI decision: __statera__/wave-04.md:236]
+38:- w04-c10  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w04-10: ESCALATE  [PI decision: __statera__/wave-04.md:245]
+55:    ! verdict section 'reproducer-w06-4' has 2 `verdict:` lines and no `changed_by:` line below the earlier one; the last counts
+61:    ! verdict section 'reproducer-w06-6' has 2 `verdict:` lines and no `changed_by:` line below the earlier one; the last counts
+72:    ! supersedes none, which is not a claim file
+74:- w07-c7  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w07-6: ESCALATE  [PI decision: __statera__/wave-07.md:363]
+82:    ! verdict section 'reproducer-w08-6' has 2 `verdict:` lines and no `changed_by:` line below the earlier one; the last counts
+84:    ! verdict section 'reproducer-w08-6' has 3 `verdict:` lines and no `changed_by:` line below the earlier one; the last counts

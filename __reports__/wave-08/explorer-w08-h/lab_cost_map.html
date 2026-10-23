@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Murmuration after wave 8 so far (local main)</title>
+<title>Murmuration after wave 8 (local main)</title>
 <style>
 .viz-root{
   color-scheme:light;
@@ -92,19 +92,19 @@ details summary{cursor:pointer;color:var(--text-secondary);margin-top:6px}
 <body>
 <div class="viz-root"><div class="wrap">
 
-<h1>Murmuration after wave 8 (so far)</h1>
-<p class="sub">The lab, and what each part costs, with the wave-8 levers on one ladder (A), the money split by who spends it (3), and the cache-lifetime choice (3b). Every number has a row in the table at the bottom, with its label and source path. Where a later wave measured a number again, the new one replaces the old. Wave 8 is still open: its figures are a lower bound. A claim still unverified is said so. Hover a box or a bar for detail.</p>
+<h1>Murmuration after wave 8</h1>
+<p class="sub">The lab, and what each part costs, at the close of wave 8, with the wave-8 levers on one ladder (A), the money split by who spends it (3), and the cache-lifetime choice (3b). Every number has a row in the table at the bottom, with its label and source path. Where a later wave measured a number again, the new one replaces the old. The session that runs wave 8 is still open at 03:57 JST on 24 October, so every spend figure is a lower bound. A claim still unverified is said so. Hover a box or a bar for detail.</p>
 
 <div class="tiles">
-  <div class="tile"><div class="k">≥ USD 53.9</div><div class="l">wave 8 so far: PI 6.10 + workers 27.92 + headless 19.91, at 01:25 JST, session open. A lower bound</div></div>
-  <div class="tile"><div class="k">USD 148.16</div><div class="l">the PI, all sessions, list price: 37% of the lab's USD 405.34. 56% of it is cache reads of context already there</div></div>
+  <div class="tile"><div class="k">≥ USD 91.7</div><div class="l">wave 8 at 03:57 JST: PI 16.95 + workers 53.28 + headless 21.47. A lower bound while this session is open</div></div>
+  <div class="tile"><div class="k">USD 159.23</div><div class="l">the PI, all sessions, list price: 36% of the lab's USD 442.53 at least. At explorer-w08-d's cut (USD 144.47) 56% was cache reads</div></div>
   <div class="tile"><div class="k">41.6%</div><div class="l">of a worker's context USD is its own earlier turns (thinking 22.5%, tool calls 19.0%). Lab-script output is 3.7%</div></div>
-  <div class="tile"><div class="k">USD 31–45</div><div class="l">PI compaction near 250k tokens (ESTIMATE, 22–31% of PI spend). The setting is yours to write; the kept-state test (w08-c3) is verified on a small lab</div></div>
+  <div class="tile"><div class="k">USD 31–45</div><div class="l">PI compaction near 250k tokens (ESTIMATE, 22–31% of PI spend). The setting is yours to write; w08-c3 (kept state, small lab) is SUPPORTED</div></div>
   <div class="tile"><div class="k">−0.02 ± 0.39</div><div class="l">USD per author life from a 1-hour cache: a coin flip. For the PI it is +14.55 a session (ESTIMATE)</div></div>
   <div class="tile"><div class="k">0.5% · 6.9%</div><div class="l">the most capping lab-script output, or lab documents, at 2,500 tokens could save of worker context USD (ESTIMATE, ceilings)</div></div>
   <div class="tile"><div class="k">7–12 ms</div><div class="l">saved per budget start by the Rust port (w08-c4, MEASURED, verified, on main). Hooks are 0.13–0.5% of a worker's time</div></div>
   <div class="tile"><div class="k">628 ms</div><div class="l">the auto-mode classifier's median wait on a trivial Bash call (wave 7): still the largest per-call cost, and not the plugin's</div></div>
-  <div class="tile"><div class="k">50.2k</div><div class="l">tokens in the PI's first request this wave (46.7k in wave 6), all written to the 1-hour cache</div></div>
+  <div class="tile"><div class="k">1,515 → 0</div><div class="l">flag and wrapper hole forms the permission guard let through, in 2,259 generated cases; 359 of 639 settings-write cases → 0 (w08-c13, MEASURED, on main). Safety, not USD</div></div>
 </div>
 
 <!-- A. LEVER LADDER -->
@@ -127,6 +127,9 @@ details summary{cursor:pointer;color:var(--text-secondary);margin-top:6px}
   <h3 style="margin-top:18px">Levers measured in time, not USD</h3>
   <p class="note">Milliseconds saved per hook start (platform-recorded or paired). A worker's plugin hooks are 0.13–0.5% of its time (ESTIMATE, wave 7), so all of these together are under that. The Rust budget and hand-back (w08-c4, verified) is on main.</p>
   <div class="sw"><svg id="ladTime" viewBox="0 0 1080 250" width="100%" role="img" aria-label="Milliseconds saved per hook start by each hook change"></svg></div>
+  <h3 style="margin-top:18px">Safety and checking: not USD saved</h3>
+  <p class="note">Two things the lab buys that are not a saving. The permission guard's holes (a flag after a substitution, a wrapper in front of <code>claude</code>, a settings write) were measured and closed in wave 8, in Python and in Rust (w08-c13, MEASURED, SUPPORTED, on main). Verification, the lab's own checking, costs about 8% of its spend and brought down a third of the claims at their first verdict (explorer-w08-i). Counts are the reports'; the shares drawn are my division.</p>
+  <div class="sw"><svg id="ladSafe" viewBox="0 0 1080 250" width="100%" role="img" aria-label="Guard hole cases let through before and after, and what verification cost and found"></svg></div>
   <p class="note">Not on the ladder, because the reports give no USD for them: the PI tool denylist (request 0 went from 75k to 47k tokens in wave 6; landed), colgrep for markdown (explorer-w08-b: no USD; a section-level unit would be a change to your colgrep-mcp repository, not to this plugin), and fewer requests per worker (the largest block, 41.6%, but no lever was tested).</p>
 </div>
 
@@ -159,31 +162,31 @@ details summary{cursor:pointer;color:var(--text-secondary);margin-top:6px}
     </g>
 
     <!-- PI -->
-    <g class="node" data-tip="Principal investigator, Opus, main thread. Wave 6: USD 16.06 at list price, 180 requests, 42 wake-ups. Request 0: 46,738 tokens (was 74,966). Its first turn (orientation) is 21–32% of its spend in waves 4–5. Wave 7: request 0 could drop 10.6–11.0k tokens without the skills listing. Not landed: built-in skills such as dataviz would be lost (w07-c1, below MEASURED: restate). Wave 8: USD 148.16 over all its sessions, 56% of it cache reads; this session's request 0 is 50,221 tokens, all 1-hour writes. Compaction near 250k is the largest lever on the PI (ESTIMATE USD 31–45); the setting is yours (see A).">
+    <g class="node" data-tip="Principal investigator, Opus, main thread. Wave 6: USD 16.06 at list price, 180 requests, 42 wake-ups. Request 0: 46,738 tokens (was 74,966). Its first turn (orientation) is 21–32% of its spend in waves 4–5. Wave 7: request 0 could drop 10.6–11.0k tokens without the skills listing. Not landed: built-in skills such as dataviz would be lost (w07-c1, below MEASURED: restate). Wave 8: USD 159.23 over all its sessions at 03:57 JST (lower bound; at explorer-w08-d's cut, USD 144.47, 56% was cache reads); this session's request 0 is 50,221 tokens, all 1-hour writes. Compaction near 250k is the largest lever on the PI (ESTIMATE USD 31–45); the setting is yours (see A).">
       <rect x="330" y="45" width="420" height="95" rx="10"/>
       <rect x="330" y="45" width="6" height="95" rx="3" class="s1"/>
       <text x="350" y="72" font-weight="650">PI · research-pi (Opus, main thread)</text>
-      <text x="350" y="92" class="sec" font-size="12">USD 148.2 in all · 56% cache reads · request 0 = 50.2k</text>
+      <text x="350" y="92" class="sec" font-size="12">USD 159.2 in all sessions · request 0 = 50.2k</text>
       <text x="350" y="110" class="sec" font-size="12">idle 73–77% — free · orientation turn = 21–32% of its spend</text>
       <text x="350" y="128" class="muted" font-size="11">compaction near 250k: USD 31–45 (ESTIMATE) · the setting is yours</text>
     </g>
 
     <!-- HEADLESS -->
-    <g class="node" data-tip="Headless claude -p runs under /private/tmp/murmuration-w06/, mostly haiku, started by authors and verifiers to measure things. Wave 6: USD 7.54 (cost-state). Wave 7: USD 2.48. Wave 8 so far: at least USD 19.91 over 251 sessions, because the explorers ran headless probes (lab_status.py --project /private/tmp/murmuration-w08 --spend).">
+    <g class="node" data-tip="Headless claude -p runs under /private/tmp/murmuration-w06/, mostly haiku, started by authors and verifiers to measure things. Wave 6: USD 7.54 (cost-state). Wave 7: USD 2.48. Wave 8: USD 21.47 over 263 sessions, because the explorers ran headless probes (lab_status.py --project /private/tmp/murmuration-w08 --spend).">
       <rect x="860" y="45" width="200" height="85" rx="10"/>
       <rect x="860" y="45" width="6" height="85" rx="3" class="s3"/>
       <text x="878" y="72" font-weight="650">Headless runs</text>
       <text x="878" y="92" class="sec" font-size="12">claude -p, haiku</text>
-      <text x="878" y="110" class="sec" font-size="12">USD 19.9+ in wave 8</text>
+      <text x="878" y="110" class="sec" font-size="12">USD 21.5 in wave 8</text>
     </g>
 
     <!-- WORKERS -->
-    <g class="node" data-tip="Workers: Sonnet subagents, each with a USD and minute budget. Wave 6: 17 dispatched, USD 32.03 at list price. Their prompt cache lived 5 minutes. Since wave 7 authors keep a 1-hour cache (platform honours it, MEASURED). Wave 8 redid the sum on timed pauses: −0.02 ± 0.39 USD per author life, a coin flip (ESTIMATE, explorer-w08-c; w07-c7 is escalated). Kept by PI decision. Wave 8 so far: 14 workers, USD 27.92 at list price, a lower bound.">
+    <g class="node" data-tip="Workers: Sonnet subagents, each with a USD and minute budget. Wave 6: 17 dispatched, USD 32.03 at list price. Their prompt cache lived 5 minutes. Since wave 7 authors keep a 1-hour cache (platform honours it, MEASURED). Wave 8 redid the sum on timed pauses: −0.02 ± 0.39 USD per author life, a coin flip (ESTIMATE, explorer-w08-c; w07-c7 is escalated). Kept by PI decision. Wave 8: 22 workers, USD 53.28 at list price at 03:57 JST, a lower bound while the session is open.">
       <rect x="330" y="190" width="420" height="90" rx="10"/>
       <rect x="330" y="190" width="6" height="90" rx="3" class="s2"/>
       <text x="350" y="216" font-weight="650">Workers (Sonnet subagents)</text>
       <text x="350" y="236" class="sec" font-size="12">explorer · author · reproducer · proof-adversary</text>
-      <text x="350" y="254" class="sec" font-size="12">USD 27.9+ so far in wave 8 (32.0 in wave 6) · authors: 1-hour cache</text>
+      <text x="350" y="254" class="sec" font-size="12">USD 53.3+ in wave 8 (32.0 in wave 6) · authors: 1-hour cache</text>
       <text x="350" y="271" class="muted" font-size="11">+ budget and hand-back hooks now in Rust (w08-c4)</text>
     </g>
 
@@ -253,10 +256,10 @@ details summary{cursor:pointer;color:var(--text-secondary);margin-top:6px}
     <span><i style="background:var(--s3)"></i>headless runs</span>
     <span><i style="background:var(--theirs)"></i>not split (waves 1–3)</span>
   </div>
-  <div class="sw"><svg id="spend" viewBox="0 0 1080 420" width="100%" role="img" aria-label="Stacked bars of spend per wave by role, waves 1 to 8"></svg></div>
-  <p class="note">USD at list price for the PI and workers; headless from cost-state. Waves 4–7 are wave 7's figures: the PI to the wave's close. The PI's session goes on after the close (notes, the synthesis, the next wave's opening); explorer-w08-d's session totals are higher than the wave figures by USD 6.18, 7.02 and 11.28 in waves 5, 6 and 7, drawn hatched. Waves 1–3 are one session and one worktree: the PI USD 63.23, the rest of that worktree USD 98.91 (workers and headless, not split here). Wave 8 is the present session to 01:25 JST (<code>__instrumenta__/w08h_wave_spend.py</code> over <code>scripts/lab_status.py</code>'s parser); headless from <code>lab_status.py --project /private/tmp/murmuration-w08 --spend</code> (19.91 at least; 4 sessions still open). The explorers of this wave ran headless probes, so its headless share is 7 times wave 7's. Every figure is a lower bound: auto mode's classifier is in no cost record.</p>
+  <div class="sw"><svg id="spend" viewBox="0 0 1080 540" width="100%" role="img" aria-label="Stacked bars of spend per wave by role, waves 1 to 8"></svg></div>
+  <p class="note">USD at list price for the PI and workers; headless from cost-state. Waves 4–7 are wave 7's figures: the PI to the wave's close. The PI's session goes on after the close (notes, the synthesis, the next wave's opening); explorer-w08-d's session totals are higher than the wave figures by USD 6.18, 7.02 and 11.28 in waves 5, 6 and 7, drawn hatched. Waves 1–3 are one session and one worktree: the PI USD 63.23, the rest of that worktree USD 98.91 (workers and headless, not split here). Wave 8 is the present session to 03:57 JST on 24 October (<code>__instrumenta__/w08h_wave_spend.py</code> over <code>scripts/lab_status.py</code>'s parser): the PI 16.95 and 22 workers 53.28, a lower bound while the session is open; headless from <code>lab_status.py --project /private/tmp/murmuration-w08 --spend</code> (21.47, all those sessions ended). The explorers and authors of this wave ran headless probes, so its headless spend is about 9 times wave 7's. Every figure is a lower bound: auto mode's classifier is in no cost record.</p>
 
-  <h3 style="margin-top:20px">The PI's USD 144.47 (six sessions, waves 1–8), by price part and by what put the tokens there</h3>
+  <h3 style="margin-top:20px">The PI's USD 144.47 (six sessions, to 00:17 JST on 24 October, explorer-w08-d's cut), by price part and by what put the tokens there</h3>
   <p class="note">Top bar: what the money bought, MEASURED. Bars below: the source of each token in the context, an ESTIMATE from a model (explorer-w08-d): a token costs once to write, then 0.20 per million for every later request that carries it. Own words = the PI's output plus what that output costs while it sits in the context. "Own thinking carried" is inferred from context growth, not read from text.</p>
   <div class="sw"><svg id="piSrc" viewBox="0 0 1080 640" width="100%" role="img" aria-label="The PI's spend by price part and by source"></svg></div>
 
@@ -321,7 +324,7 @@ details summary{cursor:pointer;color:var(--text-secondary);margin-top:6px}
 <!-- 7. TABLE -->
 <div class="card">
   <h2>Sources (table view)</h2>
-  <p class="note">Labels are the report's, and never above a claim's current label from <code>scripts/lab_status.py</code> (w08-c3, w08-c4, w08-c6 MEASURED, verified; w08-c2 unverified; w08-c8 CONJECTURE; w07-c1 and w07-c8 below MEASURED: restate; w07-c7 escalated). Rows marked <b>not in the reports</b> are numbers the page needed and could not source.</p>
+  <p class="note">Labels are the report's, and never above a claim's current label from <code>scripts/lab_status.py</code> (w08-c3, c4, c6, c11, c12, c13 MEASURED, SUPPORTED; w08-c8 CONJECTURE, SUPPORTED; w08-c2 unverified, not landed; w08-c1, c5, c7, c9, c10 superseded; w07-c1 and w07-c8 below MEASURED: restate; w07-c7 escalated). Rows marked <b>not in the reports</b> are numbers the page needed and could not source.</p>
   <details open><summary>Every number on this page</summary>
   <div class="sw"><table id="src"><thead><tr><th>Item</th><th>Value</th><th>Label</th><th>Source</th></tr></thead><tbody></tbody></table></div>
   </details>
@@ -348,7 +351,7 @@ const STAT={land:["landed","sw-land"],not:["not landed","sw-not"],user:["yours t
 const LEV=[
  {n:"1-hour cache for the PI",on:"PI spend, USD 144.47 (six sessions)",b:144.47,nb:144.47,lo:43.6,hi:104.0,st:"land",stx:"landed: every PI cache write is 1-hour",lab:"ESTIMATE",
   t:"Low end: net +13.1, +30.7, −0.16 USD for the PI sessions of waves 5–7 (mean +14.55; explorer-w08-c), summed to 43.6. High end: a 5-minute cache would have re-written USD 119.07 that the 1-hour tier read, for a 15.08 premium, over all six sessions (explorer-w08-d), net 104.0. The two do not count the same hits (see the report). It is how the Desktop PI runs, not a setting the lab changed. P(net > 0) 0.99 by one model, n = 3 sessions."},
- {n:"PI compaction near 250k tokens",on:"PI spend, USD 144.47",b:144.47,nb:144.47,lo:31.27,hi:44.78,st:"user",stx:"yours to set: a window key in a guarded settings file",lab:"ESTIMATE",
+ {n:"PI compaction near 250k tokens",on:"PI spend, USD 144.47",b:144.47,nb:144.47,lo:31.27,hi:44.78,st:"user",stx:"yours to set (w08-c3 SUPPORTED): the window key is in a guarded settings file",lab:"ESTIMATE",
   t:"Net of what compaction costs (0.54 USD each, MEASURED at 200k on haiku, re-priced), by what the PI re-reads afterwards: USD 44.78 at 0 tokens, 42.15 at 10k, 31.27 at 45k, 11.37 at 90k (explorer-w08-e; explorer-w08-c3's Opus-priced run gives 43–45 at 2.5–10k and 32.3 at 45k). One real compaction exists in the data; the information lost is not priced. w08-c3 (MEASURED, verified): 15 of 17 PI-like runs on a 150k-window scratch lab answered all five questions after a compaction with the existing resume brief; it does not carry the jump to a real PI at 250k (a 91k floor, larger files), and the settings route through the project file was not run. The setting lives in the main checkout's settings file, which the permission guard refuses to write: the file is yours. The PreCompact hook added nothing and does not land."},
  {n:"Drop the skills listing from the PI",on:"skill listings re-sent, USD 14.78 (six PI sessions)",b:144.47,nb:14.78,lo:2.90,hi:14.78,st:"not",stx:"not landed: built-in skills would be lost",lab:"ESTIMATE",
   t:"The skill listing cost USD 14.78 across six PI sessions, of which 11.88 is session 1's 22 re-injections (explorer-w08-d). The low end, 2.90, is the other five sessions (14.78 − 11.88). Wave 7 measured request 0 about 10.6–11.0k tokens lower without it (w07-c1, below MEASURED: restate). Not landed: built-in skills such as dataviz would be lost."},
@@ -450,6 +453,24 @@ drawLadder();
   bindTips(svg);
 })();
 
+(function(){
+  const svg=$("#ladSafe"),L=330,R=900,sx=p=>L+(R-L)*p/100,top=26;
+  for(let p=0;p<=100;p+=20){el("line",{x1:sx(p),y1:top-10,x2:sx(p),y2:top+190,stroke:"var(--grid)"},svg);txt(svg,{x:sx(p),y:top-14,"text-anchor":"middle","font-size":"11",class:"muted"},p+"%")}
+  const rows=[
+   ["Guard: flag and wrapper hole forms let through","before 1,515 of 2,259 cases → after 0",[[67.1,"var(--bad)","before 1,515 of 2,259 (67%)"],[0,"var(--ok)","after 0 of 2,259"]],"w08-c13 (MEASURED, SUPPORTED, on main; Python and Rust equal everywhere). The base let 1,515 of 2,259 generated flag and wrapper hole cases through; the branch 0. Not a USD lever: the guard stops runs that would escape your settings."],
+   ["Guard: settings-write (G3) cases let through","before 359 of 639 → after 0",[[56.2,"var(--bad)","before 359 of 639 (56%)"],[0,"var(--ok)","after 0 of 639"]],"w08-c13: 359 of 639 G3 write cases through on the base, 0 on the branch. Out of scope in the claim: a program or flag held in a variable or file, unlisted wrappers (arch, doas, find -exec, ssh …)."],
+   ["Guard: false denials, not changed by c13","113 of 623 labelled-false cases denied (18%)",[[18.1,"var(--warn)","113 of 623 (18%)"]],"explorer-w08-j (MEASURED, frozen set of 739 cases; Python = Rust on all). Of 19 live denials in the lab's own sessions, 17 were false. Two narrower tests would clear 32 of the 113 and open no gap on that set (CONJECTURE, not changed). w08-c13 only tightened."],
+  ];
+  rows.forEach(([n,sub,bars,t],i)=>{const y=top+i*62,g=el("g",{"data-tip":n+". "+t},svg);
+    el("rect",{x:0,y:y-6,width:1080,height:58,class:"hit"},g);txt(g,{x:0,y:y+10,"font-size":"12.5","font-weight":"600"},n);txt(g,{x:0,y:y+26,"font-size":"11",class:"sec"},sub);
+    bars.forEach(([p,c,lab],k)=>{el("rect",{x:sx(0),y:y+k*20-2,width:Math.max(sx(p)-sx(0),2),height:16,rx:3,fill:c},g);txt(g,{x:sx(p)+8,y:y+k*20+11,"font-size":"11.5","font-weight":"600"},lab)})});
+  const y=top+3*62+4,g=el("g",{"data-tip":"Verification (explorer-w08-i, waves 1–8): USD 30.45 in 50 named reproducer rows plus about 4.17 for wave 7's unnamed ones, about 8% of USD 411.93 at its cut and a third of the author cost per claim (ESTIMATE). First verdict of 76 claims: 38 SUPPORTED, 25 OVERSTATED, 13 ESCALATE (MEASURED); every one of the 77 verdict sections is a reproducer's, none a proof-adversary's. 9 of the 47 standing claims (19%, a floor) were flagged later."},svg);
+  el("rect",{x:0,y:y-6,width:1080,height:60,class:"hit"},g);
+  txt(g,{x:0,y:y+10,"font-size":"12.5","font-weight":"600"},"Verification: first verdict of 76 claims");txt(g,{x:0,y:y+26,"font-size":"11",class:"sec"},"about 8% of the lab's spend (USD 30.45 + about 4.17)");
+  let x=sx(0);[[38,"var(--ok)","SUPPORTED 38"],[25,"var(--bad)","OVERSTATED 25"],[13,"var(--warn)","ESCALATE 13"]].forEach(([n,c,lab])=>{const w=(R-L)*n/76;el("rect",{x,y:y-2,width:w-2,height:20,rx:3,fill:c},g);txt(g,{x:x+6,y:y+12,"font-size":"11","font-weight":"700",style:"fill:#fff"},lab);x+=w});
+  txt(g,{x:L,y:y+36,"font-size":"11",class:"sec"},"ESTIMATE for the spend share; MEASURED for the verdict counts");
+})();
+
 /* ---------- 1. hook chain ---------- */
 const chain=[
   {n:"auto-mode classifier",ms:"median 628",w:270,cls:"seg-theirs",t:"Auto mode asks a classifier about every Bash call. It waits a median 628 ms on a trivial call (explorer-w07-g). Wave 5 measured 448–747 ms. Not the plugin's, and in no cost record, so every USD figure is a lower bound."},
@@ -544,10 +565,10 @@ const spend=[
   {w:"Wave 5",pi:11.90,after:6.18,wk:15.85,hl:18.18},
   {w:"Wave 6",pi:16.06,after:7.02,wk:32.03,hl:7.54},
   {w:"Wave 7",pi:15.86,after:11.28,wk:22.64,hl:2.48,roles:[["authors",10.07],["explorers",7.32],["verifiers",4.17],["page helper",1.08]]},
-  {w:"Wave 8 so far",pi:6.10,after:0,wk:27.92,hl:19.91,lb:1,roles:[["authors",13.02],["explorers",13.57],["verifiers",1.33]]},
+  {w:"Wave 8 (open)",pi:16.95,after:0,wk:53.28,hl:21.47,lb:1,roles:[["authors",25.93],["explorers",20.48],["verifiers",6.87]]},
 ];
 (function(){
-  const svg=$("#spend"), L=130,R=1000,max=70,sx=v=>L+(R-L)*Math.min(v,max)/max,rowH=48,top=12,n=spend.length;
+  const svg=$("#spend"), L=130,R=1000,max=100,sx=v=>L+(R-L)*Math.min(v,max)/max,rowH=58,top=12,n=spend.length;
   hatchDef(svg,"hatchpi2");
   const dfs=el("defs",{},svg);const pp=el("pattern",{id:"hpi",width:5,height:5,patternUnits:"userSpaceOnUse",patternTransform:"rotate(45)"},dfs);
   el("rect",{width:5,height:5,fill:"var(--surface-0)"},pp);el("line",{x1:0,y1:0,x2:0,y2:5,stroke:"var(--s1)","stroke-width":2},pp);
@@ -558,12 +579,12 @@ const spend=[
     const y=top+i*rowH;
     if(s.other!==undefined){
       const tot=s.pi+s.other;
-      const g=el("g",{"data-tip":`Waves 1–3 (one session, one worktree, exact): USD ${tot.toFixed(2)}, of which the PI's main thread ${s.pi.toFixed(2)} (explorer-w08-d, session ab96c5ed) and the rest of the worktree ${s.other.toFixed(2)} (workers and sessions started below it; scripts/lab_status.py --spend, 162.14 minus 63.23). Not split by role. The bar is cut at $70.`},svg);
+      const g=el("g",{"data-tip":`Waves 1–3 (one session, one worktree, exact): USD ${tot.toFixed(2)}, of which the PI's main thread ${s.pi.toFixed(2)} (explorer-w08-d, session ab96c5ed) and the rest of the worktree ${s.other.toFixed(2)} (workers and sessions started below it; scripts/lab_status.py --spend, 162.14 minus 63.23). Not split by role. The bar is cut at $100.`},svg);
       el("rect",{x:0,y:y-4,width:1080,height:rowH-8,class:"hit"},g);
       txt(g,{x:0,y:y+20,"font-size":"13","font-weight":"600"},s.w);
       let x=L;const w1=sx(s.pi)-L-2;el("rect",{x,y,width:w1,height:28,rx:4,class:"s1"},g);txt(g,{x:x+8,y:y+18,"font-size":"11.5",style:"fill:#fff"},"PI "+s.pi.toFixed(1));x+=w1+2;
       el("rect",{x,y,width:R-x,height:28,rx:4,fill:"var(--theirs)"},g);txt(g,{x:x+8,y:y+18,"font-size":"11.5",style:"fill:var(--text-primary)"},"rest "+s.other.toFixed(0)+" ▸");
-      txt(g,{x:R+6,y:y+19,"font-size":"12","font-weight":"600"},"$"+tot.toFixed(0)+", workers + headless not split");
+      txt(g,{x:R+6,y:y+19,"font-size":"12","font-weight":"600"},"$"+tot.toFixed(0)+" ▸");
       return}
     const tot=s.pi+s.after+s.wk+s.hl;
     const g=el("g",{"data-tip":`${s.w}: PI ${s.pi.toFixed(2)}${s.after?" (+"+s.after.toFixed(2)+" after the close, same session)":""} · workers ${s.wk.toFixed(2)} · headless ${s.hl.toFixed(2)}${s.lb?" (at least)":""} = ${tot.toFixed(2)} USD. PI share of the wave ${(100*(s.pi+s.after)/tot).toFixed(0)}%.${s.lb?" The wave is open; every figure grows.":""}`},svg);
@@ -572,14 +593,14 @@ const spend=[
     let x=L;[[s.pi,"s1","PI",0],[s.after,"hpi","after",1],[s.wk,"s2","workers",0],[s.hl,"s3","headless",0]].forEach(([v,c,nm,h])=>{
       if(!v)return;const w=sx(v)-L-2;const r=el("rect",{x,y,width:w,height:28,rx:4},g);
       if(h){r.setAttribute("fill","url(#hpi)");r.setAttribute("stroke","var(--s1)")}else r.setAttribute("class",c);
-      if(w>60&&!h){txt(g,{x:x+8,y:y+18,"font-size":"11.5",style:"fill:#fff"},`${nm} ${v.toFixed(1)}`)}
+      if(w>85&&!h){txt(g,{x:x+8,y:y+18,"font-size":"11.5",style:"fill:#fff"},`${nm} ${v.toFixed(1)}`)}
       x+=w+2});
     txt(g,{x:x+8,y:y+19,"font-size":"12.5","font-weight":"600"},(s.lb?"≥ $":"$")+tot.toFixed(1));
   });
   [["Wave 7 workers",spend[4]],["Wave 8 workers",spend[5]]].forEach(([lab,s],k)=>{
     const y=top+(n+k)*rowH;
     txt(svg,{x:0,y:y+20,"font-size":"13","font-weight":"600"},lab);
-    const g=el("g",{"data-tip":lab+", USD at list price, by role: "+s.roles.map(r=>r[0]+" "+r[1].toFixed(2)).join(" · ")+(k?". The present session to 01:25 JST, the explorer writing this page included.":". The largest single worker was author-w07-5 (the Rust guard), 4.30.")},svg);
+    const g=el("g",{"data-tip":lab+", USD at list price, by role: "+s.roles.map(r=>r[0]+" "+r[1].toFixed(2)).join(" · ")+(k?". The present session to 03:57 JST, the explorer writing this page included; a lower bound while it is open.":". The largest single worker was author-w07-5 (the Rust guard), 4.30.")},svg);
     el("rect",{x:0,y:y-4,width:1080,height:rowH-8,class:"hit"},g);
     let x=L;const op=[1,0.75,0.55,0.35];
     s.roles.forEach(([nm,v],i)=>{const w=sx(v)-L-2;el("rect",{x,y,width:w,height:28,rx:4,class:"s2","fill-opacity":op[i]},g);
@@ -724,7 +745,12 @@ const ttlw=[["author-w04-1","author",0.0,0.472,-0.281,0.064,5.7,36],["reproducer
 
 /* ---------- 4. graveyard ---------- */
 const moves=[
-  ["landed","On main, wave 8","Rust budget and hand-back (w08-c4)","MEASURED, verified (supersedes w08-c1, which was escalated). 0 differences in 3,821 replayed events, 3,234 decided by the port and 587 handed to Python by design; 11 faults fall back with a named cause. 7–12 ms (budget) and 8–15 ms (hand-back) less per start outside the platform; in the platform 10 of 12 pairs for PostToolUse, 9 of 12 for PostToolBatch (rule: 10). Cost: about 1,300 lines of a second implementation, one unsafe call, 3 clippy lints."],
+  ["landed","On main, wave 8","Guard holes closed, Python and Rust (w08-c13, supersedes w08-c10)","MEASURED, SUPPORTED. A flag after a substitution, a wrapper in front of claude, `env -S`, and a settings write through a substitution: the base let 1,515 of 2,259 hole cases and 359 of 639 G3 write cases through, the branch 0 and 0; no denial lost on 10,484 recorded calls; large heredocs decided in under 1 s. Not covered: a program or flag in a variable or file, unlisted wrappers. Found by explorer-w08-j's replay set (739 cases, 113 false denials, 24 false allows). Safety, not USD."],
+  ["landed","On main, wave 8","Start lines carry the true name or say so (w08-c12, supersedes w08-c5)","MEASURED, SUPPORTED. Every start line is confirmed with its true name or says name_unconfirmed with candidates that include it, in all arrival orders of 1 to 3 same-type dispatches and in sampled orders at 4 and 6; the earlier code failed on 483 of 2,240 orders at 3. Python and Rust agree byte for byte on every order at 1 and 2 and on 1,080 sampled orders."],
+  ["landed","On main, wave 8","The PI's decision is shown next to the verdict (w08-c11, supersedes w08-c9)","MEASURED, SUPPORTED. `lab_status.py` reads a `## decision: research-pi` section: the 9 decided escalations show `MEASURED (PI decided: restated, not re-verified)`; 68 other claim files and report lines are byte-identical."],
+  ["landed","On main, wave 8","Landing steps in waves.md (w08-c8, supersedes w08-c7)","CONJECTURE, SUPPORTED: clock times from `date` or a commit, every script's `--selftest` on the merged tree before main (caught the stale budget selftest at 15d4c94, fixed at d0ef374), an install step, a smoke run."],
+  ["aside","Superseded, wave 8","w08-c1, c5, c7, c9, c10","Each restated narrower by its successor after a verdict: c1 by c4, c5 by c12, c7 by c8, c9 by c11, c10 by c13. A superseded claim may not be used at its label."],
+  ["landed","On main, wave 8","Rust budget and hand-back (w08-c4)","MEASURED, verified (supersedes w08-c1, which was escalated). 0 differences in 3,821 replayed events, 3,234 decided by the port and 587 handed to Python by design; 11 faults fall back with a named cause. 7–12 ms (budget) and 8–15 ms (hand-back) less per start outside the platform; in the platform 10 of 12 pairs for PostToolUse, 9 of 12 for PostToolBatch (rule: 10). Cost: a second implementation (budget.rs 1,134, handback.rs 382, hook.rs 574 lines, w08-c1 head), one unsafe call, 3 clippy lints; since w08-c12 a change to the budget's behaviour is made in both. w08-c12 gives no line count."],
   ["landed","On main, wave 8","Hand-back limit and sections in every brief (w08-c6)","MEASURED. Workers told \"at most about 1,500 characters\" sent first hand-backs of 1,809–2,449 characters (n = 6); those not told, 3,328–5,873 (n = 6). The skill now asks every brief for the limit and for sections instead of whole files. The USD value is only the gross estimate (6.0–10.3 on the PI's side); the effect on documents is not measured."],
   ["out","Not landed, wave 8","Hand-back gate at 5,000 characters (w08-c2)","Unverified (no verifier: the PI would not land it). The mechanism worked live, 5 of 5 cells shortened. Net saving USD 0.9–2.8 (1–2% of PI spend, ESTIMATE); negative if the PI opens the worker's file in more than 20–62% of fired cases. It had been USD 6–10 gross."],
   ["held","Yours to set, wave 8","PI compaction near 250k tokens (w08-c3, explorer-w08-e)","The largest lever on the PI: USD 31–45 net (ESTIMATE, 22–31% of its spend). w08-c3 (MEASURED, verified): after a compaction with the existing resume brief 15 of 17 PI-like runs on a small scratch lab answered all five questions; not carried: a real PI at 250k, the project-file settings route. The setting (autoCompactWindow) lives in the main checkout's settings file, which the permission guard rightly refuses to write. The Desktop route was not run."],
@@ -887,9 +913,9 @@ const src=[
   ["A. Rust budget and hand-back, equality and fall-back","3,821 replayed events, 0 differences, 587 handed to Python by design, none of the 2,250 built on real transcripts; 11 of 11 faults fall back with a named cause; wall lower in 92–99% of pairs per payload (rule 95%, met in 11 of 14 payload-runs); landed on main at 1e0a81d","MEASURED (w08-c4, SUPPORTED by reproducer-w08-1)","__pondus__/w08-c4.md; __pondus__/w08-c1.md (superseded)"],
   ["A. PI tool denylist, USD","request 0 went 74,966 → 46,738 tokens; USD not in the reports","not in the reports (wave 6 figure in tokens)","w06-c1; explorer-w08-d reports the prefix and tool definitions at USD 8.45 over six sessions (the denylist is in only the later ones)"],
   ["A. colgrep for markdown, USD","none: 6 / 10 / 15 of 23 questions find the file in the top 1 / 3 / 10 with plain words (9 / 13 / 17 with identifiers); markdown is one unit per file","CHECKED (23 questions); no USD in the report","__reports__/wave-08/explorer-w08-b/00-findings_v0.md"],
-  ["B. Wave 8 spend so far","PI 6.10 (75 requests) · authors 13.02 · explorers 13.57 · verifiers 1.33 = 34.02 in this checkout's session ad75be4f and its 13 subagent files at 01:25 JST; headless 19.91 at least over 251 sessions (18.63 exact + 1.28 at list price, 4 sessions open); sum 53.93","MEASURED (lower bound; the session is open; the explorer writing this page is inside it)","__reports__/wave-08/explorer-w08-h/wave8_spend_by_agent.tsv from __instrumenta__/w08h_wave_spend.py; scripts/lab_status.py --project /private/tmp/murmuration-w08 --spend"],
-  ["B. Spend, whole lab","USD 405.34 at least (372.11 exact + 33.23 at list price for one open session); PI main thread 148.16 over 1,166 messages; the agent rows add to 342.29","MEASURED (lower bound)","scripts/lab_status.py --spend, 2026-10-24 01:2x JST"],
-  ["B. PI share of the lab","148.16 of 405.34 = 37%; of the 342.29 priced to agent rows 43% (my division); the wave note said 46% at an earlier reading","ESTIMATE (arithmetic)","scripts/lab_status.py --spend; __statera__/wave-08.md"],
+  ["B. Wave 8 spend at 03:57 JST","PI 16.95 (183 requests) · authors 25.93 · explorers 20.48 · verifiers 6.87 = 70.24 in this checkout's session ad75be4f and its subagent files; headless 21.47 over 263 sessions, all ended; sum 91.71","MEASURED (lower bound while the session is open; the explorer writing this page is inside it; at 01:25 it read 34.02 + 19.91 = 53.93)","__reports__/wave-08/explorer-w08-h/wave8_spend_by_agent.tsv from __instrumenta__/w08h_wave_spend.py; scripts/lab_status.py --project /private/tmp/murmuration-w08 --spend"],
+  ["B. Spend, whole lab","USD 442.53 at least (372.11 exact + 70.41 at list price for one open session); PI main thread 159.23 over 1,277 messages; the agent rows add to 379.47 (at 01:25: 405.34, 148.16, 342.29)","MEASURED (lower bound)","scripts/lab_status.py --spend, 2026-10-24 03:57 JST"],
+  ["B. PI share of the lab","159.23 of 442.53 = 36%; of the 379.47 priced to agent rows 42% (my division); the wave note said 46% at an earlier reading","ESTIMATE (arithmetic)","scripts/lab_status.py --spend; __statera__/wave-08.md"],
   ["B. PI after the wave's close, same session","USD 6.18 (wave 5: 18.08 − 11.90), 7.02 (wave 6: 23.08 − 16.06), 11.28 (wave 7: 27.14 − 15.86); wave 4: 10.50 against 10.51","ESTIMATE (a difference of two reported figures; it is the PI's work after the close, not a different cost)","__reports__/wave-08/explorer-w08-d/00-findings_v0.md Table row 1; wave-7 map section 3"],
   ["B. Waves 1–3","PI USD 63.23 (session ab96c5ed, 393 requests); the worktree murmuration-system-optimization-8cff9e USD 162.14 exact, so the rest 98.91 (workers and headless, not split)","MEASURED; the subtraction is mine","explorer-w08-d tables.md section 1; scripts/lab_status.py --spend"],
   ["B. PI spend by price part","read 81.15 (56%), fresh write 26.02 (18%), re-write 14.19 (10%), billed output 23.11 (16%), uncached input 0.01; all 5.0 M tokens of cache writes are 1-hour","MEASURED (re-write: positional model)","__reports__/wave-08/explorer-w08-d/tables.md section 1"],
@@ -901,7 +927,7 @@ const src=[
   ["B. Worker context USD, 68 workers, waves 4–7","USD 83.69 over 3,685 requests; own turns 41.6% (thinking 22.5%, tool calls 19.0%); documents 14.3% (Read 5.7 + Bash 8.6); lab-script output 3.7%; worker's own code 8.7%; source code 11.0%; re-writes after pauses 15.7% (13.12)","MEASURED counts, ESTIMATE tokens and USD","__reports__/wave-08/explorer-w08-a/tables.md; by_class.tsv"],
   ["B. Worker context, reconciliation","attributed sum 83.6934 = recorded input-side 83.6934 by construction; reads of waves 4–6 USD 34.58 against 34.59 by explorer-w07-b's other method","CHECKED (a check, not an independent proof)","__reports__/wave-08/explorer-w08-a/check.txt"],
   ["B. Worker recorded cost, waves 4–8","USD 109.92 over 77 workers and 4,239 requests (output at the stored count, a lower bound)","MEASURED (lower bound)","__reports__/wave-08/explorer-w08-g/00-findings_v0.md Table"],
-  ["B. Workers of this wave by role","authors 13.02 (3), explorers 13.57 (8 with this page's helper), verifiers 1.33 (2)","MEASURED (lower bound)","__reports__/wave-08/explorer-w08-h/wave8_spend_by_agent.tsv"],
+  ["B. Workers of this wave by role","authors 25.93, explorers 20.48 (this page's helper included), verifiers 6.87; 22 workers","MEASURED (lower bound)","__reports__/wave-08/explorer-w08-h/wave8_spend_by_agent.tsv"],
   ["C. Prices","Sonnet 5.5: base 2.00, 5-min write 2.50, 1-hour write 4.00, read 0.10; Opus 5.5: 4.00, 5.00, 8.00, 0.20 USD per million; hits refresh at 0.05× base for these models; lifetime counted from the start of the request that wrote or read the entry","CITED (page fetched, characters 0–100,000 of 162,264)","https://platform.claude.com/docs/en/build-with-claude/prompt-caching (explorer-w08-c)"],
   ["C. Pauses, waves 5–7","median 8–15 s; over 300 s: authors 7 of 1,124 (0.6%), verifiers 3 of 557, explorers 3 of 415, PI 33 of 440 (7.5%); calibration: 13 of 15 pauses over the TTL missed, none of 2,521 inside it","MEASURED (2,536 timed pauses)","__reports__/wave-08/explorer-w08-c/pause_model.json; 00-findings_v0.md table 2"],
   ["C. Net per life by type","authors −0.02 (sd 0.39); verifiers −0.09 (0.10); explorers −0.13 (0.19); PI +14.55 (15.47), 3 sessions +13.1, +30.7, −0.16; model against recorded cost 1.002–1.041 (waves 5–6)","ESTIMATE; the model check CHECKED","__reports__/wave-08/explorer-w08-c/00-findings_v0.md table 3"],
@@ -915,6 +941,11 @@ const src=[
   ["Claim labels at writing","w08-c4 MEASURED (SUPPORTED); w08-c1 superseded by w08-c4; w08-c2 unverified; w08-c3 MEASURED (SUPPORTED); w08-c6 MEASURED (SUPPORTED); w08-c8 CONJECTURE; w07-c1 and w07-c8 below MEASURED: restate; w07-c7 escalated: PI decides","CHECKED","python3 scripts/lab_status.py, 2026-10-24"],
   ["Not in the reports","a USD saving for the Rust hooks; USD for the PI tool denylist; any lever for fewer requests per worker; per-wave PI spend split to the minute for waves 5–7 (only the close-time figures and session totals); wave 8's final spend","not in the reports","—"],
   /* wave 7, relabelled where a claim fell */
+  ["A. Guard holes (w08-c13)","base let 1,515 of 2,259 flag and wrapper hole cases and 359 of 639 G3 write cases through; branch 0 and 0; Python = Rust; 10,484 recorded calls, no denial lost; 4,564 generated cases, the 739 frozen cases, the verifier's 1,880 hole cases whose plain form is denied (104 stay allowed: other causes)","MEASURED, SUPPORTED (on main)","__pondus__/w08-c13.md; supersedes w08-c10"],
+  ["A. Guard replay set (explorer-w08-j)","739 frozen cases (116 true, 623 false); Python = Rust on all; 113 false denials, 24 false allows, 173 true denials; 17 of 19 live denials in the lab's own sessions false; two narrower tests would clear 32 of 113","MEASURED; the narrower tests CONJECTURE","__reports__/wave-08/explorer-w08-j/00-findings_v0.md Result; score_v0.md"],
+  ["A. Verification (explorer-w08-i)","USD 30.45 in 50 named reproducer rows plus about 4.17 for wave 7's unnamed ones, about 8% of USD 411.93 and a third of the author cost per claim; first verdict of 76 claims: 38 SUPPORTED, 25 OVERSTATED, 13 ESCALATE; 77 of 77 sections are reproducers; 9 of 47 standing claims flagged later (a floor)","MEASURED (verdict counts); ESTIMATE (spend share)","__reports__/wave-08/explorer-w08-i/00-findings_v0.md Result; verification_cost.md; agent_spend.tsv; claims_verdicts.tsv"],
+  ["A. Start-line names (w08-c12)","all orders of 1–3 same-type dispatches, 0 violations; the c5 code failed 483 of 2,240 orders at 3; Python = Rust byte for byte on 1,080 sampled orders; second-implementation cost not stated in the claim","MEASURED, SUPPORTED (on main)","__pondus__/w08-c12.md; supersedes w08-c5"],
+  ["A. Second implementation, size","budget.rs 1,134, handback.rs 382, hook.rs 574 lines; one unsafe call; 3 clippy lints","MEASURED (line counts in the claim head)","__pondus__/w08-c1.md (superseded by w08-c4)"],
   /* wave 7 */
   ["1-hour cache break-even, any worker","R/W > 1.5/3.9 = 0.385 (Sonnet: 5-minute write 2.50, 1-hour write 4.00, read 0.10 USD per million tokens)","CHECKED (arithmetic on the price table)","scripts/lab_status.py PRICES"],
   ["Pooled R/W by type, waves 4–6 (two counting rules)","authors 0.303–0.509 · verifiers 0.137–0.168 · explorers 0.000","MEASURED (counts from records)","__instrumenta__/w07_ttl_by_type.py; __reports__/wave-07/research-pi/ttl_by_type.json"],

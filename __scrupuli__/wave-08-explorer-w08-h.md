@@ -33,3 +33,11 @@ refs: `python3 scripts/lab_status.py --project /private/tmp/murmuration-w08 --sp
 ## S-w08-explorer-w08-h-9
 The Rust budget row of wave 8's bar: 41 ms (wave 7) minus 9.0 ms in the platform gives 32; but w08-c4's own control row drifted −6.2 ms between arms, and the 9.0 ms is a pooled median with 10 of 12 pairs. The bar is arithmetic on two numbers whose own noise is of the same order as the difference; I drew it and labelled it ESTIMATE rather than leave wave 8 out of section 2.
 refs: `__pondus__/w08-c4.md` title and scope; `__scrupuli__/wave-08-reproducer-w08-1.md` puzzle 1.
+
+## S-w08-explorer-w08-h-10
+The PI's spend grew from 148.16 (01:25) to 159.23 (03:57) while its wave-8 session row grew from 6.10 to 16.95, so the PI's own wave-8 figure is still moving and the "PI to the wave's close" convention of the earlier waves cannot be applied until a close time is recorded. The wave note has `closed: YYYY-MM-DD` with no time.
+refs: `__reports__/wave-08/explorer-w08-h/wave8_spend_by_agent.tsv`; `__statera__/wave-08.md` last line.
+
+## S-w08-explorer-w08-h-11
+Explorer-w08-i reports verification at about 8% of USD 411.93 (USD 30.45 named + about 4.17 for wave 7's unnamed rows); the whole lab is now USD 442.53, so the same USD 34.6 is 7.8% or 7.0% depending on the denominator, and wave 8's own reproducers (6.87 so far) are not in it. I drew its 8% as stated.
+refs: `__reports__/wave-08/explorer-w08-i/verification_cost.md`; `python3 scripts/lab_status.py --spend`.

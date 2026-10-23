@@ -1,0 +1,133 @@
+repo /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-8-928ebd | rust /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-8-928ebd/bin/aarch64-apple-darwin/murmuration | 36280 cases
+hole       20351 cases with plain form denied   variant allowed (a hole): python  9662   rust  9662
+          (0 cases whose plain form is allowed, not counted)
+g3hole      3265 cases with plain form denied   variant allowed (a hole): python  2867   rust  2867
+          (0 cases whose plain form is allowed, not counted)
+control    10396 cases   denied (a false denial): python     0   rust     0
+g3control   2236 cases   denied (a false denial): python     0   rust     0
+nonc          32 cases   denied: python 0   rust 0
+python and rust differ on 0 of 36280 cases
+  outer:lc                                   392 cases,   238 allowed
+  outer:ec                                   392 cases,   238 allowed
+  outer:xc                                   392 cases,   238 allowed
+  outer:ic                                   392 cases,   238 allowed
+  outer:euc                                  392 cases,   238 allowed
+  outer:uc                                   392 cases,   238 allowed
+  outer:Cc                                   392 cases,   238 allowed
+  outer:pc                                   392 cases,   238 allowed
+  outer:vc                                   392 cases,   238 allowed
+  outer:fc                                   392 cases,   238 allowed
+  outer:euxc                                 392 cases,   238 allowed
+  outer:cl                                   392 cases,   238 allowed
+  outer:ce                                   392 cases,   238 allowed
+  outer:cx                                   392 cases,   238 allowed
+  outer:lec                                  392 cases,   238 allowed
+  outer:ilc                                  392 cases,   238 allowed
+  outer:l_ec                                 392 cases,   238 allowed
+  outer:e_lc                                 392 cases,   238 allowed
+  outer:x_e_lc                               392 cases,   238 allowed
+  outer:login_ec                             392 cases,   238 allowed
+  outer:norc_lc                              392 cases,   238 allowed
+  outer:noprofile_norc_lc                    392 cases,   238 allowed
+  outer:posix_ec                             392 cases,   238 allowed
+  outer:rcfile_ic                            392 cases,   238 allowed
+  outer:o_lc                                 392 cases,   238 allowed
+  outer:O_lc                                 392 cases,   238 allowed
+  outer:po_lc                                392 cases,   238 allowed
+  outer:PO_lc                                392 cases,   238 allowed
+  outer:eoc                                  392 cases,   238 allowed
+  outer:oec                                  392 cases,   238 allowed
+  outer:c_x                                  392 cases,   238 allowed
+  outer:c_e                                  392 cases,   238 allowed
+  outer:c_l                                  392 cases,   238 allowed
+  outer:c_dd                                 392 cases,   238 allowed
+  outer:c_o                                  392 cases,   238 allowed
+  outer:c_O                                  392 cases,   238 allowed
+  outer:lc_x                                 392 cases,   238 allowed
+  outer:ec_o                                 392 cases,   238 allowed
+  outer:c_x_e                                392 cases,   238 allowed
+  outer:l_c_dd                               392 cases,   238 allowed
+  outer:lc_dd                                392 cases,   238 allowed
+  outer:lc_dash                              392 cases,   238 allowed
+  outer:c_norc                               392 cases,   238 allowed
+  wrap:env                                   392 cases,   215 allowed
+  wrap:env -u X                              392 cases,   215 allowed
+  wrap:sudo                                  392 cases,   215 allowed
+  wrap:timeout 5                             392 cases,   215 allowed
+  wrap:nohup                                 392 cases,   215 allowed
+  wrap:exec                                  392 cases,   215 allowed
+  wrap:command                               392 cases,   215 allowed
+  wrap:env X=1                               392 cases,   215 allowed
+  wrap:time                                  392 cases,   215 allowed
+  nested:lc                                   11 cases,     5 allowed
+  after_semicolon:lc                          11 cases,     5 allowed
+  pipe:lc                                     11 cases,     5 allowed
+  dq_script:lc                                11 cases,     5 allowed
+  nested:ec                                   11 cases,     5 allowed
+  after_semicolon:ec                          11 cases,     5 allowed
+  pipe:ec                                     11 cases,     5 allowed
+  dq_script:ec                                11 cases,     5 allowed
+  nested:xc                                   11 cases,     5 allowed
+  after_semicolon:xc                          11 cases,     5 allowed
+  pipe:xc                                     11 cases,     5 allowed
+  dq_script:xc                                11 cases,     5 allowed
+  nested:ic                                   11 cases,     5 allowed
+  after_semicolon:ic                          11 cases,     5 allowed
+  pipe:ic                                     11 cases,     5 allowed
+  dq_script:ic                                11 cases,     5 allowed
+  nested:euc                                  11 cases,     5 allowed
+  after_semicolon:euc                         11 cases,     5 allowed
+  pipe:euc                                    11 cases,     5 allowed
+  dq_script:euc                               11 cases,     5 allowed
+  nested:uc                                   11 cases,     5 allowed
+  after_semicolon:uc                          11 cases,     5 allowed
+  pipe:uc                                     11 cases,     5 allowed
+  dq_script:uc                                11 cases,     5 allowed
+  nested:Cc                                   11 cases,     5 allowed
+  after_semicolon:Cc                          11 cases,     5 allowed
+  pipe:Cc                                     11 cases,     5 allowed
+  dq_script:Cc                                11 cases,     5 allowed
+  nested:pc                                   11 cases,     5 allowed
+  after_semicolon:pc                          11 cases,     5 allowed
+  pipe:pc                                     11 cases,     5 allowed
+  dq_script:pc                                11 cases,     5 allowed
+  nested:vc                                   11 cases,     5 allowed
+  after_semicolon:vc                          11 cases,     5 allowed
+  pipe:vc                                     11 cases,     5 allowed
+  dq_script:vc                                11 cases,     5 allowed
+  nested:fc                                   11 cases,     5 allowed
+  after_semicolon:fc                          11 cases,     5 allowed
+  pipe:fc                                     11 cases,     5 allowed
+  dq_script:fc                                11 cases,     5 allowed
+  nested:euxc                                 11 cases,     5 allowed
+  after_semicolon:euxc                        11 cases,     5 allowed
+  pipe:euxc                                   11 cases,     5 allowed
+  dq_script:euxc                              11 cases,     5 allowed
+  nested:cl                                   11 cases,     5 allowed
+  after_semicolon:cl                          11 cases,     5 allowed
+  pipe:cl                                     11 cases,     5 allowed
+  dq_script:cl                                11 cases,     5 allowed
+  nested:ce                                   11 cases,     5 allowed
+  after_semicolon:ce                          11 cases,     5 allowed
+  pipe:ce                                     11 cases,     5 allowed
+  dq_script:ce                                11 cases,     5 allowed
+  nested:cx                                   11 cases,     5 allowed
+  after_semicolon:cx                          11 cases,     5 allowed
+  pipe:cx                                     11 cases,     5 allowed
+  dq_script:cx                                11 cases,     5 allowed
+  nested:lec                                  11 cases,     5 allowed
+  after_semicolon:lec                         11 cases,     5 allowed
+  pipe:lec                                    11 cases,     5 allowed
+  dq_script:lec                               11 cases,     5 allowed
+  nested:ilc                                  11 cases,     5 allowed
+  after_semicolon:ilc                         11 cases,     5 allowed
+  pipe:ilc                                    11 cases,     5 allowed
+  dq_script:ilc                               11 cases,     5 allowed
+  nested:l_ec                                 11 cases,     5 allowed
+  after_semicolon:l_ec                        11 cases,     5 allowed
+  pipe:l_ec                                   11 cases,     5 allowed
+  dq_script:l_ec                              11 cases,     5 allowed
+  nested:e_lc                                 11 cases,     5 allowed
+  after_semicolon:e_lc                        11 cases,     5 allowed
+  pipe:e_lc                                   11 cases,     5 allowed
+  dq_script:e_lc                              11 cases,     5 allowed

@@ -1,16 +1,25 @@
 label	role	model	msgs	usd	lower_bound
+murmuration:research-pi (main thread)	PI	claude-opus-5-5	183	16.9526	
 author-w08-1	author	claude-sonnet-5-5	104	6.5146	
-murmuration:research-pi (main thread)	PI	claude-opus-5-5	75	6.1049	
+author-w08-5	author	claude-sonnet-5-5	146	5.2875	
+author-w08-10	author	claude-sonnet-5-5	125	5.0191	
+explorer-w08-h	explorer	claude-sonnet-5-5	61	3.6303	
 author-w08-2	author	claude-sonnet-5-5	80	3.3794	
-author-w08-3	author	claude-sonnet-5-5	78	3.1225	
+author-w08-3	author	claude-sonnet-5-5	83	3.3374	
 explorer-w08-e	explorer	claude-sonnet-5-5	79	2.4085	
 explorer-w08-b	explorer	claude-sonnet-5-5	78	2.4038	
+author-w08-9	author	claude-sonnet-5-5	69	2.3916	
+reproducer-w08-10	reproducer	claude-sonnet-5-5	68	2.1795	
+explorer-w08-j	explorer	claude-sonnet-5-5	55	2.0644	
+reproducer-w08-5	reproducer	claude-sonnet-5-5	78	1.9167	
 explorer-w08-f	explorer	claude-sonnet-5-5	74	1.8761	
+explorer-w08-i	explorer	claude-sonnet-5-5	65	1.8730	
 explorer-w08-g	explorer	claude-sonnet-5-5	57	1.6747	
 explorer-w08-a	explorer	claude-sonnet-5-5	53	1.6072	
 explorer-w08-d	explorer	claude-sonnet-5-5	38	1.5799	
 explorer-w08-c	explorer	claude-sonnet-5-5	30	1.3662	
 reproducer-w08-1	reproducer	claude-sonnet-5-5	43	0.8918	
-explorer-w08-h	explorer	claude-sonnet-5-5	19	0.6516	
-reproducer-w08-3	reproducer	claude-sonnet-5-5	19	0.4362	
-TOTALS	PI=6.10	author=13.02	explorer=13.57	reproducer=1.33	sum=34.02
+reproducer-w08-9	reproducer	claude-sonnet-5-5	38	0.7700	
+reproducer-w08-3	reproducer	claude-sonnet-5-5	32	0.7367	
+reproducer-w08-6	reproducer	claude-sonnet-5-5	22	0.3744	
+TOTALS	PI=16.95	author=25.93	explorer=20.48	reproducer=6.87	sum=70.24

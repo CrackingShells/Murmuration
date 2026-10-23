@@ -1,0 +1,9 @@
+list          cases  denied before   denied after
+e3_attacks       50             50             50
+e3_ordinary      28              0              0
+e3_mention        6              0              0
+e3_evasions      13              8              8
+e3v1_cases       14              9              9
+e3v2_cases        6              2              2
+e3v3_cases        4              2              2
+cases whose decision or rule differs: 0 []

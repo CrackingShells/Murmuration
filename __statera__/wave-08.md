@@ -232,6 +232,17 @@ sections a worker needs and do not ask it to read this note.
   w08-c12 (supersedes w08-c5), proven by exhaustive orders for 1–4 dispatches.
 - Spend: this checkout 57.10 (lower bound), headless 21.27: about USD 77 of the 150 by 02:23.
 
+**w08-c12 and w08-c13 SUPPORTED and landed; the last round (`date` 04:05).**
+- Both landed with w08-c8's steps; the guard refused my own Write and a Bash note quoting a hole
+  form, both rightly, and the notes went through the Edit tool.
+- This PI session so far: USD 15.18 over 167 requests, context 406k tokens, no compaction; carried
+  worker hand-backs 7.1% of what the PI re-reads [source: `__instrumenta__/w08d_pi_context.py` on
+  this session, output in `/private/tmp/murmuration-w08/research-pi/pi_self/`, ESTIMATE
+  attribution]. The session is itself the case for item 42.
+- With two hours left: author-w08-14 (w08-c14) closes the older combined-`-c` hole the guard's
+  verifier found (S-w08-reproducer-w08-10-5); explorer-w08-k drafts the evidence for the five
+  escalations no note decided (item 45), which I decide. explorer-w08-h refreshes the cost map.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -254,6 +265,11 @@ sections a worker needs and do not ask it to read this note.
 | explorer-w08-j | explorer | a frozen labelled replay set of guard decisions; false denials and allows by rule (item 26) | |
 | author-w08-9 | author | w08-c9: a PI decision section in claim files, read by `lab_status.py` | |
 | author-w08-10 | author | w08-c10: close the guard's two holes in Python and Rust, tightening only | |
+| reproducer-w08-5 | reproducer | verify w08-c5, then w08-c12 | OVERSTATED; then SUPPORTED |
+| reproducer-w08-9 | reproducer | verify w08-c9, then w08-c11 | ESCALATE; then SUPPORTED |
+| reproducer-w08-10 | reproducer | verify w08-c10, then w08-c13 | OVERSTATED; then SUPPORTED |
+| author-w08-14 | author | w08-c14: combined shell `-c` options read as `-c`, Python and Rust | |
+| explorer-w08-k | explorer | evidence and proposed decision sections for the five undecided escalations | |
 | author-w08-1 | author | w08-c1: `budget` and `handback` as subcommands of the Rust binary, replay-equal, with fallback (item 36) | |
 
 ## Claims of this wave
@@ -268,6 +284,14 @@ sections a worker needs and do not ask it to read this note.
 
 ## Notes
 
+- **w08-c13 landed on the local `main` at 1511545** (lab merge fc2c2ca; binaries rebuilt from the
+  merged sources with w08-c12 at 68ac4c1): selftests pass, a clean install gives the binary, the new
+  binary went into this session's data folder before the main merge; smoke run from main's tree
+  with ordinary commands (`ls`, `git status`, `$(date)`, a heredoc writing a file): all allowed,
+  the file written. The guard refused my own Write of a test script holding the bypass flag (G4)
+  and a Bash edit whose prose quoted a hole form (G2, one of the two prose denials w08-c13
+  records); I did not route around either: the hole forms rest on reproducer-w08-10's offline
+  cases, and these notes were made with the Edit tool, as the framing says.
 - **w08-c11 landed on the local `main` at dc74371**, with PI decision sections appended to w01-c2,
   w01-c8, w02-c10 and w05-c1 (the four whose wave note names the label); `lab_status.py` shows them
   as `MEASURED (PI decided: restated, not re-verified)`.

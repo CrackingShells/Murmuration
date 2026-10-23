@@ -18,5 +18,8 @@
   <h3 style="margin-top:18px">Levers measured in time, not USD</h3>
   <p class="note">Milliseconds saved per hook start (platform-recorded or paired). A worker's plugin hooks are 0.13–0.5% of its time (ESTIMATE, wave 7), so all of these together are under that. The Rust budget and hand-back (w08-c4, verified) is on main.</p>
   <div class="sw"><svg id="ladTime" viewBox="0 0 1080 250" width="100%" role="img" aria-label="Milliseconds saved per hook start by each hook change"></svg></div>
+  <h3 style="margin-top:18px">Safety and checking: not USD saved</h3>
+  <p class="note">Two things the lab buys that are not a saving. The permission guard's holes (a flag after a substitution, a wrapper in front of <code>claude</code>, a settings write) were measured and closed in wave 8, in Python and in Rust (w08-c13, MEASURED, SUPPORTED, on main). Verification, the lab's own checking, costs about 8% of its spend and brought down a third of the claims at their first verdict (explorer-w08-i). Counts are the reports'; the shares drawn are my division.</p>
+  <div class="sw"><svg id="ladSafe" viewBox="0 0 1080 250" width="100%" role="img" aria-label="Guard hole cases let through before and after, and what verification cost and found"></svg></div>
   <p class="note">Not on the ladder, because the reports give no USD for them: the PI tool denylist (request 0 went from 75k to 47k tokens in wave 6; landed), colgrep for markdown (explorer-w08-b: no USD; a section-level unit would be a change to your colgrep-mcp repository, not to this plugin), and fewer requests per worker (the largest block, 41.6%, but no lever was tested).</p>
 </div>

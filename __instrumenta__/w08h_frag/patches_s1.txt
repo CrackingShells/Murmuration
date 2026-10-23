@@ -1,12 +1,12 @@
 Not landed: built-in skills such as dataviz would be lost (w07-c1).">
       <rect x="330" y="45"
 =====
-Not landed: built-in skills such as dataviz would be lost (w07-c1, below MEASURED: restate). Wave 8: USD 148.16 over all its sessions, 56% of it cache reads; this session's request 0 is 50,221 tokens, all 1-hour writes. Compaction near 250k is the largest lever on the PI (ESTIMATE USD 31–45); the setting is yours (see A).">
+Not landed: built-in skills such as dataviz would be lost (w07-c1, below MEASURED: restate). Wave 8: USD 159.23 over all its sessions at 03:57 JST (lower bound; at explorer-w08-d's cut, USD 144.47, 56% was cache reads); this session's request 0 is 50,221 tokens, all 1-hour writes. Compaction near 250k is the largest lever on the PI (ESTIMATE USD 31–45); the setting is yours (see A).">
       <rect x="330" y="45"
 #####
 USD 16.1 in wave 6 · request 0 = 46.7k tokens (was 75k)
 =====
-USD 148.2 in all · 56% cache reads · request 0 = 50.2k
+USD 159.2 in all sessions · request 0 = 50.2k
 #####
 without the skills listing: −10.6–11.0k possible, not landed
 =====
@@ -14,19 +14,19 @@ compaction near 250k: USD 31–45 (ESTIMATE) · the setting is yours
 #####
 Wave 7's headless cost is inside the figure of section 3.
 =====
-Wave 7: USD 2.48. Wave 8 so far: at least USD 19.91 over 251 sessions, because the explorers ran headless probes (lab_status.py --project /private/tmp/murmuration-w08 --spend).
+Wave 7: USD 2.48. Wave 8: USD 21.47 over 263 sessions, because the explorers ran headless probes (lab_status.py --project /private/tmp/murmuration-w08 --spend).
 #####
 USD 7.5 in wave 6</text>
 =====
-USD 19.9+ in wave 8</text>
+USD 21.5 in wave 8</text>
 #####
 Since wave 7 authors keep a 1-hour cache: MEASURED that the platform honours it; the money is undetermined, P(net ≤ 0) = 0.34 (ESTIMATE; w07-c7). Landed by PI decision.
 =====
-Since wave 7 authors keep a 1-hour cache (platform honours it, MEASURED). Wave 8 redid the sum on timed pauses: −0.02 ± 0.39 USD per author life, a coin flip (ESTIMATE, explorer-w08-c; w07-c7 is escalated). Kept by PI decision. Wave 8 so far: 14 workers, USD 27.92 at list price, a lower bound.
+Since wave 7 authors keep a 1-hour cache (platform honours it, MEASURED). Wave 8 redid the sum on timed pauses: −0.02 ± 0.39 USD per author life, a coin flip (ESTIMATE, explorer-w08-c; w07-c7 is escalated). Kept by PI decision. Wave 8: 22 workers, USD 53.28 at list price at 03:57 JST, a lower bound while the session is open.
 #####
 USD 32.0 in wave 6 · 17 dispatches · authors: 1-hour cache
 =====
-USD 27.9+ so far in wave 8 (32.0 in wave 6) · authors: 1-hour cache
+USD 53.3+ in wave 8 (32.0 in wave 6) · authors: 1-hour cache
 #####
 + budget note at start · hand-back capture at stop
 =====
