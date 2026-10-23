@@ -600,7 +600,17 @@ denials (113 to 77 on the frozen set) let one true case through and stay out.
 lab's history, negative if the PI then opens the file, which its rules tell it to do); the
 PreCompact hook; the batching line; effort; the false-denial variants.
 
-**This wave's cost:** PLACEHOLDER_COST
+- **w08-c15 · MEASURED (SUPPORTED; supersedes w08-c14, OVERSTATED):** the guard reads a
+  `-`-prefixed shell option cluster containing `c` (after options such as `-l`, `-e`, `-x`, `-i`,
+  `-o name`) as `-c` for five shells: 0 of the verifier's 20,282 variants allowed against 8,098 on
+  the base; nothing loosened; Python equals Rust. `+c` clusters and the zsh `-O` and ksh `-o`
+  misreadings still pass (222 misses among 2,823 real-shell forms; open item 26).
+
+**This wave's cost:** at least USD 96.43 of the 150 (this checkout 74.89 at list price, a lower
+bound while the session is open; headless runs 21.54, exact; `scripts/lab_status.py --spend` at
+05:07). Of it, the PI's own session was USD 15.18 at 03:30 (167 requests; its context reached
+406k tokens with no compaction, item 42). Verification across waves 1–8 is about 8% of USD 411.93
+at explorer-w08-i's cut.
 
 ## What stays out, and why (w01-c13 · CONJECTURE, verifier SUPPORTED)
 
