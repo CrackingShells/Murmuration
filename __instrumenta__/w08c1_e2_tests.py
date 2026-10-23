@@ -159,16 +159,15 @@ def conc_cases(rows):
             binary = os.path.join(SCRATCH, "clean", "root", "bin", TARGET, "murmuration")
             prog = [binary] if who == "rust" else [sys.executable, "-S", "-I", os.path.join(root, "scripts", "run_hook.py")]
             aids = ["c%d" % i for i in range(nagents)]
-            for a in aids:
-                open(lab + "/s/subagents/agent-%s.jsonl" % a, "w").write(json.dumps({"type": "user", "message": {"role": "user", "content": brief}}) + "\n" + json.dumps({"type": "assistant", "requestId": "r1", "message": {"id": "m", "model": "claude-sonnet-5-5", "content": [], "usage": {"input_tokens": 2, "output_tokens": 160000}}}) + "\n")
             env = dict(os.environ, CLAUDE_PLUGIN_ROOT=root, LC_ALL="en_US.UTF-8")
             env.pop("CLAUDE_PROJECT_DIR", None)
-
             def fire(a, kind, extra):
                 ev = dict(cwd=lab, agent_id=a, agent_type="murmuration:reproducer", permission_mode="default", transcript_path=lab + "/s.jsonl", hook_event_name=kind, **extra)
                 return subprocess.run(prog + ["budget"], input=json.dumps(ev).encode(), capture_output=True, env=env, timeout=120)
             for a in aids:
-                fire(a, "SubagentStart", {})
+                fire(a, "SubagentStart", {})   # before the transcript exists, as a new worker's start is: the spend counts from zero
+            for a in aids:
+                open(lab + "/s/subagents/agent-%s.jsonl" % a, "w").write(json.dumps({"type": "user", "message": {"role": "user", "content": brief}}) + "\n" + json.dumps({"type": "assistant", "requestId": "r1", "message": {"id": "m", "model": "claude-sonnet-5-5", "content": [], "usage": {"input_tokens": 2, "output_tokens": 160000}}}) + "\n")
             jobs = []
             with cf.ThreadPoolExecutor(8) as ex:
                 for rnd in range(5):
@@ -185,7 +184,7 @@ def conc_cases(rows):
             blocks = sum('"decision": "block"' in o.stdout.decode() or '"continue": false' in o.stdout.decode() for o in outs)
             states = all(isinstance(json.load(open(lab + "/__statera__/.harness/%s.json" % a)), dict) for a in aids)
             tmp = [f for f in os.listdir(lab + "/__statera__/.harness") if f.endswith(".tmp")]
-            row(rows, "concurrent writers: %s, %d agent(s), %d processes" % (who, nagents, len(outs)), bad_rc == 0 and whole and states and not tmp and stops == blocks, "failed=%d log lines=%d all parse=%s stop/halt lines=%d block answers=%d torn state=%s leftover tmp=%d" % (bad_rc, len(recs), whole, stops, blocks, not states, len(tmp)))
+            row(rows, "concurrent writers: %s, %d agent(s), %d processes" % (who, nagents, len(outs)), bad_rc == 0 and whole and states and not tmp and stops == blocks == nagents, "failed=%d log lines=%d all parse=%s stop/halt lines=%d block answers=%d torn state=%s leftover tmp=%d" % (bad_rc, len(recs), whole, stops, blocks, not states, len(tmp)))
 
 
 rows = []
