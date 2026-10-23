@@ -25,3 +25,11 @@ refs: scripts/permission_guard.py VALUE_OPTS, rust/src/guard.rs VALUE_OPTS
 ## S-w08-author-w08-10-7
 Process substitution `<( )` / `>( )` was not in my protocol; I found it by thinking about "substitutions in other positions", added it, and the case generator's first run after that showed 12 allowed holes until I also fixed the early exit that looked only for `$(` and a backtick. The metamorphic generator found the bug at once, but I wrote its shapes after the first implementation, so the shapes I did not think of are the ones that stay open: `$'...'` words, `${var:-$(...)}` forms, here-strings, a substitution that is the flag itself (`"$(echo --bare)"`) are not in the 3,945 cases.
 refs: __instrumenta__/w08_c10_cases.py SHAPES
+
+## S-w08-author-w08-10-8
+The verifier found three misses in w08-c10 that my own shapes had not: a heredoc body with an unmatched parenthesis inside a substitution, the joined `env -Sclaude`, and a work cap that denied large prose heredocs. Writing the fix I found a fourth by thinking, not by case: an apostrophe earlier in the text made my masking skip every later substitution (the plain splitter reruns without quotes in that case; mine did not). The metamorphic test only finds what its shapes contain; each round of verification added shapes. Is there a way to generate the shapes from the splitter's grammar instead of from the author's imagination?
+refs: __instrumenta__/w08_c10_cases.py (SHAPES, HEREDOC_BODIES), __pondus__/w08-c10.md verdict
+
+## S-w08-author-w08-10-9
+The verifier's 4,769 cases show 104 hole cases that stay allowed, all of other causes (unlisted launchers such as `arch`, `doas`, `find -exec`, `ssh`, `parallel`; `bash -lc`; a substitution as program that does not name claude). `bash -lc '...'` is the same family as `sh -c` that the guard already expands, and is a one-line change in each language; I did not make it because the brief fixed the scope. It is the cheapest next step.
+refs: __pondus__/w08-c13.md (verifier's cases line)
