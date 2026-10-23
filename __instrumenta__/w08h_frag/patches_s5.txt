@@ -1,0 +1,31 @@
+How much of the 29.7% that would save is not measured (Still open 38).
+=====
+Wave 8 measured the ceiling (explorer-w08-a, ESTIMATE): capping every tool result at 5,000 tokens saves at most 7.0% of worker context USD, at 2,500 tokens 15.6%; lab-script output alone 0.5% and lab documents 6.9% at 2,500. It is a ceiling: nothing needed was cut and no re-read followed.
+#####
+["Independent calls not batched","requests saved if they were batched",1.2,"would save 0.8–1.6%","Batching independent calls would save 0.8–1.6% of requests (ESTIMATE, explorer-w07-b). The bar is drawn at about the middle of that range."],
+=====
+["Independent calls not batched","recorded worker USD, if merged (wave 8)",1.2,"would save 0.2–2.1%","Merging independent calls would save 0.2–2.1% of recorded worker USD (ESTIMATE, explorer-w08-g; wave 7 said 0.8–1.6% of requests). Unchanged Sonnet agents already batch when they can. The bar is drawn at about the middle of the range."],
+#####
+The costs below them each use their own base.</p>
+=====
+The costs below them each use their own base. Wave 8 adds one larger than all of them: a worker's own earlier turns, 41.6% of its context USD (see 3).</p>
+#####
+An author resumed by a verifier after a long wait is the case that remains.</p>
+=====
+An author resumed by a verifier after a long wait is the case that remains: 10 of 13 worker misses follow a hand-back wait (explorer-w08-c). Wave 8 puts re-writes after pauses at 15.7% of worker context USD, USD 13.12 (explorer-w08-a, ESTIMATE).</p>
+#####
+"MEASURED: the platform honours the 1-hour cache. The money is undetermined: P(net ≤ 0) = 0.34 (ESTIMATE)."
+=====
+"MEASURED: the platform honours the 1-hour cache. The money is undetermined: P(net ≤ 0) = 0.34 (ESTIMATE; w07-c7 escalated). Wave 8 on timed pauses only: −0.02 ± 0.39 USD per author life (ESTIMATE); see 3b."
+#####
+The recorded hook is 23.5 ms lower, in 19 of 19 pairs.
+=====
+The recorded hook is 23.5 ms lower, in 19 of 19 pairs (that part is w07-c8, below MEASURED: restate).
+#####
+Request 0 could drop 10.6–11.0k tokens. Not landed: built-in skills such as dataviz would be lost.
+=====
+Request 0 could drop 10.6–11.0k tokens (w07-c1 is below MEASURED: restate). Not landed: built-in skills such as dataviz would be lost. Wave 8: the listing cost USD 14.78 over six PI sessions, 11.88 of it in session 1's 22 re-injections.
+#####
+Wave 7 built one for the guard only (w07-c6, w07-c8): see above.
+=====
+Wave 7 built one for the guard only (w07-c6, w07-c8): see above. Wave 8 extended it to budget and hand-back (w08-c4, on main).

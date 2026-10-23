@@ -1,0 +1,22 @@
+<!-- A. LEVER LADDER -->
+<div class="card" id="cardA">
+  <h2>A · Lever ladder: every lever the lab has measured, biggest first</h2>
+  <p class="note">Each bar is the most a lever could save (a ceiling) or is estimated to save, as a share of the spend it acts on. A solid bar is up to the central value; the pale part is the rest of the range. A dashed outline marks an ESTIMATE; no outline, a number a run measured. The colour says what became of the lever. Ranked by its central value, or by the middle of its range. Where there is no USD figure in the reports (time levers, the PI's tool denylist, colgrep), the lever is below the ladder or in the table, not invented.</p>
+  <div class="lad-ctl">
+    <div class="toggle" id="ladUnit" role="group" aria-label="Unit"><button aria-pressed="true" data-u="side">% of its side's spend</button><button aria-pressed="false" data-u="narrow">% of the pool it touches</button><button aria-pressed="false" data-u="usd">USD</button></div>
+    <div class="toggle" id="ladZoom" role="group" aria-label="Zoom"><button aria-pressed="true" data-z="0">whole range</button><button aria-pressed="false" data-z="1">zoom to the small ones</button></div>
+  </div>
+  <div class="legend">
+    <span><i class="lg-sw" style="background:var(--ok)"></i>landed (on main, or in how the lab runs)</span>
+    <span><i class="lg-sw" style="background:var(--bad)"></i>not landed</span>
+    <span><i class="lg-sw" style="background:var(--held)"></i>yours to set</span>
+    <span><i class="lg-sw" style="background:var(--warn)"></i>stays out</span>
+    <span><i class="lg-sw" style="background:var(--text-muted)"></i>not tried</span>
+  </div>
+  <div class="sw"><svg id="ladder" viewBox="0 0 1080 900" width="100%" role="img" aria-label="Ranked horizontal bars: ceiling or estimated saving of each lever as a share of the spend it acts on"></svg></div>
+  <p class="note" id="ladNote" style="margin-top:6px"></p>
+  <h3 style="margin-top:18px">Levers measured in time, not USD</h3>
+  <p class="note">Milliseconds saved per hook start (platform-recorded or paired). A worker's plugin hooks are 0.13–0.5% of its time (ESTIMATE, wave 7), so all of these together are under that. The Rust budget and hand-back (w08-c4, verified) is on main.</p>
+  <div class="sw"><svg id="ladTime" viewBox="0 0 1080 250" width="100%" role="img" aria-label="Milliseconds saved per hook start by each hook change"></svg></div>
+  <p class="note">Not on the ladder, because the reports give no USD for them: the PI tool denylist (request 0 went from 75k to 47k tokens in wave 6; landed), colgrep for markdown (explorer-w08-b: no USD; a section-level unit would be a change to your colgrep-mcp repository, not to this plugin), and fewer requests per worker (the largest block, 41.6%, but no lever was tested).</p>
+</div>

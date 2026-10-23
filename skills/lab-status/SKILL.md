@@ -35,9 +35,12 @@ A closed wave note disposes of a puzzle when its id is followed by `followed:` o
 | `below <LABEL>: restate` | OVERSTATED or LABEL TOO STRONG: the claim may not be used at its label; the author files a new claim at a lower label with `supersedes:` and it is verified again |
 | `<LABEL> (may restate higher)` | LABEL TOO WEAK: the author may file a superseding claim at the higher label |
 | `withdrawn` | UNSUPPORTED or WRONG |
-| `escalated: PI decides` | A verifier escalated; the PI reads the claim file and decides |
+| `escalated: PI decides` | A verifier escalated and the claim file holds no decision section yet; the PI reads the claim file and decides |
 | `disputed: PI decides` | Two standing verdicts disagree; the PI resolves it by a further check or a stated decision |
 | `superseded by <id>` | A later claim restates this one |
+| `<LABEL> (PI decided)` | The PI wrote a `## decision: research-pi` section `stands at <LABEL>` in the claim file; its `ref:` shows after the verdicts |
+| `<LABEL> (PI decided: restated, not re-verified)` | The decision restated the claim at `<LABEL>` on the verifier's own figures; no verifier has read the restated wording |
+| `withdrawn (PI decided)`, `superseded by <id> (PI decided)` | The PI withdrew the claim, or named the claim that replaces it |
 
 No note, report or synthesis states a claim above its current state.
 
@@ -45,7 +48,7 @@ No note, report or synthesis states a claim above its current state.
 specified, and what it could not read is not counted: a puzzle heading that is not an id
 (`S-wNN-<agent name>-<n>`, characters `a-z 0-9 -`), a duplicate puzzle id, a verdict section with
 no `verdict:` line or with a value outside the verdict vocabulary, a claim with no `label:`, a
-`supersedes:` that names no claim, a transcript that could not be read. Fix the file named in
+`supersedes:` that names no claim, a PI decision section that is malformed or cannot be applied, a transcript that could not be read. Fix the file named in
 the warning, or tell the user; do not ignore it.
 
 **Spend** is read from Claude Code's transcripts and is in USD. The sessions counted are those

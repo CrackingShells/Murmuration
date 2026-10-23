@@ -1,0 +1,11 @@
+[
+  {"id": "p1", "note": "claude program word first, flag after a $( ) inside double quotes", "command": "claude -p \"$(cat prompt.txt)\" --model haiku --setting-sources project --permission-mode auto"},
+  {"id": "p2", "note": "env -u VAR claude ...", "command": "env -u CLAUDE_PROJECT_DIR claude -p hi --setting-sources project,local"},
+  {"id": "p3", "note": "variable as program", "command": "BIN=claude; \"$BIN\" -p hi --setting-sources project"},
+  {"id": "p4", "note": "plain direct form, control", "command": "claude -p hi --setting-sources project"},
+  {"id": "p5", "note": "cd then claude with $( ) before flag", "command": "cd /h/x && claude -p \"$(cat ../p.txt)\" --setting-sources project --plugin-dir /h/p"},
+  {"id": "p6", "note": "env -u VAR claude with the bypass mode", "command": "env -u CLAUDE_PROJECT_DIR claude -p hi --permission-mode bypassPermissions"},
+  {"id": "p7", "note": "claude with $( ) and bypass flag", "command": "claude -p \"$(cat p.txt)\" --dangerously-skip-permissions"},
+  {"id": "p8", "note": "env -u VAR with CLAUDE_CONFIG_DIR assignment", "command": "env -u CLAUDE_PROJECT_DIR CLAUDE_CONFIG_DIR=/tmp/x claude -p hi"},
+  {"id": "p9", "note": "env -u VAR claude --bare", "command": "env -u CLAUDE_PROJECT_DIR claude -p hi --bare"}
+]

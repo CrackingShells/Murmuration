@@ -1,0 +1,29 @@
+--- before
++++ after
+@@ -3 +3 @@
+-- w01-c2  escalated: PI decides  <- reproducer-w01-2: ESCALATE
++- w01-c2  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w01-2: ESCALATE  [PI decision: __statera__/wave-01.md:278]
+@@ -9 +9 @@
+-- w01-c8  escalated: PI decides  <- reproducer-w01-8: ESCALATE
++- w01-c8  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w01-8: ESCALATE  [PI decision: __statera__/wave-01.md:263]
+@@ -25 +25 @@
+-- w02-c10  escalated: PI decides  <- reproducer-w02-10: ESCALATE
++- w02-c10  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w02-10: ESCALATE  [PI decision: __statera__/wave-02.md:224]
+@@ -27 +27 @@
+-- w03-c2  escalated: PI decides  <- reproducer-w03-2: ESCALATE
++- w03-c2  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w03-2: ESCALATE  [PI decision: __statera__/wave-03.md:136]
+@@ -32 +32 @@
+-- w04-c4  escalated: PI decides  <- reproducer-w04-4: ESCALATE
++- w04-c4  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w04-4: ESCALATE  [PI decision: __statera__/wave-04.md:223]
+@@ -35 +35 @@
+-- w04-c7  escalated: PI decides  <- reproducer-w04-7: ESCALATE
++- w04-c7  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w04-7: ESCALATE  [PI decision: __statera__/wave-04.md:236]
+@@ -38 +38 @@
+-- w04-c10  escalated: PI decides  <- reproducer-w04-10: ESCALATE
++- w04-c10  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w04-10: ESCALATE  [PI decision: __statera__/wave-04.md:245]
+@@ -41 +41 @@
+-- w05-c1  escalated: PI decides  <- reproducer-w05-1: ESCALATE
++- w05-c1  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w05-1: ESCALATE  [PI decision: __statera__/wave-05.md:138]
+@@ -74 +74 @@
+-- w07-c7  escalated: PI decides  <- reproducer-w07-6: ESCALATE
++- w07-c7  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w07-6: ESCALATE  [PI decision: __statera__/wave-07.md:363]

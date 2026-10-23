@@ -1,0 +1,8 @@
+.b-user{color:var(--held)} .b-untried{color:var(--text-muted)}
+.lad-ctl{display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin:6px 0 8px}
+.lad-ctl .toggle{margin:0}
+.sw-land{fill:var(--ok)} .sw-not{fill:var(--bad)} .sw-user{fill:var(--held)} .sw-out{fill:var(--warn)} .sw-untried{fill:var(--text-muted)}
+.est{stroke:var(--text-primary);stroke-dasharray:3 2;stroke-width:1}
+.lg-sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.fam1{fill:#2a78d6}.fam2{fill:#eb6834}.fam3{fill:#1baf7a}.fam4{fill:#a06ad0}.fam5{fill:#c98500}.fam6{fill:#8a8984}
+.cellok{fill:var(--s1)} .cellh{fill:var(--s2)}

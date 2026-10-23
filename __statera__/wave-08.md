@@ -65,8 +65,10 @@ sections a worker needs and do not ask it to read this note.
   USD 6–10; wakes by worker messages 31.7% of PI spend, 82 with no tool call; a 5-minute cache
   would have cost the PI about USD 119 more [source: explorer-w08-d's report, ESTIMATE].
 - The cache lifetime: on timed lives (waves 5–7) 1 hour is worth −0.02 ± 0.39 USD per author
-  life, a knife-edge; w07-c7's +0.87 rested on untimed wave-4 pauses and a misaligned `tool_s`
-  (S-w08-explorer-w08-c-1). All author and reproducer misses follow a hand-back wait set by the
+  life, a knife-edge; w07-c7's +0.87 rested largely on untimed wave-4 pauses
+  (S-w08-explorer-w08-c-1). [Corrected after S-w08-explorer-w08-i-2: the misaligned `tool_s` is
+  in my wave-7 addendum `__instrumenta__/w07_ttl_by_type.py` (cost map 3b), not in w07-c7's own
+  script, whose verifier had already found the sign undetermined.] All author and reproducer misses follow a hand-back wait set by the
   resumer. The PI keeps 1 hour under every rule [source: explorer-w08-c's report, ESTIMATE].
   I keep authors on 1 hour (minimax regret, and no measured loss); no claim.
 - What changes: round 2 goes to the PI's side and to thinking. author-w08-2 (w08-c2, short
@@ -181,6 +183,55 @@ sections a worker needs and do not ask it to read this note.
   author-w08-5 (w08-c5) fixes the start note's colgrep path and the start-line names in both
   implementations, and measures what the second implementation costs a change.
 
+**reproducer-w08-6 back: w08-c6 SUPPORTED, w08-c7 OVERSTATED, w08-c8 SUPPORTED; both landed.**
+- Spend at 01:31: this checkout USD 39.13 (lower bound, open), headless 21.22 exact, so about 59 of
+  the 150 for this wave [source: `scripts/lab_status.py --spend`, both projects].
+- The cost side is now mapped down to its floor: the worker side's levers are all under 2–7%
+  (scripts' output, documents, rtk, batching, effort, the hand-back gate), the PI's compaction is
+  24–32% of PI spend and the user's to set. Two probes on the other half of the user's purpose,
+  a team that works alone and stays trustworthy: explorer-w08-i audits what verification bought
+  across waves 1–8 (two verified things were wrong this wave); explorer-w08-j freezes a labelled
+  replay set of guard decisions (item 26), now that the Rust guard decides every Bash call.
+
+**explorer-w08-h and explorer-w08-i back.**
+- The cost map after wave 8 exists, with a 16-lever ladder
+  (`__reports__/wave-08/explorer-w08-h/lab_cost_map.html`, 465c229); it is refreshed at the close.
+- What verification bought, waves 1–8: 38 of 76 verified claims SUPPORTED first time, 25
+  OVERSTATED, 13 ESCALATE (8 of them overstated on evidence alone); verification about 8% of
+  spend, USD 0.45 a claim against 1.42 for an author [source: explorer-w08-i's report,
+  MEASURED/ESTIMATE]. So a third of claims arrive stated above their evidence, and the verifier is
+  what brings them down: it pays. What it missed: `budget.py --selftest` failed at two merges
+  (wave 7's 5e16a53 too, recorded then, no step added); w08-c8's landing step answers it.
+- The decision record is a gap: 9 claims the PI decided still read "escalated: PI decides", and
+  11 stand on PI restatements no verifier re-read. author-w08-9 (w08-c9) makes `lab_status.py`
+  read a PI decision section; I append the sections once it stands.
+
+**explorer-w08-j back (7834635).**
+- The two guards agree on all 739 frozen cases and 20,896 recorded calls. False denials: 113 of
+  623 negatives in the set; in live use 17 of 19 denials in waves 6–8 were false, none stopped a
+  worker loosening anything. False allows: 24, and two holes reproduced: a bypass flag after
+  `"$(cat f)"`, and `env -u VAR claude … --setting-sources project`; eight real explorer calls in
+  waves 1–6 had that shape [source: explorer-w08-j's report and puzzle 1, MEASURED].
+- Decision: close the holes (w08-c10, author-w08-10), in both implementations, as a tightening
+  only. The offline variants that cut false denials from 113 to 77 lose one true case: they stay
+  out. A guardrail's false denials cost a worker a detour (17 live in three waves); a false allow
+  costs the user's permission layer.
+
+**w08-c5 and w08-c9 back from their verifiers (`date` 02:23).**
+- w08-c9 ESCALATE: the title was false for w02-c7 and w02-c8 (their notes say "below MEASURED:
+  restate"), the ref check matched substrings, and a restatement over OVERSTATED could show the
+  refused label; fixed at d24f3c0 and re-verified. Decision: restated as w08-c11 (supersedes
+  w08-c9; 9 escalations; fenced headings and missing supersede targets fixed at e815afd), back to
+  reproducer-w08-9. Of the 9 decided escalations, only 4 have a wave-note line naming the label
+  (w01-c2, w01-c8, w02-c10, w05-c1): I append sections for those 4 only; w03-c2, w04-c4, w04-c7,
+  w04-c10 and w07-c7 stay "escalated: PI decides" and are listed in the synthesis.
+- w08-c5 OVERSTATED: the absolute path is right everywhere; the name binding is right for one or
+  two same-type dispatches and wrong in 4 of 58 orders with three, once as a confirmed wrong name.
+  The author narrowed the head twice during verification (item 5 again). Decision: no landing of
+  a binding that can be confidently wrong; author-w08-5 fixes it in both implementations and files
+  w08-c12 (supersedes w08-c5), proven by exhaustive orders for 1–4 dispatches.
+- Spend: this checkout 57.10 (lower bound), headless 21.27: about USD 77 of the 150 by 02:23.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -199,6 +250,10 @@ sections a worker needs and do not ask it to read this note.
 | explorer-w08-h | explorer | the cost map after wave 8, with a lever ladder | |
 | author-w08-5 | author | w08-c5: the start note's colgrep path absolute, start-line names by identity, in Python and Rust; the cost of two implementations | |
 | reproducer-w08-6 | reproducer | verify the PI's w08-c6 and w08-c7 | |
+| explorer-w08-i | explorer | what verification bought: verdicts, later corrections of standing claims, cost per catch, waves 1–8 | |
+| explorer-w08-j | explorer | a frozen labelled replay set of guard decisions; false denials and allows by rule (item 26) | |
+| author-w08-9 | author | w08-c9: a PI decision section in claim files, read by `lab_status.py` | |
+| author-w08-10 | author | w08-c10: close the guard's two holes in Python and Rust, tightening only | |
 | author-w08-1 | author | w08-c1: `budget` and `handback` as subcommands of the Rust binary, replay-equal, with fallback (item 36) | |
 
 ## Claims of this wave
@@ -213,6 +268,11 @@ sections a worker needs and do not ask it to read this note.
 
 ## Notes
 
+- **w08-c6 and w08-c8 landed on the local `main` at 16b05a8** (not pushed): the brief items on
+  sections and the hand-back limit, the skill's report-file line, and in `waves.md` the clock rule
+  and the landing steps. w08-c7 was OVERSTATED (its title bundled two steps no failure supported)
+  and is superseded by w08-c8 (SUPPORTED); the install step now cites the old binary's exit 2 on
+  `budget` (`__reports__/wave-08/research-pi/old_binary_budget.txt`). Selftests pass on both trees.
 - **w08-c4 landed on the local `main` at 1e0a81d** (not pushed), after reproducer-w08-1's
   SUPPORTED. The first merge (15d4c94) failed `budget.py --selftest` (S-w08-research-pi-2);
   author-w08-1 fixed the selftest only (d0ef374, manifest rebuilt for `budget.py`'s hash), merged

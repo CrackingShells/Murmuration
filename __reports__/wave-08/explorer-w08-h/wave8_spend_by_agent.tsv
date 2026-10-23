@@ -1,0 +1,16 @@
+label	role	model	msgs	usd	lower_bound
+author-w08-1	author	claude-sonnet-5-5	104	6.5146	
+murmuration:research-pi (main thread)	PI	claude-opus-5-5	75	6.1049	
+author-w08-2	author	claude-sonnet-5-5	80	3.3794	
+author-w08-3	author	claude-sonnet-5-5	78	3.1225	
+explorer-w08-e	explorer	claude-sonnet-5-5	79	2.4085	
+explorer-w08-b	explorer	claude-sonnet-5-5	78	2.4038	
+explorer-w08-f	explorer	claude-sonnet-5-5	74	1.8761	
+explorer-w08-g	explorer	claude-sonnet-5-5	57	1.6747	
+explorer-w08-a	explorer	claude-sonnet-5-5	53	1.6072	
+explorer-w08-d	explorer	claude-sonnet-5-5	38	1.5799	
+explorer-w08-c	explorer	claude-sonnet-5-5	30	1.3662	
+reproducer-w08-1	reproducer	claude-sonnet-5-5	43	0.8918	
+explorer-w08-h	explorer	claude-sonnet-5-5	19	0.6516	
+reproducer-w08-3	reproducer	claude-sonnet-5-5	19	0.4362	
+TOTALS	PI=6.10	author=13.02	explorer=13.57	reproducer=1.33	sum=34.02

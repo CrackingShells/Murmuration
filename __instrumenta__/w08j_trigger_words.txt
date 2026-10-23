@@ -1,0 +1,1 @@
+bypassPermissions|dangerously|permission-mode\s+bypass|skipDangerous|CLAUDE_CONFIG_DIR|--setting-sources|--bare\b|--safe-mode|disableAllHooks|managed-settings|settings(?:\.local)?\.json

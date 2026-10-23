@@ -1,0 +1,10 @@
+V1: false denials 113 -> 99 (cleared 14); true denials lost (new false allows) 0 []; registered attacks denied 50 of 50; new denials []
+   still false-denied by rule: {'G1': 31, 'G2': 20, 'G3': 22, 'G4': 26}
+V2: false denials 113 -> 95 (cleared 18); true denials lost (new false allows) 1 [('c099', 'lab-denied', 'G2', 'indirect')]; registered attacks denied 50 of 50; new denials []
+   still false-denied by rule: {'G1': 45, 'G2': 4, 'G3': 20, 'G4': 26}
+V3: false denials 113 -> 112 (cleared 1); true denials lost (new false allows) 0 []; registered attacks denied 50 of 50; new denials []
+   still false-denied by rule: {'G1': 45, 'G2': 22, 'G3': 19, 'G4': 26}
+V4: false denials 113 -> 106 (cleared 7); true denials lost (new false allows) 6 [('c719', 'registered', None, 'direct'), ('c723', 'registered', None, 'direct'), ('c724', 'registered', None, 'direct'), ('c725', 'registered', None, 'direct'), ('c733', 'registered', None, 'direct'), ('c734', 'registered', None, 'direct')]; registered attacks denied 50 of 50; new denials []
+   still false-denied by rule: {'G1': 45, 'G2': 22, 'G3': 20, 'G4': 19}
+V123: false denials 113 -> 77 (cleared 36); true denials lost (new false allows) 1 [('c099', 'lab-denied', 'G2', 'indirect')]; registered attacks denied 50 of 50; new denials []
+   still false-denied by rule: {'G1': 31, 'G2': 4, 'G3': 16, 'G4': 26}
