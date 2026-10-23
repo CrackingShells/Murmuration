@@ -121,6 +121,18 @@ sections a worker needs and do not ask it to read this note.
   merging independent calls would save in money and whether one agent-file line gets workers to do
   it.
 
+**author-w08-2 back (w08-c2 filed at 3318c4c; `date` 01:07).**
+- The gate works (7 of 7 over-long cells denied once, 5 of 5 with a file shortened, under-N
+  untouched) but the money is small: USD 0.9–2.8 net over 180 past hand-backs at N = 5,000,
+  1–2% of PI spend, and negative if the PI then opens the worker's file in more than 20–62% of
+  fired cases; in the past it opened the named file after 19 of 26 explorer hand-backs [source:
+  `__pondus__/w08-c2.md`, ESTIMATE for USD]. explorer-w08-d's USD 6–10 was gross.
+- Decision: w08-c2 does not land and gets no verifier (USD 2–3 to verify a change I would not
+  land). Reason: the best case is 1–2%, its sign rests on the PI's own reading, and the PI's rule
+  is to open at least one raw artifact per returning agent. The brief's own line ("at most about
+  1,500 characters"), which costs nothing, stays as my practice; it goes into the PI-practice
+  claim at the close.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
