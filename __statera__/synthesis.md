@@ -13,7 +13,7 @@ Every statement below carries the current label of its claim, from `python3 scri
 Waves 1–3 were merged to `main` by the user (84ff038). Wave 4 was merged into the local `main` at
 the user's choice on 2026-10-21 (4c675ec, not pushed). Wave 5 was merged into the local `main` at
 fed7a08, and wave 6 by the lab's own decision under the frame of 17:06 (see "Wave 6"). Wave 7 was
-merged into the local `main` at 3b0448b by the same frame. Nothing was pushed.
+merged into the local `main` at 3b0448b by the same frame, and wave 8 at 1e0a81d, 16b05a8, dc74371 and 3d5147a (and later merges named in "Wave 8"). Nothing was pushed.
 
 ## The answer
 
@@ -484,6 +484,116 @@ verifier who had not done the work. Every number below is MEASURED unless marked
   not varied, because the lab has no measure of a worker's quality to check a lower effort against.
 
 
+## Wave 8: where the money goes, and what verification buys (2026-10-24)
+
+> "The overarching goal is to progressively optimize murmuration by using it yourself. You are
+> Murmuration and you optimize murmuration." (2026-10-24 00:11) · "I suppose a parallel question
+> is whether it would become worth it for us to optimize our scripts' outputs, then." (10-22
+> 07:53) · "This is almost a textbook example that could be turned into a probabilistic modeling
+> work [...]" and "isn't that exactly an aspect that colgrep is supposed to help us fight
+> against?" (10-22 08:04)
+
+Ten explorers mapped where every dollar goes, worker and PI, and tested each lever they found;
+eight claims hardened the ones worth it. Each number carries its label; a claim is quoted at its
+current label from `scripts/lab_status.py`.
+
+**Your question on the scripts' outputs: no.** Over 68 workers of waves 4–7 (USD 83.69 of context
+at list price), lab-script output is 3.7%; capping it at 2,500 tokens saves at most 0.5%
+(ESTIMATE). Lab documents are 14.3%; reading them by section saves at most 6.9% (ESTIMATE). The
+largest block is the worker's own earlier turns, 41.6%: its thinking is billed again on every later
+request (coefficient 0.997 on 168 request pairs, MEASURED, explorer-w08-f), about 19–22.5% of
+worker context USD (two fits, explorer-w08-a and -f). Re-writes after a cache pause are 15.7%.
+Cost follows request count, and the requests are dependent run-read-fix steps: unchanged Sonnet
+workers already send independent reads together (8 of 8 and 16 of 16), so a "batch your calls"
+line changes nothing, and merges past workers missed are worth 0.2–2% (explorer-w08-g). Effort is
+no lever either: an agent file's `effort` works for subagents, but the default already behaves
+like low or medium, and low saved nothing on two verifier tasks over 30 runs (explorer-w08-f).
+rtk's commands hold 2.9% of worker context USD, 11.7% if `cat` of documents counts, and that part
+is what verifiers must read uncompressed (CITED page, ESTIMATE). **The worker side is near its
+floor**: what a worker pays for is the work.
+
+**colgrep and whole reads (your 08:04 observation).** The evidence does not show distrust. colgrep
+cuts a Python script into functions (one scored case: 94% smaller than the file) but a markdown
+file into one unit whose snippet is its first lines, and `expand` returns the whole file: for the
+lab's notes and claims a hit is a path, and opening the file is the right reading of it. 65% of
+whole reads are of files the brief names (152 of 175 for markdown), so the PI's briefs are the
+lever; no worker in 68 left a reason (thinking is empty in the transcripts); and a search without
+`paths` searches the main checkout, three days stale, not the worktree lab (explorer-w08-b,
+MEASURED and CONJECTURE). A section-level markdown unit would be a change to your colgrep-mcp
+repository.
+
+**The PI is where the money is.** The PI's main threads are USD 148 of the lab's 405 (37%; 43% of
+what is priced per agent), 56% of it cache reads of context it already holds. Its own words
+(output, carried calls, briefs, thinking) are 44%, injected text and the prefix 22%, tool results
+17.5%, workers' hand-backs 12%; requests woken by a worker message are 31.7% (explorer-w08-d,
+MEASURED split, ESTIMATE attribution). On a 1M-token model the platform compacts at about 967k, so
+the PI almost never does. The window is settable (`autoCompactWindow`, fires at the window minus
+33k; explorer-w08-e, CITED and MEASURED). **w08-c3 · MEASURED (verifier SUPPORTED):** in PI-like
+sessions on a small lab, a compaction with the lab's existing resume brief kept what the PI needed
+to continue (Opus 2 of 2, haiku all), a PreCompact hook added nothing, and a compaction costs about
+USD 0.45 on Opus with its post-write. Over the lab's PI history a window near 200–250k nets
+USD 31–45 (ESTIMATE, reproduced by the verifier), about a quarter of PI spend. The setting lives in
+the main checkout's `.claude/settings.local.json`, which the guard protects: it is yours to write.
+Not shown: the transfer to a real PI at 250k with a 91k floor; the next wave is that test.
+
+**Cost choices as decisions (your 08:04).** explorer-w08-c fetched the literature (ski rental and
+its distribution-aware, learning-augmented and CVaR variants; TTL caches; prompt-caching economics;
+17 arXiv ids, abstracts read) and fitted pause distributions per agent type on timed lives (waves
+5–7). One hour against five minutes, net USD per life: authors −0.02 ± 0.39 (a knife-edge: expected
+value says 5 minutes, minimax regret says 1 hour; a risk attitude, not a measurement), reproducers
+−0.09, explorers −0.13, the PI +14.55 (n = 3; explorer-w08-d's six-session count makes the 5-minute
+counterfactual about USD 119 dearer) (ESTIMATE). Every author and reproducer miss follows a
+hand-back wait set by the resumer; no platform control switches the lifetime within a life. Wave 7's
++0.87 for authors rested largely on untimed wave-4 pauses; the misaligned column was in the PI's
+own addendum script, not in w07-c7's evidence (S-w08-explorer-w08-i-2). Authors stay on 1 hour.
+The same frame for "the PI reads a document or delegates it": delegation breaks even at about 32k
+tokens with 100 requests left and 17.5k with 200; the PI's large reads were 8–15k, where reading
+wins (ESTIMATE, assumed summary size and failure rate).
+
+**What verification buys (explorer-w08-i).** Of 76 verified claims over eight waves, 38 were
+SUPPORTED first time, 25 OVERSTATED and 13 ESCALATE (8 of those overstated on evidence alone):
+a third of claims arrive stated above their evidence, and the verifier is what brings them down,
+for about 8% of spend, USD 0.45 a claim against 1.42 for its author (MEASURED counts, ESTIMATE
+USD). What it misses is what no one is asked to run: `budget.py --selftest` failed at two merges
+(wave 7's and this wave's), each change tested alone. **w08-c8 · CONJECTURE (SUPPORTED)** adds the
+landing steps (every selftest on the merged tree; install a data-folder binary into the running
+session before the merge, since the old binary exits 2 on a subcommand it lacks; a smoke run) and
+the rule that a time in a note comes from `date` or a commit. Nine decided escalations still read
+"escalated: PI decides": **w08-c11 · MEASURED (SUPPORTED; supersedes w08-c9, which its verifier escalated)** lets a claim file carry a PI decision section that `/lab-status` reads, capped so that a decision never shows a label above the head's or above what an OVERSTATED verdict allows; four such sections are appended (w01-c2, w01-c8, w02-c10, w05-c1); five decided escalations whose wave notes name no label stay as they were (open item 45).
+
+**The guard (explorer-w08-j).** The Python guard and its Rust port agree on 739 frozen labelled
+cases and 20,896 recorded calls. In live use 17 of 19 denials in waves 6–8 were false (a worker's
+detour), and none stopped a worker loosening anything. Two holes were found and reproduced: a
+bypass flag after `"$(cat f)"`, and `env -u VAR claude … --setting-sources project`; eight real
+explorer calls of waves 1–6 had that shape. PLACEHOLDER_C10. The variants that would cut false
+denials (113 to 77 on the frozen set) let one true case through and stay out.
+
+**What landed on the local `main`** (not pushed):
+- **w08-c4 · MEASURED (SUPPORTED):** `budget` and `handback` as subcommands of the Rust binary,
+  with the Python scripts as fall-back on any doubt: byte-identical on 3,821 replayed events (3,234
+  by the port, 587 handed to Python, none of the 2,250 on real transcripts) and on the verifier's
+  own 651 live wave-8 events; 7–13 ms saved a start outside the platform; in the platform
+  PostToolBatch met 9 of 12 against the registered 10, with a same-binary control drifting −6.2 ms.
+  It saves seconds a wave. The price showed at once: w08-c5's change cost USD 1.50 and 23 minutes on
+  the Rust side against 0.36 and 1.4 on the Python side (MEASURED, author-w08-5).
+- **w08-c6 · MEASURED (SUPPORTED):** briefs ask for a hand-back of at most about 1,500 characters
+  (first hand-backs 1,809–2,449 against 3,328–5,873, n = 6 each, one session, an association) and
+  name sections instead of whole files.
+- **w08-c8**, above; **w08-c11**, above.
+- **w08-c12 · MEASURED (SUPPORTED; supersedes w08-c5, OVERSTATED):** every worker's start note
+  gives its own lab's absolute `__instrumenta__` path (before, a relative path searched the main
+  checkout); a `start` line names its agent only when one dispatch record is fresh, otherwise it
+  says `name_unconfirmed` with every candidate and a later `named` line gives the identity. w08-c5's
+  first binding was confidently wrong in 4 of 58 orders of three same-type dispatches; the fix shows
+  0 violations over every order of three and samples of four. The smoke run after landing gave two
+  same-type explorers their own names and their own budgets.
+
+**Not landed:** w08-c2 (a once-only gate on long hand-backs: works, nets USD 0.9–2.8 over the
+lab's history, negative if the PI then opens the file, which its rules tell it to do); the
+PreCompact hook; the batching line; effort; the false-denial variants.
+
+**This wave's cost:** PLACEHOLDER_COST
+
 ## What stays out, and why (w01-c13 · CONJECTURE, verifier SUPPORTED)
 
 Examined and staying out:
@@ -570,7 +680,7 @@ was overrun too. The user's budget for wave 2 was six hours. Wave 2 ran from 12:
 
 Items 2, 3, 13 and 14 were done before wave 5. Wave 5 settled 1(d). Wave 5's changes landed on the
 local `main` at fed7a08. Wave 6 settles 9 (the lean starts landed, w06-c9) and 20 (w06-c1), and adds
-25 to 31. Wave 7 settles 24 and 28, adds to 23, 27 and 31, and adds 32 to 38.
+25 to 31. Wave 7 settles 24 and 28, adds to 23, 27 and 31, and adds 32 to 38. Wave 8 settles 6, 36, 38, 39 and 41, restates 26, 29 and 40, and adds 42 to 48.
 
 **Yours: the guardrails, since the engineering is now the lab's.**
 
@@ -581,6 +691,7 @@ local `main` at fed7a08. Wave 6 settles 9 (the lean starts landed, w06-c9) and 2
 | The decision-frame text | `__reports__/wave-06/research-pi/decision_frame_patch.md`: the PI stops handing engineering back; you keep the question, the budget and the guardrails. The classifier refused to let the PI apply it to itself | apply or not |
 | Item 18 | gateway API keys printed by a wave-4 reproducer; rotate them if you want | minutes |
 | Your own hooks | Outside the plugin, and the largest hook costs this wave saw on your machine: colgrep-mcp's `colgrep_policy` PreToolUse hook (`uv run`) at a median 194 ms per Bash call (p90 554, up to 431 ms median under load), and `inject_plan_directive.py` at 177–206 ms per prompt (explorer-w07-g, explorer-w07-c, author-w07-2). Exec form and a lean start would help them as they helped the lab's | your repositories |
+| The PI's compaction window | *Added in wave 8.* One line in the main checkout's `.claude/settings.local.json`, a file the guard keeps agents from writing: `"autoCompactWindow": 250000`. The largest lever the lab has measured on its own spend (item 42) | one line |
 
 Changes reach a running PI only once they are on main's working tree (item 1(e)).
 
@@ -589,7 +700,7 @@ Changes reach a running PI only once they are on main's working tree (item 1(e))
 | 1 | **Lab root and plugin delivery.** (a) Your choice for w04-c1, now on main: the session's first cwd wins, or the payload cwd. (b) The main checkout's `__statera__/user_words.md` is uncommitted and holds the prompts of waves 4 and 5, written there by the hook. Keep or revert it. (c) Dialog answers are still not captured. (d) *Settled:* the Desktop passes `--project-config-root <main>`, so hooks see `CLAUDE_PROJECT_DIR` = main and the payload `cwd` = the worktree (explorer-w05-e). (e) To run a branch on yourself, merge it into main, or point `murmuration-local` at a symlink and switch it with `ln -sfn` (one edit to main's `settings.local.json`; global to every session) | you | minutes |
 | 4 | Whether stated budgets make the PI plan a smaller team (left alone). New: the three wave-4 author chains ended at 55–90% of their 60-minute boxes; whether boxes set the length is untested | a further wave | about USD 20 |
 | 5 | Protocol: authors still edit claim heads during verification (w05-c4, w05-c5); evidence pins drift; pre-registered rules were written before running their metric on the old code (E4, E7); output tokens are estimated (chars/1.3; 1.73 observed); the PI wrote estimated clock times (w05-c9) | a protocol claim | — |
-| 6 | Small fixes: as before, plus harness `start` lines that swap names on same-second dispatches, and a stray background job that made the last `end` line wrong | small fixes | — |
+| 6 | Small fixes: as before. *Wave 8 (w08-c12):* `start` lines no longer swap names on same-second dispatches; an ambiguous start says `name_unconfirmed` and a later `named` line names it | small fixes | — |
 | 7 | The nine set-aside elements not examined, and the tuning targets | further waves | — |
 | 8 | The report line (w04-c12, now on main): as before, plus the hand-back gate makes an explorer told "write no file" write a report (all smoke runs of E6/E6b) | you, then a test | — |
 | 9 | *Settled in wave 6: lean starts landed (w06-c9).* **The lean hooks, your call.** Two builds exist: w04-c5 (4c46fe4) and w05-c4 (ede2770, −52.5 to −56% serial seconds, 985 starts against 1788). A third build would need to: match the old messages in parallel batches (11 of 197 transcripts differ); cover failed or denied calls, which PostToolUse misses; and merge the two starts at a hand-back. It saves about 1.4 minutes of a wave against the 10 minutes auto mode costs (item 23) | a claim, then your call | about USD 8 |
@@ -607,20 +718,27 @@ Changes reach a running PI only once they are on main's working tree (item 1(e))
 | 23 | **Auto mode's classifier.** About 0.45–0.75 s per Bash call, roughly 10 worker-minutes a wave, and its cost is in no record. Narrow allow rules for read-only commands skip it. Lab scripts (`python3 -I scripts/…`) need a PreToolUse hook that answers "allow", which changes what your safety layer sees. Wave 7: 628 ms median wait on a trivial Bash call, about 1.9% of worker wall; a PreToolUse hook hides behind it; a Read never reaches it (explorer-w07-g) | you | — |
 | 24 | *Settled in wave 7:* the cache stays; dropping its `git` child saves 0.04–0.05 s a call and was not landed (w07-c4). A parallel or Rust re-parse (0.33 s cold) does not beat the warm cache (0.39 s) | — | — |
 | 25 | **The guard's live cost under real load.** 1 start per Bash call; median 0.73 s and max 7.64 s under five parallel starts, no timeout in 211 starts; the 20 s timeout was not run live (w06-c13) | a check in the next wave | small |
-| 26 | **Guard false denials grow with guard work.** 26 strict in 4,637 recorded calls, but 16 more among this wave's own notes about the guard; prose that names `claude` and the flag in a heredoc is denied. A frozen labelled replay set would make the measure stable | a check | small |
+| 26 | **Guard false denials and false allows.** *Wave 8 (explorer-w08-j):* a frozen labelled set of 739 cases (`__reports__/wave-08/explorer-w08-j/guard_replay_v0.json`): 113 false denials of 623 negatives, 24 false allows; live, 17 of 19 denials in waves 6–8 were false and none stopped a worker loosening anything. Two holes reproduced and closed by w08-c13 (see "Wave 8"); still allowed: a variable as the program, a variable holding the flag, unlisted wrappers, `timeout $VAR claude`. The variants that cut false denials to 77 lose a true case and stay out. The Python fall-back takes 20 s or more on a 1,000,000-character word (Rust 0.26 s or less): a fall-back session would block such a call | a check per guard change, with the frozen set | small |
 | 27 | **A threshold above the physical ceiling.** Three lean builds were judged by thresholds at or past what the change could reach (w04-c5, w05-c4, w06-c9). The procedure has no step that checks a registered threshold against a measured ceiling (S-w06-research-pi-2). Wave 7 gated on signs over paired runs instead of sizes, which held five times; but P4's ceiling was read from two unpaired medians and was three times too high (S-w07-author-w07-4-1). The step the procedure lacks: measure the ceiling paired before registering | a protocol claim | — |
 | 28 | *Settled in wave 7 (w07-c5):* `user_words.py` keeps only what a person typed, by the transcript's origin marker, from an async hook. The three wrong entries already in `user_words.md` (10-21 17:18 and 10-22 00:22, spawned sessions' first messages; 10-22 00:12 "say ok", your own `-p` test) stay as written; no agent edits that file. The first typed prompt in the Desktop after the merge is the live check | — | — |
-| 29 | **The PI's orientation reads.** The first turn is 21–32% of PI spend; this session's preface went from 47k to about 137k tokens before the first dispatch | a probe | about USD 3 |
+| 29 | **The PI's orientation reads.** *Restated in wave 8 (S-w08-explorer-w08-d-5):* the spend up to the first dispatch is 3.5–21% of a PI session; the items that entered by then cost 15–43% over the whole session, because they are carried. Compaction (item 42) caps both | the user's setting (42) | — |
 | 30 | **`$` share.** 45% of lab Bash calls carry an unresolved expansion, which matches every `if` hook rule; any future gated hook costs that much | notes | — |
 | 31 | **A resident hook server, if the platform changes.** It would land if a failed server were announced by the platform, or reconnected across sessions (w06-c4, S-w06-author-w06-4-1). Wave 7: `http` hooks cost 2 ms, fail loudly on PreToolUse and PostToolUse with `onFailure: "block"`, end the session on PostToolBatch and are silent on SubagentStop (explorer-w07-c) | watch the platform | — |
 | 32 | **The Rust guard's residual gap and its other platforms.** A binary right on the 12 self-test payloads and wrong elsewhere installs silently. `scripts/git-hooks/pre-commit` (rebuild, manifest, fuzz replay) is written, not installed: `ln -s ../../scripts/git-hooks/pre-commit .git/hooks/pre-commit`. `.github/workflows/guard-binaries.yml` would build Linux and Windows targets; pushing it is visible outside this machine. Until then those platforms get the Python guard through the launcher | you | minutes |
 | 33 | What a human sees of the installer's fallback notice (exit 0, stderr plus `additionalContext`); the model sees it | a check | small |
 | 34 | 61 of 72 verifiers and authors spend an early request loading the deferred `SendMessage` with `ToolSearch`; no plugin-side lever found | a probe | small |
 | 35 | Small checks: the fast-mode factor 2.0 and USD 0.01 a search against a fetched pricing page; the 3–7% gap between the CLI's `total_cost_usd` and a list-price recomputation (S-w07-author-w07-6-2) | a check | small |
-| 36 | **`budget` and `handback` as subcommands of the same binary.** The budget hook is the one a worker waits on after every tool call (41 ms in exec form); the guard pilot is the template | a claim | about USD 8 |
+| 36 | *Settled in wave 8 (w08-c4, w08-c12):* `budget` and `handback` run in the Rust binary with the Python fall-back; 7–13 ms a start. The price: a change costs about 4 times the USD and 17 times the minutes on the Rust side (w08-c12's predecessor, author-w08-5). If `budget.py` changes and the port is not updated, the installer falls back to Python, visibly: speed lost, not correctness | — | — |
 | 37 | **The Desktop after the merge.** The first Desktop session on main is the check of four things no headless run covers: the installer in the Desktop's data folder before the first Bash call, a typed prompt recorded by origin, an author's 1-hour writes, and the PI's request 0 with the deferred names of your MCP servers | you, then the PI | minutes |
-| 38 | **Cache and long outputs.** Re-writes after 5-minute gaps were 15.8% of worker spend and tool results over 5,000 characters 29.7% of cache-read spend (ESTIMATEs). Authors now keep 1 hour; reproducers and explorers lose by it. Shorter outputs from lab scripts are the untried lever. A first look after the close (the 60 costliest results in explorer-w07-b's `big_results.tsv`, USD 5.37 of the 10.30 re-read): running a lab script made about 2% of it and reading source code 5%; reading documents made the rest, 34% through Read and most of the remainder through `cat`, `sed`, `head` and chained commands in Bash. So the lever is how workers read the lab's own documents (whole files, early in their lives), not what its scripts print. One candidate the PI controls: every brief this wave asked workers to read the wave note first, which grew to 52 KB (about 23k tokens, ESTIMATE) | a claim | about USD 3 |
-| 39 | **Compressing tool output before it enters the context (rtk, https://github.com/rtk-ai/rtk, README read on 2026-10-22, not installed).** rtk rewrites known shell commands (`git`, `ls`, `grep`, test runners, 100+) so their output reaches the agent compressed, and offers a separate proxy for API traffic. Smaller results would cut both levers of item 38: fewer tokens re-read by every later request, and less to re-write after a 5-minute gap; it changes neither the prices nor the lifetime. Questions for a wave: what share of the lab's context is output rtk knows (1,623 of 1,869 worker Bash calls run the lab's own programs, and Read results are not shell output); whether a lossy summary hides what a verifier must see; what its own hook costs per call. Installing it is a download, and routing API traffic through a third-party proxy is a guardrail: both are yours | you, then a probe | about USD 3 |
-| 40 | **Cost choices as decisions under uncertainty (the user's suggestion, 2026-10-22).** Choosing a cache lifetime per agent is a rent-or-buy choice: pay a premium on every write (1 hour) or pay a re-write when a pause comes (5 minutes). The per-worker pause records of `__instrumenta__/w07_ttl_by_type.py` are the data a probabilistic model needs: a distribution of pause lengths per agent type and per phase (an author waiting on a verifier against one running a job), from which an expected net, its spread and a choice rule follow, P(worth it > X) being one of several criteria. Candidate literature, named from memory and not fetched (UNVERIFIED): the ski-rental problem and competitive analysis of online algorithms; analyses of TTL caches; expected-value and risk-adjusted rules from decision theory. The same frame would serve other lab choices with a premium and an uncertain payoff: which tier a worker runs on, when to compact, whether to delegate a large read | a probe, then a claim | about USD 3 |
-| 41 | **Workers read whole documents instead of searching them.** Over waves 4–6 workers made 18 colgrep calls against 108 Reads, 133 `cat` and 102 `sed` calls in Bash (explorer-w07-b's `requests.tsv`, first word of each call), and reading documents made most of the costliest re-read results (item 38). colgrep is installed to answer "where is X" with the matching unit instead of the whole file, so the lab has the tool and does not use it well. Open questions: whether workers distrust its answers or never think of it (item 11 adds that in a Desktop worktree its relative path once searched the plugin source, not the lab); whether colgrep indexes the lab's own notes and claims usefully; whether your search policy, which denies `grep -r` and the Grep tool, pushes workers to `cat` and `sed` instead (a CONJECTURE); and what a brief or agent-file line that says "search, then read the unit" changes, measured as re-read USD per worker | a probe, then a claim | about USD 3 |
+| 38 | *Answered in wave 8 (explorer-w08-a):* lab-script output is 3.7% of worker context USD, capping it saves at most 0.5%; documents 14.3%, by section at most 6.9%; the worker's own turns 41.6%, thinking billed again. Not worth a change to the scripts | — | — |
+| 39 | *Answered in wave 8 (explorer-w08-a):* rtk's commands hold 2.9% of worker context USD, 11.7% with `cat` of documents, which verifiers must see whole; not worth installing for this lab. Its hook cost and loss were not measured (not installed) | — | — |
+| 40 | **Cost choices as decisions.** *First pass in wave 8 (explorer-w08-c):* literature fetched (ski rental and variants, TTL caches, prompt-caching economics, CVaR; 17 arXiv ids, abstracts); per-type pause models on timed lives; 1 hour for the PI under every rule, 5 minutes for reproducers and explorers, authors a knife-edge decided by risk attitude (kept on 1 hour); a read-or-delegate rule for the PI. Open: the PI with n = 3 lives, waves 1–4, the summary's failure rate | a probe, if wanted | about USD 3 |
+| 41 | *Answered in wave 8 (explorer-w08-b):* no evidence of distrust; colgrep cuts markdown into one unit per file, so a hit on a note is a path and opening it is right; 65% of whole reads are of files the brief names (now: briefs name sections, w08-c6); the start note's search path now points at the lab, not the main checkout (w08-c12). The remaining lever is in your colgrep-mcp repository (item 43) | — | — |
+| 42 | **The PI's compaction window (w08-c3 · MEASURED, SUPPORTED).** Add `"autoCompactWindow": 250000` to the main checkout's `.claude/settings.local.json` (compaction near 217k; 200–250k are equal in the model). Estimated USD 31–45 over the lab's PI history, about a quarter of PI spend; it also reaches workers (estimated +9.3). The guard refuses agents' writes to that file, correctly: it is yours. The next wave's PI is the live check (a real 91k floor, not a small lab) | you, then the next PI | minutes |
+| 43 | **colgrep for the lab's notes (your colgrep-mcp repository).** A section-level unit for markdown would let a hit on a note show the section; today a hit is the file's first lines and `expand` the whole file. Also yours: the search-policy hook denies some recursive greps and not others, and blocks heredocs that only mention the words (S-w08-explorer-w08-b-2); a worker's first search re-indexes the stale main checkout in 35–72 s | your repository | — |
+| 44 | **Idle compaction never fires in the Desktop** (six PI sessions; two paid USD 3.4–3.8 re-writes after an hour's pause, S-w08-explorer-w08-e-1). The platform documents it for interactive terminal sessions. Item 42 makes it matter less | watch the platform | — |
+| 45 | **Five decided escalations without a recorded label** (w03-c2, w04-c4, w04-c7, w04-c10, w07-c7) still read "escalated: PI decides"; w07-c7's head still carries the +0.87 wording its verifier withdrew. A PI who reads them can append a decision section (w08-c11) | a PI, reading | small |
+| 46 | **A claim's numbers in the synthesis without a verifier.** 26 of 37 "Still open" rows carried no claim id at the start of wave 8 (S-w08-explorer-w08-i-4) | a protocol claim | — |
+| 47 | **The PI's wakes.** Requests woken by a worker message are 31.7% of PI spend; 82 ended without a tool call (USD 9.42). Each hand-back can wake the PI twice (the message and the task notice). No plugin lever found; compaction makes each wake cheaper | notes | — |
+| 48 | **The hand-back gate (w08-c2, unverified, not landed)** works and nets USD 0.9–2.8 over the lab's history, negative if the PI then opens the file. It stays on its branch | — | — |
 
