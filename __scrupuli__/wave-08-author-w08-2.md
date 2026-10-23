@@ -11,7 +11,7 @@ In the explorer live cells the worker had written all 42 ground-truth items into
 refs: __reports__/wave-08/author-w08-2/live_cells.tsv (first_items_written_before_first_call), live_within.tsv
 
 ## S-w08-author-w08-2-4
-Default permission mode: the worker has no `SubagentHandback` tool call, so `PreToolUse` never sees its hand-back (cell e_on_default: 5,200 bytes delivered through `SubagentStop`, no deny). In the lab's own waves every worker called the tool (183 of 217 hand-backs are tool inputs; the rest are final texts), but the lab's headless cells in default mode are not covered by any hand-back check, the report check included. Is that known and intended?
+Default permission mode: the worker has no `SubagentHandback` tool call, so `PreToolUse` never sees its hand-back (cell e_on_default: 5,200 bytes delivered through `SubagentStop`, no deny). In the lab's own waves every worker called the tool (216 of 217 hand-backs are tool inputs, one is a final text), but the lab's headless cells in default mode are not covered by any hand-back check, the report check included. Is that known and intended?
 refs: __reports__/wave-08/author-w08-2/live_cells.tsv (row e_on_default), live_calls.tsv
 
 ## S-w08-author-w08-2-5
