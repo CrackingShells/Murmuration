@@ -94,7 +94,8 @@ closes.
 
 ### Report file
 
-An explorer's deliverable is one findings report plus a short hand-back message that points to it
+An explorer's deliverable is one findings report plus a hand-back message of at most about 1,500
+characters that points to it
 (the path, then what is not covered). Copy the template
 `${CLAUDE_PLUGIN_ROOT}/skills/research-loop/templates/report_findings.md`, drop its first comment
 line, and save it as `__reports__/wave-NN/<your name>/NN-findings_vN.md`, for example
