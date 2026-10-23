@@ -1,0 +1,11 @@
+## S-w08-explorer-w08-k-1
+The decision sections for the four wave-3 and wave-4 claims restate a head that the PI had already edited in place (each head carries a `restated:` line and a new title), against the file rule that the author's head is never edited. The state line then says "not re-verified" although the head wording is the verifier's own (w04-c4, w04-c7) or the author's text after the verifier's remark (w04-c10, w03-c2). It is unclear whether `restated at` with a `statement:` that repeats the head is the intended use, or `stands at` (the head already is the verifier's wording) would be the cleaner one for w04-c4 and w04-c7.
+refs: __pondus__/w04-c4.md:13; __pondus__/w04-c7.md:14; __pondus__/w04-c10.md:13; __pondus__/w03-c2.md (restated: line); skills/research-loop/SKILL.md:96-100; __reports__/wave-08/explorer-w08-k/proposed_sections.md
+
+## S-w08-explorer-w08-k-2
+w07-c7: one state line (`MEASURED (PI decided: restated, not re-verified)`) for a claim of which c1 to c3 are MEASURED and c4 is an ESTIMATE of undetermined sign (+0.87 at 300 s, -0.60 at 360 s, P(net <= 0) = 0.34; waves 5 to 7 give about -0.02 per author life). The `statement:` carries the limit, `lab_status` does not show it. A reader of the state alone gets a stronger picture than the claim has. Is a decision section the right tool here, or should c1 to c3 be filed as a superseding claim?
+refs: __pondus__/w07-c7.md:3; __statera__/wave-07.md:363-368; __reports__/wave-08/explorer-w08-c/00-findings_v0.md:115; __scrupuli__/wave-08-explorer-w08-i.md (puzzle 2); __reports__/wave-08/explorer-w08-k/lab_status_scratch.txt
+
+## S-w08-explorer-w08-k-3
+w03-c2's restated head says the folder-only `.ignore` keeps hand-backs, `raw/`, `runs/` and `generated/` out of Grep without a path. The verifier probed Grep with the earlier, wider block (`*.json`, `*.txt`, `*.log`, `raw/`, `derived/`); the final narrowed block was probed once, by the author (6 of 10 files returned). No verifier read the restated head, and the decision cannot say which clause is second-party. Not run by me (no downloads, no headless runs in the brief).
+refs: __pondus__/w03-c2.md (evidence: ignore_grep_probe.json; reproducer-w03-2 section 3); __reports__/reflective_run/w03/reproducer-w03-2/ignore_probe_1.txt
