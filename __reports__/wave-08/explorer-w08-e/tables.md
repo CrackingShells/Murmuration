@@ -73,9 +73,9 @@ Script: `__instrumenta__/w08e_postcompact_items.py`. So about 80k characters (ab
 
 | test | result |
 |:--|:--|
-| three user facts + audit code, in the PostCompact summary and in the answer after `--resume`, 13 compactions in 9 runs (c1-c5, d1, d2 and their precompact twins) | 4 of 4 in every run, both places |
+| three user facts + audit code, in the PostCompact summary and in the answer after `--resume`, 19 compactions in 9 runs (c1-c5, d1 x2, d2 x2) | 4 of 4 in the last summary of every run; 4 of 4 in the answer after `--resume` in the 8 resumed runs (c1 was not resumed) |
 | ref code of each of 28 files, answered after `--resume` (no tool), runs d1_plain, d1_precompact, d2_plain (28 files read, 2 compactions) | 28 of 28 exact; files read before both compactions (11) all exact; summary text held 20 of 28 (the 8 absent were read after the last compaction and are still in context as messages) |
 | d2_precompact (22 files read before the session ended) | 22 of 22 exact |
 | 5th word of line 100 of f0..f9 (ordinary prose, read before the compactions), d1_plain and d1_precompact | 0 of 10 exact, 10 UNKNOWN, 0 wrong. Control `e1_control_nocompact` (10 files read, no compaction): 10 of 10 exact |
 | `--resume` of a compacted session | all four plant facts correct; the test-lab brief injected once |
-| session continued to its end after compaction | c1 and c4 ended right after a compaction with the word "ok" (and e3, e3b, with no compaction at all, ended after one file with "ok"): an instruction-following flake of haiku on "say only ok", not shown to be caused by compaction. c2 ended with `rapid_refill_breaker` (window 100k: post-compaction context 47-50k refilled to 67k inside 3 turns, 3 times) |
+| session continued to its end after compaction | c1, c4 and d2_precompact (22 of 28 files) ended after a compaction with the word "ok" (and e3, e3b, with no compaction at all, ended after one file with "ok"): an instruction-following flake of haiku on "say only ok", not shown to be caused by compaction. c2 ended with `rapid_refill_breaker` (window 100k: post-compaction context 47-50k refilled to 67k inside 3 turns, 3 times) |
