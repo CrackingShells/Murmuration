@@ -1,6 +1,6 @@
 # Wave 8: where Murmuration's money goes, and what verification buys (v0)
 
-opened 2026-10-24 00:11 · closed PLACEHOLDER_CLOSE · PI: research-pi (Opus) · workers on Sonnet,
+opened 2026-10-24 00:11 · closed 2026-10-24 05:07 · spend at least USD 96.43 of 150 · PI: research-pi (Opus) · workers on Sonnet,
 headless cells on haiku (two probes on Sonnet and Opus, stated in their reports)
 
 > "The overarching goal is to progressively optimize murmuration by using it yourself. You are
@@ -60,6 +60,7 @@ headless cells on haiku (two probes on Sonnet and Opus, stated in their reports)
 | w08-c11 (supersedes w08-c9) | landed, four decision sections appended | a human reading `/lab-status` saw decided escalations as undecided |
 | w08-c12 (supersedes w08-c5) | landed | names right or marked unconfirmed, never confidently wrong |
 | w08-c13 (supersedes w08-c10) | landed | closes two guard holes, loosens nothing, Python = Rust; its first version was OVERSTATED |
+| w08-c15 (supersedes w08-c14) | landed | combined shell `-c` option clusters closed; `+c` and zsh/ksh misreadings remain |
 | w08-c3 | the setting is yours; the PreCompact hook stays out | the hook added nothing; the file is guarded |
 | w08-c2 | not landed | 1–2% at best, negative if the PI opens the file, which its rules say to do |
 | effort, batching, rtk, script caps | stay out | measured at or near zero for this lab |

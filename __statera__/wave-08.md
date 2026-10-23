@@ -276,14 +276,192 @@ sections a worker needs and do not ask it to read this note.
 
 | Claim | Statement | Current label |
 |:--|:--|:--|
+| w08-c1 | `budget` and `handback` as Rust subcommands (first statement; title overstated) | superseded by w08-c4 |
+| w08-c2 | A once-only gate on hand-backs over 5,000 characters: works; nets USD 0.9–2.8, negative if the PI opens the file | unverified MEASURED / ESTIMATE (not landed) |
+| w08-c3 | Compaction with the existing resume brief keeps what a PI-like session needs; the PreCompact hook adds nothing; about USD 0.45 a compaction on Opus | MEASURED (the setting is the user's) |
+| w08-c4 | `budget` and `handback` in the Rust binary: byte-equal on 3,821 events (587 handed to Python), 7–13 ms a start outside the platform | MEASURED (landed 1e0a81d) |
+| w08-c5 | Start note path and name binding (binding wrong with three dispatches) | superseded by w08-c12 |
+| w08-c6 | Briefs ask for a hand-back of at most about 1,500 characters and name sections; first hand-backs about halved (n = 6 each) | MEASURED (landed 16b05a8) |
+| w08-c7 | Landing steps (title bundled unsupported steps) | superseded by w08-c8 |
+| w08-c8 | Times from a tool; every selftest on the merged tree; install before the main merge; smoke run | CONJECTURE (landed 16b05a8) |
+| w08-c9 | PI decision sections read by `lab_status.py` (11 claims; two wrong) | superseded by w08-c11 |
+| w08-c10 | Two guard holes closed (missed three forms, a new false denial) | superseded by w08-c13 |
+| w08-c11 | PI decision sections, capped, read by `lab_status.py` | MEASURED (landed dc74371) |
+| w08-c12 | Absolute search path in the start note; a start named only when unambiguous | MEASURED (landed 3d5147a) |
+| w08-c13 | The guard's two holes closed in Python and Rust, tightening only | MEASURED (landed 1511545) |
+| w08-c14 | `-`-prefixed shell option clusters with c read as -c (title said every cluster) | superseded by w08-c15 |
+| w08-c15 | `-`-prefixed clusters with c read as -c for five shells, 0 of 20,282 variants allowed against 8,098 on the base; `+c` and zsh/ksh option misreadings still pass | MEASURED (landed 92a853f) |
 
 ## Puzzle dispositions (at close)
 
 | Puzzle | Disposition |
 |:--|:--|
+| S-w08-author-w08-1-1 | parked: a ceiling measured under load does not carry across loads; w08-c4 gated on signs, which held |
+| S-w08-author-w08-1-2 | followed: w08-c4 (the title states the rule met in 11 of 14) |
+| S-w08-author-w08-1-3 | parked: a harness artefact, fixed and reported both ways in w08-c4 |
+| S-w08-author-w08-1-4 | parked: the port copies Python's numeric quirks on purpose; recorded in the claim |
+| S-w08-author-w08-1-5 | followed: w08-c4 (587 hand-offs stated in the title) |
+| S-w08-author-w08-1-6 | parked: a miscount in the protocol, corrected in its amendments |
+| S-w08-author-w08-1-7 | parked: one `unsafe` call, checked over 15 zones by reproducer-w08-1 |
+| S-w08-author-w08-1-8 | parked: the worker path in the platform needs a plugin data folder of the running session; the smoke run covered the installed path |
+| S-w08-author-w08-1-9 | parked: an extra note line in one interleaving, in both implementations' race; no torn lines |
+| S-w08-author-w08-1-10 | parked: Linux, DST inside a scenario and glob characters in a lab path are untested; noted in the synthesis |
+| S-w08-author-w08-1-11 | followed: w08-c5 (author-w08-5 touches the same crate; clippy lints in its scope) |
+| S-w08-author-w08-1-12 | followed: w08-c4 (the drift is in the title) |
+| S-w08-author-w08-2-1 | followed: w08-c2 (net, not gross, in the title) |
+| S-w08-author-w08-2-2 | followed: PI decision, w08-c2 does not land (wave note) |
+| S-w08-author-w08-2-3 | parked: the gate's detail-kept test could not separate cause; w08-c2 does not land |
+| S-w08-author-w08-2-4 | parked: default mode never calls SubagentHandback; w08-c2 does not land |
+| S-w08-author-w08-2-5 | parked: haiku compliance; w08-c2 does not land |
+| S-w08-author-w08-2-6 | parked: pair noise in a gate that does not land |
+| S-w08-author-w08-2-7 | parked: the harness frame of about 1,276 characters per hand-back is the platform's |
+| S-w08-author-w08-2-8 | parked: two unclean runs, reported in the claim |
+| S-w08-author-w08-3-1 | parked: one Opus run in the hook arm, which does not land |
+| S-w08-author-w08-3-2 | followed: w08-c5 (start-line names by identity) |
+| S-w08-author-w08-3-3 | followed: the setting goes to the user; the guard's refusal is correct |
+| S-w08-author-w08-3-4 | followed: open item on the live check of w08-c3 at a real PI's 91k floor |
+| S-w08-author-w08-3-5 | parked: a PreCompact hook cannot tell a subagent; the hook does not land |
+| S-w08-author-w08-3-6 | parked: prose kept in 17 of 17 at a small lab; the transfer question is the open live check |
+| S-w08-author-w08-3-7 | parked: a no-brief arm; the lab always has the resume brief |
+| S-w08-author-w08-5-1 | followed: w08-c12 (the installer's self-test fixed; a clean install is now a landing step, w08-c8) |
+| S-w08-author-w08-5-2 | parked: the Desktop's own dispatch concurrency is untested; w08-c12 is right for any arrival order |
+| S-w08-author-w08-5-3 | followed: w08-c12 (the second divergence fixed; the first is unreachable from the platform); the lesson is in the report: equality is not correctness |
+| S-w08-author-w08-5-4 | followed: w08-c12 (binding does not rely on the answer arriving first) |
+| S-w08-author-w08-5-5 | parked: briefs.md already says each budget line goes on its own line |
+| S-w08-author-w08-5-6 | followed: synthesis item 36 (the second implementation's cost, as measured, with its stamp caveat) |
+| S-w08-author-w08-9-1 | followed: w08-c11 (w02-c7 and w02-c8 dropped; a decision over OVERSTATED must name a lower label) |
+| S-w08-author-w08-9-2 | parked: a superseded claim shows its successor, which is the state a reader needs |
+| S-w08-author-w08-9-3 | parked: `ref:` line numbers drift when a note is edited; closed notes are not edited, and the open note's refs are written at close |
+| S-w08-author-w08-9-4 | followed: synthesis item 45 (w07-c7 left for a PI decision) |
+| S-w08-author-w08-9-5 | parked: one older PI note inside a claim file, before the decision section existed |
+| S-w08-author-w08-9-6 | parked: a wave-2 note's wording; w02-c8 shows its verdict correctly |
+| S-w08-author-w08-9-7 | parked: amending in a shared branch is unsafe; the skill already says commit by naming paths, and the author restored the commit |
+| S-w08-author-w08-10-1 | followed: synthesis item 26 (the three remaining false allows listed) |
+| S-w08-author-w08-10-2 | parked: a false denial that fails closed; item 26 keeps the count |
+| S-w08-author-w08-10-3 | parked: the recorded-call count differs by collection folder, not by decision |
+| S-w08-author-w08-10-4 | parked: a PI heredoc quoting a hole form is a fail-closed false denial; the PI's notes go through the Edit tool |
+| S-w08-author-w08-10-5 | parked: a G3 denial of data naming a settings file; counted in the frozen set (item 26) |
+| S-w08-author-w08-10-6 | followed: synthesis item 26 (wrapper option tables from memory, untested against man pages) |
+| S-w08-author-w08-10-7 | followed: w08-c13 (process substitution covered) |
+| S-w08-author-w08-10-8 | followed: w08-c13 (all three fixed after the verifier found them) |
+| S-w08-author-w08-10-9 | followed: synthesis item 26 (out-of-scope launchers listed) |
+| S-w08-author-w08-14-1 | parked: the frozen set holds no such form, so it shows only that nothing else moved; the generated and verifier cases carry the claim |
+| S-w08-author-w08-14-2 | parked: a counting slip in the author's first run, corrected before filing |
+| S-w08-author-w08-14-3 | parked: a 25-minute full case run; the quick subset is the landing check |
+| S-w08-author-w08-14-4 | followed: reproducer-w08-14 ran real shells (its 10,200 forms); the misreadings it found are open item 26 |
+| S-w08-explorer-w08-a-1 | followed: explorer-w08-f (thinking is billed again, coefficient 0.997) |
+| S-w08-explorer-w08-a-2 | parked: inline code is the worker's own analysis; its call text is counted once whether it lives in a heredoc or a Write, so moving it to a file saves nothing measurable |
+| S-w08-explorer-w08-a-3 | followed: w08-c6 (briefs name sections; the wave-note lever is 0.9% and dropped) |
+| S-w08-explorer-w08-a-4 | parked: the classifier's limits move shares by a point or two, not the ranking; no decision rests on them |
+| S-w08-explorer-w08-a-5 | parked: rtk's safe part is 2.9% of worker context USD and installing it is the user's (synthesis item 39) |
+| S-w08-explorer-w08-b-1 | followed: synthesis item 41 restated (markdown is one unit per file; a section-level unit belongs to the user's colgrep-mcp repository) |
+| S-w08-explorer-w08-b-2 | parked: the search-policy hook is the colgrep-mcp plugin's, not this plugin's; reported to the user |
+| S-w08-explorer-w08-b-3 | followed: explorer-w08-j (frozen labelled replay set of guard decisions) |
+| S-w08-explorer-w08-b-4 | parked: the stale main index is refreshed by the first search; a 40 s first call is the colgrep plugin's behaviour, reported to the user |
+| S-w08-explorer-w08-b-5 | parked: wording sensitivity of colgrep ranks is the tool's; no lab decision rests on it |
+| S-w08-explorer-w08-b-6 | parked: whether the 41 unnamed script reads were reads to edit or to find is not separable from transcripts; scripts are the one place colgrep already helps |
+| S-w08-explorer-w08-c-1 | followed: the synthesis restates w07-c7's money on timed lives (explorer-w08-c), not the +0.87 |
+| S-w08-explorer-w08-c-2 | parked: two hits over the TTL in 2,536 pauses do not change any choice; shared-prefix refresh is a platform question |
+| S-w08-explorer-w08-c-3 | parked: the hand-back wait is set by the resumer; the 1-hour author cache stays (minimax regret) and no platform control for a per-phase TTL exists |
+| S-w08-explorer-w08-c-4 | followed: explorer-w08-d (PI spend over six sessions; the PI keeps 1 hour under every rule) |
+| S-w08-explorer-w08-d-1 | parked: one double re-write in 1,116 PI requests (USD 0.64); not a pattern |
+| S-w08-explorer-w08-d-2 | parked: one hit after 86 minutes; same question as S-w08-explorer-w08-c-2, a platform one |
+| S-w08-explorer-w08-d-3 | followed: explorer-w08-f (thinking carried, measured) |
+| S-w08-explorer-w08-d-4 | followed: w08-c2 (the hand-back gate) and w08-c3 (compaction makes each wake cheaper); wakes themselves are the platform's |
+| S-w08-explorer-w08-d-5 | followed: synthesis item 29 restated with both readings |
+| S-w08-explorer-w08-e-1 | parked: idle compaction is not offered in the Desktop entrypoint; an explicit window (w08-c3) makes it matter less; reported to the user |
+| S-w08-explorer-w08-e-2 | parked: the post-compaction preamble is the platform's re-send; the skill listing was tried in w07-c1 and did not land |
+| S-w08-explorer-w08-e-3 | followed: w08-c3 (PI-like runs through a compaction; prose kept in 17 of 17) |
+| S-w08-explorer-w08-e-4 | parked: 3 of 8 against 2 of 2 'ok' endings cannot separate compaction from chance; w08-c3's runs showed no such ending |
+| S-w08-explorer-w08-f-1 | parked: the PI's effort is the session's, not the agent file's; effort stays out as a lever |
+| S-w08-explorer-w08-f-2 | parked: workers run near the model default; nothing to save below it |
+| S-w08-explorer-w08-f-3 | parked: a constant 30-60 tokens per request; no decision rests on it |
+| S-w08-explorer-w08-f-4 | parked: the two fits agree on the mean (0.84x); per-block accuracy decides nothing here |
+| S-w08-explorer-w08-f-5 | followed: explorer-w08-g interleaved its arms and kept the prefix warm |
+| S-w08-explorer-w08-g-1 | parked: 92% single-call requests are dependent run-read-fix steps; batching is not a lever (explorer-w08-g) |
+| S-w08-explorer-w08-g-2 | parked: two runs that counted with Grep instead of reading are a valid shortcut; no decision rests on it |
+| S-w08-explorer-w08-g-3 | parked: one wrong answer in 41 runs, in the lever arm; the lever stays out |
+| S-w08-explorer-w08-g-4 | parked: the thinking part of an upper bound already under 2% |
+| S-w08-explorer-w08-g-5 | parked: numeric dependence would lower the count further; the lever stays out either way |
+| S-w08-explorer-w08-h-1 | followed: the synthesis's cost section states PI spend per wave to the close and per session, both |
+| S-w08-explorer-w08-h-2 | followed: the synthesis states both figures with their scope (three sessions net; six sessions counterfactual) |
+| S-w08-explorer-w08-h-3 | followed: the synthesis takes explorer-w08-c's timed figures over wave 7's map |
+| S-w08-explorer-w08-h-4 | parked: a count of rules in a report's prose against its table; the table stands |
+| S-w08-explorer-w08-h-5 | followed: the synthesis gives the thinking share as 19–22.5% with both sources |
+| S-w08-explorer-w08-h-6 | parked: the ladder's bases differ by design (each lever's own pool); the map says so |
+| S-w08-explorer-w08-h-7 | followed: the synthesis gives the PI's share with its denominator |
+| S-w08-explorer-w08-h-8 | parked: headless spend was the price of this wave's probes (compaction and effort on Sonnet/Opus); stated in the cost section |
+| S-w08-explorer-w08-h-9 | parked: the map gives the platform figure with w08-c4's drift caveat |
+| S-w08-explorer-w08-h-10 | followed: the wave note records its close time and the spend at close; the synthesis gives the PI's wave-8 figure to the close |
+| S-w08-explorer-w08-h-11 | followed: the synthesis states verification's share with its denominator (about 8% of USD 411.93, waves 1-8 at explorer-w08-i's cut) |
+| S-w08-explorer-w08-i-1 | followed: w08-c8 (selftests on the merged tree) |
+| S-w08-explorer-w08-i-2 | followed: wave-note correction and synthesis (the misaligned column is the PI's addendum, not w07-c7's evidence) |
+| S-w08-explorer-w08-i-3 | followed: w08-c11 (decision sections; four appended, five listed as item 45) |
+| S-w08-explorer-w08-i-4 | followed: synthesis item 46 |
+| S-w08-explorer-w08-i-5 | parked: wave-7 verifier spend is an inference; the 8% figure is stated as an ESTIMATE |
+| S-w08-explorer-w08-j-1 | followed: w08-c13 |
+| S-w08-explorer-w08-j-2 | followed: synthesis item 26 (live false denials counted; the false-denial variants stay out) |
+| S-w08-explorer-w08-j-3 | parked: G4 compares with files on disk, so a frozen set cannot freeze it; stated with the set |
+| S-w08-explorer-w08-j-4 | parked: one labeller; a second labeller is a check for a later wave |
+| S-w08-explorer-w08-k-1 | parked: the state says 'restated, not re-verified', which is what a reader should see for a head the PI edited |
+| S-w08-explorer-w08-k-2 | followed: w07-c7's decision statement says c4 is an ESTIMATE of undetermined sign, with wave 8's timed figure |
+| S-w08-explorer-w08-k-3 | parked: the narrowed block's Grep result rests on the author's one probe; stated in the decision's reason |
+| S-w08-reproducer-w08-1-1 | parked: machine state moves a 10 ms saving by 2-5 ms; the sign held |
+| S-w08-reproducer-w08-1-2 | followed: w08-c5 (what SubagentStart carries) |
+| S-w08-reproducer-w08-1-3 | parked: real spend under the first threshold; seeded scenarios cover the notes |
+| S-w08-reproducer-w08-1-4 | parked: the machine cannot make a bit-identical build (w07-c6); the manifest pins what ships |
+| S-w08-reproducer-w08-3-1 | followed: the synthesis uses the real post-compaction context (about 49k), not post_tokens |
+| S-w08-reproducer-w08-3-2 | followed: the user is offered a window of 250,000, any of 200-250k being equal in the model |
+| S-w08-reproducer-w08-3-3 | parked: haiku compaction cost varies 0.10-0.29; Opus is the PI's |
+| S-w08-reproducer-w08-3-4 | followed: open item on the live check of w08-c3 (a real PI's wave is the harder test) |
+| S-w08-reproducer-w08-3-5 | followed: the setting's location is stated to the user (the main checkout's local settings) |
+| S-w08-reproducer-w08-5-1 | followed: w08-c12 |
+| S-w08-reproducer-w08-5-2 | followed: w08-c12 |
+| S-w08-reproducer-w08-5-3 | followed: w08-c12 (unsafe agentId ignored) |
+| S-w08-reproducer-w08-5-4 | parked: a vanished enumeration process; the verdict rests on the reruns |
+| S-w08-reproducer-w08-5-5 | followed: w08-c12 (the lab path is escaped) |
+| S-w08-reproducer-w08-6-1 | parked: the medians are corrected in the verdict; the title's ranges hold |
+| S-w08-reproducer-w08-6-2 | parked: the limit is an ask; it halves the message, which is what the skill text says it does |
+| S-w08-reproducer-w08-6-3 | followed: w08-c8 (the reason now cites the old binary's exit 2) |
+| S-w08-reproducer-w08-6-4 | parked: a selftest that reads ../hooks/hooks.json needs the whole tree; noted, harmless on a checkout |
+| S-w08-reproducer-w08-9-1 | followed: w08-c11 |
+| S-w08-reproducer-w08-9-2 | followed: synthesis item 45 (only four sections appended, where the note names the label) |
+| S-w08-reproducer-w08-9-3 | followed: w08-c11 (fenced blocks are text) |
+| S-w08-reproducer-w08-9-4 | parked: a G2 denial of a script naming a config variable; fail-closed, counted with item 26 |
+| S-w08-reproducer-w08-9-5 | parked: a count in the head that ages as claims are added |
+| S-w08-reproducer-w08-10-1 | parked: one registered list reads 3 of 6 for the verifier and 2 of 6 for the author, unchanged before and after |
+| S-w08-reproducer-w08-10-2 | followed: w08-c13 (joined `env -S` expanded) |
+| S-w08-reproducer-w08-10-3 | followed: synthesis item 26 (the Python fall-back's quadratic case) |
+| S-w08-reproducer-w08-10-4 | followed: the report's lesson for briefs (put flag strings in data files, not scripts); G4 is right to refuse a script |
+| S-w08-reproducer-w08-10-5 | followed: synthesis item 26 (`bash -lc` with a combined flag is an older hole, added) |
+| S-w08-reproducer-w08-10-6 | parked: the cap's boundary is at nesting depth about 1,700, still far beyond ordinary use; stated in the verdict |
+| S-w08-reproducer-w08-10-7 | parked: an intermediate commit with the old binary; the landed tree was checked and the installer's manifest check covers it |
+| S-w08-reproducer-w08-14-1 | followed: synthesis item 26 (`+c` clusters still pass) |
+| S-w08-reproducer-w08-14-2 | followed: synthesis item 26 (zsh `-O` and ksh `-o` misread) |
+| S-w08-reproducer-w08-14-3 | parked: the 19 true cases still allowed are of other causes, already in item 26 |
+| S-w08-reproducer-w08-14-4 | parked: a labelling slip in the verifier's own harness, fixed before its verdict |
+| S-w08-research-pi-1 | followed: w08-c8 (times from a tool) |
+| S-w08-research-pi-2 | followed: w08-c8 (selftests on the merged tree) |
 
 ## Notes
 
+- **Close (`date` 05:07).** w08-c15 landed on the local `main` at 92a853f (lab merge 29551d8);
+  smoke run from main's tree: 0 guard denials over the worker's 7 Bash calls, `bash -lc 'echo hi'`
+  among them. Five more PI decision sections appended at the close (w03-c2, w04-c4, w04-c7,
+  w04-c10, w07-c7), on explorer-w08-k's evidence: no claim reads "escalated: PI decides".
+- **Spend at close (05:07):** this checkout USD 76.19 at list price against 1.30 at opening, so
+  74.89 for this wave, a lower bound because the session is open; headless under
+  `/private/tmp/murmuration-w08/` 21.54, exact. So **at least USD 96.43 of the 150** [source:
+  `scripts/lab_status.py --spend` and `--project /private/tmp/murmuration-w08 --spend`].
+- Models: every worker ran on its agent file's default (Sonnet); headless cells on haiku, except
+  explorer-w08-f's effort arms (Sonnet), author-w08-3's and reproducer-w08-3's PI-like runs (Opus).
+- Report: `__reports__/wave-08/research-pi/00-wave08_report_v0.md`; cost map
+  `__reports__/wave-08/explorer-w08-h/lab_cost_map.html`; synthesis section "Wave 8", open items
+  42–48.
+- Branches of this wave: `w08-c1-rustbudget`, `w08-c2-shorthandback` (not merged), `w08-c3-compaction`
+  (not merged; the hook stays out), `w08-c5-startnote` and `w08-c12-names`, `w08-c6-pi-practice`,
+  `w08-c9-decisions`, `w08-c10-guardholes`, `w08-c14-shellc`; worktrees under
+  `/private/tmp/murmuration-w08/*/wt` can be removed.
 - **w08-c13 landed on the local `main` at 1511545** (lab merge fc2c2ca; binaries rebuilt from the
   merged sources with w08-c12 at 68ac4c1): selftests pass, a clean install gives the binary, the new
   binary went into this session's data folder before the main merge; smoke run from main's tree
@@ -326,4 +504,4 @@ sections a worker needs and do not ask it to read this note.
 - PI request 0 this session: 50,221 tokens, all written to the 1-hour cache (item 20/37's range was
   31–49k) [source: this session's transcript, first assistant record's `usage`].
 
-closed: YYYY-MM-DD
+closed: 2026-10-24
