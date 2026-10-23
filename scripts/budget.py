@@ -269,6 +269,14 @@ def halt_text(used, B, minutes, T):
     return line(used, B, minutes, T) + ". The run ends here."
 
 
+def quote_path(path):
+    """The path as it sits between the double quotes of a JSON string: backslash, quote and control characters escaped, other characters as they are."""
+    out = []
+    for c in path:
+        out.append({"\\": "\\\\", '"': '\\"', "\n": "\\n", "\r": "\\r", "\t": "\\t"}.get(c) or ("\\u%04x" % ord(c) if ord(c) < 32 or ord(c) == 127 else c))
+    return "".join(out)
+
+
 def start_note(B, T, source, root):
     where = {"brief": "your budget for this run is USD %.2f and %g minutes (from your brief)",
              "default": "your budget for this run is USD %.2f and %g minutes (the defaults for your role; a line `Budget: USD <number>` or `Time: min <number>` in your brief replaces them)",
@@ -280,7 +288,7 @@ def start_note(B, T, source, root):
         "From 100%% you choose: if one or two more steps finish the result, finish it; otherwise hand back what you have, what is missing, and what more budget would buy. "
         "The principal investigator holds the money and decides whether to resume you with more. "
         "Before you write a helper script: ToolSearch `select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__find_files`, "
-        "then `search` with `paths: [\"%s/__instrumenta__\"]` (absolute: a relative path searches the main checkout) and `limit: 5`." % (where, root.rstrip("/")))
+        "then `search` with `paths: [\"%s/__instrumenta__\"]` (absolute: a relative path searches the main checkout) and `limit: 5`." % (where, quote_path(root.rstrip("/"))))
 
 
 def state_path(root, aid):
@@ -384,26 +392,35 @@ def names_dir(root):
     return os.path.join(handback.harness_dir(root), "names")
 
 
+def safe_id(aid):
+    """An agent id that can be a file name: letters, digits, `_` and `-`."""
+    return bool(aid) and all(c.isascii() and (c.isalnum() or c in "_-") for c in aid)
+
+
 def bind(event, root, now):
     """PostToolUse on the Agent tool: the response names the new agent's id (`tool_response.agentId`), the one field that ties an agent to its dispatch.
-    A background dispatch answers before the agent starts: the record moves to `names/<id>.json`, and the start claims it by id. A foreground one answers after the agent ended:
-    the start line has been written by arrival order, so one `named` line says who the agent is."""
+    A background dispatch answers before the agent starts: the record moves to `names/<id>.json`, and the start claims it by id. When the agent has started already,
+    the record is its own and leaves the records in play (the starts to come cannot be its), and one `named` line says who the agent is."""
     tin, resp = event.get("tool_input") or {}, event.get("tool_response")
     kind, aid = str(tin.get("subagent_type") or ""), resp.get("agentId") if isinstance(resp, dict) else None
-    if not kind.startswith("murmuration:") or not isinstance(aid, str) or not aid or not event.get("tool_use_id"):
+    if not kind.startswith("murmuration:") or not isinstance(aid, str) or not safe_id(aid) or not event.get("tool_use_id"):
         return None
     import glob
+    started = os.path.exists(state_path(root, aid))
     for path in sorted(glob.glob(os.path.join(pending_dir(root), "*-%s.json" % use_id(event)))):
         try:
-            rec = loads(open(path, "rb").read())
-            os.makedirs(names_dir(root), exist_ok=True)
-            with open(os.path.join(names_dir(root), aid + ".json"), "w") as fh:
-                fh.write(dumps(rec))
+            if not started:
+                rec = loads(open(path, "rb").read())
+                os.makedirs(names_dir(root), exist_ok=True)
+                with open(os.path.join(names_dir(root), aid + ".json"), "w") as fh:
+                    fh.write(dumps(rec))
             os.unlink(path)
         except (OSError, ValueError):
             continue
-        return None
-    if os.path.exists(state_path(root, aid)):
+        if not started:
+            return None
+        break
+    if started:
         handback.log_line(root, dict(event="named", agent_id=aid, name=dispatch_name(tin, tin.get("prompt") or "", kind), type=kind))
     return None
 
@@ -435,8 +452,10 @@ def warn_floor(root, who, B, T):
 
 
 def claim_pending(root, kind, now):
-    """The oldest dispatch record of this agent type that is still fresh, removed; whether other fresh records of the type disagree with it in figures (`mixed`);
-    and the names of the records in play when they differ (`pool`, comma-joined, else None): which of them this agent is cannot be told from arrival order."""
+    """What a start can know of its dispatch when no answer has tied it: (record, mixed, candidates).
+    The fresh records of this agent type are the dispatches that may be this agent's. When there is one, it is this agent's and is removed and used. When there are several nothing is removed (a record leaves only when
+    its own answer names the agent that owns it, or when it expires): the start cannot tell which it is, `mixed` says the figures differ, and `candidates` lists the names, comma-joined,
+    when they differ, so that the true one is always among them."""
     import glob
     found = []
     for path in sorted(glob.glob(os.path.join(pending_dir(root), "*.json"))):
@@ -451,31 +470,28 @@ def claim_pending(root, kind, now):
                 pass
         elif rec.get("type") == kind:
             found.append((path, rec))
-    for path, rec in found:
-        try:
-            os.unlink(path)   # whoever removes the file owns the record
-        except OSError:
-            continue
-        rest = [(p, r) for p, r in found if p != path]
-        mixed = bool(rec.get("ambiguous")) or any((r["B"], r["T"]) != (rec["B"], rec["T"]) for p, r in rest)
-        pool = rec.get("pool")   # a pool is a string; a record whose names are not all strings says nothing about names
-        if not (isinstance(pool, str) and pool):
-            names = [x.get("name") for x in [rec] + [r for p, r in rest]]
-            pool = ",".join(sorted(set(names))) if all(isinstance(n, str) for n in names) and len(set(names)) > 1 else None
-        if mixed or pool:   # the later claimants must not trust their record either: whichever start comes first may have taken the wrong one
-            upd = dict(**({"ambiguous": True} if mixed else {}), **({"pool": pool} if pool else {}))
-            for p, r in rest:
-                try:
-                    with open(p, "w") as fh:
-                        fh.write(dumps(dict(r, **upd)))
-                except OSError:
-                    pass
-        return rec, mixed, pool
-    return None, False, None
+    if not found:
+        return None, False, None
+    recs = [r for p, r in found]
+    keys = [r.get("name") if isinstance(r.get("name"), str) else None for r in recs]   # a name that is not a string says nothing
+    figures_same = all((r["B"], r["T"]) == (recs[0]["B"], recs[0]["T"]) for r in recs)
+    if len(found) == 1:   # then it is this agent's: its own record is in play, and no other agent's can be
+        for path, rec in found:
+            try:
+                os.unlink(path)   # whoever removes the file owns the record
+            except OSError:
+                continue
+            return rec, False, None
+        return None, False, None
+    all_str = None not in keys
+    candidates = ",".join(sorted(set(keys))) if all_str and len(set(keys)) > 1 else None
+    return (recs[0] if all_str or len(set(keys)) == 1 else None), not figures_same, candidates
 
 
 def claim_by_id(root, aid):
     """The record that `bind` moved to this agent's id, removed: its start is tied to its dispatch, nothing is left to guess."""
+    if not safe_id(aid):
+        return None
     path = os.path.join(names_dir(root), aid + ".json")
     try:
         rec = loads(open(path, "rb").read())
@@ -508,7 +524,7 @@ def handle_locked(event, root, role, aid, kind, now):
     st = load_state(root, aid)
     if kind == "SubagentStart":
         if st is None:
-            rec, mixed, pool = claim_by_id(root, aid) or claim_pending(root, event.get("agent_type"), now)
+            rec, mixed, cands = claim_by_id(root, aid) or claim_pending(root, event.get("agent_type"), now)
             B, b_set = budget_for(role, seen and seen["brief"])
             T, t_set = time_for(role, seen and seen["brief"])
             source = "brief" if (b_set or t_set) else "default"
@@ -521,8 +537,8 @@ def handle_locked(event, root, role, aid, kind, now):
                       brief_read=bool(seen), warned=bool(rec) or bool(seen))
             save_state(root, aid, st)
             extra = {}
-            if pool:   # several dispatches of this type are in play and nothing in the start event tells which one this agent is: say so, and keep the id-based name
-                extra = dict(name_unconfirmed=True, name_candidates=pool)
+            if cands:   # dispatches of several names are in play and nothing in the start event tells which one this agent is: say so, and keep the id-based name
+                extra = dict(name_unconfirmed=True, name_candidates=cands)
             elif rec and isinstance(rec.get("name"), str) and rec["name"]:
                 base_log["name"] = rec["name"]   # the transcript and its meta file do not exist yet: the dispatch record knows the name
             handback.log_line(root, dict(base_log, event="start", B=B, T=T, source=source, resumed=bool(seen and seen["requests"]), base_usd=round(st["base"], 6), **extra))
@@ -950,6 +966,36 @@ def selftest():
         handle(dict(ev, hook_event_name="PostToolUse", tool_name="Agent", tool_use_id="u5", tool_input=dict(subagent_type="general-purpose", name="z"), tool_response=dict(agentId="x9")), now=12.0)
         handle(dict(ev, hook_event_name="PostToolUse", tool_name="Agent", tool_use_id="u5", tool_input=dict(subagent_type="murmuration:explorer", name="z"), tool_response="done"), now=12.0)
         assert not os.path.exists(os.path.join(tmp, "__statera__", ".harness", "x9.json")) and len(logged(tmp)) == 6, len(logged(tmp))
+
+    # 6c. three dispatches of one type in every awkward order (reproducer-w08-5's two, and all the others are enumerated by __instrumenta__/w08_c12_orders.py): each start is confirmed
+    # with its true name or unconfirmed with candidates that include it
+    for order in ("P0 P1 S1 P2 A1 S0 A2 S2 A0", "P0 P1 S0 P2 S1 A0 S2 A2", "P0 P1 P2 S2 S1 S0 A0 A1 A2", "P0 P1 P2 A2 A1 A0 S1 S0 S2"):
+        with tempfile.TemporaryDirectory() as tmp:
+            os.makedirs(os.path.join(tmp, "__statera__"))
+            ev = dict(cwd=tmp, agent_type="murmuration:explorer", transcript_path=os.path.join(tmp, "s.jsonl"))
+            names = ["explorer-w09-e", "explorer-w09-f", "explorer-w09-g"]
+            now = 1.0
+            for step in order.split():
+                i, now = int(step[1]), now + 0.01
+                call = dict(subagent_type="murmuration:explorer", name=names[i], prompt="Your name is %s.\nBudget: USD 1\nTime: min 9\n" % names[i])
+                if step[0] == "P":
+                    handle(dict(ev, hook_event_name="PreToolUse", tool_name="Agent", tool_use_id="u%d" % i, tool_input=call), now=now)
+                elif step[0] == "A":
+                    handle(dict(ev, hook_event_name="PostToolUse", tool_name="Agent", tool_use_id="u%d" % i, tool_input=call, tool_response=dict(agentId="x%d" % i)), now=now)
+                else:
+                    handle(dict(ev, agent_id="x%d" % i, hook_event_name="SubagentStart"), now=now)
+            for x in [x for x in logged(tmp) if x["event"] == "start"]:
+                true = names[int(x["agent_id"][1])]
+                assert (x["name"] == true and not x.get("name_unconfirmed")) or (x.get("name_unconfirmed") and true in x["name_candidates"].split(",")), (order, x)
+    # an agent id that is not a file name is ignored; the lab path sits in the note as a JSON string
+    with tempfile.TemporaryDirectory() as tmp:
+        os.makedirs(os.path.join(tmp, "__statera__", ".harness", "pending"))
+        ev = dict(cwd=tmp, agent_type="murmuration:explorer", transcript_path=os.path.join(tmp, "s.jsonl"))
+        call = dict(subagent_type="murmuration:explorer", name="n", prompt="Your name is n.\n")
+        handle(dict(ev, hook_event_name="PreToolUse", tool_name="Agent", tool_use_id="u0", tool_input=call), now=1.0)
+        handle(dict(ev, hook_event_name="PostToolUse", tool_name="Agent", tool_use_id="u0", tool_input=call, tool_response=dict(agentId="../x0")), now=2.0)
+        assert os.listdir(os.path.join(tmp, "__statera__", ".harness", "pending")) and not os.path.exists(os.path.join(tmp, "__statera__", ".harness", "names")), "the answer with an unsafe id is dropped"
+    assert quote_path('/a "b"\\c\n') == '/a \\"b\\"\\\\c\\n' and quote_path("/é") == "/é" and quote_path("\x7f") == "\\u007f"
 
     # 7. the registration: the check on PostToolBatch, the ceiling on PostToolUse, the dispatch on Agent
     import shlex

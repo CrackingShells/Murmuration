@@ -1,7 +1,7 @@
 {
   "binaries": {
-    "aarch64-apple-darwin": "e67bd802c5f8c891c7f0a8172ebbcb592ba596ba37f282a422ed7107afab2295",
-    "x86_64-apple-darwin": "4dad6aa3004f12aeda3e9a2a7c465b1a1c71b41eca294176f475bba7f892389f"
+    "aarch64-apple-darwin": "c2efca29164c394f815bc2e901fb4fa4a6d0f4ed32c6c6837285184f99be4998",
+    "x86_64-apple-darwin": "91fb9097fa347fa0ab50b72595a508cc632dd5712a34eee9b56a2a425557fba9"
   },
   "format": 2,
   "permission_guard_py_sha256": "7a3269a57b8196781e7653b00490c7dad06a702b6f7c89e966704a1da1329a28",
@@ -9,7 +9,7 @@
     "rust/Cargo.lock": "42f6f460e9a1b42775fdb7f05edf0bde26af0563fad7c3899b5e15753b457369",
     "rust/Cargo.toml": "27622b0f2272c8289cfe7f2eb6cdd659b84e6fcf0f396b6bfa6a49ebf6f82ef5",
     "rust/gen_tables.py": "5938ab5cb1a0109698fe815789659f1fb5e1b1958df429f21fb6f88c73d937a9",
-    "rust/src/budget.rs": "a37898265fbfaeab79563a15686bfaa256f35f7f4dc2505b595d126dab37940e",
+    "rust/src/budget.rs": "a6c1643627aef4dc6c30067eb1bde12a1c40fb0eb6c309e2b2a945c412f06fec",
     "rust/src/guard.rs": "9997016b8235bf76445bfa9dc754d3b02d2a35d2610dd23dbf2517f9bbecf050",
     "rust/src/handback.rs": "1e946341d83351f96f8bb9a4b69d56b29f59cbdc78258a06d7ae1297b915dbba",
     "rust/src/hook.rs": "53db5ca724f8fe1cec14abe85663a64a24595cfa631de25fae2b7377f5beaed2",
@@ -19,9 +19,9 @@
     "rust/src/tables.rs": "8ebac8fb74f97550a0e1c1ce7fdce8556521b8305d9f58cc06c3f87146a7634a",
     "rust/src/text.rs": "18aac9b0fc123ff3a976c05c7c0c71fa93cbc2774a5edd40c64950ee3d34bcf8"
   },
-  "rust_sources_sha256": "cf82b4e1160d2e86a260eef7e1f85907b917d3f9ea5dcd86bdc0522c4d79743c",
+  "rust_sources_sha256": "ff2f88302e6dde44a155b5ed85a3e28af09bc1c3d6616174116f4067dbddc055",
   "scripts_sha256": {
-    "budget.py": "81c95e7632e67313f2fe3685d7fbd2057e0f0537116ac3379565fb48e6634e79",
+    "budget.py": "ef967fd206b6e9fd4f01a63c306b309439b63e5b5ec7523dccdd74bb86a65470",
     "handback.py": "536f56c490347c549ab504ea92a407f68a5ba4874c4b7d31561abdde63bd61e0",
     "permission_guard.py": "7a3269a57b8196781e7653b00490c7dad06a702b6f7c89e966704a1da1329a28",
     "run_hook.py": "61dee9dc2058151d6d071fe224cef3e2f8798df4250cf14a414f14c26107d66e"

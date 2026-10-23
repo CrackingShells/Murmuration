@@ -665,6 +665,23 @@ fn halt_text(used: f64, b: f64, minutes: f64, t: f64) -> String {
     line(used, b, minutes, t) + ". The run ends here."
 }
 
+/// The path as it sits between the double quotes of a JSON string: backslash, quote and control characters escaped, other characters as they are.
+fn quote_path(p: &str) -> String {
+    let mut o = String::new();
+    for c in p.chars() {
+        match c {
+            '\\' => o.push_str("\\\\"),
+            '"' => o.push_str("\\\""),
+            '\n' => o.push_str("\\n"),
+            '\r' => o.push_str("\\r"),
+            '\t' => o.push_str("\\t"),
+            c if (c as u32) < 32 || c as u32 == 127 => o.push_str(&format!("\\u{:04x}", c as u32)),
+            c => o.push(c),
+        }
+    }
+    o
+}
+
 fn start_note(b: f64, t: f64, source: &str, root: &str) -> String {
     let (bs, ts) = (format!("{b:.2}"), hook::fmt_g(t));
     let where_ = match source {
@@ -680,7 +697,7 @@ From 100% you choose: if one or two more steps finish the result, finish it; oth
 The principal investigator holds the money and decides whether to resume you with more. \
 Before you write a helper script: ToolSearch `select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__find_files`, \
 then `search` with `paths: [\"{root}/__instrumenta__\"]` (absolute: a relative path searches the main checkout) and `limit: 5`.",
-        root = root.trim_end_matches('/')
+        root = quote_path(root.trim_end_matches('/'))
     )
 }
 
@@ -765,7 +782,7 @@ fn names_dir(root: &str) -> R<PathBuf> {
 
 /// PostToolUse on the Agent tool: the answer names the new agent's id (`tool_response.agentId`), the one field that ties an agent to its dispatch.
 /// A background dispatch answers before the agent starts: the record moves to `names/<id>.json`, and the start claims it by id. A foreground one answers after
-/// the agent ended: the start line has been written by arrival order, so one `named` line says who the agent is.
+/// the agent started already, the record is its own and leaves the records in play, and one `named` line says who the agent is.
 fn bind(ev: &Ev, root: &str, _now: f64) -> R<Option<String>> {
     let tin = ev.tool_input.clone().unwrap_or(Value::Obj(Vec::new()));
     let kind = truthy_text(tin.get("subagent_type"))?.cloned().unwrap_or_default();
@@ -776,6 +793,10 @@ fn bind(ev: &Ev, root: &str, _now: f64) -> R<Option<String>> {
         return Ok(None);
     }
     let aid = path_text(aid)?;
+    if !safe_id(&aid) {
+        return Ok(None);
+    }
+    let started = state_file(root, &aid)?.exists();
     let suffix = format!("-{}.json", use_id(ev));
     let dir = pending_dir(root)?;
     let mut files: Vec<String> = match std::fs::read_dir(&dir) {
@@ -785,18 +806,24 @@ fn bind(ev: &Ev, root: &str, _now: f64) -> R<Option<String>> {
     files.sort_by(|a, b| text(a).cmp(&text(b)));
     for n in files {
         let path = dir.join(&n);
-        let Ok(bytes) = std::fs::read(&path) else { continue };
-        let Ok(s) = String::from_utf8(bytes) else { continue };
-        let Ok(rec) = json::loads(&s) else { continue };
-        let mut body = String::new();
-        json::dump(&rec, &mut body);
-        let nd = names_dir(root)?;
-        if std::fs::create_dir_all(&nd).is_err() || std::fs::write(nd.join(format!("{aid}.json")), body).is_err() || std::fs::remove_file(&path).is_err() {
+        if !started {
+            let Ok(bytes) = std::fs::read(&path) else { continue };
+            let Ok(s) = String::from_utf8(bytes) else { continue };
+            let Ok(rec) = json::loads(&s) else { continue };
+            let mut body = String::new();
+            json::dump(&rec, &mut body);
+            let nd = names_dir(root)?;
+            if std::fs::create_dir_all(&nd).is_err() || std::fs::write(nd.join(format!("{aid}.json")), body).is_err() || std::fs::remove_file(&path).is_err() {
+                continue;
+            }
+            return Ok(None);
+        }
+        if std::fs::remove_file(&path).is_err() {
             continue;
         }
-        return Ok(None);
+        break;
     }
-    if state_file(root, &aid)?.exists() {
+    if started {
         let prompt = truthy_text(tin.get("prompt"))?.cloned().unwrap_or_default();
         let name = dispatch_name(&tin, &prompt, &kind)?;
         let mut r = Rec::default();
@@ -804,6 +831,11 @@ fn bind(ev: &Ev, root: &str, _now: f64) -> R<Option<String>> {
         log_line(root, &r)?;
     }
     Ok(None)
+}
+
+/// An agent id that can be a file name: letters, digits, `_` and `-`.
+fn safe_id(id: &str) -> bool {
+    !id.is_empty() && id.chars().all(|c| c.is_ascii_alphanumeric() || c == '_' || c == '-')
 }
 
 fn dispatch(ev: &Ev, root: &str, now: f64) -> R<Option<String>> {
@@ -862,6 +894,9 @@ fn num_val(v: Option<&Value>) -> R<f64> {
 
 /// The record that `bind` moved to this agent's id, removed: its start is tied to its dispatch, nothing is left to guess.
 fn claim_by_id(root: &str, aid: &str) -> R<Option<(Value, bool, Option<Text>)>> {
+    if !safe_id(aid) {
+        return Ok(None);
+    }
     let path = names_dir(root)?.join(format!("{aid}.json"));
     let Ok(bytes) = std::fs::read(&path) else { return Ok(None) };
     let Ok(s) = String::from_utf8(bytes) else { return Ok(None) };
@@ -876,8 +911,9 @@ fn claim_by_id(root: &str, aid: &str) -> R<Option<(Value, bool, Option<Text>)>> 
     Ok(matches!(rec, Value::Obj(_)).then_some((rec, false, None)))
 }
 
-/// The oldest fresh dispatch record of this agent type, removed; whether other fresh records of the type disagree with it in figures (`mixed`);
-/// and the names of the records in play when they differ (`pool`, comma-joined): which of them this agent is cannot be told from arrival order.
+/// What a start can know of its dispatch when no answer has tied it: (record, mixed, candidates). The fresh records of this agent type are the dispatches that may be this agent's.
+/// When there is one, it is this agent's and is removed and used. When there are several nothing is removed (a record leaves only when its own answer names the agent
+/// that owns it, or when it expires): `mixed` says the figures differ, `candidates` lists the names, comma-joined, when they differ, so that the true one is always among them.
 fn claim_pending(root: &str, kind: Option<&Text>, now: f64) -> R<(Option<Value>, bool, Option<Text>)> {
     let dir = pending_dir(root)?;
     let mut names: Vec<String> = match std::fs::read_dir(&dir) {
@@ -913,72 +949,51 @@ fn claim_pending(root: &str, kind: Option<&Text>, now: f64) -> R<(Option<Value>,
             found.push(p);
         }
     }
-    for i in 0..found.len() {
-        if std::fs::remove_file(&found[i].path).is_err() {
-            continue;
-        }
-        let rec = found[i].rec.clone();
-        let (rb, rt) = (num_val(rec.get("B"))?, num_val(rec.get("T"))?);
-        let mut mixed = rec.get("ambiguous").is_some_and(Value::truthy);
-        for (j, o) in found.iter().enumerate() {
-            if j != i && (num_val(o.rec.get("B"))? != rb || num_val(o.rec.get("T"))? != rt) {
-                mixed = true;
-            }
-        }
-        let pool: Option<Text> = match rec.get("pool") {
-            Some(Value::Str(p)) if !p.is_empty() => Some(p.clone()),
-            _ => {
-                // a pool is a string; a record whose names are not all strings says nothing about names
-                let mut names: Vec<Text> = Vec::new();
-                let mut all_str = true;
-                for o in std::iter::once(&rec).chain(found.iter().enumerate().filter(|(j, _)| *j != i).map(|(_, o)| &o.rec)) {
-                    match o.get("name") {
-                        Some(Value::Str(n)) => names.push(n.clone()),
-                        _ => all_str = false,
-                    }
-                }
-                names.sort();
-                names.dedup();
-                if all_str && names.len() > 1 {
-                    let mut joined: Text = Vec::new();
-                    for (k, n) in names.iter().enumerate() {
-                        if k > 0 {
-                            joined.push(44);
-                        }
-                        joined.extend(n.iter());
-                    }
-                    Some(joined)
-                } else {
-                    None
-                }
-            }
-        };
-        if mixed || pool.is_some() {
-            for (j, o) in found.iter().enumerate() {
-                if j == i {
-                    continue;
-                }
-                let mut r = o.rec.clone();
-                if let Value::Obj(items) = &mut r {
-                    let mut put = |key: &str, val: Value| match items.iter_mut().find(|(k, _)| text::eq(k, key)) {
-                        Some(e) => e.1 = val,
-                        None => items.push((text(key), val)),
-                    };
-                    if mixed {
-                        put("ambiguous", Value::Bool(true));
-                    }
-                    if let Some(p) = &pool {
-                        put("pool", Value::Str(p.clone()));
-                    }
-                }
-                let mut s = String::new();
-                json::dump(&r, &mut s);
-                let _ = std::fs::write(&o.path, s);
-            }
-        }
-        return Ok((Some(rec), mixed, pool));
+    if found.is_empty() {
+        return Ok((None, false, None));
     }
-    Ok((None, false, None))
+    let key = |p: &Pending| -> Option<Text> {
+        match p.rec.get("name") {
+            Some(Value::Str(n)) => Some(n.clone()),
+            _ => None,
+        }
+    };
+    let keys: Vec<Option<Text>> = found.iter().map(key).collect();
+    let (b0, t0) = (num_val(found[0].rec.get("B"))?, num_val(found[0].rec.get("T"))?);
+    let mut figures_same = true;
+    for o in &found {
+        if num_val(o.rec.get("B"))? != b0 || num_val(o.rec.get("T"))? != t0 {
+            figures_same = false;
+        }
+    }
+    let names_equal = keys.iter().all(|k| *k == keys[0]);
+    if found.len() == 1 {
+        for p in &found {
+            if std::fs::remove_file(&p.path).is_err() {
+                continue; // whoever removes the file owns the record
+            }
+            return Ok((Some(p.rec.clone()), false, None));
+        }
+        return Ok((None, false, None));
+    }
+    let all_str = keys.iter().all(Option::is_some);
+    let candidates: Option<Text> = if all_str && !names_equal {
+        let mut names: Vec<Text> = keys.iter().flatten().cloned().collect();
+        names.sort();
+        names.dedup();
+        let mut joined: Text = Vec::new();
+        for (k, n) in names.iter().enumerate() {
+            if k > 0 {
+                joined.push(44);
+            }
+            joined.extend(n.iter());
+        }
+        Some(joined)
+    } else {
+        None
+    };
+    let rec = if all_str || names_equal { Some(found[0].rec.clone()) } else { None };
+    Ok((rec, !figures_same, candidates))
 }
 
 // ---- the hook ----
@@ -1055,7 +1070,7 @@ fn handle_locked(ev: &Ev, root: &str, role: &str, aid: &str, now: f64) -> R<Opti
             return Err(Stop::Silent);
         }
         if st.is_none() {
-            let (rec, mixed, pool) = match claim_by_id(root, aid)? {
+            let (rec, mixed, cands) = match claim_by_id(root, aid)? {
                 Some((r, m, p)) => (Some(r), m, p),
                 None => claim_pending(root, ev.agent_type.as_ref(), now)?,
             };
@@ -1098,7 +1113,7 @@ fn handle_locked(ev: &Ev, root: &str, role: &str, aid: &str, now: f64) -> R<Opti
                 warned: rec.is_some() || seen.is_some(),
             };
             save_state(root, aid, &s0)?;
-            if pool.is_none() {
+            if cands.is_none() {
                 if let Some(Value::Str(n)) = rec.as_ref().and_then(|r| r.get("name")) {
                     if !n.is_empty() {
                         name = n.clone();
@@ -1107,7 +1122,7 @@ fn handle_locked(ev: &Ev, root: &str, role: &str, aid: &str, now: f64) -> R<Opti
             }
             let mut r = base_rec(ev, &name);
             r.set("event", J::S("start".into())).set("B", J::F(b)).set("T", J::F(t)).set("source", J::S(source.into()));
-            if let Some(p) = &pool {
+            if let Some(p) = &cands {
                 r.set("name_unconfirmed", J::B(true)).set("name_candidates", J::T(p.clone()));
             }
             r.set("resumed", J::B(seen.as_ref().is_some_and(|s| s.requests != 0))).set("base_usd", J::N(s0.base.round(6)));
