@@ -15,7 +15,7 @@ touching each other's files.
 
 | Role | Agent type (for the Agent tool) | Writes |
 |:--|:--|:--|
-| PI | the main session (`murmuration:research-pi`) | `__design__/framing.md`, wave notes, its own claims and puzzles, the synthesis |
+| PI | the main session (`murmuration:research-pi`) | `__design__/framing.md`, wave notes, its own claims and puzzles, the synthesis, and a decision section in a claim file when it decides one |
 | explorer | `murmuration:explorer` | its findings report and the raw artifacts beside it; its puzzle file |
 | author | `murmuration:author` | the head of a claim file; its puzzle file |
 | verifier of empirical claims | `murmuration:reproducer` | its verdict section in a claim file; its puzzle file |
@@ -43,7 +43,7 @@ name is …"). Use the characters `a-z`, `0-9` and `-` only.
 | `__statera__/synthesis.md` | The final synthesis, written by the PI |
 | `__reports__/wave-NN/<agent name>/NN-<type>_vN.md` | An explorer's findings report (`NN-findings_vN.md`, from `templates/report_findings.md`), with its raw artifacts in the same folder |
 | `__instrumenta__/<name>.<ext>` | A helper script, named for what it does; its first line says what it computes, from which inputs, to which outputs |
-| `__pondus__/<claim-id>.md` | One file per claim: the author's head, then one section per verifier |
+| `__pondus__/<claim-id>.md` | One file per claim: the author's head, then one section per verifier, then the PI's decision sections |
 | `__scrupuli__/wave-NN-<agent name>.md` | That agent's puzzles for that wave |
 
 Add to your own files; never edit another writer's file or section.
@@ -79,6 +79,40 @@ author's part or another verifier's. Each verifier writes one
 section that starts with `## verdict: <its name>` and uses `###` subheadings only. The last line
 of the section that starts with `verdict:` is the verdict (a revision adds a new `verdict:` line and a
 `changed_by:` line below the earlier one), so no line under `### exchange` may start with `verdict:`.
+
+When a verifier escalates, or two verdicts disagree, the PI decides, and writes the decision in the wave note
+and in the claim file. In the claim file it appends a section (a shell append, like a verifier) that only the PI
+writes:
+
+```markdown
+## decision: research-pi
+
+decision: restated at MEASURED
+ref: __statera__/wave-04.md:223
+statement: <the wording decided, one sentence; required for `restated at`>
+reason: <one line, optional>
+```
+
+`decision:` is one of `stands at <LABEL>`, `restated at <LABEL>` (the wording of the verifier's own result, in
+the head or in `statement:`), `withdrawn`, `superseded by <claim id>`. `ref:` is `<wave note>:<line>`, the line of
+the wave note that records the decision and names the claim id. The section runs to the next level-2 heading;
+the author's head is never edited, so a head that still carries the pre-decision statement is read with the
+decision section below it.
+
+What a decision may do. It never gives a claim a label that no verifier's evidence carries:
+- a label stronger than the author's is not applied;
+- `stands at` and `restated at` apply only when a verdict above the decision asks for the PI (ESCALATE, or a
+  dispute, or OVERSTATED or LABEL TOO STRONG) and none above it is UNSUPPORTED or WRONG; on a claim that is
+  unverified, CITED, verified, or withdrawn by a verifier, only `withdrawn` or `superseded by` apply;
+- over OVERSTATED or LABEL TOO STRONG, `stands at` and `restated at` must name a label below the author's, as the
+  state `below <LABEL>: restate` says; a restated wording that no verifier has read shows `(PI decided: restated,
+  not re-verified)`;
+- `superseded by <id>` must name another claim file that exists;
+- a decision that cannot be applied is a warning in `/lab-status` and changes nothing.
+A fenced block (``` or ~~~) in a claim file is text: a heading inside one starts no section.
+A verdict written after the decision counts: it is read afresh, at the label the decision left. A later decision
+replaces an earlier one. `/lab-status` checks that the `ref:` file exists and names the claim as a whole token, and that the
+section is the PI's (`research-pi`).
 
 ### Puzzle file
 
@@ -145,9 +179,12 @@ Each verifier's latest verdict is its standing verdict. The current label of a c
 | `below <LABEL>: restate` | OVERSTATED or LABEL TOO STRONG. The claim may not be used at its label; the author files a new claim at a lower label with `supersedes:`, and it is verified again |
 | `<LABEL> (may restate higher)` | LABEL TOO WEAK. The author may file a superseding claim at the higher label |
 | `withdrawn` | UNSUPPORTED or WRONG |
-| `escalated: PI decides` | Any standing ESCALATE, whatever the other verdicts. The PI reads the claim file, including its exchange, and decides |
+| `escalated: PI decides` | Any standing ESCALATE, whatever the other verdicts, until the PI writes its decision section. The PI reads the claim file, including its exchange, and decides |
 | `disputed: PI decides` | Two standing verdicts disagree. LABEL TOO WEAK next to SUPPORTED or SOUND is not a disagreement |
 | `superseded by <id>` | A later claim restates this one |
+| `<LABEL> (PI decided)` | The PI's decision section says `stands at <LABEL>`, and no verdict was written after it |
+| `<LABEL> (PI decided: restated, not re-verified)` | The decision says `restated at <LABEL>`; no verifier has read the restated wording. A verdict written after the decision replaces this state |
+| `withdrawn (PI decided)`, `superseded by <id> (PI decided)` | The decision says `withdrawn` or `superseded by <id>` |
 
 No note, report or synthesis states a claim above its current label.
 
