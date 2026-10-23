@@ -1,0 +1,15 @@
+rust /private/tmp/murmuration-w08/author-w08-10/wt/bin/aarch64-apple-darwin/murmuration | python /private/tmp/murmuration-w08/auth
+recorded calls found: 10520 (sample all)
+set            events   denied   differ  stderr non-empty (py, rs)
+registered        121       71        0  (0, 0)
+malformed           4        3        0  (0, 0)
+recorded        10520      189        0  (0, 0)
+fuzz_bash       10000     4396        0  (0, 0)
+fuzz_write       2000      880        0  (0, 0)
+typeconf          189       92       10  (3, 3)
+stress              4        0        1  (0, 0)
+  STRESS tc:huge_cmd                  python   0.27 s (rc 0)   rust   0.05 s (rc 0)
+  STRESS tc:long_run_settings         python   0.79 s (rc 0)   rust   0.05 s (rc 0)
+  STRESS tc:long_word                 python  40.00 s (rc timeout)   rust   0.05 s (rc 0)
+  STRESS tc:many_quotes               python   0.24 s (rc 0)   rust   0.04 s (rc 0)
+gated sets equal | work folder /private/tmp/murmuration-w08/author-w08-10/eq4

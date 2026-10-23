@@ -268,6 +268,16 @@ sections a worker needs and do not ask it to read this note.
 
 ## Notes
 
+- **w08-c11 landed on the local `main` at dc74371**, with PI decision sections appended to w01-c2,
+  w01-c8, w02-c10 and w05-c1 (the four whose wave note names the label); `lab_status.py` shows them
+  as `MEASURED (PI decided: restated, not re-verified)`.
+- **w08-c12 landed on the local `main` at 3d5147a** (lab merge 1db2329): all selftests pass; a
+  clean `git archive` installs the binary; the new binary installed into this session's data
+  folder before the main merge (w08-c8's step). Smoke run from main's tree, two same-type
+  explorers in one message with different budgets: each `start` line carries its own name and its
+  own brief's budget (s1 USD 0.4 / 3 min, s2 0.5 / 4 min), consistent with its `end` line
+  [source: `/private/tmp/murmuration-w08/research-pi/smoke2/lab/__statera__/harness.jsonl`]. In
+  round 1 the same shape gave `source unknown` and the defaults.
 - **w08-c6 and w08-c8 landed on the local `main` at 16b05a8** (not pushed): the brief items on
   sections and the hand-back limit, the skill's report-file line, and in `waves.md` the clock rule
   and the landing steps. w08-c7 was OVERSTATED (its title bundled two steps no failure supported)

@@ -84,7 +84,15 @@
     "--settings x.json",
     "--settings",
     "--plugin-dir /tmp/x",
-    "--output-format json"
+    "--output-format json",
+    "\"$(cat f)\"",
+    "$(cat f)",
+    "\"`cat f`\"",
+    "`cat f`",
+    "\"$(cat \"$(echo f)\")\"",
+    "\"pre $(grep x f) post\"",
+    "\"$(cat f)\" --model haiku",
+    "\"$("
   ],
   "assigns": [
     "CLAUDE_CONFIG_DIR=/tmp/x",
@@ -216,7 +224,7 @@
     "echo "
   ],
   "ops": [" ; ", " && ", " || ", " | ", " & ", "\n", " ; \n", " |& ", " 2>&1 ", " >&2 ", " &> /dev/null ", " > /dev/null ", " ( ", " ) ", " $( ", " `", "` ", "\n\n", ";;", " ;", "; "],
-  "wrappers": ["env ", "env -i ", "command ", "nohup ", "exec ", "time ", "sudo ", "sudo -E ", "nice -n 5 ", "nice 5 ", "ionice -c 3 ", "stdbuf -o0 ", "xargs ", "xargs -n1 ", "timeout 5 ", "timeout 5s ", "timeout 5x ", "timeout ٥ ", "timeout 1.5m ", "gtimeout 3 ", "setsid ", "caffeinate ", "if ", "then ", "else ", "do ", "while ", "until ", "! ", "{ ", "A=1 ", "A=1 B=2 ", "/usr/bin/env ", "/usr/bin/time ", "FOO=\"x y\" "],
+  "wrappers": ["env ", "env -i ", "command ", "nohup ", "exec ", "time ", "sudo ", "sudo -E ", "nice -n 5 ", "nice 5 ", "ionice -c 3 ", "stdbuf -o0 ", "xargs ", "xargs -n1 ", "timeout 5 ", "timeout 5s ", "timeout 5x ", "timeout ٥ ", "timeout 1.5m ", "gtimeout 3 ", "setsid ", "caffeinate ", "if ", "then ", "else ", "do ", "while ", "until ", "! ", "{ ", "A=1 ", "A=1 B=2 ", "/usr/bin/env ", "/usr/bin/time ", "FOO=\"x y\" ", "env -u X ", "env -uX ", "env --unset X ", "env --unset=X ", "env -C /tmp ", "env --chdir=/tmp ", "env -S ", "env --split-string=", "timeout -s KILL 5 ", "timeout -k 1 -s TERM 5 ", "timeout --signal=KILL 5 ", "ionice -c 2 -n 7 ", "stdbuf -o L ", "stdbuf -oL ", "xargs -n 1 ", "xargs -I X ", "caffeinate -t 5 ", "exec -a n ", "exec -cl ", "sudo -u root ", "sudo -nu root ", "time -o f ", "time -p ", "env -u X timeout -s KILL 5 nohup ", "$(which claude) ", "\"$(command -v claude)\" ", "`which claude` "],
   "shells": ["sh -c ", "bash -c ", "zsh -c ", "dash -c ", "ksh -c ", "/bin/bash -c ", "bash -lc ", "bash -c -x ", "eval ", "sh ", "bash -c", "env bash -c ", "sudo sh -c "],
   "quotes": ["'", "\"", "\\", "\\'", "\\\"", "''", "\"\"", "$'", "$\"", "`", "$(", "${", "<<'EOF'\n", "<<EOF\n", "\nEOF\n", "<<-X\n"],
   "spaces": [" ", "  ", "\t", "\n", "\r", "\r\n", " ", " ", "　", "\u0085", " ", " ", "\u001c", "\u001f", "​", "﻿", "᠎"],

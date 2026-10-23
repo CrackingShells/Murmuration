@@ -1,16 +1,16 @@
 {
   "binaries": {
-    "aarch64-apple-darwin": "c2efca29164c394f815bc2e901fb4fa4a6d0f4ed32c6c6837285184f99be4998",
-    "x86_64-apple-darwin": "91fb9097fa347fa0ab50b72595a508cc632dd5712a34eee9b56a2a425557fba9"
+    "aarch64-apple-darwin": "18a48cfc0f4c8f8b5bdb6c4203d75d6382b581548522fba7af6a4835a177f0ce",
+    "x86_64-apple-darwin": "246171829975caa9f0225e952393a22ec70d4c5af91aa707a778a2475575c7db"
   },
   "format": 2,
-  "permission_guard_py_sha256": "7a3269a57b8196781e7653b00490c7dad06a702b6f7c89e966704a1da1329a28",
+  "permission_guard_py_sha256": "a60d346273b63ec74144ec36e2659c2f6f9de9798c51ebb6cb7110bd62078f3f",
   "rust_sources": {
     "rust/Cargo.lock": "42f6f460e9a1b42775fdb7f05edf0bde26af0563fad7c3899b5e15753b457369",
     "rust/Cargo.toml": "27622b0f2272c8289cfe7f2eb6cdd659b84e6fcf0f396b6bfa6a49ebf6f82ef5",
     "rust/gen_tables.py": "5938ab5cb1a0109698fe815789659f1fb5e1b1958df429f21fb6f88c73d937a9",
     "rust/src/budget.rs": "a6c1643627aef4dc6c30067eb1bde12a1c40fb0eb6c309e2b2a945c412f06fec",
-    "rust/src/guard.rs": "9997016b8235bf76445bfa9dc754d3b02d2a35d2610dd23dbf2517f9bbecf050",
+    "rust/src/guard.rs": "d54ac6cc8052e8d39802fdb779e9d998d79531f648303bc80ee4f497e87cd07e",
     "rust/src/handback.rs": "1e946341d83351f96f8bb9a4b69d56b29f59cbdc78258a06d7ae1297b915dbba",
     "rust/src/hook.rs": "53db5ca724f8fe1cec14abe85663a64a24595cfa631de25fae2b7377f5beaed2",
     "rust/src/json.rs": "0cc5d7d89fbd9c5fc6829b368d99cc80d240f6474c05b8e3df9d0e06ad1075e7",
@@ -19,11 +19,11 @@
     "rust/src/tables.rs": "8ebac8fb74f97550a0e1c1ce7fdce8556521b8305d9f58cc06c3f87146a7634a",
     "rust/src/text.rs": "18aac9b0fc123ff3a976c05c7c0c71fa93cbc2774a5edd40c64950ee3d34bcf8"
   },
-  "rust_sources_sha256": "ff2f88302e6dde44a155b5ed85a3e28af09bc1c3d6616174116f4067dbddc055",
+  "rust_sources_sha256": "b3c5985276515340f07a5510522bf72f2d9d88f8717d685c7cacbfb36f95c0b9",
   "scripts_sha256": {
     "budget.py": "ef967fd206b6e9fd4f01a63c306b309439b63e5b5ec7523dccdd74bb86a65470",
     "handback.py": "536f56c490347c549ab504ea92a407f68a5ba4874c4b7d31561abdde63bd61e0",
-    "permission_guard.py": "7a3269a57b8196781e7653b00490c7dad06a702b6f7c89e966704a1da1329a28",
+    "permission_guard.py": "a60d346273b63ec74144ec36e2659c2f6f9de9798c51ebb6cb7110bd62078f3f",
     "run_hook.py": "61dee9dc2058151d6d071fe224cef3e2f8798df4250cf14a414f14c26107d66e"
   }
 }

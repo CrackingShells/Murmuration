@@ -1,0 +1,8 @@
+recorded calls 10484 in 401 folders; denied before 182, after 189; newly denied 7; newly allowed 0
+  NEWLY DENIED toolu_013kRcU9rjPm4NUSn5yAk5pT Bash G2 | cd /private/tmp/murmuration-w06/explorer-w06-a/work && rm -f ../out/probe1.log; env -u CLAUDE_CODE_SHELL W06_PROBE_LOG=/private/tmp/murmuration-
+  NEWLY DENIED toolu_01TAXAzfTa1fG3cbsvWAMTbF Bash G2 | B=/private/tmp/murmuration-w05/author-w05-2; cd $B/pilot0 && env -u CLAUDE_PROJECT_DIR COLGREP_DATA_DIR=$B/pilot0/colgrep CLAUDE_CODE_PRINT_BG_W
+  NEWLY DENIED toolu_01NRaNhFoVmU1LCqET3rDr8h Bash G2 | mkdir -p /private/tmp/murmuration-w05/author-w05-2 && cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673
+  NEWLY DENIED toolu_01F9vUJ9h55ywzZcXZQJxioX Bash G2 | cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673; R=/private/tmp/murmuration-w05/reproducer-w05-6; mkd
+  NEWLY DENIED toolu_012Uf7cB5rsvmyiTv4XcD7L3 Bash G2 | cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__reports__/reflective_run/w01/author-w01-1 &
+  NEWLY DENIED toolu_01Xp1p3ZrDZs4hNSLeHTBHw4 Bash G2 | cat > /private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-8-928ebd/ad75be4f-14dd-4dd8-90c7-fb175ed
+  NEWLY DENIED toolu_01Df9nju5d4DqSc3cg8CEzqf Bash G2 | kill -0 $(cat /private/tmp/murmuration-w08/reproducer-w08-10/eq7.job.pid) 2>&1 | head -1; kill -0 $(cat /private/tmp/murmuration-w08/reproducer-

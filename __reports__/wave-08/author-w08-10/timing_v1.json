@@ -1,0 +1,234 @@
+[
+ {
+  "input": "heredoc prose 30 KB, 389 bare `$(`",
+  "chars": 30028,
+  "base_py": [
+   "allow",
+   0.05
+  ],
+  "base_rs": [
+   "allow",
+   0.02
+  ],
+  "branch_py": [
+   "allow",
+   0.05
+  ],
+  "branch_rs": [
+   "allow",
+   0.03
+  ]
+ },
+ {
+  "input": "heredoc prose 78 KB, 52 bare `$(`",
+  "chars": 78034,
+  "base_py": [
+   "allow",
+   0.08
+  ],
+  "base_rs": [
+   "allow",
+   0.02
+  ],
+  "branch_py": [
+   "allow",
+   0.11
+  ],
+  "branch_rs": [
+   "allow",
+   0.03
+  ]
+ },
+ {
+  "input": "heredoc prose 200 KB, 800 bare `$(`",
+  "chars": 200082,
+  "base_py": [
+   "allow",
+   0.13
+  ],
+  "base_rs": [
+   "allow",
+   0.04
+  ],
+  "branch_py": [
+   "allow",
+   0.17
+  ],
+  "branch_rs": [
+   "allow",
+   0.04
+  ]
+ },
+ {
+  "input": "heredoc script body 200 KB",
+  "chars": 200011,
+  "base_py": [
+   "allow",
+   0.25
+  ],
+  "base_rs": [
+   "allow",
+   0.06
+  ],
+  "branch_py": [
+   "allow",
+   0.53
+  ],
+  "branch_rs": [
+   "allow",
+   0.09
+  ]
+ },
+ {
+  "input": "python3 -c write + 30 KB word",
+  "chars": 30017,
+  "base_py": [
+   "allow",
+   6.36
+  ],
+  "base_rs": [
+   "allow",
+   0.03
+  ],
+  "branch_py": [
+   "allow",
+   6.34
+  ],
+  "branch_rs": [
+   "allow",
+   0.03
+  ]
+ },
+ {
+  "input": "python3 -c write + 100 KB word",
+  "chars": 100017,
+  "base_py": [
+   "cut off",
+   null
+  ],
+  "branch_py": [
+   "cut off",
+   null
+  ]
+ },
+ {
+  "input": "30,000 unmatched `$(`",
+  "chars": 60005,
+  "base_py": [
+   "allow",
+   0.21
+  ],
+  "base_rs": [
+   "allow",
+   0.05
+  ],
+  "branch_py": [
+   "allow",
+   0.23
+  ],
+  "branch_rs": [
+   "allow",
+   0.05
+  ]
+ },
+ {
+  "input": "nested `$(` depth 100",
+  "chars": 306,
+  "base_py": [
+   "allow",
+   0.04
+  ],
+  "base_rs": [
+   "allow",
+   0.02
+  ],
+  "branch_py": [
+   "allow",
+   0.04
+  ],
+  "branch_rs": [
+   "allow",
+   0.02
+  ]
+ },
+ {
+  "input": "nested `$(` depth 1000",
+  "chars": 3006,
+  "base_py": [
+   "allow",
+   0.04
+  ],
+  "base_rs": [
+   "allow",
+   0.02
+  ],
+  "branch_py": [
+   "allow",
+   0.43
+  ],
+  "branch_rs": [
+   "allow",
+   0.04
+  ]
+ },
+ {
+  "input": "nested `$(` depth 2500",
+  "chars": 7506,
+  "base_py": [
+   "allow",
+   0.05
+  ],
+  "base_rs": [
+   "allow",
+   0.02
+  ],
+  "branch_py": [
+   "allow",
+   2.42
+  ],
+  "branch_rs": [
+   "allow",
+   0.1
+  ]
+ },
+ {
+  "input": "nested `$(` depth 3500",
+  "chars": 10506,
+  "base_py": [
+   "allow",
+   0.07
+  ],
+  "base_rs": [
+   "allow",
+   0.02
+  ],
+  "branch_py": [
+   "deny G?",
+   2.72
+  ],
+  "branch_rs": [
+   "deny G?",
+   0.09
+  ]
+ },
+ {
+  "input": "30,000 matched `$(echo a)`",
+  "chars": 300005,
+  "base_py": [
+   "allow",
+   0.47
+  ],
+  "base_rs": [
+   "allow",
+   0.09
+  ],
+  "branch_py": [
+   "allow",
+   0.98
+  ],
+  "branch_rs": [
+   "allow",
+   0.13
+  ]
+ }
+]
