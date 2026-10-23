@@ -1,0 +1,34 @@
+## scripts/budget.py
+PASS budget
+rc=0
+## scripts/build_manifest.py
+bin/manifest.json: 2 binaries, 12 rust sources
+rc=0
+## scripts/check_guard_equal.py
+                            [--sets SETS]
+check_guard_equal.py: error: unrecognized arguments: --selftest
+rc=2
+## scripts/handback.py
+PASS handback
+rc=0
+## scripts/install_binary.py
+murmuration install: CLAUDE_PLUGIN_ROOT or CLAUDE_PLUGIN_DATA is not set; the permission guard binary is not installed and Bash calls will be blocked
+rc=1
+## scripts/lab_init.py
+SELFTEST lab in a parent:  no new colgrep index: the lab is inside the index of /private/var/folders/nw/ddpd99c119j47w3s4gzv7sb00000gn/T/tmpfulecf_x/indexed-parent, which colgrep updated (added: 1, changed: 0, deleted: 0
+PASS lab_init
+rc=0
+## scripts/lab_status.py
+PASS lab_status
+rc=0
+## scripts/permission_guard.py
+selftest ok: attacks 50 denied, ordinary 28 allowed; not-gated: evasions caught ['e02', 'e03', 'e05', 'e06', 'e10', 'e11', 'e12', 'e13'], mention-only denied []
+rc=0
+## scripts/resume_brief.py
+PASS resume_brief
+rc=0
+## scripts/run_hook.py
+rc=0
+## scripts/user_words.py
+PASS user_words
+rc=0

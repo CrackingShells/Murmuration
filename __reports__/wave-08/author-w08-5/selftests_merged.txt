@@ -1,0 +1,8 @@
+# trial merge of claude/murmuration-wave-8-928ebd (8488845) into w08-c5-startnote (0da6f2b): 4fb6561
+budget: PASS budget
+handback: PASS handback
+lab_init: PASS lab_init
+lab_status: PASS lab_status
+permission_guard: selftest ok: attacks 50 denied, ordinary 28 allowed; not-gated: evasions caught ['e02', 'e03', 'e05', 'e06', 'e10', 'e11
+resume_brief: PASS resume_brief
+user_words: PASS user_words

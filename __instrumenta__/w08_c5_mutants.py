@@ -6,7 +6,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 MUT = [("none", None, None, None),
        ("rust: no pool (names never flagged)", "rust/src/budget.rs", "if all_str && names.len() > 1 {", "if false && all_str && names.len() > 1 {"),
        ("rust: the answer does not move the record", "rust/src/budget.rs", "|| std::fs::remove_file(&path).is_err() {\n            continue;", "|| true {\n            continue;"),
-       ("rust: note path without the lab", "rust/src/budget.rs", 'paths: [\\"{root}/__instrumenta__\\"]', 'paths: [\\"__instrumenta__\\"]'),
+       ("rust: note path is the main checkout's", "rust/src/budget.rs", "root = root.trim_end_matches('/')", 'root = format!("/main{}", &root[..0])'),
        ("python: no `named` line", "scripts/budget.py", 'handback.log_line(root, dict(event="named"', 'None and handback.log_line(root, dict(event="named"'),
        ("python: pool without sorting", "scripts/budget.py", 'pool = ",".join(sorted(set(names)))', 'pool = ",".join(list(dict.fromkeys(names))[::-1])'),
        ("python: start claims by order only", "scripts/budget.py", "claim_by_id(root, aid) or claim_pending", "None or claim_pending")]
