@@ -134,8 +134,11 @@ def hook_selftest(root, binary):
                     out.append(run(cmd, lab, event))
                 except (OSError, subprocess.SubprocessError) as exc:
                     return "step %d (%s: %s)" % (n + 1, which, type(exc).__name__)
-            log = [json.loads(x)["event"] for x in open(lab + "/__statera__/harness.jsonl")]
-            shake = [re.sub(rb"\| \d{4}-[0-9T:+-]+ \|", b"|T|", open(os.path.join(dp, f), "rb").read()) for dp, _, fs in os.walk(lab + "/__statera__/handbacks") for f in fs]
+            try:
+                log = [json.loads(x)["event"] for x in open(lab + "/__statera__/harness.jsonl")]
+                shake = [re.sub(rb"\| \d{4}-[0-9T:+-]+ \|", b"|T|", open(os.path.join(dp, f), "rb").read()) for dp, _, fs in os.walk(lab + "/__statera__/handbacks") for f in fs]
+            except (OSError, ValueError, KeyError, TypeError):
+                log, shake = None, None   # a program that wrote nothing, or something that is not a record, differs from the Python scripts
             results.append((out, log, shake))
     for n, (a, b) in enumerate(zip(*[r[0] for r in results])):
         if a != b:

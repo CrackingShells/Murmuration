@@ -186,7 +186,10 @@ struct Ev {
 }
 
 fn event(v: &Value) -> R<Ev> {
+    // Python reads `tool_input` only for a PostToolUse of the hand-back tool
+    let reads_tool_input = matches!(v.get("hook_event_name"), Some(Value::Str(t)) if text::eq(t, "PostToolUse")) && matches!(v.get("tool_name"), Some(Value::Str(t)) if text::eq(t, "SubagentHandback"));
     let tool_message = match v.get("tool_input") {
+        _ if !reads_tool_input => None,
         None => None,
         Some(x) if !x.truthy() => None,
         Some(o @ Value::Obj(_)) => match o.get("message") {
