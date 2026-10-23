@@ -427,6 +427,30 @@ fn substitution_texts(cmd: &[u32], work: &mut usize) -> Result<Vec<Text>, TooCom
     Ok(if same { Vec::new() } else { texts })
 }
 
+/// `_shell_script`: the index in `toks` of the word a shell reads as the string of `-c`, or None. Options come first: a word of `-` and letters with a `c` among them sets -c (`-lc`, `-ec`, `-c`); a letter `o` or `O` in such a word,
+/// and `--rcfile`, `--init-file`, take the next word as their value; `--` or `-` ends the options; any other word is the first non-option, which is the string when -c was set.
+fn shell_script(toks: &[Text]) -> Option<usize> {
+    let mut c = false;
+    let mut pend = 0usize;
+    for (i, t) in toks.iter().enumerate() {
+        if pend > 0 {
+            pend -= 1;
+        } else if eq(t, "--") || eq(t, "-") {
+            return if c && i + 1 < toks.len() { Some(i + 1) } else { None };
+        } else if t.len() > 1 && (starts(t, "-") || starts(t, "+")) && t.iter().skip(1).all(|&ch| char::from_u32(ch).is_some_and(|x| x.is_ascii_alphabetic())) {
+            pend = t.iter().filter(|&&ch| ch == cp('o') || ch == cp('O')).count();
+            c = c || (starts(t, "-") && has_char(t, 'c'));
+        } else if eq(t, "--rcfile") || eq(t, "--init-file") {
+            pend = 1;
+        } else if t.len() > 1 && (starts(t, "-") || starts(t, "+")) {
+            // another option
+        } else {
+            return if c { Some(i) } else { None };
+        }
+    }
+    None
+}
+
 /// `expand`: every simple command of `cmd`: those of the plain splitter first, in order, then those of the command and of each substitution inside it with the substitutions replaced by one word;
 /// descends into `sh -c '...'`, `eval '...'` and `env -S '...'` strings to depth 3.
 fn expand(cmd: &[u32], depth: usize, work: &mut usize) -> Result<Vec<Seg>, TooComplex> {
@@ -450,9 +474,18 @@ fn expand(cmd: &[u32], depth: usize, work: &mut usize) -> Result<Vec<Seg>, TooCo
         if depth < 3 && k < toks.len() {
             let prog = basename(&toks[k]); // INDEX: k < toks.len() checked on the line above
             let rest = slice_toks(&toks, k + 1);
-            if in_set(prog, SHELLS) && rest.iter().any(|t| eq(t, "-c")) {
+            if in_set(prog, SHELLS) {
+                let mut js: Vec<usize> = Vec::new();
                 if let Some(j) = rest.iter().position(|t| eq(t, "-c")) {
-                    if let Some(arg) = rest.get(j + 1) {
+                    js.push(j + 1); // the word after the first `-c`, as before
+                }
+                if let Some(j) = shell_script(rest) {
+                    if !js.contains(&j) {
+                        js.push(j); // the string of `-c` as the shell reads its options (`-lc`, `-c -x`, ...)
+                    }
+                }
+                for j in js {
+                    if let Some(arg) = rest.get(j) {
                         out.extend(expand(arg, depth + 1, work)?);
                     }
                 }
