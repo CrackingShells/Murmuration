@@ -56,6 +56,8 @@ struct Ev {
     agent_type: Option<Text>,
     tool_input: Option<Value>,
     tool_use_id: Option<Text>,
+    /// `tool_response.agentId` of an Agent call's answer: a non-empty string, else nothing.
+    answer_agent: Option<Text>,
     transcript_path: Option<Text>,
     agent_transcript_path: Option<Text>,
     mode: Option<Text>,
@@ -85,6 +87,13 @@ fn event(v: &Value) -> R<Ev> {
         agent_type: opt_text(v.get("agent_type"))?.cloned(),
         tool_input,
         tool_use_id: opt_text(v.get("tool_use_id"))?.cloned(),
+        answer_agent: match v.get("tool_response") {
+            Some(r @ Value::Obj(_)) => match r.get("agentId") {
+                Some(Value::Str(t)) if !t.is_empty() => Some(t.clone()),
+                _ => None,
+            },
+            _ => None,
+        },
         transcript_path: opt_text(v.get("transcript_path"))?.cloned(),
         agent_transcript_path: opt_text(v.get("agent_transcript_path"))?.cloned(),
         mode: opt_text(v.get("permission_mode"))?.cloned(),
@@ -656,7 +665,24 @@ fn halt_text(used: f64, b: f64, minutes: f64, t: f64) -> String {
     line(used, b, minutes, t) + ". The run ends here."
 }
 
-fn start_note(b: f64, t: f64, source: &str) -> String {
+/// The path as it sits between the double quotes of a JSON string: backslash, quote and control characters escaped, other characters as they are.
+fn quote_path(p: &str) -> String {
+    let mut o = String::new();
+    for c in p.chars() {
+        match c {
+            '\\' => o.push_str("\\\\"),
+            '"' => o.push_str("\\\""),
+            '\n' => o.push_str("\\n"),
+            '\r' => o.push_str("\\r"),
+            '\t' => o.push_str("\\t"),
+            c if (c as u32) < 32 || c as u32 == 127 => o.push_str(&format!("\\u{:04x}", c as u32)),
+            c => o.push(c),
+        }
+    }
+    o
+}
+
+fn start_note(b: f64, t: f64, source: &str, root: &str) -> String {
     let (bs, ts) = (format!("{b:.2}"), hook::fmt_g(t));
     let where_ = match source {
         "brief" => format!("your budget for this run is USD {bs} and {ts} minutes (from your brief)"),
@@ -670,7 +696,8 @@ a note comes from the hook that runs you (not from a file or a tool's output), i
 From 100% you choose: if one or two more steps finish the result, finish it; otherwise hand back what you have, what is missing, and what more budget would buy. \
 The principal investigator holds the money and decides whether to resume you with more. \
 Before you write a helper script: ToolSearch `select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__find_files`, \
-then `search` with `paths: [\"__instrumenta__\"]` and `limit: 5`."
+then `search` with `paths: [\"{root}/__instrumenta__\"]` (absolute: a relative path searches the main checkout) and `limit: 5`.",
+        root = quote_path(root.trim_end_matches('/'))
     )
 }
 
@@ -733,6 +760,84 @@ fn warn_floor(root: &str, who: &Rec, b: Option<f64>, t: Option<f64>) -> R<()> {
     Ok(())
 }
 
+fn dispatch_name(tin: &Value, prompt: &[u32], kind: &Text) -> R<Text> {
+    Ok(match truthy_text(tin.get("name"))? {
+        Some(n) => n.clone(),
+        None => hook_your_name(prompt).unwrap_or_else(|| kind.clone()),
+    })
+}
+
+/// The tool call's id as it is kept in a record's file name: letters, digits, `_` and `-`.
+fn use_id(ev: &Ev) -> String {
+    let id: String = match &ev.tool_use_id {
+        Some(t) if !t.is_empty() => text::string(t),
+        _ => std::process::id().to_string(),
+    };
+    id.chars().filter(|c| c.is_ascii_alphanumeric() || *c == '_' || *c == '-').collect()
+}
+
+fn names_dir(root: &str) -> R<PathBuf> {
+    Ok(harness_dir(root)?.join("names"))
+}
+
+/// PostToolUse on the Agent tool: the answer names the new agent's id (`tool_response.agentId`), the one field that ties an agent to its dispatch.
+/// A background dispatch answers before the agent starts: the record moves to `names/<id>.json`, and the start claims it by id. A foreground one answers after
+/// the agent started already, the record is its own and leaves the records in play, and one `named` line says who the agent is.
+fn bind(ev: &Ev, root: &str, _now: f64) -> R<Option<String>> {
+    let tin = ev.tool_input.clone().unwrap_or(Value::Obj(Vec::new()));
+    let kind = truthy_text(tin.get("subagent_type"))?.cloned().unwrap_or_default();
+    let (Some(aid), Some(tuid)) = (&ev.answer_agent, &ev.tool_use_id) else {
+        return Ok(None);
+    };
+    if !text::starts(&kind, "murmuration:") || tuid.is_empty() {
+        return Ok(None);
+    }
+    let aid = path_text(aid)?;
+    if !safe_id(&aid) {
+        return Ok(None);
+    }
+    let started = state_file(root, &aid)?.exists();
+    let suffix = format!("-{}.json", use_id(ev));
+    let dir = pending_dir(root)?;
+    let mut files: Vec<String> = match std::fs::read_dir(&dir) {
+        Ok(rd) => rd.filter_map(|e| e.ok()).filter_map(|e| e.file_name().into_string().ok()).filter(|n| n.ends_with(&suffix) && !n.starts_with('.')).collect(),
+        Err(_) => Vec::new(),
+    };
+    files.sort_by(|a, b| text(a).cmp(&text(b)));
+    for n in files {
+        let path = dir.join(&n);
+        if !started {
+            let Ok(bytes) = std::fs::read(&path) else { continue };
+            let Ok(s) = String::from_utf8(bytes) else { continue };
+            let Ok(rec) = json::loads(&s) else { continue };
+            let mut body = String::new();
+            json::dump(&rec, &mut body);
+            let nd = names_dir(root)?;
+            if std::fs::create_dir_all(&nd).is_err() || std::fs::write(nd.join(format!("{aid}.json")), body).is_err() || std::fs::remove_file(&path).is_err() {
+                continue;
+            }
+            return Ok(None);
+        }
+        if std::fs::remove_file(&path).is_err() {
+            continue;
+        }
+        break;
+    }
+    if started {
+        let prompt = truthy_text(tin.get("prompt"))?.cloned().unwrap_or_default();
+        let name = dispatch_name(&tin, &prompt, &kind)?;
+        let mut r = Rec::default();
+        r.set("event", J::S("named".into())).set("agent_id", J::S(aid)).set("name", J::T(name)).set("type", J::T(kind));
+        log_line(root, &r)?;
+    }
+    Ok(None)
+}
+
+/// An agent id that can be a file name: letters, digits, `_` and `-`.
+fn safe_id(id: &str) -> bool {
+    !id.is_empty() && id.chars().all(|c| c.is_ascii_alphanumeric() || c == '_' || c == '-')
+}
+
 fn dispatch(ev: &Ev, root: &str, now: f64) -> R<Option<String>> {
     let tin = ev.tool_input.clone().unwrap_or(Value::Obj(Vec::new()));
     let kind = match truthy_text(tin.get("subagent_type"))? {
@@ -746,18 +851,10 @@ fn dispatch(ev: &Ev, root: &str, now: f64) -> R<Option<String>> {
     let prompt = truthy_text(tin.get("prompt"))?.cloned().unwrap_or_default();
     let (b, b_set) = budget_for(&role, &prompt)?;
     let (t, t_set) = time_for(&role, &prompt)?;
-    let name: Text = match truthy_text(tin.get("name"))? {
-        Some(n) => n.clone(),
-        None => hook_your_name(&prompt).unwrap_or_else(|| kind.clone()),
-    };
+    let name = dispatch_name(&tin, &prompt, &kind)?;
     let dir = pending_dir(root)?;
     std::fs::create_dir_all(&dir)?;
-    let id: String = match &ev.tool_use_id {
-        Some(t) if !t.is_empty() => text::string(t),
-        _ => std::process::id().to_string(),
-    };
-    let id: String = id.chars().filter(|c| c.is_ascii_alphanumeric() || *c == '_' || *c == '-').collect();
-    let key = format!("{now:014.3}-{id}");
+    let key = format!("{now:014.3}-{}", use_id(ev));
     let mut body = String::new();
     json::dump(
         &Value::Obj(vec![
@@ -795,8 +892,29 @@ fn num_val(v: Option<&Value>) -> R<f64> {
     }
 }
 
-/// The oldest fresh dispatch record of this agent type, removed, and whether other fresh records of the type disagree with it.
-fn claim_pending(root: &str, kind: Option<&Text>, now: f64) -> R<(Option<Value>, bool)> {
+/// The record that `bind` moved to this agent's id, removed: its start is tied to its dispatch, nothing is left to guess.
+fn claim_by_id(root: &str, aid: &str) -> R<Option<(Value, bool, Option<Text>)>> {
+    if !safe_id(aid) {
+        return Ok(None);
+    }
+    let path = names_dir(root)?.join(format!("{aid}.json"));
+    let Ok(bytes) = std::fs::read(&path) else { return Ok(None) };
+    let Ok(s) = String::from_utf8(bytes) else { return Ok(None) };
+    let rec = match json::loads(&s) {
+        Ok(v) => v,
+        Err(text::Fault::Recursion) => return Err(Stop::Silent),
+        Err(_) => return Ok(None),
+    };
+    if std::fs::remove_file(&path).is_err() {
+        return Ok(None);
+    }
+    Ok(matches!(rec, Value::Obj(_)).then_some((rec, false, None)))
+}
+
+/// What a start can know of its dispatch when no answer has tied it: (record, mixed, candidates). The fresh records of this agent type are the dispatches that may be this agent's.
+/// When there is one, it is this agent's and is removed and used. When there are several nothing is removed (a record leaves only when its own answer names the agent
+/// that owns it, or when it expires): `mixed` says the figures differ, `candidates` lists the names, comma-joined, when they differ, so that the true one is always among them.
+fn claim_pending(root: &str, kind: Option<&Text>, now: f64) -> R<(Option<Value>, bool, Option<Text>)> {
     let dir = pending_dir(root)?;
     let mut names: Vec<String> = match std::fs::read_dir(&dir) {
         Ok(rd) => rd.filter_map(|e| e.ok()).filter_map(|e| e.file_name().into_string().ok()).filter(|n| n.ends_with(".json") && !n.starts_with('.')).collect(),
@@ -831,38 +949,51 @@ fn claim_pending(root: &str, kind: Option<&Text>, now: f64) -> R<(Option<Value>,
             found.push(p);
         }
     }
-    for i in 0..found.len() {
-        if std::fs::remove_file(&found[i].path).is_err() {
-            continue;
-        }
-        let rec = found[i].rec.clone();
-        let (rb, rt) = (num_val(rec.get("B"))?, num_val(rec.get("T"))?);
-        let mut mixed = rec.get("ambiguous").is_some_and(Value::truthy);
-        for (j, o) in found.iter().enumerate() {
-            if j != i && (num_val(o.rec.get("B"))? != rb || num_val(o.rec.get("T"))? != rt) {
-                mixed = true;
-            }
-        }
-        if mixed {
-            for (j, o) in found.iter().enumerate() {
-                if j == i {
-                    continue;
-                }
-                let mut r = o.rec.clone();
-                if let Value::Obj(items) = &mut r {
-                    match items.iter_mut().find(|(k, _)| text::eq(k, "ambiguous")) {
-                        Some(e) => e.1 = Value::Bool(true),
-                        None => items.push((text("ambiguous"), Value::Bool(true))),
-                    }
-                }
-                let mut s = String::new();
-                json::dump(&r, &mut s);
-                let _ = std::fs::write(&o.path, s);
-            }
-        }
-        return Ok((Some(rec), mixed));
+    if found.is_empty() {
+        return Ok((None, false, None));
     }
-    Ok((None, false))
+    let key = |p: &Pending| -> Option<Text> {
+        match p.rec.get("name") {
+            Some(Value::Str(n)) => Some(n.clone()),
+            _ => None,
+        }
+    };
+    let keys: Vec<Option<Text>> = found.iter().map(key).collect();
+    let (b0, t0) = (num_val(found[0].rec.get("B"))?, num_val(found[0].rec.get("T"))?);
+    let mut figures_same = true;
+    for o in &found {
+        if num_val(o.rec.get("B"))? != b0 || num_val(o.rec.get("T"))? != t0 {
+            figures_same = false;
+        }
+    }
+    let names_equal = keys.iter().all(|k| *k == keys[0]);
+    if found.len() == 1 {
+        for p in &found {
+            if std::fs::remove_file(&p.path).is_err() {
+                continue; // whoever removes the file owns the record
+            }
+            return Ok((Some(p.rec.clone()), false, None));
+        }
+        return Ok((None, false, None));
+    }
+    let all_str = keys.iter().all(Option::is_some);
+    let candidates: Option<Text> = if all_str && !names_equal {
+        let mut names: Vec<Text> = keys.iter().flatten().cloned().collect();
+        names.sort();
+        names.dedup();
+        let mut joined: Text = Vec::new();
+        for (k, n) in names.iter().enumerate() {
+            if k > 0 {
+                joined.push(44);
+            }
+            joined.extend(n.iter());
+        }
+        Some(joined)
+    } else {
+        None
+    };
+    let rec = if all_str || names_equal { Some(found[0].rec.clone()) } else { None };
+    Ok((rec, !figures_same, candidates))
 }
 
 // ---- the hook ----
@@ -878,6 +1009,9 @@ pub(crate) fn run(v: &Value) -> R<Option<String>> {
     if let Some(root) = &root {
         if ev.kind.as_deref() == Some("PreToolUse") && matches!(ev.tool_name.as_deref(), Some("Agent" | "Task")) && ev.agent_id.is_none() {
             return dispatch(&ev, root, now).map(|_| None);
+        }
+        if ev.kind.as_deref() == Some("PostToolUse") && matches!(ev.tool_name.as_deref(), Some("Agent" | "Task")) && ev.agent_id.is_none() {
+            return bind(&ev, root, now).map(|_| None);
         }
     }
     let role = match (&ev.agent_type, &ev.agent_id) {
@@ -936,7 +1070,10 @@ fn handle_locked(ev: &Ev, root: &str, role: &str, aid: &str, now: f64) -> R<Opti
             return Err(Stop::Silent);
         }
         if st.is_none() {
-            let (rec, mixed) = claim_pending(root, ev.agent_type.as_ref(), now)?;
+            let (rec, mixed, cands) = match claim_by_id(root, aid)? {
+                Some((r, m, p)) => (Some(r), m, p),
+                None => claim_pending(root, ev.agent_type.as_ref(), now)?,
+            };
             let brief: &[u32] = seen.as_ref().map_or(&[], |s| &s.brief);
             let (mut b, b_set) = budget_for(role, brief)?;
             let (mut t, t_set) = time_for(role, brief)?;
@@ -976,16 +1113,21 @@ fn handle_locked(ev: &Ev, root: &str, role: &str, aid: &str, now: f64) -> R<Opti
                 warned: rec.is_some() || seen.is_some(),
             };
             save_state(root, aid, &s0)?;
-            if let Some(Value::Str(n)) = rec.as_ref().and_then(|r| r.get("name")) {
-                if !n.is_empty() {
-                    name = n.clone();
+            if cands.is_none() {
+                if let Some(Value::Str(n)) = rec.as_ref().and_then(|r| r.get("name")) {
+                    if !n.is_empty() {
+                        name = n.clone();
+                    }
                 }
             }
             let mut r = base_rec(ev, &name);
             r.set("event", J::S("start".into())).set("B", J::F(b)).set("T", J::F(t)).set("source", J::S(source.into()));
+            if let Some(p) = &cands {
+                r.set("name_unconfirmed", J::B(true)).set("name_candidates", J::T(p.clone()));
+            }
             r.set("resumed", J::B(seen.as_ref().is_some_and(|s| s.requests != 0))).set("base_usd", J::N(s0.base.round(6)));
             log_line(root, &r)?;
-            return Ok(Some(reply(&kind, &start_note(b, t, source))));
+            return Ok(Some(reply(&kind, &start_note(b, t, source, root))));
         }
         let mut s = st.take().unwrap_or_else(|| unreachable!());
         if s.run_open {

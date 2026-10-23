@@ -1,0 +1,3 @@
+n=4 scheme=distinct orders=20000 starts=80000 violations=0
+n=4 scheme=figs     orders=20000 starts=80000 violations=0
+n=4 scheme=dup      orders=20000 starts=80000 violations=0

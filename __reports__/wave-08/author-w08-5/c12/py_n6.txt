@@ -1,0 +1,3 @@
+n=6 scheme=distinct orders=3000 starts=18000 violations=0
+n=6 scheme=figs     orders=3000 starts=18000 violations=0
+n=6 scheme=dup      orders=3000 starts=18000 violations=0
