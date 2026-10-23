@@ -1,0 +1,12 @@
+rust /private/tmp/murmuration-w08/author-w08-10/wt/bin/aarch64-apple-darwin/murmuration | python /private/tmp/murmuration-w08/author-w08-10/wt/scripts/permission_guard.py | 1168 s | jobs 6 | seed 0
+recorded calls found: 10351 (sample all)
+set            events   denied   differ  stderr non-empty (py, rs)
+registered        121       71        0  (0, 0)
+malformed           4        3        0  (0, 0)
+recorded        10351      186        0  (0, 0)
+fuzz_bash       10000     4396        0  (0, 0)
+fuzz_write       2000      880        0  (0, 0)
+typeconf          189       92       10  (3, 3)
+stress              4        0        1  (0, 0)
+  STRESS tc:huge_cmd                  python   0.27 s (rc 0)   rust   0.06 s (rc 0)
+  STRESS tc:long_run_settings         python   0.82 s (rc 0)   rust   0.04 s (rc 0)
