@@ -1,0 +1,281 @@
+wave	agent	class	basename	result_chars	named_in_brief
+w4	a03dcebb:w04-c1 prompt hook lab root	Read_whole	framing.md	8493	1
+w4	a03dcebb:w04-c1 prompt hook lab root	Read_whole	user_words.py	12904	1
+w4	a03dcebb:w04-c1 prompt hook lab root	Read_whole	resume_brief.py	6188	1
+w4	a03dcebb:w04-c1 prompt hook lab root	Read_whole	w01-c10.md	15201	1
+w4	a03dcebb:w04-c1 prompt hook lab root	bash_cat	hooks.json	4597	1
+w4	a03dcebb:w04-c1 prompt hook lab root	bash_cat	hookdump.py	3958	0
+w4	a03dcebb:w04-c1 prompt hook lab root	bash_cat	drive.py	1695	0
+w4	a19ad3a7:verify w04-c1	Read_whole	w04-c1.md	10875	1
+w4	a19ad3a7:verify w04-c1	Read_whole	framing.md	8493	1
+w4	a19ad3a7:verify w04-c1	bash_cat	hook_payload_dump.py	1708	0
+w4	a19ad3a7:verify w04-c1	bash_cat	hooks.json	6301	0
+w4	a525c6e4:verify w04-c3	Read_whole	w04-c3.md	10459	1
+w4	a525c6e4:verify w04-c3	Read_whole	framing.md	8493	1
+w4	a525c6e4:verify w04-c3	bash_cat	meta.json	1656	0
+w4	a525c6e4:verify w04-c3	bash_cat	00-addendum_v0.md	1779	1
+w4	a682e6ed:w04-c2/c3 report line + notes cont	Read_whole	framing.md	8493	1
+w4	a682e6ed:w04-c2/c3 report line + notes cont	Read_whole	00-experiment_protocol_v0.md	7244	1
+w4	a682e6ed:w04-c2/c3 report line + notes cont	Read_whole	explorer.md	2603	1
+w4	a682e6ed:w04-c2/c3 report line + notes cont	Read_whole	w03-c1.md	30415	1
+w4	a682e6ed:w04-c2/c3 report line + notes cont	bash_cat	hooks.json	10011	0
+w4	a682e6ed:w04-c2/c3 report line + notes cont	bash_cat	cost_per_run_e1b_e2b.tsv	953	0
+w4	a6cf7547:verify w04-c2	bash_cat	w04-c2.md	13179	1
+w4	a6cf7547:verify w04-c2	bash_cat	meta.json	5319	0
+w4	a6cf7547:verify w04-c2	bash_cat	results_all_runs.tsv	7402	0
+w4	a6cf7547:verify w04-c2	bash_cat	budget_arms_run_all.sh	4134	0
+w4	a74cf750:verify w04-c10	Read_whole	w04-c10.md	7805	1
+w4	a74cf750:verify w04-c10	Read_whole	framing.md	8493	1
+w4	a74cf750:verify w04-c10	bash_cat	e3c_runs_table.tsv	900	0
+w4	a78128bc:verify w04-c6	Read_whole	w04-c6.md	5075	1
+w4	a78128bc:verify w04-c6	Read_whole	framing.md	8493	1
+w4	a8e82971:verify w04-c4	Read_whole	w04-c4.md	12701	1
+w4	a8e82971:verify w04-c4	Read_whole	framing.md	8493	1
+w4	a8e82971:verify w04-c4	bash_cat	runs_table.tsv	11510	0
+w4	a8e82971:verify w04-c4	bash_cat	run_all.sh	3354	0
+w4	aabc198a:verify w04-c5	Read_whole	w04-c5.md	19068	1
+w4	aabc198a:verify w04-c5	Read_whole	framing.md	8493	1
+w4	ab1d2ada:w04-c4 instrumenta search/reuse	Read_whole	framing.md	8493	1
+w4	ab1d2ada:w04-c4 instrumenta search/reuse	Read_whole	00-experiment_protocol_v0.md	7244	1
+w4	ab1d2ada:w04-c4 instrumenta search/reuse	Read_whole	w03-c2.md	22955	1
+w4	ab1d2ada:w04-c4 instrumenta search/reuse	bash_cat	run_all.sh	8644	1
+w4	ab1d2ada:w04-c4 instrumenta search/reuse	bash_cat	hooks.json	10187	0
+w4	ab28dda4:w04-c5 lean hooks	Read_whole	00-experiment_protocol_v0.md	7244	1
+w4	ab28dda4:w04-c5 lean hooks	Read_whole	hooks.json	2716	1
+w4	ab28dda4:w04-c5 lean hooks	Read_whole	framing.md	8493	1
+w4	ab28dda4:w04-c5 lean hooks	Read_whole	budget.py	61427	1
+w4	ab28dda4:w04-c5 lean hooks	Read_whole	handback.py	19401	1
+w4	ae594479:w04-c6 small fixes item 14	Read_whole	lab_init.py	30889	1
+w4	ae594479:w04-c6 small fixes item 14	Read_whole	briefs.md	4521	1
+w4	ae594479:w04-c6 small fixes item 14	bash_cat	lab_init.py	149	1
+w4	ae654a59:verify w04-c7	Read_whole	w04-c7.md	10856	1
+w4	ae654a59:verify w04-c7	Read_whole	framing.md	8493	1
+w4	ae654a59:verify w04-c7	bash_cat	e3b_search_probe.py	3128	0
+w4	af246530:verify w04-c9	Read_whole	w04-c9.md	8581	1
+w4	af246530:verify w04-c9	Read_whole	framing.md	8493	1
+w4	af246530:verify w04-c9	bash_cat	budget_arms_export.sh	4105	0
+w4	af246530:verify w04-c9	bash_cat	w04-c11.md	9241	0
+w4	af969444:verify w04-c8	Read_whole	w04-c8.md	6703	1
+w4	af969444:verify w04-c8	Read_whole	framing.md	8493	1
+w4	af969444:verify w04-c8	bash_cat	w04c2_rederive_metrics.py	3361	0
+w4	af969444:verify w04-c8	Read_whole	bpuk1mhd3.output	87	0
+w5	a07b75cc:PI main-thread token anatomy	Read_whole	framing.md	8493	1
+w5	a07b75cc:PI main-thread token anatomy	Read_whole	wave-05.md	4854	1
+w5	a0afa2a1:w05-c3 PI tools allowlist	Read_whole	framing.md	8493	1
+w5	a0afa2a1:w05-c3 PI tools allowlist	Read_whole	wave-05.md	7974	1
+w5	a0afa2a1:w05-c3 PI tools allowlist	Read_whole	00-experiment_protocol_v0.md	8281	1
+w5	a0afa2a1:w05-c3 PI tools allowlist	Read_whole	00-findings_v0.md	12889	1
+w5	a0afa2a1:w05-c3 PI tools allowlist	bash_cat	research-pi.md	4474	1
+w5	a0afa2a1:w05-c3 PI tools allowlist	bash_cat	plugin.json	4813	0
+w5	a238a71d:Verify w05-c5	bash_cat	framing.md	4797	1
+w5	a238a71d:Verify w05-c5	bash_cat	w05-c5.md	7581	1
+w5	a28f9331:Plugin delivery to worktree sessio	Read_whole	framing.md	8493	1
+w5	a28f9331:Plugin delivery to worktree sessio	Read_whole	wave-05.md	4854	1
+w5	a28f9331:Plugin delivery to worktree sessio	Read_whole	wave-05-research-pi.md	1373	1
+w5	a28f9331:Plugin delivery to worktree sessio	Read_whole	report_findings.md	1012	0
+w5	a28f9331:Plugin delivery to worktree sessio	bash_cat	plugin.json	3834	0
+w5	a2f75017:Verify w05-c8 and w05-c9	Read_whole	w05-c8.md	1579	1
+w5	a2f75017:Verify w05-c8 and w05-c9	Read_whole	w05-c9.md	2058	1
+w5	a2f75017:Verify w05-c8 and w05-c9	Read_whole	framing.md	8493	1
+w5	a2f75017:Verify w05-c8 and w05-c9	bash_cat	pathspec_commit_check.sh	2511	0
+w5	a2f75017:Verify w05-c8 and w05-c9	bash_cat	w05-c10.md	4277	0
+w5	a341139a:w05-c4 lean hooks, w05-c5 lab_stat	bash_cat	framing.md	23539	1
+w5	a341139a:w05-c4 lean hooks, w05-c5 lab_stat	bash_cat	w04-c5.md	25842	1
+w5	a341139a:w05-c4 lean hooks, w05-c5 lab_stat	bash_cat	00-findings_v0.md	12848	1
+w5	a341139a:w05-c4 lean hooks, w05-c5 lab_stat	bash_cat	wave-05-explorer-w05-d.md	7879	1
+w5	a341139a:w05-c4 lean hooks, w05-c5 lab_stat	bash_cat	hook_starts_per_wave.py	2402	1
+w5	a341139a:w05-c4 lean hooks, w05-c5 lab_stat	Read_whole	budget_core.py	31889	0
+w5	a341139a:w05-c4 lean hooks, w05-c5 lab_stat	Read_whole	budget.py	8225	0
+w5	a341139a:w05-c4 lean hooks, w05-c5 lab_stat	Read_whole	handback_core.py	13956	0
+w5	a341139a:w05-c4 lean hooks, w05-c5 lab_stat	Read_whole	handback.py	3330	0
+w5	a341139a:w05-c4 lean hooks, w05-c5 lab_stat	bash_cat	hook_replay_equiv.py	10780	0
+w5	a341139a:w05-c4 lean hooks, w05-c5 lab_stat	bash_cat	lab_status_variants.py	3942	1
+w5	a341139a:w05-c4 lean hooks, w05-c5 lab_stat	bash_cat	timing_m2_n100.jsonl	176	0
+w5	a341139a:w05-c4 lean hooks, w05-c5 lab_stat	bash_cat	m2_sum.md	1473	0
+w5	a71e1fd6:Verify w05-c1 and w05-c2	Read_whole	w05-c1.md	8187	1
+w5	a71e1fd6:Verify w05-c1 and w05-c2	Read_whole	w05-c2.md	2396	1
+w5	a71e1fd6:Verify w05-c1 and w05-c2	Read_whole	framing.md	8493	1
+w5	a71e1fd6:Verify w05-c1 and w05-c2	bash_cat	metrics.md	2866	0
+w5	a71e1fd6:Verify w05-c1 and w05-c2	bash_cat	c2_colgrep_path.md	7925	0
+w5	a71e1fd6:Verify w05-c1 and w05-c2	bash_cat	run.jsonl	482	0
+w5	a72b2c15:Wave 4 wall-clock anatomy	Read_whole	framing.md	8493	1
+w5	a72b2c15:Wave 4 wall-clock anatomy	Read_whole	wave-05.md	4854	1
+w5	a72b2c15:Wave 4 wall-clock anatomy	Read_whole	wave-04.md	21914	1
+w5	a72b2c15:Wave 4 wall-clock anatomy	Read_whole	wave4_gantt.png	0	0
+w5	a72b2c15:Wave 4 wall-clock anatomy	bash_cat	report_findings.md	2243	0
+w5	a72b2c15:Wave 4 wall-clock anatomy	Read_whole	wave4_gantt.png	0	0
+w5	a731f050:Verify w05-c3	Read_whole	w05-c3.md	13628	1
+w5	a731f050:Verify w05-c3	Read_whole	framing.md	8493	1
+w5	a731f050:Verify w05-c3	Read_whole	w05c3_pi_tools_cell.py	3691	0
+w5	a731f050:Verify w05-c3	bash_cat	w05c3_mechanics_probe.sh	1674	0
+w5	a81aa03a:Non-model overhead of the lab	Read_whole	framing.md	8493	1
+w5	a81aa03a:Non-model overhead of the lab	Read_whole	wave-05.md	4854	1
+w5	a81aa03a:Non-model overhead of the lab	Read_whole	w04-c5.md	32259	1
+w5	a81aa03a:Non-model overhead of the lab	Read_whole	hooks.json	2716	1
+w5	a81aa03a:Non-model overhead of the lab	Read_whole	berrnc0rw.output	87	0
+w5	a8372d73:Auto-mode per-call overhead	Read_whole	framing.md	8493	1
+w5	a8372d73:Auto-mode per-call overhead	Read_whole	00-findings_v0.md	11998	1
+w5	a8372d73:Auto-mode per-call overhead	Read_whole	timing_table.md	5641	1
+w5	a8372d73:Auto-mode per-call overhead	Read_whole	wave-05-explorer-w05-d.md	3518	1
+w5	a8372d73:Auto-mode per-call overhead	Read_whole	report_findings.md	1012	0
+w5	a9dadfbf:Verify w05-c6	Read_whole	w05-c6.md	8668	1
+w5	a9dadfbf:Verify w05-c6	Read_whole	framing.md	8493	1
+w5	a9dadfbf:Verify w05-c6	bash_cat	e6b_table_A_D.tsv	6615	0
+w5	a9dadfbf:Verify w05-c6	bash_cat	settings.json	714	0
+w5	a9dadfbf:Verify w05-c6	bash_cat	w05-c7.md	5384	0
+w5	aa07355e:Verify w05-c4	bash_cat	w05-c4.md	10039	1
+w5	aa07355e:Verify w05-c4	bash_cat	hooks.json	3834	0
+w5	aaaf392f:Worker orientation and waste anato	bash_cat	explorer.md	16360	1
+w5	adb10d59:w05-c1 waits, w05-c2 colgrep path	Read_whole	framing.md	8493	1
+w5	adb10d59:w05-c1 waits, w05-c2 colgrep path	Read_whole	wave-05.md	7974	1
+w5	adb10d59:w05-c1 waits, w05-c2 colgrep path	Read_whole	00-experiment_protocol_v0.md	8281	1
+w5	adb10d59:w05-c1 waits, w05-c2 colgrep path	Read_whole	00-findings_v0.md	17126	1
+w5	adb10d59:w05-c1 waits, w05-c2 colgrep path	Read_whole	wave-05-explorer-w05-c.md	5462	1
+w5	adb10d59:w05-c1 waits, w05-c2 colgrep path	Read_whole	wave-05-explorer-w05-a.md	4119	1
+w5	adb10d59:w05-c1 waits, w05-c2 colgrep path	bash_cat	budget_arms_export.sh	14962	0
+w6	a12a5117:Verify guard claims c7, c8, c10	Read_whole	framing.md	9193	1
+w6	a12a5117:Verify guard claims c7, c8, c10	bash_cat	01-experiment_protocol_e3_v2.md	25927	0
+w6	a12a5117:Verify guard claims c7, c8, c10	Read_whole	permission_mechanisms.md	2456	1
+w6	a12a5117:Verify guard claims c7, c8, c10	bash_cat	w06-c8.md	9451	1
+w6	a12a5117:Verify guard claims c7, c8, c10	bash_cat	e3v2_results_88ab4a5.md	16330	0
+w6	a12a5117:Verify guard claims c7, c8, c10	bash_cat	w06c10_e3v2_all.py	18259	0
+w6	a12a5117:Verify guard claims c7, c8, c10	bash_cat	w06c7_dollar_share.py	1250	0
+w6	a1789b5d:Verify w06-c2 dispose-as-land	Read_whole	framing.md	9193	1
+w6	a1789b5d:Verify w06-c2 dispose-as-land	Read_whole	w06-c2.md	2685	1
+w6	a1e75b37:Verify w06-c1 Desktop check	Read_whole	w06-c1.md	2595	1
+w6	a1e75b37:Verify w06-c1 Desktop check	Read_whole	framing.md	9193	1
+w6	a217651a:Verify w06-c4 stage 2	Read_whole	w06-c4.md	13364	1
+w6	a217651a:Verify w06-c4 stage 2	Read_whole	00-experiment_protocol_v1.md	2914	0
+w6	a77bca03:Verify guard v3 c11 and c12	bash_cat	w06-c12.md	12804	1
+w6	a77bca03:Verify guard v3 c11 and c12	bash_cat	01-experiment_protocol_e3_v3.md	3399	0
+w6	a7ee55f8:E2: lean hook starts	bash_cat	framing.md	13025	1
+w6	a7ee55f8:E2: lean hook starts	Read_whole	w04-c5.md	32259	1
+w6	a7ee55f8:E2: lean hook starts	bash_cat	w06c4_run.py	15220	0
+w6	a7ee55f8:E2: lean hook starts	bash_cat	budget.py	1347	1
+w6	a7ee55f8:E2: lean hook starts	bash_cat	*.txt	475	0
+w6	a7ee55f8:E2: lean hook starts	bash_cat	e2_all_pairs.txt	1824	0
+w6	a7ee55f8:E2: lean hook starts	bash_cat	run_hook.py	270	0
+w6	a9a26af6:Smoke-test the combined build	bash_cat	framing.md	4797	1
+w6	a9a26af6:Smoke-test the combined build	bash_cat	w06c9_run.py	8036	0
+w6	a9a26af6:Smoke-test the combined build	bash_cat	stream.jsonl	1643	0
+w6	aadf5d29:Verify w06-c3 E1 stage 1	Read_whole	w06-c3.md	13103	1
+w6	aadf5d29:Verify w06-c3 E1 stage 1	Read_whole	00-experiment_protocol_v0.md	6246	1
+w6	aadf5d29:Verify w06-c3 E1 stage 1	Read_whole	framing.md	9193	1
+w6	aadf5d29:Verify w06-c3 E1 stage 1	bash_cat	w06c3_run_all.py	7975	0
+w6	aadf5d29:Verify w06-c3 E1 stage 1	bash_cat	w06c3_build_plugin.py	7533	0
+w6	aadf5d29:Verify w06-c3 E1 stage 1	bash_cat	00-experiment_protocol_v1.md	2148	0
+w6	aadf5d29:Verify w06-c3 E1 stage 1	bash_cat	w06-c6.md	7585	0
+w6	ab1abd0c:Probe the PI's idle time and cost	bash_cat	framing.md	12420	1
+w6	ab1abd0c:Probe the PI's idle time and cost	bash_cat	00-findings_v0.md	2275	1
+w6	ab1abd0c:Probe the PI's idle time and cost	bash_cat	agent-a07b75ccb898903f6.meta.json	686	0
+w6	ab38dba1:E1 stage 1: resident hook server	Read_whole	00-experiment_protocol_v0.md	6246	1
+w6	ab38dba1:E1 stage 1: resident hook server	Read_whole	framing.md	9193	1
+w6	ab38dba1:E1 stage 1: resident hook server	bash_cat	hooks.json	6786	1
+w6	ab38dba1:E1 stage 1: resident hook server	Read_whole	00-findings_v0.md	19442	1
+w6	ab38dba1:E1 stage 1: resident hook server	Read_whole	budget.py	61427	1
+w6	ab38dba1:E1 stage 1: resident hook server	Read_whole	handback.py	19401	1
+w6	ab959ad9:Verify w06-c9 lean starts	bash_cat	02-experiment_protocol_e2_v0.md	8890	1
+w6	ab959ad9:Verify w06-c9 lean starts	bash_cat	hooks.json	8107	0
+w6	ab959ad9:Verify w06-c9 lean starts	bash_cat	w06c9_replay.py	14682	0
+w6	ab959ad9:Verify w06-c9 lean starts	bash_cat	w06c9_e2.sh	4345	0
+w6	ab959ad9:Verify w06-c9 lean starts	bash_cat	e1_seq.txt	455	0
+w6	ab959ad9:Verify w06-c9 lean starts	bash_cat	cmd_ok.txt	859	0
+w6	ab959ad9:Verify w06-c9 lean starts	bash_cat	e2_all_pairs.txt	2303	0
+w6	abba48b6:Probe hook spawn cost by language	bash_cat	framing.md	16493	1
+w6	abba48b6:Probe hook spawn cost by language	bash_cat	00-findings_v0.md	19642	1
+w6	abba48b6:Probe hook spawn cost by language	bash_cat	report_findings.md	1147	0
+w6	abe4253a:Permission hardening options in Cl	Read_whole	toolu_01WuHWXtmohsVno73Z7yDZVY.txt	89789	0
+w6	ad0411cd:E1 stage 2: port hooks to server	Read_whole	00-experiment_protocol_v0.md	6246	1
+w6	ad0411cd:E1 stage 2: port hooks to server	bash_cat	w06-c3.md	20324	1
+w6	ad0411cd:E1 stage 2: port hooks to server	bash_cat	budget.py	2225	1
+w6	ad0411cd:E1 stage 2: port hooks to server	Read_whole	blgpdcaey.txt	61427	0
+w6	ad0411cd:E1 stage 2: port hooks to server	bash_cat	handback.py	18260	1
+w6	ad0411cd:E1 stage 2: port hooks to server	bash_cat	w06c3_resident_server.py	7533	0
+w6	ad0411cd:E1 stage 2: port hooks to server	bash_cat	m1_field_list.md	7493	0
+w6	ad975b2e:E3: permission guard hook	bash_cat	01-experiment_protocol_e3_v0.md	7373	1
+w6	ad975b2e:E3: permission guard hook	Read_whole	01-experiment_protocol_e3_v1.md	3297	0
+w6	ae712c7b:Lean start for the guard	Read_whole	permission_guard.py	23059	1
+w6	ae712c7b:Lean start for the guard	bash_cat	w06-c13.md	10039	1
+w6	aece499f:Inventory plugin waste and SA1 cos	bash_cat	framing.md	16231	1
+w6	aece499f:Inventory plugin waste and SA1 cos	bash_cat	report_findings.md	3386	0
+w7	a025b8a8:explorer-w07-d lab code algorithms	bash_cat	lab_status.py	18668	1
+w7	a025b8a8:explorer-w07-d lab code algorithms	Read_whole	wave-07.md	5487	1
+w7	a025b8a8:explorer-w07-d lab code algorithms	bash_cat	w06c13_v7_diff_two_guards.py	6100	0
+w7	a025b8a8:explorer-w07-d lab code algorithms	bash_cat	report_findings.md	3124	1
+w7	a0873166:reproducer-w07-6 verify w07-c7	Read_whole	05-protocol_p6_cachettl_v0.md	2594	1
+w7	a0873166:reproducer-w07-6 verify w07-c7	bash_cat	tables_c1_c3.md	12093	0
+w7	a095514b:author-w07-4 P4 lab_status	Read_whole	03-protocol_p4_labstatus_v0.md	3326	1
+w7	a095514b:author-w07-4 P4 lab_status	Read_whole	lab_status.py	50005	1
+w7	a095514b:author-w07-4 P4 lab_status	Read_whole	framing.md	9193	1
+w7	a095514b:author-w07-4 P4 lab_status	Read_whole	00-findings_v0.md	18501	1
+w7	a095514b:author-w07-4 P4 lab_status	bash_cat	load_at_start.txt	3869	0
+w7	a16341e7:author-w07-6 P6 cache TTL	Read_whole	05-protocol_p6_cachettl_v0.md	2594	1
+w7	a16341e7:author-w07-6 P6 cache TTL	Read_whole	author.md	3961	1
+w7	a16341e7:author-w07-6 P6 cache TTL	Read_whole	ttl_breakeven.md	558	1
+w7	a16341e7:author-w07-6 P6 cache TTL	Read_whole	00-findings_v0.md	16425	1
+w7	a16341e7:author-w07-6 P6 cache TTL	bash_cat	w07g_run.py	7220	0
+w7	a189798b:author-w07-3 P3 exec form hooks	bash_cat	02-protocol_p3_exec_v0.md	19277	1
+w7	a189798b:author-w07-3 P3 exec form hooks	Read_whole	framing.md	9193	1
+w7	a189798b:author-w07-3 P3 exec form hooks	bash_cat	w06c9_measure.py	14068	0
+w7	a189798b:author-w07-3 P3 exec form hooks	bash_cat	w07c3_x4_table.py	2999	0
+w7	a1c4c74b:reproducer-w07-3 verify w07-c3	bash_cat	w07-c3.md	16575	1
+w7	a1c4c74b:reproducer-w07-3 verify w07-c3	Read_whole	02-protocol_p3_exec_v0.md	3965	1
+w7	a1c4c74b:reproducer-w07-3 verify w07-c3	bash_cat	w07c3_run_arm.py	11081	0
+w7	a23c4933:explorer-w07-a exec anatomy	bash_cat	framing.md	2282	1
+w7	a23c4933:explorer-w07-a exec anatomy	bash_cat	wave-07.md	25454	1
+w7	a23c4933:explorer-w07-a exec anatomy	bash_cat	00-findings_v0.md	24615	1
+w7	a23c4933:explorer-w07-a exec anatomy	bash_cat	spawn1.jsonl	1377	0
+w7	a23c4933:explorer-w07-a exec anatomy	bash_cat	report_findings.md	927	1
+w7	a2950d0c:explorer-w07-g split the Bash 1.3 	Read_whole	framing.md	9193	1
+w7	a2950d0c:explorer-w07-g split the Bash 1.3 	Read_whole	wave-07.md	9273	1
+w7	a2950d0c:explorer-w07-g split the Bash 1.3 	Read_whole	00-findings_v0.md	21097	1
+w7	a2950d0c:explorer-w07-g split the Bash 1.3 	bash_cat	budget_arms_export.sh	5021	0
+w7	a2950d0c:explorer-w07-g split the Bash 1.3 	bash_cat	w07g_parse.py	2772	0
+w7	a2950d0c:explorer-w07-g split the Bash 1.3 	bash_cat	table_serial.md	5269	0
+w7	a2950d0c:explorer-w07-g split the Bash 1.3 	bash_cat	report_findings.md	1240	1
+w7	a4a65563:explorer-w07-f managed setting, it	Read_whole	framing.md	9193	1
+w7	a4a65563:explorer-w07-f managed setting, it	Read_whole	wave-07.md	5487	1
+w7	a4a65563:explorer-w07-f managed setting, it	Read_whole	managed_setting_check.md	1674	1
+w7	a4a65563:explorer-w07-f managed setting, it	Read_whole	permission_mechanisms.md	2456	1
+w7	a4a65563:explorer-w07-f managed setting, it	Read_whole	user_words.py	23963	1
+w7	a4a65563:explorer-w07-f managed setting, it	bash_cat	report_findings.md	1251	1
+w7	a4bf5d14:author-w07-5 Rust guard pilot	Read_whole	04-protocol_p5_rustguard_v0.md	6516	1
+w7	a4bf5d14:author-w07-5 Rust guard pilot	Read_whole	framing.md	9193	1
+w7	a4bf5d14:author-w07-5 Rust guard pilot	Read_whole	wave-07.md	24436	1
+w7	a4bf5d14:author-w07-5 Rust guard pilot	Read_whole	00-findings_v0.md	16693	1
+w7	a4bf5d14:author-w07-5 Rust guard pilot	Read_whole	permission_guard.py	23361	1
+w7	a4bf5d14:author-w07-5 Rust guard pilot	bash_cat	hooks.json	16521	0
+w7	a4bf5d14:author-w07-5 Rust guard pilot	bash_cat	00-findings_v0.md	10039	1
+w7	a4bf5d14:author-w07-5 Rust guard pilot	bash_cat	SKILL.md	10483	1
+w7	a4bf5d14:author-w07-5 Rust guard pilot	bash_cat	w07c6_g2_live.py	5927	0
+w7	a4bf5d14:author-w07-5 Rust guard pilot	bash_cat	w07c6_g4_table.py	989	0
+w7	a64c3cce:reproducer-w07-7 combined smoke te	bash_cat	w06c14_combo_smoke_run.py	12055	1
+w7	a64c3cce:reproducer-w07-7 combined smoke te	bash_cat	w07c5_run.py	4486	0
+w7	a674132b:reproducer-w07-4 verify w07-c4	Read_whole	03-protocol_p4_labstatus_v0.md	3326	1
+w7	a94950bf:author-w07-2 P2 prompt origin	bash_cat	01-protocol_p2_origin_v0.md	3909	1
+w7	a94950bf:author-w07-2 P2 prompt origin	bash_cat	00-findings_v0.md	1926	1
+w7	a94950bf:author-w07-2 P2 prompt origin	bash_cat	w07f_prompt_origin.py	7900	1
+w7	a94950bf:author-w07-2 P2 prompt origin	bash_cat	user_words.py	2243	1
+w7	a94950bf:author-w07-2 P2 prompt origin	Read_whole	user_words.py	23963	1
+w7	a94950bf:author-w07-2 P2 prompt origin	bash_cat	01-protocol_p2_origin_v1.md	14529	0
+w7	a95788c7:explorer-w07-b agent loop timing	Read_whole	00-findings_v0.md	18890	1
+w7	a95788c7:explorer-w07-b agent loop timing	Read_whole	wave-07.md	5487	1
+w7	a9fea296:author-w07-1 P1 skill listing	Read_whole	00-protocol_p1_skill_v0.md	3180	1
+w7	a9fea296:author-w07-1 P1 skill listing	Read_whole	00-findings_v0.md	15742	1
+w7	a9fea296:author-w07-1 P1 skill listing	Read_whole	research-pi.md	2243	1
+w7	a9fea296:author-w07-1 P1 skill listing	bash_cat	runv.sh	8852	1
+w7	a9fea296:author-w07-1 P1 skill listing	bash_cat	SKILL.md	5829	1
+w7	abd83b10:reproducer-w07-2 verify w07-c2, c5	bash_cat	01-protocol_p2_origin_v0.md	3800	1
+w7	abd83b10:reproducer-w07-2 verify w07-c2, c5	bash_cat	01-protocol_p2_origin_v1.md	18948	0
+w7	abd83b10:reproducer-w07-2 verify w07-c2, c5	bash_cat	w07c5_run.py	11070	0
+w7	abeaf67d:Update the lab cost map for wave 7	Read_whole	lab_cost_map.html	27482	1
+w7	ae0dc939:explorer-w07-e context exclusions	bash_cat	framing.md	15738	1
+w7	ae0dc939:explorer-w07-e context exclusions	bash_cat	research-pi.md	3082	1
+w7	ae0dc939:explorer-w07-e context exclusions	bash_cat	w05c3_pi_tools_cell.py	3852	0
+w7	ae0dc939:explorer-w07-e context exclusions	bash_cat	report_findings.md	1089	1
+w7	aec16b62:reproducer-w07-1 verify w07-c1	bash_cat	cells_table.md	7651	1
+w7	aec4e23f:explorer-w07-c processless hooks	bash_cat	framing.md	26181	1
+w7	afe2c93c:reproducer-w07-5 verify Rust guard	bash_cat	install_binary.py	3147	1
+w7	afe2c93c:reproducer-w07-5 verify Rust guard	bash_cat	main.rs	2685	0
+w7	afe2c93c:reproducer-w07-5 verify Rust guard	bash_cat	crash_inputs.txt	31	0
+w7	afe2c93c:reproducer-w07-5 verify Rust guard	bash_cat	w07c6_session_pairs.py	6523	0

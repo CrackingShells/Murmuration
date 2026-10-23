@@ -1,0 +1,25 @@
+wave	agent	tool	paths_form	tool_s	elapsed_ms	index_updated	result_chars	hits	error
+w4	a6cf7547	search	relative	0.8			275	0	1
+w4	a6cf7547	search	absolute	4.6	2965	true	7623	5	0
+w4	a8e82971	search	relative	1.2			275	0	1
+w4	a8e82971	search	absolute	7.0	5105	true	8488	5	0
+w5	a07b75cc	search	relative	48.0	44324	true	5877	5	0
+w5	a28f9331	search	relative	1.8	872	false	6151	5	0
+w5	a71e1fd6	search	absolute	6.5	5156	true	6559	5	0
+w5	a71e1fd6	search	relative	1.9	1031	false	3081	2	0
+w5	a71e1fd6	search	absolute	4.1	1906	true	6544	4	0
+w5	aaaf392f	search	relative	2.8	820	false	6787	5	0
+w5	aaaf392f	search	absolute	7.6	6140	true	6006	5	0
+w5	adb10d59	search	relative	2.5	1066	false	7840	5	0
+w5	adb10d59	search	relative	3.3	1264	false	3081	2	0
+w5	adb10d59	search	absolute	4.0	2808	true	5163	3	0
+w6	a1e75b37	search	absolute	9.3	7186	true	6057	5	0
+w6	a9a26af6	search	absolute	5.5	4623	true	8005	5	0
+w6	aadf5d29	search	absolute	9.2	7980	true	1630	1	0
+w6	aece499f	search	absolute	7.6	6597	true	1170	1	0
+w7	a025b8a8	search	absolute	12.2	10819	true	8339	5	0
+w7	a0873166	search	absolute	2.8	1618	true	4478	5	0
+w7	a23c4933	search	absolute	1.7	822	false	5113	5	0
+w7	a4a65563	search	absolute	72.6	71751	true	7650	6	0
+w7	a674132b	search	absolute	4.6	3745	true	8554	5	0
+w7	ae0dc939	search	absolute	8.1	7112	true	3900	1	0

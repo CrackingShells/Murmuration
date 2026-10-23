@@ -1,0 +1,24 @@
+id	expected_file	query	answer_regex	pattern
+Q01	hooks/hooks.json	hooks.json SubagentHandback matcher PreToolUse handback.py	"matcher": "SubagentHandback"
+Q02	scripts/budget.py	usd_of price_row model request usage cache_read cache_creation USD	^def usd_of
+Q03	scripts/handback.py	gate SubagentHandback PreToolUse explorer report file has_report	^def gate
+Q04	scripts/user_words.py	is_genuine prompt lab command human_prompt user words	^def is_genuine
+Q05	scripts/lab_init.py	initialize lab_init question first_wave_note ensure_ignore build_index	^def initialize
+Q06	__design__/framing.md	framing Notation symbols agent name wave claim id puzzle id	^## Notation
+Q07	__statera__/wave-07.md	wave 7 Puzzle dispositions at close	^## Puzzle dispositions
+Q08	__pondus__/w04-c5.md	w04-c5 evidence budget.py budget_core.py handback_core.py lean hooks	^evidence:
+Q09	__pondus__/w06-c13.md	w06-c13 verdict OVERSTATED reproducer-w06-7 v3 guard reason	^reason:
+Q10	__pondus__/w06-c3.md	w06-c3 verdict ESCALATE reproducer-w06-3 resident server m4	^reason:
+Q11	__reports__/wave-06/explorer-w06-b/00-findings_v0.md	waste plugin SA1 Worst-fitting case explorer-w06-b	^## Worst-fitting case
+Q12	__reports__/wave-05/explorer-w05-d/00-findings_v0.md	Machine-side cost of operating the lab Not covered explorer-w05-d	^## Not covered
+Q13	__reports__/wave-07/01-protocol_p2_origin_v1.md	P2 v1 origin rule async hook Metrics and rule	^## Metrics and rule
+Q14	__reports__/wave-06/01-experiment_protocol_e3_v2.md	E3 v2 guard Metrics and rule pre-registered Wave 6	^## Metrics and rule
+Q15	__reports__/wave-05/author-w05-1/c2_colgrep_path.md	w05-c2 colgrep paths form one search per case Desktop worktree	^# w05-c2
+Q16	agents/explorer.md	Helper code __instrumenta__ named for what it does first line computes inputs outputs	^Helper code is a file
+Q17	__scrupuli__/wave-05-explorer-w05-d.md	S-w05-explorer-w05-d-3 puzzle	^## S-w05-explorer-w05-d-3
+Q18	__reports__/wave-07/explorer-w07-b/00-findings_v0.md	T4 session id c533f1c6 wave 4 transcripts	c533f1c6	c533f1c6
+Q19	skills/research-loop/templates/report_findings.md	report_findings template sections findings report	^#
+Q20	__design__/framing.md	framing Rules for the team	^## Rules for the team
+Q21	skills/research-loop/SKILL.md	research-loop SKILL verdicts reproducer SUPPORTED OVERSTATED UNSUPPORTED ESCALATE current label	^### Verdicts and the current label
+Q22	__statera__/wave-07.md	managed tier remote-settings.json MDM first-wins managed source	The managed file is probably not the managed tier
+Q23	scripts/budget.py	selftest budget.py synthetic events replay	^def selftest
