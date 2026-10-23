@@ -167,6 +167,20 @@ sections a worker needs and do not ask it to read this note.
   in-platform miss. Decision: the narrower wording is filed as w08-c4 (supersedes w08-c1),
   checked by the same verifier; I land on w08-c4 if it holds.
 
+**reproducer-w08-3 back: w08-c3 SUPPORTED (73febd1).**
+- Re-scored 17 runs partly blind (15 of 17 at 5/5; the two Q2 misses are the hook arm and the
+  no-brief arm), four fresh seed-5 runs all 5/5, compaction about USD 0.45 on Opus with its
+  post-write, the net model reproduced (USD 44.65 to 32.29 for R 2.5k to 45k). 200k and 250k are
+  equal within the model; 283,000 came from my brief [source: `__pondus__/w08-c3.md`].
+- Decision: the setting is the change, and it lives in the main checkout's
+  `.claude/settings.local.json`, which the guard protects and the framing leaves to the user. I
+  put it to the user at the close as a one-line edit, a window of 250,000 (compaction near 217k),
+  with the live check being the next wave's PI. The PreCompact hook stays out.
+- PI-practice claims filed: w08-c6 (hand-back length line, sections in briefs) and w08-c7 (times
+  from a tool, landing steps), on branch `w08-c6-pi-practice`; reproducer-w08-6 checks both.
+  author-w08-5 (w08-c5) fixes the start note's colgrep path and the start-line names in both
+  implementations, and measures what the second implementation costs a change.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -182,6 +196,9 @@ sections a worker needs and do not ask it to read this note.
 | explorer-w08-g | explorer | worker requests that could have been merged: USD, and one agent-file line tested | |
 | reproducer-w08-1 | reproducer | verify w08-c1 with its own replay set from wave-8 events, the fall-back, `localtime_r`, the title against e3/e4 | |
 | reproducer-w08-3 | reproducer | verify w08-c3: re-score blind, a fresh pair, the settings-location statement, transfer to a real PI | |
+| explorer-w08-h | explorer | the cost map after wave 8, with a lever ladder | |
+| author-w08-5 | author | w08-c5: the start note's colgrep path absolute, start-line names by identity, in Python and Rust; the cost of two implementations | |
+| reproducer-w08-6 | reproducer | verify the PI's w08-c6 and w08-c7 | |
 | author-w08-1 | author | w08-c1: `budget` and `handback` as subcommands of the Rust binary, replay-equal, with fallback (item 36) | |
 
 ## Claims of this wave
