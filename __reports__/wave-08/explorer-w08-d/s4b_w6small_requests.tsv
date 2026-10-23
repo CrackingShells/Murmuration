@@ -1,0 +1,2 @@
+k	start	end	model	ctx	cr	cw5	cw1	inp	out	usd_read	usd_cw5	usd_cw1	usd_inp	usd_out	rewrite_tok	rewrite_usd	rewrite_premium_usd	reset	gap_s	gap_cause	tools
+0	1792595523.593	1792595526.256	claude-opus-5-5	29797	0	0	29795	2	4	0.0	0.0	0.23836	8e-06	8e-05	0.0	0.0	0.0	0			|0|0

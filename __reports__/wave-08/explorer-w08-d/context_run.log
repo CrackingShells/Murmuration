@@ -1,0 +1,7 @@
+s1_w1-3: 393 requests, 1832 items, r=0.393 tokens/char, total USD 63.23 (requests, from usage), items sum 55.47 vs request non-output 55.47, resets [276]
+s2_w4: 114 requests, 515 items, r=0.435 tokens/char, total USD 10.50 (requests, from usage), items sum 8.35 vs request non-output 8.35, resets []
+s3_w5: 153 requests, 674 items, r=0.471 tokens/char, total USD 18.08 (requests, from usage), items sum 14.90 vs request non-output 14.90, resets []
+s4_w6: 232 requests, 968 items, r=0.467 tokens/char, total USD 23.08 (requests, from usage), items sum 18.58 vs request non-output 18.58, resets []
+s4b_w6small: 1 requests, 17 items, r=0.400 tokens/char, total USD 0.24 (requests, from usage), items sum 0.24 vs request non-output 0.24, resets []
+s5_w7: 201 requests, 943 items, r=0.344 tokens/char, total USD 27.14 (requests, from usage), items sum 22.19 vs request non-output 22.19, resets []
+s6_w8: 29 requests, 148 items, r=0.411 tokens/char, total USD 2.20 (requests, from usage), items sum 1.64 vs request non-output 1.64, resets []

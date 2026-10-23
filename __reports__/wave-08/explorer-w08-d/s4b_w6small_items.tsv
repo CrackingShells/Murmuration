@@ -1,0 +1,18 @@
+step	cat	tool	label	chars	tokens	n_reads	usd_write_fresh	usd_read	usd_rewrite
+0	injected: hook_success	attachment	hook_success	1148	459.2	0	0.003673	0.0	0.0
+0	injected: hook_success	attachment	hook_success	1118	447.2	0	0.003577	0.0	0.0
+0	injected: hook_additional_context	attachment	hook_additional_context	2108	843.2	0	0.006745	0.0	0.0
+0	user message	user	human	6	2.4	0	1.9e-05	0.0	0.0
+0	injected: environment	attachment	environment	284	113.6	0	0.000909	0.0	0.0
+0	injected: model	attachment	model	258	103.2	0	0.000826	0.0	0.0
+0	injected: deferred_tools_delta	attachment	deferred_tools_delta	11150	4460.0	0	0.035679	0.0	0.0
+0	injected: agent_listing_delta	attachment	agent_listing_delta	7050	2820.0	0	0.022559	0.0	0.0
+0	injected: mcp_instructions_delta	attachment	mcp_instructions_delta	7511	3004.4	0	0.024034	0.0	0.0
+0	injected: skill_listing	attachment	skill_listing	29956	11982.4	0	0.095856	0.0	0.0
+0	injected: auto_mode	attachment	auto_mode	134	53.6	0	0.000429	0.0	0.0
+0	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	19.6	0	0.000157	0.0	0.0
+0	injected: instructions	attachment	instructions	1895	758.0	0	0.006064	0.0	0.0
+0	injected: session_context	attachment	session_context	327	130.8	0	0.001046	0.0	0.0
+0	injected: date	attachment	date	38	15.2	0	0.000122	0.0	0.0
+0	injected: remote_session_change	attachment	remote_session_change	269	107.6	0	0.000861	0.0	0.0
+0	system prompt + tool defs + CLAUDE.md (not in transcript)	prefix	residual of request 0	0	4476.6	0	0.035812	0.0	0.0
