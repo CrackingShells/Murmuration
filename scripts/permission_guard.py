@@ -24,6 +24,9 @@ Denied (the user's yes is needed; the message says so):
       `user`: Edit, more of them in new_string than in old_string; Write over an existing file, more than the file holds now; a new file, any.
       This is the form that happened in wave 6 (the flag sat in a script run with `python3`, which no Bash text rule sees). Edits that leave the
       count alone (handback.py, this file) pass.
+Reading of the command (w08-c10): a command substitution (`$( )`, backticks) is cut out of the command and its inside is read as commands of their own, as before, AND the command is read once more with each substitution
+replaced by one word, so `claude -p "$(cat f)" <flag>` is seen with its flag on the `claude` command; the options of a wrapper that take a value (`env -u VAR`, `timeout -s SIG`, `ionice -c N`, `exec -a NAME`, ...) are
+skipped with their value, and the string of `env -S` is read as a command. Every reading that was made before is still made, so nothing that was denied is allowed by this.
 This is a guard for the direct and the casual cases. A script file that holds the flag, a variable built from pieces, base64, a symlink: not seen.
 Only a managed setting (`disableBypassPermissionsMode`) holds against those; a plugin cannot set it.
 
@@ -100,9 +103,51 @@ def words(seg):
         return seg.split()
 
 
-def program(toks):
-    """(index of the program word, assignments before it) after env assignments, wrappers (env, timeout N, nohup, ...) and shell keywords."""
-    i, assigns = 0, []
+# the options of each wrapper that take a value (short letters; long names, which getopt accepts as unique prefixes): the value is not the program
+VALUE_OPTS = {
+    "env": ("uCSPa", ("--unset", "--chdir", "--split-string", "--argv0")),
+    "exec": ("a", ()),
+    "timeout": ("ks", ("--kill-after", "--signal")),
+    "gtimeout": ("ks", ("--kill-after", "--signal")),
+    "nice": ("n", ("--adjustment",)),
+    "ionice": ("cnpPu", ("--class", "--classdata", "--pid", "--pgid", "--uid")),
+    "stdbuf": ("ioe", ("--input", "--output", "--error")),
+    "xargs": ("nILPsdaERS", ("--max-args", "--max-lines", "--max-procs", "--max-chars", "--delimiter", "--arg-file", "--eof")),
+    "caffeinate": ("tw", ()),
+    "sudo": ("ugCDhprtTUR", ("--user", "--group", "--close-from", "--chdir", "--host", "--prompt", "--role", "--type", "--command-timeout", "--other-user", "--chroot")),
+    "time": ("fo", ("--format", "--output")),
+}
+
+
+def _value_option(w, t):
+    """True when the option word t of wrapper w takes its value from the next word (not joined `-uX`, not `--opt=X`)."""
+    shorts, longs = VALUE_OPTS.get(w, ("", ()))
+    if t.startswith("--"):
+        return "=" not in t and len(t) > 2 and any(name.startswith(t) for name in longs)
+    for k, ch in enumerate(t[1:], 1):
+        if ch in shorts:
+            return k == len(t) - 1
+    return False
+
+
+def _env_string(t, toks, i):
+    """The string of `env -S` / `--split-string` in option word t (toks[i] is the word after t), or None."""
+    if t.startswith("--"):
+        name, eq, val = t.partition("=")
+        if len(name) > 2 and "--split-string".startswith(name):
+            return val if eq else (toks[i] if i < len(toks) else None)
+        return None
+    for k, ch in enumerate(t[1:], 1):
+        if ch in "uCSPa":
+            if ch != "S":
+                return None
+            return t[k + 1:] if k < len(t) - 1 else (toks[i] if i < len(toks) else None)
+    return None
+
+
+def _scan(toks):
+    """(index of the program word, assignments before it, the strings of `env -S`, whether a wrapper option's value was skipped) after env assignments, wrappers (env, timeout N, nohup, ...) and shell keywords."""
+    i, assigns, strings, skipped = 0, [], [], False
     while i < len(toks):
         t = toks[i]
         if t in KEYWORDS:
@@ -112,12 +157,27 @@ def program(toks):
         elif os.path.basename(t) in WRAP:
             w = os.path.basename(t); i += 1
             while i < len(toks) and (toks[i].startswith("-") or ASSIGN.match(toks[i]) or (w in ("timeout", "gtimeout", "nice") and re.fullmatch(r"[\d.]+[smhd]?", toks[i]))):
-                if ASSIGN.match(toks[i]):
-                    assigns.append(toks[i])
+                o = toks[i]
+                if ASSIGN.match(o):
+                    assigns.append(o)
                 i += 1
+                if w == "env" and o.startswith("-"):
+                    st = _env_string(o, toks, i)
+                    if st is not None:
+                        strings.append(st)
+                if o.startswith("-") and _value_option(w, o):
+                    if i < len(toks) and os.path.basename(toks[i]) != "claude":     # a value is never taken for the program, but `claude` is never taken for a value
+                        i += 1
+                        skipped = True
         else:
-            return i, assigns
-    return len(toks), assigns
+            return i, assigns, strings, skipped
+    return len(toks), assigns, strings, skipped
+
+
+def program(toks):
+    """(index of the program word, assignments before it) after env assignments, wrappers (env, timeout N, nohup, ...), their options (and the values of those) and shell keywords."""
+    k, assigns, _, _ = _scan(toks)
+    return k, assigns
 
 
 def flag_value(toks, flag):
@@ -131,27 +191,163 @@ def flag_value(toks, flag):
     return out
 
 
-def expand(cmd, depth=0):
-    """Every simple command (list of words) of cmd, descending into `sh -c '...'` and `eval '...'` strings (depth 3)."""
+class TooComplex(Exception):
+    """More characters scanned while masking command substitutions than WORK allows (a text scanned once costs its length; each nesting level scans its inside again): the command is denied rather than half checked."""
+
+
+WORK = 10000000
+
+
+def _heredoc(s, i):
+    """At s[i:i+2] == '<<' (not '<<<'): (delimiter, tabs stripped, index after the delimiter word), or None."""
+    n, j, strip = len(s), i + 2, False
+    if j < n and s[j] == "-":
+        strip, j = True, j + 1
+    while j < n and s[j] in " \t":
+        j += 1
+    if j >= n:
+        return None
+    if s[j] in "'\"":
+        k = s.find(s[j], j + 1)
+        return None if k < 0 else (s[j + 1:k], strip, k + 1)
+    if s[j] == "\\":
+        j += 1
+    k = j
+    while k < n and s[k] not in " \t\n;&|<>()`":
+        k += 1
+    return (s[j:k], strip, k) if k > j else None
+
+
+def _skip_bodies(s, i, pend):
+    """s[i] is a newline that ends a line with heredoc operators: the index just after the last delimiter line (or the end of s)."""
+    n, pos = len(s), i + 1
+    for delim, strip in pend:
+        while True:
+            e = s.find("\n", pos)
+            e = n if e < 0 else e
+            line = s[pos:e].lstrip("\t") if strip else s[pos:e]
+            pos = min(e + 1, n)
+            if line == delim or e == n:
+                break
+    return pos
+
+
+def _spans(s, quotes, work):
+    """(spans, open_quote): one pass over s with a stack of what is open (quotes, backticks, parentheses). A span (start, end, inside_start, inside_end) is a matched `$( )`, `<( )`, `>( )` or backtick pair, at any depth outside backticks.
+    Inside a `$( )`, a heredoc body is skipped as data when the pass looks for the closing `)`: a body with an unmatched parenthesis or quote does not hide the `)`. With quotes=False a quote character is an ordinary character.
+    open_quote: a quote was still open at the end."""
+    work[0] += len(s)
+    if work[0] > WORK:
+        raise TooComplex()
+    stack, spans, pend, nsub, i, n = [], [], [], 0, 0, len(s)
+    while i < n:
+        c = s[i]
+        top = stack[-1][0] if stack else None
+        if top == "S":
+            if c == "'":
+                stack.pop()
+        elif c == "\\":
+            i += 1
+        elif top == "B":
+            if c == "`":
+                f = stack.pop()
+                spans.append((f[1], i + 1, f[1] + 1, i))
+        elif top == "D":
+            if c == '"':
+                stack.pop()
+            elif s.startswith("$(", i):
+                stack.append(("P", i, 1))
+                nsub += 1
+                i += 1
+            elif c == "`":
+                stack.append(("B", i, 0))
+        elif quotes and c in "'\"":
+            stack.append(("S" if c == "'" else "D", i, 0))
+        elif c == "`":
+            stack.append(("B", i, 0))
+        elif nsub and c == "<" and s.startswith("<<", i) and not s.startswith("<<<", i) and _heredoc(s, i):
+            d, strip, j = _heredoc(s, i)
+            pend.append((d, strip))
+            i = j - 1
+        elif nsub and c == "\n" and pend:
+            i = _skip_bodies(s, i, pend) - 1
+            pend = []
+        elif (c == "$" or c in "<>") and s.startswith("(", i + 1):
+            stack.append(("P", i, 1))
+            nsub += 1
+            i += 1
+        elif c == "(":
+            stack.append(("P", i, 0))
+        elif c == ")" and stack:
+            f = stack.pop()
+            if f[2]:
+                nsub -= 1
+                spans.append((f[1], i + 1, f[1] + 2, i))
+        i += 1
+    return spans, any(f[0] in "SD" for f in stack)
+
+
+def _mask(s, work):
+    """(s with every outermost matched substitution replaced by one word, the insides that were replaced). The word is `claude` when the inside names claude (`$(which claude) --flag`), else `SUBST`. Single quotes and backslashes are respected
+    (as the plain splitter does, a quote left open makes the pass run again with quotes as ordinary characters); an unclosed substitution stays as it is."""
+    spans, open_quote = _spans(s, True, work)
+    if open_quote:
+        spans, _ = _spans(s, False, work)
+    spans.sort(key=lambda t: (t[0], -t[1]))
+    out, inners, prev = [], [], 0
+    for st, en, a, b in spans:
+        if st < prev:
+            continue
+        inner = s[a:b]
+        out.append(s[prev:st])
+        out.append("claude" if NAMES_CLAUDE.search(inner) else "SUBST")
+        inners.append(inner)
+        prev = en
+    out.append(s[prev:])
+    return "".join(out), inners
+
+
+def substitution_texts(cmd, work):
+    """The texts to split in addition to cmd itself: cmd and the inside of each of its substitutions (nested ones too), each with its own substitutions replaced by one word. Empty when cmd has none."""
+    if "$(" not in cmd and "`" not in cmd and "<(" not in cmd and ">(" not in cmd:
+        return []
+    texts, queue = [], [cmd]
+    while queue:
+        m, inners = _mask(queue.pop(0), work)
+        texts.append(m)
+        queue += inners
+    return texts if len(texts) > 1 or texts[0] != cmd else []
+
+
+def expand(cmd, depth=0, work=None):
+    """Every simple command (list of words) of cmd, descending into `sh -c '...'`, `eval '...'` and `env -S '...'` strings (depth 3). The simple commands of the plain splitter come first, in order; then those of
+    the command and of each substitution inside it with the substitutions replaced by one word (so that `claude -p "$(cat f)" --flag` is also seen as `claude -p "SUBST" --flag`). Raises TooComplex."""
+    work = [0] if work is None else work
     out = []
-    for seg in split_segments(cmd):
+    segs = split_segments(cmd)
+    for text in substitution_texts(cmd, work):
+        segs += split_segments(text)
+    for seg in segs:
         toks = words(seg)
         out.append((seg, toks))
-        k, _ = program(toks)
+        k, _, strings, _ = _scan(toks)
+        if depth < 3:
+            for st in strings:
+                out += expand(" ".join([st] + toks[k:]), depth + 1, work)
         if depth < 3 and k < len(toks):
             prog = os.path.basename(toks[k])
             if prog in SHELLS and "-c" in toks[k + 1:]:
                 j = toks.index("-c", k + 1)
                 if j + 1 < len(toks):
-                    out += expand(toks[j + 1], depth + 1)
+                    out += expand(toks[j + 1], depth + 1, work)
             elif prog == "eval":
-                out += expand(" ".join(toks[k + 1:]), depth + 1)
+                out += expand(" ".join(toks[k + 1:]), depth + 1, work)
     return out
 
 
 def inert(toks):
-    k, _ = program(toks)
-    if k >= len(toks):
+    k, _, _, skipped = _scan(toks)
+    if skipped or k >= len(toks):         # a wrapper option's value was skipped: the program may be one the old reading took for `inert`, so it counts as not inert
         return False
     prog = os.path.basename(toks[k])
     rest = toks[k + 1:]
@@ -182,7 +378,7 @@ NAMES_CLAUDE = re.compile(r"(?<![\w.\-])claude(?![\w.\-/])|claude_agent_sdk")
 
 def g1(cmd, segs):
     """G1 (v3): the bypass words, only when the same command text (heredoc bodies included) also names `claude` (the CLI) or `claude_agent_sdk`."""
-    if not NAMES_CLAUDE.search(cmd):
+    if not NAMES_CLAUDE.search(cmd) and not any(NAMES_CLAUDE.search(sg) for sg, _ in segs):      # also the strings of `env -S<word>` and `sh -c`, where `-Sclaude` glues the word to the option
         return None
     bad = [s for s, toks in segs if BYPASS.search(s) or BYPASS.search(" ".join(toks))]
     hit = [s for s, toks in segs if (BYPASS.search(s) or BYPASS.search(" ".join(toks))) and not inert(toks)]
@@ -301,7 +497,10 @@ def decide(event):
     tool, inp, cwd = event.get("tool_name"), event.get("tool_input") or {}, event.get("cwd") or ""
     if tool == "Bash":
         cmd = inp.get("command") or ""
-        segs = expand(cmd)
+        try:
+            segs = expand(cmd)
+        except TooComplex:
+            return "G?", "the command has too many command substitutions to be checked"
         return g1(cmd, segs) or g2(cmd, segs) or g3_bash(cmd, segs, cwd)
     if tool in ("Write", "Edit", "MultiEdit", "NotebookEdit"):
         return g3_edit(inp, cwd) or g4_script(inp, cwd)
@@ -353,6 +552,9 @@ def selftest():
         check("attack " + c["id"], decide(ev(c)))
     for c in load("ordinary"):
         check("ordinary " + c["id"], not decide(ev(c)))
+    holes = json.load(open(os.path.join(HERE, "guard_selftest_holes.json")))        # w08-c10: the forms that hid a flag after a substitution or behind an option of a wrapper, and controls
+    for c in holes:
+        check("hole-form %s (%s)" % (c["id"], "deny" if c["deny"] else "allow"), bool(decide(dict(tool_name="Bash", tool_input={"command": c["command"]}, cwd=T))) == c["deny"])
     ev_pass = [c["id"] for c in load("evasions") if decide(ev(c))]
     mention_denied = [c["id"] for c in load("mention") if decide(ev(c))]
     small = [
