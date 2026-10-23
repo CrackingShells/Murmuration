@@ -181,6 +181,16 @@ sections a worker needs and do not ask it to read this note.
   author-w08-5 (w08-c5) fixes the start note's colgrep path and the start-line names in both
   implementations, and measures what the second implementation costs a change.
 
+**reproducer-w08-6 back: w08-c6 SUPPORTED, w08-c7 OVERSTATED, w08-c8 SUPPORTED; both landed.**
+- Spend at 01:31: this checkout USD 39.13 (lower bound, open), headless 21.22 exact, so about 59 of
+  the 150 for this wave [source: `scripts/lab_status.py --spend`, both projects].
+- The cost side is now mapped down to its floor: the worker side's levers are all under 2–7%
+  (scripts' output, documents, rtk, batching, effort, the hand-back gate), the PI's compaction is
+  24–32% of PI spend and the user's to set. Two probes on the other half of the user's purpose,
+  a team that works alone and stays trustworthy: explorer-w08-i audits what verification bought
+  across waves 1–8 (two verified things were wrong this wave); explorer-w08-j freezes a labelled
+  replay set of guard decisions (item 26), now that the Rust guard decides every Bash call.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -199,6 +209,8 @@ sections a worker needs and do not ask it to read this note.
 | explorer-w08-h | explorer | the cost map after wave 8, with a lever ladder | |
 | author-w08-5 | author | w08-c5: the start note's colgrep path absolute, start-line names by identity, in Python and Rust; the cost of two implementations | |
 | reproducer-w08-6 | reproducer | verify the PI's w08-c6 and w08-c7 | |
+| explorer-w08-i | explorer | what verification bought: verdicts, later corrections of standing claims, cost per catch, waves 1–8 | |
+| explorer-w08-j | explorer | a frozen labelled replay set of guard decisions; false denials and allows by rule (item 26) | |
 | author-w08-1 | author | w08-c1: `budget` and `handback` as subcommands of the Rust binary, replay-equal, with fallback (item 36) | |
 
 ## Claims of this wave
