@@ -391,11 +391,12 @@ def tol_equal(a, b, name):
             for k in x:
                 if k == "t" and isinstance(x[k], str):
                     continue
-                if k == "which" and x[k] != y[k] and "t_frac" in x and "frac" in x and abs(x["t_frac"] - x["frac"]) <= 0.001:
+                if k == "which" and x[k] != y[k] and "t_frac" in x and "frac" in x and abs(x["t_frac"] - x["frac"]) <= 1.0 / (60.0 * max(float(x.get("T") or 0), 1e-9)) + 1e-3:
                     continue   # the two fractions are within the clock's noise of each other: which one decided is not fixed
                 if k in TIMEY:
                     if isinstance(x[k], (int, float)) and isinstance(y[k], (int, float)):
-                        if abs(x[k] - y[k]) > TIMEY[k]:   # the two implementations run back to back on the real clock
+                        tol = TIMEY[k] if k != "t_frac" else 1.0 / (60.0 * max(float(x.get("T") or 0), 1e-9)) + 1e-4   # one second of clock noise, as a fraction of T minutes
+                        if abs(x[k] - y[k]) > tol:   # the two implementations run back to back on the real clock
                             return False
                     elif x[k] != y[k]:
                         return False
@@ -420,7 +421,7 @@ def compare(scn, ra, rb, realclock):
             if oa[2] != ob[2]:
                 diffs.append((scn.name, i, "stderr", oa[2][:200], ob[2][:200]))
         names = set(sa) | set(sb)
-        norm = (lambda n: re.sub(r"^(.*pending/)\d+\.\d+-", r"\1", n)) if realclock else (lambda n: n)
+        norm = (lambda n: re.sub(r"-(py|rs)-lab-", "-X-lab-", re.sub(r"^(.*pending/)\d+\.\d+-", r"\1", n))) if realclock else (lambda n: n)
         sa2, sb2 = {norm(n): v for n, v in sa.items()}, {norm(n): v for n, v in sb.items()}
         for n in sorted(set(sa2) | set(sb2)):
             if n not in sa2 or n not in sb2:
