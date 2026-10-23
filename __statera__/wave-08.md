@@ -193,6 +193,19 @@ sections a worker needs and do not ask it to read this note.
   across waves 1–8 (two verified things were wrong this wave); explorer-w08-j freezes a labelled
   replay set of guard decisions (item 26), now that the Rust guard decides every Bash call.
 
+**explorer-w08-h and explorer-w08-i back.**
+- The cost map after wave 8 exists, with a 16-lever ladder
+  (`__reports__/wave-08/explorer-w08-h/lab_cost_map.html`, 465c229); it is refreshed at the close.
+- What verification bought, waves 1–8: 38 of 76 verified claims SUPPORTED first time, 25
+  OVERSTATED, 13 ESCALATE (8 of them overstated on evidence alone); verification about 8% of
+  spend, USD 0.45 a claim against 1.42 for an author [source: explorer-w08-i's report,
+  MEASURED/ESTIMATE]. So a third of claims arrive stated above their evidence, and the verifier is
+  what brings them down: it pays. What it missed: `budget.py --selftest` failed at two merges
+  (wave 7's 5e16a53 too, recorded then, no step added); w08-c8's landing step answers it.
+- The decision record is a gap: 9 claims the PI decided still read "escalated: PI decides", and
+  11 stand on PI restatements no verifier re-read. author-w08-9 (w08-c9) makes `lab_status.py`
+  read a PI decision section; I append the sections once it stands.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -213,6 +226,7 @@ sections a worker needs and do not ask it to read this note.
 | reproducer-w08-6 | reproducer | verify the PI's w08-c6 and w08-c7 | |
 | explorer-w08-i | explorer | what verification bought: verdicts, later corrections of standing claims, cost per catch, waves 1–8 | |
 | explorer-w08-j | explorer | a frozen labelled replay set of guard decisions; false denials and allows by rule (item 26) | |
+| author-w08-9 | author | w08-c9: a PI decision section in claim files, read by `lab_status.py` | |
 | author-w08-1 | author | w08-c1: `budget` and `handback` as subcommands of the Rust binary, replay-equal, with fallback (item 36) | |
 
 ## Claims of this wave
