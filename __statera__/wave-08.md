@@ -217,6 +217,21 @@ sections a worker needs and do not ask it to read this note.
   out. A guardrail's false denials cost a worker a detour (17 live in three waves); a false allow
   costs the user's permission layer.
 
+**w08-c5 and w08-c9 back from their verifiers (`date` 02:23).**
+- w08-c9 ESCALATE: the title was false for w02-c7 and w02-c8 (their notes say "below MEASURED:
+  restate"), the ref check matched substrings, and a restatement over OVERSTATED could show the
+  refused label; fixed at d24f3c0 and re-verified. Decision: restated as w08-c11 (supersedes
+  w08-c9; 9 escalations; fenced headings and missing supersede targets fixed at e815afd), back to
+  reproducer-w08-9. Of the 9 decided escalations, only 4 have a wave-note line naming the label
+  (w01-c2, w01-c8, w02-c10, w05-c1): I append sections for those 4 only; w03-c2, w04-c4, w04-c7,
+  w04-c10 and w07-c7 stay "escalated: PI decides" and are listed in the synthesis.
+- w08-c5 OVERSTATED: the absolute path is right everywhere; the name binding is right for one or
+  two same-type dispatches and wrong in 4 of 58 orders with three, once as a confirmed wrong name.
+  The author narrowed the head twice during verification (item 5 again). Decision: no landing of
+  a binding that can be confidently wrong; author-w08-5 fixes it in both implementations and files
+  w08-c12 (supersedes w08-c5), proven by exhaustive orders for 1–4 dispatches.
+- Spend: this checkout 57.10 (lower bound), headless 21.27: about USD 77 of the 150 by 02:23.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
