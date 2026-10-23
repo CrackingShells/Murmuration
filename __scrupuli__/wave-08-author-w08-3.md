@@ -19,7 +19,7 @@ A PreCompact hook in a subagent cannot tell it is in one (no `agent_id`, no `age
 refs: `__reports__/wave-08/author-w08-3/subagent_cell_compacted.json` (`payload_keys`, `payload_has_agent_id`); `__reports__/wave-08/explorer-w08-e/tables.md` section 4 (resume_brief in a compacted subagent).
 
 ## S-w08-author-w08-3-6
-Prose detail survived in every compacted run of mine (Q5, the largest gap of the first report: correct in 17 of 17 runs; in the summary in 14 of 17 counted summaries), whereas explorer-w08-e found 0 of 10 for the fifth word of a line. I believe the difference is that my PI had been asked to comment on that report and kept its headline number, so my scenario is not a test of what the summarizer drops. The question the PI needs ("what did that report say about X?") for a report it did not comment on is still untested.
+Prose detail survived in every compacted run of mine (Q5, the largest gap of the first report: correct in 17 of 17 runs; in the summary in 11 of the 13 compacted runs, the other two re-read it), whereas explorer-w08-e found 0 of 10 for the fifth word of a line. I believe the difference is that my PI had been asked to comment on that report and kept its headline number, so my scenario is not a test of what the summarizer drops. The question the PI needs ("what did that report say about X?") for a report it did not comment on is still untested.
 refs: `__reports__/wave-08/author-w08-3/runs_scored.tsv` columns `q5`, `s_q5`; `__reports__/wave-08/explorer-w08-e/tables.md` section 5.
 
 ## S-w08-author-w08-3-7
