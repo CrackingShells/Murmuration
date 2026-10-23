@@ -25,6 +25,13 @@ What it reads
                            (case, bold and a trailing period tolerated; extra text warns). A verifier that
                            revises in place adds a new `verdict:` line and a `changed_by:` line below
                            the earlier one; with no `changed_by:` the script warns.
+                           A PI decision is a section `## decision: research-pi` with one `decision:` line
+                           (`stands at <LABEL>`, `restated at <LABEL>`, `withdrawn`, `superseded by <id>`), a `ref:`
+                           line (`__statera__/wave-NN.md:LINE`, a wave note that names the claim) and, for `restated at`,
+                           a `statement:` line. It runs to the next level-2 heading. It sets the state shown
+                           (`<LABEL> (PI decided)`) unless it would give a label no verifier's evidence carries or is
+                           malformed: then it warns and changes nothing. A verdict section written after it is read afresh.
+                           A claim without such a section is read exactly as before.
     ~/.claude/projects/    Claude Code's transcripts. The sessions of the lab are those whose first
                            `cwd` is the project directory or below it, or is in another git worktree of
                            the same repository (needs `git`; without it only the project directory).
@@ -37,7 +44,8 @@ What it reads
 
 Claim states shown: `unverified <LABEL>`, `cited (not verified)`, `<LABEL>`, `<LABEL> (gap)`, `below <LABEL>: restate`,
 `<LABEL> (may restate higher)`, `withdrawn`, `escalated: PI decides`, `disputed: PI decides`,
-`superseded by <id>`. Lines starting with `!` are warnings about files the script could not
+`superseded by <id>`; after a PI decision section `<LABEL> (PI decided)`, `<LABEL> (PI decided: restated, not re-verified)`,
+`withdrawn (PI decided)`, `superseded by <id> (PI decided)`. Lines starting with `!` are warnings about files the script could not
 read as specified.
 """
 import collections
@@ -259,6 +267,20 @@ LABEL_RE, SUPERSEDES_RE, VERDICT_RE = field_re("label"), field_re("supersedes"),
 CHANGED_BY_RE = field_re("changed_by")
 VERDICT_HEADING_RE = re.compile(r"^##(?!#)\s+(?:\*\*|__)?verdict\s*(?:\*\*|__)?\s*:\s*(.*?)\s*$", re.I)
 TITLE_RE = re.compile(r"^#(?!#)\s+(\S+?)\s*:\s*(.*?)\s*$")
+DECISION_HEADING_RE = re.compile(r"^##(?!#)\s+(?:\*\*|__)?decision\s*(?:\*\*|__)?\s*:\s*(.*?)\s*$", re.I)
+DECISION_RE, STATEMENT_RE = field_re("decision"), field_re("statement")
+# `ref:` is read raw: field_re would eat the leading `__` of `__statera__/...` as bold markup.
+REF_RE = re.compile(r"^\s*(?:[-*>]\s+)?(?:\*\*)?ref\s*(?:\*\*)?\s*:\s*(.*)$", re.I)
+# The labels a PI decision may name, strongest first (CITED claims are not verified, so nothing is decided on them).
+STRENGTH = ["THEOREM", "CHECKED", "MEASURED", "ESTIMATE", "CONJECTURE"]
+DECISION_WRITER = "research-pi"
+DECISION_OUTCOMES = (  # (kind, pattern); the text is matched whole, case and a trailing period ignored
+    ("stands", re.compile(r"stands at (%s)" % "|".join(STRENGTH), re.I)),
+    ("restated", re.compile(r"restated at (%s)" % "|".join(STRENGTH), re.I)),
+    ("withdrawn", re.compile(r"withdrawn", re.I)),
+    ("superseded", re.compile(r"superseded by (w\d+-c\d+)", re.I)),
+)
+WAVE_REF_RE = re.compile(r"((?:[\w.\-]+/)*wave-\d+\.md)(?::(\d+))?")
 
 
 def clean_value(value):
@@ -266,23 +288,35 @@ def clean_value(value):
 
 
 def parse_claim(text):
-    """Split a claim file into {id, statement, label, supersedes, sections}.
+    """Split a claim file into {id, statement, label, supersedes, sections, decisions}.
 
     The head is everything before the first level-2 heading. A verifier section starts at a
     `## verdict: <name>` heading and runs to the next one: sections is [(name, [lines])].
+    A decision section starts at a `## decision: <name>` heading and runs to the next level-2 heading
+    of any kind: decisions is [{name, lines, after}], `after` being the number of verifier sections
+    above it, so a verdict section with an index >= `after` was written after the decision.
     """
-    out = {"id": "", "statement": "", "label": "", "supersedes": "", "sections": []}
-    in_head, section = True, None
+    out = {"id": "", "statement": "", "label": "", "supersedes": "", "sections": [], "decisions": []}
+    in_head, section, decision = True, None, None
     for line in text.splitlines():
-        heading = VERDICT_HEADING_RE.match(line)
+        heading, decided = VERDICT_HEADING_RE.match(line), DECISION_HEADING_RE.match(line)
         if heading:
-            in_head = False
+            in_head, decision = False, None
             section = (re.sub(r"[*_`]", "", heading.group(1)).strip() or "verifier", [])
             out["sections"].append(section)
+        elif decided:
+            in_head, section = False, None
+            decision = {"name": re.sub(r"[*_`]", "", decided.group(1)).strip(), "lines": [],
+                        "after": len(out["sections"])}
+            out["decisions"].append(decision)
         elif re.match(r"^##(?!#)\s", line):
             in_head = False
-            if section is not None:
+            if decision is not None:
+                decision = None  # any other level-2 heading ends a decision section
+            elif section is not None:
                 section[1].append(line)
+        elif decision is not None:
+            decision["lines"].append(line)
         elif section is not None:
             section[1].append(line)
         elif in_head:
@@ -336,13 +370,139 @@ def claim_state(label, standing):
     }[weakest]
 
 
-def current_label(text):
+def head_strength(label):
+    """Position of the label's first word on the STRENGTH line (0 is the strongest), or None."""
+    match = re.match(r"[*`_]*([A-Za-z]+)", label or "")
+    word = match.group(1).upper() if match else ""
+    return STRENGTH.index(word) if word in STRENGTH else None
+
+
+def latest(entries, start=0, stop=None):
+    """{verifier: verdict} from the entries (index, name, verdict) with start <= index < stop; the latest wins."""
+    return {name: verdict for i, name, verdict in entries if i >= start and (stop is None or i < stop)}
+
+
+def check_ref(ref, cid, root):
+    """(ok, notes) for a decision's `ref:` line: a wave note, and a line number that names the claim.
+
+    ok is False when the ref cannot be read as `<path>/wave-NN.md[:LINE]`, or (with a root) the file is missing,
+    the line is past the end of the file, or the file never names the claim. A line that does not name the claim
+    is a note only, because line numbers drift when a wave note is edited.
+    """
+    match = WAVE_REF_RE.search(ref or "")
+    if not match:
+        return False, ["`ref:` '%s' is not a wave note path such as __statera__/wave-04.md:223" % clean_value(ref or "")]
+    if root is None:
+        return True, []
+    path = os.path.join(root, match.group(1))
+    if not os.path.isfile(path):
+        return False, ["`ref:` %s is not a file under the project" % match.group(1)]
+    with open(path, encoding="utf-8", errors="replace") as fh:
+        lines = fh.read().splitlines()
+    if not any(cid in l for l in lines):
+        return False, ["`ref:` %s never names %s" % (match.group(1), cid)]
+    if match.group(2):
+        n = int(match.group(2))
+        if not 1 <= n <= len(lines):
+            return False, ["`ref:` line %d is past the end of %s (%d lines)" % (n, match.group(1), len(lines))]
+        if cid not in lines[n - 1]:
+            return True, ["`ref:` %s:%d does not name %s (line numbers drift when a wave note is edited)"
+                          % (match.group(1), n, cid)]
+    return True, []
+
+
+def read_decision(dec, label, entries, cid, root):
+    """Read one decision section: (decision or None, warnings). A decision that is None is not applied.
+
+    The writer must be `research-pi`; there is one `decision:` line naming an outcome (`stands at <LABEL>`,
+    `restated at <LABEL>`, `withdrawn`, `superseded by <id>`) and a `ref:` line pointing into a wave note;
+    `restated at` also needs a `statement:` line with the wording decided. The cap: the PI cannot give a claim
+    a label that no verifier's evidence carries. Judged on the verdicts standing above the decision:
+      - with none of ESCALATE, OVERSTATED, LABEL TOO STRONG above it (no verdict asks for a decision), or with
+        UNSUPPORTED or WRONG above it (the evidence carries nothing), only `withdrawn` or `superseded by` is applied;
+      - with OVERSTATED or LABEL TOO STRONG, `stands at` must be strictly below the author's label (the
+        verifier says that label is too strong), and `restated at` may be at most the author's label, and shows
+        that no verifier has read the restated wording;
+      - with an ESCALATE and no OVERSTATED, LABEL TOO STRONG or UNSUPPORTED, WRONG, either form may be at most the
+        author's label.
+    A label stronger than the author's is never applied. Nothing is shown as a bare label: the state keeps
+    `(PI decided ...)` until a verifier writes a later verdict, which is then read afresh.
+    """
+    where = "decision section '%s'" % dec["name"]
+    if dec["name"].lower() != DECISION_WRITER:
+        return None, ["%s is not by %s; not counted (only the PI writes a decision)" % (where, DECISION_WRITER)]
+    lines = dec["lines"]
+    found = [m.group(1) for m in map(DECISION_RE.match, lines) if m]
+    if len(found) != 1:
+        return None, ["%s has %d `decision:` lines (one is needed); not counted" % (where, len(found))]
+    text = clean_value(found[0])
+    kind, arg = None, None
+    for name, rx in DECISION_OUTCOMES:
+        m = rx.fullmatch(text)
+        if m:
+            kind = name
+            arg = m.group(1).upper() if name in ("stands", "restated") else m.group(1).lower() if m.groups() else None
+    if kind is None:
+        return None, ["%s: '%s' is not an outcome (stands at <LABEL>, restated at <LABEL>, withdrawn, "
+                      "superseded by <id>); not counted" % (where, text)]
+    refs = [m.group(1) for m in map(REF_RE.match, lines) if m]
+    if not refs:
+        return None, ["%s has no `ref:` line (the wave note line that records the decision); not counted" % where]
+    ok, notes = check_ref(refs[-1], cid, root)
+    ref = WAVE_REF_RE.search(refs[-1])
+    warnings = ["%s: %s" % (where, n) for n in notes]
+    if not ok:
+        return None, warnings + ["%s not counted" % where]
+    statements = [clean_value(m.group(1)) for m in map(STATEMENT_RE.match, lines) if m]
+    if kind == "restated" and not any(statements):
+        return None, warnings + ["%s: `restated at` needs a `statement:` line with the wording decided; not counted" % where]
+    out = {"kind": kind, "label": arg if kind in ("stands", "restated") else None,
+           "target": arg if kind == "superseded" else None, "ref": ref.group(0), "after": dec["after"],
+           "text": text, "statement": statements[0] if statements else ""}
+    if kind in ("stands", "restated"):
+        families = {VERDICTS[v] for v in latest(entries, 0, dec["after"]).values()}
+        head, said = head_strength(label), STRENGTH.index(arg)
+        why = None
+        if head is None:
+            why = "the author's label '%s' is not on the line %s" % (label, " > ".join(STRENGTH))
+        elif "withdraw" in families:
+            why = "a verifier's evidence carries nothing (UNSUPPORTED or WRONG stands above it)"
+        elif not families & {"escalate", "lower"}:
+            why = "no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)"
+        elif said < head:
+            why = "it raises the label from %s to %s, above what any verifier's evidence carries" % (label.split()[0], arg)
+        elif "lower" in families and kind == "stands" and said == head:
+            why = ("a verifier says %s is too strong; use `restated at` (the head carries the verifier's wording) "
+                   "or a label below it" % arg)
+        if why:
+            return None, warnings + ["%s: `%s` not applied: %s" % (where, text, why)]
+    return out, warnings
+
+
+def decision_state(decision, label, live):
+    """The state shown for a claim with an applied decision and the verdicts written after it ({verifier: verdict})."""
+    kind = decision["kind"]
+    if live:  # a later verdict counts, read afresh at the label the decision left
+        return claim_state(decision["label"] or label, live)
+    if kind == "stands":
+        return "%s (PI decided)" % decision["label"]
+    if kind == "restated":
+        return "%s (PI decided: restated, not re-verified)" % decision["label"]
+    if kind == "withdrawn":
+        return "withdrawn (PI decided)"
+    return "superseded by %s (PI decided)" % decision["target"]
+
+
+def current_label(text, root=None):
     """The state of one claim, from the text of its `__pondus__/<id>.md` file (not counting supersession).
 
     Returns a dict: id, label (the author's), supersedes, current (one of: `unverified <LABEL>`,
     `<LABEL>`, `<LABEL> (gap)`, `below <LABEL>: restate`, `<LABEL> (may restate higher)`,
-    `withdrawn`, `escalated: PI decides`, `disputed: PI decides`), verdicts ({verifier: verdict},
-    each verifier's latest recognised one) and warnings (a list of strings).
+    `withdrawn`, `escalated: PI decides`, `disputed: PI decides`, or, after a PI decision section,
+    `<LABEL> (PI decided)`, `<LABEL> (PI decided: restated, not re-verified)`, `withdrawn (PI decided)`,
+    `superseded by <id> (PI decided)`), verdicts ({verifier: verdict}, each verifier's latest recognised
+    one), decision (the decision applied, or None) and warnings (a list of strings). With `root` a
+    decision's `ref:` is checked against the wave note under it; without, only its form is.
     """
     claim = parse_claim(text)
     label = claim["label"]
@@ -352,8 +512,8 @@ def current_label(text):
         label = "(no label)"
     elif label.split()[0].upper().strip("*`") not in LABELS:
         warnings.append("label '%s' is not one of %s" % (label, ", ".join(LABELS)))
-    standing = {}
-    for name, lines in claim["sections"]:
+    standing, entries = {}, []
+    for index, (name, lines) in enumerate(claim["sections"]):
         hits = [(i, m.group(1)) for i, m in enumerate(map(VERDICT_RE.match, lines)) if m]
         if not hits:
             warnings.append("verdict section '%s' has no `verdict:` line" % name)
@@ -376,15 +536,29 @@ def current_label(text):
                 warnings.append("verdict section '%s': %s is not in the %s's vocabulary (%s); counted anyway"
                                 % (name, verdict, role, ", ".join(allowed)))
         standing[name] = verdict  # a later section by the same verifier replaces an earlier one
+        entries.append((index, name, verdict))
+    state, applied = claim_state(label, standing), None
+    cid = claim["id"]
+    for dec in claim["decisions"]:  # the last decision that can be applied stands
+        decision, notes = read_decision(dec, label, entries, cid, root)
+        warnings += notes
+        if decision:
+            applied = decision
+    if applied:
+        live = latest(entries, applied["after"])
+        state = decision_state(applied, label, live)
+        if live and applied["kind"] in ("withdrawn", "superseded"):
+            warnings.append("a verdict was written after the PI's `%s` decision; it is read afresh, so a later "
+                            "decision is needed to close the claim again" % applied["text"])
     return {"id": claim["id"], "statement": claim["statement"], "label": label,
             "supersedes": claim["supersedes"], "verdicts": standing, "warnings": warnings,
-            "current": claim_state(label, standing)}
+            "decision": applied, "current": state}
 
 
 def read_claims(root):
     claims = []
     for path in sorted(glob.glob(os.path.join(root, "__pondus__", "*.md")), key=natural):
-        info = current_label(read(path))
+        info = current_label(read(path), root)
         info["file"] = os.path.relpath(path, root)
         info["id"] = info["id"] or os.path.splitext(os.path.basename(path))[0]
         claims.append(info)
@@ -395,6 +569,9 @@ def read_claims(root):
             c["current"] = "superseded by %s" % ", ".join(c["superseded_by"])
         if c["supersedes"] and c["supersedes"] not in by_id:
             c["warnings"].append("supersedes %s, which is not a claim file" % c["supersedes"])
+        target = (c.get("decision") or {}).get("target")
+        if target and target not in by_id:
+            c["warnings"].append("the PI decided `superseded by %s`, which is not a claim file" % target)
     return claims
 
 
@@ -409,6 +586,8 @@ def report_claims(root):
         line = "- %s  %s" % (c["id"], c["current"])
         if c["verdicts"] and not c["superseded_by"]:
             line += "  <- " + "; ".join("%s: %s" % kv for kv in sorted(c["verdicts"].items()))
+        if c["decision"]:
+            line += "  [PI decision: %s]" % c["decision"]["ref"]
         out.append(line)
         out += ["    ! " + w for w in c["warnings"]]
     return out
@@ -1036,6 +1215,159 @@ def selftest():
         assert "- w01-c1  unverified MEASURED\n" in text
         assert "## Claims (%d, 2 disputed, 2 warnings)" % len(by_id) in text, text
         assert "    ! verdict section 'v1': '???' is not a recognised verdict" in text, text
+
+        # ---- PI decisions: a `## decision: research-pi` section after the verdicts
+        droot = os.path.join(tmp, "decided")
+        _write(os.path.join(droot, "__statera__", "wave-01.md"),
+               "# wave 1\n- PI decision on the ESCALATE of w01-c1\n- note without an id\n- w01-c3 and w01-c5 are also named\n")
+
+        def decided(label, verdicts, *tail, cid="w01-c1"):
+            """A claim: head, verdict sections, then the given tail sections (text blocks) in order."""
+            body = claim(cid, label, *verdicts)
+            return body + "".join(tail)
+
+        def dsec(outcome, ref="__statera__/wave-01.md:2", who="research-pi", statement=None, extra=""):
+            out = "\n## decision: %s\n\ndecision: %s\n" % (who, outcome)
+            if ref:
+                out += "ref: %s\n" % ref
+            if statement:
+                out += "statement: %s\n" % statement
+            return out + extra
+
+        def vsec(who, verdict):
+            return "\n## verdict: %s\n\n### independent result\nx\n\nverdict: %s\nreason: r\n" % (who, verdict)
+
+        esc = [("reproducer-w01-1", "ESCALATE")]
+        # Absent: no decision section leaves every state, verdict list and warning as it was.
+        for name, text, state in cases:
+            got = current_label(text, droot)
+            assert got["current"] == state and got["decision"] is None and got["warnings"] == [], (name, got)
+            assert current_label(text)["current"] == state
+        # Present: the state shows the decision; the verdicts stay listed.
+        got = current_label(decided("MEASURED", esc, dsec("stands at MEASURED")), droot)
+        assert got["current"] == "MEASURED (PI decided)" and got["warnings"] == [], got
+        assert got["verdicts"] == {"reproducer-w01-1": "ESCALATE"} and got["decision"]["ref"] == "__statera__/wave-01.md:2", got
+        got = current_label(decided("MEASURED", esc, dsec("Restated at measured.", statement="the verifier's figures")), droot)
+        assert got["current"] == "MEASURED (PI decided: restated, not re-verified)" and got["warnings"] == [], got
+        got = current_label(decided("MEASURED", esc, dsec("stands at CONJECTURE")), droot)
+        assert got["current"] == "CONJECTURE (PI decided)", got  # a decision may lower
+        got = current_label(decided("MEASURED", esc, dsec("withdrawn")), droot)
+        assert got["current"] == "withdrawn (PI decided)", got
+        got = current_label(decided("MEASURED", esc, dsec("superseded by w01-c30")), droot)
+        assert got["current"] == "superseded by w01-c30 (PI decided)", got
+        got = current_label(decided("MEASURED (c1-c3, haiku); c4 is an ESTIMATE", esc, dsec("stands at MEASURED")), droot)
+        assert got["current"] == "MEASURED (PI decided)" and got["warnings"] == [], got
+        # The section name and the field spellings are read like the verdict section's.
+        got = current_label(decided("MEASURED", esc, dsec("stands at MEASURED").replace("## decision: research-pi",
+                                                                                          "## **Decision**: Research-PI")), droot)
+        assert got["current"] == "MEASURED (PI decided)", got
+        # Decision lines are not verdict lines, and text after a decision is not read as a verdict.
+        got = current_label(decided("MEASURED", esc, dsec("stands at MEASURED", extra="verdict: UNSUPPORTED\n")), droot)
+        assert got["current"] == "MEASURED (PI decided)" and got["verdicts"] == {"reproducer-w01-1": "ESCALATE"}, got
+        got = current_label(decided("MEASURED", esc, dsec("stands at MEASURED"), "\n## notes\n\nverdict: UNSUPPORTED\n"), droot)
+        assert got["current"] == "MEASURED (PI decided)" and got["warnings"] == [], got
+        # Malformed: the decision is not applied, the state is today's, and the warning says why.
+        bad = [
+            (dsec("stands at MEASURED", ref=None), "has no `ref:` line"),
+            (dsec("stands at MEASURED", ref="notes.md"), "is not a wave note path"),
+            (dsec("stands at MEASURED", ref="__statera__/wave-07.md:2"), "is not a file under the project"),
+            (dsec("stands at MEASURED", ref="__statera__/wave-01.md:99"), "is past the end of"),
+            (dsec("stands at MEASURED", ref="__statera__/wave-01.md").replace("w01-c1", "w01-c1"), None),
+            (dsec("stands at MEASURED", who="author-w01-1"), "is not by research-pi"),
+            (dsec("stands at MEASURED", who="reproducer-w01-1"), "is not by research-pi"),
+            (dsec("stands at MEASURE"), "is not an outcome"),
+            (dsec("stands at CITED"), "is not an outcome"),
+            (dsec("it stands"), "is not an outcome"),
+            (dsec("stands at MEASURED, mostly"), "is not an outcome"),
+            (dsec("restated at MEASURED"), "needs a `statement:` line"),
+            ("\n## decision: research-pi\n\nref: __statera__/wave-01.md:2\n", "has 0 `decision:` lines"),
+            (dsec("stands at MEASURED", extra="decision: withdrawn\n"), "has 2 `decision:` lines"),
+        ]
+        for tail, why in bad:
+            got = current_label(decided("MEASURED", esc, tail), droot)
+            if why is None:  # a ref without a line number is fine when the file names the claim
+                assert got["current"] == "MEASURED (PI decided)" and got["warnings"] == [], got
+                continue
+            assert got["current"] == "escalated: PI decides" and got["decision"] is None, (tail, got)
+            assert any(why in w for w in got["warnings"]), (why, got["warnings"])
+        got = current_label(decided("MEASURED", esc, dsec("stands at MEASURED", ref="__statera__/wave-01.md:2"),
+                                    cid="w01-c9"), droot)
+        assert got["current"] == "escalated: PI decides" and any("never names w01-c9" in w for w in got["warnings"]), got
+        # A ref line that does not name the claim only warns (line numbers drift); the file does name it.
+        got = current_label(decided("MEASURED", esc, dsec("stands at MEASURED", ref="__statera__/wave-01.md:3")), droot)
+        assert got["current"] == "MEASURED (PI decided)" and "does not name w01-c1" in got["warnings"][0], got
+        # Without a root only the form of the ref is checked.
+        assert current_label(decided("MEASURED", esc, dsec("stands at MEASURED", ref="__statera__/wave-77.md:5")))["current"] \
+            == "MEASURED (PI decided)"
+        # The cap: a decision cannot give a label that no verifier's evidence carries.
+        def attempt(label, verdicts, outcome, statement=None):
+            return current_label(decided(label, verdicts, dsec(outcome, statement=statement)), droot)
+        got = attempt("MEASURED", esc, "stands at CHECKED")
+        assert got["current"] == "escalated: PI decides" and "raises the label from MEASURED to CHECKED" in got["warnings"][0], got
+        got = attempt("MEASURED", esc, "restated at THEOREM", "s")
+        assert got["current"] == "escalated: PI decides" and "raises the label" in got["warnings"][0], got
+        got = attempt("MEASURED", [], "stands at MEASURED")  # unverified: nothing to decide on
+        assert got["current"] == "unverified MEASURED" and "no verdict above it asks the PI" in got["warnings"][0], got
+        got = attempt("CITED", [], "stands at MEASURED")
+        assert got["current"] == "cited (not verified)" and "is not on the line" in got["warnings"][0], got
+        got = attempt("MEASURED", [("v", "SUPPORTED")], "stands at MEASURED")  # verified: nothing to decide
+        assert got["current"] == "MEASURED" and "no verdict above it asks the PI" in got["warnings"][0], got
+        got = attempt("MEASURED", [("v", "SUPPORTED")], "restated at MEASURED", "s")
+        assert got["current"] == "MEASURED" and "no verdict above it asks the PI" in got["warnings"][0], got
+        got = attempt("CONJECTURE", [("v", "LABEL TOO WEAK")], "stands at MEASURED")  # the author raises, not the PI
+        assert got["current"] == "CONJECTURE (may restate higher)" and "no verdict above it asks the PI" in got["warnings"][0], got
+        got = attempt("MEASURED", [("v", "OVERSTATED")], "stands at MEASURED")  # the verifier says it is too strong
+        assert got["current"] == "below MEASURED: restate" and "too strong" in got["warnings"][0], got
+        got = attempt("MEASURED", [("v", "OVERSTATED")], "stands at ESTIMATE")
+        assert got["current"] == "ESTIMATE (PI decided)", got
+        got = attempt("MEASURED", [("v", "OVERSTATED")], "restated at MEASURED", "the verifier's wording")
+        assert got["current"] == "MEASURED (PI decided: restated, not re-verified)" and got["warnings"] == [], got
+        got = attempt("MEASURED", [("v1", "ESCALATE"), ("v2", "OVERSTATED")], "stands at MEASURED")
+        assert got["current"] == "escalated: PI decides" and "too strong" in got["warnings"][0], got
+        got = attempt("MEASURED", [("v", "UNSUPPORTED")], "stands at MEASURED")
+        assert got["current"] == "withdrawn" and "carries nothing" in got["warnings"][0], got
+        got = attempt("MEASURED", [("v1", "SUPPORTED"), ("v2", "UNSUPPORTED")], "restated at MEASURED", "s")
+        assert got["current"] == "disputed: PI decides" and "carries nothing" in got["warnings"][0], got
+        got = attempt("MEASURED", [("v1", "SUPPORTED"), ("v2", "OVERSTATED")], "restated at MEASURED", "s")
+        assert got["current"] == "MEASURED (PI decided: restated, not re-verified)", got
+        got = attempt("MEASURED", [("v", "UNSUPPORTED")], "withdrawn")
+        assert got["current"] == "withdrawn (PI decided)", got
+        got = attempt("MEASURED", [("v", "SUPPORTED")], "withdrawn")  # the PI may withdraw what stood
+        assert got["current"] == "withdrawn (PI decided)", got
+        # A verdict after a decision still counts: it is read afresh, at the label the decision left.
+        base = decided("MEASURED", esc, dsec("restated at MEASURED", statement="s"))
+        for later, state in (("SUPPORTED", "MEASURED"), ("OVERSTATED", "below MEASURED: restate"),
+                             ("ESCALATE", "escalated: PI decides"), ("UNSUPPORTED", "withdrawn")):
+            for who in ("reproducer-w01-2", "reproducer-w01-1"):  # a new verifier, and the escalating one revising
+                got = current_label(base + vsec(who, later), droot)
+                assert got["current"] == state and got["warnings"] == [], (who, later, got)
+                assert got["verdicts"][who] == later
+        got = current_label(base + vsec("proof-adversary-w01-1", "LABEL TOO WEAK"), droot)
+        assert got["current"] == "MEASURED (may restate higher)" and got["warnings"] == [], got
+        got = current_label(decided("MEASURED", esc, dsec("stands at CONJECTURE"), vsec("reproducer-w01-2", "SUPPORTED")), droot)
+        assert got["current"] == "CONJECTURE", got  # read at the label the decision left
+        got = current_label(decided("MEASURED", esc, dsec("withdrawn"), vsec("reproducer-w01-2", "SUPPORTED")), droot)
+        assert got["current"] == "MEASURED" and "written after the PI's `withdrawn` decision" in got["warnings"][0], got
+        # A verdict that stands above the decision is decided by it; a second decision after a new verdict replaces it.
+        twice = base + vsec("reproducer-w01-2", "OVERSTATED") + dsec("restated at ESTIMATE", statement="t")
+        got = current_label(twice, droot)
+        assert got["current"] == "ESTIMATE (PI decided: restated, not re-verified)", got
+        got = current_label(base + dsec("stands at THEOREM"), droot)  # a later decision that cannot apply leaves the earlier
+        assert got["current"] == "MEASURED (PI decided: restated, not re-verified)" and "raises the label" in got["warnings"][0], got
+        # Reports: the decision shows with its ref; supersession by a claim file still wins; every other line is as it was.
+        pondus_d = os.path.join(droot, "__pondus__")
+        _write(os.path.join(pondus_d, "w01-c1.md"), decided("MEASURED", esc, dsec("stands at MEASURED")))
+        _write(os.path.join(pondus_d, "w01-c2.md"), decided("MEASURED", esc, cid="w01-c2"))
+        _write(os.path.join(pondus_d, "w01-c3.md"), decided("MEASURED", esc, dsec("superseded by w01-c4", ref="__statera__/wave-01.md:4"),
+                                                            cid="w01-c3"))
+        _write(os.path.join(pondus_d, "w01-c4.md"), claim("w01-c4", "CHECKED", head="supersedes: w01-c3\n"))
+        _write(os.path.join(pondus_d, "w01-c5.md"), decided("MEASURED", esc, dsec("superseded by w01-c9", ref="__statera__/wave-01.md:4"),
+                                                            cid="w01-c5").replace("w01-c2", "w01-c2"))
+        text = report(droot)
+        assert "- w01-c1  MEASURED (PI decided)  <- reproducer-w01-1: ESCALATE  [PI decision: __statera__/wave-01.md:2]\n" in text, text
+        assert "- w01-c2  escalated: PI decides  <- reproducer-w01-1: ESCALATE\n" in text, text
+        assert "- w01-c3  superseded by w01-c4  [PI decision:" in text or "- w01-c3  superseded by w01-c4\n" in text, text
+        assert "the PI decided `superseded by w01-c9`, which is not a claim file" in text, text
 
         # ---- Spend. Records name their session and cwd; the folder is the cwd with every non-alphanumeric a dash.
         real = os.path.realpath(root)

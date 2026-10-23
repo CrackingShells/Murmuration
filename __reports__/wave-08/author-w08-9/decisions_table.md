@@ -1,0 +1,13 @@
+| claim | state today | state with the proposed section | wave-note line | text of that line (first 110 characters) | proposed `decision:` |
+|:--|:--|:--|:--|:--|:--|
+| w01-c2 | escalated: PI decides | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-01.md:278` | - **PI decision on the ESCALATE of w01-c2** (reproducer-w01-2): the narrowed title is accepted as | `restated at MEASURED` |
+| w01-c8 | escalated: PI decides | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-01.md:263` | - **PI decision on the ESCALATE of w01-c8** (reproducer-w01-8): the substance reproduced; only the | `restated at MEASURED` |
+| w02-c10 | escalated: PI decides | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-02.md:224` | - **PI decision on the ESCALATE of w02-c10** (reproducer-w02-10): the narrowed statement is | `restated at MEASURED` |
+| w03-c2 | escalated: PI decides | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-03.md:136` | - **PI decision on the ESCALATE of w03-c2** (reproducer-w03-2, which the author accepted): | `restated at MEASURED` |
+| w04-c4 | escalated: PI decides | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-04.md:223` | - **PI decision on the ESCALATE of w04-c4** (reproducer-w04-4, 10:2x): the head is restated in place | `restated at MEASURED` |
+| w04-c7 | escalated: PI decides | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-04.md:236` | - **PI decision on the ESCALATE of w04-c7** (reproducer-w04-7): the head is restated in place to | `restated at MEASURED` |
+| w04-c10 | escalated: PI decides | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-04.md:245` | - **PI decision on the ESCALATE of w04-c10** (reproducer-w04-10): title and scope restated in place | `restated at MEASURED` |
+| w05-c1 | escalated: PI decides | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-05.md:138` | - **PI decision on w05-c1's ESCALATE:** | `restated at MEASURED` |
+| w07-c7 | escalated: PI decides | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-07.md:363` | - **PI decision: w07-c7 stands as the verifier restates it, and P6 lands by its registered rule** | `restated at MEASURED` |
+| w02-c7 | below MEASURED: restate | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-02.md:230` | - **PI decision on w02-c7 and w02-c8** (both OVERSTATED, PI-authored): each head is restated to | `restated at MEASURED` |
+| w02-c8 | below MEASURED: restate | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-02.md:230` | - **PI decision on w02-c7 and w02-c8** (both OVERSTATED, PI-authored): each head is restated to | `restated at MEASURED` |

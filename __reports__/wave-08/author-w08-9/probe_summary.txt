@@ -1,0 +1,8 @@
+blanket `stands at <author's label>` appended to 77 real claims (probe copy, not the lab)
+applied: 13  w01-c2 w01-c4 w01-c5 w01-c8 w02-c10 w03-c2 w04-c4 w04-c7 w04-c10 w05-c1 w06-c3 w07-c7 w08-c1
+refused: 64
+raise probe: `stands at CHECKED` (above MEASURED) on the 11 claims with a proposed section: refused 11, state unchanged, warning 'raises the label from MEASURED to CHECKED'
+  state today <LABEL>                            applied 0 of 39
+  state today below <LABEL>                      applied 0 of 24
+  state today escalated: PI decides              applied 13 of 13
+  state today unverified <LABEL>                 applied 0 of 1

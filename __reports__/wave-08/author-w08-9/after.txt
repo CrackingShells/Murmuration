@@ -1,0 +1,85 @@
+## Claims (77, 0 disputed, 6 warnings)
+- w01-c1  superseded by w01-c14
+- w01-c2  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w01-2: ESCALATE  [PI decision: __statera__/wave-01.md:278]
+- w01-c3  MEASURED  <- reproducer-w01-3: SUPPORTED
+- w01-c4  superseded by w01-c10, w01-c9
+- w01-c5  superseded by w01-c8
+- w01-c6  below CONJECTURE: restate  <- reproducer-w01-6: OVERSTATED
+- w01-c7  below CONJECTURE: restate  <- reproducer-w01-7: OVERSTATED
+- w01-c8  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w01-8: ESCALATE  [PI decision: __statera__/wave-01.md:263]
+- w01-c9  superseded by w02-c2
+- w01-c10  below CONJECTURE: restate  <- reproducer-w01-10: OVERSTATED
+- w01-c11  superseded by w01-c12
+- w01-c12  superseded by w01-c13
+- w01-c13  CONJECTURE  <- reproducer-w01-11: SUPPORTED
+- w01-c14  MEASURED  <- reproducer-w01-1: SUPPORTED
+- w02-c1  MEASURED  <- reproducer-w02-1: SUPPORTED
+- w02-c2  MEASURED  <- reproducer-w02-2: SUPPORTED
+- w02-c3  superseded by w02-c5
+- w02-c4  below MEASURED: restate  <- reproducer-w02-4: OVERSTATED
+- w02-c5  MEASURED  <- reproducer-w02-5: SUPPORTED
+- w02-c6  MEASURED  <- reproducer-w02-6: SUPPORTED
+- w02-c7  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w02-7: OVERSTATED  [PI decision: __statera__/wave-02.md:230]
+- w02-c8  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w02-8: OVERSTATED  [PI decision: __statera__/wave-02.md:230]
+- w02-c9  MEASURED  <- reproducer-w02-9: SUPPORTED
+- w02-c10  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w02-10: ESCALATE  [PI decision: __statera__/wave-02.md:224]
+- w03-c1  MEASURED  <- reproducer-w03-1: SUPPORTED
+- w03-c2  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w03-2: ESCALATE  [PI decision: __statera__/wave-03.md:136]
+- w04-c1  MEASURED  <- reproducer-w04-1: SUPPORTED
+    ! supersedes w01-c10 (the rule only; the Desktop conjecture of w01-c10 stays with that claim), which is not a claim file
+- w04-c2  superseded by w04-c8
+- w04-c3  superseded by w04-c9
+- w04-c4  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w04-4: ESCALATE  [PI decision: __statera__/wave-04.md:223]
+- w04-c5  MEASURED  <- reproducer-w04-5: SUPPORTED
+- w04-c6  MEASURED  <- reproducer-w04-6: SUPPORTED
+- w04-c7  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w04-7: ESCALATE  [PI decision: __statera__/wave-04.md:236]
+- w04-c8  MEASURED  <- reproducer-w04-8: SUPPORTED
+- w04-c9  superseded by w04-c11
+- w04-c10  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w04-10: ESCALATE  [PI decision: __statera__/wave-04.md:245]
+- w04-c11  MEASURED  <- reproducer-w04-9: SUPPORTED
+- w04-c12  MEASURED  <- reproducer-w04-8: SUPPORTED
+- w05-c1  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w05-1: ESCALATE  [PI decision: __statera__/wave-05.md:138]
+- w05-c2  CHECKED  <- reproducer-w05-1: SUPPORTED
+- w05-c3  superseded by w05-c6
+- w05-c4  MEASURED  <- reproducer-w05-4: SUPPORTED
+- w05-c5  MEASURED  <- reproducer-w05-5: SUPPORTED
+- w05-c6  superseded by w05-c7
+- w05-c7  MEASURED  <- reproducer-w05-6: SUPPORTED
+- w05-c8  CHECKED  <- reproducer-w05-8: SUPPORTED
+- w05-c9  superseded by w05-c10
+- w05-c10  CONJECTURE  <- reproducer-w05-8: SUPPORTED
+- w06-c1  MEASURED  <- reproducer-w06-1: SUPPORTED
+- w06-c2  below ESTIMATE: restate  <- reproducer-w06-2: OVERSTATED
+- w06-c3  superseded by w06-c5
+- w06-c4  below MEASURED: restate  <- reproducer-w06-4: OVERSTATED
+    ! verdict section 'reproducer-w06-4' has 2 `verdict:` lines and no `changed_by:` line below the earlier one; the last counts
+- w06-c5  superseded by w06-c6
+- w06-c6  MEASURED  <- reproducer-w06-3: SUPPORTED
+- w06-c7  MEASURED  <- reproducer-w06-5: SUPPORTED
+- w06-c8  MEASURED  <- reproducer-w06-5: SUPPORTED
+- w06-c9  MEASURED  <- reproducer-w06-6: SUPPORTED; reproducer-w06-6 (revision: the hardened build 80c8323): SUPPORTED
+    ! verdict section 'reproducer-w06-6' has 2 `verdict:` lines and no `changed_by:` line below the earlier one; the last counts
+- w06-c10  superseded by w06-c12
+- w06-c11  superseded by w06-c13
+- w06-c12  MEASURED  <- reproducer-w06-7: SUPPORTED
+- w06-c13  MEASURED  <- reproducer-w06-7: SUPPORTED
+- w06-c14  MEASURED  <- reproducer-w06-8: SUPPORTED
+- w07-c1  below MEASURED: restate  <- reproducer-w07-1: OVERSTATED
+- w07-c2  MEASURED  <- reproducer-w07-2: SUPPORTED
+- w07-c3  MEASURED  <- reproducer-w07-3: SUPPORTED
+- w07-c4  MEASURED  <- reproducer-w07-4: SUPPORTED
+- w07-c5  MEASURED  <- reproducer-w07-2: SUPPORTED
+    ! supersedes none, which is not a claim file
+- w07-c6  MEASURED  <- reproducer-w07-5: SUPPORTED
+- w07-c7  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w07-6: ESCALATE  [PI decision: __statera__/wave-07.md:363]
+- w07-c8  below MEASURED: restate  <- reproducer-w07-5: OVERSTATED
+- w08-c1  superseded by w08-c4
+- w08-c2  unverified MEASURED (the mechanism, live and offline); ESTIMATE (every USD figure and the break-even shares)
+- w08-c3  MEASURED  <- reproducer-w08-3: SUPPORTED
+- w08-c4  MEASURED  <- reproducer-w08-1: SUPPORTED
+- w08-c6  MEASURED  <- reproducer-w08-6: SUPPORTED
+    ! verdict section 'reproducer-w08-6' has 2 `verdict:` lines and no `changed_by:` line below the earlier one; the last counts
+- w08-c7  superseded by w08-c8
+    ! verdict section 'reproducer-w08-6' has 3 `verdict:` lines and no `changed_by:` line below the earlier one; the last counts
+- w08-c8  CONJECTURE  <- reproducer-w08-6: SUPPORTED
+
