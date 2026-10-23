@@ -196,6 +196,17 @@ sections a worker needs and do not ask it to read this note.
 
 ## Notes
 
+- **w08-c4 landed on the local `main` at 1e0a81d** (not pushed), after reproducer-w08-1's
+  SUPPORTED. The first merge (15d4c94) failed `budget.py --selftest` (S-w08-research-pi-2);
+  author-w08-1 fixed the selftest only (d0ef374, manifest rebuilt for `budget.py`'s hash), merged
+  at the second merge; all selftests pass on the lab branch and on main (budget, handback,
+  lab_status, guard: 50 attacks denied, 28 ordinary allowed). Before merging to main I installed
+  the new binary into this session's data folder (`~/.claude/plugins/data/murmuration-murmuration-local`,
+  byte-equal to `bin/aarch64-apple-darwin/murmuration`; the old one kept at
+  `/private/tmp/murmuration-w08/research-pi/murmuration.before-w08c4`). Smoke run from main's tree
+  (`--plugin-dir` main, haiku, one explorer): start from the brief (B 0.5, T 3), the explorer
+  report check denied once (item 8, as before), end with frac 0.13; the installer put the new
+  binary, not the launcher, in `murmuration-inline` [source: `/private/tmp/murmuration-w08/research-pi/smoke/lab/__statera__/harness.jsonl`, `.verified`].
 - 00:16, five same-second dispatches: names right in every `start` line (item 6's swap did not
   recur); the four explorers' start lines say `B 3.0, T 20.0, source unknown`, because their
   briefs' budgets differed and `budget.py` will not guess which pending record is whose; the
