@@ -213,6 +213,11 @@ sections a worker needs and do not ask it to read this note.
 
 ## Notes
 
+- **w08-c6 and w08-c8 landed on the local `main` at 16b05a8** (not pushed): the brief items on
+  sections and the hand-back limit, the skill's report-file line, and in `waves.md` the clock rule
+  and the landing steps. w08-c7 was OVERSTATED (its title bundled two steps no failure supported)
+  and is superseded by w08-c8 (SUPPORTED); the install step now cites the old binary's exit 2 on
+  `budget` (`__reports__/wave-08/research-pi/old_binary_budget.txt`). Selftests pass on both trees.
 - **w08-c4 landed on the local `main` at 1e0a81d** (not pushed), after reproducer-w08-1's
   SUPPORTED. The first merge (15d4c94) failed `budget.py --selftest` (S-w08-research-pi-2);
   author-w08-1 fixed the selftest only (d0ef374, manifest rebuilt for `budget.py`'s hash), merged
