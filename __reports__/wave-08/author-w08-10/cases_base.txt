@@ -1,0 +1,201 @@
+repo /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-8-928ebd | rust /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-8-928ebd/bin/aarch64-apple-darwin/murmuration | 3945 cases
+hole        1940 cases   allowed (a hole): python 1260   rust 1260
+g3hole       639 cases   allowed (a hole): python  359   rust  359
+g3resid        1 cases   allowed (a hole): python    1   rust    1
+control      970 cases   denied (a false denial): python    2   rust    2
+g3control    395 cases   denied (a false denial): python    0   rust    0
+python and rust differ on 0 of 3945 cases
+  env_S                                      30 cases,   18 allowed
+  env_S_eq                                   30 cases,   18 allowed
+  dq_subst_before                            10 cases,   10 allowed
+  subst_pipe_inside                          10 cases,   10 allowed
+  subst_before_model                         10 cases,   10 allowed
+  subst_heredoc                              10 cases,   10 allowed
+  subst_infix                                10 cases,   10 allowed
+  subst_grep                                 10 cases,   10 allowed
+  two_subst                                  10 cases,   10 allowed
+  after_pipe                                 10 cases,   10 allowed
+  subshell                                   10 cases,   10 allowed
+  after_cd                                   10 cases,   10 allowed
+  before_pipe                                10 cases,   10 allowed
+  timeout_subst                              10 cases,   10 allowed
+  wrap_dq_subst:env                          10 cases,   10 allowed
+  wrap_dq_subst:env -i                       10 cases,   10 allowed
+  wrap_dq_subst:env -u X                     10 cases,   10 allowed
+  wrap_dq_subst:env -uX                      10 cases,   10 allowed
+  wrap_dq_subst:env --unset X                10 cases,   10 allowed
+  wrap_dq_subst:env --unset=X                10 cases,   10 allowed
+  wrap_dq_subst:env -u X -u Y                10 cases,   10 allowed
+  wrap_dq_subst:env -u X FOO=1               10 cases,   10 allowed
+  wrap_dq_subst:env -C /tmp                  10 cases,   10 allowed
+  wrap_dq_subst:env --chdir /tmp             10 cases,   10 allowed
+  wrap_dq_subst:env --chdir=/tmp             10 cases,   10 allowed
+  wrap_dq_subst:env -P /usr/bin              10 cases,   10 allowed
+  wrap_dq_subst:env -v -u X                  10 cases,   10 allowed
+  wrap_dq_subst:env --                       10 cases,   10 allowed
+  wrap_dq_subst:env -u X --                  10 cases,   10 allowed
+  wrap_dq_subst:timeout 10                   10 cases,   10 allowed
+  wrap_dq_subst:timeout -s KILL 10           10 cases,   10 allowed
+  wrap_dq_subst:timeout --signal KILL 10     10 cases,   10 allowed
+  wrap_dq_subst:timeout --signal=KILL 10     10 cases,   10 allowed
+  wrap_dq_subst:timeout -k 5 10              10 cases,   10 allowed
+  wrap_dq_subst:timeout -k 5 -s TERM 10      10 cases,   10 allowed
+  wrap_dq_subst:timeout --foreground 10      10 cases,   10 allowed
+  wrap_dq_subst:gtimeout -s KILL 10m         10 cases,   10 allowed
+  wrap_dq_subst:nice                         10 cases,   10 allowed
+  wrap_dq_subst:nice -n 5                    10 cases,   10 allowed
+  wrap_dq_subst:nice -n -5                   10 cases,   10 allowed
+  wrap_dq_subst:nice --adjustment=5          10 cases,   10 allowed
+  wrap_dq_subst:ionice -c 2                  10 cases,   10 allowed
+  wrap_dq_subst:ionice -c 2 -n 7             10 cases,   10 allowed
+  wrap_dq_subst:ionice -n 7 -c 2             10 cases,   10 allowed
+  wrap_dq_subst:stdbuf -o L                  10 cases,   10 allowed
+  wrap_dq_subst:stdbuf -oL                   10 cases,   10 allowed
+  wrap_dq_subst:stdbuf -i0 -o L -e 0         10 cases,   10 allowed
+  wrap_dq_subst:stdbuf --output L            10 cases,   10 allowed
+  wrap_dq_subst:xargs                        10 cases,   10 allowed
+  wrap_dq_subst:xargs -n 1                   10 cases,   10 allowed
+  wrap_dq_subst:xargs -I X                   10 cases,   10 allowed
+  wrap_dq_subst:xargs -I{}                   10 cases,   10 allowed
+  wrap_dq_subst:xargs -P 4                   10 cases,   10 allowed
+  wrap_dq_subst:xargs -0 -n 1                10 cases,   10 allowed
+  wrap_dq_subst:xargs -d x                   10 cases,   10 allowed
+  wrap_dq_subst:xargs -a f -n 1              10 cases,   10 allowed
+  wrap_dq_subst:xargs -r -L 1                10 cases,   10 allowed
+  wrap_dq_subst:caffeinate                   10 cases,   10 allowed
+  wrap_dq_subst:caffeinate -t 5              10 cases,   10 allowed
+  wrap_dq_subst:caffeinate -i -t 100         10 cases,   10 allowed
+  wrap_dq_subst:caffeinate -w 1              10 cases,   10 allowed
+  wrap_dq_subst:caffeinate -dims             10 cases,   10 allowed
+  wrap_dq_subst:exec                         10 cases,   10 allowed
+  wrap_dq_subst:exec -a name                 10 cases,   10 allowed
+  wrap_dq_subst:exec -c                      10 cases,   10 allowed
+  wrap_dq_subst:exec -l                      10 cases,   10 allowed
+  wrap_dq_subst:exec -cl -a name             10 cases,   10 allowed
+  wrap_dq_subst:sudo                         10 cases,   10 allowed
+  wrap_dq_subst:sudo -u user                 10 cases,   10 allowed
+  wrap_dq_subst:sudo -E -u user              10 cases,   10 allowed
+  wrap_dq_subst:sudo -n -u root -H           10 cases,   10 allowed
+  wrap_dq_subst:sudo -g wheel                10 cases,   10 allowed
+  wrap_dq_subst:sudo --user=root             10 cases,   10 allowed
+  wrap_dq_subst:sudo --user root             10 cases,   10 allowed
+  wrap_dq_subst:time                         10 cases,   10 allowed
+  wrap_dq_subst:time -p                      10 cases,   10 allowed
+  wrap_dq_subst:time -o f                    10 cases,   10 allowed
+  wrap_dq_subst:time -f %e                   10 cases,   10 allowed
+  wrap_dq_subst:time -p -o f                 10 cases,   10 allowed
+  wrap_dq_subst:command                      10 cases,   10 allowed
+  wrap_dq_subst:command -p                   10 cases,   10 allowed
+  wrap_dq_subst:command --                   10 cases,   10 allowed
+  wrap_dq_subst:nohup                        10 cases,   10 allowed
+  wrap_dq_subst:setsid                       10 cases,   10 allowed
+  wrap_dq_subst:setsid -w                    10 cases,   10 allowed
+  wrap_dq_subst:setsid -f                    10 cases,   10 allowed
+  wrap_dq_subst:env -u X timeout -s KILL 10 nohup   10 cases,   10 allowed
+  wrap_dq_subst:nohup env -u X               10 cases,   10 allowed
+  wrap_dq_subst:timeout 5 env -C /tmp nice -n 3   10 cases,   10 allowed
+  wrap_dq_subst:env -u X caffeinate -t 9 exec -a n   10 cases,   10 allowed
+  wrap_dq_subst:sudo -u u env -u X ionice -c 3   10 cases,   10 allowed
+  wrap:env -u X                               8 cases,    8 allowed
+  wrap:env --unset X                          8 cases,    8 allowed
+  wrap:env -u X -u Y                          8 cases,    8 allowed
+  wrap:env -u X FOO=1                         8 cases,    8 allowed
+  wrap:env -C /tmp                            8 cases,    8 allowed
+  wrap:env --chdir /tmp                       8 cases,    8 allowed
+  wrap:env -P /usr/bin                        8 cases,    8 allowed
+  wrap:env -v -u X                            8 cases,    8 allowed
+  wrap:env -u X --                            8 cases,    8 allowed
+  wrap:timeout -s KILL 10                     8 cases,    8 allowed
+  wrap:timeout --signal KILL 10               8 cases,    8 allowed
+  wrap:timeout -k 5 -s TERM 10                8 cases,    8 allowed
+  wrap:gtimeout -s KILL 10m                   8 cases,    8 allowed
+  wrap:ionice -c 2                            8 cases,    8 allowed
+  wrap:ionice -c 2 -n 7                       8 cases,    8 allowed
+  wrap:ionice -n 7 -c 2                       8 cases,    8 allowed
+  wrap:stdbuf -o L                            8 cases,    8 allowed
+  wrap:stdbuf -i0 -o L -e 0                   8 cases,    8 allowed
+  wrap:stdbuf --output L                      8 cases,    8 allowed
+  wrap:xargs -n 1                             8 cases,    8 allowed
+  wrap:xargs -I X                             8 cases,    8 allowed
+  wrap:xargs -P 4                             8 cases,    8 allowed
+  wrap:xargs -0 -n 1                          8 cases,    8 allowed
+  wrap:xargs -d x                             8 cases,    8 allowed
+  wrap:xargs -a f -n 1                        8 cases,    8 allowed
+  wrap:xargs -r -L 1                          8 cases,    8 allowed
+  wrap:caffeinate -t 5                        8 cases,    8 allowed
+  wrap:caffeinate -i -t 100                   8 cases,    8 allowed
+  wrap:caffeinate -w 1                        8 cases,    8 allowed
+  wrap:exec -a name                           8 cases,    8 allowed
+  wrap:exec -cl -a name                       8 cases,    8 allowed
+  wrap:sudo -u user                           8 cases,    8 allowed
+  wrap:sudo -E -u user                        8 cases,    8 allowed
+  wrap:sudo -n -u root -H                     8 cases,    8 allowed
+  wrap:sudo -g wheel                          8 cases,    8 allowed
+  wrap:sudo --user root                       8 cases,    8 allowed
+  wrap:time -o f                              8 cases,    8 allowed
+  wrap:time -f %e                             8 cases,    8 allowed
+  wrap:time -p -o f                           8 cases,    8 allowed
+  wrap:env -u X timeout -s KILL 10 nohup      8 cases,    8 allowed
+  wrap:nohup env -u X                         8 cases,    8 allowed
+  wrap:timeout 5 env -C /tmp nice -n 3        8 cases,    8 allowed
+  wrap:env -u X caffeinate -t 9 exec -a n     8 cases,    8 allowed
+  wrap:sudo -u u env -u X ionice -c 3         8 cases,    8 allowed
+  subst_before                               10 cases,    6 allowed
+  dq_bt_before                               10 cases,    6 allowed
+  bt_before                                  10 cases,    6 allowed
+  nested_subst                               10 cases,    6 allowed
+  subst_ls                                   10 cases,    6 allowed
+  subst_program_which                        10 cases,    6 allowed
+  subst_program_cmdv                         10 cases,    6 allowed
+  subst_program_bt                           10 cases,    6 allowed
+  sh_c                                       10 cases,    6 allowed
+  procsubst_before                           10 cases,    6 allowed
+  procsubst_out                              10 cases,    6 allowed
+  wrap_plain:env -u X                        10 cases,    6 allowed
+  wrap_plain:env --unset X                   10 cases,    6 allowed
+  wrap_plain:env -u X -u Y                   10 cases,    6 allowed
+  wrap_plain:env -u X FOO=1                  10 cases,    6 allowed
+  wrap_plain:env -C /tmp                     10 cases,    6 allowed
+  wrap_plain:env --chdir /tmp                10 cases,    6 allowed
+  wrap_plain:env -P /usr/bin                 10 cases,    6 allowed
+  wrap_plain:env -v -u X                     10 cases,    6 allowed
+  wrap_plain:env -u X --                     10 cases,    6 allowed
+  wrap_plain:timeout -s KILL 10              10 cases,    6 allowed
+  wrap_plain:timeout --signal KILL 10        10 cases,    6 allowed
+  wrap_plain:timeout -k 5 -s TERM 10         10 cases,    6 allowed
+  wrap_plain:gtimeout -s KILL 10m            10 cases,    6 allowed
+  wrap_plain:ionice -c 2                     10 cases,    6 allowed
+  wrap_plain:ionice -c 2 -n 7                10 cases,    6 allowed
+  wrap_plain:ionice -n 7 -c 2                10 cases,    6 allowed
+  wrap_plain:stdbuf -o L                     10 cases,    6 allowed
+  wrap_plain:stdbuf -i0 -o L -e 0            10 cases,    6 allowed
+  wrap_plain:stdbuf --output L               10 cases,    6 allowed
+  wrap_plain:xargs -n 1                      10 cases,    6 allowed
+  wrap_plain:xargs -I X                      10 cases,    6 allowed
+  wrap_plain:xargs -P 4                      10 cases,    6 allowed
+  wrap_plain:xargs -0 -n 1                   10 cases,    6 allowed
+  wrap_plain:xargs -d x                      10 cases,    6 allowed
+  wrap_plain:xargs -a f -n 1                 10 cases,    6 allowed
+  wrap_plain:xargs -r -L 1                   10 cases,    6 allowed
+  wrap_plain:caffeinate -t 5                 10 cases,    6 allowed
+  wrap_plain:caffeinate -i -t 100            10 cases,    6 allowed
+  wrap_plain:caffeinate -w 1                 10 cases,    6 allowed
+  wrap_plain:exec -a name                    10 cases,    6 allowed
+  wrap_plain:exec -cl -a name                10 cases,    6 allowed
+  wrap_plain:sudo -u user                    10 cases,    6 allowed
+  wrap_plain:sudo -E -u user                 10 cases,    6 allowed
+  wrap_plain:sudo -n -u root -H              10 cases,    6 allowed
+  wrap_plain:sudo -g wheel                   10 cases,    6 allowed
+  wrap_plain:sudo --user root                10 cases,    6 allowed
+  wrap_plain:time -o f                       10 cases,    6 allowed
+  wrap_plain:time -f %e                      10 cases,    6 allowed
+  wrap_plain:time -p -o f                    10 cases,    6 allowed
+  wrap_plain:env -u X timeout -s KILL 10 nohup   10 cases,    6 allowed
+  wrap_plain:nohup env -u X                  10 cases,    6 allowed
+  wrap_plain:timeout 5 env -C /tmp nice -n 3   10 cases,    6 allowed
+  wrap_plain:env -u X caffeinate -t 9 exec -a n   10 cases,    6 allowed
+  wrap_plain:sudo -u u env -u X ionice -c 3   10 cases,    6 allowed
+  subst_dest                                  4 cases,    4 allowed
+  subst_dest_redirect                         3 cases,    3 allowed
+  claude_inside_dq_subst                     10 cases,    2 allowed
+  claude_inside_dq_assign                    10 cases,    2 allowed
