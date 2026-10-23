@@ -853,12 +853,15 @@ def selftest():
     def argv(h):   # a row's argument vector: exec form (`command` plus `args`, w07-c3) or the shell's own word splitting
         return [h["command"]] + h["args"] if "args" in h else shlex.split(h["command"])
     for event, matcher in (("SubagentStart", None), ("PostToolBatch", None), ("PostToolUse", None), ("SubagentStop", None), ("PreToolUse", "Agent|Task")):
-        assert any(argv(h)[-2].endswith("run_hook.py") and argv(h)[-1] == "budget" and g.get("matcher") == matcher for g in hooks[event] for h in g["hooks"]), (event, matcher)
+        # either form is registered: the binary row (`${CLAUDE_PLUGIN_DATA}/bin/murmuration budget`) or the Python row the launcher falls back to (`run_hook.py budget`)
+        assert any((argv(h)[-2].endswith("run_hook.py") or argv(h)[-2].endswith("/bin/murmuration")) and argv(h)[-1] == "budget" and g.get("matcher") == matcher for g in hooks[event] for h in g["hooks"]), (event, matcher)
     assert subprocess.run([sys.executable, os.path.abspath(__file__)], input="not json", capture_output=True, text=True).returncode == 0
 
     # 8. the lean start (w06-c9): the registered command gives what `python3 budget.py` gives; the quiet path imports neither `re` nor `json`; the JSON reader and writer equal `json`
     import random
-    cmds = [[a.replace("${CLAUDE_PLUGIN_ROOT}", os.path.dirname(HERE)) for a in argv(h)] for g in hooks["PostToolUse"] + hooks["SubagentStart"] for h in g["hooks"] if any("run_hook.py" in a for a in argv(h))]
+    # a binary row stands for the Python command the launcher runs in its place (the binary itself is tested by the installer and the replay)
+    cmds = [["python3", "-S", "-I", os.path.join(HERE, "run_hook.py"), "budget"] if argv(h)[-2].endswith("/bin/murmuration") else [a.replace("${CLAUDE_PLUGIN_ROOT}", os.path.dirname(HERE)) for a in argv(h)]
+            for g in hooks["PostToolUse"] + hooks["SubagentStart"] for h in g["hooks"] if any("run_hook.py" in a or a.endswith("/bin/murmuration") for a in argv(h)) and argv(h)[-1] == "budget"]
     assert cmds and all(c[:3] == ["python3", "-S", "-I"] for c in cmds), cmds
     with tempfile.TemporaryDirectory() as tmp:
         os.makedirs(os.path.join(tmp, "__statera__"))
