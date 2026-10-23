@@ -268,6 +268,14 @@ sections a worker needs and do not ask it to read this note.
 
 ## Notes
 
+- **w08-c13 landed on the local `main` at 1511545** (lab merge fc2c2ca; binaries rebuilt from the
+  merged sources with w08-c12 at 68ac4c1): selftests pass, a clean install gives the binary, the new
+  binary went into this session's data folder before the main merge; smoke run from main's tree
+  with ordinary commands (`ls`, `git status`, `$(date)`, a heredoc writing a file): all allowed,
+  the file written. The guard refused my own Write of a test script holding the bypass flag (G4)
+  and a Bash edit whose prose quoted a hole form (G2, one of the two prose denials w08-c13
+  records); I did not route around either: the hole forms rest on reproducer-w08-10's offline
+  cases, and these notes were made with the Edit tool, as the framing says.
 - **w08-c11 landed on the local `main` at dc74371**, with PI decision sections appended to w01-c2,
   w01-c8, w02-c10 and w05-c1 (the four whose wave note names the label); `lab_status.py` shows them
   as `MEASURED (PI decided: restated, not re-verified)`.

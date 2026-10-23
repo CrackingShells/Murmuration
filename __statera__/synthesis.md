@@ -565,7 +565,15 @@ the rule that a time in a note comes from `date` or a commit. Nine decided escal
 cases and 20,896 recorded calls. In live use 17 of 19 denials in waves 6–8 were false (a worker's
 detour), and none stopped a worker loosening anything. Two holes were found and reproduced: a
 bypass flag after `"$(cat f)"`, and `env -u VAR claude … --setting-sources project`; eight real
-explorer calls of waves 1–6 had that shape. PLACEHOLDER_C10. The variants that would cut false
+explorer calls of waves 1–6 had that shape. **w08-c13 · MEASURED (SUPPORTED; supersedes w08-c10,
+OVERSTATED)** closes both in Python and Rust: 0 of 2,259 generated hole forms and 0 of 639 write
+forms allowed (1,515 and 359 before); nothing loosened over the verifier's 4,769 cases, 1,629
+controls, the frozen set and the registered lists; Python equals Rust; a 78 KB note decides in
+0.06 s. Its first version also denied ordinary large notes and missed a heredoc form and a joined
+`env -S` form; its verifier found all three. Still allowed: a variable as the program, unlisted
+wrappers, a variable timeout before `claude` (open item 26). While landing it, the guard refused
+the PI's own Write of a test script holding the bypass flag, and a Bash edit whose prose quoted a
+hole form; the PI made these notes with the Edit tool instead, as the framing says. The variants that would cut false
 denials (113 to 77 on the frozen set) let one true case through and stay out.
 
 **What landed on the local `main`** (not pushed):
