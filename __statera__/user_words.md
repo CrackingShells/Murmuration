@@ -407,3 +407,7 @@ your data is fascinating. This is almost a textbook example that could be turned
 ## 2026-10-22 08:08
 
 Both definitely needs investigating. Whether in the next wave or the one after. That will be up to the PI, anyway. But it is worth logging all this in a way the PI will be able to find. Where are we in the git management? Shouldn't everything committed to `main`? (including the wave 6 and 7 corrected html infographics?)
+
+## 2026-10-24 00:11
+
+/murmuration:research-loop You can proceed with wave 8 following the results of wave 7 and all other puzzles. The overarching goal is to progressively optimize murmuration by using it yourself. You are Murmuration and you optimize murmuration. Budget is 150USD; it is currently midnight, you have 6 hours. Use them.
