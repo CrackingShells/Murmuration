@@ -65,8 +65,10 @@ sections a worker needs and do not ask it to read this note.
   USD 6–10; wakes by worker messages 31.7% of PI spend, 82 with no tool call; a 5-minute cache
   would have cost the PI about USD 119 more [source: explorer-w08-d's report, ESTIMATE].
 - The cache lifetime: on timed lives (waves 5–7) 1 hour is worth −0.02 ± 0.39 USD per author
-  life, a knife-edge; w07-c7's +0.87 rested on untimed wave-4 pauses and a misaligned `tool_s`
-  (S-w08-explorer-w08-c-1). All author and reproducer misses follow a hand-back wait set by the
+  life, a knife-edge; w07-c7's +0.87 rested largely on untimed wave-4 pauses
+  (S-w08-explorer-w08-c-1). [Corrected after S-w08-explorer-w08-i-2: the misaligned `tool_s` is
+  in my wave-7 addendum `__instrumenta__/w07_ttl_by_type.py` (cost map 3b), not in w07-c7's own
+  script, whose verifier had already found the sign undetermined.] All author and reproducer misses follow a hand-back wait set by the
   resumer. The PI keeps 1 hour under every rule [source: explorer-w08-c's report, ESTIMATE].
   I keep authors on 1 hour (minimax regret, and no measured loss); no claim.
 - What changes: round 2 goes to the PI's side and to thinking. author-w08-2 (w08-c2, short
