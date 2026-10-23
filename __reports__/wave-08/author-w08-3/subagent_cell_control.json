@@ -1,0 +1,17 @@
+{
+ "name": "sub_ctl",
+ "window": null,
+ "wall_s": 33.6,
+ "precompact_events": 0,
+ "payload_keys": [],
+ "payload_has_agent_id": false,
+ "transcript_tails": [],
+ "forked_compactions": 0,
+ "hook_settled_ms": [],
+ "score": {
+  "name": true,
+  "claim": true,
+  "verifier": true,
+  "g": true
+ }
+}

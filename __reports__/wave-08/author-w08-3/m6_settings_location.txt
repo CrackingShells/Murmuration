@@ -1,0 +1,16 @@
+# m6: which settings files a session loads (debug-log line 'Watching for changes in setting files', paths with ~ for the home folder), Claude Code 2.1.304
+
+cwd = the lab's worktree, no flag:
+   [DEBUG] Watching for changes in setting files ~/.claude/settings.json, ~/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-8-928ebd/.claude/settings.json, ~/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-8-928ebd/.claude/settings.local.json, ~/Documents/src/CrackingShells/Murmuration/.claude/settings.local.json, /Library/Application Support/ClaudeCode/managed-settings.json...
+
+cwd = the lab's worktree, --project-config-root <main checkout>:
+   [DEBUG] Watching for changes in setting files ~/.claude/settings.json, ~/Documents/src/CrackingShells/Murmuration/.claude/settings.json, ~/Documents/src/CrackingShells/Murmuration/.claude/settings.local.json, /Library/Application Support/ClaudeCode/managed-settings.json...
+
+cwd = scratch folder, --project-config-root <main checkout>:
+   [DEBUG] Watching for changes in setting files ~/.claude/settings.json, ~/Documents/src/CrackingShells/Murmuration/.claude/settings.json, ~/Documents/src/CrackingShells/Murmuration/.claude/settings.local.json, /Library/Application Support/ClaudeCode/managed-settings.json...
+
+# --settings file, changed between two turns of one process (w08_c3_settings_live.py): effectiveWindow of the two autocompact checks
+  ['980000', '980000'] (file said 1000000 at turn 1 and 150000 before turn 2)
+
+# autoCompactWindow in a --settings file, end to end (run hk_Hset_1): thresholdSource and effectiveWindow, compaction at pre_tokens
+  {'thresholdSource=settings'} {'effectiveWindow=130000'}

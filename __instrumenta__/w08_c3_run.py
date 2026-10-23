@@ -1,5 +1,5 @@
 # Runs one PI-like headless session (research-pi agent of an exported plugin, one process, stream-json turns) through a compaction on a scratch lab of wave 03, from ARM, MODEL and SEED to S/runs/NAME/{stream.jsonl,debug.log,stderr.txt,meta.json,truth.json,lab/}.
-"""usage: w08_c3_run.py S NAME --arm C|B0|B1|H --model haiku|opus --seed N --export DIR [--window 150000] [--turns N] [--max-reports 12]
+"""usage: w08_c3_run.py S NAME --arm C|B0|B1|H --model haiku|opus --seed N --export DIR [--window 150000] [--via env|settings] [--turns N] [--max-reports 12]
 S = scratch folder outside the repo; DIR = a `git archive` export of the branch (plugin root). Arms (protocol P3 v0): C no compaction (default window; reads N=--turns reports); B0 window set, neither the brief row nor the PreCompact row;
 B1 window set, brief row only; H window set, brief row and PreCompact row (the full hooks.json minus the user_words row, so the scratch user_words.md stays as built). Compacted arms read reports until a compact_boundary
 event has been seen, then 2 more, then ask the five questions; if none is seen after --max-reports reports they ask anyway (meta.json says so). One process, `--input-format stream-json`, default permission mode, no budget flag.
@@ -27,11 +27,13 @@ json.dump({"hooks": h}, open(hp, "w"), indent=1)
 env = dict(os.environ); env["CLAUDE_CODE_SHELL"] = "/bin/bash"
 for k in list(env):
     if k.startswith("CLAUDE_AUTOCOMPACT") or k.startswith("CLAUDE_CODE_AUTO_COMPACT") or k in ("DISABLE_AUTO_COMPACT", "DISABLE_COMPACT", "CLAUDE_PROJECT_DIR"): env.pop(k)
-if ARM != "C": env["CLAUDE_CODE_AUTO_COMPACT_WINDOW"] = str(WINDOW)
+VIA = opt.get("--via", "env")   # env: CLAUDE_CODE_AUTO_COMPACT_WINDOW; settings: autoCompactWindow in a file passed with --settings (a path outside any .claude/ folder)
+if ARM != "C" and VIA == "env": env["CLAUDE_CODE_AUTO_COMPACT_WINDOW"] = str(WINDOW)
+if ARM != "C" and VIA == "settings": json.dump({"autoCompactWindow": WINDOW}, open(os.path.join(RUN, "win.json"), "w"))
 cmd = ["claude", "-p", "--agent", "murmuration:research-pi", "--model", MODEL, "--plugin-dir", PL, "--permission-mode", "default",
        "--allowedTools", "Read", "Glob", "Grep", "Bash(cat:*)", "Bash(head:*)", "Bash(sed:*)", "Bash(jq:*)", "Bash(ls:*)", "Bash(wc:*)", "Bash(grep:*)", "Bash(tail:*)",
        "--disallowedTools", "Agent", "Task", "Write", "Edit", "NotebookEdit", "WebFetch", "WebSearch",
-       "--input-format", "stream-json", "--output-format", "stream-json", "--verbose", "--debug-file", os.path.join(RUN, "debug.log")]
+       "--input-format", "stream-json", "--output-format", "stream-json", "--verbose", "--debug-file", os.path.join(RUN, "debug.log")] + (["--settings", os.path.join(RUN, "win.json")] if ARM != "C" and VIA == "settings" else [])
 T1 = ("Start of session. You are the PI of the lab in this folder. My instruction for this session: %s Orient yourself as you would at the start of a session: read the current wave note, "
       "the user's words, the harness log and the claim files. Do not dispatch workers and do not write files. Then say in three lines where the wave stands.")
 TK = "Read %s in full and tell me in one sentence what it adds."
