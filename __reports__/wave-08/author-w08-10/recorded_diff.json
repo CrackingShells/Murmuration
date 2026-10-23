@@ -1,0 +1,44 @@
+{
+ "calls": 10375,
+ "denied_before": 180,
+ "denied_after": 186,
+ "newly_denied": [
+  {
+   "id": "toolu_013kRcU9rjPm4NUSn5yAk5pT",
+   "tool": "Bash",
+   "rule": "G2",
+   "text": "cd /private/tmp/murmuration-w06/explorer-w06-a/work && rm -f ../out/probe1.log; env -u CLAUDE_CODE_SHELL W06_PROBE_LOG=/private/tmp/murmuration-w06/explorer-w06-a/out/probe1.log W06_LOG=/dev/null claude -p \"Reply with the single word ok.\" --model haiku --plugin-dir /private/tmp/murmuration-w06/explo"
+  },
+  {
+   "id": "toolu_01TAXAzfTa1fG3cbsvWAMTbF",
+   "tool": "Bash",
+   "rule": "G2",
+   "text": "B=/private/tmp/murmuration-w05/author-w05-2; cd $B/pilot0 && env -u CLAUDE_PROJECT_DIR COLGREP_DATA_DIR=$B/pilot0/colgrep CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0 timeout 300 claude -p --model haiku --agent murmuration:research-pi --plugin-dir $B/plugin_A --setting-sources project,local --strict-mcp-c"
+  },
+  {
+   "id": "toolu_01NRaNhFoVmU1LCqET3rDr8h",
+   "tool": "Bash",
+   "rule": "G2",
+   "text": "mkdir -p /private/tmp/murmuration-w05/author-w05-2 && cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673 && cat > __instrumenta__/w05c3_dummy_mcp.py <<'EOF'\n#!/usr/bin/env python3\n\"\"\"A minimal stdio MCP server (stdlib only) with one tool `echo(text)` that retu"
+  },
+  {
+   "id": "toolu_01F9vUJ9h55ywzZcXZQJxioX",
+   "tool": "Bash",
+   "rule": "G2",
+   "text": "cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673; R=/private/tmp/murmuration-w05/reproducer-w05-6; mkdir -p $R/probe; D=$PWD/__instrumenta__/w05c3_dummy_mcp.py\npython3 -I - <<EOF\nimport json\ns={n:{\"command\":\"python3\",\"args\":[\"-I\",\"$D\"]} for n in [\"dummy\",\"Cl"
+  },
+  {
+   "id": "toolu_012Uf7cB5rsvmyiTv4XcD7L3",
+   "tool": "Bash",
+   "rule": "G2",
+   "text": "cd /Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e/__reports__/reflective_run/w01/author-w01-1 && D=$(pwd)/scratch/q3_hooks && rm -rf $D && mkdir -p $D/work/__statera__ $D/work/__design__ && cp -R plugin $D/plugin && cd $D/work && claude -p \"$(cat ../."
+  },
+  {
+   "id": "toolu_01Xp1p3ZrDZs4hNSLeHTBHw4",
+   "tool": "Bash",
+   "rule": "G2",
+   "text": "cat > /private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-8-928ebd/ad75be4f-14dd-4dd8-90c7-fb175ed36239/scratchpad/re5.py <<'PYEOF'\np='__statera__/wave-08.md'\ns=open(p).read()\nentry='''\n**explorer-w08-j back (7834635).**\n- The two guards agree on all 739"
+  }
+ ],
+ "newly_allowed": []
+}

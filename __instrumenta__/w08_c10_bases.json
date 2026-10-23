@@ -1,0 +1,54 @@
+{
+ "note": "w08-c10: base strings for w08_c10_cases.py. They sit in a data file because the guard's G4 denies a script that gains the flag words. deny_flags: the flag part of a claude command the guard denies in the plain form. ok_flags: the same position, an ordinary flag, allowed in every form. wrappers: the words put in front of a command (each is a real option syntax of the wrapper). g3_deny: commands that write a settings file, denied in the plain form. g3_ok: ordinary writes.",
+ "deny_flags": [
+  "--dangerously-skip-permissions",
+  "--permission-mode bypassPermissions",
+  "--permission-mode=bypassPermissions",
+  "--allow-dangerously-skip-permissions",
+  "--setting-sources project",
+  "--setting-sources=project,local",
+  "--setting-sources local",
+  "--bare",
+  "--safe-mode",
+  "--settings '{\"disableAllHooks\":true}'"
+ ],
+ "ok_flags": [
+  "--model haiku",
+  "--permission-mode auto",
+  "--setting-sources user,project",
+  "--setting-sources=user",
+  "--output-format json"
+ ],
+ "wrappers": [
+  "env", "env -i", "env -u X", "env -uX", "env --unset X", "env --unset=X", "env -u X -u Y", "env -u X FOO=1", "env -C /tmp", "env --chdir /tmp", "env --chdir=/tmp",
+  "env -P /usr/bin", "env -v -u X", "env -- ", "env -u X --",
+  "timeout 10", "timeout -s KILL 10", "timeout --signal KILL 10", "timeout --signal=KILL 10", "timeout -k 5 10", "timeout -k 5 -s TERM 10", "timeout --foreground 10", "gtimeout -s KILL 10m",
+  "nice", "nice -n 5", "nice -n -5", "nice --adjustment=5", "ionice -c 2", "ionice -c 2 -n 7", "ionice -n 7 -c 2",
+  "stdbuf -o L", "stdbuf -oL", "stdbuf -i0 -o L -e 0", "stdbuf --output L",
+  "xargs", "xargs -n 1", "xargs -I X", "xargs -I{}", "xargs -P 4", "xargs -0 -n 1", "xargs -d x", "xargs -a f -n 1", "xargs -r -L 1",
+  "caffeinate", "caffeinate -t 5", "caffeinate -i -t 100", "caffeinate -w 1", "caffeinate -dims",
+  "exec", "exec -a name", "exec -c", "exec -l", "exec -cl -a name",
+  "sudo", "sudo -u user", "sudo -E -u user", "sudo -n -u root -H", "sudo -g wheel", "sudo --user=root", "sudo --user root",
+  "time", "time -p", "time -o f", "time -f %e", "time -p -o f",
+  "command", "command -p", "command --", "nohup", "setsid", "setsid -w", "setsid -f",
+  "env -u X timeout -s KILL 10 nohup", "nohup env -u X", "timeout 5 env -C /tmp nice -n 3", "env -u X caffeinate -t 9 exec -a n", "sudo -u u env -u X ionice -c 3"
+ ],
+ "env_s": ["env -S", "env --split-string", "env -u X -S"],
+ "g3_deny": [
+  "cp /tmp/new.json .claude/settings.json",
+  "tee .claude/settings.json",
+  "mv /tmp/x .claude/settings.local.json",
+  "rm .claude/settings.json",
+  "sed -i s/a/b/ .claude/settings.json",
+  "truncate -s 0 .claude/settings.json",
+  "ln -sf /tmp/x .claude/settings.local.json",
+  "dd if=/tmp/x of=.claude/settings.json"
+ ],
+ "g3_ok": [
+  "cp /tmp/new.json out/new.json",
+  "tee out/x.txt",
+  "mv /tmp/x /tmp/y",
+  "rm out/old.txt",
+  "sed -i s/a/b/ out/f.txt"
+ ]
+}

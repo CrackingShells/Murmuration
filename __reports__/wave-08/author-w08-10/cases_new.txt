@@ -1,0 +1,7 @@
+repo /private/tmp/murmuration-w08/author-w08-10/wt | rust /private/tmp/murmuration-w08/author-w08-10/wt/bin/aarch64-apple-darwin/murmuration | 3945 cases
+hole        1940 cases   allowed (a hole): python    0   rust    0
+g3hole       639 cases   allowed (a hole): python    0   rust    0
+g3resid        1 cases   allowed (a hole): python    1   rust    1
+control      970 cases   denied (a false denial): python    2   rust    2
+g3control    395 cases   denied (a false denial): python    0   rust    0
+python and rust differ on 0 of 3945 cases
