@@ -1,0 +1,15 @@
+run	arm	requests	tool_calls	calls_per_request	calls_by_request	cache_read_tokens	answer	verdict	correct	sonnet_out	sonnet_thinking	subagent_usd_recomputed	sonnet_usd_result_record	haiku_usd
+V-base-1	base	4	6	1.50	3,1,1,1	22294	1774.27	OVERSTATED	True	974	0	0.0135	0.0223	0.0052
+V-base-2	base	4	5	1.25	3,1,0,1	23976	1774.27	OVERSTATED	True	772	57	0.0104	0.0167	0.0052
+V-base-3	base	3	5	1.67	3,1,1	16959	1774.27	OVERSTATED	True	849	0	0.0106	0.0183	0.0052
+V-lever1-1	lever1	3	5	1.67	3,1,1	15011	1774.27	OVERSTATED	True	760	0	0.0155	0.0224	0.0052
+V-lever1-2	lever1	4	5	1.25	3,1,0,1	23034	1774.27	OVERSTATED	True	967	0	0.0149	0.0229	0.0052
+V-lever1-3	lever1	3	5	1.67	3,1,1	17039	1774.27	OVERSTATED	True	800	0	0.0094	0.0166	0.0052
+V-lever2-1	lever2	3	5	1.67	3,1,1	14951	1774.27	OVERSTATED	True	863	0	0.0135	0.0214	0.0052
+V-lever2-2	lever2	3	5	1.67	3,1,1	17191	1774.27	OVERSTATED	True	904	0	0.0097	0.0180	0.0052
+V-lever2-3	lever2	4	5	1.25	3,1,0,1	24647	1774.27	OVERSTATED	True	926	0	0.0127	0.0201	0.0053
+
+arm	n	mean_requests	mean_tool_calls	mean_calls_per_request	mean_cache_read_tokens	mean_thinking	mean_subagent_usd	min-max_usd	correct
+base	3	3.67	5.33	1.47	21076	19	0.0115	0.0104-0.0135	3/3
+lever1	3	3.33	5.00	1.53	18361	0	0.0132	0.0094-0.0155	3/3
+lever2	3	3.33	5.00	1.53	18930	0	0.0120	0.0097-0.0135	3/3
