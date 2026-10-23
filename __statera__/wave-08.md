@@ -52,7 +52,7 @@ sections a worker needs and do not ask it to read this note.
 
 ## Reassessments
 
-**00:45, explorers c, a, d back.**
+**Explorers c, a, d back (note committed 00:29, 40ff7b7).**
 - Script output is not the lever: 3.7% of workers' context USD in waves 4–7; a 2,500-token cap
   saves at most 0.5%. Documents are 14.3%; the worker's own earlier turns 41.6% (thinking 22.5%,
   inferred from context growth); cost follows request count [source:
@@ -74,7 +74,7 @@ sections a worker needs and do not ask it to read this note.
   platform allows and keeps), explorer-w08-f (are thinking blocks billed again; is `effort` a
   lever). Briefs from now ask for a hand-back of at most about 1,500 characters.
 
-**01:05, explorer-w08-b back.**
+**explorer-w08-b back (note committed 00:32, 1730b71; the earlier "00:45" and "01:05" were my estimates, corrected).**
 - colgrep cuts markdown into one unit per file whose snippet is the first lines, and `expand`
   returns the whole file (200 lines by default): for the lab's notes and claims a hit is a path,
   not evidence, so opening the file is the correct reading of what a hit tells. No worker wrote a
