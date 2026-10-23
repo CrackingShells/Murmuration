@@ -49,8 +49,14 @@ lower bound there (the log's `used_recorded`). The thresholds use the larger of 
 (https://platform.claude.com/docs/en/about-claude/pricing, fetched 2026-10-19); the selftest checks that the two agree.
 
 State per agent: `__statera__/.harness/<agent_id>.json` (git-ignored by a `.gitignore` inside the folder), updated under a file lock and
-replaced atomically. Log, one JSON line per `start`, `warn`, `raise`, `note`, `stop`, `halt`, `end` and `deny` (the deny is written by
+replaced atomically. Log, one JSON line per `start`, `warn`, `raise`, `note`, `stop`, `halt`, `end`, `named` and `deny` (the deny is written by
 `handback.py`): `__statera__/harness.jsonl`. `frac` is USD / B, `t_frac` is minutes / T, `which` names the budget that decided.
+
+Names (w08-c5). A SubagentStart event carries `agent_id`, `agent_type` and the session's fields (`session_id`, `transcript_path`, `cwd`, `prompt_id`, `scratchpad_dir`) and nothing that
+is particular to one dispatch, so a start is paired with a dispatch record only by arrival order. The answer of the Agent tool (PostToolUse, `tool_response.agentId`) does tie them:
+when it comes before the start (a background dispatch), `bind` moves the record to `.harness/names/<agent_id>.json` and the start takes it by id. When a start has to take the oldest record
+and records of other names are in play, its `start` line carries `name_unconfirmed: true` and `name_candidates` (the names, comma-joined) and the id-based name stands in; when the answer
+comes after the start, one `named` line (`agent_id`, `name`, `type`) says who the agent is.
 
 A hook runs only between tool calls: one tool call that runs for 10 minutes cannot be interrupted, and the time is checked when it returns.
 The script never fails an agent: anything unexpected is dropped and it exits 0 with no output.

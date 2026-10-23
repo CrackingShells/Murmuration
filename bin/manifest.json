@@ -21,7 +21,7 @@
   },
   "rust_sources_sha256": "cf82b4e1160d2e86a260eef7e1f85907b917d3f9ea5dcd86bdc0522c4d79743c",
   "scripts_sha256": {
-    "budget.py": "1b332d0636d0ffe035cefcaaaac10af535cdbed1373bf1252c5283072b5a4854",
+    "budget.py": "81c95e7632e67313f2fe3685d7fbd2057e0f0537116ac3379565fb48e6634e79",
     "handback.py": "536f56c490347c549ab504ea92a407f68a5ba4874c4b7d31561abdde63bd61e0",
     "permission_guard.py": "7a3269a57b8196781e7653b00490c7dad06a702b6f7c89e966704a1da1329a28",
     "run_hook.py": "61dee9dc2058151d6d071fe224cef3e2f8798df4250cf14a414f14c26107d66e"
