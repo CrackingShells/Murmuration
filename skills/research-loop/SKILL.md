@@ -107,9 +107,11 @@ What a decision may do. It never gives a claim a label that no verifier's eviden
 - over OVERSTATED or LABEL TOO STRONG, `stands at` and `restated at` must name a label below the author's, as the
   state `below <LABEL>: restate` says; a restated wording that no verifier has read shows `(PI decided: restated,
   not re-verified)`;
+- `superseded by <id>` must name another claim file that exists;
 - a decision that cannot be applied is a warning in `/lab-status` and changes nothing.
+A fenced block (``` or ~~~) in a claim file is text: a heading inside one starts no section.
 A verdict written after the decision counts: it is read afresh, at the label the decision left. A later decision
-replaces an earlier one. `/lab-status` checks that the `ref:` file exists and names the claim, and that the
+replaces an earlier one. `/lab-status` checks that the `ref:` file exists and names the claim as a whole token, and that the
 section is the PI's (`research-pi`).
 
 ### Puzzle file

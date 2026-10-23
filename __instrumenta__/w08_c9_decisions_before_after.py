@@ -157,14 +157,29 @@ def main():
             if c not in ids:
                 continue
             ref_path, ref_line = specs[c]["ref"].rsplit(":", 1)
-            line = open(os.path.join(args.lab, ref_path), encoding="utf-8").read().splitlines()[int(ref_line) - 1]
+            note = open(os.path.join(args.lab, ref_path), encoding="utf-8").read().splitlines()
+            n = int(ref_line)
+            line = note[n - 1]
+            label = specs[c]["decision"].split()[-1] if specs[c]["decision"].split()[-1] in lab_status.STRENGTH else None
+            # the bullet: the ref line and the lines under it, until a blank line or a line at the same or a smaller indent that starts a bullet or table row
+            indent = len(line) - len(line.lstrip())
+            end = n
+            while end < len(note) and note[end].strip() and not (
+                    note[end].lstrip().startswith(("- ", "| ", "#")) and len(note[end]) - len(note[end].lstrip()) <= indent):
+                end += 1
+            on_line = [label] if label and re.search(r"\b%s\b" % label, line) else []
+            hit = next((i + 1 for i in range(n - 1, end) if label and re.search(r"\b%s\b" % label, note[i])), None)
+            other = [i + 1 for i, l in enumerate(note) if label and lab_status.names_claim(l, c) and re.search(r"\b%s\b" % label, l)
+                     and re.search(r"decision|decided|restated", l, re.I) and not n - 1 <= i < end]
             rows.append((c, b[c][0][2:].split("  ", 1)[1].split("  <-")[0], a[c][0][2:].split("  ", 1)[1].split("  <-")[0],
-                         "%s" % specs[c]["ref"], line.strip()[:110], specs[c]["decision"]))
+                         specs[c]["ref"], line.strip()[:90], specs[c]["decision"],
+                         "yes" if on_line else "no", ("yes, line %d" % hit) if hit else ("no (bullet is lines %d-%d)" % (n, end)),
+                         ("lines " + ", ".join(map(str, other))) if other else "none"))
         with open(os.path.join(args.out, "decisions_table.md"), "w") as fh:
-            fh.write("| claim | state today | state with the proposed section | wave-note line | text of that line (first 110 characters) | proposed `decision:` |\n"
-                     "|:--|:--|:--|:--|:--|:--|\n")
+            fh.write("| claim | state today | state with the proposed section | wave-note line | text of that line (first 90 characters) | proposed `decision:` | the ref line itself names the label | the bullet it opens names the label | other lines of the note naming the claim, the label and the decision |\n"
+                     "|:--|:--|:--|:--|:--|:--|:--|:--|:--|\n")
             for r in rows:
-                fh.write("| %s | %s | %s | `%s` | %s | `%s` |\n" % tuple(x.replace("|", "\\|") for x in r))
+                fh.write("| %s | %s | %s | `%s` | %s | `%s` | %s | %s | %s |\n" % tuple(x.replace("|", "\\|") for x in r))
         # 3. the probe: which claims does a blanket `stands at <label>` get through
         p = claim_lines(new_probe)
         applied = [c for c in ids if "[PI decision:" in p[c][0]]

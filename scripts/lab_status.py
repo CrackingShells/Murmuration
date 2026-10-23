@@ -267,6 +267,7 @@ LABEL_RE, SUPERSEDES_RE, VERDICT_RE = field_re("label"), field_re("supersedes"),
 CHANGED_BY_RE = field_re("changed_by")
 VERDICT_HEADING_RE = re.compile(r"^##(?!#)\s+(?:\*\*|__)?verdict\s*(?:\*\*|__)?\s*:\s*(.*?)\s*$", re.I)
 TITLE_RE = re.compile(r"^#(?!#)\s+(\S+?)\s*:\s*(.*?)\s*$")
+FENCE_RE = re.compile(r"^\s{0,3}(`{3,}|~{3,})")
 DECISION_HEADING_RE = re.compile(r"^##(?!#)\s+(?:\*\*|__)?decision\s*(?:\*\*|__)?\s*:\s*(.*?)\s*$", re.I)
 DECISION_RE, STATEMENT_RE = field_re("decision"), field_re("statement")
 # `ref:` is read raw: field_re would eat the leading `__` of `__statera__/...` as bold markup.
@@ -288,7 +289,7 @@ def clean_value(value):
 
 
 def parse_claim(text):
-    """Split a claim file into {id, statement, label, supersedes, sections, decisions}.
+    """Split a claim file (a fenced block counts as text, so a heading inside one starts no section) into {id, statement, label, supersedes, sections, decisions}.
 
     The head is everything before the first level-2 heading. A verifier section starts at a
     `## verdict: <name>` heading and runs to the next one: sections is [(name, [lines])].
@@ -297,9 +298,17 @@ def parse_claim(text):
     above it, so a verdict section with an index >= `after` was written after the decision.
     """
     out = {"id": "", "statement": "", "label": "", "supersedes": "", "sections": [], "decisions": []}
-    in_head, section, decision = True, None, None
+    in_head, section, decision, fence = True, None, None, None
     for line in text.splitlines():
-        heading, decided = VERDICT_HEADING_RE.match(line), DECISION_HEADING_RE.match(line)
+        opened = FENCE_RE.match(line)  # a fenced block is text: a heading inside it cuts nothing
+        toggled = False
+        if opened and fence is None:
+            fence, toggled = opened.group(1)[0], True
+        elif opened and opened.group(1)[0] == fence:
+            fence, toggled = None, True
+        literal = fence is not None or toggled
+        heading = None if literal else VERDICT_HEADING_RE.match(line)
+        decided = None if literal else DECISION_HEADING_RE.match(line)
         if heading:
             in_head, decision = False, None
             section = (re.sub(r"[*_`]", "", heading.group(1)).strip() or "verifier", [])
@@ -309,7 +318,7 @@ def parse_claim(text):
             decision = {"name": re.sub(r"[*_`]", "", decided.group(1)).strip(), "lines": [],
                         "after": len(out["sections"])}
             out["decisions"].append(decision)
-        elif re.match(r"^##(?!#)\s", line):
+        elif not literal and re.match(r"^##(?!#)\s", line):
             in_head = False
             if decision is not None:
                 decision = None  # any other level-2 heading ends a decision section
@@ -458,6 +467,11 @@ def read_decision(dec, label, entries, cid, root):
     if not ok:
         return None, warnings + ["%s not counted" % where]
     statements = [clean_value(m.group(1)) for m in map(STATEMENT_RE.match, lines) if m]
+    if kind == "superseded":
+        if arg == cid:
+            return None, warnings + ["%s: `%s` names the claim itself; not counted" % (where, text)]
+        if root is not None and not os.path.isfile(os.path.join(root, "__pondus__", arg + ".md")):
+            return None, warnings + ["%s: `%s` names no claim file (__pondus__/%s.md); not counted" % (where, text, arg)]
     if kind == "restated" and not any(statements):
         return None, warnings + ["%s: `restated at` needs a `statement:` line with the wording decided; not counted" % where]
     out = {"kind": kind, "label": arg if kind in ("stands", "restated") else None,
@@ -572,9 +586,6 @@ def read_claims(root):
             c["current"] = "superseded by %s" % ", ".join(c["superseded_by"])
         if c["supersedes"] and c["supersedes"] not in by_id:
             c["warnings"].append("supersedes %s, which is not a claim file" % c["supersedes"])
-        target = (c.get("decision") or {}).get("target")
-        if target and target not in by_id:
-            c["warnings"].append("the PI decided `superseded by %s`, which is not a claim file" % target)
     return claims
 
 
@@ -1224,6 +1235,8 @@ def selftest():
         _write(os.path.join(droot, "__statera__", "wave-01.md"),
                "# wave 1\n- PI decision on the ESCALATE of w01-c1\n- note without an id\n- w01-c3 and w01-c5 are also named\n")
 
+        _write(os.path.join(droot, "__pondus__", "w01-c30.md"), claim("w01-c30", "CHECKED"))
+
         def decided(label, verdicts, *tail, cid="w01-c1"):
             """A claim: head, verdict sections, then the given tail sections (text blocks) in order."""
             body = claim(cid, label, *verdicts)
@@ -1386,7 +1399,23 @@ def selftest():
         assert "- w01-c1  MEASURED (PI decided)  <- reproducer-w01-1: ESCALATE  [PI decision: __statera__/wave-01.md:2]\n" in text, text
         assert "- w01-c2  escalated: PI decides  <- reproducer-w01-1: ESCALATE\n" in text, text
         assert "- w01-c3  superseded by w01-c4  [PI decision:" in text or "- w01-c3  superseded by w01-c4\n" in text, text
-        assert "the PI decided `superseded by w01-c9`, which is not a claim file" in text, text
+        assert "`superseded by w01-c9` names no claim file" in text and "- w01-c5  escalated: PI decides" in text, text
+        # `superseded by` must name another existing claim file; the claim itself and a missing file are refused.
+        for target, why in (("w01-c9", "names no claim file"), ("w01-c1", "names the claim itself")):
+            got = current_label(decided("MEASURED", esc, dsec("superseded by %s" % target)), droot)
+            assert got["current"] == "escalated: PI decides" and why in got["warnings"][0], got
+        # A fenced block is text: a decision or verdict heading inside one cuts no section.
+        fenced = ("\n## verdict: reproducer-w01-1\n\n### independent result\nthe PI would write:\n\n```markdown\n"
+                  "## decision: research-pi\n\ndecision: stands at MEASURED\nref: __statera__/wave-01.md:2\n```\n\n"
+                  "~~~\n## verdict: v9\n\nreason: only a heading\n~~~\n\nverdict: ESCALATE\nreason: r\n")
+        got = current_label(claim("w01-c1", "MEASURED") + fenced, droot)
+        assert got["current"] == "escalated: PI decides" and got["decision"] is None and got["warnings"] == [], got
+        assert list(got["verdicts"]) == ["reproducer-w01-1"], got
+        # ...and a real decision after the fenced one still counts; an unclosed fence runs to the end of the file.
+        got = current_label(claim("w01-c1", "MEASURED") + fenced + dsec("stands at MEASURED"), droot)
+        assert got["current"] == "MEASURED (PI decided)", got
+        got = current_label(claim("w01-c1", "MEASURED") + fenced + "\n```\n" + dsec("stands at MEASURED"), droot)
+        assert got["current"] == "escalated: PI decides", got
 
         # ---- Spend. Records name their session and cwd; the folder is the cwd with every non-alphanumeric a dash.
         real = os.path.realpath(root)
