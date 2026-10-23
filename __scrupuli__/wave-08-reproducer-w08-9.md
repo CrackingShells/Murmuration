@@ -13,3 +13,7 @@ refs: __instrumenta__/w08_v9_cap_attacks.py cases "4d" and "7"
 ## S-w08-reproducer-w08-9-4
 The permission guard (G2) blocked my first script because its text contained the name of a config-directory environment variable, though I only wanted to keep the status tool from scanning transcripts. I dropped it (claims do not depend on it) and was not hindered, but a helper that must isolate the user's transcripts from lab_status has no sanctioned way to do so.
 refs: first attempt of __instrumenta__/w08_v9_apply_check.py (hook error text, G2)
+
+## S-w08-reproducer-w08-9-5
+The head of w08-c11 counts "the 68 other claim files" while the tree it is merged into now has 74 other claim lines (w08-c11 and later claims add files). Fixed counts in a title age as soon as a claim file is added; a count of "all claim files except the 9" would not.
+refs: __pondus__/w08-c11.md title; `python3 __instrumenta__/w08_v9_apply_check.py` output (83 lines, 9 changed)
