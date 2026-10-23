@@ -21,3 +21,7 @@ refs: __pondus__/w06-c7.md (heading at line 46); __statera__/wave-04.md:248-252;
 ## S-w08-author-w08-9-6
 wave-02.md line 228 reads "PI decision on the ESCALATE of w02-c8/w02-c2-style restatements", but w02-c8's verdict is OVERSTATED, not ESCALATE (line 230 is the decision that applies). A wave note names a verdict that the claim file does not carry. The tool's ref check would not catch it (the line names the id). Also `agents/research-pi.md` and `references/waves.md` say nothing about writing the section: the PI will write it only if it reads SKILL.md's claim-file part, which I changed.
 refs: __statera__/wave-02.md:228-232; skills/research-loop/SKILL.md (claim file, decision paragraph)
+
+## S-w08-author-w08-9-7
+Several authors commit to this one branch in the same minutes, so `git commit --amend` is unsafe: I amended HEAD after author-w08-5 had committed on top of my commit, and so rewrote their commit (fe25848 into 3305edd) with a change to my file. I noticed from the `git show --stat`, restored their commit with `git update-ref HEAD fe25848 3305edd` (which refuses if HEAD moved) and committed my change on its own. The skill's "commit only your own files, by naming them" does not mention amend; a line "never `--amend`; a correction is a new commit" would have prevented it.
+refs: `git reflog` of the lab branch (entries "commit (amend): wave-08 author-w08-5: puzzles" and "restore author-w08-5's commit that I amended by mistake")
