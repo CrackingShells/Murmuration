@@ -31,6 +31,17 @@ it is worth this wave: the reason for the wave in plain words, not a task list.
 - **Use warm agents for corrections, fresh agents for checks.** Send a correction to the agent that
   did the work (`SendMessage` to its name). A check always goes to an agent that did not do the
   work.
+- **Clock times come from a tool.** A time written in a note comes from `date` or a commit
+  (`git log --date=format:%H:%M`), never from your sense of how long things took: you have no clock
+  of your own (w05-c9; S-w08-research-pi-1).
+- **Landing a change on main.** Merge the branch into the lab branch and, on the merged tree, run
+  every script's `--selftest` (S-w08-research-pi-2: a change that passed its replay and its
+  verifier failed `budget.py --selftest` at the first merge). If a hook row points at a file in the
+  plugin data folder, install the new file into the running session's data folder before merging
+  to main: a reload of the hooks would otherwise run the old file, and the pre-w08-c4 binary exits 2
+  on a subcommand it lacks (`__reports__/wave-08/research-pi/old_binary_budget.txt`). Merge into
+  main with `--no-ff`, then run one headless smoke session from main's tree, and revert if it
+  blocks a call the old main allowed.
 - **Your own facts are claims.** When your note states a result, a number or what an earlier wave
   established, file it as a claim (`wNN-cK`, `author: research-pi`) with its source. Give it to a
   verifier when later work depends on it.
