@@ -405,7 +405,7 @@ def tol_equal(a, b, name):
                     return False
         return True
     if "handbacks" in name:
-        sub = lambda s: re.sub(rb"\| \d{4}-\d\d-\d\dT[\d:+-]+ \|", b"| T |", s)
+        sub = lambda s: re.sub(rb"-(py|rs)-lab-", b"-X-lab-", re.sub(rb"\| \d{4}-\d\d-\d\dT[\d:+-]+ \|", b"| T |", s))
         return sub(a) == sub(b)
     return False
 
@@ -475,6 +475,7 @@ def main():
     ap.add_argument("--transcripts", type=int, default=150)
     ap.add_argument("--fuzz", type=int, default=600)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--only", default="", help="run only the scenarios whose name starts with one of these comma-separated prefixes")
     a = ap.parse_args()
     sys.path.insert(0, os.path.join(a.repo, "scripts"))
     import budget
@@ -489,6 +490,8 @@ def main():
     if a.realclock:
         scns = [x for x in scns if not x.name.startswith("time")]
     scns.append(Scn("nolab_budget", [ev("budget", "SubagentStart", NOW0, aid="n1", atype="murmuration:author"), ev("budget", "PostToolBatch", NOW0 + 1, aid="n1", atype="murmuration:author")], nolab=True, group="nolab"))
+    if a.only:
+        scns = [x for x in scns if x.name.startswith(tuple(a.only.split(",")))]
     os.makedirs(a.out, exist_ok=True)
     root = os.path.join(a.scratch, "replay-real" if a.realclock else "replay-exact")
     os.makedirs(root, exist_ok=True)
