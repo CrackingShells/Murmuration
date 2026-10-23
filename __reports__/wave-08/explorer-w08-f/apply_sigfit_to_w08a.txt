@@ -1,0 +1,3 @@
+turns 3685, with a thinking block 2905; signature chars: mean 2713 median 1684 max 102684; below B (fit gives 0): 4
+explorer-w08-a thinking tokens (fit on context growth): 2160867 ; USD 18.82 of 83.69 (22.5%)
+this fit, signature -> tokens: 1815165 tokens (0.84x); same USD per token -> USD 15.81 (18.9% of context USD)

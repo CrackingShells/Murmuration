@@ -1,0 +1,9 @@
+{
+ "true_total": 0.3277,
+ "claimed_total": 0.3051,
+ "no_dedup_total": 0.3869,
+ "n_requests": 18,
+ "n_rows": 22,
+ "claimed_mean": 0.0169,
+ "true_mean": 0.0182
+}

@@ -1,0 +1,19 @@
+run	arm	subagent_requests	answer	verdict	correct	sonnet_out	sonnet_thinking	sonnet_usd	haiku_usd	total_usd
+S-default-1	default	8	None	None	None	879	438	0.0306	0.0053	0.0359
+S-default-2	default	7	None	None	None	949	589	0.0240	0.0054	0.0294
+S-default-3	default	8	None	None	None	939	476	0.0203	0.0054	0.0257
+S-high-1	high	7	None	None	None	1022	662	0.0320	0.0054	0.0374
+S-high-2	high	7	None	None	None	1105	587	0.0220	0.0054	0.0274
+S-high-3	high	7	None	None	None	1009	589	0.0206	0.0055	0.0261
+S-low-1	low	6	None	None	None	816	461	0.0286	0.0053	0.0339
+S-low-2	low	7	None	None	None	810	443	0.0181	0.0054	0.0235
+S-low-3	low	7	None	None	None	1006	498	0.0204	0.0056	0.0259
+S-max-1	max	7	None	None	None	3511	2969	0.0643	0.0054	0.0697
+S-max-2	max	7	None	None	None	3325	2782	0.0508	0.0054	0.0562
+S-max-3	max	7	None	None	None	2743	2381	0.0433	0.0060	0.0494
+
+arm	n	mean_subagent_requests	mean_sonnet_out	mean_thinking	mean_sonnet_usd	min-max_usd	correct
+default	3	7.7	922	501	0.0250	0.0203-0.0306	-
+low	3	6.7	877	467	0.0223	0.0181-0.0286	-
+high	3	7.0	1045	613	0.0249	0.0206-0.0320	-
+max	3	7.0	3193	2711	0.0528	0.0433-0.0643	-

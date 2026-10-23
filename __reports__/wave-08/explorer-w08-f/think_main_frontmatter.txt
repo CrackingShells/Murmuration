@@ -1,0 +1,26 @@
+run	req	usd	out	thinking	visible_out	growth_minus_out(mean over non-final)	answers_ok	arm
+T-default-1	7	0.0285	873	524	349	36.7	5/6	default
+T-default-2	7	0.0228	911	573	338	36.7	5/6	default
+T-default-3	7	0.0254	1095	601	494	35.5	6/6	default
+T-high-1	7	0.0214	814	479	335	35.5	6/6	high
+T-high-2	7	0.0226	897	561	336	36.7	5/6	high
+T-high-3	7	0.0227	905	574	331	35.5	6/6	high
+T-low-1	7	0.0224	886	551	335	36.7	5/6	low
+T-low-2	7	0.0220	857	526	331	36.7	5/6	low
+T-low-3	7	0.0227	910	573	337	35.5	6/6	low
+T-max-1	7	0.0220	859	535	324	35.5	6/6	max
+T-max-2	7	0.0229	928	596	332	35.5	6/6	max
+T-max-3	7	0.0223	875	545	330	36.7	5/6	max
+T-medium-1	7	0.0219	855	518	337	35.5	6/6	medium
+T-medium-2	7	0.0228	910	576	334	36.3	5/6	medium
+T-medium-3	7	0.0222	874	550	324	35.5	6/6	medium
+
+fit over 90 request pairs: growth = 34.6 + 0.910*thinking_tokens + 1.195*other_output_tokens + -0.341*result_chars ; R2 0.9859 ; residual sd 9.4 tokens
+thinking coefficient bootstrap 95% interval 0.857 .. 0.944 (2000 resamples of request pairs, seed 1)
+
+arm	runs	mean_usd	mean_requests	mean_out	mean_thinking	thinking_share_of_out	answers_ok	usd_range
+default	3	0.0255	7.0	960	566	59%	16/18	0.0228-0.0285
+high	3	0.0222	7.0	872	538	62%	17/18	0.0214-0.0227
+low	3	0.0224	7.0	884	550	62%	16/18	0.0220-0.0227
+max	3	0.0224	7.0	887	559	63%	17/18	0.0220-0.0229
+medium	3	0.0223	7.0	880	548	62%	17/18	0.0219-0.0228
