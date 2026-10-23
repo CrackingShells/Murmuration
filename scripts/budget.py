@@ -263,7 +263,7 @@ def halt_text(used, B, minutes, T):
     return line(used, B, minutes, T) + ". The run ends here."
 
 
-def start_note(B, T, source):
+def start_note(B, T, source, root):
     where = {"brief": "your budget for this run is USD %.2f and %g minutes (from your brief)",
              "default": "your budget for this run is USD %.2f and %g minutes (the defaults for your role; a line `Budget: USD <number>` or `Time: min <number>` in your brief replaces them)",
              "unknown": "your budget for this run is set by the `Budget: USD <number>` and `Time: min <number>` lines of your brief, else it is USD %.2f and %g minutes (the defaults for your role)"}[source] % (B, T)
@@ -274,7 +274,7 @@ def start_note(B, T, source):
         "From 100%% you choose: if one or two more steps finish the result, finish it; otherwise hand back what you have, what is missing, and what more budget would buy. "
         "The principal investigator holds the money and decides whether to resume you with more. "
         "Before you write a helper script: ToolSearch `select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__find_files`, "
-        "then `search` with `paths: [\"__instrumenta__\"]` and `limit: 5`." % where)
+        "then `search` with `paths: [\"%s/__instrumenta__\"]` (absolute: a relative path searches the main checkout) and `limit: 5`." % (where, root.rstrip("/")))
 
 
 def state_path(root, aid):
@@ -364,6 +364,44 @@ def pending_dir(root):
     return os.path.join(handback.harness_dir(root), "pending")
 
 
+def dispatch_name(tin, prompt, kind):
+    import re
+    return str(tin.get("name") or (re.search(r"Your name is ([a-z0-9-]+)", prompt) or [None, None])[1] or kind)
+
+
+def use_id(event):
+    import re
+    return re.sub(r"[^A-Za-z0-9_-]", "", str(event.get("tool_use_id") or os.getpid()))
+
+
+def names_dir(root):
+    return os.path.join(handback.harness_dir(root), "names")
+
+
+def bind(event, root, now):
+    """PostToolUse on the Agent tool: the response names the new agent's id (`tool_response.agentId`), the one field that ties an agent to its dispatch.
+    A background dispatch answers before the agent starts: the record moves to `names/<id>.json`, and the start claims it by id. A foreground one answers after the agent ended:
+    the start line has been written by arrival order, so one `named` line says who the agent is."""
+    tin, resp = event.get("tool_input") or {}, event.get("tool_response")
+    kind, aid = str(tin.get("subagent_type") or ""), resp.get("agentId") if isinstance(resp, dict) else None
+    if not kind.startswith("murmuration:") or not isinstance(aid, str) or not aid or not event.get("tool_use_id"):
+        return None
+    import glob
+    for path in sorted(glob.glob(os.path.join(pending_dir(root), "*-%s.json" % use_id(event)))):
+        try:
+            rec = loads(open(path, "rb").read())
+            os.makedirs(names_dir(root), exist_ok=True)
+            with open(os.path.join(names_dir(root), aid + ".json"), "w") as fh:
+                fh.write(dumps(rec))
+            os.unlink(path)
+        except (OSError, ValueError):
+            continue
+        return None
+    if os.path.exists(state_path(root, aid)):
+        handback.log_line(root, dict(event="named", agent_id=aid, name=dispatch_name(tin, tin.get("prompt") or "", kind), type=kind))
+    return None
+
+
 def dispatch(event, root, now):
     """PreToolUse on the Agent tool: keep the brief's figures for the SubagentStart that follows; log a figure below the floor."""
     tin = event.get("tool_input") or {}
@@ -374,9 +412,9 @@ def dispatch(event, root, now):
     role, prompt = kind.split(":", 1)[1], tin.get("prompt") or ""
     B, b_set = budget_for(role, prompt)
     T, t_set = time_for(role, prompt)
-    name = str(tin.get("name") or (re.search(r"Your name is ([a-z0-9-]+)", prompt) or [None, None])[1] or kind)
+    name = dispatch_name(tin, prompt, kind)
     os.makedirs(pending_dir(root), exist_ok=True)
-    key = "%014.3f-%s" % (now, re.sub(r"[^A-Za-z0-9_-]", "", str(event.get("tool_use_id") or os.getpid())))
+    key = "%014.3f-%s" % (now, use_id(event))
     with open(os.path.join(pending_dir(root), key + ".json"), "w") as fh:
         fh.write(dumps(dict(type=kind, B=B, T=T, b_set=b_set, t_set=t_set, t=now, name=name)))
     warn_floor(root, dict(name=name, type=kind), B if b_set else None, T if t_set else None)
@@ -391,7 +429,8 @@ def warn_floor(root, who, B, T):
 
 
 def claim_pending(root, kind, now):
-    """The oldest dispatch record of this agent type that is still fresh, removed; and whether other fresh records of the type disagree with it."""
+    """The oldest dispatch record of this agent type that is still fresh, removed; whether other fresh records of the type disagree with it in figures (`mixed`);
+    and the names of the records in play when they differ (`pool`, comma-joined, else None): which of them this agent is cannot be told from arrival order."""
     import glob
     found = []
     for path in sorted(glob.glob(os.path.join(pending_dir(root), "*.json"))):
@@ -413,15 +452,31 @@ def claim_pending(root, kind, now):
             continue
         rest = [(p, r) for p, r in found if p != path]
         mixed = bool(rec.get("ambiguous")) or any((r["B"], r["T"]) != (rec["B"], rec["T"]) for p, r in rest)
-        if mixed:   # the later claimants must not trust their record either: whichever start comes first may have taken the wrong one
+        pool = rec.get("pool")   # a pool is a string; a record whose names are not all strings says nothing about names
+        if not (isinstance(pool, str) and pool):
+            names = [x.get("name") for x in [rec] + [r for p, r in rest]]
+            pool = ",".join(sorted(set(names))) if all(isinstance(n, str) for n in names) and len(set(names)) > 1 else None
+        if mixed or pool:   # the later claimants must not trust their record either: whichever start comes first may have taken the wrong one
+            upd = dict(**({"ambiguous": True} if mixed else {}), **({"pool": pool} if pool else {}))
             for p, r in rest:
                 try:
                     with open(p, "w") as fh:
-                        fh.write(dumps(dict(r, ambiguous=True)))
+                        fh.write(dumps(dict(r, **upd)))
                 except OSError:
                     pass
-        return rec, mixed
-    return None, False
+        return rec, mixed, pool
+    return None, False, None
+
+
+def claim_by_id(root, aid):
+    """The record that `bind` moved to this agent's id, removed: its start is tied to its dispatch, nothing is left to guess."""
+    path = os.path.join(names_dir(root), aid + ".json")
+    try:
+        rec = loads(open(path, "rb").read())
+        os.unlink(path)
+    except (OSError, ValueError):
+        return None
+    return (rec, False, None) if isinstance(rec, dict) else None
 
 
 def handle(event, now=None):
@@ -430,6 +485,8 @@ def handle(event, now=None):
     now, kind = now or time.time(), event.get("hook_event_name")
     if root and kind == "PreToolUse" and event.get("tool_name") in ("Agent", "Task") and not event.get("agent_id"):
         return dispatch(event, root, now)
+    if root and kind == "PostToolUse" and event.get("tool_name") in ("Agent", "Task") and not event.get("agent_id"):
+        return bind(event, root, now)
     role = role_of(event)
     if not role or not root:
         return None
@@ -445,7 +502,7 @@ def handle_locked(event, root, role, aid, kind, now):
     st = load_state(root, aid)
     if kind == "SubagentStart":
         if st is None:
-            rec, mixed = claim_pending(root, event.get("agent_type"), now)
+            rec, mixed, pool = claim_by_id(root, aid) or claim_pending(root, event.get("agent_type"), now)
             B, b_set = budget_for(role, seen and seen["brief"])
             T, t_set = time_for(role, seen and seen["brief"])
             source = "brief" if (b_set or t_set) else "default"
@@ -457,10 +514,13 @@ def handle_locked(event, root, role, aid, kind, now):
                       acc=0.0, run_start=now, run_open=True, last_seen=now, k=0, raises_done=len(seen["raises"]) if seen else 0, stops=0, ceil_req=-1,
                       brief_read=bool(seen), warned=bool(rec) or bool(seen))
             save_state(root, aid, st)
-            if rec and rec.get("name"):
+            extra = {}
+            if pool:   # several dispatches of this type are in play and nothing in the start event tells which one this agent is: say so, and keep the id-based name
+                extra = dict(name_unconfirmed=True, name_candidates=pool)
+            elif rec and isinstance(rec.get("name"), str) and rec["name"]:
                 base_log["name"] = rec["name"]   # the transcript and its meta file do not exist yet: the dispatch record knows the name
-            handback.log_line(root, dict(base_log, event="start", B=B, T=T, source=source, resumed=bool(seen and seen["requests"]), base_usd=round(st["base"], 6)))
-            return reply(kind, additionalContext=start_note(B, T, source))
+            handback.log_line(root, dict(base_log, event="start", B=B, T=T, source=source, resumed=bool(seen and seen["requests"]), base_usd=round(st["base"], 6), **extra))
+            return reply(kind, additionalContext=start_note(B, T, source, root))
         if st["run_open"]:   # the earlier run ended without a SubagentStop: count it up to the last event seen
             st["acc"] += max(0.0, st["last_seen"] - st["run_start"])
         st.update(run_start=now, run_open=True, last_seen=now)
@@ -611,8 +671,9 @@ def selftest():
     assert note_text(1.0, 1.0, 1.0, 10, 1.0) == ("Spent 1.00 of USD 1.00 (100%); 1.0 of 10 min (10%). If one or two more steps finish the result, finish it. "
                                                  "Otherwise hand back now: what you have, what is missing, and what more budget would buy.")
     assert [due(f) for f in (0, 0.49, 0.5, 0.74, 0.75, 0.874, 0.875, 0.9374, 0.9375, 2)] == [0, 0, 1, 1, 2, 2, 3, 3, 4, 4]
-    assert all(x in start_note(3.0, 20.0, "brief") for x in ("USD 3.00 and 20 minutes (from your brief)", "50%, 75%, 87.5% and 93.75%", "at every step from 100%", "holds the money", "select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__find_files", "`limit: 5`"))
-    assert start_note(3.0, 20.0, "brief").endswith('then `search` with `paths: ["__instrumenta__"]` and `limit: 5`.')
+    assert all(x in start_note(3.0, 20.0, "brief", "/lab") for x in ("USD 3.00 and 20 minutes (from your brief)", "50%, 75%, 87.5% and 93.75%", "at every step from 100%", "holds the money", "select:mcp__plugin_colgrep-mcp_colgrep__search,mcp__plugin_colgrep-mcp_colgrep__find_files", "`limit: 5`"))
+    assert start_note(3.0, 20.0, "brief", "/a/lab").endswith('then `search` with `paths: ["/a/lab/__instrumenta__"]` (absolute: a relative path searches the main checkout) and `limit: 5`.')
+    assert '"/__instrumenta__"' in start_note(3.0, 20.0, "default", "/") and '"/lab/__instrumenta__"' in start_note(1.0, 1.0, "unknown", "/lab/")
 
     # 4. hooks end to end, in a temporary lab (the way the platform runs the script, and in-process where time is set)
     def fire(cwd, **kw):
@@ -845,6 +906,44 @@ def selftest():
         handle(dict(ev, hook_event_name="PreToolUse", tool_name="Agent", tool_use_id="u3", tool_input=dict(subagent_type="murmuration:explorer", prompt="Budget: USD 9\n")), now=100.0)
         got = ctx(handle(dict(ev, agent_id="c2", hook_event_name="SubagentStart"), now=100.0 + PENDING_TTL + 5))
         assert "USD 3.00 and 20 minutes (the defaults for your role" in got, got
+
+    # 6b. names (w08-c5): two dispatches of one type with the same figures and different names. A start carries nothing that ties it to a dispatch (agent_id, agent_type and the
+    # session's fields only), so by arrival order it is a guess: the line says the name is unconfirmed and lists the candidates. The answer of the Agent tool carries `agentId`: it ties them.
+    with tempfile.TemporaryDirectory() as tmp:
+        os.makedirs(os.path.join(tmp, "__statera__"))
+        sess = os.path.join(tmp, "s")
+        os.makedirs(os.path.join(sess, "subagents"))
+        ev = dict(cwd=tmp, agent_type="murmuration:explorer", transcript_path=sess + ".jsonl")
+
+        def agent_call(hook, n, u, now, **kw):
+            return handle(dict(ev, hook_event_name=hook, tool_name="Agent", tool_use_id=u, tool_input=dict(subagent_type="murmuration:explorer", name=n, prompt="Your name is %s.\nBudget: USD 1\nTime: min 9\n" % n), **kw), now=now)
+
+        def starts(tmp):
+            return [x for x in logged(tmp) if x["event"] == "start"]
+        agent_call("PreToolUse", "explorer-w09-e", "u1", 1.0)
+        agent_call("PreToolUse", "explorer-w09-f", "u2", 1.0001)
+        for aid in ("x1", "x2"):   # no answer yet: arrival order
+            got = ctx(handle(dict(ev, agent_id=aid, hook_event_name="SubagentStart"), now=2.0))
+            assert "USD 1.00 and 9 minutes (from your brief)" in got, got   # the figures agree, so the note states them
+        assert [(x["agent_id"], x.get("name_unconfirmed"), x.get("name_candidates")) for x in starts(tmp)] == [("x1", True, "explorer-w09-e,explorer-w09-f"), ("x2", True, "explorer-w09-e,explorer-w09-f")], starts(tmp)
+        assert all(x["name"] == "murmuration-explorer-" + x["agent_id"] for x in starts(tmp)), "the id-based name stands in, not a guess"
+        agent_call("PostToolUse", "explorer-w09-f", "u2", 3.0, tool_response=dict(status="completed", agentId="x1"))   # foreground: the answer comes after the start
+        agent_call("PostToolUse", "explorer-w09-e", "u1", 3.0, tool_response=dict(status="completed", agentId="x2"))
+        assert [(x["agent_id"], x["name"]) for x in logged(tmp) if x["event"] == "named"] == [("x1", "explorer-w09-f"), ("x2", "explorer-w09-e")]
+        # the answers first (background): each start takes its own record by id, in any order, and the pool is untouched
+        agent_call("PreToolUse", "explorer-w09-g", "u3", 10.0)
+        agent_call("PreToolUse", "explorer-w09-h", "u4", 10.0001)
+        agent_call("PostToolUse", "explorer-w09-g", "u3", 10.1, tool_response=dict(status="async_launched", agentId="x3"))
+        agent_call("PostToolUse", "explorer-w09-h", "u4", 10.1, tool_response=dict(status="async_launched", agentId="x4"))
+        assert sorted(os.listdir(os.path.join(tmp, "__statera__", ".harness", "pending"))) == [] and len(os.listdir(os.path.join(tmp, "__statera__", ".harness", "names"))) == 2
+        for aid in ("x4", "x3"):
+            handle(dict(ev, agent_id=aid, hook_event_name="SubagentStart"), now=11.0)
+        assert [(x["agent_id"], x["name"], "name_unconfirmed" in x) for x in starts(tmp)[2:]] == [("x4", "explorer-w09-h", False), ("x3", "explorer-w09-g", False)], starts(tmp)[2:]
+        assert not os.listdir(os.path.join(tmp, "__statera__", ".harness", "names")) and len([x for x in logged(tmp) if x["event"] == "named"]) == 2, "no `named` line when the start knew"
+        # other agent types, calls inside a subagent and answers without an id leave nothing
+        handle(dict(ev, hook_event_name="PostToolUse", tool_name="Agent", tool_use_id="u5", tool_input=dict(subagent_type="general-purpose", name="z"), tool_response=dict(agentId="x9")), now=12.0)
+        handle(dict(ev, hook_event_name="PostToolUse", tool_name="Agent", tool_use_id="u5", tool_input=dict(subagent_type="murmuration:explorer", name="z"), tool_response="done"), now=12.0)
+        assert not os.path.exists(os.path.join(tmp, "__statera__", ".harness", "x9.json")) and len(logged(tmp)) == 6, len(logged(tmp))
 
     # 7. the registration: the check on PostToolBatch, the ceiling on PostToolUse, the dispatch on Agent
     import shlex
