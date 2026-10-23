@@ -7,7 +7,7 @@ Four claims that escalated are superseded (w01-c4, w01-c5, w06-c3, w08-c1), so `
 refs: /private/tmp/murmuration-w08/author-w08-9/wt/__reports__/wave-08/author-w08-9/probe_blanket_stands.txt (lines for w01-c4, w01-c5, w06-c3, w08-c1)
 
 ## S-w08-author-w08-9-3
-`ref:` is a line number into a wave note, and wave notes are edited by the PI after the fact (the explorer's own table cites wave-08 lines that moved within the wave). I made a line that no longer names the claim only a warning, and a file that never names the claim a refusal. This catches drift but does not repair it. A stable anchor (a quoted first words of the note's bullet, or a heading) would survive edits and I did not test one. The ten refs in my proposal are into closed wave notes 1-7, so I expect no drift, but wave-07.md was edited after its close (the addendum quoted at synthesis line 439), so "closed" is not "frozen".
+`ref:` is a line number into a wave note, and wave notes are edited by the PI after the fact (the explorer's own table cites wave-08 lines that moved within the wave). I made a line that no longer names the claim only a warning, and a file that never names the claim a refusal. This catches drift but does not repair it. A stable anchor (a quoted first words of the note's bullet, or a heading) would survive edits and I did not test one. The ten refs in my proposal are into closed wave notes 1-7, so I expect no drift; I did not check whether any of those notes was edited after its wave closed.
 refs: __statera__/wave-07.md:363; __reports__/wave-08/explorer-w08-i/corrections_table.md (row 4)
 
 ## S-w08-author-w08-9-4
@@ -16,7 +16,7 @@ refs: __pondus__/w07-c7.md; __statera__/wave-08.md:68; __reports__/wave-08/explo
 
 ## S-w08-author-w08-9-5
 `__pondus__/w06-c7.md` already holds a PI-written section inside an author's claim file ("## Note added after the PI's decision (the incident of this wave)"), under no one's name: the one-writer-per-section rule is already bent there, in the form the new `## decision:` section would regularise. Whether that note is the PI's or author-w06-5's I did not check line by line. Other decisions that are not about a label (w06-c9 landed against its threshold; w04-c5 lean hooks set aside; w04-c2 and w04-c3 OVERSTATED with no in-place restatement) are outside my grammar: the claim file keeps showing a bare `MEASURED` or `below ...` for them. I did not count how many.
-refs: __pondus__/w06-c7.md (heading at line 46); __statera__/wave-04.md:249-252; __statera__/wave-06.md:232
+refs: __pondus__/w06-c7.md (heading at line 46); __statera__/wave-04.md:248-252; __statera__/wave-06.md:232
 
 ## S-w08-author-w08-9-6
 wave-02.md line 228 reads "PI decision on the ESCALATE of w02-c8/w02-c2-style restatements", but w02-c8's verdict is OVERSTATED, not ESCALATE (line 230 is the decision that applies). A wave note names a verdict that the claim file does not carry. The tool's ref check would not catch it (the line names the id). Also `agents/research-pi.md` and `references/waves.md` say nothing about writing the section: the PI will write it only if it reads SKILL.md's claim-file part, which I changed.
