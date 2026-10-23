@@ -1,0 +1,10 @@
+scripts/budget.py exit 0
+scripts/handback.py exit 0
+scripts/lab_init.py exit 0
+scripts/lab_status.py exit 0
+scripts/permission_guard.py exit 0
+scripts/resume_brief.py exit 0
+scripts/user_words.py exit 0
+__instrumenta__/w08_c14_cases.py exit 0
+__instrumenta__/budget_arms_analyze.py exit 0
+__instrumenta__/w08_c10_cases.py exit 0

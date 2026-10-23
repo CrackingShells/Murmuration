@@ -1,0 +1,9 @@
+repo /private/tmp/murmuration-w08/author-w08-14/wt | rust ../rs_new | 36280 cases
+hole       20351 cases with plain form denied   variant allowed (a hole): python     0   rust     0
+          (0 cases whose plain form is allowed, not counted)
+g3hole      3265 cases with plain form denied   variant allowed (a hole): python     0   rust     0
+          (0 cases whose plain form is allowed, not counted)
+control    10396 cases   denied (a false denial): python     0   rust     0
+g3control   2236 cases   denied (a false denial): python     0   rust     0
+nonc          32 cases   denied: python 0   rust 0
+python and rust differ on 0 of 36280 cases
