@@ -7,7 +7,7 @@ In the read-only 16-shard task, 2 of 8 runs (one base, one with the line) did no
 refs: __reports__/wave-08/explorer-w08-g/arms_task5_readonly_16.tsv rows V-base-4 and V-lever1-2 (calls_by_request 2,1,2,1 and 2,1,2,0,1); raw runs in /private/tmp/murmuration-w08/explorer-w08-g/t5/runs/
 
 ## S-w08-explorer-w08-g-3
-The one wrong answer in 41 measured runs is in the arm with the line (task 4, run lever1-2): it sent the 8 reads in a batch right after the first two calls, finished in 3 requests, and named all eight files as wrong (verdict UNSUPPORTED). The other 7 runs of that task got the two wrong files right. One run is not an effect, but it is the only run of 41 where a request was saved by finishing early and it was wrong; would a bigger sample show that "fewer requests" costs correctness on counting tasks?
+The one wrong answer in 41 measured runs is in the arm with the line (task 4, run lever1-2): it sent the 8 reads in a batch right after the first two calls, finished in 3 requests, and named all eight files as wrong (verdict UNSUPPORTED). The other 7 runs of that task got the two wrong files right. One run is not an effect; would a bigger sample show that sending the reads together with a second, unrelated call costs correctness on counting tasks (the 3-request runs of task 5 were right)?
 refs: __reports__/wave-08/explorer-w08-g/arms_task4_readonly_8.tsv row V-lever1-2
 
 ## S-w08-explorer-w08-g-4
