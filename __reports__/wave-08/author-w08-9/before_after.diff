@@ -6,11 +6,6 @@
 @@ -9 +9 @@
 -- w01-c8  escalated: PI decides  <- reproducer-w01-8: ESCALATE
 +- w01-c8  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w01-8: ESCALATE  [PI decision: __statera__/wave-01.md:263]
-@@ -22,2 +22,2 @@
--- w02-c7  below MEASURED: restate  <- reproducer-w02-7: OVERSTATED
--- w02-c8  below MEASURED: restate  <- reproducer-w02-8: OVERSTATED
-+- w02-c7  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w02-7: OVERSTATED  [PI decision: __statera__/wave-02.md:230]
-+- w02-c8  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w02-8: OVERSTATED  [PI decision: __statera__/wave-02.md:230]
 @@ -25 +25 @@
 -- w02-c10  escalated: PI decides  <- reproducer-w02-10: ESCALATE
 +- w02-c10  MEASURED (PI decided: restated, not re-verified)  <- reproducer-w02-10: ESCALATE  [PI decision: __statera__/wave-02.md:224]

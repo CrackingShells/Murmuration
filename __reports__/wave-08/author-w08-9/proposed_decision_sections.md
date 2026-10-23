@@ -101,25 +101,3 @@ statement: c1-c3 stand as the verifier restates them (the 1-hour cache is honour
 reason: w07-c7 stands as the verifier restates it, and P6 lands by its registered rule; the head was not edited
 ```
 
-## w02-c7
-
-```markdown
-## decision: research-pi
-
-decision: restated at MEASURED
-ref: __statera__/wave-02.md:230
-statement: the head as restated in place (ad73b5b) to the statement the verifier's independent result supports: one of five headless runs, arm A, was stopped about 10 minutes after the PI's last turn; arm B survived a 49-minute idle gap
-reason: OVERSTATED, PI-authored; the head is restated to what the verifier's result supports and is not re-verified
-```
-
-## w02-c8
-
-```markdown
-## decision: research-pi
-
-decision: restated at MEASURED
-ref: __statera__/wave-02.md:230
-statement: the head as restated in place (ad73b5b) to the statement the verifier's independent result supports: five headless arms, one run each, all reached the correct maximum; A wrote no synthesis because its last worker was stopped by the 10-minute background ceiling
-reason: OVERSTATED, PI-authored; the head is restated to what the verifier's figures support and is not re-verified
-```
-

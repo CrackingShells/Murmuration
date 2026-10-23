@@ -382,6 +382,11 @@ def latest(entries, start=0, stop=None):
     return {name: verdict for i, name, verdict in entries if i >= start and (stop is None or i < stop)}
 
 
+def names_claim(line, cid):
+    """True when the line holds the claim id as a whole token (`w01-c1` is not in `w01-c10` or `xw01-c1`)."""
+    return re.search(r"(?<![\w-])%s(?![\w-])" % re.escape(cid), line) is not None
+
+
 def check_ref(ref, cid, root):
     """(ok, notes) for a decision's `ref:` line: a wave note, and a line number that names the claim.
 
@@ -399,13 +404,13 @@ def check_ref(ref, cid, root):
         return False, ["`ref:` %s is not a file under the project" % match.group(1)]
     with open(path, encoding="utf-8", errors="replace") as fh:
         lines = fh.read().splitlines()
-    if not any(cid in l for l in lines):
+    if not any(names_claim(l, cid) for l in lines):
         return False, ["`ref:` %s never names %s" % (match.group(1), cid)]
     if match.group(2):
         n = int(match.group(2))
         if not 1 <= n <= len(lines):
             return False, ["`ref:` line %d is past the end of %s (%d lines)" % (n, match.group(1), len(lines))]
-        if cid not in lines[n - 1]:
+        if not names_claim(lines[n - 1], cid):
             return True, ["`ref:` %s:%d does not name %s (line numbers drift when a wave note is edited)"
                           % (match.group(1), n, cid)]
     return True, []
@@ -420,9 +425,8 @@ def read_decision(dec, label, entries, cid, root):
     a label that no verifier's evidence carries. Judged on the verdicts standing above the decision:
       - with none of ESCALATE, OVERSTATED, LABEL TOO STRONG above it (no verdict asks for a decision), or with
         UNSUPPORTED or WRONG above it (the evidence carries nothing), only `withdrawn` or `superseded by` is applied;
-      - with OVERSTATED or LABEL TOO STRONG, `stands at` must be strictly below the author's label (the
-        verifier says that label is too strong), and `restated at` may be at most the author's label, and shows
-        that no verifier has read the restated wording;
+      - with OVERSTATED or LABEL TOO STRONG, either form must be strictly below the author's label (the
+        verifier says that label is too strong, as the state `below <LABEL>: restate` says);
       - with an ESCALATE and no OVERSTATED, LABEL TOO STRONG or UNSUPPORTED, WRONG, either form may be at most the
         author's label.
     A label stronger than the author's is never applied. Nothing is shown as a bare label: the state keeps
@@ -471,9 +475,8 @@ def read_decision(dec, label, entries, cid, root):
             why = "no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)"
         elif said < head:
             why = "it raises the label from %s to %s, above what any verifier's evidence carries" % (label.split()[0], arg)
-        elif "lower" in families and kind == "stands" and said == head:
-            why = ("a verifier says %s is too strong; use `restated at` (the head carries the verifier's wording) "
-                   "or a label below it" % arg)
+        elif "lower" in families and said == head:
+            why = "a verifier says %s is too strong; the decision must name a label below it" % arg
         if why:
             return None, warnings + ["%s: `%s` not applied: %s" % (where, text, why)]
     return out, warnings
@@ -1296,6 +1299,16 @@ def selftest():
         # A ref line that does not name the claim only warns (line numbers drift); the file does name it.
         got = current_label(decided("MEASURED", esc, dsec("stands at MEASURED", ref="__statera__/wave-01.md:3")), droot)
         assert got["current"] == "MEASURED (PI decided)" and "does not name w01-c1" in got["warnings"][0], got
+        # The id is matched as a whole token: a note naming only w01-c10 does not name w01-c1.
+        _write(os.path.join(droot, "__statera__", "wave-02.md"), "w01-c10 and xw01-c1 and w01-c1x and w01-c1-b\n")
+        got = current_label(decided("MEASURED", esc, dsec("stands at MEASURED", ref="__statera__/wave-02.md:1")), droot)
+        assert got["current"] == "escalated: PI decides" and "never names w01-c1" in got["warnings"][0], got
+        _write(os.path.join(droot, "__statera__", "wave-02.md"), "w01-c10 and xw01-c1\nw01-c1.\n")
+        got = current_label(decided("MEASURED", esc, dsec("stands at MEASURED", ref="__statera__/wave-02.md:2")), droot)
+        assert got["current"] == "MEASURED (PI decided)" and got["warnings"] == [], got  # a full stop after the id is fine
+        got = current_label(decided("MEASURED", esc, dsec("stands at MEASURED", ref="__statera__/wave-02.md:1")), droot)
+        assert got["current"] == "MEASURED (PI decided)" and "does not name w01-c1" in got["warnings"][0], got  # line 1 is a neighbour
+        os.remove(os.path.join(droot, "__statera__", "wave-02.md"))
         # Without a root only the form of the ref is checked.
         assert current_label(decided("MEASURED", esc, dsec("stands at MEASURED", ref="__statera__/wave-77.md:5")))["current"] \
             == "MEASURED (PI decided)"
@@ -1321,7 +1334,11 @@ def selftest():
         got = attempt("MEASURED", [("v", "OVERSTATED")], "stands at ESTIMATE")
         assert got["current"] == "ESTIMATE (PI decided)", got
         got = attempt("MEASURED", [("v", "OVERSTATED")], "restated at MEASURED", "the verifier's wording")
-        assert got["current"] == "MEASURED (PI decided: restated, not re-verified)" and got["warnings"] == [], got
+        assert got["current"] == "below MEASURED: restate" and "too strong" in got["warnings"][0], got  # same label: refused
+        got = attempt("MEASURED", [("v", "OVERSTATED")], "restated at ESTIMATE", "the verifier's wording")
+        assert got["current"] == "ESTIMATE (PI decided: restated, not re-verified)" and got["warnings"] == [], got
+        got = attempt("THEOREM", [("v", "LABEL TOO STRONG")], "restated at THEOREM", "s")
+        assert got["current"] == "below THEOREM: restate" and "too strong" in got["warnings"][0], got
         got = attempt("MEASURED", [("v1", "ESCALATE"), ("v2", "OVERSTATED")], "stands at MEASURED")
         assert got["current"] == "escalated: PI decides" and "too strong" in got["warnings"][0], got
         got = attempt("MEASURED", [("v", "UNSUPPORTED")], "stands at MEASURED")
@@ -1329,7 +1346,9 @@ def selftest():
         got = attempt("MEASURED", [("v1", "SUPPORTED"), ("v2", "UNSUPPORTED")], "restated at MEASURED", "s")
         assert got["current"] == "disputed: PI decides" and "carries nothing" in got["warnings"][0], got
         got = attempt("MEASURED", [("v1", "SUPPORTED"), ("v2", "OVERSTATED")], "restated at MEASURED", "s")
-        assert got["current"] == "MEASURED (PI decided: restated, not re-verified)", got
+        assert got["current"] == "disputed: PI decides" and "too strong" in got["warnings"][0], got
+        got = attempt("MEASURED", [("v1", "SUPPORTED"), ("v2", "OVERSTATED")], "restated at CONJECTURE", "s")
+        assert got["current"] == "CONJECTURE (PI decided: restated, not re-verified)", got
         got = attempt("MEASURED", [("v", "UNSUPPORTED")], "withdrawn")
         assert got["current"] == "withdrawn (PI decided)", got
         got = attempt("MEASURED", [("v", "SUPPORTED")], "withdrawn")  # the PI may withdraw what stood

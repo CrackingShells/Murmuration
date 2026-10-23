@@ -9,8 +9,8 @@ Reads the lab (never writes it), copies `__pondus__/` and `__statera__/wave-*.md
   2. the NEW lab_status.py (the one beside this script's repo) on the same copy and on the copy with sections,
   3. a probe: a blanket `stands at <the author's label>` appended to every claim, to see which claims the cap lets through.
 It asserts: old and new report the same claim lines on the copy without sections; every claim without a proposed section has the
-same file bytes and the same claim line after; the 11 changed claims keep their file bytes as a prefix.
---quick runs the same code on the 11 decided claims and 4 others (no assertion on the other 62).
+same file bytes and the same claim line after; the claims with a section keep their file bytes as a prefix.
+--quick runs the same code on the decided claims and 4 others (no assertion on the other 62).
 No seeds (deterministic); about 10 seconds; no network, no model tokens.
 """
 import argparse
@@ -125,7 +125,7 @@ def main():
         changed_lines = [l for l in diff if l.startswith("-") and not l.startswith("---")]
         assert new_before[0] == new_after[0], (new_before[0], new_after[0])
         if not args.quick:
-            assert len(changed_lines) == len(specs) == 11, changed_lines
+            assert len(changed_lines) == len(specs) == 9, changed_lines
         with open(os.path.join(args.out, "before_after.diff"), "w") as fh:
             fh.write("\n".join(diff) + "\n")
         # raise probe: `stands at CHECKED` (one step above MEASURED) on the 11, with a ref that resolves

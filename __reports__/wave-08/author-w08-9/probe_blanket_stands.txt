@@ -1,24 +1,24 @@
 ## Claims (77, 0 disputed, 70 warnings)
 - w01-c1  superseded by w01-c14
-    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; the decision must name a label below it
 - w01-c2  MEASURED (PI decided)  <- reproducer-w01-2: ESCALATE  [PI decision: __statera__/wave-99.md:2]
 - w01-c3  MEASURED  <- reproducer-w01-3: SUPPORTED
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w01-c4  superseded by w01-c10, w01-c9  [PI decision: __statera__/wave-99.md:4]
 - w01-c5  superseded by w01-c8  [PI decision: __statera__/wave-99.md:5]
 - w01-c6  below CONJECTURE: restate  <- reproducer-w01-6: OVERSTATED
-    ! decision section 'research-pi': `stands at CONJECTURE` not applied: a verifier says CONJECTURE is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at CONJECTURE` not applied: a verifier says CONJECTURE is too strong; the decision must name a label below it
 - w01-c7  below CONJECTURE: restate  <- reproducer-w01-7: OVERSTATED
-    ! decision section 'research-pi': `stands at CONJECTURE` not applied: a verifier says CONJECTURE is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at CONJECTURE` not applied: a verifier says CONJECTURE is too strong; the decision must name a label below it
 - w01-c8  MEASURED (PI decided)  <- reproducer-w01-8: ESCALATE  [PI decision: __statera__/wave-99.md:8]
 - w01-c9  superseded by w02-c2
-    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; the decision must name a label below it
 - w01-c10  below CONJECTURE: restate  <- reproducer-w01-10: OVERSTATED
-    ! decision section 'research-pi': `stands at CONJECTURE` not applied: a verifier says CONJECTURE is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at CONJECTURE` not applied: a verifier says CONJECTURE is too strong; the decision must name a label below it
 - w01-c11  superseded by w01-c12
-    ! decision section 'research-pi': `stands at CONJECTURE` not applied: a verifier says CONJECTURE is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at CONJECTURE` not applied: a verifier says CONJECTURE is too strong; the decision must name a label below it
 - w01-c12  superseded by w01-c13
-    ! decision section 'research-pi': `stands at CONJECTURE` not applied: a verifier says CONJECTURE is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at CONJECTURE` not applied: a verifier says CONJECTURE is too strong; the decision must name a label below it
 - w01-c13  CONJECTURE  <- reproducer-w01-11: SUPPORTED
     ! decision section 'research-pi': `stands at CONJECTURE` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w01-c14  MEASURED  <- reproducer-w01-1: SUPPORTED
@@ -28,17 +28,17 @@
 - w02-c2  MEASURED  <- reproducer-w02-2: SUPPORTED
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w02-c3  superseded by w02-c5
-    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; the decision must name a label below it
 - w02-c4  below MEASURED: restate  <- reproducer-w02-4: OVERSTATED
-    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; the decision must name a label below it
 - w02-c5  MEASURED  <- reproducer-w02-5: SUPPORTED
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w02-c6  MEASURED  <- reproducer-w02-6: SUPPORTED
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w02-c7  below MEASURED: restate  <- reproducer-w02-7: OVERSTATED
-    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; the decision must name a label below it
 - w02-c8  below MEASURED: restate  <- reproducer-w02-8: OVERSTATED
-    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; the decision must name a label below it
 - w02-c9  MEASURED  <- reproducer-w02-9: SUPPORTED
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w02-c10  MEASURED (PI decided)  <- reproducer-w02-10: ESCALATE  [PI decision: __statera__/wave-99.md:24]
@@ -49,9 +49,9 @@
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
     ! supersedes w01-c10 (the rule only; the Desktop conjecture of w01-c10 stays with that claim), which is not a claim file
 - w04-c2  superseded by w04-c8
-    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; the decision must name a label below it
 - w04-c3  superseded by w04-c9
-    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; the decision must name a label below it
 - w04-c4  MEASURED (PI decided)  <- reproducer-w04-4: ESCALATE  [PI decision: __statera__/wave-99.md:30]
 - w04-c5  MEASURED  <- reproducer-w04-5: SUPPORTED
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
@@ -61,7 +61,7 @@
 - w04-c8  MEASURED  <- reproducer-w04-8: SUPPORTED
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w04-c9  superseded by w04-c11
-    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; the decision must name a label below it
 - w04-c10  MEASURED (PI decided)  <- reproducer-w04-10: ESCALATE  [PI decision: __statera__/wave-99.md:36]
 - w04-c11  MEASURED  <- reproducer-w04-9: SUPPORTED
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
@@ -77,25 +77,25 @@
 - w05-c5  MEASURED  <- reproducer-w05-5: SUPPORTED
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w05-c6  superseded by w05-c7
-    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; the decision must name a label below it
 - w05-c7  MEASURED  <- reproducer-w05-6: SUPPORTED
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w05-c8  CHECKED  <- reproducer-w05-8: SUPPORTED
     ! decision section 'research-pi': `stands at CHECKED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w05-c9  superseded by w05-c10
-    ! decision section 'research-pi': `stands at CONJECTURE` not applied: a verifier says CONJECTURE is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at CONJECTURE` not applied: a verifier says CONJECTURE is too strong; the decision must name a label below it
 - w05-c10  CONJECTURE  <- reproducer-w05-8: SUPPORTED
     ! decision section 'research-pi': `stands at CONJECTURE` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w06-c1  MEASURED  <- reproducer-w06-1: SUPPORTED
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w06-c2  below ESTIMATE: restate  <- reproducer-w06-2: OVERSTATED
-    ! decision section 'research-pi': `stands at ESTIMATE` not applied: a verifier says ESTIMATE is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at ESTIMATE` not applied: a verifier says ESTIMATE is too strong; the decision must name a label below it
 - w06-c3  superseded by w06-c5  [PI decision: __statera__/wave-99.md:51]
 - w06-c4  below MEASURED: restate  <- reproducer-w06-4: OVERSTATED
     ! verdict section 'reproducer-w06-4' has 2 `verdict:` lines and no `changed_by:` line below the earlier one; the last counts
-    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; the decision must name a label below it
 - w06-c5  superseded by w06-c6
-    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; the decision must name a label below it
 - w06-c6  MEASURED  <- reproducer-w06-3: SUPPORTED
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w06-c7  MEASURED  <- reproducer-w06-5: SUPPORTED
@@ -106,9 +106,9 @@
     ! verdict section 'reproducer-w06-6' has 2 `verdict:` lines and no `changed_by:` line below the earlier one; the last counts
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w06-c10  superseded by w06-c12
-    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; the decision must name a label below it
 - w06-c11  superseded by w06-c13
-    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; the decision must name a label below it
 - w06-c12  MEASURED  <- reproducer-w06-7: SUPPORTED
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w06-c13  MEASURED  <- reproducer-w06-7: SUPPORTED
@@ -116,7 +116,7 @@
 - w06-c14  MEASURED  <- reproducer-w06-8: SUPPORTED
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w07-c1  below MEASURED: restate  <- reproducer-w07-1: OVERSTATED
-    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; the decision must name a label below it
 - w07-c2  MEASURED  <- reproducer-w07-2: SUPPORTED
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w07-c3  MEASURED  <- reproducer-w07-3: SUPPORTED
@@ -130,7 +130,7 @@
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w07-c7  MEASURED (PI decided)  <- reproducer-w07-6: ESCALATE  [PI decision: __statera__/wave-99.md:69]
 - w07-c8  below MEASURED: restate  <- reproducer-w07-5: OVERSTATED
-    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at MEASURED` not applied: a verifier says MEASURED is too strong; the decision must name a label below it
 - w08-c1  superseded by w08-c4  [PI decision: __statera__/wave-99.md:71]
 - w08-c2  unverified MEASURED (the mechanism, live and offline); ESTIMATE (every USD figure and the break-even shares)
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
@@ -143,7 +143,7 @@
     ! decision section 'research-pi': `stands at MEASURED` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 - w08-c7  superseded by w08-c8
     ! verdict section 'reproducer-w08-6' has 3 `verdict:` lines and no `changed_by:` line below the earlier one; the last counts
-    ! decision section 'research-pi': `stands at CONJECTURE` not applied: a verifier says CONJECTURE is too strong; use `restated at` (the head carries the verifier's wording) or a label below it
+    ! decision section 'research-pi': `stands at CONJECTURE` not applied: a verifier says CONJECTURE is too strong; the decision must name a label below it
 - w08-c8  CONJECTURE  <- reproducer-w08-6: SUPPORTED
     ! decision section 'research-pi': `stands at CONJECTURE` not applied: no verdict above it asks the PI to decide (ESCALATE, OVERSTATED, LABEL TOO STRONG)
 

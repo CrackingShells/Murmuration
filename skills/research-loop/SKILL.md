@@ -104,8 +104,9 @@ What a decision may do. It never gives a claim a label that no verifier's eviden
 - `stands at` and `restated at` apply only when a verdict above the decision asks for the PI (ESCALATE, or a
   dispute, or OVERSTATED or LABEL TOO STRONG) and none above it is UNSUPPORTED or WRONG; on a claim that is
   unverified, CITED, verified, or withdrawn by a verifier, only `withdrawn` or `superseded by` apply;
-- over OVERSTATED or LABEL TOO STRONG, `stands at` must be below the author's label, and `restated at` may keep
-  it, because the restated wording is the verifier's own; no verifier has read that wording, so the state says so;
+- over OVERSTATED or LABEL TOO STRONG, `stands at` and `restated at` must name a label below the author's, as the
+  state `below <LABEL>: restate` says; a restated wording that no verifier has read shows `(PI decided: restated,
+  not re-verified)`;
 - a decision that cannot be applied is a warning in `/lab-status` and changes nothing.
 A verdict written after the decision counts: it is read afresh, at the label the decision left. A later decision
 replaces an earlier one. `/lab-status` checks that the `ref:` file exists and names the claim, and that the

@@ -1,8 +1,8 @@
-claims 77; sections added to 11; unchanged and identical 66; old == new on the copy without sections
+claims 77; sections added to 9; unchanged and identical 68; old == new on the copy without sections
 blanket `stands at <author's label>` appended to 77 real claims (probe copy, not the lab)
 applied: 13  w01-c2 w01-c4 w01-c5 w01-c8 w02-c10 w03-c2 w04-c4 w04-c7 w04-c10 w05-c1 w06-c3 w07-c7 w08-c1
 refused: 64
-raise probe: `stands at CHECKED` (above MEASURED) on the 11 claims with a proposed section: refused 11, state unchanged, warning 'raises the label from MEASURED to CHECKED'
+raise probe: `stands at CHECKED` (above MEASURED) on the 9 claims with a proposed section: refused 9, state unchanged, warning 'raises the label from MEASURED to CHECKED'
   state today <LABEL>                            applied 0 of 39
   state today below <LABEL>                      applied 0 of 24
   state today escalated: PI decides              applied 13 of 13
@@ -19,6 +19,4 @@ raise probe: `stands at CHECKED` (above MEASURED) on the 11 claims with a propos
 | w04-c10 | escalated: PI decides | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-04.md:245` | - **PI decision on the ESCALATE of w04-c10** (reproducer-w04-10): title and scope restated in place | `restated at MEASURED` |
 | w05-c1 | escalated: PI decides | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-05.md:138` | - **PI decision on w05-c1's ESCALATE:** | `restated at MEASURED` |
 | w07-c7 | escalated: PI decides | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-07.md:363` | - **PI decision: w07-c7 stands as the verifier restates it, and P6 lands by its registered rule** | `restated at MEASURED` |
-| w02-c7 | below MEASURED: restate | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-02.md:230` | - **PI decision on w02-c7 and w02-c8** (both OVERSTATED, PI-authored): each head is restated to | `restated at MEASURED` |
-| w02-c8 | below MEASURED: restate | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-02.md:230` | - **PI decision on w02-c7 and w02-c8** (both OVERSTATED, PI-authored): each head is restated to | `restated at MEASURED` |
 

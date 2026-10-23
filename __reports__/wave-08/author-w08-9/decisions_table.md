@@ -9,5 +9,3 @@
 | w04-c10 | escalated: PI decides | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-04.md:245` | - **PI decision on the ESCALATE of w04-c10** (reproducer-w04-10): title and scope restated in place | `restated at MEASURED` |
 | w05-c1 | escalated: PI decides | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-05.md:138` | - **PI decision on w05-c1's ESCALATE:** | `restated at MEASURED` |
 | w07-c7 | escalated: PI decides | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-07.md:363` | - **PI decision: w07-c7 stands as the verifier restates it, and P6 lands by its registered rule** | `restated at MEASURED` |
-| w02-c7 | below MEASURED: restate | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-02.md:230` | - **PI decision on w02-c7 and w02-c8** (both OVERSTATED, PI-authored): each head is restated to | `restated at MEASURED` |
-| w02-c8 | below MEASURED: restate | MEASURED (PI decided: restated, not re-verified) | `__statera__/wave-02.md:230` | - **PI decision on w02-c7 and w02-c8** (both OVERSTATED, PI-authored): each head is restated to | `restated at MEASURED` |
