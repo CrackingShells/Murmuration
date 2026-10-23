@@ -1,0 +1,6 @@
+# The binary installed before w08-c4 (copy at /private/tmp/murmuration-w08/research-pi/murmuration.before-w08c4), run as the new hook rows run it, 2026-10-24 01:29
+command: echo <PostToolUse payload> | murmuration.before-w08c4 budget
+exit: rc=2
+stderr: usage: murmuration guard | --version
+stdout: 
+Exit 2 is a blocking hook error in Claude Code: on the PreToolUse Agent|Task row it blocks the dispatch; on PostToolUse its stderr goes to the model.
