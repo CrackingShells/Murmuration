@@ -1,0 +1,36 @@
+<!-- 3. SPEND -->
+<div class="card">
+  <h2>3 · Where the money goes: the PI against the workers, by wave and by source (B)</h2>
+  <div class="legend">
+    <span><i style="background:var(--s1)"></i>PI, to the wave's close</span>
+    <span><svg width="11" height="11" style="vertical-align:-1px;margin-right:6px"><rect width="11" height="11" rx="3" fill="url(#hatchpi)"/><defs><pattern id="hatchpi" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="var(--surface-0)"/><line x1="0" y1="0" x2="0" y2="5" stroke="var(--s1)" stroke-width="2"/></pattern></defs></svg>PI, same session, after the close</span>
+    <span><i style="background:var(--s2)"></i>workers (subagents)</span>
+    <span><i style="background:var(--s3)"></i>headless runs</span>
+    <span><i style="background:var(--theirs)"></i>not split (waves 1–3)</span>
+  </div>
+  <div class="sw"><svg id="spend" viewBox="0 0 1080 420" width="100%" role="img" aria-label="Stacked bars of spend per wave by role, waves 1 to 8"></svg></div>
+  <p class="note">USD at list price for the PI and workers; headless from cost-state. Waves 4–7 are wave 7's figures: the PI to the wave's close. The PI's session goes on after the close (notes, the synthesis, the next wave's opening); explorer-w08-d's session totals are higher than the wave figures by USD 6.18, 7.02 and 11.28 in waves 5, 6 and 7, drawn hatched. Waves 1–3 are one session and one worktree: the PI USD 63.23, the rest of that worktree USD 98.91 (workers and headless, not split here). Wave 8 is the present session to 01:25 JST (<code>__instrumenta__/w08h_wave_spend.py</code> over <code>scripts/lab_status.py</code>'s parser); headless from <code>lab_status.py --project /private/tmp/murmuration-w08 --spend</code> (19.91 at least; 4 sessions still open). The explorers of this wave ran headless probes, so its headless share is 7 times wave 7's. Every figure is a lower bound: auto mode's classifier is in no cost record.</p>
+
+  <h3 style="margin-top:20px">The PI's USD 144.47 (six sessions, waves 1–8), by price part and by what put the tokens there</h3>
+  <p class="note">Top bar: what the money bought, MEASURED. Bars below: the source of each token in the context, an ESTIMATE from a model (explorer-w08-d): a token costs once to write, then 0.20 per million for every later request that carries it. Own words = the PI's output plus what that output costs while it sits in the context. "Own thinking carried" is inferred from context growth, not read from text.</p>
+  <div class="sw"><svg id="piSrc" viewBox="0 0 1080 640" width="100%" role="img" aria-label="The PI's spend by price part and by source"></svg></div>
+
+  <h3 style="margin-top:20px">A worker's context USD (68 workers, waves 4–7, USD 83.69), by source</h3>
+  <p class="note">The input side of every request at list price; output is not recoverable from the transcripts. ESTIMATE (tokens from a fit, R² 0.989; USD laid out by position in the cache). Explorer-w08-f's signature fit puts the thinking share at 18.9% rather than 22.5%.</p>
+  <div class="sw"><svg id="wkSrc" viewBox="0 0 1080 520" width="100%" role="img" aria-label="Worker context USD by source"></svg></div>
+</div>
+
+<!-- 3b. CACHE -->
+<div class="card">
+  <h2>3b · The cache-lifetime decision: 5 minutes or 1 hour (C)</h2>
+  <p class="note">A 1-hour entry costs more to write (USD 4.00 per million tokens for Sonnet, 8.00 for Opus; a 5-minute entry 2.50 and 5.00) and reads at the same price. It pays only when a pause falls between 5 minutes and 1 hour. The break-even is arithmetic: 1 hour wins when more than 0.385 of the tokens written are re-writes (CITED prices, the lab's price table). Wave 8 redid wave 7's figure on timed pauses only (waves 5–7: 14 authors, 14 verifiers, 9 explorers, 3 PI sessions; wave 4 has no recorded pauses). <b>Net per life</b> is what 1 hour would save over 5 minutes in one agent's life: right of zero, 1 hour pays.</p>
+  <div class="sw"><svg id="cnet" viewBox="0 0 1080 330" width="100%" role="img" aria-label="Net USD of a 1-hour cache per agent life by agent type with the 10th to 90th percentile range"></svg></div>
+  <p class="note">The line is the 10th to 90th percentile of the lives of that type, the tick the median, the dot the mean. Workers share one axis (USD −0.4 to +0.4); the PI has its own (n = 3 sessions: +13.1, +30.7, −0.16, so it says little about the next one). ESTIMATE; the model reproduces the recorded cache cost within 0.2–4% (CHECKED, waves 5–6).</p>
+  <h3 style="margin-top:14px">Which rule picks what</h3>
+  <div class="sw"><svg id="crules" viewBox="0 0 1080 330" width="100%" role="img" aria-label="A table of seven decision rules by agent type, each cell 5 minutes or 1 hour"></svg></div>
+  <p class="note"><b>Reproducers and explorers: 5 minutes</b> under almost every rule. <b>The PI: 1 hour</b> under every rule. <b>Authors are the knife-edge</b>: the average-cost rules (expected value, token share 0.372 against 0.385, probability of gain) say 5 minutes, by about USD 0.02 a life; the tail rules (CVaR, minimax regret) say 1 hour, because 1 hour costs a small certain premium and 5 minutes risks a rare loss of 0.7–1.0 USD. That is a choice of attitude, not a measurement: more data of the same kind will not settle it. (The report counts six rules, 4 to 2; the figure shows seven rows, 5 to 2, because it keeps the probability row apart.) The lab keeps authors on 1 hour by the PI's decision, with no claim; w07-c7, which made the earlier case, is escalated. Every long pause that costs a worker money (10 of 13 misses) follows a hand-back: the author waits to be resumed (22 hand-backs, median wait 161 s). Switching per phase is not shown possible in Claude Code (the agent file fixes it per dispatch) and would be worth at most USD 3.78 over the 14 authors' lives.</p>
+  <details><summary>Wave 7's version of this figure (waves 4–6, two ways of counting; superseded for authors by the above)</summary>
+  @@OLD3B@@
+  </details>
+</div>
+

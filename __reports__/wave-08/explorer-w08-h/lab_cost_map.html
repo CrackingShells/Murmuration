@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Murmuration after wave 8 so far (local main)</title>
+<style>
+.viz-root{
+  color-scheme:light;
+  --surface-0:#f4f3f0; --surface-1:#fcfcfb; --line:#dddcd6; --grid:#ebeae5;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#7a7974;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;            /* spend: PI, subagents, headless */
+  --guard:#6250d6; --budget:#008300; --theirs:#a9a8a1;   /* hook segments */
+  --t1:#3d6fb8; --t2:#b5651d; --t3:#a9a8a1; --t4:#1b8f6a; /* worker time: model, tools, idle, gaps */
+  --ok:#008300; --warn:#c98500; --bad:#e34948; --held:#6250d6;
+  --pulse:#eb6834;
+}
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-theme="light"])) .viz-root{
+    color-scheme:dark;
+    --surface-0:#121211; --surface-1:#1a1a19; --line:#3a3a37; --grid:#2a2a28;
+    --text-primary:#f0efec; --text-secondary:#c3c2b7; --text-muted:#8f8e86;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+    --guard:#9085e9; --budget:#008300; --theirs:#5c5b56;
+    --t1:#6a9be0; --t2:#d08a4b; --t3:#5c5b56; --t4:#2fb085;
+    --ok:#3fae3f; --warn:#e0a020; --bad:#e66767; --held:#9085e9; --pulse:#d95926;
+  }
+}
+:root[data-theme="dark"] .viz-root{
+  color-scheme:dark;
+  --surface-0:#121211; --surface-1:#1a1a19; --line:#3a3a37; --grid:#2a2a28;
+  --text-primary:#f0efec; --text-secondary:#c3c2b7; --text-muted:#8f8e86;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+  --guard:#9085e9; --budget:#008300; --theirs:#5c5b56;
+  --t1:#6a9be0; --t2:#d08a4b; --t3:#5c5b56; --t4:#2fb085;
+  --ok:#3fae3f; --warn:#e0a020; --bad:#e66767; --held:#9085e9; --pulse:#d95926;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-0)}
+.viz-root{font:14px/1.45 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text-primary);background:var(--surface-0);padding:28px 20px 60px}
+.wrap{max-width:1120px;margin:0 auto}
+h1{font-size:26px;margin:0 0 4px;letter-spacing:-.01em}
+h2{font-size:17px;margin:0 0 4px}
+.sub{color:var(--text-secondary);margin:0 0 20px}
+.card{background:var(--surface-1);border:1px solid var(--line);border-radius:12px;padding:18px 18px 14px;margin:0 0 18px}
+.note{color:var(--text-muted);font-size:12px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+.tile{background:var(--surface-1);border:1px solid var(--line);border-radius:12px;padding:14px}
+.tile .k{font-size:28px;font-weight:650;letter-spacing:-.02em}
+.tile .l{color:var(--text-secondary);font-size:12.5px}
+@media (max-width:820px){.tiles{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.tiles{grid-template-columns:1fr}}
+svg text{fill:var(--text-primary);font-family:inherit}
+.muted{fill:var(--text-muted)} .sec{fill:var(--text-secondary)}
+.node rect{fill:var(--surface-0);stroke:var(--line);stroke-width:1.2}
+.node.you rect{stroke-dasharray:4 3}
+.edge{stroke:var(--line);stroke-width:1.6;fill:none}
+.band{fill:none;stroke:var(--line)}
+.seg-guard{fill:var(--guard)} .seg-budget{fill:var(--budget)} .seg-theirs{fill:url(#hatch)}
+.s1{fill:var(--s1)} .s2{fill:var(--s2)} .s3{fill:var(--s3)}
+.t1{fill:var(--t1)} .t2{fill:var(--t2)} .t3{fill:var(--t3)} .t4{fill:var(--t4)}
+.toggle{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
+.toggle button{font:inherit;font-size:13px;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface-0);color:var(--text-primary);cursor:pointer}
+.toggle button[aria-pressed="true"]{border-color:var(--text-primary);font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--text-secondary);margin:4px 0 8px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.grave{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.g{border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:var(--surface-0)}
+.g h3{font-size:13.5px;margin:0 0 4px}
+.g .n{font-size:12.5px;color:var(--text-secondary)}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;border:1px solid currentColor;margin-bottom:6px}
+.b-landed{color:var(--ok)} .b-out{color:var(--bad)} .b-aside{color:var(--warn)} .b-held{color:var(--held)} .b-reopen{color:var(--s1)}
+#tip{position:fixed;pointer-events:none;background:var(--surface-1);border:1px solid var(--line);border-radius:8px;padding:7px 9px;font-size:12.5px;max-width:280px;box-shadow:0 4px 14px rgba(0,0,0,.12);opacity:0;transition:opacity .12s;z-index:10}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th,td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--grid);vertical-align:top}
+th{color:var(--text-secondary);font-weight:600}
+details summary{cursor:pointer;color:var(--text-secondary);margin-top:6px}
+.hit{fill:transparent;cursor:default}
+.sw{overflow-x:auto}
+.b-user{color:var(--held)} .b-untried{color:var(--text-muted)}
+.lad-ctl{display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin:6px 0 8px}
+.lad-ctl .toggle{margin:0}
+.sw-land{fill:var(--ok)} .sw-not{fill:var(--bad)} .sw-user{fill:var(--held)} .sw-out{fill:var(--warn)} .sw-untried{fill:var(--text-muted)}
+.est{stroke:var(--text-primary);stroke-dasharray:3 2;stroke-width:1}
+.lg-sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.fam1{fill:#2a78d6}.fam2{fill:#eb6834}.fam3{fill:#1baf7a}.fam4{fill:#a06ad0}.fam5{fill:#c98500}.fam6{fill:#8a8984}
+.cellok{fill:var(--s1)} .cellh{fill:var(--s2)}
+
+@media (prefers-reduced-motion: reduce){ .pulse{display:none} }
+</style>
+</head>
+<body>
+<div class="viz-root"><div class="wrap">
+
+<h1>Murmuration after wave 8 (so far)</h1>
+<p class="sub">The lab, and what each part costs, with the wave-8 levers on one ladder (A), the money split by who spends it (3), and the cache-lifetime choice (3b). Every number has a row in the table at the bottom, with its label and source path. Where a later wave measured a number again, the new one replaces the old. Wave 8 is still open: its figures are a lower bound. A claim still unverified is said so. Hover a box or a bar for detail.</p>
+
+<div class="tiles">
+  <div class="tile"><div class="k">≥ USD 53.9</div><div class="l">wave 8 so far: PI 6.10 + workers 27.92 + headless 19.91, at 01:25 JST, session open. A lower bound</div></div>
+  <div class="tile"><div class="k">USD 148.16</div><div class="l">the PI, all sessions, list price: 37% of the lab's USD 405.34. 56% of it is cache reads of context already there</div></div>
+  <div class="tile"><div class="k">41.6%</div><div class="l">of a worker's context USD is its own earlier turns (thinking 22.5%, tool calls 19.0%). Lab-script output is 3.7%</div></div>
+  <div class="tile"><div class="k">USD 31–45</div><div class="l">PI compaction near 250k tokens (ESTIMATE, 22–31% of PI spend). The setting is yours to write; the kept-state test (w08-c3) is verified on a small lab</div></div>
+  <div class="tile"><div class="k">−0.02 ± 0.39</div><div class="l">USD per author life from a 1-hour cache: a coin flip. For the PI it is +14.55 a session (ESTIMATE)</div></div>
+  <div class="tile"><div class="k">0.5% · 6.9%</div><div class="l">the most capping lab-script output, or lab documents, at 2,500 tokens could save of worker context USD (ESTIMATE, ceilings)</div></div>
+  <div class="tile"><div class="k">7–12 ms</div><div class="l">saved per budget start by the Rust port (w08-c4, MEASURED, verified, on main). Hooks are 0.13–0.5% of a worker's time</div></div>
+  <div class="tile"><div class="k">628 ms</div><div class="l">the auto-mode classifier's median wait on a trivial Bash call (wave 7): still the largest per-call cost, and not the plugin's</div></div>
+  <div class="tile"><div class="k">50.2k</div><div class="l">tokens in the PI's first request this wave (46.7k in wave 6), all written to the 1-hour cache</div></div>
+</div>
+
+<!-- A. LEVER LADDER -->
+<div class="card" id="cardA">
+  <h2>A · Lever ladder: every lever the lab has measured, biggest first</h2>
+  <p class="note">Each bar is the most a lever could save (a ceiling) or is estimated to save, as a share of the spend it acts on. A solid bar is up to the central value; the pale part is the rest of the range. A dashed outline marks an ESTIMATE; no outline, a number a run measured. The colour says what became of the lever. Ranked by its central value, or by the middle of its range. Where there is no USD figure in the reports (time levers, the PI's tool denylist, colgrep), the lever is below the ladder or in the table, not invented.</p>
+  <div class="lad-ctl">
+    <div class="toggle" id="ladUnit" role="group" aria-label="Unit"><button aria-pressed="true" data-u="side">% of its side's spend</button><button aria-pressed="false" data-u="narrow">% of the pool it touches</button><button aria-pressed="false" data-u="usd">USD</button></div>
+    <div class="toggle" id="ladZoom" role="group" aria-label="Zoom"><button aria-pressed="true" data-z="0">whole range</button><button aria-pressed="false" data-z="1">zoom to the small ones</button></div>
+  </div>
+  <div class="legend">
+    <span><i class="lg-sw" style="background:var(--ok)"></i>landed (on main, or in how the lab runs)</span>
+    <span><i class="lg-sw" style="background:var(--bad)"></i>not landed</span>
+    <span><i class="lg-sw" style="background:var(--held)"></i>yours to set</span>
+    <span><i class="lg-sw" style="background:var(--warn)"></i>stays out</span>
+    <span><i class="lg-sw" style="background:var(--text-muted)"></i>not tried</span>
+  </div>
+  <div class="sw"><svg id="ladder" viewBox="0 0 1080 900" width="100%" role="img" aria-label="Ranked horizontal bars: ceiling or estimated saving of each lever as a share of the spend it acts on"></svg></div>
+  <p class="note" id="ladNote" style="margin-top:6px"></p>
+  <h3 style="margin-top:18px">Levers measured in time, not USD</h3>
+  <p class="note">Milliseconds saved per hook start (platform-recorded or paired). A worker's plugin hooks are 0.13–0.5% of its time (ESTIMATE, wave 7), so all of these together are under that. The Rust budget and hand-back (w08-c4, verified) is on main.</p>
+  <div class="sw"><svg id="ladTime" viewBox="0 0 1080 250" width="100%" role="img" aria-label="Milliseconds saved per hook start by each hook change"></svg></div>
+  <p class="note">Not on the ladder, because the reports give no USD for them: the PI tool denylist (request 0 went from 75k to 47k tokens in wave 6; landed), colgrep for markdown (explorer-w08-b: no USD; a section-level unit would be a change to your colgrep-mcp repository, not to this plugin), and fewer requests per worker (the largest block, 41.6%, but no lever was tested).</p>
+</div>
+
+<!-- 1. STRUCTURE -->
+<div class="card">
+  <h2>1 · Structure: who runs, and where the time goes on one tool call</h2>
+  <p class="note">The orange dot is one worker's Bash call travelling through the hooks that run around it. Hover any box for its cost.</p>
+  <div class="sw"><svg id="map" viewBox="0 0 1080 560" width="100%" role="img" aria-label="Diagram of the lab: you, the PI, workers, the machine they run on, headless runs, and the hook chain around a tool call">
+    <defs>
+      <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <rect width="6" height="6" fill="var(--surface-0)"/><line x1="0" y1="0" x2="0" y2="6" stroke="var(--theirs)" stroke-width="2.2"/>
+      </pattern>
+      <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--line)"/></marker>
+    </defs>
+
+    <!-- edges -->
+    <path class="edge" d="M200,95 L330,95" marker-end="url(#arr)"/>
+    <path class="edge" d="M540,140 L540,190" marker-end="url(#arr)"/>
+    <path class="edge" d="M750,95 L860,95" marker-end="url(#arr)"/>
+    <path class="edge" d="M540,280 L540,345" marker-end="url(#arr)"/>
+    <path class="edge" d="M310,227 L330,227" marker-end="url(#arr)"/>
+
+    <!-- YOU -->
+    <g class="node you" data-tip="You keep the question, the budget and the guardrails (moral, legal, ethical, safety; anything seen outside this machine). The managed-settings file is probably not the active managed tier on this account: ~/.claude/remote-settings.json (server-managed) wins first. CHECKED by reading the binary (explorer-w07-f).">
+      <rect x="20" y="45" width="180" height="100" rx="10"/>
+      <text x="110" y="78" text-anchor="middle" font-weight="650">You</text>
+      <text x="110" y="98" text-anchor="middle" class="sec" font-size="11.5">question · budget</text>
+      <text x="110" y="113" text-anchor="middle" class="sec" font-size="11.5">guardrails</text>
+      <text x="110" y="132" text-anchor="middle" class="muted" font-size="10.5">managed file: probably not active</text>
+    </g>
+
+    <!-- PI -->
+    <g class="node" data-tip="Principal investigator, Opus, main thread. Wave 6: USD 16.06 at list price, 180 requests, 42 wake-ups. Request 0: 46,738 tokens (was 74,966). Its first turn (orientation) is 21–32% of its spend in waves 4–5. Wave 7: request 0 could drop 10.6–11.0k tokens without the skills listing. Not landed: built-in skills such as dataviz would be lost (w07-c1, below MEASURED: restate). Wave 8: USD 148.16 over all its sessions, 56% of it cache reads; this session's request 0 is 50,221 tokens, all 1-hour writes. Compaction near 250k is the largest lever on the PI (ESTIMATE USD 31–45); the setting is yours (see A).">
+      <rect x="330" y="45" width="420" height="95" rx="10"/>
+      <rect x="330" y="45" width="6" height="95" rx="3" class="s1"/>
+      <text x="350" y="72" font-weight="650">PI · research-pi (Opus, main thread)</text>
+      <text x="350" y="92" class="sec" font-size="12">USD 148.2 in all · 56% cache reads · request 0 = 50.2k</text>
+      <text x="350" y="110" class="sec" font-size="12">idle 73–77% — free · orientation turn = 21–32% of its spend</text>
+      <text x="350" y="128" class="muted" font-size="11">compaction near 250k: USD 31–45 (ESTIMATE) · the setting is yours</text>
+    </g>
+
+    <!-- HEADLESS -->
+    <g class="node" data-tip="Headless claude -p runs under /private/tmp/murmuration-w06/, mostly haiku, started by authors and verifiers to measure things. Wave 6: USD 7.54 (cost-state). Wave 7: USD 2.48. Wave 8 so far: at least USD 19.91 over 251 sessions, because the explorers ran headless probes (lab_status.py --project /private/tmp/murmuration-w08 --spend).">
+      <rect x="860" y="45" width="200" height="85" rx="10"/>
+      <rect x="860" y="45" width="6" height="85" rx="3" class="s3"/>
+      <text x="878" y="72" font-weight="650">Headless runs</text>
+      <text x="878" y="92" class="sec" font-size="12">claude -p, haiku</text>
+      <text x="878" y="110" class="sec" font-size="12">USD 19.9+ in wave 8</text>
+    </g>
+
+    <!-- WORKERS -->
+    <g class="node" data-tip="Workers: Sonnet subagents, each with a USD and minute budget. Wave 6: 17 dispatched, USD 32.03 at list price. Their prompt cache lived 5 minutes. Since wave 7 authors keep a 1-hour cache (platform honours it, MEASURED). Wave 8 redid the sum on timed pauses: −0.02 ± 0.39 USD per author life, a coin flip (ESTIMATE, explorer-w08-c; w07-c7 is escalated). Kept by PI decision. Wave 8 so far: 14 workers, USD 27.92 at list price, a lower bound.">
+      <rect x="330" y="190" width="420" height="90" rx="10"/>
+      <rect x="330" y="190" width="6" height="90" rx="3" class="s2"/>
+      <text x="350" y="216" font-weight="650">Workers (Sonnet subagents)</text>
+      <text x="350" y="236" class="sec" font-size="12">explorer · author · reproducer · proof-adversary</text>
+      <text x="350" y="254" class="sec" font-size="12">USD 27.9+ so far in wave 8 (32.0 in wave 6) · authors: 1-hour cache</text>
+      <text x="350" y="271" class="muted" font-size="11">+ budget and hand-back hooks now in Rust (w08-c4)</text>
+    </g>
+
+    <!-- THE MACHINE -->
+    <g class="node" data-tip="The machine. One exec costs 14–16 ms before the child's first instruction, in any language. Fork without exec: 0.48 ms. dyld: at most about 2 ms. /bin/sh is a trampoline into bash, so a shell hook is two execs. A new binary's first exec takes 150–480 ms, once. MEASURED (explorer-w07-a, w07-c6).">
+      <rect x="20" y="165" width="290" height="125" rx="10"/>
+      <text x="36" y="190" font-weight="650">The machine</text>
+      <text x="36" y="210" class="sec" font-size="12">one exec: 14–16 ms, any language</text>
+      <text x="36" y="227" class="sec" font-size="12">fork without exec: 0.48 ms · dyld ≤ about 2 ms</text>
+      <text x="36" y="244" class="sec" font-size="12">/bin/sh is a trampoline into bash: two execs</text>
+      <text x="36" y="261" class="sec" font-size="12">a new binary: 150–480 ms on its first exec</text>
+      <text x="36" y="278" class="muted" font-size="11">so the hooks run in exec form, no shell</text>
+    </g>
+
+    <!-- HOOK CHAIN -->
+    <text x="20" y="335" class="sec" font-size="12" font-weight="600">One worker Bash call, as the platform runs it (milliseconds, medians)</text>
+    <g id="chain"></g>
+    <path id="track" d="M40,415 L1060,415" fill="none" stroke="none"/>
+    <circle class="pulse" r="7" fill="var(--pulse)">
+      <animateMotion dur="5.5s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#track"/></animateMotion>
+    </circle>
+
+    <!-- per prompt / per call side items -->
+    <g class="node" data-tip="lab_status.py: warm about 0.25–0.39 s a call. Wave 5 took it from 835 to 261 ms warm (w05-c5). Wave 7 prices fast mode and web searches (w07-c4). Its 'no git child' half did not land: it saves 0.04–0.05 s a call. A parallel or Rust version was not pursued: 0.33 s cold against a 0.39 s warm cache. Runs when someone asks for /lab-status.">
+      <rect x="20" y="480" width="250" height="56" rx="8"/>
+      <text x="34" y="503" font-weight="600" font-size="12.5">lab_status.py</text>
+      <text x="34" y="522" class="sec" font-size="11.5">warm about 0.25–0.39 s · prices fast mode</text>
+    </g>
+    <g class="node" data-tip="user_words.py is now async. It keeps only the prompts a person typed, decided by the transcript's origin marker (w07-c5). resume_brief.py runs on resume or compact. Both stay off a worker's hot path.">
+      <rect x="290" y="480" width="300" height="56" rx="8"/>
+      <text x="304" y="503" font-weight="600" font-size="12.5">user_words.py · resume_brief.py</text>
+      <text x="304" y="522" class="sec" font-size="11.5">async · typed prompts only, by origin marker</text>
+    </g>
+    <g class="node" data-tip="Hook starts in a wave like wave 4: 1788, about 161 s of serial hook time (explorer-w06-b, ESTIMATE). The lean starts of wave 6 take about 32 s off it (ESTIMATE). Wave 7 did not redo this sum. Exec form and the Rust guard make each start shorter.">
+      <rect x="610" y="480" width="450" height="56" rx="8"/>
+      <text x="624" y="503" font-weight="600" font-size="12.5">Per wave (wave-4 sized): 1788 hook starts ≈ 161 s serial</text>
+      <text x="624" y="522" class="sec" font-size="11.5">wave-6 figures; not redone after exec form · lean starts −32 s (ESTIMATE)</text>
+    </g>
+  </svg></div>
+</div>
+
+<!-- 2. PER-CALL COMPARISON -->
+<div class="card">
+  <h2>2 · One worker Bash call, under each design we tried</h2>
+  <p class="note">Platform-recorded hook time around one Bash call. The hatched grey segment is auto mode's permission classifier: median 628 ms on a trivial Bash call. It is not the plugin's, and no design here touches it. A PreToolUse hook runs alongside the classifier, so in auto mode it is mostly hidden. PostToolUse is not.</p>
+  <div class="toggle" id="tg" role="group" aria-label="Show classifier">
+    <button aria-pressed="true" data-cls="1">with the classifier</button>
+    <button aria-pressed="false" data-cls="0">plugin hooks only</button>
+  </div>
+  <div class="legend">
+    <span><i style="background:var(--guard)"></i>permission guard (PreToolUse)</span>
+    <span><i style="background:var(--budget)"></i>budget hooks (PostToolUse + PostToolBatch)</span>
+    <span><svg width="11" height="11" style="vertical-align:-1px;margin-right:6px"><rect width="11" height="11" rx="3" fill="url(#hatch2)"/><defs><pattern id="hatch2" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="var(--surface-0)"/><line x1="0" y1="0" x2="0" y2="5" stroke="var(--theirs)" stroke-width="2"/></pattern></defs></svg>auto-mode classifier (not ours)</span>
+  </div>
+  <div class="sw"><svg id="bars" viewBox="0 0 1080 340" width="100%" role="img" aria-label="Stacked bars of hook time per Bash call for four designs"></svg></div>
+  <p class="note" style="margin-top:14px">The same call, whole, by mode. A trivial Bash command; medians. The classifier's wait sits inside the auto-mode bars.</p>
+  <div class="sw"><svg id="modes" viewBox="0 0 1080 240" width="100%" role="img" aria-label="Bars of the whole time of one trivial Bash call in default mode, auto mode, and the worker-like auto arm, and of the colgrep_policy hook alone"></svg></div>
+</div>
+
+<!-- 3. SPEND -->
+<div class="card">
+  <h2>3 · Where the money goes: the PI against the workers, by wave and by source (B)</h2>
+  <div class="legend">
+    <span><i style="background:var(--s1)"></i>PI, to the wave's close</span>
+    <span><svg width="11" height="11" style="vertical-align:-1px;margin-right:6px"><rect width="11" height="11" rx="3" fill="url(#hatchpi)"/><defs><pattern id="hatchpi" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="var(--surface-0)"/><line x1="0" y1="0" x2="0" y2="5" stroke="var(--s1)" stroke-width="2"/></pattern></defs></svg>PI, same session, after the close</span>
+    <span><i style="background:var(--s2)"></i>workers (subagents)</span>
+    <span><i style="background:var(--s3)"></i>headless runs</span>
+    <span><i style="background:var(--theirs)"></i>not split (waves 1–3)</span>
+  </div>
+  <div class="sw"><svg id="spend" viewBox="0 0 1080 420" width="100%" role="img" aria-label="Stacked bars of spend per wave by role, waves 1 to 8"></svg></div>
+  <p class="note">USD at list price for the PI and workers; headless from cost-state. Waves 4–7 are wave 7's figures: the PI to the wave's close. The PI's session goes on after the close (notes, the synthesis, the next wave's opening); explorer-w08-d's session totals are higher than the wave figures by USD 6.18, 7.02 and 11.28 in waves 5, 6 and 7, drawn hatched. Waves 1–3 are one session and one worktree: the PI USD 63.23, the rest of that worktree USD 98.91 (workers and headless, not split here). Wave 8 is the present session to 01:25 JST (<code>__instrumenta__/w08h_wave_spend.py</code> over <code>scripts/lab_status.py</code>'s parser); headless from <code>lab_status.py --project /private/tmp/murmuration-w08 --spend</code> (19.91 at least; 4 sessions still open). The explorers of this wave ran headless probes, so its headless share is 7 times wave 7's. Every figure is a lower bound: auto mode's classifier is in no cost record.</p>
+
+  <h3 style="margin-top:20px">The PI's USD 144.47 (six sessions, waves 1–8), by price part and by what put the tokens there</h3>
+  <p class="note">Top bar: what the money bought, MEASURED. Bars below: the source of each token in the context, an ESTIMATE from a model (explorer-w08-d): a token costs once to write, then 0.20 per million for every later request that carries it. Own words = the PI's output plus what that output costs while it sits in the context. "Own thinking carried" is inferred from context growth, not read from text.</p>
+  <div class="sw"><svg id="piSrc" viewBox="0 0 1080 640" width="100%" role="img" aria-label="The PI's spend by price part and by source"></svg></div>
+
+  <h3 style="margin-top:20px">A worker's context USD (68 workers, waves 4–7, USD 83.69), by source</h3>
+  <p class="note">The input side of every request at list price; output is not recoverable from the transcripts. ESTIMATE (tokens from a fit, R² 0.989; USD laid out by position in the cache). Explorer-w08-f's signature fit puts the thinking share at 18.9% rather than 22.5%.</p>
+  <div class="sw"><svg id="wkSrc" viewBox="0 0 1080 520" width="100%" role="img" aria-label="Worker context USD by source"></svg></div>
+</div>
+
+<!-- 3b. CACHE -->
+<div class="card">
+  <h2>3b · The cache-lifetime decision: 5 minutes or 1 hour (C)</h2>
+  <p class="note">A 1-hour entry costs more to write (USD 4.00 per million tokens for Sonnet, 8.00 for Opus; a 5-minute entry 2.50 and 5.00) and reads at the same price. It pays only when a pause falls between 5 minutes and 1 hour. The break-even is arithmetic: 1 hour wins when more than 0.385 of the tokens written are re-writes (CITED prices, the lab's price table). Wave 8 redid wave 7's figure on timed pauses only (waves 5–7: 14 authors, 14 verifiers, 9 explorers, 3 PI sessions; wave 4 has no recorded pauses). <b>Net per life</b> is what 1 hour would save over 5 minutes in one agent's life: right of zero, 1 hour pays.</p>
+  <div class="sw"><svg id="cnet" viewBox="0 0 1080 330" width="100%" role="img" aria-label="Net USD of a 1-hour cache per agent life by agent type with the 10th to 90th percentile range"></svg></div>
+  <p class="note">The line is the 10th to 90th percentile of the lives of that type, the tick the median, the dot the mean. Workers share one axis (USD −0.4 to +0.4); the PI has its own (n = 3 sessions: +13.1, +30.7, −0.16, so it says little about the next one). ESTIMATE; the model reproduces the recorded cache cost within 0.2–4% (CHECKED, waves 5–6).</p>
+  <h3 style="margin-top:14px">Which rule picks what</h3>
+  <div class="sw"><svg id="crules" viewBox="0 0 1080 330" width="100%" role="img" aria-label="A table of seven decision rules by agent type, each cell 5 minutes or 1 hour"></svg></div>
+  <p class="note"><b>Reproducers and explorers: 5 minutes</b> under almost every rule. <b>The PI: 1 hour</b> under every rule. <b>Authors are the knife-edge</b>: the average-cost rules (expected value, token share 0.372 against 0.385, probability of gain) say 5 minutes, by about USD 0.02 a life; the tail rules (CVaR, minimax regret) say 1 hour, because 1 hour costs a small certain premium and 5 minutes risks a rare loss of 0.7–1.0 USD. That is a choice of attitude, not a measurement: more data of the same kind will not settle it. (The report counts six rules, 4 to 2; the figure shows seven rows, 5 to 2, because it keeps the probability row apart.) The lab keeps authors on 1 hour by the PI's decision, with no claim; w07-c7, which made the earlier case, is escalated. Every long pause that costs a worker money (10 of 13 misses) follows a hand-back: the author waits to be resumed (22 hand-backs, median wait 161 s). Switching per phase is not shown possible in Claude Code (the agent file fixes it per dispatch) and would be worth at most USD 3.78 over the 14 authors' lives.</p>
+  <details><summary>Wave 7's version of this figure (waves 4–6, two ways of counting; superseded for authors by the above)</summary>
+  <h3 style="margin-top:22px">3b · Is a 1-hour cache worth it? The break-even by agent type</h3>
+  <p class="note">A 1-hour cache entry costs more to write (USD 4.00 per million tokens for Sonnet, against 2.50 for a 5-minute one) and the same to read (0.10). It pays only when a worker pauses for more than 5 minutes and less than an hour, because then the 5-minute entry has expired and the whole prefix must be written again. Per worker, let W be every token it wrote to cache and R the prefix tokens it had to write again after such pauses. With a 1-hour cache it saves R × (2.50 − 0.10) and pays (W − R) × (4.00 − 2.50) more, so it is worth it exactly when <b>R / W &gt; 1.5 / 3.9 = 0.385</b>. That threshold is arithmetic on the prices; R and W come from the 47 workers of waves 4–6 (<code>__instrumenta__/w07_ttl_by_type.py</code>).</p>
+  <table style="margin:6px 0 10px">
+    <tr><th>Type</th><th>Workers</th><th>Requests, mean</th><th>Life, mean</th><th>Pauses over 5 min (of all pauses)</th><th>Why they pause</th></tr>
+    <tr><td>authors</td><td>13</td><td>101</td><td>54 min</td><td>15 of 1,305</td><td>they wait for a verifier's questions, and for long runs</td></tr>
+    <tr><td>verifiers</td><td>24</td><td>37</td><td>11 min</td><td>3 of 858</td><td>short lives; they rarely wait</td></tr>
+    <tr><td>explorers</td><td>9</td><td>47</td><td>17 min</td><td>2 of 415</td><td>they probe and hand back; nobody questions them</td></tr>
+  </table>
+  <div class="sw"><svg id="ttl" viewBox="0 0 1080 270" width="100%" role="img" aria-label="R over W per worker and per type against the 0.385 break-even line"></svg></div>
+  <p class="note">Each dot is one worker, placed at the wider of the two counts (hover for both, its life and its USD). The band is its type, pooled, between two ways of counting R: only pauses whose length the records show to be over 5 minutes (left end), or every request that lost more than half its prefix, which also takes in wave 4, where pause lengths were not recorded (right end). <b>Explorers and verifiers are far below the line under both counts</b>: a 1-hour cache would only add cost, USD 2.25 and 2.34–2.67 over three waves. <b>Authors straddle the line</b>: 0.30 to 0.51, a net of −2.15 to +3.31 USD over three waves, and the sign turns on wave 4's unrecorded pauses. So the 1-hour cache is defensible for authors and wrong for the others, but for authors it is a bet near the break-even, not a proven saving. That agrees with w07-c7's verifier (P(net ≤ 0) = 0.34) and corrects my earlier "authors win".</p>
+
+  </details>
+</div>
+
+<!-- 4. GRAVEYARD -->
+<div class="card">
+  <h2>4 · Moves we tried, and what happened to them</h2>
+  <p class="note">Each card is a claim with an independent verdict, or an idea looked at without one. A red badge is a move that did not land; a green one, a move on <code>main</code>; an orange one, an idea looked at and not pursued; a purple one waits for you. Wave 8 first, then wave 7 and earlier.</p>
+  <div class="grave" id="grave"></div>
+</div>
+
+<!-- 5. WORKER TIME -->
+<div class="card">
+  <h2>5 · Where a worker's time goes</h2>
+  <p class="note">The time shares are over the workers of waves 5–6. The record set behind the page is waves 4–6: 47 workers, 2,633 requests. Shares are read from the records (MEASURED). The hook and classifier shares are ESTIMATE. The costs below them each use their own base. Wave 8 adds one larger than all of them: a worker's own earlier turns, 41.6% of its context USD (see 3).</p>
+  <div class="sw"><svg id="wtime" viewBox="0 0 1080 430" width="100%" role="img" aria-label="Share of a worker's time by kind, the small share taken by plugin hooks and the classifier, and four costs larger than hooks"></svg></div>
+  <h3 style="margin-top:18px">Why the two largest of these cost money</h3>
+  <p class="note">Every model request sends the whole conversation again: system prompt, tool list, every message and every tool result so far. Anthropic's prompt cache keeps the processed prefix, so a request that repeats it pays the cache-read price for those tokens instead of the input price. For Sonnet, the workers' model, the lab's price table gives USD 2.00 per million input tokens, 0.10 per million read from cache, 2.50 per million written to a 5-minute cache entry and 4.00 to a 1-hour entry (<code>scripts/lab_status.py</code>, PRICES). A cache entry lives 5 minutes from its last use for a subagent and 1 hour for the main thread; each hit renews it.</p>
+  <div class="grave" style="margin-top:8px;grid-template-columns:repeat(auto-fill,minmax(420px,1fr))">
+    <div class="g"><span class="badge b-aside">why it costs</span><h3>Cache re-writes after gaps over 5 minutes</h3><div class="n"><p><b>Why it costs:</b> when a worker makes no request for more than 5 minutes (one long tool call, or a wait for a message), its cache entry expires. The next request must write the whole context again at 2.50 instead of reading it at 0.10, 25 times the price. Example: a 150,000-token context costs about USD 0.015 to read and 0.375 to re-write. Over waves 4–6, 23 such re-writes cost USD 10.41 above a read.</p><p><b>What the lab controls:</b> the gaps, not the prices. No tool call waits more than 4½ minutes (in the agent files since wave 5); authors now keep 1-hour entries (w07-c7). An author resumed by a verifier after a long wait is the case that remains: 10 of 13 worker misses follow a hand-back wait (explorer-w08-c). Wave 8 puts re-writes after pauses at 15.7% of worker context USD, USD 13.12 (explorer-w08-a, ESTIMATE).</p></div></div>
+    <div class="g"><span class="badge b-aside">why it costs</span><h3>Tool results over 5,000 characters</h3><div class="n"><p><b>Why it costs:</b> a tool result stays in the context for the rest of the worker's life, so every later request reads it again from cache. The cost is its size × the number of later requests × 0.10 per million tokens. Example: one Read of 61,427 characters (about 25,000 tokens) was re-read by 122 later requests, about 3 million cached tokens, USD 0.31. 5,000 characters is the bucket the probe used, not a limit of the platform; the cost grows smoothly with size and with how early in a worker's life the result comes.</p><p><b>What the lab controls:</b> the size and the timing: scripts that print a summary, Reads with an offset and a limit, a large result read late rather than early, or read by a short-lived helper that hands back a summary. Wave 8 measured the ceiling (explorer-w08-a, ESTIMATE): capping every tool result at 5,000 tokens saves at most 7.0% of worker context USD, at 2,500 tokens 15.6%; lab-script output alone 0.5% and lab documents 6.9% at 2,500. It is a ceiling: nothing needed was cut and no re-read followed.</p></div></div>
+  </div>
+  <p class="note">So the prices and the 5-minute lifetime are the platform's. What a run does with them is not: both costs are set by the shape of the agent loop (how long it pauses, how much it reads and when), which the plugin's text and scripts can change. The mechanism here is from Anthropic's prompt-caching documentation as the lab has used it since wave 2, not fetched again this wave.</p>
+
+</div>
+
+<!-- 6. SCALING -->
+<div class="card">
+  <h2>6 · Parallel scaling</h2>
+  <p class="note">The same job in both panels: parsing every transcript <code>lab_status.py</code> reads (274 MB), in a pool of Python processes started by <code>fork</code> and in Rust threads, medians of 5–11 runs at load average 3–5. Solid line and left axis: the time it takes. Dashed line and right axis: the speedup over one worker. The thin dotted line is perfect scaling. Python was measured at 1, 2, 3, 4, 6, 8 and 12 workers; Rust at every count from 1 to 12. The left axes differ by a factor of seven, because one Rust thread (87 ms) is already 7.3 times one Python process (635 ms); the best Python time (106 ms at 12 workers) is still slower than Rust on one thread.</p>
+  <div class="sw"><svg id="scale" viewBox="0 0 1080 330" width="100%" role="img" aria-label="Two line charts, Python pool and Rust threads, each with parse time in milliseconds and speedup against the number of workers"></svg></div>
+</div>
+
+<!-- 7. TABLE -->
+<div class="card">
+  <h2>Sources (table view)</h2>
+  <p class="note">Labels are the report's, and never above a claim's current label from <code>scripts/lab_status.py</code> (w08-c3, w08-c4, w08-c6 MEASURED, verified; w08-c2 unverified; w08-c8 CONJECTURE; w07-c1 and w07-c8 below MEASURED: restate; w07-c7 escalated). Rows marked <b>not in the reports</b> are numbers the page needed and could not source.</p>
+  <details open><summary>Every number on this page</summary>
+  <div class="sw"><table id="src"><thead><tr><th>Item</th><th>Value</th><th>Label</th><th>Source</th></tr></thead><tbody></tbody></table></div>
+  </details>
+</div>
+
+</div></div>
+<div id="tip" role="tooltip"></div>
+
+<script>
+const $=s=>document.querySelector(s), NS="http://www.w3.org/2000/svg";
+const el=(t,a={},p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const tip=$("#tip");
+function bindTips(root){root.querySelectorAll("[data-tip]").forEach(g=>{
+  g.addEventListener("mousemove",ev=>{tip.textContent=g.dataset.tip;tip.style.opacity=1;
+    const x=Math.min(ev.clientX+14,innerWidth-300),y=ev.clientY+14;tip.style.left=x+"px";tip.style.top=y+"px"});
+  g.addEventListener("mouseleave",()=>tip.style.opacity=0)})}
+const txt=(p,a,s)=>{const t=el("text",a,p);t.textContent=s;return t};
+const hatchDef=(svg,id)=>{const d=el("defs",{},svg);const p=el("pattern",{id,width:6,height:6,patternUnits:"userSpaceOnUse",patternTransform:"rotate(45)"},d);
+  el("rect",{width:6,height:6,fill:"var(--surface-0)"},p);el("line",{x1:0,y1:0,x2:0,y2:6,stroke:"var(--theirs)","stroke-width":2.2},p)};
+
+/* ---------- A. lever ladder ---------- */
+const STAT={land:["landed","sw-land"],not:["not landed","sw-not"],user:["yours to set","sw-user"],out:["stays out","sw-out"],untried:["not tried","sw-untried"]};
+/* USD figures: lo, pt (central, optional), hi; b = USD of the spend the lever's side carries; nb = USD of the narrow pool it touches */
+const LEV=[
+ {n:"1-hour cache for the PI",on:"PI spend, USD 144.47 (six sessions)",b:144.47,nb:144.47,lo:43.6,hi:104.0,st:"land",stx:"landed: every PI cache write is 1-hour",lab:"ESTIMATE",
+  t:"Low end: net +13.1, +30.7, −0.16 USD for the PI sessions of waves 5–7 (mean +14.55; explorer-w08-c), summed to 43.6. High end: a 5-minute cache would have re-written USD 119.07 that the 1-hour tier read, for a 15.08 premium, over all six sessions (explorer-w08-d), net 104.0. The two do not count the same hits (see the report). It is how the Desktop PI runs, not a setting the lab changed. P(net > 0) 0.99 by one model, n = 3 sessions."},
+ {n:"PI compaction near 250k tokens",on:"PI spend, USD 144.47",b:144.47,nb:144.47,lo:31.27,hi:44.78,st:"user",stx:"yours to set: a window key in a guarded settings file",lab:"ESTIMATE",
+  t:"Net of what compaction costs (0.54 USD each, MEASURED at 200k on haiku, re-priced), by what the PI re-reads afterwards: USD 44.78 at 0 tokens, 42.15 at 10k, 31.27 at 45k, 11.37 at 90k (explorer-w08-e; explorer-w08-c3's Opus-priced run gives 43–45 at 2.5–10k and 32.3 at 45k). One real compaction exists in the data; the information lost is not priced. w08-c3 (MEASURED, verified): 15 of 17 PI-like runs on a 150k-window scratch lab answered all five questions after a compaction with the existing resume brief; it does not carry the jump to a real PI at 250k (a 91k floor, larger files), and the settings route through the project file was not run. The setting lives in the main checkout's settings file, which the permission guard refuses to write: the file is yours. The PreCompact hook added nothing and does not land."},
+ {n:"Drop the skills listing from the PI",on:"skill listings re-sent, USD 14.78 (six PI sessions)",b:144.47,nb:14.78,lo:2.90,hi:14.78,st:"not",stx:"not landed: built-in skills would be lost",lab:"ESTIMATE",
+  t:"The skill listing cost USD 14.78 across six PI sessions, of which 11.88 is session 1's 22 re-injections (explorer-w08-d). The low end, 2.90, is the other five sessions (14.78 − 11.88). Wave 7 measured request 0 about 10.6–11.0k tokens lower without it (w07-c1, below MEASURED: restate). Not landed: built-in skills such as dataviz would be lost."},
+ {n:"Send the PI's orientation reads to a worker",on:"orientation reads to the first dispatch, USD 10.44",b:144.47,nb:10.44,pt:8.87,lo:8.87,hi:8.87,st:"untried",stx:"not tried",lab:"ESTIMATE",
+  t:"Six sessions: saving 2.05 / 1.19 / 1.95 / 1.43 / 1.98 / 0.27 = USD 8.87 after a 1,500-token summary and a Sonnet worker's cost (explorer-w08-d, formula there). The narrow pool, 10.44, is the six session figures 2.36 + 1.46 + 2.23 + 1.67 + 2.25 + 0.47 added. explorer-w08-c's frame says delegating a read pays only above about 50,000 tokens (P 0.57)."},
+ {n:"Cap the PI's incoming hand-backs, gross",on:"187 hand-backs carried, USD 12.55",b:144.47,nb:12.55,lo:5.99,hi:10.30,st:"land",stx:"landed as a line in the brief (w08-c6); the gate is not",lab:"ESTIMATE",
+  t:"Capping at 3,000 to 1,000 characters saves USD 5.99–10.30 over their lives in context (explorer-w08-d). Gross: it leaves out the worker's extra request and the PI opening the file instead. The cap went into the briefs as a line (w08-c6, MEASURED: first hand-backs of 1,809–2,449 characters against 3,328–5,873 without it, n = 6 each); the gate below is the net, and is not landed."},
+ {n:"rtk on the shell commands it lists",on:"worker context USD 83.69; rtk-listed 9.81",b:83.69,nb:9.81,lo:1.5,hi:8.8,st:"out",stx:"stays out",lab:"ESTIMATE",
+  t:"CITED claim of 60–90% compression (a fetch summary of the README page, not the README) times the MEASURED share of listed commands. Low end 1.5: git, grep, find, ls only (2.44 × 60%). High end 8.8: all listed output at 90%, which includes `cat` of the files a verifier must read. Nothing was installed or run. The PI's reading: no."},
+ {n:"Lab documents by section, or capped",on:"lab documents read by workers, USD 11.98",b:83.69,nb:11.98,lo:2.73,pt:5.74,hi:8.98,st:"land",stx:"landed as brief practice (w08-c6); saving not measured",lab:"ESTIMATE",
+  t:"A cap or a section of 5,000 / 2,500 / 1,000 tokens saves at most USD 2.73 / 5.74 / 8.98 of the 11.98 (3.3% / 6.9% / 10.7% of worker context USD). A ceiling: nothing needed was cut and no re-read followed. No document Read of 117 used offset or limit. explorer-w08-b: colgrep returns the whole file for markdown."},
+ {n:"Cap every tool result, 5,000 down to 2,500 tokens",on:"all tool results, USD 38.53 (overlaps rows around it)",b:83.69,nb:38.53,lo:5.89,hi:13.06,st:"untried",stx:"not tried; not realistic (cuts the worker's own code output too)",lab:"ESTIMATE",
+  t:"Ceiling from explorer-w08-a: capping every tool result at 5,000 tokens saves at most USD 5.89 (7.0%), at 2,500 USD 13.06 (15.6%). It contains the script and document rows, so it must not be added to them. It replaces wave 7's 29.7% of cache-read spend for results over 5,000 characters, a different base."},
+ {n:"Compact just before a pause over an hour",on:"the seven re-writes, USD 14.17",b:144.47,nb:14.17,pt:5.27,lo:5.27,hi:5.27,st:"untried",stx:"not tried",lab:"ESTIMATE",
+  t:"Seven cache misses re-wrote USD 14.17; compacting first would net USD 5.27 in total (−0.30 to +2.45 each; the three smallest contexts lose). explorer-w08-d."},
+ {n:"The PI reads documents by section",on:"documents over 1,500 tokens, USD 7.14",b:144.47,nb:7.14,lo:3.10,hi:4.64,st:"untried",stx:"not tried for the PI's own reads (briefs name sections since w08-c6)",lab:"ESTIMATE",
+  t:"Keeping 50% or 25% of each large document read saves USD 3.10 / 4.64 (explorer-w08-d), f assumed. The PI mostly reads by cat/sed/head in Bash (80 items, USD 5.26), and Read of documents is 15 items."},
+ {n:"Hand-back gate at 5,000 characters (w08-c2)",on:"180 priced past hand-backs; PI spend 144.47",b:144.47,nb:12.55,lo:0.9,hi:2.8,st:"not",stx:"not landed (PI decision); unverified",lab:"ESTIMATE",
+  t:"Net of the worker's extra request: USD 0.9–2.8 over 180 past hand-backs, 1–2% of PI spend as the claim states it. Negative if the PI newly opens the worker's file in more than 20–62% of the fired cases; in the past it opened the named file after 19 of 26 explorer hand-backs. The mechanism worked live (5 of 5 cells shortened). w08-c2 has no verdict: the PI decided against landing and against a verifier."},
+ {n:"Merge independent tool calls (a line in the agent file)",on:"worker recorded cost, USD 109.92 (waves 4–8)",b:109.92,nb:109.92,lo:0.26,hi:2.25,st:"out",stx:"stays out: unchanged agents already batch",lab:"ESTIMATE",
+  t:"Low end 0.26: audit-adjusted strict reads. High end 2.25: loose upper bound with the thinking each merged request would not carry (explorer-w08-g; 0.2–2.1% of recorded USD). The lever test: fresh Sonnet subagents sent all independent Reads in one message without the line (8 of 8, 16 of 16 in 3 of 4); the line changed nothing. 65% of the lab's single-call requests are run-then-run Bash, which the line does not address."},
+ {n:"Cap lab-script output at 5,000 → 1,000 tokens",on:"lab-script output, USD 3.07",b:83.69,nb:3.07,lo:0.12,pt:0.45,hi:1.14,st:"out",stx:"stays out",lab:"ESTIMATE",
+  t:"USD 0.12 / 0.45 / 1.14 at 5,000 / 2,500 / 1,000 tokens (0.1% / 0.5% / 1.4% of worker context USD). Scripts' output has a median of 540 tokens; the largest is 10,257 (explorer-w08-a). Wave 7's first look had said about 2%, from 60 results."},
+ {n:"Fewer PI requests per dispatch batch",on:"consecutive dispatching requests, USD 144.47",b:144.47,nb:144.47,pt:0.75,lo:0.75,hi:0.75,st:"untried",stx:"not tried (loose upper bound USD 12)",lab:"ESTIMATE",
+  t:"Strict count: 10 requests would merge, USD 0.75 of cache reads. A looser count (dispatches within 120 s) gives USD 12.01 as an upper bound, not drawn (explorer-w08-d)."},
+ {n:"1-hour cache for authors",on:"authors' cache cost, 14 lives, USD 32.06",b:109.92,nb:32.06,lo:-2.15,pt:-0.28,hi:3.31,st:"land",stx:"landed (wave 7, by decision); the sign is a coin flip",lab:"ESTIMATE",
+  t:"Per life, waves 5–7: mean −0.02 USD, sd 0.39, 10th / median / 90th −0.26 / −0.10 / +0.25; 5 of 14 lives gain (explorer-w08-c). The central point is 14 × −0.02 = −0.28. The range −2.15 to +3.31 is wave 7's, over waves 4–6 under two counting rules, and rests on wave 4's unrecorded pauses (w07-c7 escalated, unresolved). 5 of 7 decision rules say 5 minutes, 2 say 1 hour. Narrow pool: the authors' cache cost, 2.29 × 14 = 32.06."},
+ {n:"Lower effort for workers (low)",on:"thinking carried, USD 15.8 (workers, waves 4–7)",b:83.69,nb:15.8,lo:0,pt:0,hi:0,ceil:15.8,st:"out",stx:"stays out: nothing to save below the default",lab:"MEASURED",
+  t:"Measured on two planted-error verifier tasks, 30 subagent runs (n = 3 per arm): USD 0.0185 low against 0.0194 default on task A and 0.0157 against 0.0190 on B, inside the run-to-run range; every arm gave the right verdict; max cost 7–8 times default. The dotted outline is the ceiling no effort level reaches: all thinking carried, USD 15.8 or 18.9% of worker context USD (ESTIMATE from a signature fit; explorer-w08-a inferred 22.5%). The lab's agent files were not run."},
+];
+const ladState={u:"side",z:0};
+function ladKey(r){const v=r.pt!==undefined?r.pt:(r.lo+r.hi)/2;return v/(ladState.u==="narrow"?r.nb:r.b)}
+function drawLadder(){
+  const svg=$("#ladder");svg.innerHTML="";
+  const u=ladState.u,L=430,R=1010,rowH=48,top=34;
+  const val=(r,x)=>u==="usd"?x:100*x/(u==="narrow"?r.nb:r.b);
+  const rows=LEV.slice().sort((a,b)=>val(b,b.pt!==undefined?b.pt:(b.lo+b.hi)/2)-val(a,a.pt!==undefined?a.pt:(a.lo+a.hi)/2));
+  let mx=0,mn=0;rows.forEach(r=>{mx=Math.max(mx,val(r,r.hi),val(r,r.ceil||0));mn=Math.min(mn,val(r,r.lo))});
+  const nice=v=>{const s=[1,2,3,5,8,10,12,15,20,25,30,40,50,60,75,100,120];return s.find(x=>x>=v)||v};
+  let hiAx=ladState.z?(u==="usd"?10:12):nice(mx), loAx=mn<0?-Math.ceil(-mn/ (hiAx/10))*(hiAx/10):0;
+  if(loAx<0&&!ladState.z)loAx=Math.min(loAx,-hiAx/12);
+  const sx=v=>L+(R-L)*(Math.max(loAx,Math.min(hiAx,v))-loAx)/(hiAx-loAx);
+  const step=hiAx>=60?10:hiAx>=20?5:hiAx>=10?2:hiAx>=5?1:0.5;
+  const unit=u==="usd"?"$":"";const suf=u==="usd"?"":"%";
+  for(let v=Math.ceil(loAx/step)*step;v<=hiAx+1e-9;v+=step){const x=sx(v);el("line",{x1:x,y1:top-8,x2:x,y2:top+rows.length*rowH-6,stroke:"var(--grid)"},svg);
+    txt(svg,{x,y:top-14,"text-anchor":"middle","font-size":"11",class:"muted"},unit+(Math.round(v*10)/10)+suf)}
+  el("line",{x1:sx(0),y1:top-8,x2:sx(0),y2:top+rows.length*rowH-6,stroke:"var(--text-muted)"},svg);
+  rows.forEach((r,i)=>{
+    const y=top+i*rowH,[stn,cls]=STAT[r.st];
+    const g=el("g",{"data-tip":r.n+". "+r.t+"  Acts on: "+r.on+". Label: "+r.lab+". Status: "+r.stx+"."},svg);
+    el("rect",{x:0,y:y-6,width:1080,height:rowH-4,class:"hit"},g);
+    txt(g,{x:0,y:y+10,"font-size":"13","font-weight":"600"},r.n);
+    txt(g,{x:0,y:y+25,"font-size":"11",class:"sec"},"acts on: "+r.on);
+    const sub=txt(g,{x:0,y:y+39,"font-size":"11","font-weight":"600",class:cls},r.stx+" · "+r.lab);
+    const lo=val(r,r.lo),hi=val(r,r.hi),pt=val(r,r.pt!==undefined?r.pt:r.lo);
+    const est=r.lab==="ESTIMATE";
+    const H=18,by=y+4;
+    if(r.ceil!==undefined){el("rect",{x:sx(0),y:by,width:Math.max(sx(val(r,r.ceil))-sx(0),2),height:H,rx:3,fill:"none",stroke:"var(--text-muted)","stroke-dasharray":"2 3"},g)}
+    const x0=sx(Math.min(0,lo)),xh=sx(hi);
+    const bar=(xa,xb,op)=>{const e=el("rect",{x:Math.min(xa,xb),y:by,width:Math.max(Math.abs(xb-xa),2),height:H,rx:3,class:cls,"fill-opacity":op},g);if(est){e.setAttribute("stroke","var(--text-primary)");e.setAttribute("stroke-dasharray","3 2");e.setAttribute("stroke-width","1")}};
+    if(r.pt!==undefined&&r.pt!==r.lo&&r.pt!==r.hi){bar(sx(0),sx(Math.max(pt,0)),1);bar(sx(0),xh,0.4);if(lo<0)bar(sx(0),sx(lo),0.4)}
+    else if(lo===hi){bar(sx(0),xh,1)}
+    else {bar(sx(0),sx(Math.max(lo,0)),1);bar(sx(Math.max(lo,0)),xh,0.4);if(lo<0)bar(sx(lo),sx(0),0.4)}
+    if(r.pt!==undefined&&r.pt!==r.lo&&r.pt!==r.hi){const px=sx(pt);el("line",{x1:px,y1:by-3,x2:px,y2:by+H+3,stroke:"var(--text-primary)","stroke-width":2},g)}
+    const clipped=hi>hiAx;
+    const f=v=>{const a=Math.abs(v);return (v<0?"−":"")+(u==="usd"?"$":"")+(a>=10?a.toFixed(0):a>=1?a.toFixed(1):a.toFixed(2))+suf};
+    let tx=r.pt!==undefined&&r.pt===r.lo&&r.pt===r.hi?f(pt):(f(lo)+" to "+f(hi));
+    if(r.pt!==undefined&&r.pt!==r.lo&&r.pt!==r.hi)tx=f(lo)+" · "+f(pt)+" · "+f(hi);
+    if(r.ceil!==undefined)tx="≈ 0 (ceiling "+f(val(r,r.ceil))+")";
+    if(r.lab==="ESTIMATE"&&false)tx+="";
+    if(clipped||xh>R-90){txt(g,{x:R-6,y:by+14,"text-anchor":"end","font-size":"11.5","font-weight":"600",style:"paint-order:stroke;stroke:var(--surface-1);stroke-width:4px;stroke-linejoin:round"},tx+(clipped?" ▸":""))}
+    else txt(g,{x:Math.max(xh,sx(0))+8,y:by+14,"font-size":"11.5","font-weight":"600"},tx);
+  });
+  svg.setAttribute("viewBox",`0 0 1080 ${top+rows.length*rowH+10}`);
+  const nt={side:"Bars are a share of the spend of the side the lever sits on: worker context USD 83.69 (waves 4–7) or recorded worker cost 109.92 (waves 4–8) for worker levers; the PI's USD 144.47 for PI levers. The 1-hour author row is a share of the workers' 109.92.",narrow:"Bars are a share of the narrow pool each lever touches (the second line of each row): small pools make big shares, so this view ranks levers by how much of their own pool they remove, not by money.",usd:"Bars are USD over the data each report used (waves 4–7 or 4–8 for workers, six PI sessions for the PI), not per wave. Rows overlap: do not add them. The pale part is the rest of the range; the vertical tick, where there is one, is the central value."}[u];
+  $("#ladNote").textContent=nt;
+  bindTips(svg);
+}
+document.querySelectorAll("#ladUnit button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("#ladUnit button").forEach(x=>x.setAttribute("aria-pressed",x===b));ladState.u=b.dataset.u;drawLadder()}));
+document.querySelectorAll("#ladZoom button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("#ladZoom button").forEach(x=>x.setAttribute("aria-pressed",x===b));ladState.z=+b.dataset.z;drawLadder()}));
+drawLadder();
+(function(){
+  const svg=$("#ladTime"),L=330,R=1010,max=90,sx=v=>L+(R-L)*v/max,rowH=34,top=28;
+  const T=[
+   ["Exec form: permission guard start",81,81,"123 → 42 ms, pooled medians, 10 of 10 pairs (w07-c3, MEASURED)","land"],
+   ["Exec form: budget (PostToolUse)",63.5,63.5,"104.5 → 41 ms, 10 of 10 pairs (w07-c3, MEASURED)","land"],
+   ["Lean hook starts (wave 6)",20,28,"−20 to −28 ms a worker start (w06-c9, MEASURED)","land"],
+   ["Rust permission guard",15.8,15.8,"start to exit 32.3 → 16.5 ms, 598 of 600 pairs (w07-c6, MEASURED). The recorded hook is 23.5 ms lower (w07-c8, below MEASURED: restate)","land"],
+   ["Rust budget (w08-c4)",7,12,"7.4–12.3 ms outside the platform; in the platform PostToolUse 9.0 ms (10 of 12 pairs), PostToolBatch 7.0 ms (9 of 12, below the registered 10); reproducer-w08-1 measured 12.1–12.9 (w08-c4, MEASURED, SUPPORTED; on main)","land"],
+   ["Rust hand-back (w08-c4)",8,15,"8.1–15.5 ms per start outside the platform (w08-c4, MEASURED, SUPPORTED; on main)","land"],
+  ];
+  for(let v=0;v<=max;v+=10){const x=sx(v);el("line",{x1:x,y1:top-8,x2:x,y2:top+T.length*rowH-4,stroke:"var(--grid)"},svg);txt(svg,{x,y:top-12,"text-anchor":"middle","font-size":"11",class:"muted"},v+" ms")}
+  T.forEach(([n,lo,hi,t,st],i)=>{const y=top+i*rowH,g=el("g",{"data-tip":n+": "+t},svg);
+    el("rect",{x:0,y:y-6,width:1080,height:rowH-2,class:"hit"},g);txt(g,{x:0,y:y+12,"font-size":"12.5","font-weight":"600"},n);
+    el("rect",{x:sx(0),y:y,width:sx(lo)-sx(0),height:16,rx:3,class:STAT[st][1]},g);
+    if(hi>lo)el("rect",{x:sx(lo),y:y,width:sx(hi)-sx(lo),height:16,rx:3,class:STAT[st][1],"fill-opacity":.4},g);
+    txt(g,{x:sx(hi)+8,y:y+13,"font-size":"11.5","font-weight":"600"},lo===hi?lo+" ms":lo+"–"+hi+" ms")});
+  svg.setAttribute("viewBox",`0 0 1080 ${top+T.length*rowH+6}`);
+  bindTips(svg);
+})();
+
+/* ---------- 1. hook chain ---------- */
+const chain=[
+  {n:"auto-mode classifier",ms:"median 628",w:270,cls:"seg-theirs",t:"Auto mode asks a classifier about every Bash call. It waits a median 628 ms on a trivial call (explorer-w07-g). Wave 5 measured 448–747 ms. Not the plugin's, and in no cost record, so every USD figure is a lower bound."},
+  {n:"permission guard",ms:"42 · Rust 16–42",w:150,cls:"seg-guard",t:"PreToolUse, one unconditional Bash row, now in exec form. Start 123 → 42 ms (w07-c3). The Rust guard, `murmuration guard`, is about 16–42 ms and falls back to the Python guard on any doubt (w07-c6, w07-c8). In auto mode it runs alongside the classifier, so it is mostly hidden. Denies bypass flags, claude runs that escape your settings, settings writes."},
+  {n:"the tool runs",ms:"",w:100,cls:"",t:"The Bash command itself."},
+  {n:"PostToolUse",ms:"budget 41 · Rust 7–12 less",w:160,cls:"seg-budget",t:"budget.py (now also a Rust subcommand with the Python script as fall-back, w08-c4: 7.4–12.3 ms less outside the platform, 9.0 ms less in the platform, 10 of 12 pairs) after every tool call: checks the worker's USD and minutes, writes notes as the budget fills, blocks over budget. Exec form: 104.5 → 41 ms, pooled medians, 10 of 10 pairs (w07-c3). PostToolUse is not hidden by the classifier."},
+  {n:"PostToolBatch",ms:"Rust: 7.0 ms less (9 of 12 pairs)",w:160,cls:"seg-budget",t:"The same budget logic on the batch boundary, in exec form, and in Rust since w08-c4: 7.0 ms less in the platform, 9 of 12 pairs against a registered 10 (a control row drifted −6.2 ms between arms). Wave 7 did not time the Python one. Wave 6 assumed it costs the same as PostToolUse (ESTIMATE)."},
+];
+(function(){
+  const g=$("#chain"); let x=40; const y=375,h=80;
+  chain.forEach((c,i)=>{
+    const grp=el("g",{"data-tip":c.t},g);
+    const r=el("rect",{x,y,width:c.w,height:h,rx:8,fill:c.cls?"":"var(--surface-0)",stroke:"var(--line)"},grp);
+    if(c.cls)r.setAttribute("class",c.cls);
+    const tx=txt(grp,{x:x+c.w/2,y:y+h/2-4,"text-anchor":"middle","font-size":"12.5","font-weight":"600"},c.n);
+    if(c.cls&&c.cls!=="seg-theirs"){tx.setAttribute("style","fill:#fff")}
+    const tm=txt(grp,{x:x+c.w/2,y:y+h/2+14,"text-anchor":"middle","font-size":"11.5"},c.ms);
+    if(c.cls&&c.cls!=="seg-theirs"){tm.setAttribute("style","fill:#fff;opacity:.9")}else tm.setAttribute("class","sec");
+    x+=c.w+14;
+  });
+  txt(g,{x:40,y:470,"font-size":"11","class":"muted"},"Widths are schematic in this strip; section 2 draws them to scale.");
+})();
+bindTips($("#map"));
+
+/* ---------- 2. per-call bars ---------- */
+const designs=[
+  {k:"Before wave 6",s:"budget.py ×2, plain python3",g:0,b:244,lab:"budget 122 + 122",t:"PostToolUse 122 + PostToolBatch 122 ms (author-w06-6's live main arm; PostToolBatch assumed equal, ESTIMATE). No guard."},
+  {k:"Wave 6 main",s:"lean starts + Python guard, through sh",g:130,b:192,lab:"guard 124–136 · budget 96 + 96",t:"Guard 124–136 ms live (reproducer-w06-8), lean budget 96 + 96 (w06-c9). Superseded in wave 7. The guard cost more than the lean starts saved: the price of the guardrail, stated."},
+  {k:"Resident server (mcp_tool)",s:"built, measured, reverted",g:130,b:6,lab:"guard 124–136 · budget 1–6",t:"1–6 ms per hook (w06-c6), budget logic unchanged (197/197 replays). Per worker it adds 3 outage-check starts, not drawn here (≈150 ms each, once per worker). Reverted on its registered rules: see the note below."},
+  {k:"After wave 7",s:"exec form + Rust guard",g:42,gl:16,b:41,lab:"guard 16–42 · PostToolUse 41 (PostToolBatch not timed)",t:"Guard 42 ms in exec form with Python, or about 16–42 ms with the Rust guard; in auto mode it runs alongside the classifier and is hidden behind it. Budget PostToolUse 41 ms. PostToolBatch was not timed in wave 7, so it is not drawn: this bar holds one budget start where the older bars hold two. The white tick marks 16 ms."},
+  {k:"Wave 8  ✓",s:"Rust budget + hand-back (on main)",g:42,gl:16,b:32,lab:"guard 16–42 · PostToolUse ≈ 32 (41 − 9.0 in the platform)",t:"w08-c4 (MEASURED, verified), on main: the budget and hand-back hooks run as subcommands of the Rust binary, the Python scripts as fall-back. In the platform PostToolUse is 9.0 ms lower (10 of 12 pairs), PostToolBatch 7.0 ms (9 of 12, below the registered 10); outside it 7.4–12.3 ms. The bar draws 41 − 9.0 = 32 as budget (ESTIMATE, arithmetic on two reported numbers); the guard is as in wave 7. A control row drifted −6.2 ms between arms, so these are not tight."},
+];
+const CLS=628;
+function drawBars(withCls){
+  const svg=$("#bars"); svg.innerHTML="";
+  hatchDef(svg,"hatchb");
+  const L=290,R=1040, max=withCls?1150:450, sx=v=>L+(R-L)*v/max, rowH=56, top=18;
+  for(let v=0;v<=max;v+=withCls?250:100){const x=sx(v);el("line",{x1:x,y1:top-6,x2:x,y2:top+designs.length*rowH-8,stroke:"var(--grid)"},svg);
+    txt(svg,{x,y:top+designs.length*rowH+8,"text-anchor":"middle","font-size":"11",class:"muted"},v+" ms")}
+  designs.forEach((d,i)=>{
+    const y=top+i*rowH, g=el("g",{"data-tip":d.t},svg);
+    el("rect",{x:0,y:y-4,width:1080,height:rowH-6,class:"hit"},g);
+    txt(g,{x:0,y:y+15,"font-size":"13","font-weight":"600"},d.k);
+    txt(g,{x:0,y:y+32,"font-size":"11.5",class:"sec"},d.s);
+    let x=L; const H=22;
+    const seg=(w,fill,cls)=>{if(w<=0)return null;const ww=Math.max(sx(w)-L-2,3);const r=el("rect",{x,y,width:ww,height:H,rx:4},g);if(cls)r.setAttribute("class",cls);else r.setAttribute("fill",fill);x+=ww+2;return r};
+    if(withCls){seg(CLS,"url(#hatchb)")}
+    const gx=x; seg(d.g,null,"seg-guard");
+    if(d.gl){const tx=gx+sx(d.gl)-L;el("line",{x1:tx,y1:y+3,x2:tx,y2:y+H-3,stroke:"#fff","stroke-width":2},g)}
+    seg(d.b,null,"seg-budget");
+    txt(g,{x:L,y:y+H+14,"font-size":"11.5","font-weight":"600"},d.lab+(withCls?" · classifier 628":""));
+  });
+  bindTips(svg);
+}
+document.querySelectorAll("#tg button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll("#tg button").forEach(x=>x.setAttribute("aria-pressed",x===b));drawBars(b.dataset.cls==="1")}));
+drawBars(true);
+
+/* whole call, by mode */
+(function(){
+  const svg=$("#modes"); hatchDef(svg,"hatchm");
+  const L=290,R=1040,max=1200,sx=v=>L+(R-L)*v/max,rowH=48,top=14;
+  const rows=[
+    {k:"default mode",s:"narrow allow list",v:55,lab:"55 ms",t:"Default mode, narrow allow list: the whole trivial Bash call takes a median 55 ms (MEASURED, explorer-w07-g)."},
+    {k:"auto mode",s:"classifier on",v:709,cls:628,lab:"709 ms · classifier waits 628",t:"Auto mode: the whole call takes a median 709 ms. The classifier's wait is a median 628 ms of it (MEASURED, explorer-w07-g)."},
+    {k:"auto mode, worker-like",s:"your colgrep hook + lab plugin on",v:1054,lab:"1,054 ms",t:"Auto mode with your colgrep hook and the lab plugin both on: the arm that looks like a worker. Median 1,054 ms (MEASURED, explorer-w07-g)."},
+    {k:"colgrep_policy hook alone",s:"your PreToolUse hook, not the plugin's",v:194,p90:554,hook:1,lab:"median 194 ms (p90 554), per Bash call",t:"Your colgrep_policy PreToolUse hook: median 194 ms, p90 554, per Bash call (MEASURED, explorer-w07-g). It belongs to your colgrep setup, not to the lab plugin. In auto mode it runs alongside the classifier."},
+  ];
+  for(let v=0;v<=max;v+=200){const x=sx(v);el("line",{x1:x,y1:top-6,x2:x,y2:top+rows.length*rowH-8,stroke:"var(--grid)"},svg);
+    txt(svg,{x,y:top+rows.length*rowH+8,"text-anchor":"middle","font-size":"11",class:"muted"},v.toLocaleString("en-US")+" ms")}
+  rows.forEach((r,i)=>{
+    const y=top+i*rowH,g=el("g",{"data-tip":r.t},svg);
+    el("rect",{x:0,y:y-4,width:1080,height:rowH-6,class:"hit"},g);
+    txt(g,{x:0,y:y+14,"font-size":"13","font-weight":"600"},r.k);
+    txt(g,{x:0,y:y+30,"font-size":"11.5",class:"sec"},r.s);
+    let x=L;
+    if(r.cls){const w=sx(r.cls)-L;el("rect",{x,y,width:w,height:24,rx:4,fill:"url(#hatchm)",stroke:"var(--line)"},g);x+=w;
+      el("rect",{x,y,width:Math.max(sx(r.v)-x,3),height:24,rx:4,fill:"var(--text-muted)"},g);x=sx(r.v)}
+    else{const rr=el("rect",{x,y,width:Math.max(sx(r.v)-L,3),height:24,rx:4},g);
+      if(r.hook)rr.setAttribute("fill","var(--theirs)");else rr.setAttribute("fill","var(--text-muted)");x=sx(r.v)}
+    if(r.p90){const px=sx(r.p90);el("line",{x1:px,y1:y+2,x2:px,y2:y+22,stroke:"var(--text-secondary)","stroke-width":2},g);
+      txt(g,{x:px+8,y:y+17,"font-size":"12","font-weight":"600"},r.lab)}
+    else txt(g,{x:x+8,y:y+17,"font-size":"12","font-weight":"600"},r.lab);
+  });
+  bindTips(svg);
+})();
+
+/* ---------- 3. spend (B) ---------- */
+const spend=[
+  {w:"Waves 1–3",pi:63.23,other:98.91},
+  {w:"Wave 4",pi:10.51,after:0,wk:17.88,hl:26.52},
+  {w:"Wave 5",pi:11.90,after:6.18,wk:15.85,hl:18.18},
+  {w:"Wave 6",pi:16.06,after:7.02,wk:32.03,hl:7.54},
+  {w:"Wave 7",pi:15.86,after:11.28,wk:22.64,hl:2.48,roles:[["authors",10.07],["explorers",7.32],["verifiers",4.17],["page helper",1.08]]},
+  {w:"Wave 8 so far",pi:6.10,after:0,wk:27.92,hl:19.91,lb:1,roles:[["authors",13.02],["explorers",13.57],["verifiers",1.33]]},
+];
+(function(){
+  const svg=$("#spend"), L=130,R=1000,max=70,sx=v=>L+(R-L)*Math.min(v,max)/max,rowH=48,top=12,n=spend.length;
+  hatchDef(svg,"hatchpi2");
+  const dfs=el("defs",{},svg);const pp=el("pattern",{id:"hpi",width:5,height:5,patternUnits:"userSpaceOnUse",patternTransform:"rotate(45)"},dfs);
+  el("rect",{width:5,height:5,fill:"var(--surface-0)"},pp);el("line",{x1:0,y1:0,x2:0,y2:5,stroke:"var(--s1)","stroke-width":2},pp);
+  const nrows=n+2;
+  for(let v=0;v<=max;v+=10){const x=sx(v);el("line",{x1:x,y1:top-4,x2:x,y2:top+nrows*rowH+4,stroke:"var(--grid)"},svg);
+    txt(svg,{x,y:top+nrows*rowH+20,"text-anchor":"middle","font-size":"11",class:"muted"},"$"+v)}
+  spend.forEach((s,i)=>{
+    const y=top+i*rowH;
+    if(s.other!==undefined){
+      const tot=s.pi+s.other;
+      const g=el("g",{"data-tip":`Waves 1–3 (one session, one worktree, exact): USD ${tot.toFixed(2)}, of which the PI's main thread ${s.pi.toFixed(2)} (explorer-w08-d, session ab96c5ed) and the rest of the worktree ${s.other.toFixed(2)} (workers and sessions started below it; scripts/lab_status.py --spend, 162.14 minus 63.23). Not split by role. The bar is cut at $70.`},svg);
+      el("rect",{x:0,y:y-4,width:1080,height:rowH-8,class:"hit"},g);
+      txt(g,{x:0,y:y+20,"font-size":"13","font-weight":"600"},s.w);
+      let x=L;const w1=sx(s.pi)-L-2;el("rect",{x,y,width:w1,height:28,rx:4,class:"s1"},g);txt(g,{x:x+8,y:y+18,"font-size":"11.5",style:"fill:#fff"},"PI "+s.pi.toFixed(1));x+=w1+2;
+      el("rect",{x,y,width:R-x,height:28,rx:4,fill:"var(--theirs)"},g);txt(g,{x:x+8,y:y+18,"font-size":"11.5",style:"fill:var(--text-primary)"},"rest "+s.other.toFixed(0)+" ▸");
+      txt(g,{x:R+6,y:y+19,"font-size":"12","font-weight":"600"},"$"+tot.toFixed(0)+", workers + headless not split");
+      return}
+    const tot=s.pi+s.after+s.wk+s.hl;
+    const g=el("g",{"data-tip":`${s.w}: PI ${s.pi.toFixed(2)}${s.after?" (+"+s.after.toFixed(2)+" after the close, same session)":""} · workers ${s.wk.toFixed(2)} · headless ${s.hl.toFixed(2)}${s.lb?" (at least)":""} = ${tot.toFixed(2)} USD. PI share of the wave ${(100*(s.pi+s.after)/tot).toFixed(0)}%.${s.lb?" The wave is open; every figure grows.":""}`},svg);
+    el("rect",{x:0,y:y-4,width:1080,height:rowH-8,class:"hit"},g);
+    txt(g,{x:0,y:y+20,"font-size":"13","font-weight":"600"},s.w);
+    let x=L;[[s.pi,"s1","PI",0],[s.after,"hpi","after",1],[s.wk,"s2","workers",0],[s.hl,"s3","headless",0]].forEach(([v,c,nm,h])=>{
+      if(!v)return;const w=sx(v)-L-2;const r=el("rect",{x,y,width:w,height:28,rx:4},g);
+      if(h){r.setAttribute("fill","url(#hpi)");r.setAttribute("stroke","var(--s1)")}else r.setAttribute("class",c);
+      if(w>60&&!h){txt(g,{x:x+8,y:y+18,"font-size":"11.5",style:"fill:#fff"},`${nm} ${v.toFixed(1)}`)}
+      x+=w+2});
+    txt(g,{x:x+8,y:y+19,"font-size":"12.5","font-weight":"600"},(s.lb?"≥ $":"$")+tot.toFixed(1));
+  });
+  [["Wave 7 workers",spend[4]],["Wave 8 workers",spend[5]]].forEach(([lab,s],k)=>{
+    const y=top+(n+k)*rowH;
+    txt(svg,{x:0,y:y+20,"font-size":"13","font-weight":"600"},lab);
+    const g=el("g",{"data-tip":lab+", USD at list price, by role: "+s.roles.map(r=>r[0]+" "+r[1].toFixed(2)).join(" · ")+(k?". The present session to 01:25 JST, the explorer writing this page included.":". The largest single worker was author-w07-5 (the Rust guard), 4.30.")},svg);
+    el("rect",{x:0,y:y-4,width:1080,height:rowH-8,class:"hit"},g);
+    let x=L;const op=[1,0.75,0.55,0.35];
+    s.roles.forEach(([nm,v],i)=>{const w=sx(v)-L-2;el("rect",{x,y,width:w,height:28,rx:4,class:"s2","fill-opacity":op[i]},g);
+      if(w>70)txt(g,{x:x+8,y:y+18,"font-size":"11.5",style:i<2?"fill:#fff":""},nm+" "+v.toFixed(1));else txt(g,{x:x+w/2,y:y-6-(i%2)*11,"text-anchor":"middle","font-size":"10.5",class:"sec"},nm+" "+v.toFixed(1));x+=w+2});
+    txt(g,{x:x+8,y:y+19,"font-size":"12.5","font-weight":"600"},"$"+s.wk.toFixed(1));
+  });
+  bindTips(svg);
+})();
+/* PI by source */
+(function(){
+  const svg=$("#piSrc"),L=330,R=900,tot=144.47;
+  // price part
+  const parts=[["cache reads",81.15,"s1","#fff"],["fresh cache writes",26.02,"s2","#fff"],["re-writes of context already there",14.19,"s3","#fff"],["billed output",23.11,"fam4","#fff"]];
+  txt(svg,{x:0,y:16,"font-size":"12.5","font-weight":"600"},"By price part (MEASURED)");
+  let x=L;const sxp=v=>(R-L)*v/tot;
+  parts.forEach(([nm,v,c,fc])=>{const g=el("g",{"data-tip":`${nm}: USD ${v.toFixed(2)} (${(100*v/tot).toFixed(0)}% of 144.47). Every cache write of the PI is 1-hour (5.0 M tokens). Uncached input USD 0.01. [__reports__/wave-08/explorer-w08-d/tables.md section 1]`},svg);
+    const w=sxp(v);el("rect",{x,y:4,width:w-1,height:26,rx:4,class:c},g);txt(g,{x:x+6,y:21,"font-size":"11",style:"fill:"+fc},`${nm.split(" ")[0]} ${v.toFixed(1)}`);x+=w});
+  txt(svg,{x:R+8,y:21,"font-size":"12","font-weight":"600"},"= $144.47");
+  txt(svg,{x:L,y:46,"font-size":"11",class:"sec"},"reads 56% · fresh writes 18% · re-writes 10% · billed output 16%");
+  const fam={1:"own words (44.2%, USD 63.84)",2:"injected text and the prefix (22.0%, 31.79)",3:"tool results (17.5%, 25.29)",4:"workers' messages and notices (12.2%, 17.68)",5:"the one compaction's context (3.9%, 5.64)",6:"the user's messages (0.2%, 0.24)"};
+  const rows=[
+   ["billed output",23.11,1,"16.0%"],["own thinking carried in context (inferred)",18.76,1,"13.0%"],["skill listing, re-sent",14.78,2,"10.2%"],["worker hand-back messages (187)",12.55,4,"8.7%"],
+   ["own tool calls",9.00,1,"6.2%"],["system prompt + tool definitions",8.45,2,"5.8%"],["dispatch briefs and messages",6.32,1,"4.4%"],["post-compaction context",5.64,5,"3.9%"],
+   ["Bash cat/sed/head/tail of files",5.26,3,"3.6%"],["git output",5.26,3,"3.6%"],["deferred-tool, agent, MCP listings",5.04,2,"3.5%"],["task notifications (215)",4.97,4,"3.4%"],
+   ["Bash python, scripts, other",4.97,3,"3.4%"],["Write/Edit content",3.47,1,"2.4%"],["other injected (hooks, reminders, skills)",3.53,2,"2.4%"],["lab_status.py output",2.86,3,"2.0%"],["own text",2.80,1,"1.9%"],
+   ["search results",2.45,3,"1.7%"],["Agent/SendMessage acks",2.08,3,"1.4%"],["Read of a document or code",1.88,3,"1.3%"],["everything else (user 0.24, notes 0.15, other results 0.53, recorded thinking 0.39)",1.31,6,"0.9%"]];
+  const y0=62,rh=24,sx=v=>L+(R-L)*v/24;
+  txt(svg,{x:0,y:y0-4,"font-size":"12.5","font-weight":"600"},"By source (ESTIMATE)");
+  for(let v=0;v<=24;v+=4){el("line",{x1:sx(v),y1:y0,x2:sx(v),y2:y0+rows.length*rh,stroke:"var(--grid)"},svg);txt(svg,{x:sx(v),y:y0+rows.length*rh+14,"text-anchor":"middle","font-size":"11",class:"muted"},"$"+v)}
+  rows.forEach(([nm,v,f,sh],i)=>{const y=y0+6+i*rh;const g=el("g",{"data-tip":`${nm}: USD ${v.toFixed(2)} (${sh} of the PI's 144.47). Family: ${fam[f]}. ESTIMATE: tokens = characters × a ratio fitted per session; USD by position in the cache (explorer-w08-d, source_usd.tsv).`},svg);
+    el("rect",{x:0,y:y-4,width:1080,height:rh-2,class:"hit"},g);
+    txt(g,{x:0,y:y+11,"font-size":"11.5"},nm.length>56?nm.slice(0,54)+"…":nm);
+    el("rect",{x:L,y:y,width:Math.max(sx(v)-L,2),height:14,rx:3,class:"fam"+f},g);
+    txt(g,{x:sx(v)+6,y:y+12,"font-size":"11","font-weight":"600"},"$"+v.toFixed(2)+" · "+sh)});
+  const ly=y0+rows.length*rh+34;
+  Object.entries(fam).forEach(([k,t],q)=>{const lx=(q%3)*360,lyy=ly+Math.floor(q/3)*18;el("rect",{x:lx,y:lyy-9,width:10,height:10,rx:2,class:"fam"+k},svg);txt(svg,{x:lx+14,y:lyy,"font-size":"10.5",class:"sec"},t)});
+  svg.setAttribute("viewBox",`0 0 1080 ${ly+34}`);
+  bindTips(svg);
+})();
+/* workers by source */
+(function(){
+  const svg=$("#wkSrc"),L=400,R=960,mx=20;
+  const fam={1:"the worker's own earlier turns (41.5%)",2:"documents (14.3%)",3:"code and scripts it runs or reads (19.7%)",4:"lab-script output (3.7%)",5:"other tool results (8.3%)",6:"harness, system prompt, messages (12.4%)"};
+  const rows=[
+   ["own turns: thinking blocks",18.82,1,"22.5%"],["own turns: tool-call text",15.92,1,"19.0%"],["cat/sed/head/tail of a document in Bash",7.22,2,"8.6%"],["the worker's own code run (inline python, scratch scripts)",7.28,3,"8.7%"],
+   ["cat/sed/head/tail of source code in Bash",6.70,3,"8.0%"],["Read of a lab document",4.31,2,"5.1%"],["messages, resume prompts, task notices",3.34,6,"4.0%"],["other tool results (edits, mkdir, ls …)",3.09,5,"3.7%"],
+   ["lab script output (scripts/, __instrumenta__/)",3.07,4,"3.7%"],["harness text at start",2.77,6,"3.3%"],["Read of source code",2.53,3,"3.0%"],["system prompt and tool schemas",1.81,6,"2.2%"],
+   ["hook-injected text",1.76,6,"2.1%"],["search results (colgrep, grep, find)",1.73,5,"2.1%"],["ToolSearch results",0.92,5,"1.1%"],["git output",0.85,5,"1.0%"],["the brief",0.71,6,"0.8%"],["Read of a non-lab document",0.45,2,"0.5%"],["web or MCP results",0.38,5,"0.4%"]];
+  const y0=8,rh=24,sx=v=>L+(R-L)*v/mx;
+  for(let v=0;v<=mx;v+=4){el("line",{x1:sx(v),y1:y0,x2:sx(v),y2:y0+rows.length*rh,stroke:"var(--grid)"},svg);txt(svg,{x:sx(v),y:y0+rows.length*rh+14,"text-anchor":"middle","font-size":"11",class:"muted"},"$"+v)}
+  rows.forEach(([nm,v,f,sh],i)=>{const y=y0+6+i*rh;const g=el("g",{"data-tip":`${nm}: USD ${v.toFixed(2)} (${sh} of 83.69). Family: ${fam[f]}. ESTIMATE (explorer-w08-a, by_class.tsv, tables.md).`},svg);
+    el("rect",{x:0,y:y-4,width:1080,height:rh-2,class:"hit"},g);
+    txt(g,{x:0,y:y+11,"font-size":"11.5"},nm);
+    el("rect",{x:L,y:y,width:Math.max(sx(v)-L,2),height:14,rx:3,class:"fam"+f},g);
+    txt(g,{x:sx(v)+6,y:y+12,"font-size":"11","font-weight":"600"},"$"+v.toFixed(2)+" · "+sh)});
+  const ly=y0+rows.length*rh+34;
+  Object.entries(fam).forEach(([k,t],q)=>{const lx=(q%3)*360,lyy=ly+Math.floor(q/3)*18;el("rect",{x:lx,y:lyy-9,width:10,height:10,rx:2,class:"fam"+k},svg);txt(svg,{x:lx+14,y:lyy,"font-size":"10.5",class:"sec"},t)});
+  svg.setAttribute("viewBox",`0 0 1080 ${ly+34}`);
+  bindTips(svg);
+})();
+/* C. cache lifetime: net per life, and which rule picks what */
+(function(){
+  const svg=$("#cnet"),L=170,R=980;
+  const T=[["authors","14 lives",-0.26,-0.10,0.25,-0.02,0.39,"5/14","2.29 / 2.30"],["verifiers","14 lives",-0.16,-0.13,0.08,-0.09,0.10,"3/14","0.65 / 0.74"],["explorers","9 lives",-0.27,-0.21,0.11,-0.13,0.19,"2/9","0.87 / 1.01"]];
+  const mn=-0.4,mxv=0.4,sx=v=>L+(R-L)*(v-mn)/(mxv-mn);
+  const top=26;
+  for(let v=-0.4;v<=0.401;v+=0.1){el("line",{x1:sx(v),y1:top-8,x2:sx(v),y2:top+T.length*52-6,stroke:"var(--grid)"},svg);txt(svg,{x:sx(v),y:top-12,"text-anchor":"middle","font-size":"11",class:"muted"},(v>0.001?"+":"")+(Math.abs(v)<0.01?"0":v.toFixed(1)))}
+  el("line",{x1:sx(0),y1:top-8,x2:sx(0),y2:top+T.length*52-6,stroke:"var(--text-primary)","stroke-width":1.5},svg);
+  txt(svg,{x:sx(0)-6,y:top+T.length*52+8,"text-anchor":"end","font-size":"11.5",style:"fill:var(--s1)","font-weight":"600"},"◂ 5 minutes pays");
+  txt(svg,{x:sx(0)+6,y:top+T.length*52+8,"font-size":"11.5",style:"fill:var(--s2)","font-weight":"600"},"1 hour pays ▸");
+  T.forEach(([n,lv,p10,med,p90,mean,sd,pg,cc],i)=>{const y=top+i*52+14;
+    const g=el("g",{"data-tip":`${n} (${lv}): net of 1 hour over 5 minutes per life, USD. 10th ${p10}, median ${med}, 90th ${p90}; mean ${mean}, sd ${sd}. Lives that gain: ${pg}. Mean cache cost per life, 5-minute / 1-hour: ${cc} USD. ESTIMATE (explorer-w08-c, tables 3).`},svg);
+    el("rect",{x:0,y:y-18,width:1080,height:48,class:"hit"},g);
+    txt(g,{x:0,y:y,"font-size":"13","font-weight":"600"},n);txt(g,{x:0,y:y+16,"font-size":"11",class:"sec"},lv+" · cache "+cc+" USD/life");
+    el("line",{x1:sx(p10),y1:y-2,x2:sx(p90),y2:y-2,stroke:i?"var(--text-muted)":"var(--s2)","stroke-width":6,"stroke-linecap":"round","stroke-opacity":.6},g);
+    el("line",{x1:sx(med),y1:y-11,x2:sx(med),y2:y+7,stroke:"var(--text-primary)","stroke-width":2},g);
+    el("circle",{cx:sx(mean),cy:y-2,r:5,fill:"var(--text-primary)"},g);
+    txt(g,{x:sx(p90)+10,y:y+2,"font-size":"11.5","font-weight":"600"},`mean ${mean>0?"+":"−"}${Math.abs(mean).toFixed(2)} · ${pg} gain`)});
+  // PI panel
+  const y=top+T.length*52+46,Rp=980,mnp=-2,mxp=30,sp=v=>L+(Rp-L)*(v-mnp)/(mxp-mnp);
+  txt(svg,{x:0,y:y-14,"font-size":"12","font-weight":"600",class:"sec"},"PI, its own axis (USD per session)");
+  for(let v=0;v<=30;v+=5){el("line",{x1:sp(v),y1:y-6,x2:sp(v),y2:y+26,stroke:"var(--grid)"},svg);txt(svg,{x:sp(v),y:y+40,"text-anchor":"middle","font-size":"11",class:"muted"},"+"+v)}
+  const g=el("g",{"data-tip":"PI (Opus, 3 sessions): net of 1 hour over 5 minutes per session, USD. 10th +2.50, median +13.13, 90th +27.17; mean +14.55, sd 15.47. The sessions were +13.1, +30.7 and −0.16, so n = 3 says little about the next one. Cache cost per session 27.4 (5-minute) against 12.9 (1-hour). ESTIMATE (explorer-w08-c)."},svg);
+  txt(g,{x:0,y:y+8,"font-size":"13","font-weight":"600"},"PI");
+  el("line",{x1:sp(2.5),y1:y+4,x2:sp(27.17),y2:y+4,stroke:"var(--s1)","stroke-width":6,"stroke-linecap":"round","stroke-opacity":.6},g);
+  el("line",{x1:sp(13.13),y1:y-5,x2:sp(13.13),y2:y+13,stroke:"var(--text-primary)","stroke-width":2},g);
+  el("circle",{cx:sp(14.55),cy:y+4,r:5,fill:"var(--text-primary)"},g);
+  txt(g,{x:sp(27.17)+10,y:y+8,"font-size":"11.5","font-weight":"600"},"mean +14.55 · 2 of 3");
+  svg.setAttribute("viewBox",`0 0 1080 ${y+54}`);
+  bindTips(svg);
+})();
+(function(){
+  const svg=$("#crules"),L=300,cw=170,rh=36,top=34;
+  const types=["authors","verifiers","explorers","PI"];
+  const R=[
+   ["Expected value (mean net)",["5m","5m","5m","1h"],"mean net −0.02 / −0.09 / −0.13 / +14.55"],
+   ["Token share re-written (1h if > 0.385)",["5m","5m","5m","1h"],"0.372 / 0.21 / 0.20 / 0.85"],
+   ["Probability of a gain above half",["5m","5m","5m","1h"],"0.36 / 0.21 / 0.22 / 0.67 (n = 3)"],
+   ["Worst-case cost ratio (competitive)",["5m","5m","1h","1h"],"1.13 vs 1.56 · 1.09 vs 1.37 · 1.31 vs 1.43 (1h) · 1.04 vs 2.60"],
+   ["Expected cost ratio",["5m","5m","5m","1h"],"1.03 vs 1.21 (authors) · 1.01 vs 1.83 (PI)"],
+   ["CVaR of regret, 0.8 and 0.9",["1h","5m","5m","1h"],"authors 0.49 vs 0.65 at 0.9"],
+   ["Minimax regret in USD",["1h","5m","5m","1h"],"authors max 0.72 vs 1.04 · PI 0.16 vs 30.7"]];
+  types.forEach((t,j)=>txt(svg,{x:L+j*cw+cw/2,y:top-12,"text-anchor":"middle","font-size":"12.5","font-weight":"600"},t));
+  R.forEach(([nm,cells,tt],i)=>{const y=top+i*rh;
+    const g=el("g",{"data-tip":nm+". "+tt+" (explorer-w08-c, table 4, ESTIMATE; waves 5–7)."},svg);
+    el("rect",{x:0,y:y-2,width:1080,height:rh-2,class:"hit"},g);
+    txt(g,{x:0,y:y+20,"font-size":"12.5"},nm);
+    cells.forEach((c,j)=>{el("rect",{x:L+j*cw+4,y:y,width:cw-8,height:rh-8,rx:6,class:c==="1h"?"s2":"s1"},g);
+      txt(g,{x:L+j*cw+cw/2,y:y+18,"text-anchor":"middle","font-size":"12.5","font-weight":"700",style:"fill:#fff"},c==="1h"?"1 hour":"5 minutes")})});
+  svg.setAttribute("viewBox",`0 0 1080 ${top+R.length*rh+4}`);
+  bindTips(svg);
+})();
+
+/* ---------- 3b. 1-hour cache break-even ---------- */
+const ttlw=[["author-w04-1","author",0.0,0.472,-0.281,0.064,5.7,36],["reproducer-w04-1","reproducer",0.0,0.0,-0.097,-0.097,3.8,29],["reproducer-w04-3","reproducer",0.0,0.0,-0.13,-0.13,7.5,33],["author-w04-2","author",0.0,0.706,-1.231,1.028,53.6,107],["reproducer-w04-2","reproducer",0.0,0.0,-0.103,-0.103,8.2,31],["reproducer-w04-10","reproducer",0.0,0.0,-0.089,-0.089,0.3,18],["reproducer-w04-6","reproducer",0.0,0.0,-0.083,-0.083,1.5,26],["reproducer-w04-4","reproducer",0.0,0.0,-0.138,-0.138,7.0,33],["reproducer-w04-5","reproducer",0.0,0.0,-0.201,-0.201,11.3,51],["author-w04-3","author",0.0,0.268,-0.618,-0.187,40.1,116],["author-w04-4","author",0.26,0.74,-0.632,1.795,38.9,122],["author-w04-6","author",0.0,0.0,-0.089,-0.089,0.8,24],["reproducer-w04-7","reproducer",0.0,0.0,-0.112,-0.112,0.8,21],["reproducer-w04-9","reproducer",0.0,0.0,-0.118,-0.118,1.5,29],["reproducer-w04-8","reproducer",0.0,0.439,-0.289,0.041,3.9,40],["explorer-w05-b","explorer",0.0,0.0,-0.205,-0.205,10.8,39],["author-w05-2","author",0.0,0.0,-0.247,-0.247,30.6,60],["reproducer-w05-5","reproducer",0.0,0.0,-0.133,-0.133,12.6,33],["explorer-w05-e","explorer",0.0,0.0,-0.148,-0.148,8.8,45],["reproducer-w05-8","reproducer",0.0,0.0,-0.099,-0.099,4.9,25],["author-w05-3","author",0.477,0.477,0.248,0.248,65.5,136],["reproducer-w05-1","reproducer",0.0,0.0,-0.136,-0.136,14.7,29],["explorer-w05-a","explorer",0.0,0.0,-0.255,-0.255,9.1,39],["reproducer-w05-3","reproducer",0.0,0.0,-0.108,-0.108,7.3,32],["explorer-w05-d","explorer",0.0,0.0,-0.263,-0.263,21.1,67],["explorer-w05-f","explorer",0.0,0.0,-0.434,-0.434,26.5,36],["reproducer-w05-6","reproducer",0.0,0.0,-0.112,-0.112,6.1,32],["reproducer-w05-4","reproducer",0.0,0.0,-0.161,-0.161,15.3,51],["explorer-w05-c","explorer",0.0,0.0,-0.301,-0.301,13.1,55],["author-w05-1","author",0.467,0.467,0.107,0.107,67.1,68],["reproducer-w06-5","reproducer",0.0,0.0,-0.247,-0.247,12.9,53],["reproducer-w06-2","reproducer",0.0,0.0,-0.132,-0.132,5.8,27],["reproducer-w06-1","reproducer",0.0,0.0,-0.118,-0.118,4.3,28],["reproducer-w06-4","reproducer",0.0,0.0,-0.131,-0.131,14.0,36],["reproducer-w06-7","reproducer",0.445,0.445,0.097,0.097,33.2,83],["author-w06-6","author",0.449,0.449,0.154,0.154,80.9,174],["reproducer-w06-8","reproducer",0.436,0.436,0.033,0.033,15.2,35],["reproducer-w06-3","reproducer",0.0,0.0,-0.148,-0.148,13.6,40],["explorer-w06-c","explorer",0.0,0.0,-0.22,-0.22,10.3,51],["author-w06-3","author",0.0,0.0,-0.709,-0.709,106.1,87],["reproducer-w06-6","reproducer",0.47,0.47,0.087,0.087,55.4,67],["explorer-w06-a","explorer",0.0,0.0,-0.172,-0.172,29.3,40],["author-w06-4","author",0.488,0.488,0.226,0.226,79.1,126],["author-w06-5","author",0.616,0.616,1.016,1.016,130.8,241],["author-w06-7","author",0.0,0.0,-0.097,-0.097,6.5,21],["explorer-w06-b","explorer",0.0,0.0,-0.256,-0.256,25.5,52]];
+(function(){
+  const svg=$("#ttl"),L=170,R=1000,max=0.8,sx=v=>L+(R-L)*v/max,thr=1.5/3.9;
+  const rows=[["author","authors","−2.15 to +3.31"],["reproducer","verifiers","−2.67 to −2.34"],["explorer","explorers","−2.25"]];
+  const top=30,rowH=72;
+  for(let v=0;v<=max+1e-9;v+=0.1){const x=sx(v);el("line",{x1:x,y1:top-10,x2:x,y2:top+rows.length*rowH-14,stroke:"var(--grid)"},svg);
+    txt(svg,{x,y:top+rows.length*rowH+4,"text-anchor":"middle","font-size":"11",class:"muted"},v.toFixed(1))}
+  txt(svg,{x:(L+R)/2,y:top+rows.length*rowH+22,"text-anchor":"middle","font-size":"11.5",class:"sec"},"R / W: share of a worker's cache writes that a 1-hour cache would have avoided");
+  el("line",{x1:sx(thr),y1:top-18,x2:sx(thr),y2:top+rows.length*rowH-14,stroke:"var(--warn)","stroke-width":2,"stroke-dasharray":"5 3"},svg);
+  txt(svg,{x:sx(thr)+6,y:top-8,"font-size":"11.5","font-weight":"600",style:"fill:var(--warn)"},"break-even 0.385: right of it, 1 hour pays");
+  rows.forEach(([t,lab,net],i)=>{
+    const y=top+i*rowH+18, ws=ttlw.filter(w=>w[1]===t);
+    const sum=(k)=>ws.reduce((a,w)=>a+w[k],0);
+    txt(svg,{x:0,y:y+4,"font-size":"13","font-weight":"600"},lab);
+    txt(svg,{x:0,y:y+21,"font-size":"11",class:"sec"},"net USD, 3 waves: "+net);
+    const pool=(k)=>{let Rr=0,Ww=0;return null};
+    const lo=Math.min(...ws.map(w=>w[2])),hi=Math.max(...ws.map(w=>w[3]));
+    const band=t==="author"?[0.303,0.509]:t==="reproducer"?[0.137,0.168]:[0,0];
+    const g=el("g",{"data-tip":`${lab}, pooled R/W: ${band[0].toFixed(3)} (pauses recorded over 5 min) to ${band[1].toFixed(3)} (every large prefix loss). Net of a 1-hour cache over waves 4–6: ${net} USD.`},svg);
+    el("rect",{x:sx(band[0])-3,y:y-9,width:Math.max(sx(band[1])-sx(band[0]),0)+6,height:18,rx:9,fill:t==="author"?"var(--s2)":"var(--text-muted)","fill-opacity":0.35},g);
+    ws.forEach((w,k)=>{const jit=((k%5)-2)*4.5;
+      const gg=el("g",{"data-tip":`${w[0]}: R/W ${w[2].toFixed(2)} to ${w[3].toFixed(2)}; net ${w[4]>=0?"+":""}${w[4].toFixed(2)} to ${w[5]>=0?"+":""}${w[5].toFixed(2)} USD; ${w[7]} requests over ${w[6]} min.`},svg);
+      el("circle",{cx:sx(w[3]),cy:y+jit,r:7,class:"hit"},gg);
+      el("circle",{cx:sx(w[3]),cy:y+jit,r:3.4,fill:t==="author"?"var(--s2)":"var(--text-secondary)","fill-opacity":0.85},gg)});
+  });
+  bindTips(svg);
+})();
+
+/* ---------- 4. graveyard ---------- */
+const moves=[
+  ["landed","On main, wave 8","Rust budget and hand-back (w08-c4)","MEASURED, verified (supersedes w08-c1, which was escalated). 0 differences in 3,821 replayed events, 3,234 decided by the port and 587 handed to Python by design; 11 faults fall back with a named cause. 7–12 ms (budget) and 8–15 ms (hand-back) less per start outside the platform; in the platform 10 of 12 pairs for PostToolUse, 9 of 12 for PostToolBatch (rule: 10). Cost: about 1,300 lines of a second implementation, one unsafe call, 3 clippy lints."],
+  ["landed","On main, wave 8","Hand-back limit and sections in every brief (w08-c6)","MEASURED. Workers told \"at most about 1,500 characters\" sent first hand-backs of 1,809–2,449 characters (n = 6); those not told, 3,328–5,873 (n = 6). The skill now asks every brief for the limit and for sections instead of whole files. The USD value is only the gross estimate (6.0–10.3 on the PI's side); the effect on documents is not measured."],
+  ["out","Not landed, wave 8","Hand-back gate at 5,000 characters (w08-c2)","Unverified (no verifier: the PI would not land it). The mechanism worked live, 5 of 5 cells shortened. Net saving USD 0.9–2.8 (1–2% of PI spend, ESTIMATE); negative if the PI opens the worker's file in more than 20–62% of fired cases. It had been USD 6–10 gross."],
+  ["held","Yours to set, wave 8","PI compaction near 250k tokens (w08-c3, explorer-w08-e)","The largest lever on the PI: USD 31–45 net (ESTIMATE, 22–31% of its spend). w08-c3 (MEASURED, verified): after a compaction with the existing resume brief 15 of 17 PI-like runs on a small scratch lab answered all five questions; not carried: a real PI at 250k, the project-file settings route. The setting (autoCompactWindow) lives in the main checkout's settings file, which the permission guard rightly refuses to write. The Desktop route was not run."],
+  ["out","Not landed, wave 8","PreCompact hook that writes the lab state (w08-c3)","Verified with w08-c3 (MEASURED). Added nothing over the resume brief: equal answers in 3 haiku seeds; Opus failed one question in 1 of 2 runs with it. Ran in 62–158 ms."],
+  ["aside","Stays out, wave 8","Shorter lab-script output (explorer-w08-a)","Scripts are 3.7% of worker context USD; a 2,500-token cap saves at most 0.5%. Wave 7's first look, about 2%, came from 60 results."],
+  ["aside","Stays out, wave 8","rtk on shell commands (explorer-w08-a)","The commands it lists hold 11.7% of context USD, 8.8 points of it `cat` of files a verifier must read. Without `cat`, 2.9% and a ceiling of 1.8–2.6%. Nothing installed or run; the page was read through a fetch summary (CITED)."],
+  ["aside","Stays out, wave 8","A line in the agent file to merge independent calls (explorer-w08-g)","Unchanged Sonnet subagents already send independent Reads together (8 of 8, 16 of 16 in 3 of 4); the line changed nothing. What could merge in the lab is 0.2–2.1% of worker USD."],
+  ["aside","Stays out, wave 8","Lower effort in the agent files (explorer-w08-f)","`effort` works as a subagent field (thinking 467 low, 501 default, 613 high, 2,711 max) and does nothing on a main-thread agent in a headless run. On two planted-error tasks every arm was right and cost the same within noise; max cost 7–8 times."],
+  ["aside","Not pursued, wave 8","colgrep for the lab's notes and claims (explorer-w08-b)","Markdown is one unit per file and a hit shows the first lines, so a hit is a path. 65% of whole reads are of files the brief names. A section-level unit would be a change to your colgrep-mcp repository, not to this plugin."],
+  ["reopen","Worth a probe, wave 8","Fewer requests per worker","A worker's own earlier turns are 41.6% of its context USD and cost follows the request count, but no lever on it has been tried (a stop rule, a smaller brief). Thinking is billed again on every later request (MEASURED, coefficient 0.997)."],
+  ["landed","On main","Every hook row in exec form (w07-c3)","No shell between the platform and the hook. Guard start 123 → 42 ms. Budget PostToolUse 104.5 → 41 ms. Pooled medians, 10 of 10 pairs."],
+  ["landed","On main","Rust permission guard (w07-c6, w07-c8)","<code>murmuration guard</code>, installed per session into the plugin data folder. It falls back to the Python guard on any doubt. CPU 17.6 → 1.6 ms a start. Start to exit 32.3 → 16.5 ms, in 598 of 600 pairs. The recorded hook is 23.5 ms lower, in 19 of 19 pairs (that part is w07-c8, below MEASURED: restate). Residual gap: a binary that is right on its 12 self-test payloads but wrong elsewhere would install silently."],
+  ["landed","On main","user_words: async, origin rule (w07-c5)","The hook runs async. It keeps only prompts a person typed, decided by the transcript's origin marker."],
+  ["landed","On main, half","lab_status pricing (w07-c4)","It prices fast mode and web searches now. The other half, no git child, did not land: it saves 0.04–0.05 s a call and needs a re-implementation of git's worktree list."],
+  ["landed","On main, by PI decision","1-hour cache for authors (w07-c7)","MEASURED: the platform honours the 1-hour cache. The money is undetermined: P(net ≤ 0) = 0.34 (ESTIMATE; w07-c7 escalated). Wave 8 on timed pauses only: −0.02 ± 0.39 USD per author life (ESTIMATE); see 3b."],
+  ["out","Not landed","PI without the skills listing (w07-c1)","Request 0 could drop 10.6–11.0k tokens (w07-c1 is below MEASURED: restate). Not landed: built-in skills such as dataviz would be lost. Wave 8: the listing cost USD 14.78 over six PI sessions, 11.88 of it in session 1's 22 re-injections."],
+  ["aside","Not pursued, wave 7","http hooks","2 ms. Loud on Pre and Post, fatal on PostToolBatch, silent on SubagentStop."],
+  ["aside","Not pursued, wave 7","Async hooks for notes","Looked at in wave 7. Not built."],
+  ["aside","Not pursued, wave 7","A parallel or Rust lab_status","0.33 s cold against a 0.39 s warm cache."],
+  ["landed","On main","Lean hook starts (w06-c9)","Same 10 registrations, identical outputs on 197/197 replays and 814 real starts. −20 to −28 ms a worker start, CPU halved. Landed by my decision against its own 25 ms threshold, which sat at the physical ceiling."],
+  ["landed","On main","Permission guard v3 + fixes (w06-c13/14)","1 start per Bash call, fails closed, timeout 20 s. In a replay of 4,637 lab calls: 63 guarded acts denied, 26 false denials. Fourth version; the first three each failed a rule. Wave 7 put a Rust guard in front of it; the Python guard is the fallback."],
+  ["landed","On main","Permissions paragraph in every worker","Your decision of 19:27, applied as text: no run skips or loosens the permission layer without your quoted yes."],
+  ["landed","On main","PI tool denylist (w05-c7, checked w06-c1)","Request 0: 74,966 → 46,738 tokens on the Desktop; the 29 tools removed are exactly the line's matches."],
+  ["reopen","Reverted — worth reopening","Resident server, mcp_tool hooks (w06-c4/c6)","Hooks at 1–6 ms, −79% of hook time. Missed ≤20% (21.1%) and +300 lines (+320). The real problem: a dead server fails silently. A design that fails loudly may fix it."],
+  ["out","Superseded in wave 7","Rust binary for the hooks (SA1)","Wave 6 said −30 ms a start ≈ 1% of a wave, and did not build it. Wave 7 built one for the guard only (w07-c6, w07-c8): see above. Wave 8 extended it to budget and hand-back (w08-c4, on main)."],
+  ["aside","Set aside, wave 4","Lean build #1 (w04-c5)","Outputs identical 291/291; −48.4% on long workers against a 50% rule I can no longer defend. Superseded by w06-c9."],
+  ["aside","Set aside, wave 5","Lean build #2 (w05-c4)","−52.5 to −56% serial hook time, but it merged two starts and changed behaviour: an extra message on 11 of 197 transcripts."],
+  ["out","Reverted","Dispositions at the hand-back wake-up (w06-c2)","Moved 69 s of the PI's close that were already off the critical path. No saving; friction with /lab-status."],
+  ["out","Not landed","Guard v0 · 25 gated rows (w06-c7)","Denied 42 of 50 attacks; a command with $ matched every row: 19 processes. Fails closed 9/9."],
+  ["out","Not landed","Guard v1 · v2 (w06-c8, w06-c12)","v1: my rule could not pass its own list. v2: missed the heredoc route the lab uses most, and cost 1.35 starts per call at a 45% $ share."],
+  ["out","Superseded","PI tool allowlist (w05-c3)","Saved the same tokens but silently dropped every MCP server the plugin cannot name. Replaced by the denylist."],
+  ["held","Held at the permission layer","Decision-frame text","The PI stops handing engineering back to you. The classifier denied the PI editing its own authority; the patch waits for you."],
+];
+(function(){
+  const g=$("#grave"); const icon={landed:"✓",out:"✕",aside:"◐",held:"⏸",reopen:"↻"};
+  moves.forEach(([k,b,h,n])=>{const d=document.createElement("div");d.className="g";
+    d.innerHTML=`<span class="badge b-${k}">${icon[k]} ${b}</span><h3>${h}</h3><div class="n">${n}</div>`;g.appendChild(d)});
+})();
+
+/* ---------- 5. where a worker's time goes ---------- */
+(function(){
+  const svg=$("#wtime"),L=300,R=1040,sx=p=>L+(R-L)*p/100;
+  const sec=(y,s)=>txt(svg,{x:0,y,"font-size":"12","font-weight":"600",class:"sec"},s);
+  const lab=(y,a,b)=>{txt(svg,{x:0,y:y+15,"font-size":"12.5","font-weight":"600"},a);txt(svg,{x:0,y:y+31,"font-size":"11.5",class:"sec"},b)};
+  const track=(y)=>el("rect",{x:L,y,width:R-L,height:26,rx:4,fill:"none",stroke:"var(--line)"},svg);
+  const ticks=(y0,y1)=>{[0,25,50,75,100].forEach(p=>{el("line",{x1:sx(p),y1:y0,x2:sx(p),y2:y1,stroke:"var(--grid)"},svg)})};
+
+  sec(14,"Share of a worker's time (waves 5–6)");
+  let y=26; ticks(y-4,y+44);
+  const parts=[
+    ["model requests",30.8,"t1","#fff","Model requests: 30.8% of a worker's time. 41% of that is thinking (MEASURED, explorer-w07-b)."],
+    ["tool phases",45.6,"t2","#fff","Tool phases: 45.6% of a worker's time (MEASURED, explorer-w07-b)."],
+    ["idle waits",22.3,"t3","var(--text-primary)","Idle waits for a message: 22.3% of a worker's time (MEASURED, explorer-w07-b)."],
+    ["client gaps",1.3,"t4","#fff","Client gaps: 1.3% of a worker's time (MEASURED, explorer-w07-b)."],
+  ];
+  let acc=0;
+  parts.forEach(([nm,p,c,fc,t])=>{
+    const g=el("g",{"data-tip":t},svg),x=sx(acc),w=sx(acc+p)-sx(acc);
+    el("rect",{x,y,width:Math.max(w-1,3),height:34,rx:4,class:c},g);
+    if(nm==="model requests"){el("rect",{x,y:y+24,width:w*0.41,height:10,rx:3,fill:"#fff",opacity:.35},g);
+      txt(g,{x:x+8,y:y+16,"font-size":"11.5","font-weight":"600",style:"fill:"+fc},`${nm} ${p}%`);
+      txt(g,{x:x+w*0.41+6,y:y+32,"font-size":"10.5",style:"fill:"+fc},"41% of this is thinking")}
+    else if(w>60)txt(g,{x:x+8,y:y+22,"font-size":"11.5","font-weight":"600",style:"fill:"+fc},`${nm} ${p}%`);
+    else{txt(g,{x:x-2,y:y-6,"text-anchor":"end","font-size":"11.5","font-weight":"600"},`${nm} ${p}%`)}
+    acc+=p});
+  txt(svg,{x:0,y:y+22,"font-size":"12.5","font-weight":"600"},"Where the wall time goes");
+
+  y=92; sec(y-6,"What plugin hooks and the classifier take of the same time (ESTIMATE)");
+  ticks(y-1,y+88);
+  const small=[
+    ["Plugin hooks","0.13–0.5% of a worker's time",0.13,0.5,"Plugin hooks: 0.13–0.5% of a worker's time (ESTIMATE, explorer-w07-b, explorer-w07-g)."],
+    ["Auto-mode classifier","about 1.9% of a worker's time",1.9,1.9,"The auto-mode classifier: about 1.9% of a worker's time (ESTIMATE, explorer-w07-g)."],
+  ];
+  small.forEach(([a,b,lo,hi,t],i)=>{
+    const yy=y+i*44,g=el("g",{"data-tip":t},svg);
+    el("rect",{x:0,y:yy-4,width:1080,height:40,class:"hit"},g);
+    lab(yy,a,b); track(yy);
+    el("rect",{x:L,y:yy,width:Math.max(sx(hi)-L,4),height:26,rx:2,class:"t3"},g);
+    txt(g,{x:Math.max(sx(hi),L+4)+10,y:yy+18,"font-size":"12","font-weight":"600"},lo===hi?`about ${hi}%`:`${lo}–${hi}%`)});
+
+  y=204; sec(y-8,"Costs larger than hooks (each against its own base, drawn on a full 0–100% track)");
+  const big=[
+    ["Cache re-writes after gaps over 5 minutes","of worker spend",15.8,"15.8%","Cache re-writes after gaps over 5 minutes: 15.8% of worker spend (ESTIMATE, explorer-w07-b)."],
+    ["Tool results over 5,000 characters","of cache-read spend",29.7,"29.7%","Tool results over 5,000 characters: 29.7% of cache-read spend (ESTIMATE, explorer-w07-b)."],
+    ["Retries after tool errors","of wave 6's requests",8.5,"8.5%","Requests that follow a tool error, such as a blocked call: 8.5% of wave 6's requests (ESTIMATE, explorer-w07-b)."],
+    ["Independent calls not batched","recorded worker USD, if merged (wave 8)",1.2,"would save 0.2–2.1%","Merging independent calls would save 0.2–2.1% of recorded worker USD (ESTIMATE, explorer-w08-g; wave 7 said 0.8–1.6% of requests). Unchanged Sonnet agents already batch when they can. The bar is drawn at about the middle of the range."],
+  ];
+  big.forEach(([a,b,p,lb,t],i)=>{
+    const yy=y+i*44,g=el("g",{"data-tip":t},svg);
+    el("rect",{x:0,y:yy-4,width:1080,height:40,class:"hit"},g);
+    lab(yy,a,b); track(yy);
+    el("rect",{x:L,y:yy,width:sx(p)-L,height:26,rx:2,class:i===3?"t4":"t2"},g);
+    txt(g,{x:sx(p)+10,y:yy+18,"font-size":"12","font-weight":"600"},lb)});
+  [0,25,50,75,100].forEach(p=>txt(svg,{x:sx(p),y:y+4*44+4,"text-anchor":"middle","font-size":"11",class:"muted"},p+"%"));
+  bindTips(svg);
+})();
+
+/* ---------- 6. parallel scaling ---------- */
+(function(){
+  const svg=$("#scale");
+  const panels=[
+    {x0:70,x1:470,title:"Python pool (fork), parse only",tmax:700,tstep:100,
+     pts:[[1,635],[2,338],[3,226],[4,175],[6,133],[8,115],[12,106]],unit:"processes"},
+    {x0:620,x1:1020,title:"Rust threads, parse only",tmax:100,tstep:20,
+     pts:[[1,87.4],[2,49.1],[3,34.8],[4,26.5],[5,21.9],[6,22.4],[7,18.8],[8,19.1],[9,16.7],[10,16.4],[11,17.4],[12,17.4]],unit:"threads"}];
+  const pt=34,pb=270,smax=7;
+  panels.forEach(P=>{
+    const sx=w=>P.x0+(P.x1-P.x0)*(w-1)/11, st=v=>pb-(pb-pt)*v/P.tmax, ss=v=>pb-(pb-pt)*v/smax;
+    txt(svg,{x:P.x0,y:16,"font-size":"12.5","font-weight":"600"},P.title);
+    for(let v=0;v<=P.tmax;v+=P.tstep){el("line",{x1:P.x0,y1:st(v),x2:P.x1,y2:st(v),stroke:"var(--grid)"},svg);
+      txt(svg,{x:P.x0-8,y:st(v)+4,"text-anchor":"end","font-size":"11",style:"fill:var(--s1)"},v+" ms")}
+    for(let v=0;v<=smax;v++)txt(svg,{x:P.x1+8,y:ss(v)+4,"font-size":"11",style:"fill:var(--s2)"},v+"×");
+    for(let w=1;w<=12;w++)txt(svg,{x:sx(w),y:pb+16,"text-anchor":"middle","font-size":"11",class:"muted"},String(w));
+    txt(svg,{x:(P.x0+P.x1)/2,y:pb+34,"text-anchor":"middle","font-size":"11.5",class:"sec"},P.unit);
+    el("line",{x1:sx(6),y1:pt-6,x2:sx(6),y2:pb,stroke:"var(--warn)","stroke-dasharray":"4 3","stroke-width":1.5},svg);
+    txt(svg,{x:sx(6)+5,y:pt+4,"font-size":"11",style:"fill:var(--warn)","font-weight":"600"},"6 performance cores");
+    el("path",{d:`M${sx(1)},${ss(1)} L${sx(7)},${ss(7)}`,stroke:"var(--text-muted)","stroke-dasharray":"1 4","stroke-width":1.5,fill:"none"},svg);
+    const t1=P.pts[0][1];
+    el("path",{d:P.pts.map((p,i)=>(i?"L":"M")+sx(p[0])+","+st(p[1])).join(" "),fill:"none",stroke:"var(--s1)","stroke-width":2.4},svg);
+    el("path",{d:P.pts.map((p,i)=>(i?"L":"M")+sx(p[0])+","+ss(t1/p[1])).join(" "),fill:"none",stroke:"var(--s2)","stroke-width":2.2,"stroke-dasharray":"6 4"},svg);
+    P.pts.forEach(([w,ms])=>{const sp=t1/ms;
+      const g=el("g",{"data-tip":`${P.title}, ${w} ${P.unit}: ${ms} ms, speedup ${sp.toFixed(2)}, efficiency ${(sp/w).toFixed(2)} (MEASURED, explorer-w07-d).`},svg);
+      el("rect",{x:sx(w)-9,y:pt,width:18,height:pb-pt,class:"hit"},g);
+      el("circle",{cx:sx(w),cy:st(ms),r:4,fill:"var(--s1)"},g);
+      el("circle",{cx:sx(w),cy:ss(sp),r:3.5,fill:"var(--s2)"},g);
+      if(w===1||w===6||w===12){txt(g,{x:sx(w),y:st(ms)-9,"text-anchor":"middle","font-size":"11","font-weight":"600",style:"fill:var(--s1)"},(ms>=100?Math.round(ms):ms)+" ms");
+        if(w>1)txt(g,{x:sx(w),y:ss(sp)+16,"text-anchor":"middle","font-size":"11","font-weight":"600",style:"fill:var(--s2)"},sp.toFixed(1)+"×")}
+    });
+  });
+  txt(svg,{x:70,y:322,"font-size":"11.5",class:"sec"},"Solid: time (left axis). Dashed: speedup (right axis). Dotted: perfect scaling. Hover a point for its numbers.");
+  bindTips(svg);
+})();
+
+/* ---------- 7. sources ---------- */
+const src=[
+  /* wave 8 */
+  ["A. 1-hour cache for the PI","low end USD 43.6 = 13.1 + 30.7 − 0.16 (three PI sessions, waves 5–7); high end USD 104.0 = 119.07 − 15.08 (six sessions); 119.07 is what 61 hits after 5 min–1 h would have re-written, 15.08 the 1-hour write premium","ESTIMATE (the two ends count different hits; the sum and the subtraction are mine)","__reports__/wave-08/explorer-w08-c/00-findings_v0.md (table 3 text); __reports__/wave-08/explorer-w08-d/tables.md section 4"],
+  ["A. PI compaction near 250k","net USD 44.78 / 42.15 / 31.27 / 11.37 at 0 / 10k / 45k / 90k tokens re-read per compaction; window to set 283,000; 13 compactions at R = 0","ESTIMATE","__reports__/wave-08/explorer-w08-e/net_estimate.md; 00-findings_v0.md Result (4)"],
+  ["A. PI compaction, Opus-priced re-run","USD 43–45 at 2.5–10k re-read, 39.5 at 20k, 32.3 at 45k; compaction itself about USD 0.44 on Opus; pays back after about 28 requests","MEASURED, verified (w08-c3: 17 runs, 15 of 17 right; the net is an ESTIMATE)","__pondus__/w08-c3.md Result against the registered rules"],
+  ["A. Compaction setting reach","`autoCompactWindow` in a `--settings` file compacted a session end to end at 119,395 tokens; the Desktop's `--project-config-root` loads only the main checkout's settings files; the guard refuses writes to them","MEASURED, verified (w08-c3; the project-file route untested)","__pondus__/w08-c3.md rule 6; __reports__/wave-08/author-w08-3/m6_settings_location.txt"],
+  ["A. PI compaction, no end-to-end Desktop run","not run: whether the env var, flag or settings key reaches a Desktop-launched session","not in the reports","__reports__/wave-08/explorer-w08-e/00-findings_v0.md Not covered"],
+  ["A. Skill listing, PI","USD 14.78 over six sessions (10.2%), 11.88 in session 1's 22 re-injections; low end 2.90 = 14.78 − 11.88 (mine)","ESTIMATE","__reports__/wave-08/explorer-w08-d/source_usd.tsv; tables.md section 2b"],
+  ["A. Orientation reads to a worker","saving USD 2.05 / 1.19 / 1.95 / 1.43 / 1.98 / 0.27 = 8.87 (6.1%); narrow pool 10.44 = 2.36 + 1.46 + 2.23 + 1.67 + 2.25 + 0.47 (sum mine)","ESTIMATE","__reports__/wave-08/explorer-w08-d/tables.md section 5(b)"],
+  ["A. Hand-backs capped, gross","187 messages, 993k characters, USD 12.55 over their lives; caps of 1,000 / 2,000 / 3,000 characters save 10.30 / 8.08 / 5.99","ESTIMATE","__reports__/wave-08/explorer-w08-d/tables.md section 5(c)"],
+  ["A. Hand-back limit in briefs (w08-c6)","first hand-backs 1,809–2,449 characters with the line (n = 6), 3,328–5,873 without (n = 6)","MEASURED, verified","__pondus__/w08-c6.md"],
+  ["A. Hand-back gate (w08-c2), net","USD 0.9–2.8 over 180 priced past hand-backs at N = 5,000, 1–2% of PI spend; turns negative if the PI opens the worker's file in more than 20–62% of fired cases; mechanism 5 of 5 live cells shortened","unverified MEASURED (mechanism); unverified ESTIMATE (every USD figure). The PI decided not to land it and not to verify it","__pondus__/w08-c2.md; __statera__/wave-08.md"],
+  ["A. rtk","60–90% claimed compression of listed commands; listed commands hold USD 9.81 (11.7% of context USD), of which 7.36 is `cat`; without `cat` 2.44 (2.9%); ceiling USD 5.9–8.8 with, 1.5–2.2 without","CITED (UNVERIFIED: a fetch summary of the page, not the README) × MEASURED shares = ESTIMATE","https://github.com/rtk-ai/rtk (WebFetch summary, 2026-10-24); __reports__/wave-08/explorer-w08-a/00-findings_v0.md; bash_by_command.tsv"],
+  ["A. Lab documents capped or read by section","USD 2.73 / 5.74 / 8.98 saved at K = 5,000 / 2,500 / 1,000 tokens of 11.98 (3.3% / 6.9% / 10.7% of 83.69); 0 of 117 document Reads used offset or limit","ESTIMATE (ceiling)","__reports__/wave-08/explorer-w08-a/tables.md section 4"],
+  ["A. Every tool result capped","USD 5.89 (7.0%) at 5,000 tokens, 13.06 (15.6%) at 2,500, of 38.53 (46.0%)","ESTIMATE (ceiling)","__reports__/wave-08/explorer-w08-a/tables.md section 4"],
+  ["A. Compact before a pause over an hour","seven misses; net USD 5.27 in total (−0.30 to +2.45 each); 14.17 re-written","ESTIMATE","__reports__/wave-08/explorer-w08-d/tables.md section 5(f)"],
+  ["A. PI reads documents by section","keeping 50% / 25% of 41 large reads saves USD 3.10 / 4.64 (of 7.14)","ESTIMATE","__reports__/wave-08/explorer-w08-d/tables.md section 5(a)"],
+  ["A. Merge independent calls","95 requests (2.2%) loose, 44 (1.0%) strict of 4,239; USD 0.47–0.94 reads, 0.88–2.25 with thinking, against 109.92 recorded; audit-adjusted strict 0.2–0.7%, loose 0.9–2.1%; the bar's low end 0.26 is the audit-adjusted reads","ESTIMATE (counts MEASURED by the rule)","__reports__/wave-08/explorer-w08-g/00-findings_v0.md Result 1, tables"],
+  ["A. Batching line, tested","4 of 4 and 3 of 4 unchanged runs sent all reads in one message; requests 4.00 base against 3.75–4.00 with the line; answers right in 40 of 41 runs (the one wrong is in the line's arm, task 4, 1 of 4); 46 runs, five tasks","MEASURED (n = 3–4 per arm)","__reports__/wave-08/explorer-w08-g/00-findings_v0.md Result 2; arms_task*.tsv"],
+  ["A. Lab-script output capped","USD 0.12 / 0.45 / 1.14 at K = 5,000 / 2,500 / 1,000 of 3.07 (3.7% of context USD); median result 540 tokens, p90 2,271, max 10,257","ESTIMATE (ceiling)","__reports__/wave-08/explorer-w08-a/tables.md section 4"],
+  ["A. Fewer PI requests per dispatch batch","138 runs; 10 requests would merge, USD 0.75 (0.5%); looser upper bound USD 12.01 (not drawn)","ESTIMATE","__reports__/wave-08/explorer-w08-d/tables.md section 5(e)"],
+  ["A. 1-hour cache for authors, per life","mean −0.02 USD, sd 0.39, 10th / median / 90th −0.26 / −0.10 / +0.25; 5 of 14 lives gain; cache cost 2.29 (5 min) / 2.30 (1 h); central point 14 × −0.02 = −0.28 and narrow pool 2.29 × 14 = 32.06 are mine; −2.15 to +3.31 is wave 7's range","ESTIMATE","__reports__/wave-08/explorer-w08-c/00-findings_v0.md table 3; wave-07 row below"],
+  ["A. Effort as a lever","low / default USD 0.0185 / 0.0194 (task A), 0.0157 / 0.0190 (task B), inside the run-to-run range; max 0.1325 / 0.1499 (7–8×); 30 of 30 right; thinking tokens 467 low, 501 default, 613 high, 2,711 max (subagent); 0 effect as main-thread `--agent` in `-p`","MEASURED (n = 3 per arm; two tasks)","__reports__/wave-08/explorer-w08-f/00-findings_v0.md Results 3 and 4; verifier_A_subagent.txt, verifier_B_subagent.txt"],
+  ["A. Thinking carried, workers","thinking billed again in every later request: growth = 41.5 + 0.997 × thinking tokens + 0.909 × other output (R² 0.9987; 168 pairs, 28 runs); 1.82 M tokens, USD 15.8, 18.9% of worker context USD by the signature fit, against 22.5% inferred by explorer-w08-a","MEASURED (carry); ESTIMATE (the lab's share)","__reports__/wave-08/explorer-w08-f/00-findings_v0.md Results 1, 2; apply_sigfit_to_w08a.txt"],
+  ["A. Time levers","exec form guard 123 → 42 and budget 104.5 → 41 ms; lean starts −20 to −28 ms; Rust guard 32.3 → 16.5 ms; Rust budget 7.4–12.3 and hand-back 8.1–15.5 ms outside the platform; in the platform PostToolUse 9.0 ms (10 of 12 pairs), PostToolBatch 7.0 ms (9 of 12)","MEASURED (w07-c3, w07-c6, w08-c4 verified; w07-c8 below MEASURED: restate)","__pondus__/w07-c3.md; __pondus__/w07-c6.md; __pondus__/w08-c4.md; __pondus__/w06-c9.md"],
+  ["A. Rust budget and hand-back, equality and fall-back","3,821 replayed events, 0 differences, 587 handed to Python by design, none of the 2,250 built on real transcripts; 11 of 11 faults fall back with a named cause; wall lower in 92–99% of pairs per payload (rule 95%, met in 11 of 14 payload-runs); landed on main at 1e0a81d","MEASURED (w08-c4, SUPPORTED by reproducer-w08-1)","__pondus__/w08-c4.md; __pondus__/w08-c1.md (superseded)"],
+  ["A. PI tool denylist, USD","request 0 went 74,966 → 46,738 tokens; USD not in the reports","not in the reports (wave 6 figure in tokens)","w06-c1; explorer-w08-d reports the prefix and tool definitions at USD 8.45 over six sessions (the denylist is in only the later ones)"],
+  ["A. colgrep for markdown, USD","none: 6 / 10 / 15 of 23 questions find the file in the top 1 / 3 / 10 with plain words (9 / 13 / 17 with identifiers); markdown is one unit per file","CHECKED (23 questions); no USD in the report","__reports__/wave-08/explorer-w08-b/00-findings_v0.md"],
+  ["B. Wave 8 spend so far","PI 6.10 (75 requests) · authors 13.02 · explorers 13.57 · verifiers 1.33 = 34.02 in this checkout's session ad75be4f and its 13 subagent files at 01:25 JST; headless 19.91 at least over 251 sessions (18.63 exact + 1.28 at list price, 4 sessions open); sum 53.93","MEASURED (lower bound; the session is open; the explorer writing this page is inside it)","__reports__/wave-08/explorer-w08-h/wave8_spend_by_agent.tsv from __instrumenta__/w08h_wave_spend.py; scripts/lab_status.py --project /private/tmp/murmuration-w08 --spend"],
+  ["B. Spend, whole lab","USD 405.34 at least (372.11 exact + 33.23 at list price for one open session); PI main thread 148.16 over 1,166 messages; the agent rows add to 342.29","MEASURED (lower bound)","scripts/lab_status.py --spend, 2026-10-24 01:2x JST"],
+  ["B. PI share of the lab","148.16 of 405.34 = 37%; of the 342.29 priced to agent rows 43% (my division); the wave note said 46% at an earlier reading","ESTIMATE (arithmetic)","scripts/lab_status.py --spend; __statera__/wave-08.md"],
+  ["B. PI after the wave's close, same session","USD 6.18 (wave 5: 18.08 − 11.90), 7.02 (wave 6: 23.08 − 16.06), 11.28 (wave 7: 27.14 − 15.86); wave 4: 10.50 against 10.51","ESTIMATE (a difference of two reported figures; it is the PI's work after the close, not a different cost)","__reports__/wave-08/explorer-w08-d/00-findings_v0.md Table row 1; wave-7 map section 3"],
+  ["B. Waves 1–3","PI USD 63.23 (session ab96c5ed, 393 requests); the worktree murmuration-system-optimization-8cff9e USD 162.14 exact, so the rest 98.91 (workers and headless, not split)","MEASURED; the subtraction is mine","explorer-w08-d tables.md section 1; scripts/lab_status.py --spend"],
+  ["B. PI spend by price part","read 81.15 (56%), fresh write 26.02 (18%), re-write 14.19 (10%), billed output 23.11 (16%), uncached input 0.01; all 5.0 M tokens of cache writes are 1-hour","MEASURED (re-write: positional model)","__reports__/wave-08/explorer-w08-d/tables.md section 1"],
+  ["B. PI spend by source family","own words 63.84 (44.2%); injected text and prefix 31.79 (22.0%); tool results 25.29 (17.5%); workers' messages and notices 17.68 (12.2%); post-compaction context 5.64 (3.9%); user messages 0.24 (0.2%)","ESTIMATE (model: tokens = characters × a fitted ratio; USD by position in the cache)","__reports__/wave-08/explorer-w08-d/tables.md section 2a; source_usd.tsv"],
+  ["B. PI own thinking carried","USD 18.76 (13.0%), a residual of context growth, correlation 0.85–0.94 with billed output minus visible text; thinking text is not in the records","MEASURED (correlation); CONJECTURE (that the residual is thinking)","__reports__/wave-08/explorer-w08-d/tables.md section 2b"],
+  ["B. PI pauses","69 of 1,116 requests (6.2%) follow a gap over 5 min, 7 over 1 h; 61 of 62 gaps of 5 min–1 h were cache hits; 7 misses re-wrote USD 14.17 (9.8%)","MEASURED","__reports__/wave-08/explorer-w08-d/tables.md section 4"],
+  ["B. What wakes the PI","worker message or notification: 345 requests, USD 45.77 (31.7% of PI spend), 82 with no tool call","MEASURED","__reports__/wave-08/explorer-w08-d/tables.md section 4"],
+  ["B. Hand-back messages","187 messages, median 5,125 characters, p90 7,717, max 21,630; USD 12.55 carried","MEASURED (counts); ESTIMATE (USD)","__reports__/wave-08/explorer-w08-d/00-findings_v0.md Table"],
+  ["B. Worker context USD, 68 workers, waves 4–7","USD 83.69 over 3,685 requests; own turns 41.6% (thinking 22.5%, tool calls 19.0%); documents 14.3% (Read 5.7 + Bash 8.6); lab-script output 3.7%; worker's own code 8.7%; source code 11.0%; re-writes after pauses 15.7% (13.12)","MEASURED counts, ESTIMATE tokens and USD","__reports__/wave-08/explorer-w08-a/tables.md; by_class.tsv"],
+  ["B. Worker context, reconciliation","attributed sum 83.6934 = recorded input-side 83.6934 by construction; reads of waves 4–6 USD 34.58 against 34.59 by explorer-w07-b's other method","CHECKED (a check, not an independent proof)","__reports__/wave-08/explorer-w08-a/check.txt"],
+  ["B. Worker recorded cost, waves 4–8","USD 109.92 over 77 workers and 4,239 requests (output at the stored count, a lower bound)","MEASURED (lower bound)","__reports__/wave-08/explorer-w08-g/00-findings_v0.md Table"],
+  ["B. Workers of this wave by role","authors 13.02 (3), explorers 13.57 (8 with this page's helper), verifiers 1.33 (2)","MEASURED (lower bound)","__reports__/wave-08/explorer-w08-h/wave8_spend_by_agent.tsv"],
+  ["C. Prices","Sonnet 5.5: base 2.00, 5-min write 2.50, 1-hour write 4.00, read 0.10; Opus 5.5: 4.00, 5.00, 8.00, 0.20 USD per million; hits refresh at 0.05× base for these models; lifetime counted from the start of the request that wrote or read the entry","CITED (page fetched, characters 0–100,000 of 162,264)","https://platform.claude.com/docs/en/build-with-claude/prompt-caching (explorer-w08-c)"],
+  ["C. Pauses, waves 5–7","median 8–15 s; over 300 s: authors 7 of 1,124 (0.6%), verifiers 3 of 557, explorers 3 of 415, PI 33 of 440 (7.5%); calibration: 13 of 15 pauses over the TTL missed, none of 2,521 inside it","MEASURED (2,536 timed pauses)","__reports__/wave-08/explorer-w08-c/pause_model.json; 00-findings_v0.md table 2"],
+  ["C. Net per life by type","authors −0.02 (sd 0.39); verifiers −0.09 (0.10); explorers −0.13 (0.19); PI +14.55 (15.47), 3 sessions +13.1, +30.7, −0.16; model against recorded cost 1.002–1.041 (waves 5–6)","ESTIMATE; the model check CHECKED","__reports__/wave-08/explorer-w08-c/00-findings_v0.md table 3"],
+  ["C. Rules by type","seven rows as drawn; the report counts six rules, authors split 4 to 2","ESTIMATE","__reports__/wave-08/explorer-w08-c/00-findings_v0.md table 4"],
+  ["C. Phase table","authors: loop −3.63, hand-back +3.78 (22 pauses, median wait 161 s), best static choice 5 minutes; a per-phase switch would be worth 3.78 USD over 14 authors; no platform control for it was found","ESTIMATE","__reports__/wave-08/explorer-w08-c/00-findings_v0.md table 5"],
+  ["C. Read or delegate a large document (PI)","delegating pays above about 50,000 tokens at the median (P 0.57); break-even D* = 181k tokens at 10 requests still to come, 32k at 100, 9.9k at 400; summary size, failure rate and worker overhead are assumptions","ESTIMATE (assumptions marked in the report)","__reports__/wave-08/explorer-w08-c/00-findings_v0.md table 6; fig2_read_or_delegate.png"],
+  ["C. Literature","ski-rental and tail-risk results (for example arXiv 2308.05067, 2405.09859) and TTL-cache analysis (arXiv 2201.11577) frame the choice; abstracts only","CITED (abstracts fetched; full texts not read)","__reports__/wave-08/explorer-w08-c/00-findings_v0.md table 1"],
+  ["Compaction platform facts","threshold = window − 33,000; default 967,000 for a 1M model; settable 100k–1M by env, flag or settings; model cannot trigger it; PreCompact can block and its stdout reaches the summary; idle compaction never fired in six Desktop PI sessions","CITED + MEASURED","__reports__/wave-08/explorer-w08-e/00-findings_v0.md Result (1); tables.md"],
+  ["Compaction cost, MEASURED","13 compactions at a 200k window: USD 0.126–0.157 at Opus prices, 10–16 s; the next request writes about 40k tokens, 30k of them re-sent listings; the real one (967k tokens) wrote 41,043","MEASURED","__reports__/wave-08/explorer-w08-e/compactions.tsv; tables.md sections 2, 3"],
+  ["Compaction survival","user facts and file codes kept 100% (19 compactions in 9 runs; 28 of 28 codes after two); prose detail 0 of 10 (control 10 of 10); one synthetic task, haiku","MEASURED","__reports__/wave-08/explorer-w08-e/tables.md section 5"],
+  ["Claim labels at writing","w08-c4 MEASURED (SUPPORTED); w08-c1 superseded by w08-c4; w08-c2 unverified; w08-c3 MEASURED (SUPPORTED); w08-c6 MEASURED (SUPPORTED); w08-c8 CONJECTURE; w07-c1 and w07-c8 below MEASURED: restate; w07-c7 escalated: PI decides","CHECKED","python3 scripts/lab_status.py, 2026-10-24"],
+  ["Not in the reports","a USD saving for the Rust hooks; USD for the PI tool denylist; any lever for fewer requests per worker; per-wave PI spend split to the minute for waves 5–7 (only the close-time figures and session totals); wave 8's final spend","not in the reports","—"],
+  /* wave 7, relabelled where a claim fell */
+  /* wave 7 */
+  ["1-hour cache break-even, any worker","R/W > 1.5/3.9 = 0.385 (Sonnet: 5-minute write 2.50, 1-hour write 4.00, read 0.10 USD per million tokens)","CHECKED (arithmetic on the price table)","scripts/lab_status.py PRICES"],
+  ["Pooled R/W by type, waves 4–6 (two counting rules)","authors 0.303–0.509 · verifiers 0.137–0.168 · explorers 0.000","MEASURED (counts from records)","__instrumenta__/w07_ttl_by_type.py; __reports__/wave-07/research-pi/ttl_by_type.json"],
+  ["Net of a 1-hour cache by type, waves 4–6","authors −2.15 to +3.31 · verifiers −2.67 to −2.34 · explorers −2.25 USD","ESTIMATE","same"],
+  ["Lives by type, waves 4–6","authors 13 workers, 101 requests and 54 min mean, 15 of 1,305 pauses over 5 min · verifiers 24, 37, 11 min, 3 of 858 · explorers 9, 47, 17 min, 2 of 415","MEASURED","same"],
+  ["Spend, wave 7, by role (to 02:45)","PI 15.86 · authors 10.07 · explorers 7.32 · verifiers 4.17 · page helper 1.08 · headless 2.48 (USD; 40.98 in all)","MEASURED (lower bound)","scripts/lab_status.py parse_transcript and message_usd over session f023f552 and its subagents; headless: lab_status.py --project /private/tmp/murmuration-w07 --spend"],
+  ["Sonnet prices used for the cache examples","input 2.00, cache read 0.10, 5-minute write 2.50, 1-hour write 4.00 USD per million tokens","CITED (the lab's price table)","scripts/lab_status.py PRICES"],
+  ["Cache lifetime","5 minutes from last use for a subagent, 1 hour for the main thread, renewed on each hit","CITED (UNVERIFIED this wave)","Anthropic prompt-caching documentation; __pondus__/w07-c7.md for the 5-minute default and the 1-hour key"],
+  ["One large re-read result","61,427 characters re-read by 122 later requests, USD 0.31","ESTIMATE","__reports__/wave-07/explorer-w07-b/00-findings_v0.md"],
+  ["Python pool parse time","635, 338, 226, 175, 133, 115, 106 ms at 1, 2, 3, 4, 6, 8, 12 processes","MEASURED","__reports__/wave-07/explorer-w07-d/raw/table_py_parse.txt (orig)"],
+  ["Rust parse time","87.4, 49.1, 34.8, 26.5, 21.9, 22.4, 18.8, 19.1, 16.7, 16.4, 17.4, 17.4 ms at 1–12 threads","MEASURED","__reports__/wave-07/explorer-w07-d/raw/table_rust_item.txt"],
+  ["One exec, before the child's first instruction","14–16 ms, any language","MEASURED","__reports__/wave-07/explorer-w07-a/00-findings_v0.md; __pondus__/w07-c6.md"],
+  ["Fork without exec","0.48 ms","MEASURED","__reports__/wave-07/explorer-w07-a/00-findings_v0.md"],
+  ["dyld","≤ about 2 ms","MEASURED","__reports__/wave-07/explorer-w07-a/00-findings_v0.md"],
+  ["/bin/sh","a trampoline into bash: two execs","MEASURED","__reports__/wave-07/explorer-w07-a/00-findings_v0.md"],
+  ["A new binary's first exec","150–480 ms, once","MEASURED","__reports__/wave-07/explorer-w07-a/00-findings_v0.md; __pondus__/w07-c6.md"],
+  ["Guard start, hook row in exec form","123 → 42 ms (pooled medians, 10 of 10 pairs)","MEASURED","__pondus__/w07-c3.md"],
+  ["Budget PostToolUse, exec form","104.5 → 41 ms (pooled medians, 10 of 10 pairs)","MEASURED","__pondus__/w07-c3.md"],
+  ["Rust guard, CPU a start","17.6 → 1.6 ms","MEASURED","__pondus__/w07-c6.md"],
+  ["Rust guard, start to exit","32.3 → 16.5 ms; 598 of 600 pairs","MEASURED","__pondus__/w07-c6.md"],
+  ["Rust guard, recorded hook","23.5 ms lower; 19 of 19 pairs","MEASURED","__pondus__/w07-c8.md"],
+  ["Rust guard, residual gap","a binary right on 12 self-test payloads but wrong elsewhere would install silently","CHECKED","__pondus__/w07-c6.md; __pondus__/w07-c8.md"],
+  ["Guard in the wave-7 bar","42 ms (Python, exec form); about 16–42 ms (Rust); hidden behind the classifier in auto mode; white tick at 16","ESTIMATE (range read off the two measured ends)","__pondus__/w07-c3.md; __pondus__/w07-c6.md"],
+  ["Auto-mode classifier, wave 7","median 628 ms on a trivial Bash call","MEASURED","__reports__/wave-07/explorer-w07-g/00-findings_v0.md"],
+  ["Whole trivial Bash call, default mode","55 ms","MEASURED","__reports__/wave-07/explorer-w07-g/00-findings_v0.md"],
+  ["Whole trivial Bash call, auto mode","709 ms","MEASURED","__reports__/wave-07/explorer-w07-g/00-findings_v0.md"],
+  ["Whole call, auto mode, worker-like arm","1,054 ms","MEASURED","__reports__/wave-07/explorer-w07-g/00-findings_v0.md"],
+  ["User's colgrep_policy PreToolUse hook","median 194 ms (p90 554) per Bash call","MEASURED","__reports__/wave-07/explorer-w07-g/00-findings_v0.md"],
+  ["User_words hook","async; keeps only prompts a person typed, by the transcript's origin marker","MEASURED","__pondus__/w07-c5.md"],
+  ["lab_status.py, warm","about 0.25–0.39 s","MEASURED","__pondus__/w07-c4.md"],
+  ["lab_status.py, git child not removed","0.04–0.05 s a call for a re-implementation of git's worktree list","MEASURED","__pondus__/w07-c4.md"],
+  ["lab_status.py, parallel or Rust","0.33 s cold against a 0.39 s warm cache","MEASURED","__reports__/wave-07/explorer-w07-d/00-findings_v0.md"],
+  ["lab_status.py, spend report","prices fast mode and web searches","MEASURED","__pondus__/w07-c4.md"],
+  ["Author 1-hour cache, honoured","yes","MEASURED","__pondus__/w07-c7.md"],
+  ["Author 1-hour cache, money","undetermined; P(net ≤ 0) = 0.34","ESTIMATE","__pondus__/w07-c7.md"],
+  ["PI request 0 without the skills listing","10.6–11.0k tokens lower; not landed","MEASURED","__pondus__/w07-c1.md"],
+  ["Managed settings tier","the managed-settings file is probably not the active tier; ~/.claude/remote-settings.json (server-managed) wins first","CHECKED (read in the binary)","__reports__/wave-07/explorer-w07-f/00-findings_v0.md"],
+  ["http hooks","2 ms; loud on Pre and Post, fatal on PostToolBatch, silent on SubagentStop","MEASURED","__reports__/wave-07/explorer-w07-c/00-findings_v0.md"],
+  ["Async hooks for notes","not pursued","CITED","__reports__/wave-07/explorer-w07-c/00-findings_v0.md"],
+  ["Time shares of a worker, waves 5–6","model requests 30.8% (41% of that thinking); tool phases 45.6%; idle waits 22.3%; client gaps 1.3%","MEASURED","__reports__/wave-07/explorer-w07-b/00-findings_v0.md"],
+  ["Record set behind section 5","waves 4–6: 47 workers, 2,633 requests","MEASURED","__reports__/wave-07/explorer-w07-b/00-findings_v0.md"],
+  ["Plugin hooks, share of a worker's time","0.13–0.5%","ESTIMATE","__reports__/wave-07/explorer-w07-b/00-findings_v0.md; __reports__/wave-07/explorer-w07-g/00-findings_v0.md"],
+  ["Auto-mode classifier, share of a worker's time","about 1.9%","ESTIMATE","__reports__/wave-07/explorer-w07-g/00-findings_v0.md"],
+  ["Cache re-writes after gaps over 5 minutes","15.8% of worker spend","ESTIMATE","__reports__/wave-07/explorer-w07-b/00-findings_v0.md"],
+  ["Tool results over 5,000 characters","29.7% of cache-read spend","ESTIMATE","__reports__/wave-07/explorer-w07-b/00-findings_v0.md"],
+  ["Retries after tool errors","8.5% of wave 6's requests","ESTIMATE","__reports__/wave-07/explorer-w07-b/00-findings_v0.md"],
+  ["Batching independent calls","would save 0.8–1.6% of requests (drawn at 1.2, the middle of the range)","ESTIMATE","__reports__/wave-07/explorer-w07-b/00-findings_v0.md"],
+  ["Spend, wave 7, at 02:41","at least USD 38.28 (35.80 list price in this checkout, session open; 2.48 headless cost-state, exact)","MEASURED (lower bound)","scripts/lab_status.py --spend"],
+  ["Python pool speedup","1.9, 2.8, 3.6, 4.8, 5.5, 6.0 at 2, 3, 4, 6, 8, 12 workers","MEASURED","__reports__/wave-07/explorer-w07-d/00-findings_v0.md"],
+  ["Rust parse, same job","87 ms on 1 thread; 16–17 ms on 10–12 threads (bar drawn at 16.5)","MEASURED","__reports__/wave-07/explorer-w07-d/00-findings_v0.md"],
+  ["Scaling knee","flattens past the 6 performance cores","MEASURED","__reports__/wave-07/explorer-w07-d/00-findings_v0.md"],
+  /* wave 6 and earlier, still holding */
+  ["PI request 0, Desktop","74,966 → 46,738 tokens (75k → 47k; 46.7k)","MEASURED","w06-c1 (reproducer-w06-1's pair)"],
+  ["PI tools removed by the denylist","29","MEASURED","w05-c7, w06-c1"],
+  ["PI idle share","77.0% (w4), 73.0% (w5): 73–77%","MEASURED","explorer-w06-c report"],
+  ["PI orientation turn","21–32% of PI spend","MEASURED","explorer-w06-c report"],
+  ["PI, wave 6","180 requests, 42 wake-ups","MEASURED","w06c_pi_wakeups.py on the wave-6 session"],
+  ["Workers, wave 6","17 dispatched; their cache lived 5 minutes","MEASURED","wave-6 notes; w05-c1"],
+  ["Spend by role, waves 4–5","PI 10.51/11.90; workers 17.88/15.85; headless 26.52/18.18 (drawn rounded: 10.5, 17.9, 26.5; 11.9, 18.2)","MEASURED (list price; headless CITED)","explorer-w06-c tables; wave notes"],
+  ["Spend by role, wave 6","PI 16.06 (16.1); workers 32.03 (32.0); headless 7.54 (7.5)","MEASURED (list price; headless cost-state)","w06c_pi_wakeups.py on the wave-6 session; lab_status --project /private/tmp/murmuration-w06"],
+  ["Bar totals and PI share, section 3","$54.9 (54.91, wave 4), $45.9 (45.93, wave 5), $55.6 (55.63, wave 6); PI share is PI ÷ total, shown in the bar's hover tip","ESTIMATE (arithmetic on the rows above)","mine"],
+  ["Permissions paragraph decision","19:27","CITED","wave-6 notes (your decision)"],
+  ["Auto-mode classifier, wave 5","448–747 ms median per Bash call; superseded by 628 ms","CHECKED","explorer-w05-f (wave 5)"],
+  ["budget.py start, before / lean","122 / 96 ms live pooled; 81.2 / 61.2 quiet bench","MEASURED","w06-c9 (author-w06-6, reproducer-w06-6)"],
+  ["Bar widths, section 2, older designs","budget 122 + 122 = 244; 96 + 96 = 192; guard drawn at 130 (the middle of 124–136); budget 6 for the resident server","ESTIMATE (arithmetic on the rows around it; PostToolBatch assumed equal)","mine; w06-c6, w06-c9"],
+  ["Guard start, wave 6","124–136 ms live; 71.9 → 65.2 ms bench after -S -I; 64–65 ms bare through sh","MEASURED","w06-c14 (reproducer-w06-8)"],
+  ["Guard timeout","20 s","CHECKED","w06-c13, w06-c14"],
+  ["PostToolBatch = PostToolUse cost","assumed equal","ESTIMATE","mine"],
+  ["Rust vs python start, wave-6 estimate","≈ −30 ms as the platform records it; ≈ 1% of a wave","MEASURED (probe)","explorer-w06-a report"],
+  ["mcp_tool hook","1–6 ms median by event class; 3 outage-check starts a worker, ≈150 ms each","MEASURED","w06-c6"],
+  ["Resident server hook time","21.1% of main's (9 pairs, pooled); −79%; rule ≤20%; +300 lines (+320)","MEASURED","w06-c4 and reproducer-w06-4"],
+  ["Hook starts per wave","1788 (wave 4), ≈ 161 s serial","ESTIMATE","explorer-w06-b report"],
+  ["Lean starts per wave","≈ −32 s","ESTIMATE","w06-c9 head"],
+  ["Lean starts, replays","10 registrations; 197/197 replays; 814 real starts; −20 to −28 ms a worker start; threshold 25 ms","MEASURED","w06-c9"],
+  ["Lean build #1","291/291 outputs identical; −48.4% on long workers; rule 50%","MEASURED","w04-c5"],
+  ["Lean build #2","−52.5 to −56% serial hook time; an extra message on 11 of 197 transcripts","MEASURED","w05-c4"],
+  ["lab_status.py, wave 5","835 → 261 ms warm","MEASURED","w05-c5"],
+  ["$ share of lab Bash calls","45.1% (5,135 calls)","MEASURED","w06-c12, w06-c13"],
+  ["Guard replay","63 guarded acts, 26 strict false denials, of 4,637","MEASURED","reproducer-w06-7 in w06-c11"],
+  ["Guard v0","25 gated rows; denied 42 of 50 attacks; 19 processes; fails closed 9/9","MEASURED","w06-c7"],
+  ["Guard v2","1.35 starts per call at the 45% $ share","MEASURED","w06-c12"],
+  ["Hand-back wake-up change","69 s moved, off the critical path","MEASURED","w06-c2"],
+  ["Guard, version count","fourth version; the first three each failed a rule; 1 start per Bash call","CITED","w06-c13, w06-c14"],
+];
+(function(){const tb=$("#src tbody");src.forEach(r=>{const tr=document.createElement("tr");tr.innerHTML=r.map(c=>`<td>${c}</td>`).join("");tb.appendChild(tr)})})();
+</script>
+</body>
+</html>
