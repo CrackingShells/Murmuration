@@ -1,0 +1,48 @@
+## author: lives 14 requests 1138 pauses 1124 (unknown 0); g quantiles {'p10': 4.7, 'p50': 10.3, 'p75': 22.1, 'p90': 58.3, 'p99': 282.3, 'max': 4187.3}; >300s (7, 1124, 0.0062), >3600s (1, 1124, 0.0009)
+   life net mean/sd -0.0169 0.3928 P(net>0) (5, 14, 0.357, [0.186, 0.575]) boot P(mean>0) 0.428 iid P>0 0.275
+    expected_value 5m
+    CVaR0.8_regret 1h
+    CVaR0.8_cost 1h
+    CVaR0.9_regret 1h
+    CVaR0.9_cost 1h
+    minimax_regret 1h
+    worst_competitive_ratio 5m
+    expected_competitive_ratio 5m
+    token_share_rule 5m
+    ski_rental_switch_simulation needs in-life switching; not available on the platform (see report)
+## reproducer: lives 14 requests 571 pauses 557 (unknown 0); g quantiles {'p10': 3.9, 'p50': 8.0, 'p75': 16.8, 'p90': 37.5, 'p99': 240.9, 'max': 1414.1}; >300s (3, 557, 0.0054), >3600s (0, 557, 0.0)
+   life net mean/sd -0.0915 0.1013 P(net>0) (3, 14, 0.214, [0.089, 0.432]) boot P(mean>0) 0.001 iid P>0 0.169
+    expected_value 5m
+    CVaR0.8_regret 5m
+    CVaR0.8_cost 5m
+    CVaR0.9_regret 5m
+    CVaR0.9_cost 1h
+    minimax_regret 5m
+    worst_competitive_ratio 5m
+    expected_competitive_ratio 5m
+    token_share_rule 5m
+    ski_rental_switch_simulation needs in-life switching; not available on the platform (see report)
+## explorer: lives 9 requests 424 pauses 415 (unknown 0); g quantiles {'p10': 4.5, 'p50': 10.0, 'p75': 16.8, 'p90': 36.9, 'p99': 266.2, 'max': 439.6}; >300s (3, 415, 0.0072), >3600s (0, 415, 0.0)
+   life net mean/sd -0.1336 0.192 P(net>0) (2, 9, 0.222, [0.076, 0.496]) boot P(mean>0) 0.026 iid P>0 0.227
+    expected_value 5m
+    CVaR0.8_regret 5m
+    CVaR0.8_cost 5m
+    CVaR0.9_regret 5m
+    CVaR0.9_cost 5m
+    minimax_regret 5m
+    worst_competitive_ratio 1h
+    expected_competitive_ratio 5m
+    token_share_rule 5m
+    ski_rental_switch_simulation needs in-life switching; not available on the platform (see report)
+## PI: lives 3 requests 443 pauses 440 (unknown 0); g quantiles {'p10': 5.6, 'p50': 15.0, 'p75': 32.4, 'p90': 154.1, 'p99': 1956.2, 'max': 5202.6}; >300s (33, 440, 0.075), >3600s (2, 440, 0.0045)
+   life net mean/sd 14.5498 15.467 P(net>0) (2, 3, 0.667, [0.254, 0.922]) boot P(mean>0) 0.963 iid P>0 0.997
+    expected_value 1h
+    CVaR0.8_regret 1h
+    CVaR0.8_cost 1h
+    CVaR0.9_regret 1h
+    CVaR0.9_cost 1h
+    minimax_regret 1h
+    worst_competitive_ratio 1h
+    expected_competitive_ratio 1h
+    token_share_rule 1h
+    ski_rental_switch_simulation needs in-life switching; not available on the platform (see report)

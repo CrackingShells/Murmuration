@@ -1,0 +1,14 @@
+workers 331 requests 7023 max context per worker: median 33760, p90 206088, max 438307
+models {'claude-haiku-5-5': 199, 'claude-sonnet-5-5': 132}
+T	workers_over	share_workers	requests_over	share_requests	compactions	saving_usd	cost_usd	net_usd	worker_usd_total
+150000	67	20.2%	2277	32.42%	67	16.68	17.32	-0.64	90.97
+250000	22	6.6%	894	12.73%	22	15.30	5.99	9.31	90.97
+400000	3	0.9%	67	0.95%	3	2.07	0.86	1.21	90.97
+
+-- sonnet only
+workers 132 requests 6604 max context per worker: median 150304, p90 340280, max 438307
+models {'claude-sonnet-5-5': 132}
+T	workers_over	share_workers	requests_over	share_requests	compactions	saving_usd	cost_usd	net_usd	worker_usd_total
+150000	66	50.0%	2271	34.39%	66	16.68	17.31	-0.63	90.83
+250000	22	16.7%	894	13.54%	22	15.30	5.99	9.31	90.83
+400000	3	2.3%	67	1.01%	3	2.07	0.86	1.21	90.83

@@ -1,0 +1,25 @@
+id	expected_file	query	answer_regex	pattern
+Q01	hooks/hooks.json	which hook runs when a worker hands back its report and which script does it call	"matcher": "SubagentHandback"
+Q02	scripts/budget.py	function that turns a request's token usage into dollars with the price table	^def usd_of
+Q03	scripts/handback.py	gate that refuses a hand-back unless the findings report file exists	^def gate
+Q04	scripts/user_words.py	decide whether a prompt typed by the user is genuine or a lab command	^def is_genuine
+Q05	scripts/lab_init.py	what initializing a new lab creates: folders, settings, first wave note	^def initialize
+Q06	__design__/framing.md	notation: how agent names, waves and claim ids are written	^## Notation
+Q07	__statera__/wave-07.md	which puzzles were given a disposition at the close of wave 7	^## Puzzle dispositions
+Q08	__pondus__/w04-c5.md	claim that a budget hook start costs 90 to 126 ms: list of evidence files	^evidence:
+Q09	__pondus__/w06-c13.md	why the reproducer judged the v3 guard claim OVERSTATED	^reason:
+Q10	__pondus__/w06-c3.md	why the reproducer escalated the resident stdio MCP server claim	^reason:
+Q11	__reports__/wave-06/explorer-w06-b/00-findings_v0.md	the worst-fitting case in the findings on waste the plugin causes	^## Worst-fitting case
+Q12	__reports__/wave-05/explorer-w05-d/00-findings_v0.md	what the machine-side cost report says it did not cover	^## Not covered
+Q13	__reports__/wave-07/01-protocol_p2_origin_v1.md	metrics and decision rule registered for the async prompt-origin hook	^## Metrics and rule
+Q14	__reports__/wave-06/01-experiment_protocol_e3_v2.md	metrics and rule registered for the v2 permission guard experiment	^## Metrics and rule
+Q15	__reports__/wave-05/author-w05-1/c2_colgrep_path.md	how the relative colgrep paths form resolves in a Desktop worktree	^# w05-c2
+Q16	agents/explorer.md	naming rule for helper scripts in the instrumenta folder	^Helper code is a file
+Q17	__scrupuli__/wave-05-explorer-w05-d.md	third puzzle of explorer-w05-d	^## S-w05-explorer-w05-d-3
+Q18	__reports__/wave-07/explorer-w07-b/00-findings_v0.md	session ids of the wave 4, 5 and 6 transcripts that were analysed	c533f1c6	c533f1c6
+Q19	skills/research-loop/templates/report_findings.md	sections a findings report must have	^#
+Q20	__design__/framing.md	rules for the team about spend, scope and files	^## Rules for the team
+Q21	skills/research-loop/SKILL.md	which verdicts a reproducer may give and what each means	^### Verdicts and the current label
+Q22	__statera__/wave-07.md	why the managed policy file is probably not the managed tier on this account	The managed file is probably not the managed tier
+Q23	scripts/budget.py	self test of the budget hook that replays synthetic events	^def selftest
+Q24	agents/research-pi.md	what the principal investigator agent may and may not write	^#

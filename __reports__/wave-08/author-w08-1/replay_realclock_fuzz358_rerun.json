@@ -1,0 +1,21 @@
+{
+ "mode": "realclock",
+ "transcripts": 150,
+ "seconds": 0.2,
+ "groups": {
+  "fuzz": {
+   "scenarios": 1,
+   "events": 2,
+   "delegated": 0,
+   "differing_events": 0,
+   "differing_scenarios": 0
+  }
+ },
+ "total": {
+  "scenarios": 1,
+  "events": 2,
+  "delegated": 0,
+  "differing_events": 0,
+  "differing_scenarios": 0
+ }
+}

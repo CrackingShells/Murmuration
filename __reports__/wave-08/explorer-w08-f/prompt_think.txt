@@ -1,0 +1,7 @@
+Do these six problems in order, one per turn. For each one: reason about it carefully and privately, without code and without any written text, then make exactly one Bash call whose command is `echo <your final answer>` (nothing else in the command), and write no text before or after the call. After the sixth call, reply with the single word `done`.
+1. How many integers from 1 to 1000 are divisible by 3 or by 5 but not by 15?
+2. How many ways can 8 distinct books be arranged on a shelf so that two particular books are never adjacent?
+3. What is the remainder when 7^2026 is divided by 13?
+4. How many positive divisors does 2520 have, and how many of them are even?
+5. In how many ways can you make change for 100 cents with pennies, nickels, dimes and quarters?
+6. What is the sum of the digits of 2^64?

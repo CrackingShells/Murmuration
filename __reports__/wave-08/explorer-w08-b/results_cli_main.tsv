@@ -1,0 +1,25 @@
+id	expected_file	file_lines	file_chars	answer_line	answer_pos	file_rank	section_rank	unit_type	unit_span	unit_chars	list10_chars	list5_chars	noise10	expand200_reaches	top1_file	top1_type	n_hits	wall_s
+Q01	hooks/hooks.json	507	12888	411	0.81	16	16	document	506	12887	9605	4962	2	0	__instrumenta__/w07c_run.py	constant	30	0.77
+Q02	scripts/budget.py	944	63901	118	0.12	4	0	function	58	4437	9718	5384	1	0	__instrumenta__/w07b_loop_tables.py	function	30	0.76
+Q03	scripts/handback.py	390	21774	260	0.67	1	1	function	20	1319	11532	5622	7	1	scripts/handback.py	function	30	0.75
+Q04	scripts/user_words.py	658	35167	69	0.1	1	0	function	19	882	7653	3763	5	0	scripts/user_words.py	function	30	0.76
+Q05	scripts/lab_init.py	631	33610	227	0.36	1	0	rawcode	42	2313	8300	3933	6	0	scripts/lab_init.py	rawcode	30	0.75
+Q06	__design__/framing.md	133	8769	35	0.26	0	0		0	0	10776	4782	7	0	__reports__/reflective_run/w01/author-w01-1/scratch/replay_lab/__statera__/handbacks/wave-01-author-w01-1.md	document	30	0.75
+Q07	__statera__/wave-07.md	604	51969	470	0.78	0	0		0	0	8593	4244	5	0	__scrupuli__/wave-06-reproducer-w06-2.md	document	30	0.75
+Q08	__pondus__/w04-c5.md	170	31687	5	0.03	2	2	document	169	31686	12301	6717	0	1	scripts/budget.py	function	30	0.75
+Q09	__pondus__/w06-c13.md	80	20052	58	0.72	16	16	document	79	20051	11070	5712	2	1	__reports__/reflective_run/w02/reproducer-w02-1/v6.py	function	30	0.75
+Q10	__pondus__/w06-c3.md	60	19423	59	0.98	26	26	document	59	19422	11736	5093	6	1	__instrumenta__/w06c3_resident_server.py	rawcode	30	0.75
+Q11	__reports__/wave-06/explorer-w06-b/00-findings_v0.md	98	19157	66	0.67	2	2	document	97	19156	7534	3574	3	1	__reports__/reflective_run/w02/explorer-w02-b/00-findings_v0.md	document	30	0.75
+Q12	__reports__/wave-05/explorer-w05-d/00-findings_v0.md	76	11779	47	0.62	0	0		0	0	12147	5359	7	0	__reports__/reflective_run/w01/explorer-w01-e/report.md	document	30	0.74
+Q13	__reports__/wave-07/01-protocol_p2_origin_v1.md	49	2883	33	0.67	1	1	document	48	2882	10618	4012	0	1	__reports__/wave-07/01-protocol_p2_origin_v1.md	document	30	0.75
+Q14	__reports__/wave-06/01-experiment_protocol_e3_v2.md	33	2372	21	0.64	1	1	document	32	2371	8539	4111	0	1	__reports__/wave-06/01-experiment_protocol_e3_v2.md	document	30	0.76
+Q15	__reports__/wave-05/author-w05-1/c2_colgrep_path.md	13	2045	1	0.08	1	1	document	12	2044	11397	6537	3	1	__reports__/wave-05/author-w05-1/c2_colgrep_path.md	document	30	0.75
+Q16	agents/explorer.md	43	3616	23	0.53	0	0		0	0	10264	5258	2	0	__instrumenta__/e3_make_lab_scripts.py	rawcode	30	0.74
+Q17	__scrupuli__/wave-05-explorer-w05-d.md	20	3467	9	0.45	4	4	document	19	3466	18062	8309	0	1	__scrupuli__/wave-05-explorer-w05-c.md	document	30	0.76
+Q18	__reports__/wave-07/explorer-w07-b/00-findings_v0.md	93	20827	12	0.13	8	8	document	92	20826	12070	7631	0	1	__scrupuli__/wave-04-research-pi.md	document	16	0.79
+Q19	skills/research-loop/templates/report_findings.md	31	928	11	0.35	2	2	document	30	927	8221	4259	4	1	__reports__/platform_probes/00-findings_v0.md	document	30	0.75
+Q20	__design__/framing.md	133	8769	84	0.63	13	13	document	132	8768	8099	3865	4	1	__reports__/reflective_run/w01/author-w01-3/lab_spend.py	function	30	0.74
+Q21	skills/research-loop/SKILL.md	180	9958	128	0.71	2	2	document	179	9957	11254	4908	6	1	agents/reproducer.md	document	30	0.74
+Q22	__statera__/wave-07.md	604	51969	84	0.14	5	5	document	603	51968	8013	3658	3	1	__reports__/wave-06/research-pi/managed_setting_check.md	document	30	0.73
+Q23	scripts/budget.py	944	63901	528	0.56	5	0	function	6	378	8388	4399	2	0	__instrumenta__/w06c4_replay.py	function	30	0.75
+Q24	agents/research-pi.md	37	2141	0	0.0	6	0	document	36	2140	9395	3177	5	0	README.md	document	30	0.74

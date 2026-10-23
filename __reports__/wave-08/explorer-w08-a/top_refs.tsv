@@ -1,0 +1,530 @@
+type	what	results	workers	mean_est_tokens	usd	share	rewrite_usd
+script	inline python/heredoc	841	65	834	5.4078	0.0646	0.8712
+document	framing | __design__/framing.md	52	50	3975	1.9291	0.0230	0.2218
+script	own scratch script	136	24	878	0.9534	0.0114	0.1502
+script	inline python -c	106	43	1076	0.9140	0.0109	0.1220
+document	claim file | __pondus__/w04-c5.md	9	5	7072	0.8552	0.0102	0.0716
+document	wave note | __statera__/wave-NN.md	20	16	3893	0.6320	0.0076	0.0368
+document	other document | blgpdcaey.txt	1	1	26304	0.4472	0.0053	0.0658
+document	report | __reports__/wave-06/explorer-w06-b/00-findings_v0.md	4	4	6981	0.3796	0.0045	0.0430
+document	report | __reports__/reflective_run/w04/00-experiment_protocol_v0.md	16	10	2200	0.3463	0.0041	0.0776
+document	claim file | __pondus__/w03-c1.md	1	1	12810	0.3190	0.0038	0.1601
+document	synthesis | __statera__/synthesis.md	4	4	4025	0.2471	0.0030	0.0805
+document	report | __reports__/wave-05/explorer-w05-d/00-findings_v0.md	3	3	5666	0.2024	0.0024	0.0409
+document	claim file | __pondus__/w05-c4.md	7	3	3118	0.1959	0.0023	0.0065
+script	__instrumenta__/w06c7_e3_report.py	3	1	2705	0.1863	0.0022	0.0406
+document	claim file | __pondus__/w06-c3.md	6	3	2260	0.1729	0.0021	0.0202
+script	__instrumenta__/e3_measure.py	7	1	3025	0.1698	0.0020	0.0135
+document	claim file | __reports__/wave-07/explorer-w07-c/00-findings_v0.md	1	1	11683	0.1659	0.0020	0.0292
+document	claim file | __pondus__/w03-c2.md	1	1	9393	0.1531	0.0018	0.0235
+document	claim file | __pondus__/w06-c9.md	6	4	2312	0.1432	0.0017	0.0334
+script	__instrumenta__/w07f_binary_window.py	11	1	2018	0.1382	0.0017	0.0000
+document	report | __reports__/wave-06/00-experiment_protocol_v0.md	5	4	2808	0.1323	0.0016	0.0131
+script	__instrumenta__/w06c9_timing.sh	7	1	1054	0.1297	0.0016	0.0184
+document	claim file | __pondus__/w06-c4.md	4	2	2614	0.1289	0.0015	0.0107
+document	report | __reports__/wave-05/00-experiment_protocol_v0.md	7	6	2433	0.1266	0.0015	0.0083
+document	report | __reports__/wave-07/01-protocol_p2_origin_v1.md	3	2	6299	0.1257	0.0015	0.0153
+document	wave note | __reports__/wave-07/explorer-w07-c/	1	1	10767	0.1238	0.0015	0.0269
+script	__instrumenta__/hook_cost_summary.py	10	3	1015	0.1212	0.0014	0.0560
+document	claim file | __pondus__/w06-c13.md	10	4	1818	0.1121	0.0013	0.0227
+document	report | __reports__/wave-07/explorer-w07-a/00-findings_v0.md	1	1	7749	0.1116	0.0013	0.0194
+document	report | __reports__/wave-07/02-protocol_p3_exec_v0.md	2	2	5177	0.1100	0.0013	0.0216
+document	claim file | __pondus__/w07-c6.md	3	1	2770	0.1054	0.0013	0.0208
+document	report | __reports__/wave-06/01-experiment_protocol_e3_v2.md	2	2	5946	0.1007	0.0012	0.0053
+document	report | __reports__/wave-07/explorer-w07-c/docs_hooks_2026-10-22.md	2	2	4459	0.0996	0.0012	0.0223
+script	__instrumenta__/budget_arms_analyze.py	10	1	731	0.0988	0.0012	0.0362
+script	__instrumenta__/e3_reread_runs.py	4	1	5543	0.0968	0.0012	0.0000
+document	report | __reports__/wave-07/explorer-w07-f/00-findings_v0.md	2	1	4349	0.0951	0.0011	0.0217
+document	brief protocol (skills/agents/templates) | agents/explorer.md	2	2	4807	0.0929	0.0011	0.0137
+document	report | __reports__/wave-06/01-experiment_protocol_e3_v0.md	1	1	2903	0.0903	0.0011	0.0145
+document	report | __reports__/wave-05/explorer-w05-c/00-findings_v0.md	1	1	7737	0.0882	0.0011	0.0193
+document	report | __reports__/wave-06/02-experiment_protocol_e2_v0.md	2	2	3055	0.0872	0.0010	0.0153
+document	claim file | __pondus__/w06-c12.md	1	1	6263	0.0808	0.0010	0.0157
+document	report data (tsv/json/py) | __reports__/wave-06/reproducer-w06-5/tools/w06c10_v_replay_lab_traffic.py	1	1	6291	0.0799	0.0010	0.0157
+document	puzzle file | __scrupuli__/wave-05-explorer-w05-d.md	3	3	1701	0.0797	0.0010	0.0165
+document	claim file | __pondus__/w06-c10.md	4	3	2418	0.0781	0.0009	0.0097
+document	brief protocol (skills/agents/templates) | agents/research-pi.md	7	5	1847	0.0753	0.0009	0.0000
+document	other document | annotations.md	1	1	5292	0.0751	0.0009	0.0132
+document	report | __reports__/wave-07/explorer-w07-b/00-findings_v0.md	1	1	9022	0.0722	0.0009	0.0000
+document	framing | __reports__/wave-07/author-w07-5/	1	1	5713	0.0720	0.0009	0.0143
+document	report | __reports__/wave-07/explorer-w07-d/00-findings_v0.md	2	2	4574	0.0717	0.0009	0.0000
+document	brief protocol (skills/agents/templates) | skills/rust-conventions/SKILL.md	1	1	5004	0.0716	0.0009	0.0125
+document	report data (tsv/json/py) | __reports__/wave-06/research-pi/lab_cost_map.html	1	1	13381	0.0709	0.0008	0.0000
+document	report | __reports__/wave-07/explorer-w07-g/00-findings_v0.md	1	1	7769	0.0691	0.0008	0.0194
+document	report | __reports__/wave-07/explorer-w07-c/00-findings_v0.md	1	1	4792	0.0685	0.0008	0.0120
+document	report | __reports__/wave-05/explorer-w05-a/pi_events.txt	2	1	6338	0.0665	0.0008	0.0000
+document	claim file | __pondus__/w07-c2.md	4	2	2461	0.0657	0.0008	0.0003
+script	__instrumenta__/w05c_summarize.py	4	1	2708	0.0619	0.0007	0.0000
+document	claim file | __pondus__/w06-c14.md	4	3	1980	0.0614	0.0007	0.0110
+document	report | __reports__/wave-06/explorer-w06-c/00-findings_v0.md	1	1	8698	0.0600	0.0007	0.0000
+script	__instrumenta__/w06c3_analyze.py	6	1	1045	0.0598	0.0007	0.0157
+document	claim file | __pondus__/w04-c2.md	3	2	3049	0.0592	0.0007	0.0081
+document	report data (tsv/json/py) | __reports__/wave-06/explorer-w06-b/	1	1	4481	0.0592	0.0007	0.0112
+script	__instrumenta__/wave_worker_events.py	2	1	6111	0.0588	0.0007	0.0000
+document	report data (tsv/json/py) | __reports__/reflective_run/w03/author-w03-2/run_all.sh	1	1	3599	0.0583	0.0007	0.0090
+document	report | __reports__/wave-06/author-w06-3/m1_field_list.md	1	1	3327	0.0559	0.0007	0.0083
+document	claim file | __pondus__/w06-c11.md	3	2	1433	0.0556	0.0007	0.0107
+document	report data (tsv/json/py) | __reports__/reflective_run/w03/author-w03-1/e2e_drive.py	1	1	2825	0.0554	0.0007	0.0212
+script	__instrumenta__/hook_count_invocations.py	6	2	644	0.0529	0.0006	0.0181
+document	claim file | __pondus__/w01-c10.md	1	1	6316	0.0524	0.0006	0.0158
+document	puzzle file | __reports__/wave-07/explorer-w07-b/tables.md	1	1	6622	0.0523	0.0006	0.0000
+document	report | __reports__/wave-06/author-w06-5/e3v2_results_88ab4a5.md	1	1	6947	0.0507	0.0006	0.0000
+script	__instrumenta__/w06c7_if_probe_table.py	1	1	1777	0.0503	0.0006	0.0089
+document	claim file | __pondus__/w04-c4.md	5	2	1708	0.0484	0.0006	0.0000
+script	__instrumenta__/w07b_merge_audit.py	2	1	6353	0.0482	0.0006	0.0000
+document	report | __reports__/wave-06/01-experiment_protocol_e3_v3.md	4	2	951	0.0477	0.0006	0.0095
+document	report | __reports__/platform_probes/01-findings_v1.md	2	1	3822	0.0476	0.0006	0.0000
+document	report | __reports__/wave-05/explorer-w05-b/00-findings_v0.md	2	2	2862	0.0458	0.0005	0.0000
+script	__instrumenta__/w05c1_wait_arms.py	6	2	1019	0.0437	0.0005	0.0136
+document	claim file | __pondus__/w04-c8.md	5	2	1141	0.0430	0.0005	0.0141
+document	claim file | __pondus__/w07-c3.md	3	1	2543	0.0430	0.0005	0.0000
+document	brief protocol (skills/agents/templates) | agents/author.md	3	3	1727	0.0422	0.0005	0.0082
+script	__instrumenta__/w07c6_make_exports.py	2	1	1947	0.0420	0.0005	0.0097
+document	report | __reports__/wave-07/explorer-w07-e/00-findings_v0.md	1	1	7103	0.0412	0.0005	0.0000
+document	other document | __reports__/wave-05/explorer-w05-b	2	2	3027	0.0412	0.0005	0.0000
+script	__instrumenta__/hook_replay_equiv.py	3	2	968	0.0409	0.0005	0.0197
+document	report | __reports__/wave-07/04-protocol_p5_rustguard_v0.md	1	1	2651	0.0384	0.0005	0.0066
+script	__instrumenta__/w07f_prompt_origin.py	3	1	2442	0.0363	0.0004	0.0000
+document	claim file | __pondus__/w06-c6.md	3	2	2400	0.0360	0.0004	0.0000
+document	report | __reports__/wave-07/author-w07-6/tables_c1_c3.md	1	1	6493	0.0351	0.0004	0.0000
+document	other document | replay_list.txt	1	1	2409	0.0349	0.0004	0.0181
+script	__instrumenta__/w06c4_measure.py	7	1	543	0.0345	0.0004	0.0095
+script	__instrumenta__/w05c4_replay_batched.py	1	1	6228	0.0336	0.0004	0.0000
+document	claim file | __pondus__/w07-c4.md	2	1	3312	0.0330	0.0004	0.0000
+document	claim file | __pondus__/w05-c6.md	5	2	1672	0.0328	0.0004	0.0000
+document	report | __reports__/wave-06/01-experiment_protocol_e3_v1.md	1	1	1509	0.0324	0.0004	0.0075
+document	claim file | __pondus__/w05-c3.md	4	2	1467	0.0321	0.0004	0.0000
+document	other document | __reports__/wave-07/explorer-w07-f	1	1	3024	0.0321	0.0004	0.0076
+document	other document | __instrumenta__/hook_replay_equiv.py	1	1	2178	0.0316	0.0004	0.0054
+script	__instrumenta__/w06c14_combo_smoke_check.py	4	1	1558	0.0315	0.0004	0.0094
+document	other document | hooks.md	3	1	1664	0.0312	0.0004	0.0000
+script	scripts/check_guard_equal.py	3	2	963	0.0311	0.0004	0.0062
+script	__instrumenta__/w06c8_script_word_share.py	3	1	535	0.0310	0.0004	0.0080
+document	report | __reports__/wave-07/explorer-w07-b/tables.md	3	1	2585	0.0306	0.0004	0.0000
+document	statera other | __statera__/handbacks/wave-04-author-w04-2.md	1	1	6644	0.0306	0.0004	0.0000
+document	report | __reports__/wave-05/explorer-w05-a/00-findings_v0.md	2	1	2102	0.0304	0.0004	0.0000
+script	__instrumenta__/w06c3_build_plugin.py	4	1	706	0.0299	0.0004	0.0071
+document	claim file | __pondus__/w06-c8.md	2	1	2073	0.0297	0.0004	0.0000
+script	scripts/lab_status.py	5	4	1291	0.0290	0.0003	0.0000
+script	__instrumenta__/wave_long_tool_calls.py	1	1	5140	0.0288	0.0003	0.0000
+document	report | __reports__/wave-07/01-protocol_p2_origin_v0.md	2	2	1608	0.0287	0.0003	0.0040
+document	report data (tsv/json/py) | __reports__/wave-06/explorer-w06-c/	1	1	5899	0.0283	0.0003	0.0000
+script	__instrumenta__/w06c7_dollar_share.py	3	2	439	0.0283	0.0003	0.0054
+document	puzzle file | __scrupuli__/wave-05-explorer-w05-c.md	1	1	2468	0.0281	0.0003	0.0062
+document	report data (tsv/json/py) | __reports__/reflective_run/w04/author-w04-3/runs_table.tsv	1	1	5166	0.0274	0.0003	0.0000
+document	brief protocol (skills/agents/templates) | skills/research-loop/templates/report_findings.md	10	10	717	0.0269	0.0003	0.0022
+document	report | scripts/permission_guard.py	1	1	3626	0.0268	0.0003	0.0000
+document	report | __reports__/wave-05/explorer-w05-d/timing_table.md	1	1	2495	0.0267	0.0003	0.0125
+document	wave note | __statera__/user_words.md	1	1	6397	0.0262	0.0003	0.0000
+document	claim file | __pondus__/w07-c7.md	3	2	1592	0.0261	0.0003	0.0001
+script	__instrumenta__/hook_cost_time.py	3	2	771	0.0259	0.0003	0.0131
+script	__instrumenta__/w04c7_dump_runs.py	2	1	3137	0.0256	0.0003	0.0000
+document	claim file | __pondus__/w04-c3.md	4	2	1148	0.0256	0.0003	0.0001
+script	__instrumenta__/w07c4_worktree_cases.py	2	1	1826	0.0256	0.0003	0.0000
+document	report | __reports__/wave-06/00-experiment_protocol_v1.md	4	4	858	0.0251	0.0003	0.0027
+document	report data (tsv/json/py) | __reports__/wave-07/explorer-w07-e/runv.sh	1	1	4160	0.0241	0.0003	0.0000
+document	claim file | __pondus__/w04-c1.md	3	2	1530	0.0238	0.0003	0.0001
+script	__instrumenta__/w06c8_e3v1_report.py	1	1	1205	0.0236	0.0003	0.0060
+script	__instrumenta__/w07b_loop_tables.py	1	1	4918	0.0236	0.0003	0.0000
+document	other document | w07-c5.md	1	1	4906	0.0235	0.0003	0.0000
+document	claim file | __pondus__/w07-c1.md	2	2	2529	0.0233	0.0003	0.0000
+script	__instrumenta__/w06c11_e3v3_report.py	3	1	771	0.0227	0.0003	0.0058
+document	claim file | __pondus__/w04-c9.md	3	2	1515	0.0224	0.0003	0.0000
+document	other document | __reports__/wave-07/author-w07-4	2	1	2176	0.0223	0.0003	0.0000
+document	claim file | __pondus__/w04-c7.md	6	2	824	0.0216	0.0003	0.0000
+document	report | __reports__/wave-06/author-w06-3/tables.md	1	1	3834	0.0215	0.0003	0.0000
+document	puzzle file | __scrupuli__/wave-05-explorer-w05-a.md	2	2	980	0.0215	0.0003	0.0047
+script	__instrumenta__/w07c3_live_compare.py	3	1	937	0.0202	0.0002	0.0070
+document	claim file | __pondus__/w07-c8.md	3	2	1727	0.0201	0.0002	0.0000
+document	framing | __reports__/wave-07/author-w07-3/	1	1	3532	0.0198	0.0002	0.0000
+script	__instrumenta__/w06c3_tables.sh	3	1	922	0.0197	0.0002	0.0069
+script	__instrumenta__/w05c1_rederive_requests.py	2	1	2666	0.0197	0.0002	0.0000
+script	__instrumenta__/w07c2_fields.py	1	1	1906	0.0196	0.0002	0.0048
+script	scripts/permission_guard.py	5	3	303	0.0196	0.0002	0.0039
+script	__instrumenta__/w04c10_tool_calls.py	1	1	5015	0.0196	0.0002	0.0000
+document	other document | __reports__/wave-07	1	1	3887	0.0194	0.0002	0.0000
+document	claim file | __pondus__/w05-c1.md	4	2	981	0.0194	0.0002	0.0001
+document	report | __reports__/wave-07/author-w07-1/cells_table.md	1	1	4288	0.0193	0.0002	0.0000
+script	__instrumenta__/w07c3_run_pairs.py	3	1	831	0.0192	0.0002	0.0062
+script	__instrumenta__/w07c_records.py	2	1	2259	0.0188	0.0002	0.0000
+document	report | __reports__/wave-04/*/00-findings_v0.md	2	2	1680	0.0187	0.0002	0.0010
+script	__instrumenta__/w07c3_x3_records.py	2	1	1354	0.0187	0.0002	0.0068
+document	brief protocol (skills/agents/templates) | skills/research-loop/references/briefs.md	3	2	1204	0.0186	0.0002	0.0000
+script	__instrumenta__/w07c6_g4_table.py	3	2	759	0.0185	0.0002	0.0057
+document	report | __reports__/wave-07/03-protocol_p4_labstatus_v0.md	2	2	1411	0.0184	0.0002	0.0000
+script	__instrumenta__/w07c3_x4_table.py	2	1	1118	0.0181	0.0002	0.0056
+document	report data (tsv/json/py) | __reports__/wave-05/author-w05-2/e6b_table_A_D.tsv	1	1	3410	0.0181	0.0002	0.0000
+script	__instrumenta__/w05c4_gate_forms.py	1	1	1104	0.0178	0.0002	0.0028
+document	claim file | __pondus__/w05-c5.md	2	1	1596	0.0175	0.0002	0.0000
+script	__instrumenta__/w07c6_g5.py	1	1	1858	0.0173	0.0002	0.0046
+document	report data (tsv/json/py) | __reports__/reflective_run/w04/author-w04-2/derived2/	1	1	1998	0.0172	0.0002	0.0050
+document	brief protocol (skills/agents/templates) | __reports__/reflective_run/w04/author-w04-4	1	1	1881	0.0169	0.0002	0.0000
+script	__instrumenta__/w04c3_verify_runs.py	3	2	1187	0.0167	0.0002	0.0000
+document	report | __reports__/wave-07/05-protocol_p6_cachettl_v0.md	2	2	1140	0.0166	0.0002	0.0029
+document	other document | __reports__/wave-05/author-w05-1	2	1	1882	0.0166	0.0002	0.0000
+document	report | __reports__/wave-06/research-pi/permission_mechanisms.md	2	2	993	0.0164	0.0002	0.0000
+script	__instrumenta__/w06c9_shape.py	3	2	539	0.0164	0.0002	0.0040
+document	other document | s1_seq.txt	1	1	1258	0.0161	0.0002	0.0031
+script	__instrumenta__/w07c5_run.py	1	1	2338	0.0157	0.0002	0.0058
+document	report | __reports__/wave-07/author-w07-6/c4_break_even.md	1	1	3318	0.0156	0.0002	0.0000
+script	__instrumenta__/hook_cost_bootstrap.py	4	3	477	0.0156	0.0002	0.0051
+document	statera other | __statera__/handbacks/*.md	4	4	880	0.0155	0.0002	0.0014
+document	other document | __instrumenta__/w07c6_rv_crash_inputs.py	1	1	1486	0.0150	0.0002	0.0037
+document	other document | __reports__/reflective_run/w04/author-w04-4/derived/replay_transcripts_291.txt	3	3	802	0.0148	0.0002	0.0004
+script	__instrumenta__/w06c_pi_wakeups.py	1	1	2754	0.0146	0.0002	0.0000
+document	report | __instrumenta__/w07c3_repro_run_pairs.py	1	1	2959	0.0145	0.0002	0.0000
+document	other document | dump.txt	1	1	3815	0.0145	0.0002	0.0000
+script	__instrumenta__/w07c7r_usage.py	5	1	752	0.0143	0.0002	0.0000
+script	__instrumenta__/wave_timeline_pi.py	3	1	880	0.0141	0.0002	0.0000
+script	__instrumenta__/e3_table.py	1	1	1380	0.0141	0.0002	0.0000
+script	__instrumenta__/pathspec_commit_check.sh	1	1	3039	0.0140	0.0002	0.0000
+script	__instrumenta__/w05c5_repro_stale_probe.py	2	2	1782	0.0139	0.0002	0.0000
+document	claim file | __pondus__/w04-c12.md	4	1	1041	0.0139	0.0002	0.0000
+document	claim file | __pondus__/w04-c10.md	2	1	1684	0.0137	0.0002	0.0000
+document	other document | __reports__/wave-05/explorer-w05-c/w123	1	1	3026	0.0136	0.0002	0.0000
+script	__instrumenta__/w07g_parse.py	2	1	1416	0.0134	0.0002	0.0000
+script	__instrumenta__/w06c4_repro_s3.py	2	1	1627	0.0133	0.0002	0.0000
+script	__instrumenta__/budget_arms_export.sh	1	1	550	0.0132	0.0002	0.0069
+script	__instrumenta__/w06c13_k6_recount.py	4	2	685	0.0131	0.0002	0.0000
+script	__instrumenta__/w07c1_table.py	2	1	1754	0.0129	0.0002	0.0000
+document	claim file | scripts/lab_status.py	4	2	1143	0.0129	0.0002	0.0000
+document	report data (tsv/json/py) | scripts/lab_status.py	1	1	1696	0.0129	0.0002	0.0042
+document	report | __reports__/wave-06/author-w06-5/e3_results_f331714_full.md	2	2	860	0.0129	0.0002	0.0014
+script	__instrumenta__/w07c7_parse.py	3	1	682	0.0128	0.0002	0.0051
+document	report | __reports__/wave-05/author-w05-1/c2_colgrep_path.md	2	2	1654	0.0126	0.0002	0.0001
+script	__instrumenta__/w06c10_e3v2_report.py	1	1	724	0.0124	0.0001	0.0036
+document	harness log | __statera__/harness.jsonl	3	2	705	0.0121	0.0001	0.0000
+script	scripts/user_words.py	2	2	1996	0.0120	0.0001	0.0006
+document	report | __reports__/reflective_run/w04/author-w04-4/derived/timing_final_tables.md	1	1	1439	0.0119	0.0001	0.0072
+script	__instrumenta__/budget_arms_summary.py	1	1	1125	0.0119	0.0001	0.0028
+document	report data (tsv/json/py) | __reports__/reflective_run/w04/author-w04-2/derived2/results_e1b_e2b.tsv	1	1	2297	0.0117	0.0001	0.0000
+script	scripts/lab_init.py	6	4	403	0.0117	0.0001	0.0010
+script	__instrumenta__/cmd_cost_interleaved.py	7	4	242	0.0117	0.0001	0.0015
+document	report | __reports__/wave-05/00-experiment_protocol_v1.md	1	1	2131	0.0115	0.0001	0.0000
+script	__instrumenta__/w06c1_rederive_request0.py	2	1	1491	0.0115	0.0001	0.0000
+document	claim file | __pondus__/w04-c6.md	5	2	490	0.0113	0.0001	0.0000
+document	claim file | scripts/handback.py	1	1	3484	0.0111	0.0001	0.0000
+script	__instrumenta__/w07d_profile.py	1	1	1487	0.0111	0.0001	0.0000
+script	__instrumenta__/w04c5_paired_hook_timing.py	3	1	630	0.0109	0.0001	0.0000
+script	__instrumenta__/w05c4_replay_explain.py	3	2	603	0.0108	0.0001	0.0005
+script	__instrumenta__/w07c2_q2_table.py	1	1	1342	0.0107	0.0001	0.0034
+script	__instrumenta__/w07d_bench.py	5	1	382	0.0107	0.0001	0.0000
+document	brief protocol (skills/agents/templates) | skills/lab/SKILL.md	1	1	2131	0.0107	0.0001	0.0000
+document	claim file | __pondus__/w04-c11.md	2	1	1956	0.0105	0.0001	0.0000
+script	scripts/budget.py	3	2	351	0.0104	0.0001	0.0013
+document	report data (tsv/json/py) | __reports__/wave-07/explorer-w07-b/requests.tsv	2	2	758	0.0104	0.0001	0.0032
+script	__instrumenta__/w07c3_x1_form.py	3	2	538	0.0103	0.0001	0.0022
+document	report | __reports__/wave-06/author-w06-5/e3v3_results_071fc53.md	1	1	1031	0.0101	0.0001	0.0026
+script	__instrumenta__/w07d_parsers.py	3	1	478	0.0096	0.0001	0.0000
+document	report | agent-a3ca5291991a08315.jsonl	1	1	1424	0.0095	0.0001	0.0000
+document	claim file | __pondus__/w06-c5.md	3	2	1060	0.0095	0.0001	0.0000
+document	other document | __reports__/wave-07/author-w07-3	1	1	2680	0.0094	0.0001	0.0000
+document	report | __reports__/wave-06/author-w06-6/e2_all_pairs.txt	1	1	925	0.0093	0.0001	0.0023
+script	__instrumenta__/w07c1_recheck.py	1	1	2327	0.0093	0.0001	0.0000
+script	__instrumenta__/w07a_spawn_table.py	1	1	1429	0.0093	0.0001	0.0000
+document	puzzle file | __scrupuli__/wave-05-research-pi.md	2	2	842	0.0091	0.0001	0.0000
+script	__instrumenta__/w05c6_denylist_names.py	1	1	2302	0.0090	0.0001	0.0000
+script	__instrumenta__/w07c4_o4_pairs.py	2	2	877	0.0088	0.0001	0.0000
+script	__instrumenta__/w04c8_rederive_e1b.py	2	1	944	0.0088	0.0001	0.0012
+script	__instrumenta__/w07c4_frozen_diff.py	2	1	927	0.0088	0.0001	0.0000
+script	__instrumenta__/w06c9_make_masks.py	3	1	593	0.0088	0.0001	0.0000
+script	__instrumenta__/w07c4_cache_thrash_default.py	2	2	1235	0.0086	0.0001	0.0000
+script	__instrumenta__/w06c9_e2.sh	3	1	225	0.0085	0.0001	0.0017
+document	report | __reports__/wave-05/explorer-w05-f/table_serial.md	1	1	2415	0.0085	0.0001	0.0000
+document	other document | __reports__/wave-06/author-w06-6	1	1	1200	0.0084	0.0001	0.0030
+script	__instrumenta__/w07c4_o3_cli.py	1	1	1344	0.0083	0.0001	0.0000
+document	report | __reports__/wave-07/00-protocol_p1_skill_v0.md	1	1	1435	0.0083	0.0001	0.0000
+document	report data (tsv/json/py) | e1_seq.txt	1	1	777	0.0083	0.0001	0.0019
+script	__instrumenta__/w07c5_repro_failures.py	2	1	956	0.0083	0.0001	0.0000
+script	__instrumenta__/bash_time_buckets.py	1	1	1293	0.0083	0.0001	0.0000
+script	__instrumenta__/w07d_bench_table.py	2	1	1343	0.0082	0.0001	0.0000
+script	scripts/resume_brief.py	2	1	299	0.0081	0.0001	0.0045
+script	__instrumenta__/w06_hook_lang_table.py	1	1	2535	0.0081	0.0001	0.0000
+script	__instrumenta__/w07c7_run.py	1	1	954	0.0081	0.0001	0.0024
+script	__instrumenta__/w07c3_x2_process.py	1	1	870	0.0079	0.0001	0.0022
+script	__instrumenta__/w05c3_pi_tools_table.py	3	1	473	0.0079	0.0001	0.0000
+document	report | __reports__/wave-07/04-protocol_p5_rustguard_v1.md	1	1	1579	0.0079	0.0001	0.0000
+script	__instrumenta__/headless_explorer_cell.py	1	1	857	0.0079	0.0001	0.0021
+script	__instrumenta__/w06c9_e2e_commands.py	2	1	304	0.0077	0.0001	0.0015
+document	user_words | __statera__/user_words.md	2	2	967	0.0076	0.0001	0.0000
+document	other document | claude_strings.txt	3	2	318	0.0076	0.0001	0.0032
+script	__instrumenta__/auto_mode_probe_table.py	2	1	941	0.0075	0.0001	0.0025
+script	__instrumenta__/w07c3_make_exec_hooks.py	1	1	721	0.0074	0.0001	0.0018
+document	other document | __reports__/wave-07/author-w07-2/v1	2	2	668	0.0072	0.0001	0.0013
+script	__instrumenta__/w07c5_table.py	1	1	1243	0.0072	0.0001	0.0031
+script	__instrumenta__/w07f_words_vs_origin.py	1	1	1703	0.0072	0.0001	0.0000
+script	__instrumenta__/w07c6_g3_prepare.py	1	1	728	0.0068	0.0001	0.0018
+document	other document | toolu_01WuHWXtmohsVno73Z7yDZVY.txt	1	1	36669	0.0068	0.0001	0.0000
+script	__instrumenta__/w06c7_guard_timing.py	1	1	260	0.0068	0.0001	0.0013
+document	claim file | __instrumenta__/hook_cost_bootstrap.py	1	1	803	0.0067	0.0001	0.0040
+script	__instrumenta__/wave_headless_cells.py	1	1	1405	0.0067	0.0001	0.0000
+script	__instrumenta__/tool_time_split.py	1	1	1034	0.0067	0.0001	0.0000
+script	__instrumenta__/hook_wall_time.py	3	2	484	0.0066	0.0001	0.0016
+script	__instrumenta__/w07c5_repro_r1.py	2	1	748	0.0066	0.0001	0.0000
+script	__instrumenta__/w05c3_desktop_projection.py	2	1	667	0.0066	0.0001	0.0000
+script	__instrumenta__/w07c7_c4.py	1	1	1006	0.0065	0.0001	0.0025
+document	report data (tsv/json/py) | __reports__/reflective_run/w04/author-w04-3/run_all.sh	1	1	1592	0.0065	0.0001	0.0000
+document	other document | m1_replay.txt	3	1	345	0.0065	0.0001	0.0000
+script	__instrumenta__/w07c2_q1_classify.py	2	1	467	0.0064	0.0001	0.0023
+document	report | __reports__/wave-06/research-pi/managed_setting_check.md	1	1	703	0.0064	0.0001	0.0000
+document	other document | e1_seq.txt	2	1	342	0.0063	0.0001	0.0017
+script	__instrumenta__/w06c9_run.py	2	1	225	0.0062	0.0001	0.0011
+script	__instrumenta__/w05c4_m2_sum.py	2	2	566	0.0062	0.0001	0.0012
+document	claim file | __pondus__/w05-c7.md	2	2	1166	0.0061	0.0001	0.0000
+script	__instrumenta__/w06c9_lines.py	3	1	208	0.0060	0.0001	0.0010
+script	__instrumenta__/w07e_worker_req0.py	1	1	1497	0.0060	0.0001	0.0000
+script	__instrumenta__/w05c6_stream_check.py	1	1	1259	0.0059	0.0001	0.0000
+script	scripts/$s.py	1	1	683	0.0059	0.0001	0.0017
+document	claim file | __reports__/wave-06/author-w06-5/e3_results_f331714_full.md	1	1	1293	0.0058	0.0001	0.0000
+document	claim file | __pondus__/w06-c2.md	3	1	396	0.0058	0.0001	0.0000
+document	claim file | __pondus__/w06-c1.md	2	1	580	0.0058	0.0001	0.0000
+script	__instrumenta__/w07c8_h_tests.py	2	1	755	0.0055	0.0001	0.0000
+document	claim file | __pondus__/w05-c2.md	2	2	529	0.0055	0.0001	0.0001
+document	other document | v1report.txt	1	1	282	0.0055	0.0001	0.0014
+document	other document | __instrumenta__/w07c1_cell.py	1	1	1451	0.0054	0.0001	0.0000
+document	report | __reports__/wave-05/author-w05-3/m2_sum.md	1	1	716	0.0054	0.0001	0.0018
+document	other document | __reports__/wave-05/author-w05-2	1	1	1274	0.0054	0.0001	0.0000
+script	__instrumenta__/w07e_pi_tools_used.py	2	1	688	0.0053	0.0001	0.0000
+script	__instrumenta__/hook_starts_per_wave.py	1	1	715	0.0053	0.0001	0.0000
+script	__instrumenta__/w05c5_repro_mutants.py	2	2	667	0.0052	0.0001	0.0000
+document	report | __reports__/reflective_run/w04/author-w04-2/00-addendum_v0.md	2	2	422	0.0051	0.0001	0.0010
+script	__instrumenta__/w07c7r_c4_sensitivity.py	1	1	1110	0.0050	0.0001	0.0000
+document	other document | stdout.txt	2	1	393	0.0050	0.0001	0.0023
+document	puzzle file | scripts/lab_init.py	1	1	1500	0.0050	0.0001	0.0000
+document	other document | wave-01.md	1	1	1199	0.0049	0.0001	0.0000
+script	__instrumenta__/w04c5_gate_probe.py	1	1	908	0.0049	0.0001	0.0000
+script	__instrumenta__/w07c7_full.sh	1	1	841	0.0049	0.0001	0.0021
+script	__instrumenta__/replay_diff_list.txt)	1	1	349	0.0048	0.0001	0.0026
+script	__instrumenta__/w07c_async_timeline.py	1	1	1450	0.0048	0.0001	0.0000
+script	__instrumenta__/hook_lab_landing_run.py	3	1	256	0.0048	0.0001	0.0019
+script	__instrumenta__/e3_run_workers.py	2	1	208	0.0047	0.0001	0.0003
+script	__instrumenta__/w04c9_verify_e2b.py	1	1	1042	0.0047	0.0001	0.0000
+document	claim file | __statera__/wave-07.md	1	1	767	0.0047	0.0001	0.0000
+document	brief protocol (skills/agents/templates) | scripts/lab_init.py	1	1	1170	0.0047	0.0001	0.0000
+document	other document | $f.txt	1	1	559	0.0046	0.0001	0.0014
+document	claim file | __pondus__/w05-c10.md	1	1	1752	0.0046	0.0001	0.0000
+script	__instrumenta__/w06c9_variants.py	2	1	168	0.0045	0.0001	0.0008
+script	__instrumenta__/w06c_pi_summary.py	1	1	1032	0.0044	0.0001	0.0000
+document	other document | changelog.md	1	1	877	0.0044	0.0001	0.0000
+document	report | __reports__/*/*	1	1	856	0.0044	0.0001	0.0000
+script	__instrumenta__/w06c9_measure.py	1	1	321	0.0043	0.0001	0.0008
+document	claim file | __pondus__/w05-c9.md	2	1	432	0.0041	0.0000	0.0000
+script	__instrumenta__/w07c4_repro_usage_shapes.py	1	1	1115	0.0041	0.0000	0.0000
+script	__instrumenta__/w06c9_e1.sh	1	1	291	0.0041	0.0000	0.0007
+document	report | __reports__/wave-06/	1	1	1355	0.0041	0.0000	0.0000
+script	__instrumenta__/w05c3_verify_transcripts.py	2	2	426	0.0040	0.0000	0.0000
+script	__instrumenta__/w05b_listing_reinjection.py	1	1	937	0.0040	0.0000	0.0000
+script	__instrumenta__/w07c3_tool_gap.py	1	1	696	0.0040	0.0000	0.0017
+script	__instrumenta__/w07c8_h4_live.py	1	1	1165	0.0040	0.0000	0.0000
+script	__instrumenta__/w07c5_repro_table.py	2	1	542	0.0039	0.0000	0.0000
+script	__instrumenta__/w05c4_replay_batched_explain.py	1	1	784	0.0039	0.0000	0.0000
+script	__instrumenta__/w05c3_pi_tools_cell.py	3	2	236	0.0039	0.0000	0.0000
+script	__instrumenta__/w04c5_gate_variants.py	2	2	199	0.0039	0.0000	0.0004
+document	brief protocol (skills/agents/templates) | skills/research-loop/templates/wave.md	1	1	1118	0.0039	0.0000	0.0000
+script	__instrumenta__/w06_hook_lang_probe.py	1	1	831	0.0039	0.0000	0.0000
+script	__instrumenta__/w07c6_rv_crash_inputs.py	2	1	171	0.0038	0.0000	0.0009
+script	__instrumenta__/w06c9_tables.sh	1	1	356	0.0038	0.0000	0.0009
+script	__instrumenta__/w05b_pi_context_cost.py	1	1	685	0.0038	0.0000	0.0000
+script	__instrumenta__/w06c4_repro_s2.py	1	1	833	0.0038	0.0000	0.0000
+document	report | __reports__/wave-05/	1	1	1064	0.0038	0.0000	0.0000
+script	__instrumenta__/w05c_phase_table_md.py	1	1	1318	0.0038	0.0000	0.0000
+document	other document | v3report.txt	1	1	374	0.0038	0.0000	0.0009
+document	wave note | __statera__/wave-0*.md	1	1	984	0.0037	0.0000	0.0000
+document	report | __reports__/reflective_run/w04/author-w04-4/derived/replay_transcripts_291.txt	1	1	248	0.0037	0.0000	0.0006
+script	__instrumenta__/w07c2_q3_q4.py	1	1	473	0.0037	0.0000	0.0012
+script	__instrumenta__/w07a_daemon_cpu_pairs.py	1	1	711	0.0036	0.0000	0.0000
+document	claim file | __pondus__/w05-c8.md	3	1	264	0.0035	0.0000	0.0000
+script	__instrumenta__/w07f_rule_confusion.py	2	1	643	0.0035	0.0000	0.0000
+script	__instrumenta__/w05b_pi_time_split.py	1	1	977	0.0034	0.0000	0.0000
+script	__instrumenta__/w07d_table.py	1	1	560	0.0034	0.0000	0.0000
+script	__instrumenta__/w06c4_repro_s4.py	1	1	786	0.0034	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-04-author-w04-2.md	2	2	504	0.0033	0.0000	0.0000
+document	other document | scripts/lab_status.py	1	1	1095	0.0033	0.0000	0.0000
+script	__instrumenta__/w06c_idle_windows.py	1	1	885	0.0032	0.0000	0.0000
+document	other document | __instrumenta__/w07c2_q1_classify.py	1	1	521	0.0032	0.0000	0.0000
+document	report data (tsv/json/py) | __statera__/wave-$n.md	1	1	683	0.0031	0.0000	0.0000
+script	__instrumenta__/w07c_fields.py	2	1	378	0.0031	0.0000	0.0000
+script	__instrumenta__/w05c5_repro_m1_m2.py	2	1	482	0.0031	0.0000	0.0000
+document	report | changelog.md	1	1	601	0.0031	0.0000	0.0000
+script	__instrumenta__/w07c4_run_all.sh	3	1	198	0.0030	0.0000	0.0000
+script	__instrumenta__/w04c2_rederive_metrics.py	2	1	348	0.0030	0.0000	0.0000
+script	__instrumenta__/w07e_worker_tools.py	1	1	716	0.0030	0.0000	0.0000
+script	__instrumenta__/w07e_pi_table.py	1	1	644	0.0030	0.0000	0.0000
+script	__instrumenta__/hook_cost_session_estimate.py	1	1	325	0.0029	0.0000	0.0016
+script	__instrumenta__/w07c8_rv_faults.py	1	1	807	0.0028	0.0000	0.0000
+script	__instrumenta__/w07d_spin_scaling.py	1	1	512	0.0028	0.0000	0.0000
+document	other document | __instrumenta__/w07c3_repro_run_pairs.py	1	1	523	0.0027	0.0000	0.0000
+document	report data (tsv/json/py) | __reports__/reflective_run/w04/author-w04-2/derived2/cost_per_run_e1b_e2b.tsv	1	1	483	0.0027	0.0000	0.0000
+document	brief protocol (skills/agents/templates) | __reports__/wave-07/explorer-w07-c	1	1	828	0.0027	0.0000	0.0000
+script	__instrumenta__/pathspec_commit_breaks.sh	1	1	588	0.0026	0.0000	0.0000
+document	report | __instrumenta__/w07c2_*.py	1	1	334	0.0026	0.0000	0.0008
+script	__instrumenta__/w04c5_make_ablations.py	1	1	626	0.0026	0.0000	0.0000
+script	__instrumenta__/w06c14_v2_cmd_equal_own.py	1	1	875	0.0026	0.0000	0.0000
+document	report | __reports__/reflective_run/w02/explorer-w02-a/00-findings_v0.md	1	1	651	0.0026	0.0000	0.0000
+script	__instrumenta__/w07c4_micro.py	1	1	444	0.0026	0.0000	0.0000
+document	report | __instrumenta__/w06c4_replay.py	1	1	151	0.0023	0.0000	0.0004
+document	other document | q_paragraph.txt	1	1	701	0.0023	0.0000	0.0000
+script	__instrumenta__/w05c5_lab_status_cases.py	1	1	270	0.0023	0.0000	0.0007
+document	report | __pondus__/w06-c7.md	1	1	654	0.0023	0.0000	0.0000
+document	harness log | meta.json	1	1	311	0.0023	0.0000	0.0008
+document	report data (tsv/json/py) | __reports__/wave-06/reproducer-w06-7/k6_classification.tsv	1	1	383	0.0023	0.0000	0.0000
+document	report | __reports__/wave-07/explorer-w07-g/ttl_breakeven.md	1	1	250	0.0022	0.0000	0.0006
+document	report | __instrumenta__/w06c3_*.py	1	1	318	0.0022	0.0000	0.0008
+script	__instrumenta__/w06c13_decide_diff.py	3	3	181	0.0022	0.0000	0.0000
+script	__instrumenta__/w07g_run.py	1	1	342	0.0022	0.0000	0.0000
+script	__instrumenta__/w07d_stages.py	1	1	387	0.0021	0.0000	0.0000
+document	other document | __reports__/wave-05/author-w05-3	1	1	275	0.0021	0.0000	0.0007
+document	other document | installed_plugins.json	3	3	144	0.0021	0.0000	0.0002
+script	__instrumenta__/w04c3_verify_n1.py	2	2	239	0.0021	0.0000	0.0000
+script	__instrumenta__/w07d_rust_table.py	1	1	417	0.0021	0.0000	0.0000
+script	__instrumenta__/w07c1_recheck_totals.py	1	1	572	0.0021	0.0000	0.0000
+script	__instrumenta__/lab_status_variants.py	1	1	401	0.0020	0.0000	0.0000
+script	__instrumenta__/w06c8_make_guard_rows.py	2	1	118	0.0020	0.0000	0.0004
+script	__instrumenta__/w06c14_bench_guard.py	2	1	330	0.0019	0.0000	0.0000
+script	__instrumenta__/w05c2_colgrep_path_probe.sh	1	1	317	0.0019	0.0000	0.0008
+script	__instrumenta__/w06c9_selftests.sh	2	1	90	0.0019	0.0000	0.0004
+document	other document | e8_quick.md	1	1	293	0.0019	0.0000	0.0007
+script	__instrumenta__/w06c9_list197.py	2	2	68	0.0019	0.0000	0.0003
+script	__instrumenta__/w07c_siblings.py	2	1	232	0.0018	0.0000	0.0000
+script	__instrumenta__/w07c4_o2_synthetic.py	2	2	185	0.0018	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-06-reproducer-w06-7.md	2	1	111	0.0018	0.0000	0.0006
+document	other document | settings.json	1	1	352	0.0018	0.0000	0.0000
+script	__instrumenta__/w07d_headless_cells.py	1	1	540	0.0017	0.0000	0.0000
+script	__instrumenta__/w06c4_replay.py	1	1	329	0.0017	0.0000	0.0000
+document	report data (tsv/json/py) | __instrumenta__/w05c_worker_phases.py	1	1	633	0.0017	0.0000	0.0000
+script	__instrumenta__/hook_platform_durations.py	1	1	383	0.0017	0.0000	0.0000
+script	__instrumenta__/w07g_trivial_split.py	1	1	439	0.0017	0.0000	0.0000
+script	__instrumenta__/w06c10_e3v2_full.sh	1	1	96	0.0017	0.0000	0.0005
+script	__instrumenta__/w06c7_make_guard_rows.py	1	1	59	0.0016	0.0000	0.0003
+document	claim file | __pondus__/w06-c7.md	2	1	53	0.0016	0.0000	0.0003
+script	__instrumenta__/wave_pi_response_lag.py	2	1	212	0.0016	0.0000	0.0000
+script	__instrumenta__/w06c7_e3_full.sh	2	1	32	0.0015	0.0000	0.0003
+document	harness log | __reports__/reflective_run/w04/00-experiment_protocol_v0.md	1	1	427	0.0015	0.0000	0.0000
+document	harness log | __pondus__/w05-c4.md	1	1	528	0.0015	0.0000	0.0000
+document	other document | .meta.json	1	1	217	0.0015	0.0000	0.0000
+script	__instrumenta__/w07c3_x5_old_reads.py	1	1	199	0.0015	0.0000	0.0005
+script	__instrumenta__/w07b_turns_tsv.py	1	1	480	0.0014	0.0000	0.0000
+document	other document | __reports__/wave-05/explorer-w05-d	1	1	533	0.0014	0.0000	0.0000
+document	report | __instrumenta__/w05c3_desktop_projection.py	1	1	510	0.0014	0.0000	0.0000
+document	report | __instrumenta__/w07c7_*.py	1	1	250	0.0014	0.0000	0.0006
+script	__instrumenta__/w06c_worker_cache.py	1	1	378	0.0014	0.0000	0.0000
+script	__instrumenta__/w07c6_rv_install_race.py	2	1	69	0.0014	0.0000	0.0003
+script	__instrumenta__/w04c5_payload_size_dist.py	1	1	263	0.0013	0.0000	0.0000
+script	__instrumenta__/w06b_hook_option_sums.py	1	1	356	0.0013	0.0000	0.0000
+script	__instrumenta__/w07a_hook_probe.py	1	1	447	0.0013	0.0000	0.0000
+script	__instrumenta__/wave_chain_ends.py	1	1	379	0.0013	0.0000	0.0000
+document	report data (tsv/json/py) | __reports__/reflective_run/w04/author-w04-3/e3c/e3c_runs_table.tsv	1	1	364	0.0013	0.0000	0.0000
+document	brief protocol (skills/agents/templates) | __reports__/wave-06/explorer-w06-c	1	1	453	0.0013	0.0000	0.0000
+document	other document | __instrumenta__/budget_arms_export.sh	1	1	133	0.0012	0.0000	0.0003
+script	__instrumenta__/hook_concurrent_start.py	2	1	149	0.0012	0.0000	0.0000
+script	__instrumenta__/e3b_search_probe.py	2	1	101	0.0012	0.0000	0.0000
+document	other document | __reports__/wave-06/reproducer-w06-5/tools/w06c10_v_replay_lab_traffic.py	1	1	88	0.0011	0.0000	0.0002
+script	__instrumenta__/e3b_table.py	1	1	216	0.0011	0.0000	0.0000
+script	__instrumenta__/w07c7_prices.py	1	1	170	0.0011	0.0000	0.0004
+document	statera other | __statera__/handbacks/*	1	1	309	0.0010	0.0000	0.0000
+script	__instrumenta__/w07e_toolsearch_cost.py	1	1	299	0.0010	0.0000	0.0000
+document	other document | cmd_py39.txt	2	1	84	0.0010	0.0000	0.0004
+script	__instrumenta__/bash_floor_probe.py	1	1	278	0.0010	0.0000	0.0000
+script	scripts/run_hook.py	3	1	88	0.0010	0.0000	0.0000
+script	__instrumenta__/w06c9_hardening.sh	1	1	206	0.0010	0.0000	0.0000
+script	__instrumenta__/w07g_ctx_git.py	1	1	237	0.0010	0.0000	0.0000
+document	other document | concurrent_post.md	1	1	109	0.0010	0.0000	0.0003
+script	__instrumenta__/w06c14_v2_bench_own.py	1	1	325	0.0009	0.0000	0.0000
+script	__instrumenta__/w05c_worker_phases.py	2	1	88	0.0009	0.0000	0.0000
+script	__instrumenta__/e3_make_lab_scripts.py	1	1	59	0.0009	0.0000	0.0001
+document	other document | __reports__/reflective_run/w04/author-w04-4/derived	1	1	177	0.0009	0.0000	0.0004
+script	__instrumenta__/hook_platform_floor.py	1	1	163	0.0009	0.0000	0.0000
+script	__instrumenta__/w07g_ttl_breakeven.py	1	1	286	0.0009	0.0000	0.0000
+document	other document | scripts/budget.py	1	1	192	0.0009	0.0000	0.0000
+document	other document | p_h4.txt	1	1	278	0.0009	0.0000	0.0000
+script	scripts/handback.py	1	1	229	0.0008	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-06-author-w06-5.md	5	1	10	0.0008	0.0000	0.0002
+document	puzzle file | __scrupuli__/wave-07-reproducer-w07-5.md	1	1	122	0.0008	0.0000	0.0003
+script	__instrumenta__/w06c4_repro_effects.py	1	1	233	0.0008	0.0000	0.0000
+script	__instrumenta__/e3c_table.py	1	1	250	0.0008	0.0000	0.0000
+script	__instrumenta__/w07c_shell_vs_exec.py	1	1	215	0.0008	0.0000	0.0000
+document	other document | m1_batched.txt	1	1	291	0.0008	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-04-reproducer-w04-8.md	1	1	110	0.0008	0.0000	0.0003
+document	puzzle file | __scrupuli__/wave-05-author-w05-2.md	2	1	103	0.0008	0.0000	0.0000
+script	__instrumenta__/w07a_fresh_make.sh	1	1	274	0.0008	0.0000	0.0000
+document	puzzle file | agents/explorer.md	1	1	246	0.0008	0.0000	0.0000
+script	__instrumenta__/w05c5_author_mutants.py	1	1	213	0.0007	0.0000	0.0000
+script	__instrumenta__/w07c5_repro_run.py	1	1	172	0.0007	0.0000	0.0000
+document	other document | outage.py	1	1	103	0.0007	0.0000	0.0003
+document	claim file | __reports__/reflective_run/w04/author-w04-2/derived	1	1	67	0.0007	0.0000	0.0002
+script	__instrumenta__/w07c_http_latency.py	1	1	175	0.0007	0.0000	0.0000
+script	__instrumenta__/w06c4_repro_edge.py	1	1	209	0.0007	0.0000	0.0000
+script	__instrumenta__/w07c_run.py	2	1	60	0.0006	0.0000	0.0000
+script	__instrumenta__/e3c_make_lab_scripts.py	1	1	146	0.0006	0.0000	0.0000
+script	__instrumenta__/w06c14_cmd_equal.py	1	1	176	0.0006	0.0000	0.0000
+script	__instrumenta__/w06c8_e3v1_full.sh	1	1	28	0.0006	0.0000	0.0001
+script	__instrumenta__/e3b_make_lab_scripts.py	1	1	71	0.0006	0.0000	0.0000
+script	__instrumenta__/w06c2_pi_close_window.py	1	1	190	0.0006	0.0000	0.0000
+script	__instrumenta__/plugin_root_check.py	1	1	181	0.0005	0.0000	0.0000
+script	__instrumenta__/w07b_loop_parse.py	1	1	78	0.0005	0.0000	0.0002
+document	report | __reports__/wave-06/author-w06-3	1	1	41	0.0005	0.0000	0.0001
+document	claim file | brief.txt	1	1	58	0.0005	0.0000	0.0000
+document	brief protocol (skills/agents/templates) | commands/lab.md	1	1	101	0.0005	0.0000	0.0000
+script	__instrumenta__/w06c11_e3v3_full.sh	1	1	46	0.0005	0.0000	0.0001
+document	claim file | scripts/user_words.py	1	1	85	0.0005	0.0000	0.0002
+document	puzzle file | __scrupuli__/wave-06-author-w06-4.md	1	1	73	0.0005	0.0000	0.0002
+document	other document | crash_inputs.txt	2	1	21	0.0005	0.0000	0.0001
+script	scripts/hook_server.py	1	1	28	0.0004	0.0000	0.0001
+script	__instrumenta__/w07c8_make_exports.py	1	1	135	0.0004	0.0000	0.0000
+script	__instrumenta__/w07c1_cell.py	1	1	111	0.0004	0.0000	0.0000
+script	__instrumenta__/wave_pi_event_list.py	1	1	151	0.0004	0.0000	0.0000
+script	__instrumenta__/w07d_recent_files.py	1	1	146	0.0004	0.0000	0.0000
+script	__instrumenta__/w06c7_e3_all.py	2	1	7	0.0004	0.0000	0.0001
+script	scripts/outage.py	1	1	29	0.0004	0.0000	0.0001
+document	other document | verdict_w07c3.md	1	1	144	0.0004	0.0000	0.0000
+script	__instrumenta__/w06c9_cmd_rerun.sh	1	1	142	0.0004	0.0000	0.0000
+document	report | __reports__/wave-07/reproducer-w07-7/00-smoke_v0.md	1	1	137	0.0004	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-06-reproducer-w06-3.md	1	1	107	0.0004	0.0000	0.0000
+script	__instrumenta__/w06c7_if_probe.py	2	1	6	0.0003	0.0000	0.0001
+script	__instrumenta__/w07d_pool_start.py	1	1	103	0.0003	0.0000	0.0000
+document	report | __reports__/wave-06/reproducer-w06-8	1	1	55	0.0003	0.0000	0.0001
+script	__instrumenta__/w06c2_dispo_vs_handback.py	1	1	81	0.0003	0.0000	0.0000
+script	__instrumenta__/w07e_pi_cell.py	1	1	54	0.0003	0.0000	0.0000
+document	other document | c12.md	1	1	100	0.0003	0.0000	0.0000
+document	claim file | installed_plugins.json	1	1	40	0.0003	0.0000	0.0001
+document	claim file | __reports__/reflective_run/w04/author-w04-2/derived2/results_e1b_e2b.tsv	2	1	24	0.0003	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-07-author-w07-5.md	1	1	77	0.0003	0.0000	0.0000
+document	other document | __reports__/wave-05/author-w05-1/pilot_tools	1	1	36	0.0002	0.0000	0.0001
+document	puzzle file | __scrupuli__/wave-04-author-w04-4.md	1	1	29	0.0002	0.0000	0.0001
+document	other document | replay_final.txt	1	1	24	0.0002	0.0000	0.0001
+script	__instrumenta__/w04c5_gate_end_to_end.py	1	1	53	0.0002	0.0000	0.0000
+document	claim file | __reports__/reflective_run/w04/00-experiment_protocol_v0.md	1	1	37	0.0002	0.0000	0.0000
+document	claim file | __pondus__/w07-c5.md	1	1	69	0.0002	0.0000	0.0000
+script	__instrumenta__/w06c14_combo_smoke_run.py	1	1	23	0.0002	0.0000	0.0001
+document	other document | __reports__/wave-05/explorer-w05-f	1	1	62	0.0002	0.0000	0.0000
+document	claim file | w06c9_fuzz_json.py	1	1	61	0.0002	0.0000	0.0000
+document	claim file | __reports__/reflective_run/w04/author-w04-3/e3c	1	1	48	0.0001	0.0000	0.0000
+document	other document | __reports__/wave-05/explorer-w05-e	2	1	27	0.0001	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-04-reproducer-w04-6.md	1	1	36	0.0001	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-05-reproducer-w05-4.md	1	1	34	0.0001	0.0000	0.0000
+document	brief protocol (skills/agents/templates) | agents/$f.md	1	1	23	0.0001	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-07-reproducer-w07-3.md	1	1	39	0.0001	0.0000	0.0000
+document	report | __reports__/wave-07/author-w07-4/00-tables.md	2	1	10	0.0001	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-05-reproducer-w05-1.md	1	1	34	0.0001	0.0000	0.0000
+document	claim file | __instrumenta__/w07c1_recheck.py	1	1	32	0.0001	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-05-reproducer-w05-8.md	1	1	12	0.0000	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-04-reproducer-w04-2.md	1	1	12	0.0000	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-04-reproducer-w04-3.md	1	1	12	0.0000	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-05-reproducer-w05-3.md	1	1	11	0.0000	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-05-reproducer-w05-6.md	1	1	13	0.0000	0.0000	0.0000
+script	__instrumenta__/w07c2_q2_run.py	1	1	3	0.0000	0.0000	0.0000
+document	claim file | agents/research-pi.md	1	1	6	0.0000	0.0000	0.0000
+document	puzzle file | __instrumenta__/cmd_cost_interleaved.py	1	1	3	0.0000	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-07-explorer-w07-g.md	1	1	7	0.0000	0.0000	0.0000
+document	report | __reports__/wave-06/explorer-w06-a/00-findings_v0.md	1	1	5	0.0000	0.0000	0.0000
+document	report | __reports__/wave-07/explorer-w07-b/audit_judgments.md	1	1	3	0.0000	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-05-reproducer-w05-5.md	1	1	2	0.0000	0.0000	0.0000
+document	claim file | runs2.jsonl	1	1	2	0.0000	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-04-reproducer-w04-10.md	1	1	2	0.0000	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-07-reproducer-w07-2.md	1	1	2	0.0000	0.0000	0.0000
+script	__instrumenta__/w07c1_run.sh	1	1	1	0.0000	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-04-reproducer-w04-4.md	1	1	1	0.0000	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-04-reproducer-w04-5.md	1	1	1	0.0000	0.0000	0.0000
+document	puzzle file | __scrupuli__/wave-06-reproducer-w06-2.md	1	1	1	0.0000	0.0000	0.0000
+document	other document | __reports__/wave-07/explorer-w07-e	1	1	1	0.0000	0.0000	0.0000
+document	report data (tsv/json/py) | __reports__/wave-05/explorer-w05-a/wave4_gantt.png	2	1	0	0.0000	0.0000	0.0000

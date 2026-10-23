@@ -1,0 +1,12 @@
+# runs/think-high-1.jsonl requests 7 tool results chars [3, 5, 1, 20, 3, 2]
+k	ctx	cr	cw	out	think	text_ch	tool_ch	sig_ch	usd	growth_to_next	stop
+0	41700	24219	17479	418	343	0	54	2160	0.0765	448	tool_use
+1	42148	41698	448	108	32	0	56	904	0.0070	139	tool_use
+2	42287	42146	139	203	128	0	52	1084	0.0068	233	tool_use
+3	42520	42285	233	151	67	0	71	968	0.0067	190	tool_use
+4	42710	42518	190	107	32	0	54	948	0.0061	167	tool_use
+5	42877	42708	167	386	288	58	53	1720	0.0088	416	tool_use
+6	43293	42875	416	3	0	4	0	0	0.0060		end_turn
+# runs/resume-high-1.jsonl requests 1 tool results chars []
+k	ctx	cr	cw	out	think	text_ch	tool_ch	sig_ch	usd	growth_to_next	stop
+0	43522	43291	229	3	0	1	0	0	0.0053		end_turn

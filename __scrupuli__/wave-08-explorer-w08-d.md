@@ -1,0 +1,19 @@
+## S-w08-explorer-w08-d-1
+A cache write that was not read 8 minutes later. s1 (waves 1-3 PI) request 289 came after a 4,231 s pause and re-wrote the whole 117,588-token context (cache_creation 128,612, 1-hour tier). Request 290, 480 s later, read only 50,455 tokens (the same number the cache read at request 276, so probably the system prefix has its own cache entry) and wrote 80,215 again. So the full re-write was paid twice (about USD 0.64 for the second), with a 1-hour tier that should have lasted. No other request in the 1,116 shows this. I do not know whether it is a breakpoint effect of the harness, a changed prefix (the skill listing was injected again at request 289 in s1), or a record artifact.
+refs: `__reports__/wave-08/explorer-w08-d/s1_w1-3_requests.tsv` rows k = 288-291 (columns ctx, cr, cw1, gap_s); `tables.md` section 5(f), first two rows; skill listing item at step 289 in `s1_w1-3_items.tsv`.
+
+## S-w08-explorer-w08-d-2
+A cache hit after 86 minutes under a 1-hour cache. s4 (wave 6 PI, `74fa512e`) request 58 started 10:19:54, 5,198 s after request 57 ended (08:53:15), and read 196,162 of 196,164 previous tokens. Of 7 gaps over an hour, 6 missed completely (cache read 0) and this one hit. Either the TTL is not exactly one hour (refreshed by something that is not a PI request, such as a subagent whose prefix is shared, or a title or summary request), or the record timestamps are not the API times. If the cache can live longer when workers run, the PI's pause cost depends on what the workers do, and the miss table (7 requests, USD 14.17) is not a function of the PI's own gap alone.
+refs: `__reports__/wave-08/explorer-w08-d/s4_w6_requests.tsv` rows k = 56-59; the six misses in `tables.md` section 4.
+
+## S-w08-explorer-w08-d-3
+The "own thinking carried" bucket (USD 18.76, 13% of PI spend) is not text in any record; it is the residual of the context growth, and it correlates 0.85-0.94 with billed output minus visible text with slope about 1. If thinking blocks were dropped between turns this bucket would not exist, and the PI's own words would be 31% instead of 44%. The s5 residual (180k tokens) exceeds billed-minus-visible (126k) by 54k with no explanation: 174 total_tokens reminders, 6 silent-turn reminders and framing are my guess. A direct count (one request with the token-count endpoint on the stored messages) would settle it; I did not call it.
+refs: `tables.md` section 2b; `s5_w7_items.tsv` rows with tool = residual.
+
+## S-w08-explorer-w08-d-4
+A larger share of the PI's money goes to waking it than to any file it reads: 345 requests woken by a worker message or notification cost USD 45.77 (31.7% of the total), 82 of them end without a tool call (USD 9.42), and 19 child-session turn-end notes woke the PI for USD 1.98 with no action in 17 cases. The brief asked about "fewer requests per dispatch batch"; dispatch requests are cheap (strict 10 absorbable requests, USD 0.75) but the requests after dispatch are not. I could not separate the wakes the PI needed from the ones it did not (an acknowledgement before a wait is an action). How many of the 345 are delivered in separate requests although the messages arrived within seconds of each other is not measured.
+refs: `tables.md` section 4, "what woke the PI"; `sN_*_requests.tsv` columns gap_cause, tools, out.
+
+## S-w08-explorer-w08-d-5
+The brief's USD 142.97 and the figure I reproduce (144.47) differ only by this session's growth, but the lab's own "first turn is 21-32% of PI spend" (synthesis row 29) does not reproduce as written: USD up to and including the first dispatch is 3.5-21% of each session, while items that entered by then cost 15-43% over the whole session (70% for the unfinished s6). Both readings are defensible and give different answers to "what is the preface worth"; the row should say which one it means.
+refs: `tables.md` section 2c; `__statera__/synthesis.md` line 613.

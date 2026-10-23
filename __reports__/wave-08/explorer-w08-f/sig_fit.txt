@@ -1,0 +1,2 @@
+n=162 requests; thinking_tokens = 0.3278*signature_chars + -264.3 ; R2 0.9615 ; resid sd 40.2 tokens ; through origin: 0.1545 tokens/char (6.47 chars/token)
+signature chars range 856-6560, thinking tokens range 8-2122

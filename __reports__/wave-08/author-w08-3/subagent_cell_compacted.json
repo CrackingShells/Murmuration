@@ -1,0 +1,32 @@
+{
+ "name": "sub_comp",
+ "window": "120000",
+ "wall_s": 68.2,
+ "precompact_events": 2,
+ "payload_keys": [
+  "custom_instructions",
+  "cwd",
+  "hook_event_name",
+  "prompt_id",
+  "scratchpad_dir",
+  "session_id",
+  "transcript_path",
+  "trigger"
+ ],
+ "payload_has_agent_id": false,
+ "transcript_tails": [
+  "ells-sub-comp-lab/4750439b-1591-4033-896d-9e17661aa7c2.jsonl",
+  "ells-sub-comp-lab/4750439b-1591-4033-896d-9e17661aa7c2.jsonl"
+ ],
+ "forked_compactions": 2,
+ "hook_settled_ms": [
+  "65.9",
+  "55.8"
+ ],
+ "score": {
+  "name": true,
+  "claim": true,
+  "verifier": true,
+  "g": true
+ }
+}

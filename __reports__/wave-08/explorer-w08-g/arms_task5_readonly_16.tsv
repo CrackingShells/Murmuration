@@ -1,0 +1,13 @@
+run	arm	requests	tool_calls	calls_per_request	calls_by_request	cache_read_tokens	answer	verdict	correct	sonnet_out	sonnet_thinking	subagent_usd_recomputed	sonnet_usd_result_record	haiku_usd
+V-base-1	base	4	19	4.75	2,16,0,1	27987	shard_10.csv,shard_13.csv	OVERSTATED	True	2356	346	0.0407	0.0429	0.0054
+V-base-2	base	4	20	5.00	2,1,16,1	24437	shard_10.csv,shard_13.csv	OVERSTATED	True	2299	478	0.0342	0.0414	0.0053
+V-base-3	base	4	20	5.00	2,1,16,1	24232	shard_10.csv,shard_13.csv	OVERSTATED	True	2565	535	0.0340	0.0439	0.0054
+V-base-4	base	4	6	1.50	2,1,2,1	24285	shard_10.csv,shard_13.csv	OVERSTATED	True	1471	637	0.0166	0.0251	0.0055
+V-lever1-1	lever1	4	20	5.00	2,1,16,1	23280	shard_10.csv,shard_13.csv	OVERSTATED	True	2148	294	0.0376	0.0429	0.0053
+V-lever1-2	lever1	5	6	1.20	2,1,2,0,1	32396	shard_10.csv,shard_13.csv	OVERSTATED	True	1444	339	0.0217	0.0267	0.0053
+V-lever1-3	lever1	4	20	5.00	2,1,16,1	24431	shard_10.csv,shard_13.csv	OVERSTATED	True	2402	464	0.0342	0.0424	0.0054
+V-lever1-4	lever1	3	19	6.33	2,16,1	17391	shard_10.csv,shard_13.csv	OVERSTATED	True	2024	394	0.0334	0.0372	0.0053
+
+arm	n	mean_requests	mean_tool_calls	mean_calls_per_request	mean_cache_read_tokens	mean_thinking	mean_subagent_usd	min-max_usd	correct
+base	4	4.00	16.25	4.06	25235	499	0.0314	0.0166-0.0407	4/4
+lever1	4	4.00	16.25	4.38	24374	373	0.0317	0.0217-0.0376	4/4

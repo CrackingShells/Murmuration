@@ -49,11 +49,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3",
+            "command": "${CLAUDE_PLUGIN_DATA}/bin/murmuration",
             "args": [
-              "-S",
-              "-I",
-              "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py",
               "budget"
             ],
             "timeout": 10
@@ -396,11 +393,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3",
+            "command": "${CLAUDE_PLUGIN_DATA}/bin/murmuration",
             "args": [
-              "-S",
-              "-I",
-              "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py",
               "budget"
             ],
             "timeout": 10
@@ -412,11 +406,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3",
+            "command": "${CLAUDE_PLUGIN_DATA}/bin/murmuration",
             "args": [
-              "-S",
-              "-I",
-              "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py",
               "handback"
             ],
             "timeout": 10
@@ -429,11 +420,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3",
+            "command": "${CLAUDE_PLUGIN_DATA}/bin/murmuration",
             "args": [
-              "-S",
-              "-I",
-              "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py",
               "budget"
             ],
             "timeout": 10
@@ -445,11 +433,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3",
+            "command": "${CLAUDE_PLUGIN_DATA}/bin/murmuration",
             "args": [
-              "-S",
-              "-I",
-              "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py",
               "handback"
             ],
             "timeout": 10
@@ -462,22 +447,16 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3",
+            "command": "${CLAUDE_PLUGIN_DATA}/bin/murmuration",
             "args": [
-              "-S",
-              "-I",
-              "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py",
               "handback"
             ],
             "timeout": 10
           },
           {
             "type": "command",
-            "command": "python3",
+            "command": "${CLAUDE_PLUGIN_DATA}/bin/murmuration",
             "args": [
-              "-S",
-              "-I",
-              "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py",
               "budget"
             ],
             "timeout": 10
@@ -490,11 +469,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3",
+            "command": "${CLAUDE_PLUGIN_DATA}/bin/murmuration",
             "args": [
-              "-S",
-              "-I",
-              "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py",
               "budget"
             ],
             "timeout": 10

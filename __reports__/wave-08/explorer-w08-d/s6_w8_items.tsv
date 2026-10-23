@@ -1,0 +1,149 @@
+step	cat	tool	label	chars	tokens	n_reads	usd_write_fresh	usd_read	usd_rewrite
+0	injected: hook_success	attachment	hook_success	1118	459.231108	28	0.003674	0.002572	0.0
+0	injected: hook_success	attachment	hook_success	1148	471.553947	28	0.003772	0.002641	0.0
+0	injected: hook_additional_context	attachment	hook_additional_context	2108	865.884773	28	0.006927	0.004849	0.0
+0	user message	user	human	434	178.270394	28	0.001426	0.000998	0.0
+0	injected: skill text (invoked skill)	user	skill	10110	4152.796516	28	0.033222	0.023256	0.0
+0	injected: environment	attachment	environment	523	214.828148	28	0.001719	0.001203	0.0
+0	injected: model	attachment	model	258	105.97641	28	0.000848	0.000593	0.0
+0	injected: deferred_tools_delta	attachment	deferred_tools_delta	19487	8004.505015	28	0.064035	0.044825	0.0
+0	injected: agent_listing_delta	attachment	agent_listing_delta	8168	3355.098115	28	0.02684	0.018789	0.0
+0	injected: mcp_instructions_delta	attachment	mcp_instructions_delta	4402	1808.171144	28	0.014465	0.010126	0.0
+0	injected: skill_listing	attachment	skill_listing	29971	12310.926248	28	0.098485	0.068941	0.0
+0	injected: auto_mode	attachment	auto_mode	163	66.954088	28	0.000536	0.000375	0.0
+0	injected: command_permissions	attachment	command_permissions	51	20.948825	28	0.000168	0.000117	0.0
+0	injected: instructions	attachment	instructions	1895	778.392621	28	0.006227	0.004359	0.0
+0	injected: session_context	attachment	session_context	327	134.318938	28	0.001075	0.000752	0.0
+0	injected: date	attachment	date	38	15.608929	28	0.000125	8.7e-05	0.0
+0	injected: remote_session_change	attachment	remote_session_change	269	110.494784	28	0.000884	0.000619	0.0
+0	system prompt + tool defs + CLAUDE.md (not in transcript)	prefix	residual of request 0	0	17169.039999	28	0.13735	0.096146	1.6e-05
+1	own output: tool calls (Bash/Read/...)	assistant	tool_use	748	279.04568	27	0.002232	0.001507	0.0
+1	other MCP tool result	mcp__ccd_turn__update_plan		21	7.83417	27	6.3e-05	4.2e-05	0.0
+1	Read: skill/reference	Read	<id>.md	2595	968.079597	27	0.007744	0.005228	0.0
+1	Bash: git	Bash		6843	2552.820301	27	0.020421	0.013785	0.0
+1	injected: deferred_tools_delta	attachment	deferred_tools_delta	16748	6247.937221	27	0.049979	0.033739	0.0
+1	injected: mcp_instructions_delta	attachment	mcp_instructions_delta	1477	551.0033	27	0.004408	0.002975	0.0
+1	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	18.27973	27	0.000146	9.8e-05	1.6e-05
+2	own output: tool calls (Bash/Read/...)	assistant	tool_use	195	70.69542	26	0.000565	0.000368	0.0
+2	Bash: git	Bash		9297	3370.54009	26	0.026957	0.017527	0.0
+2	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	17.76449	26	0.000142	9.2e-05	1.6e-05
+3	own output: tool calls (Bash/Read/...)	assistant	tool_use	243	99.81499	25	0.000798	0.000499	0.0
+3	Read: design (framing)	Read	<id>.md	9193	3776.128424	25	0.030202	0.018881	0.0
+3	Bash: grep/ls/find/jq	Bash		798	327.787499	25	0.002622	0.001639	0.0
+3	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	25	0.000161	0.000101	0.0
+3	unattributed step residual (thinking, framing, reminders)	residual	residual	0	133.141783	25	0.001065	0.000665	1.6e-05
+4	own output: tool calls (Bash/Read/...)	assistant	tool_use	203	83.384539	24	0.000666	0.0004	0.0
+4	Bash: file view (cat/sed/head/tail)	Bash		2258	927.498965	24	0.007413	0.004452	0.0
+4	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	24	0.000161	9.7e-05	0.0
+4	unattributed step residual (thinking, framing, reminders)	residual	residual	0	80.989193	24	0.000647	0.000388	1.6e-05
+5	own output: tool calls (Bash/Read/...)	assistant	tool_use	103	40.572007	23	0.000325	0.000187	0.0
+5	Bash: file view (cat/sed/head/tail)	Bash		15563	6130.312061	23	0.049035	0.028199	0.0
+5	injected: silent_turn_reminder	attachment	silent_turn_reminder	96	37.814686	23	0.000302	0.000174	0.0
+5	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	19.301246	23	0.000154	8.8e-05	1.6e-05
+6	own output: text	assistant	text	146	59.971147	22	0.00048	0.000264	0.0
+6	own output: tool calls (Bash/Read/...)	assistant	tool_use	167	68.597133	22	0.000549	0.000302	0.0
+6	Bash: lab_status.py	Bash		4901	2013.141021	22	0.016098	0.008858	0.0
+6	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	22	0.000161	8.9e-05	0.0
+6	unattributed step residual (thinking, framing, reminders)	residual	residual	0	41.163396	22	0.000329	0.000181	1.6e-05
+7	own output: tool calls (Bash/Read/...)	assistant	tool_use	204	83.795301	21	0.00067	0.000352	0.0
+7	Bash: lab_status.py	Bash		9106	3740.392193	21	0.029916	0.01571	0.0
+7	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	21	0.000161	8.5e-05	0.0
+7	unattributed step residual (thinking, framing, reminders)	residual	residual	0	653.685204	21	0.005228	0.002745	1.6e-05
+8	own output: tool calls (Bash/Read/...)	assistant	tool_use	430	170.509021	20	0.001364	0.000682	0.0
+8	Bash: file view (cat/sed/head/tail)	Bash		4974	1972.35319	20	0.015775	0.007889	0.0
+8	Bash: file view (cat/sed/head/tail)	Bash		4468	1771.707691	20	0.01417	0.007087	0.0
+8	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	19.430098	20	0.000155	7.7e-05	1.6e-05
+9	own output: tool calls (Bash/Read/...)	assistant	tool_use	271	111.316306	19	0.00089	0.000423	0.0
+9	Bash: git (write)	Bash		1851	760.319125	19	0.006079	0.002889	0.0
+9	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	19	0.000161	7.6e-05	0.0
+9	unattributed step residual (thinking, framing, reminders)	residual	residual	0	650.237267	19	0.005199	0.002471	1.6e-05
+10	own output: tool calls (Bash/Read/...)	assistant	tool_use	190	75.37435	18	0.000603	0.000271	0.0
+10	Bash: file view (cat/sed/head/tail)	Bash		5531	2194.187002	18	0.017546	0.007899	0.0
+10	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	19.438648	18	0.000155	7e-05	1.6e-05
+11	own output: tool calls (Bash/Read/...)	assistant	tool_use	407	167.17984	17	0.001337	0.000568	0.0
+11	Bash: git	Bash		662	271.923966	17	0.002174	0.000925	0.0
+11	injected: environment	attachment	environment	659	270.691682	17	0.002164	0.00092	0.0
+11	injected: silent_turn_reminder	attachment	silent_turn_reminder	96	39.433083	17	0.000315	0.000134	0.0
+11	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	17	0.000161	6.8e-05	0.0
+11	unattributed step residual (thinking, framing, reminders)	residual	residual	0	883.644127	17	0.007065	0.003004	1.6e-05
+12	own output: text	assistant	text	82	33.682425	16	0.000269	0.000108	0.0
+12	own output: tool calls (Bash/Read/...)	assistant	tool_use	488	200.451503	16	0.001603	0.000641	0.0
+12	Bash: grep/ls/find/jq	Bash		2348	964.46748	16	0.007712	0.003086	0.0
+12	injected: environment	attachment	environment	658	270.280921	16	0.002161	0.000865	0.0
+12	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	16	0.000161	6.4e-05	0.0
+12	unattributed step residual (thinking, framing, reminders)	residual	residual	0	465.990369	16	0.003726	0.001491	1.6e-05
+13	own output: tool calls (Bash/Read/...)	assistant	tool_use	200	82.152256	15	0.000655	0.000246	0.0
+13	Bash: grep/ls/find/jq	Bash		252	103.511842	15	0.000826	0.000311	0.0
+13	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	15	0.000161	6e-05	0.0
+13	unattributed step residual (thinking, framing, reminders)	residual	residual	0	140.2086	15	0.001118	0.00042	1.6e-05
+14	own output: tool calls (Bash/Read/...)	assistant	tool_use	233	95.707378	14	0.000765	0.000268	0.0
+14	Bash: grep/ls/find/jq	Bash		2277	935.303429	14	0.007481	0.002619	0.0
+14	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	14	0.000161	5.6e-05	0.0
+14	unattributed step residual (thinking, framing, reminders)	residual	residual	0	3483.861891	14	0.027865	0.009754	1.6e-05
+15	own output: tool calls (Bash/Read/...)	assistant	tool_use	664	272.745488	13	0.002181	0.000709	0.0
+15	Bash: grep/ls/find/jq	Bash		3337	1370.710383	13	0.010961	0.003564	0.0
+15	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	13	0.000161	5.2e-05	0.0
+15	unattributed step residual (thinking, framing, reminders)	residual	residual	0	568.416826	13	0.004545	0.001477	1.6e-05
+16	own output: tool calls (Bash/Read/...)	assistant	tool_use	311	127.746757	12	0.001022	0.000307	0.0
+16	Bash: grep/ls/find/jq	Bash		1666	684.328288	12	0.005473	0.001642	0.0
+16	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	12	0.000161	4.8e-05	0.0
+16	unattributed step residual (thinking, framing, reminders)	residual	residual	0	2116.797652	12	0.016929	0.00508	1.6e-05
+17	own output: tool calls (Bash/Read/...)	assistant	tool_use	256	105.154887	11	0.000839	0.000231	0.0
+17	Bash: lab_status.py	Bash		222	91.189004	11	0.000728	0.000201	0.0
+17	injected: silent_turn_reminder	attachment	silent_turn_reminder	96	39.433083	11	0.000315	8.7e-05	0.0
+17	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	11	0.000161	4.4e-05	0.0
+17	unattributed step residual (thinking, framing, reminders)	residual	residual	0	174.095724	11	0.00139	0.000383	1.6e-05
+18	own output: text	assistant	text	127	50.018984	10	0.0004	0.0001	0.0
+18	own output: Write/Edit content	assistant	write/edit input	3363	1324.518449	10	0.010589	0.002649	0.0
+18	Write/Edit echo	Write	<id>.md	201	79.163904	10	0.000633	0.000158	0.0
+18	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	19.298663	10	0.000154	3.8e-05	1.6e-05
+19	own output: tool calls (Bash/Read/...)	assistant	tool_use	189	77.633881	9	0.000621	0.00014	0.0
+19	Bash: file view (cat/sed/head/tail)	Bash		5585	2294.101735	9	0.018345	0.004129	0.0
+19	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	9	0.000161	3.6e-05	0.0
+19	unattributed step residual (thinking, framing, reminders)	residual	residual	0	41.137081	9	0.000329	7.4e-05	1.6e-05
+20	own output: tool calls (Bash/Read/...)	assistant	tool_use	628	257.958082	8	0.002063	0.000413	0.0
+20	other MCP tool result	mcp__ccd_session__mark_chapter		70	28.753289	8	0.00023	4.6e-05	0.0
+20	Bash: grep/ls/find/jq	Bash		3702	1520.638249	8	0.012163	0.002433	0.0
+20	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	8	0.000161	3.2e-05	0.0
+20	unattributed step residual (thinking, framing, reminders)	residual	residual	0	3606.523076	8	0.028847	0.00577	1.6e-05
+21	own output: tool calls (Bash/Read/...)	assistant	tool_use	228	93.653571	7	0.000748	0.000131	0.0
+21	Bash: python/script	Bash		754	309.714003	7	0.002475	0.000434	0.0
+21	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	7	0.000161	2.8e-05	0.0
+21	unattributed step residual (thinking, framing, reminders)	residual	residual	0	346.505123	7	0.002768	0.000485	1.6e-05
+22	own output: dispatch briefs/messages (Agent/SendMessage)	assistant	agent/send input	20942	8259.027855	6	0.066066	0.009911	0.0
+22	Agent/SendMessage tool result	Agent		1115	439.729542	6	0.003518	0.000528	0.0
+22	Agent/SendMessage tool result	Agent		1115	439.729542	6	0.003518	0.000528	0.0
+22	Agent/SendMessage tool result	Agent		1115	439.729542	6	0.003518	0.000528	0.0
+22	Agent/SendMessage tool result	Agent		1115	439.729542	6	0.003518	0.000528	0.0
+22	Agent/SendMessage tool result	Agent		1115	439.729542	6	0.003518	0.000528	0.0
+22	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	19.324437	6	0.000155	2.3e-05	1.6e-05
+23	own output: tool calls (Bash/Read/...)	assistant	tool_use	389	159.786137	5	0.001277	0.00016	0.0
+23	own output: Write/Edit content	assistant	write/edit input	893	366.809821	5	0.002932	0.000367	0.0
+23	Write/Edit echo	Edit	<id>.md	211	86.67063	5	0.000693	8.7e-05	0.0
+23	Bash: git (write)	Bash		165	67.775611	5	0.000542	6.8e-05	0.0
+23	injected: silent_turn_reminder	attachment	silent_turn_reminder	96	39.433083	5	0.000315	3.9e-05	0.0
+23	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	5	0.000161	2e-05	0.0
+23	unattributed step residual (thinking, framing, reminders)	residual	residual	0	520.397417	5	0.00416	0.00052	1.6e-05
+24	own output: text	assistant	text	161	66.132566	4	0.000529	5.3e-05	0.0
+24	own output: tool calls (Bash/Read/...)	assistant	tool_use	392	161.018421	4	0.001288	0.000129	0.0
+24	Bash: grep/ls/find/jq	Bash		3052	1253.643419	4	0.010025	0.001003	0.0
+24	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	4	0.000161	1.6e-05	0.0
+24	unattributed step residual (thinking, framing, reminders)	residual	residual	0	712.078292	4	0.005694	0.000569	1.6e-05
+25	own output: tool calls (Bash/Read/...)	assistant	tool_use	146	59.971147	3	0.00048	3.6e-05	0.0
+25	own output: thinking (recorded)	assistant	thinking	240	98.582707	3	0.000788	5.9e-05	0.0
+25	Bash: grep/ls/find/jq	Bash		5688	2336.410146	3	0.018685	0.001402	0.0
+25	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	3	0.000161	1.2e-05	0.0
+25	unattributed step residual (thinking, framing, reminders)	residual	residual	0	581.908698	3	0.004654	0.000349	1.6e-05
+26	own output: tool calls (Bash/Read/...)	assistant	tool_use	112	45.593896	2	0.000365	1.8e-05	0.0
+26	Bash: file view (cat/sed/head/tail)	Bash		7965	3242.458774	2	0.025932	0.001297	0.0
+26	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	19.94733	2	0.00016	8e-06	1.6e-05
+27	own output: Write/Edit content	assistant	write/edit input	866	355.719266	1	0.002843	7.1e-05	0.0
+27	own output: thinking (recorded)	assistant	thinking	261	107.208693	1	0.000857	2.1e-05	0.0
+27	Write/Edit echo	Edit	<id>.md	211	86.67063	1	0.000693	1.7e-05	0.0
+27	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	1	0.000161	4e-06	0.0
+27	unattributed step residual (thinking, framing, reminders)	residual	residual	0	646.274108	1	0.005166	0.000129	1.6e-05
+28	own output: tool calls (Bash/Read/...)	assistant	tool_use	86	35.32547	0	0.000282	0.0	0.0
+28	other MCP tool result	mcp__ccd_turn__update_plan		76	31.217857	0	0.000249	0.0	0.0
+28	other MCP tool result	mcp__ccd_turn__update_plan		76	31.217857	0	0.000249	0.0	0.0
+28	injected: total_tokens_reminder	attachment	total_tokens_reminder	49	20.127303	0	0.000161	0.0	0.0
+28	unattributed step residual (thinking, framing, reminders)	residual	residual	0	388.111513	0	0.003099	0.0	0.0

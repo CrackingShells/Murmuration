@@ -1,0 +1,18 @@
+calibration (OLS of context growth between consecutive requests on characters of new items by class, the previous turn's tool-call input characters, thinking characters and text characters, and a constant; intervals without a ToolSearch result; n=3544):
+  readdoc   fitted 0.426 tokens/char (2.35 chars/token), used 0.426
+  readsrc   fitted 0.425 tokens/char (2.35 chars/token), used 0.425
+  bashdoc   fitted 0.444 tokens/char (2.25 chars/token), used 0.444
+  bashsrc   fitted 0.434 tokens/char (2.31 chars/token), used 0.434
+  script    fitted 0.511 tokens/char (1.96 chars/token), used 0.511
+  git       fitted 0.450 tokens/char (2.22 chars/token), used 0.450
+  search    fitted 0.469 tokens/char (2.13 chars/token), used 0.469
+  web       fitted 0.351 tokens/char (2.85 chars/token), used 0.351
+  other     fitted 0.497 tokens/char (2.01 chars/token), used 0.497
+  msg       fitted 0.454 tokens/char (2.20 chars/token), used 0.454
+  harness   fitted 0.392 tokens/char (2.55 chars/token), used 0.392
+  hook      fitted 1.249 tokens/char (0.80 chars/token), used 0.550
+  tool-call input 0.421 tokens/char; thinking (signature+text) 0.291 tokens/char; text 0.425 tokens/char; constant per turn 0 tokens
+  R2 = 0.989
+
+workers 68, requests 3685, elements 19601
+sum of attributed USD 83.6934; recorded input-side USD (cache read + write + input) 83.6934; intervals with shrinking context 0; requests whose element sizes needed rescaling by more than 2%: 0 of 3685

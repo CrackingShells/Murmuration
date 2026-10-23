@@ -1,0 +1,9 @@
+loose-absorbed worker requests: 95; thinking carry USD 1.310; read USD 0.942
+with thinking tokens capped per request at 2000 / 1000 / 500: carry USD 0.735 / 0.544 / 0.386
+requests with a thinking block: 78; median thinking tokens (est.) of those: 256
+five largest carry contributions (USD, est. thinking tokens, worker, request index, signature chars):
+  0.370	15109	author-w06-4	5	46900
+  0.171	6433	author-w06-5	99	20432
+  0.135	8855	abeaf67df0d0b12f7	2	27820
+  0.066	2633	author-w05-3	10	8840
+  0.044	2162	a4bf5d14740bab988	18	7404

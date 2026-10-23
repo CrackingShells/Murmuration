@@ -1,0 +1,16 @@
+command_group	results	usd	share_of_all_context_usd
+worker's own code (inline python)	947	6.3218	0.0755
+cat document	275	4.1537	0.0496
+sed/head/tail/wc/awk/cut/jq/diff source code	210	3.8181	0.0456
+lab script run	470	3.0675	0.0367
+sed/head/tail/wc/awk/cut/jq/diff document	197	3.0668	0.0366
+cat source code	163	2.8823	0.0344
+other shell	348	1.5811	0.0189
+grep (shell)	192	1.2713	0.0152
+worker's own code (scratch script)	136	0.9534	0.0114
+git	171	0.8517	0.0102
+sed/head/tail/wc/awk/cut/jq/diff data/scratch file	79	0.7289	0.0087
+cat data/scratch file	99	0.3336	0.0040
+ls	20	0.1759	0.0021
+find (shell)	19	0.1373	0.0016
+colgrep (shell)	6	0.0065	0.0001

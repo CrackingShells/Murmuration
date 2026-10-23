@@ -1,0 +1,30 @@
+source	items	tokens	usd_write	usd_read	usd_rewrite	usd
+billed output (all sessions)	1123	0	0.0000	0.0000	0.0000	23.1061
+own thinking carried in context (inferred: step residual, see section 2b)	852	567364	4.5326	11.6140	2.6110	18.7576
+injected: skill listing (re-entered)	29	324835	2.5943	11.6506	0.5360	14.7809
+worker hand-back messages (peer) 	187	379909	3.0369	8.5341	0.9787	12.5497
+own output: tool calls	724	306494	2.4494	5.3701	1.1776	8.9970
+system prompt + tool definitions (prefix, not in transcript)	7	189459	1.5156	6.4188	0.5161	8.4506
+own output: dispatch briefs and messages	148	179892	1.4386	4.3436	0.5395	6.3216
+post-compaction context (summary + prefix)	1	91499	0.3283	2.0515	3.2563	5.6361
+tool result: Bash file view (cat/sed/head/tail)	80	133324	1.0663	3.7152	0.4745	5.2560
+tool result: git	219	135053	1.0800	3.4831	0.6921	5.2552
+injected: deferred tools / agent listing / MCP instructions	48	126641	0.9365	3.7982	0.3053	5.0400
+task notifications (worker done)	215	135319	1.0822	3.5874	0.3045	4.9741
+tool result: Bash python/script/gh/other/write	150	140414	1.1229	3.2704	0.5787	4.9720
+own output: Write/Edit content	57	106027	0.8479	2.2037	0.4161	3.4677
+tool result: lab_status.py	116	95066	0.7603	1.6907	0.4070	2.8579
+own output: text	468	93582	0.7476	1.6709	0.3842	2.8027
+tool result: search (Glob/Grep/colgrep, grep/ls/find/jq)	82	69221	0.5353	1.6837	0.2346	2.4536
+tool result: Agent/SendMessage (dispatch ack)	194	58932	0.4713	1.4500	0.1629	2.0842
+tool result: Read of a document/code	15	42531	0.3402	1.4396	0.1048	1.8846
+injected: hooks, CLAUDE.md files, environment, other	145	45837	0.3518	1.2145	0.0998	1.6661
+injected: invoked skill text	9	25839	0.2067	0.6958	0.0530	0.9555
+injected: system reminders (linked sessions, total_tokens, silent turn)	983	26210	0.1887	0.6046	0.1020	0.8953
+own output: recorded thinking text	117	12630	0.1010	0.2445	0.0408	0.3863
+tool result: other MCP/web/other tools	119	9963	0.0796	0.1432	0.1064	0.3292
+user messages	36	7978	0.0638	0.1397	0.0390	0.2425
+tool result: Write/Edit echo	67	5952	0.0476	0.1229	0.0296	0.2001
+child-session notes (a session the PI started finished a turn)	19	12198	0.0975	0.0118	0.0421	0.1513
+uncached input (all sessions)	0	0	0.0000	0.0000	0.0000	0.0104
+tool result: ToolSearch schemas	10	0	0.0000	0.0000	0.0000	0.0000
