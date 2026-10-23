@@ -1,0 +1,25 @@
+n=1 scheme=distinct orders=2 starts=2 violations=0
+n=2 scheme=distinct orders=40 starts=80 violations=3
+   violation: P0 P1 S1 A0 A1 S0 [('start', 'x0', 'murmuration-explorer-x0', None)]
+   violation: P0 P1 S1 A1 S0 A0 [('start', 'x0', 'murmuration-explorer-x0', None)]
+   violation: P0 P1 S1 A1 A0 S0 [('start', 'x0', 'murmuration-explorer-x0', None)]
+n=2 scheme=figs     orders=40 starts=80 violations=3
+   violation: P0 P1 S1 A0 A1 S0 [('start', 'x0', 'murmuration-explorer-x0', None)]
+   violation: P0 P1 S1 A1 S0 A0 [('start', 'x0', 'murmuration-explorer-x0', None)]
+   violation: P0 P1 S1 A1 A0 S0 [('start', 'x0', 'murmuration-explorer-x0', None)]
+n=2 scheme=dup      orders=40 starts=80 violations=3
+   violation: P0 P1 S1 A0 A1 S0 [('start', 'x0', 'murmuration-explorer-x0', None)]
+   violation: P0 P1 S1 A1 S0 A0 [('start', 'x0', 'murmuration-explorer-x0', None)]
+   violation: P0 P1 S1 A1 A0 S0 [('start', 'x0', 'murmuration-explorer-x0', None)]
+n=3 scheme=distinct orders=2240 starts=6720 violations=483
+   violation: P0 P1 P2 S0 S2 A0 A1 A2 S1 [('start', 'x1', 'murmuration-explorer-x1', None)]
+   violation: P0 P1 P2 S0 S2 A0 A2 S1 A1 [('start', 'x1', 'murmuration-explorer-x1', None)]
+   violation: P0 P1 P2 S0 S2 A0 A2 A1 S1 [('start', 'x1', 'murmuration-explorer-x1', None)]
+n=3 scheme=figs     orders=2240 starts=6720 violations=483
+   violation: P0 P1 P2 S0 S2 A0 A1 A2 S1 [('start', 'x1', 'murmuration-explorer-x1', None)]
+   violation: P0 P1 P2 S0 S2 A0 A2 S1 A1 [('start', 'x1', 'murmuration-explorer-x1', None)]
+   violation: P0 P1 P2 S0 S2 A0 A2 A1 S1 [('start', 'x1', 'murmuration-explorer-x1', None)]
+n=3 scheme=dup      orders=2240 starts=6720 violations=411
+   violation: P0 P1 P2 S0 S2 A0 A1 A2 S1 [('start', 'x1', 'murmuration-explorer-x1', None)]
+   violation: P0 P1 P2 S0 S2 A0 A2 S1 A1 [('start', 'x1', 'murmuration-explorer-x1', None)]
+   violation: P0 P1 P2 S0 S2 A0 A2 A1 S1 [('start', 'x1', 'murmuration-explorer-x1', None)]
