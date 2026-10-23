@@ -301,17 +301,22 @@ def run_proc(cmd, raw, now, env_extra, repo, timeout=60):
         return "timeout", b"", b""
 
 
-def run_scn(scn, impl, root, a):
-    base = os.path.join(root, scn.name)
-    shutil.rmtree(base, ignore_errors=True)
-    lab, sess = os.path.join(base, "lab"), os.path.join(base, "sess")
-    os.makedirs(os.path.join(sess, "subagents"))
-    os.makedirs(lab)
-    if not scn.nolab:
-        os.makedirs(os.path.join(lab, "__statera__"))
-    res = []
-    dlog = os.path.join(base, "delegate.log")
-    for i, st in enumerate(scn.steps):
+class Ctx:
+    """One implementation's lab and session folders for one scenario."""
+
+    def __init__(self, scn, impl, base, a):
+        self.scn, self.impl, self.a = scn, impl, a
+        shutil.rmtree(base, ignore_errors=True)
+        self.base = base
+        self.lab, self.sess = os.path.join(base, "lab"), os.path.join(base, "sess")
+        os.makedirs(os.path.join(self.sess, "subagents"))
+        os.makedirs(self.lab)
+        if not scn.nolab:
+            os.makedirs(os.path.join(self.lab, "__statera__"))
+        self.dlog = os.path.join(base, "delegate.log")
+
+    def do(self, st):
+        lab, sess, a = self.lab, self.sess, self.a
         kind = st[0]
         out = None
         if kind == "tx":
@@ -327,31 +332,46 @@ def run_scn(scn, impl, root, a):
         elif kind == "meta":
             json.dump(st[2], open(os.path.join(sess, "subagents", "agent-%s.meta.json" % st[1]), "w"))
         elif kind == "file":
-            p = os.path.join(lab, st[1]) if not st[1].startswith("__statera__") and not st[1].startswith("__reports__") else os.path.join(lab, st[1])
+            p = os.path.join(lab, st[1])
             if st[1].startswith(".harness"):
                 p = os.path.join(lab, "__statera__", st[1])
             os.makedirs(os.path.dirname(p), exist_ok=True)
-            open(p, "w", encoding="utf-8", errors="surrogatepass").write(subst(st[2], lab, sess))
+            body = subst(st[2], lab, sess)
+            if a.realclock:
+                body = body.replace(repr(NOW0), repr(time.time()))
+            open(p, "w", encoding="utf-8", errors="surrogatepass").write(body)
         else:
             which = st[1]
             if kind == "ev":
-                raw = json.dumps(subst(st[2], lab, sess)).encode("utf-8", "surrogatepass") if True else b""
+                raw = json.dumps(subst(st[2], lab, sess)).encode("utf-8", "surrogatepass")
             else:
                 raw = st[2].replace(b"{LAB}", lab.encode())
             now = st[3]
-            if impl == "py":
+            if self.impl == "py" and a.realclock:
+                cmd = [sys.executable, "-S", "-I", os.path.join(a.repo, "scripts", "run_hook.py"), which]
+            elif self.impl == "py":
                 cmd = [sys.executable, "-S", "-I", os.path.join(a.repo, "__instrumenta__", "w08c1_pyshim.py"), os.path.join(a.repo, "scripts"), which]
             else:
                 cmd = [a.rust, which]
-            rc, so, se = run_proc(cmd, raw, now, {"MURMURATION_DELEGATE_LOG": dlog, "MURMURATION_DELEGATE_SHIM": os.path.join(a.repo, "__instrumenta__", "w08c1_pyshim.py")}, a.repo)
-            out = (rc, so, se)
-        res.append((i, st[0], out, snap(lab)))
-    delegated = len(open(dlog).read().split()) if os.path.exists(dlog) else 0
-    return res, delegated
+            extra = {"MURMURATION_DELEGATE_LOG": self.dlog, "MURMURATION_DELEGATE_SHIM": os.path.join(a.repo, "__instrumenta__", "w08c1_pyshim.py")}
+            out = run_proc(cmd, raw, now, extra, a.repo)
+        return out, snap(lab)
+
+    def delegated(self):
+        return len(open(self.dlog).read().split()) if os.path.exists(self.dlog) else 0
+
+
+def run_scn(scn, impl, root, a):
+    ctx = Ctx(scn, impl, os.path.join(root, scn.name), a)
+    res = []
+    for i, st in enumerate(scn.steps):
+        out, sn = ctx.do(st)
+        res.append((i, st[0], out, sn))
+    return res, ctx.delegated()
 
 
 # the fields that follow the clock, compared within a tolerance in the real-clock pass
-TIMEY = {"active_s", "minutes_at", "t_frac", "acc", "run_start", "last_seen", "frac", "which", "used_at", "used"}
+TIMEY = {"active_s": 1.0, "acc": 1.0, "run_start": 1.0, "last_seen": 1.0, "minutes_at": 0.05, "t_frac": 0.001, "t": 1.0}
 
 
 def tol_equal(a, b, name):
@@ -371,10 +391,14 @@ def tol_equal(a, b, name):
             for k in x:
                 if k == "t" and isinstance(x[k], str):
                     continue
-                if k in TIMEY or k in ("t",):
+                if k == "which" and x[k] != y[k] and "t_frac" in x and "frac" in x and abs(x["t_frac"] - x["frac"]) <= 0.001:
+                    continue   # the two fractions are within the clock's noise of each other: which one decided is not fixed
+                if k in TIMEY:
                     if isinstance(x[k], (int, float)) and isinstance(y[k], (int, float)):
-                        if abs(x[k] - y[k]) > 30:   # the replay's two runs start seconds apart on the real clock
+                        if abs(x[k] - y[k]) > TIMEY[k]:   # the two implementations run back to back on the real clock
                             return False
+                    elif x[k] != y[k]:
+                        return False
                     continue
                 if x[k] != y[k]:
                     return False
@@ -412,10 +436,30 @@ def tol_stdout(a, b):
 
 
 def one(scn, a, root):
+    if a.realclock:
+        return one_lockstep(scn, a, root)
     ra, _ = run_scn(scn, "py", root, a)
     rb, deleg = run_scn(scn, "rs", root, a)
     steps_ev = sum(1 for s in scn.steps if s[0] in ("ev", "raw"))
     return scn, compare(scn, ra, rb, a.realclock), steps_ev, deleg
+
+
+def one_lockstep(scn, a, root):
+    """Real clock: both implementations run each step back to back (order alternating), in two folders; the folder names are normalized in what is compared."""
+    base = os.path.join(root, scn.name)
+    shutil.rmtree(base, ignore_errors=True)
+    cp, cr = Ctx(scn, "py", os.path.join(base, "py"), a), Ctx(scn, "rs", os.path.join(base, "rs"), a)
+    ra, rb = [], []
+    for i, st in enumerate(scn.steps):
+        first, second = (cp, cr) if i % 2 == 0 else (cr, cp)
+        o1 = first.do(st)
+        o2 = second.do(st)
+        oa, ob = (o1, o2) if first is cp else (o2, o1)
+        ra.append((i, st[0], oa[0], oa[1]))
+        rb.append((i, st[0], ob[0], ob[1]))
+    unpath = lambda r, ctx: [(i, k, None if o is None else (o[0], o[1].replace(ctx.base.encode(), b"BASE"), o[2].replace(ctx.base.encode(), b"BASE")), {n: v.replace(ctx.base.encode(), b"BASE") for n, v in sn.items()}) for i, k, o, sn in r]
+    steps_ev = sum(1 for x in scn.steps if x[0] in ("ev", "raw"))
+    return scn, compare(scn, unpath(ra, cp), unpath(rb, cr), True), steps_ev, cr.delegated()
 
 
 def main():
@@ -441,6 +485,8 @@ def main():
     chosen = [allt[i] for i in idx]
     scns = [threshold_scn("thr_auto"), threshold_scn("thr_default", mode="default"), raise_scn("raises"), time_scn("time10"), time_scn("time0_5", T=0.5, B=5), dispatch_scn("disp_plain"), dispatch_scn("disp_mixed", mixed=True), dispatch_scn("disp_expire", mixed=True, expire=True), dispatch_scn("disp_floor", floor=True)]
     scns += weird_budget_scns() + handback_scns() + malformed_scns() + fuzz_scns(60 if a.quick else a.fuzz, a.seed) + real_scns(chosen, a.seed, budget)
+    if a.realclock:
+        scns = [x for x in scns if not x.name.startswith("time")]
     scns.append(Scn("nolab_budget", [ev("budget", "SubagentStart", NOW0, aid="n1", atype="murmuration:author"), ev("budget", "PostToolBatch", NOW0 + 1, aid="n1", atype="murmuration:author")], nolab=True, group="nolab"))
     os.makedirs(a.out, exist_ok=True)
     root = os.path.join(a.scratch, "replay-real" if a.realclock else "replay-exact")
