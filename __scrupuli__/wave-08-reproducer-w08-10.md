@@ -17,3 +17,11 @@ refs: __instrumenta__/w08_v10_flags.json
 ## S-w08-reproducer-w08-10-5
 `bash -lc 'claude -p hi --bare'` is allowed on the baseline (plain form): the combined `-lc` is not read as `-c`. Not this claim's, not listed anywhere I saw.
 refs: /private/tmp/murmuration-w08/reproducer-w08-10/ex.py output, holes1.json shape bash_lc
+
+## S-w08-reproducer-w08-10-6
+w08-c13 states the work cap bites at nesting depth about 3,200; I measure G? at 2.4 s already for `$(echo ` x 1700 (13.6 KB) and not at 1400, so the boundary depends on characters per level (about 10M scanned chars), not on a depth. Harmless but the sentence in the claim is loose.
+refs: /private/tmp/murmuration-w08/reproducer-w08-10/sweep_13.py, c13/time.log
+
+## S-w08-reproducer-w08-10-7
+Branch commit b452702 (before 68ac4c1) carried the OLD binary: Python denied, Rust allowed 1,907 of my cases; the claim head named 6041223, then the branch was rebased twice. A reader who takes the "branch tip" at the wrong moment sees Python and Rust disagree. Landing needs the manifest check the installer already does.
+refs: /private/tmp/murmuration-w08/reproducer-w08-10/c13/holes.log (first run overwritten), git log of w08-c10-guardholes
