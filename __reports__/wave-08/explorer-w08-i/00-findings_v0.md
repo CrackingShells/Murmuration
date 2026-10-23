@@ -9,7 +9,7 @@ decision-required: confirm
 
 # What the lab's labels are worth and what verification buys, waves 1-8: findings (v0)
 
-Brief left in one place: the brief names `__instrumenta__/w07_ttl_by_type.py` as the script behind w07-c7's +USD 0.87; it is not (row 4 below). All scripts are `__instrumenta__/w08i_*.py@465c229` (uncommitted when this was written; committed with this report).
+Brief left in one place: the brief names `__instrumenta__/w07_ttl_by_type.py` as the script behind w07-c7's +USD 0.87; it is not (row 4 below). All scripts are `__instrumenta__/w08i_*.py@5bd5fdd`.
 
 ## Result
 Of 76 claims with a verdict, 38 (50%) were SUPPORTED the first time, 25 OVERSTATED and 13 ESCALATE; every one of the 77 verdict sections is a reproducer's (no proof-adversary was ever dispatched) [source: `claims_verdicts.tsv`, MEASURED]. Verification cost USD 30.45 in 50 named reproducer rows plus about 4.17 for wave 7's unnamed ones (about 8% of the USD 411.93 total, 1/3 of the author cost per claim) [ESTIMATE, `agent_spend.tsv`]. I found 9 later flags on standing claims or synthesis lines (`corrections_table.md`; 9 of the 47 standing claims, 19%, floor); the sharpest is that the budget selftest failed at two merges, wave 7's 5e16a53 and wave 8's 15d4c94, both because two branches were each tested alone: 2 of 15 landing states I re-ran failed their own selftests, and all 7 selftests take about 50 s (budget alone 2.6 s) [source: `selftest_history.tsv`, CHECKED at 15 commits].
