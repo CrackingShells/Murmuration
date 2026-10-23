@@ -2,9 +2,13 @@
 name = "murmuration"
 version = "0.1.0"
 edition = "2021"
-description = "One binary for the Murmuration plugin's hooks: `guard` today; `budget` and `handback` may join it."
+description = "One binary for the Murmuration plugin's hooks: `guard`, `budget` and `handback`."
 license = "MIT"
 publish = false
+
+[features]
+# a test build whose clock is the MURMURATION_NOW of the environment; never part of the shipped binary
+testclock = []
 
 [dependencies]
 
