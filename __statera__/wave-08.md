@@ -206,6 +206,17 @@ sections a worker needs and do not ask it to read this note.
   11 stand on PI restatements no verifier re-read. author-w08-9 (w08-c9) makes `lab_status.py`
   read a PI decision section; I append the sections once it stands.
 
+**explorer-w08-j back (7834635).**
+- The two guards agree on all 739 frozen cases and 20,896 recorded calls. False denials: 113 of
+  623 negatives in the set; in live use 17 of 19 denials in waves 6–8 were false, none stopped a
+  worker loosening anything. False allows: 24, and two holes reproduced: a bypass flag after
+  `"$(cat f)"`, and `env -u VAR claude … --setting-sources project`; eight real explorer calls in
+  waves 1–6 had that shape [source: explorer-w08-j's report and puzzle 1, MEASURED].
+- Decision: close the holes (w08-c10, author-w08-10), in both implementations, as a tightening
+  only. The offline variants that cut false denials from 113 to 77 lose one true case: they stay
+  out. A guardrail's false denials cost a worker a detour (17 live in three waves); a false allow
+  costs the user's permission layer.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
@@ -227,6 +238,7 @@ sections a worker needs and do not ask it to read this note.
 | explorer-w08-i | explorer | what verification bought: verdicts, later corrections of standing claims, cost per catch, waves 1–8 | |
 | explorer-w08-j | explorer | a frozen labelled replay set of guard decisions; false denials and allows by rule (item 26) | |
 | author-w08-9 | author | w08-c9: a PI decision section in claim files, read by `lab_status.py` | |
+| author-w08-10 | author | w08-c10: close the guard's two holes in Python and Rust, tightening only | |
 | author-w08-1 | author | w08-c1: `budget` and `handback` as subcommands of the Rust binary, replay-equal, with fallback (item 36) | |
 
 ## Claims of this wave
