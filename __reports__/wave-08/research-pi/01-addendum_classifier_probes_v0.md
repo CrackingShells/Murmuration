@@ -1,8 +1,12 @@
-# Wave 09
+# Wave 8, extra work after the close: two probes on a local command classifier (v0)
 
-opened: 2026-10-24
+written 2026-10-24 afternoon, by research-pi. Not a wave: the user asked for a brainstorm toward
+the wave-9 hand-off, and the PI opened a wave by mistake; at the user's word ("finish your cheap
+probes as part of a wave 8 extra work and close to main") the two probes are filed here. Their
+puzzles (`__scrupuli__/wave-09-explorer-w09-*.md`) stay open for wave 9's PI. The hand-off is
+`02-wave09_handoff_v0.md` beside this file.
 
-## The user's sentence this wave serves
+## The user's words these probes serve
 
 From the user's message of 2026-10-24 (afternoon), in their words:
 
@@ -22,9 +26,9 @@ accuracy: can we find a classifier we can run locally that is aligned with the d
 Anthropic's classifier took? Does a classifier on our side refuse the same tool calls? Does it
 allow the same tool calls?"
 
-Budget: not yet set by the user for this wave. Spend baseline at opening: TOTAL USD 482.47 at
+Budget: the remainder of wave 8's USD 150. Spend baseline at opening: TOTAL USD 482.47 at
 least; this checkout 110.37 at least, of which 27.44 is this resumed session [source:
-`scripts/lab_status.py --spend`, 14:21]. Round 1 is kept to about USD 10 until the user sets one.
+`scripts/lab_status.py --spend`, 14:21]. The probes were kept to about USD 8.
 
 ## What does not add up
 
@@ -43,7 +47,7 @@ least; this checkout 110.37 at least, of which 27.44 is this resumed session [so
   "classifier"`, `toolDenialKind: "automode-blocked"`), kept apart from rules, hooks and the
   user's answers. Over 5,227 transcript files: 30,525 recorded allows, 67 refusals (0.075%), 39
   "no verdict" errors; the allow side is recorded only since 2.1.293 (2026-10-08) [source:
-  `__reports__/wave-09/explorer-w09-a/00-findings_v0.md`, MEASURED].
+  `__reports__/wave-08/explorer-w09-a/00-findings_v0.md`, MEASURED].
 - Three things change the design. (1) The classifier's input is not in the transcripts (a git
   summary, cwd and platform only), so a local model judging the command and the visible context
   is compared against a classifier that may have seen more: agreement is a lower bound. (2) The
@@ -55,22 +59,30 @@ least; this checkout 110.37 at least, of which 27.44 is this resumed session [so
   refusal side needs the synthetic set (65 cases drafted) and the live shadow hook, which adds
   refusals as they happen, both reported apart from the observed decisions.
 
+**explorer-w09-b back (99c4447).**
+- Jev is a hosted API with no weights: it cannot run here. LM Studio's `/v1/systemone` page exists
+  (CITED). Downloaded through LM Studio, at the user's word: Laya (0.45 GB), Granite Guardian 4.1
+  8B (4.9 GB, Q4_K_S), gpt-oss-safeguard-20b (12 GB): about 17.4 GB on disk, nothing left loaded.
+- On a 22-call smoke set the explorer labelled itself (too easy to separate the judges; not an
+  accuracy claim): Laya 57 ms a call but its choice head let 4 of 5 dangerous calls through;
+  Granite Guardian 10/10 and 11/12 at 1.16 s per new prompt (0.48 s when the prompt prefix
+  repeats); gpt-oss-safeguard 10/10 and 12/12 at 2.3 s p50; prompted baselines ministral-3-8b
+  9/12 at 0.35 s and gemma-4-26b-a4b 12/12 at 5.5 s (+17 GB) [source:
+  `__reports__/wave-08/explorer-w09-b/00-findings_v0.md`, MEASURED].
+- "Same weights outside LM Studio": no independent runtime is installed (no mlx_lm, transformers
+  or llama.cpp of its own); the llama-server inside LM Studio's backend folder gave identical
+  outputs on 10 of 10 for Laya and Granite. A truly independent engine needs a runtime install,
+  which the user's yes did not cover.
+- What it means for the user's time argument: on this machine no candidate that judged the smoke
+  set well is faster than auto mode's classifier (450–628 ms); the fast ones are the weak ones.
+  Speed would need a smaller fine-tuned judge, a prompt-prefix cache, or a GPU host.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
 |:--|:--|:--|:--|
-| explorer-w09-a | explorer | the labelled set: auto-mode classifier refusals and a stratified sample of allowed calls across all sessions; synthetic adversarial cases; sample sizes | |
-| explorer-w09-b | explorer | candidate local classifiers (Jev, Laya, guard models, prompted baselines) via LM Studio: download, smoke set, latency, memory; same weights outside LM Studio if a runtime exists | |
-
-## Claims of this wave
-
-| Claim | Statement | Current label |
-|:--|:--|:--|
-
-## Puzzle dispositions (at close)
-
-| Puzzle | Disposition |
-|:--|:--|
+| explorer-w09-a | explorer | the labelled set: auto-mode classifier refusals and a stratified sample of allowed calls across all sessions; synthetic adversarial cases; sample sizes | 12eb74b, fa96441 |
+| explorer-w09-b | explorer | candidate local classifiers (Jev, Laya, guard models, prompted baselines) via LM Studio: download, smoke set, latency, memory; same weights outside LM Studio if a runtime exists | 99c4447 |
 
 ## Notes
 
@@ -83,4 +95,3 @@ least; this checkout 110.37 at least, of which 27.44 is this resumed session [so
   models, `qwen3.6-35b-a3b`, `google/gemma-4-26b-a4b` and others [source: `/api/v0/models`]. The
   machine has 36 GB of memory.
 
-closed: YYYY-MM-DD

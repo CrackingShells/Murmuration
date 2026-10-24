@@ -411,3 +411,34 @@ Both definitely needs investigating. Whether in the next wave or the one after. 
 ## 2026-10-24 00:11
 
 /murmuration:research-loop You can proceed with wave 8 following the results of wave 7 and all other puzzles. The overarching goal is to progressively optimize murmuration by using it yourself. You are Murmuration and you optimize murmuration. Budget is 150USD; it is currently midnight, you have 6 hours. Use them.
+
+## 2026-10-24 13:48
+
+> I found no evidence of distrust. colgrep treats a whole markdown file as one result, so for the lab’s notes a hit is just a file path, and opening the file is the right reading of it.
+
+This is strange. Because the colgrep library allows to display only specific sections and lines. Are you telling me the MCP server does not honor this feature? That'd be something to bring upstream. Or maybe the skill for colgrep search does not explain the most efficient usage patterns?
+
+> The cost showed straight away: the next change to that code took about 4 times the money and 17 times the time on the Rust side.
+
+I don't understand that statement. Explain.
+
+> That line goes in /Users/hacker/Documents/src/CrackingShells/Murmuration/.claude/settings.local.json. No real PI session has run with it yet; the next wave would be the live check.
+
+I think we would probably need to study qualitatively whether the PI context acquisition patterns and its way to react to what's coming from its team. Additionally, I am curious, 
+
+Additional points:
+
+* Recently (within the past 6 weeks), there is a rise of open LLM classifier call Laya and Jev (from Typesafe System One). These are in spirit similar to the in-house Anthropic classifier for dangerous commands. Given that calling the one from Anthropic takes p50=450ms and Laya, for example, advertises 150ms on CPU, there is a possibility that we ignore Anthropic's classifier in favor of a locally deployed model. LM Studio even more recently added support for these (see https://lmstudio.ai/docs/developer/jev-compat/systemone). Before we care about time, however, we must check accuracy: can we find a classifier we can run locally that is aligned with the decisions Anthropic's classifier took? Does a classifier one our side refuse the same tool calls? Does it allow the same tool calls? There are possibly many edge cases and trade-offs accuracy/speed gains to consider: different models, different hosts, if our self hosted endpoint fails, fallback to Anthropic's, etc...
+* I noted, reading section A of the new lab cost map, that **many** were labelled ESTIMATED. If that's the case, there aren't a single thing that landed on `main` that has been properly measured?
+   * On that note, probably a whole section of the next few waves will be dedicated to reporting the PI's cost and behavior given the context window decrease. 
+* About the PI's context window decrease, I saw in the reassessment list that the PreCompact hook did not land. But it seems like an interesting location to be creative and automate the information we can pass to the PI after compaction so that it doesn't need to re-read anything and only trust the output of a semantic search, for example.
+
+## 2026-10-24 14:01
+
+> Confirmed: colgrep’s --json output only returns the whole unit and score, not match locations, so the MCP server built on it can’t surface the specific matched lines—this needs fixing upstream in colgrep’s JSON or the colgrep-mcp server. Next, I’ll look into Laya, Jev, and LM Studio’s support.
+
+I don't understand how that's relevant. Didn't you also tried `-n` and it worked?
+
+## 2026-10-24 14:37
+
+Ah, my bad, I didn't want you to start wave 9, only brainstorm with me for the wave 9 hadnoff. But it's okay, finish your cheap probes as part of a wave 8 extra work and close to main. I still need to add the parameter to limit context window size

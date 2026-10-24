@@ -698,7 +698,7 @@ was overrun too. The user's budget for wave 2 was six hours. Wave 2 ran from 12:
 
 Items 2, 3, 13 and 14 were done before wave 5. Wave 5 settled 1(d). Wave 5's changes landed on the
 local `main` at fed7a08. Wave 6 settles 9 (the lean starts landed, w06-c9) and 20 (w06-c1), and adds
-25 to 31. Wave 7 settles 24 and 28, adds to 23, 27 and 31, and adds 32 to 38. Wave 8 settles 6, 36, 38, 39 and 41, restates 26, 29 and 40, and adds 42 to 48.
+25 to 31. Wave 7 settles 24 and 28, adds to 23, 27 and 31, and adds 32 to 38. Wave 8 settles 6, 36, 38, 39 and 41, restates 26, 29 and 40, and adds 42 to 48; the probes after its close add 49.
 
 **Yours: the guardrails, since the engineering is now the lab's.**
 
@@ -759,4 +759,5 @@ Changes reach a running PI only once they are on main's working tree (item 1(e))
 | 46 | **A claim's numbers in the synthesis without a verifier.** 26 of 37 "Still open" rows carried no claim id at the start of wave 8 (S-w08-explorer-w08-i-4) | a protocol claim | — |
 | 47 | **The PI's wakes.** Requests woken by a worker message are 31.7% of PI spend; 82 ended without a tool call (USD 9.42). Each hand-back can wake the PI twice (the message and the task notice). No plugin lever found; compaction makes each wake cheaper | notes | — |
 | 48 | **The hand-back gate (w08-c2, unverified, not landed)** works and nets USD 0.9–2.8 over the lab's history, negative if the PI then opens the file. It stays on its branch | — | — |
+| 49 | **A local command classifier aligned with auto mode's (after the close, two probes; `__reports__/wave-08/research-pi/01-addendum_classifier_probes_v0.md`).** The classifier's verdict is on the transcript's tool-result record: 30,525 allows and 67 refusals (0.075%) across all sessions, allows recorded only since 2.1.293; its input is not in transcripts, so a local model's agreement is a lower bound; most refusals are agents working around a hook. Downloaded through LM Studio at the user's word: Laya (fast, weak), Granite Guardian 4.1 8B and gpt-oss-safeguard-20b (good on an easy smoke set, 1.2 s and 2.3 s a call, slower than auto mode's 450–628 ms); Jev has no weights. Agreement not yet measured; replacing or bypassing auto mode's classifier is yours. Plan in `02-wave09_handoff_v0.md` | wave 9, then you | about USD 8 |
 
