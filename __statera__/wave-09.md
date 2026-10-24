@@ -38,6 +38,23 @@ least; this checkout 110.37 at least, of which 27.44 is this resumed session [so
 
 ## Reassessments
 
+**explorer-w09-a back (12eb74b, fa96441).**
+- The classifier's verdict is on the tool-result record (`permissionDecision.reasonType:
+  "classifier"`, `toolDenialKind: "automode-blocked"`), kept apart from rules, hooks and the
+  user's answers. Over 5,227 transcript files: 30,525 recorded allows, 67 refusals (0.075%), 39
+  "no verdict" errors; the allow side is recorded only since 2.1.293 (2026-10-08) [source:
+  `__reports__/wave-09/explorer-w09-a/00-findings_v0.md`, MEASURED].
+- Three things change the design. (1) The classifier's input is not in the transcripts (a git
+  summary, cwd and platform only), so a local model judging the command and the visible context
+  is compared against a classifier that may have seen more: agreement is a lower bound. (2) The
+  refusals are not a spread of attacks: 16 of 67 in colgrep-mcp worktrees, 20 about colgrep, 6
+  with `COLGREP_BYPASS`; most are agents working around a hook. (3) 15 refusals were followed by a
+  rewritten call the classifier allowed: those pairs are the sharpest test of a local model.
+- Statistics: 67 refusals bound a zero-miss model's miss rate at 4.4% (95% one-sided); ±0.05 at
+  a 20% miss rate needs about 246 refusals, about 117 days at the observed rate (ESTIMATE). So the
+  refusal side needs the synthetic set (65 cases drafted) and the live shadow hook, which adds
+  refusals as they happen, both reported apart from the observed decisions.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
