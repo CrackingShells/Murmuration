@@ -1,0 +1,129 @@
+{
+ "backend": "chat",
+ "model": "gemma4",
+ "base": "http://127.0.0.1:1234",
+ "mem_before": {
+  "lmstudio_related_rss_mb": 1051,
+  "wired_active_compressed_mb": 17947
+ },
+ "cold_load_s": 10.36,
+ "load_tail": "oading google/gemma-4-26b-a4b 61% \u283c\u001b[?25l\nLoading google/gemma-4-26b-a4b 100% \u283c\n\u001b[K\u001b[?25hModel loaded successfully in 10.17s.\n(16.76 GiB)\nTo use the model in the API/SDK, use the identifier \"gemma4\".\n",
+ "cases": [
+  {
+   "id": "b1",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 6197.0,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 172, \"completion_tokens\": 213, \"total_tokens\": 385, \"completion_tokens_details\": {\"reasoning_tokens\": 207}} | reasoning_chars=872"
+  },
+  {
+   "id": "b2",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 7840.1,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 172, \"completion_tokens\": 289, \"total_tokens\": 461, \"completion_tokens_details\": {\"reasoning_tokens\": 283}} | reasoning_chars=1164"
+  },
+  {
+   "id": "b3",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 5648.4,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 187, \"completion_tokens\": 204, \"total_tokens\": 391, \"completion_tokens_details\": {\"reasoning_tokens\": 198}} | reasoning_chars=781"
+  },
+  {
+   "id": "b4",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 6802.7,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 171, \"completion_tokens\": 239, \"total_tokens\": 410, \"completion_tokens_details\": {\"reasoning_tokens\": 233}} | reasoning_chars=993"
+  },
+  {
+   "id": "b5",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 5533.2,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 172, \"completion_tokens\": 195, \"total_tokens\": 367, \"completion_tokens_details\": {\"reasoning_tokens\": 189}} | reasoning_chars=712"
+  },
+  {
+   "id": "b6",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 4110.2,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 163, \"completion_tokens\": 144, \"total_tokens\": 307, \"completion_tokens_details\": {\"reasoning_tokens\": 138}} | reasoning_chars=571"
+  },
+  {
+   "id": "b7",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 3485.7,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 168, \"completion_tokens\": 123, \"total_tokens\": 291, \"completion_tokens_details\": {\"reasoning_tokens\": 117}} | reasoning_chars=486"
+  },
+  {
+   "id": "b8",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 5995.1,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 181, \"completion_tokens\": 220, \"total_tokens\": 401, \"completion_tokens_details\": {\"reasoning_tokens\": 214}} | reasoning_chars=806"
+  },
+  {
+   "id": "b9",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 3759.2,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 169, \"completion_tokens\": 133, \"total_tokens\": 302, \"completion_tokens_details\": {\"reasoning_tokens\": 127}} | reasoning_chars=551"
+  },
+  {
+   "id": "b10",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 7820.1,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 187, \"completion_tokens\": 289, \"total_tokens\": 476, \"completion_tokens_details\": {\"reasoning_tokens\": 283}} | reasoning_chars=1174"
+  },
+  {
+   "id": "b11",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 5564.8,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 168, \"completion_tokens\": 202, \"total_tokens\": 370, \"completion_tokens_details\": {\"reasoning_tokens\": 196}} | reasoning_chars=837"
+  },
+  {
+   "id": "b12",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 3428.4,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 196, \"completion_tokens\": 122, \"total_tokens\": 318, \"completion_tokens_details\": {\"reasoning_tokens\": 116}} | reasoning_chars=449"
+  }
+ ],
+ "mem_after_cases": {
+  "lmstudio_related_rss_mb": 22010,
+  "wired_active_compressed_mb": 30736
+ },
+ "warm_ms": {
+  "n": 20,
+  "p50": 4526.1,
+  "p90": 6382.7,
+  "min": 2435.9,
+  "max": 7212.1
+ },
+ "mem_after_warm": {
+  "lmstudio_related_rss_mb": 23204,
+  "wired_active_compressed_mb": 30669
+ },
+ "agree": 12,
+ "mem_after_unload": {
+  "lmstudio_related_rss_mb": 977,
+  "wired_active_compressed_mb": 13506
+ }
+}

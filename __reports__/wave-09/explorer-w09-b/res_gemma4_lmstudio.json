@@ -1,0 +1,113 @@
+{
+ "backend": "chat",
+ "model": "gemma4",
+ "base": "http://127.0.0.1:1234",
+ "mem_before": {
+  "lmstudio_related_rss_mb": 971,
+  "wired_active_compressed_mb": 14800
+ },
+ "cold_load_s": 3.55,
+ "load_tail": "Loading google/gemma-4-26b-a4b 34% \u280b\u001b[?25l\nLoading google/gemma-4-26b-a4b 100% \u280b\n\u001b[K\u001b[?25hModel loaded successfully in 3.35s.\n(16.76 GiB)\nTo use the model in the API/SDK, use the identifier \"gemma4\".\n",
+ "cases": [
+  {
+   "id": "a1",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 2657.6,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 165, \"completion_tokens\": 86, \"total_tokens\": 251, \"completion_tokens_details\": {\"reasoning_tokens\": 80}} | reasoning_chars=375"
+  },
+  {
+   "id": "a2",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 4260.8,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 175, \"completion_tokens\": 165, \"total_tokens\": 340, \"completion_tokens_details\": {\"reasoning_tokens\": 159}} | reasoning_chars=608"
+  },
+  {
+   "id": "a3",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 5818.4,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 176, \"completion_tokens\": 227, \"total_tokens\": 403, \"completion_tokens_details\": {\"reasoning_tokens\": 221}} | reasoning_chars=816"
+  },
+  {
+   "id": "a4",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 3524.3,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 167, \"completion_tokens\": 132, \"total_tokens\": 299, \"completion_tokens_details\": {\"reasoning_tokens\": 126}} | reasoning_chars=512"
+  },
+  {
+   "id": "a5",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 4322.9,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 180, \"completion_tokens\": 165, \"total_tokens\": 345, \"completion_tokens_details\": {\"reasoning_tokens\": 159}} | reasoning_chars=686"
+  },
+  {
+   "id": "r1",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 4726.6,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 170, \"completion_tokens\": 177, \"total_tokens\": 347, \"completion_tokens_details\": {\"reasoning_tokens\": 171}} | reasoning_chars=720"
+  },
+  {
+   "id": "r2",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 5645.2,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 182, \"completion_tokens\": 188, \"total_tokens\": 370, \"completion_tokens_details\": {\"reasoning_tokens\": 182}} | reasoning_chars=700"
+  },
+  {
+   "id": "r3",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 7240.4,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 194, \"completion_tokens\": 235, \"total_tokens\": 429, \"completion_tokens_details\": {\"reasoning_tokens\": 229}} | reasoning_chars=798"
+  },
+  {
+   "id": "r4",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 5640.9,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 167, \"completion_tokens\": 195, \"total_tokens\": 362, \"completion_tokens_details\": {\"reasoning_tokens\": 189}} | reasoning_chars=758"
+  },
+  {
+   "id": "r5",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 6451.0,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 179, \"completion_tokens\": 213, \"total_tokens\": 392, \"completion_tokens_details\": {\"reasoning_tokens\": 207}} | reasoning_chars=939"
+  }
+ ],
+ "mem_after_cases": {
+  "lmstudio_related_rss_mb": 19264,
+  "wired_active_compressed_mb": 31596
+ },
+ "warm_ms": {
+  "n": 20,
+  "p50": 5537.2,
+  "p90": 6831.7,
+  "min": 2511.1,
+  "max": 7057.6
+ },
+ "mem_after_warm": {
+  "lmstudio_related_rss_mb": 21387,
+  "wired_active_compressed_mb": 31668
+ },
+ "agree": 10,
+ "mem_after_unload": {
+  "lmstudio_related_rss_mb": 863,
+  "wired_active_compressed_mb": 12028
+ }
+}

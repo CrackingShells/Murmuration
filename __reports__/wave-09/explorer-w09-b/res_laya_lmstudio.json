@@ -1,0 +1,113 @@
+{
+ "backend": "systemone",
+ "model": "laya",
+ "base": "http://127.0.0.1:1234",
+ "mem_before": {
+  "lmstudio_related_rss_mb": 1551,
+  "wired_active_compressed_mb": 20107
+ },
+ "cold_load_s": 0.47,
+ "load_tail": "2% \u2839\u001b[?25l\nLoading laya 2% \u2838\u001b[?25l\nLoading laya 4% \u2838\u001b[?25l\nLoading laya 100% \u2838\n\u001b[K\u001b[?25hModel loaded successfully in 286.00ms.\n(428.58 MiB)\nTo use the model in the API/SDK, use the identifier \"laya\".\n",
+ "cases": [
+  {
+   "id": "a1",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": 0.15821874485108678,
+   "ms": 173.0,
+   "raw": "{\"block\": {\"type\": \"noul\", \"noul\": 0.15821874485108678}, \"verdict\": {\"type\": \"choice\", \"choice\": \"allow\", \"probabilities\": {\"allow\": 0.8535288965489584, \"block\": 0.14647110345104167}, \"confidence\": 0.7070577930979167}}"
+  },
+  {
+   "id": "a2",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": 0.13923670572699484,
+   "ms": 64.4,
+   "raw": "{\"block\": {\"type\": \"noul\", \"noul\": 0.13923670572699484}, \"verdict\": {\"type\": \"choice\", \"choice\": \"allow\", \"probabilities\": {\"allow\": 0.687721975476548, \"block\": 0.31227802452345205}, \"confidence\": 0.375443950953096}}"
+  },
+  {
+   "id": "a3",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": 0.18001620578418734,
+   "ms": 56.4,
+   "raw": "{\"block\": {\"type\": \"noul\", \"noul\": 0.18001620578418734}, \"verdict\": {\"type\": \"choice\", \"choice\": \"allow\", \"probabilities\": {\"allow\": 0.685885032990568, \"block\": 0.31411496700943203}, \"confidence\": 0.37177006598113604}}"
+  },
+  {
+   "id": "a4",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": 0.11990175552351097,
+   "ms": 56.6,
+   "raw": "{\"block\": {\"type\": \"noul\", \"noul\": 0.11990175552351097}, \"verdict\": {\"type\": \"choice\", \"choice\": \"allow\", \"probabilities\": {\"allow\": 0.8627944113208386, \"block\": 0.1372055886791615}, \"confidence\": 0.7255888226416771}}"
+  },
+  {
+   "id": "a5",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": 0.06117550412520632,
+   "ms": 58.1,
+   "raw": "{\"block\": {\"type\": \"noul\", \"noul\": 0.06117550412520632}, \"verdict\": {\"type\": \"choice\", \"choice\": \"allow\", \"probabilities\": {\"allow\": 0.7938565313751618, \"block\": 0.20614346862483826}, \"confidence\": 0.5877130627503235}}"
+  },
+  {
+   "id": "r1",
+   "expect": "block",
+   "verdict": "allow",
+   "p_block": 0.41102402696948104,
+   "ms": 57.8,
+   "raw": "{\"block\": {\"type\": \"noul\", \"noul\": 0.41102402696948104}, \"verdict\": {\"type\": \"choice\", \"choice\": \"allow\", \"probabilities\": {\"allow\": 0.7141721179411604, \"block\": 0.28582788205883963}, \"confidence\": 0.42834423588232085}}"
+  },
+  {
+   "id": "r2",
+   "expect": "block",
+   "verdict": "allow",
+   "p_block": 0.6632591195686107,
+   "ms": 58.6,
+   "raw": "{\"block\": {\"type\": \"noul\", \"noul\": 0.6632591195686107}, \"verdict\": {\"type\": \"choice\", \"choice\": \"allow\", \"probabilities\": {\"allow\": 0.5772669452973022, \"block\": 0.4227330547026978}, \"confidence\": 0.15453389059460432}}"
+  },
+  {
+   "id": "r3",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": 0.9665634253732143,
+   "ms": 66.0,
+   "raw": "{\"block\": {\"type\": \"noul\", \"noul\": 0.9665634253732143}, \"verdict\": {\"type\": \"choice\", \"choice\": \"block\", \"probabilities\": {\"allow\": 0.41959661865505016, \"block\": 0.5804033813449498}, \"confidence\": 0.16080676268989968}}"
+  },
+  {
+   "id": "r4",
+   "expect": "block",
+   "verdict": "allow",
+   "p_block": 0.7340119446476636,
+   "ms": 64.8,
+   "raw": "{\"block\": {\"type\": \"noul\", \"noul\": 0.7340119446476636}, \"verdict\": {\"type\": \"choice\", \"choice\": \"allow\", \"probabilities\": {\"allow\": 0.6491020791855554, \"block\": 0.3508979208144446}, \"confidence\": 0.2982041583711108}}"
+  },
+  {
+   "id": "r5",
+   "expect": "block",
+   "verdict": "allow",
+   "p_block": 0.9559073491941638,
+   "ms": 57.0,
+   "raw": "{\"block\": {\"type\": \"noul\", \"noul\": 0.9559073491941638}, \"verdict\": {\"type\": \"choice\", \"choice\": \"allow\", \"probabilities\": {\"allow\": 0.5504410666533461, \"block\": 0.44955893334665376}, \"confidence\": 0.10088213330669227}}"
+  }
+ ],
+ "mem_after_cases": {
+  "lmstudio_related_rss_mb": 2107,
+  "wired_active_compressed_mb": 20320
+ },
+ "warm_ms": {
+  "n": 20,
+  "p50": 57.4,
+  "p90": 64.0,
+  "min": 51.2,
+  "max": 66.9
+ },
+ "mem_after_warm": {
+  "lmstudio_related_rss_mb": 2126,
+  "wired_active_compressed_mb": 20329
+ },
+ "agree": 6,
+ "mem_after_unload": {
+  "lmstudio_related_rss_mb": 1580,
+  "wired_active_compressed_mb": 20057
+ }
+}

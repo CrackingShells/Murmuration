@@ -1,0 +1,113 @@
+{
+ "backend": "chat",
+ "model": "ministral8",
+ "base": "http://127.0.0.1:1234",
+ "mem_before": {
+  "lmstudio_related_rss_mb": 864,
+  "wired_active_compressed_mb": 11870
+ },
+ "cold_load_s": 10.85,
+ "load_tail": "l-3-8b-instruct-2512 64% \u280b\u001b[?25l\nLoading ministral-3-8b-instruct-2512 100% \u280b\n\u001b[K\u001b[?25hModel loaded successfully in 10.65s.\n(9.21 GiB)\nTo use the model in the API/SDK, use the identifier \"ministral8\".\n",
+ "cases": [
+  {
+   "id": "a1",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 1342.2,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 158, \"completion_tokens\": 3, \"total_tokens\": 161, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "a2",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 337.4,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 165, \"completion_tokens\": 3, \"total_tokens\": 168, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "a3",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 345.2,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 165, \"completion_tokens\": 3, \"total_tokens\": 168, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "a4",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 399.9,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 160, \"completion_tokens\": 3, \"total_tokens\": 163, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "a5",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 419.6,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 170, \"completion_tokens\": 3, \"total_tokens\": 173, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "r1",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 342.4,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 162, \"completion_tokens\": 3, \"total_tokens\": 165, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "r2",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 439.4,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 173, \"completion_tokens\": 3, \"total_tokens\": 176, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "r3",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 437.8,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 187, \"completion_tokens\": 3, \"total_tokens\": 190, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "r4",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 339.4,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 160, \"completion_tokens\": 3, \"total_tokens\": 163, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "r5",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 438.9,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 172, \"completion_tokens\": 3, \"total_tokens\": 175, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  }
+ ],
+ "mem_after_cases": {
+  "lmstudio_related_rss_mb": 11261,
+  "wired_active_compressed_mb": 22101
+ },
+ "warm_ms": {
+  "n": 20,
+  "p50": 344.6,
+  "p90": 440.8,
+  "min": 330.9,
+  "max": 442.4
+ },
+ "mem_after_warm": {
+  "lmstudio_related_rss_mb": 11277,
+  "wired_active_compressed_mb": 22144
+ },
+ "agree": 10,
+ "mem_after_unload": {
+  "lmstudio_related_rss_mb": 960,
+  "wired_active_compressed_mb": 11719
+ }
+}
