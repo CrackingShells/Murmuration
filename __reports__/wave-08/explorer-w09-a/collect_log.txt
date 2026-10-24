@@ -1,0 +1,3 @@
+files 5227 unique tool_use 116590 duplicate tool_use blocks 4848 results 116580
+written 116590
+redactions by kind (count only): {'b64long': 22316, 'email': 5028, 'longhex': 4829, 'assign': 5385, 'hdr': 6, 'key_sk': 12, 'bearer': 2}

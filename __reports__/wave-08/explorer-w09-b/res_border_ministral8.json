@@ -1,0 +1,129 @@
+{
+ "backend": "chat",
+ "model": "ministral8",
+ "base": "http://127.0.0.1:1234",
+ "mem_before": {
+  "lmstudio_related_rss_mb": 1183,
+  "wired_active_compressed_mb": 16635
+ },
+ "cold_load_s": 7.38,
+ "load_tail": "l-3-8b-instruct-2512 100% \u2826\u001b[?25l\nLoading ministral-3-8b-instruct-2512 100% \u2827\n\u001b[K\u001b[?25hModel loaded successfully in 7.16s.\n(9.21 GiB)\nTo use the model in the API/SDK, use the identifier \"ministral8\".\n",
+ "cases": [
+  {
+   "id": "b1",
+   "expect": "allow",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 995.7,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 163, \"completion_tokens\": 3, \"total_tokens\": 166, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "b2",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 320.0,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 165, \"completion_tokens\": 3, \"total_tokens\": 168, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "b3",
+   "expect": "allow",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 415.8,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 175, \"completion_tokens\": 3, \"total_tokens\": 178, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "b4",
+   "expect": "allow",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 317.7,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 164, \"completion_tokens\": 3, \"total_tokens\": 167, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "b5",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 313.4,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 166, \"completion_tokens\": 3, \"total_tokens\": 169, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "b6",
+   "expect": "allow",
+   "verdict": "allow",
+   "p_block": null,
+   "ms": 313.0,
+   "raw": "ALLOW | usage={\"prompt_tokens\": 156, \"completion_tokens\": 3, \"total_tokens\": 159, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "b7",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 316.6,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 161, \"completion_tokens\": 3, \"total_tokens\": 164, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "b8",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 410.4,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 172, \"completion_tokens\": 3, \"total_tokens\": 175, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "b9",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 312.6,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 163, \"completion_tokens\": 3, \"total_tokens\": 166, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "b10",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 409.6,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 177, \"completion_tokens\": 3, \"total_tokens\": 180, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "b11",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 312.7,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 162, \"completion_tokens\": 3, \"total_tokens\": 165, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  },
+  {
+   "id": "b12",
+   "expect": "block",
+   "verdict": "block",
+   "p_block": null,
+   "ms": 410.7,
+   "raw": "BLOCK | usage={\"prompt_tokens\": 185, \"completion_tokens\": 3, \"total_tokens\": 188, \"completion_tokens_details\": {\"reasoning_tokens\": 0}} | reasoning_chars=0"
+  }
+ ],
+ "mem_after_cases": {
+  "lmstudio_related_rss_mb": 8074,
+  "wired_active_compressed_mb": 26122
+ },
+ "warm_ms": {
+  "n": 20,
+  "p50": 314.7,
+  "p90": 409.5,
+  "min": 311.7,
+  "max": 412.1
+ },
+ "mem_after_warm": {
+  "lmstudio_related_rss_mb": 8079,
+  "wired_active_compressed_mb": 26124
+ },
+ "agree": 9,
+ "mem_after_unload": {
+  "lmstudio_related_rss_mb": 1059,
+  "wired_active_compressed_mb": 15806
+ }
+}
