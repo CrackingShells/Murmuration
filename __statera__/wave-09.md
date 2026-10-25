@@ -314,9 +314,100 @@ agents from writing. That step goes to the user for a yes at the close.
 
 | Puzzle | Disposition |
 |:--|:--|
+| S-w09-explorer-w09-a-1 | parked: the allow label exists only from 2.1.293; w09-c7 reports the refusal eras apart (44 of 67 predate it) and says so |
+| S-w09-explorer-w09-a-2 | parked: `permissionMode` is not used as the auto-mode marker; the classifier's own `reasonType` is |
+| S-w09-explorer-w09-a-3 | followed: w09-c7 (scored against these refusals); the 16 refusals both judges allow go to the user at the close |
+| S-w09-explorer-w09-a-4 | followed: w09-c7 states agreement as a lower bound because the judges see less than auto mode may |
+| S-w09-explorer-w09-a-5 | followed: w09-c7 (the 19 refusal-then-allowed pairs: Granite separates 7, safeguard 3) |
+| S-w09-explorer-w09-b-1 | followed: explorer-w09-c (policy first, case last; latency on unique cases) |
+| S-w09-explorer-w09-b-2 | parked: Laya was not carried forward; its choice head let 4 of 5 dangerous calls through in wave 8 |
+| S-w09-explorer-w09-b-3 | followed: w09-c7 (the judges scored against auto mode's recorded decisions, not hand labels) |
+| S-w09-explorer-w09-b-4 | parked: cold-load and memory figures matter only once a judge agrees; none does |
+| S-w09-explorer-w09-b-5 | parked: one quantisation per judge is stated in w09-c7's scope; another quant is a later probe if a judge comes close |
+| S-w09-explorer-w09-c-1 | followed: explorer-w09-i (the same prompt shape on wave 8's written cases and on recorded ones) |
+| S-w09-explorer-w09-c-2 | followed: explorer-w09-i (general models given the full rules); Granite's collapse under them stays unexplained |
+| S-w09-explorer-w09-c-3 | followed: to the user at the close (only the user can say whether auto mode erred on the 16) |
+| S-w09-explorer-w09-c-4 | parked: safeguard's reasoning text is empty through LM Studio's chat endpoint; matters only if safeguard is pursued |
+| S-w09-explorer-w09-c-5 | parked: a local judge cannot share the GPU; recorded in the synthesis, relevant only once accuracy is reached |
+| S-w09-explorer-w09-d-1 | followed: w09-c5 (10 of 10) and explorer-w09-h (0 of 13 decisions would have changed) |
+| S-w09-explorer-w09-d-2 | followed: w09-c5 (banner not shown to differ); to the user at the close as a guardrail question |
+| S-w09-explorer-w09-d-3 | parked: the unit "a PI wake" differs between item 47 and w09-c5; noted in the synthesis, no lever depends on it |
+| S-w09-explorer-w09-d-4 | parked: one unrecorded intention in four, a thin base |
+| S-w09-explorer-w09-d-5 | followed: the synthesis corrects wave 8's "thinking is empty" (8–20% of PI thinking blocks carry narration) |
+| S-w09-explorer-w09-e-1 | followed: PreCompact stays out; the next wave's live compactions replace the replay |
+| S-w09-explorer-w09-e-2 | parked: an artefact of resume-based replay, which is not continued |
+| S-w09-explorer-w09-e-3 | parked: same; recorded for anyone who replays at size (cold cache, about 5 times a live compaction) |
+| S-w09-explorer-w09-e-4 | parked: a cost outlier from launching two cells on one prefix; replays not continued |
+| S-w09-explorer-w09-e-5 | followed: the synthesis notes that a verbatim quote survives a post-compaction channel and may not survive the summariser; for the next wave's live check |
+| S-w09-explorer-w09-f-1 | followed: w09-c3 (M1 ceiling 4.0–6.4% against the synthesis's 7.5–12%; the synthesis is corrected) |
+| S-w09-explorer-w09-f-2 | followed: w09-c3 (M4 three eras; w07-c7's money stays undetermined) |
+| S-w09-explorer-w09-f-3 | followed: explorer-w09-g (no lost deliverable in waves 3–9) |
+| S-w09-explorer-w09-f-4 | followed: w09-c3 (lean start not visible at the median; exec form is) |
+| S-w09-explorer-w09-g-1 | followed: item 15 settled for waves 3–9 in the synthesis |
+| S-w09-explorer-w09-g-2 | parked: the headless 10-minute print-mode ceiling is a platform fact, already in item 17's family; no lab run depends on it now |
+| S-w09-explorer-w09-g-3 | parked: wave-2 parents; the report check since wave 2 makes the file exist when the hand-back fails |
+| S-w09-explorer-w09-g-4 | parked: a double hand-back costs a PI wake, not a deliverable; item 47's family |
+| S-w09-explorer-w09-g-5 | parked: a count difference (312 against 306) from the glob, without effect on any claim |
+| S-w09-explorer-w09-h-1 | parked: queued hand-backs are missed by `w09d_turns.py`; w09-c5's scope is the 10 located, explorer-w09-h covers the other three |
+| S-w09-explorer-w09-h-2 | parked: one truncated read; no decision changed |
+| S-w09-explorer-w09-h-3 | followed: the synthesis names w07-c7 as a decision against its own hand-back's limits, not a reading failure |
+| S-w09-explorer-w09-h-4 | parked: decisions "in place" predate w08-c11, which now gives them a section |
+| S-w09-explorer-w09-h-5 | parked: 156 against 160 in one scope line; the decision carries 160 |
+| S-w09-explorer-w09-h-6 | parked: the lever is not built, so whether `additionalContext` reaches the model for queued prompts is not needed |
+| S-w09-author-w09-1-1 | followed: w09-c3 (resumed sessions counted once) |
+| S-w09-author-w09-1-2 | followed: w09-c3 (first hand-backs) |
+| S-w09-author-w09-1-3 | followed: w09-c3 |
+| S-w09-author-w09-1-4 | followed: w09-c3 (M5 a rate, raises stated) |
+| S-w09-author-w09-1-5 | followed: w09-c3; this wave's start lines (one `name_unconfirmed`, then `named`, budgets right) are the only live after-sample |
+| S-w09-author-w09-1-6 | parked: a JST/UTC word slip in an explorer report, corrected in w09-c3 |
+| S-w09-author-w09-1-7 | parked: M2's single before-session is stated in w09-c3's scope |
+| S-w09-author-w09-1-8 | parked: the tally reads 33 either way |
+| S-w09-author-w09-1-9 | followed: w09-c3 |
+| S-w09-author-w09-2-1 | followed: w09-c5 (both codings given) |
+| S-w09-author-w09-2-2 | followed: w09-c5 drops re-reads |
+| S-w09-author-w09-2-3 | followed: explorer-w09-h (14 ESCALATE claims, 13 located) |
+| S-w09-author-w09-2-4 | followed: explorer-w09-h |
+| S-w09-author-w09-2-5 | parked: one traced carrier is a tool result, not a hand-back; it remains a traced, not invented, result |
+| S-w09-author-w09-2-6 | followed: w09-c5 states the banner not shown to differ; the by-role split goes with the guardrail question to the user |
+| S-w09-author-w09-2-7 | parked: counts on a growing transcript; w09-c5 states its cut |
+| S-w09-author-w09-2-8 | followed: reproducer-w09-2 (the extra wake is an API-error record) |
+| S-w09-author-w09-3-1 | followed: w09-c7 (natural base) |
+| S-w09-author-w09-3-2 | followed: w09-c7 states the refusal eras |
+| S-w09-author-w09-3-3 | followed: w09-c7 states safeguard's run-to-run flip |
+| S-w09-author-w09-3-4 | followed: w09-c7 uses raw Clopper-Pearson for safeguard |
+| S-w09-author-w09-3-5 | parked: a probe count of the full-rules arm, outside w09-c7 |
+| S-w09-author-w09-3-6 | parked: latency tails under load; no judge is accurate enough for latency to decide |
+| S-w09-author-w09-3-7 | followed: w09-c7's scope ("allow" means classifier-allow) |
+| S-w09-author-w09-3-8 | followed: my arithmetic slip, corrected before w09-c7 was filed (reassessment 00:49) |
+| S-w09-reproducer-w09-1-1 | followed: w09-c3 (start concurrency); a paired binary-against-exec run is left, no change depends on it |
+| S-w09-reproducer-w09-1-2 | followed: w09-c3 (M1 is the live Desktop figure; the extra 10.7k tokens are live MCP servers) |
+| S-w09-reproducer-w09-1-3 | followed: w09-c3 (ESTIMATE, biased both ways) |
+| S-w09-reproducer-w09-1-4 | followed: w09-c3 |
+| S-w09-reproducer-w09-1-5 | parked: wording in a superseded head |
+| S-w09-reproducer-w09-2-1 | followed: w09-c5 |
+| S-w09-reproducer-w09-2-2 | followed: w09-c5 (0 of 10) |
+| S-w09-reproducer-w09-2-3 | followed: w09-c5 cites the kappa; the synthesis says equal totals hid 15 disagreements |
+| S-w09-reproducer-w09-2-4 | followed: w09-c5 (5 of 35) |
+| S-w09-reproducer-w09-2-5 | followed: explorer-w09-h (three arrived as queued attachments) |
+| S-w09-reproducer-w09-2-6 | followed: the synthesis records it: two errors in opposite directions gave matching totals; agreement per item, not per total, is the check |
+| S-w09-reproducer-w09-2-7 | followed: w09-c5 drops re-reads |
+| S-w09-reproducer-w09-2-8 | followed: w09-c5 drops re-reads |
+| S-w09-reproducer-w09-2-9 | parked: an API-error record read as a wake; noted for anyone cutting PI turns |
+| S-w09-reproducer-w09-3-1 | followed: w09-c7 |
+| S-w09-reproducer-w09-3-2 | followed: w09-c7 ("neither separates"); explorer-w09-i asks for a score |
+| S-w09-reproducer-w09-3-3 | followed: w09-c7 |
+| S-w09-reproducer-w09-3-4 | followed: w09-c7 |
+| S-w09-reproducer-w09-3-5 | parked: safeguard's run-to-run variation is stated, not sized; matters only if safeguard is pursued |
+| S-w09-research-pi-1 | followed: w09-c5 (detector; 0 earlier cases) and the synthesis; a proposal for the PI's agent file goes to the next wave |
+| S-w09-research-pi-2 | followed: the next wave: a time in a wave note has failed twice as a rule; a mechanical check is a candidate claim |
 
 ## Notes
 
+- **The compaction window did not reach this session.** Context 331,011 tokens at 00:52 with no
+  `compact_boundary` record, past the 217k where a 250k window fires; the line has been in this
+  worktree's settings file since 23:35. So wave 9 is a clean run without the window, as the user
+  decided at 23:45; which of "file not read" and "no live reload" caused it is not separated
+  [source: this session's transcript, `usage` of the last main-thread request].
 - Names: explorer-w09-a and -b were used by the two probes filed under wave 8's extra work; their
   puzzle files `__scrupuli__/wave-09-explorer-w09-{a,b}.md` are open and this wave disposes of them.
   This wave's agents start at letter c.
