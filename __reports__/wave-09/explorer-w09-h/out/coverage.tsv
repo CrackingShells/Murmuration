@@ -1,0 +1,15 @@
+claim	verifier	wake	handback_chars	section_chars	exchange_chars	num_tokens_in_section	num_in_handback	share	path_tokens	paths_in_handback
+w01-c2	reproducer-w01-2	w123/T30	4572	6905	2551	44	30	0.68	21	7
+w01-c4	reproducer-w01-4	w123/T20	6036	11727	4629	34	16	0.47	30	4
+w01-c5	reproducer-w01-5	none		9351	4494	115			20	
+w01-c8	reproducer-w01-8	none		8321	3487	101			6	
+w02-c10	reproducer-w02-10	w123/T77	3819	6341	2451	52	34	0.65	12	9
+w03-c2	reproducer-w03-2	w123/T94	5965	10591	2911	32	18	0.56	75	38
+w04-c10	reproducer-w04-10	w4/T19	4476	4783	2173	8	8	1.00	11	8
+w04-c4	reproducer-w04-4	w4/T10	3407	7175	2691	30	7	0.23	18	7
+w04-c7	reproducer-w04-7	w4/T14	4125	6954	3111	40	19	0.47	15	8
+w05-c1	reproducer-w05-1	none		5621	1989	57			7	
+w06-c3	reproducer-w06-3	w6/T13	4513	6427	2268	48	30	0.62	18	6
+w07-c7	reproducer-w07-6	w7/T20	4440	5136	1714	53	36	0.68	11	9
+w08-c1	reproducer-w08-1	none		6603	1629	62			17	
+w08-c9	reproducer-w08-9	w8/T18	2033	8032	3293	26	12	0.46	17	1
