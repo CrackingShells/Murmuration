@@ -87,6 +87,13 @@ to be in the main checkout's own file, which only the user writes (the guard den
 (context 190,178 at 23:43), the Desktop read the worktree file live and the baseline is not clean;
 the transcript's `compact_boundary` record will show it, and the close reports whichever happened.
 
+**00:08, round 2 opened.** Spend at least USD 33.44 of 100 (this checkout 20.64 against 1.60 at
+opening, headless 14.40) [source: `scripts/lab_status.py --spend`, both projects]. Two cheap probes,
+both from this round's puzzles: explorer-w09-g on S-w09-explorer-w09-f-3 (are deliverables lost,
+item 15), explorer-w09-h on w09-c4's escalation result (does deciding from the hand-back alone cost
+anything, and what lever would not rest on the PI's memory, which failed twice this wave:
+S-w09-research-pi-1, -2). The classifier (explorer-w09-c) is still out.
+
 **reproducer-w09-2 on w09-c4: OVERSTATED on (b) only (f874741).** (a), (c), (d), (e) reproduce,
 the banner from its own coding too (9/37 against 45/179, p 1.00). The one-wake difference is an
 author-w06-3 wake whose only record is an "API Error" text. (b) fails: 172 of the 588 "read" rows
@@ -209,7 +216,9 @@ agents from writing. That step goes to the user for a yes at the close.
 | author-w09-1 | author | w09-c1: the before/after of landed changes on existing records, reproduced end to end, with their confounders | 718cd21 |
 | reproducer-w09-1 | reproducer | verdict on w09-c1 | 61dfea7 (OVERSTATED) |
 | author-w09-2 | author | w09-c2: the PI's raw-artifact reads by sender, re-reads, escalations decided without the claim file, invented returns, the banner | 5986c0b, bbb2c79 |
-| reproducer-w09-2 | reproducer | verdict on w09-c2, as a second coder with its own extraction and a blind hand-coded sample | 10c5d2d (OVERSTATED) |
+| reproducer-w09-2 | reproducer | verdict on w09-c2, as a second coder with its own extraction and a blind hand-coded sample; then w09-c4 | 10c5d2d (OVERSTATED), f874741 (OVERSTATED on (b)) |
+| explorer-w09-g | explorer | the 41 of 306 worker transcripts ending without a hand-back: finished, resumed, stopped, maxTurns, error or lost | |
+| explorer-w09-h | explorer | did escalation decisions made without reading the claim file lose anything; size a lever that does not depend on the PI remembering | |
 
 ## Claims of this wave
 
