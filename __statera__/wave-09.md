@@ -87,6 +87,19 @@ to be in the main checkout's own file, which only the user writes (the guard den
 (context 190,178 at 23:43), the Desktop read the worktree file live and the baseline is not clean;
 the transcript's `compact_boundary` record will show it, and the close reports whichever happened.
 
+**00:02, reproducer-w09-2 on w09-c2: OVERSTATED (10c5d2d).** Every count re-runs; as a second
+coder with its own rule it agrees with the author's codes on 106 of 121 hand-back wakes (kappa
+0.70), and a blind hand sample of 20 (seed 9202) agrees 18 of 20 with the author (kappa 0.78). The
+escalation result reproduces from its own scan and gets stronger: 10 of 10 reproducer escalations
+decided in the wake turn, the claim file read in 0 of 10, before or at the wake (the head's "2 of 10
+earlier" rested on `ls` and `grep -c`). Overstated: the coding rule drops any Bash read that
+mentions `lab_status` (lifted: explorers 21/27, authors 10/57, reproducers 6/41), the reproducer
+denominator holds 6 peer messages, and the detectors' blind spot belongs in the statement. (b)
+re-reads and (e) the banner were not checked. What changes: author-w09-2 files w09-c4 at that scope;
+the same verifier checks it, with (b) and (e) this time. The ordering by sender survives both
+coders: the PI reads an explorer's material most of the time and an author's or verifier's rarely,
+and it decides escalations from the hand-back alone, against the skill's rule.
+
 **23:55, w09-c3 SUPPORTED (cfc42b0).** reproducer-w09-1 found its four points met and nothing new
 stated; the start-concurrency script reproduces its own split. Soft spot it notes: the binary's
 n 3 / n 4 strata come from the `all` run, which grows with the live wave; the saved table holds the
@@ -189,13 +202,14 @@ agents from writing. That step goes to the user for a yes at the close.
 | author-w09-1 | author | w09-c1: the before/after of landed changes on existing records, reproduced end to end, with their confounders | 718cd21 |
 | reproducer-w09-1 | reproducer | verdict on w09-c1 | 61dfea7 (OVERSTATED) |
 | author-w09-2 | author | w09-c2: the PI's raw-artifact reads by sender, re-reads, escalations decided without the claim file, invented returns, the banner | 5986c0b, bbb2c79 |
-| reproducer-w09-2 | reproducer | verdict on w09-c2, as a second coder with its own extraction and a blind hand-coded sample | |
+| reproducer-w09-2 | reproducer | verdict on w09-c2, as a second coder with its own extraction and a blind hand-coded sample | 10c5d2d (OVERSTATED) |
 
 ## Claims of this wave
 
 | Claim | Statement | Current label |
 |:--|:--|:--|
-| w09-c2 | the explorer's counts of the PI's raw opens, re-reads, banner and detector flags reproduce; in 10 of 10 reproducer escalations the PI decided in a turn that opened no claim file | unverified MEASURED |
+| w09-c2 | the explorer's counts of the PI's raw opens, re-reads, banner and detector flags reproduce; in 10 of 10 reproducer escalations the PI decided in a turn that opened no claim file | below MEASURED: restate (OVERSTATED, reproducer-w09-2) |
+| w09-c4 | w09-c2 at its verified scope (author-w09-2) | not filed yet |
 | w09-c1 | seven before/after pairs of a landed change's own metric reproduce on existing records; none is a USD or minute saving achieved | superseded by w09-c3 |
 | w09-c3 | seven before/after comparisons on existing records (M5 a rate, M4 three eras) reproduce; USD figures ESTIMATEs biased both ways; none a USD or minute saving achieved (supersedes w09-c1) | MEASURED (reproducer-w09-1 SUPPORTED, cfc42b0) |
 
