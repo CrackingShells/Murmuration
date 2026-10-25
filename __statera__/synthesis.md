@@ -13,7 +13,7 @@ Every statement below carries the current label of its claim, from `python3 scri
 Waves 1–3 were merged to `main` by the user (84ff038). Wave 4 was merged into the local `main` at
 the user's choice on 2026-10-21 (4c675ec, not pushed). Wave 5 was merged into the local `main` at
 fed7a08, and wave 6 by the lab's own decision under the frame of 17:06 (see "Wave 6"). Wave 7 was
-merged into the local `main` at 3b0448b by the same frame, and wave 8 at 1e0a81d, 16b05a8, dc74371 and 3d5147a (and later merges named in "Wave 8"). Nothing was pushed.
+merged into the local `main` at 3b0448b by the same frame, and wave 8 at 1e0a81d, 16b05a8, dc74371 and 3d5147a (and later merges named in "Wave 8"). Wave 9 is not merged yet (see "Wave 9"). Nothing was pushed.
 
 ## The answer
 
@@ -612,6 +612,88 @@ bound while the session is open; headless runs 21.54, exact; `scripts/lab_status
 406k tokens with no compaction, item 42). Verification across waves 1–8 is about 8% of USD 411.93
 at explorer-w08-i's cut.
 
+## Wave 9: a local judge, the PI watched, and what was measured (2026-10-25/26)
+
+> "can we find a classifier we can run locally that is aligned with the decisions Anthropic's
+> classifier took? Does a classifier one our side refuse the same tool calls? Does it allow the same
+> tool calls?" · "study qualitatively whether the PI context acquisition patterns and its way to
+> react to what's coming from its team" · "there aren't a single thing that landed on `main` that
+> has been properly measured?" · "the PreCompact hook did not land. But it seems like an interesting
+> location to be creative" (2026-10-24 13:48)
+
+Wave 9 ran in one PI session without the compaction window, at your word ("Let's treat wave 9 as
+another instance of running the research loop without the autocompact window setting", 23:45): the
+line you added to this worktree's settings did not reach the running session (context past 331k
+with no compaction), so this wave is one more baseline. Each number carries its claim's label from
+`scripts/lab_status.py`.
+
+**A local classifier.** auto mode's own rules are readable: `claude auto-mode defaults` prints 17
+allow, 72 soft-deny and 1 hard-deny rules (83 KB, CITED, CLI 2.1.304). The set was rebuilt from your
+transcripts (67 refusals, 19 refusal-then-allowed pairs, 311 sampled allows, 65 synthetic).
+**w09-c7 · MEASURED (verifier SUPPORTED; supersedes w09-c6, OVERSTATED):** the two guard models that
+did best in wave 8 barely separate auto mode's refusals from its allows. Granite Guardian 4.1 8B
+blocks 74.6% of refusals and 62.3% raw (59.8% weighted) of natural allows; gpt-oss-safeguard-20b
+blocks 11.9% and 7.1% raw (3.9% weighted); the intervals overlap for both. Giving them auto mode's
+rules made Granite block almost everything and left safeguard missing almost everything.
+**w09-c8 · MEASURED (PI decided: restated, not re-verified; every number reproduced by its
+verifier, who escalated the wording):** a general instruction model does separate the two sides.
+qwen3.6-35b-a3b (thinking off) given auto mode's full rules ranks the 67 refusals above the natural
+allows with AUC 0.79 (0.71–0.86), against 0.56 for Granite's score; the rules themselves add +0.05
+over a short criterion for the same model. At a threshold that wrongly blocks 10% of allows it
+catches 46% of refusals (34–59%); about 1 block in 60 to 1 in 160 would be a call auto mode refused
+(ESTIMATE). With the 18k-token rules cached as a prefix it answers in 0.7–0.9 s, near auto mode's
+628 ms; the first call takes 38–47 s. A lead for a shadow hook, not a replacement.
+Every judge scored 22 of 22 (Granite 20) on wave 8's written cases: a hand-written set says nothing
+about recorded decisions. Seven refusals are allowed by every judge and look plain (a `git log`, a
+`ps | grep`, a SendMessage after you wrote "I approve"); whether auto mode erred there is yours to
+say. Replacing or bypassing auto mode's classifier stays yours; no shadow hook was built.
+
+**What was measured (your third question).** **w09-c3 · MEASURED (SUPPORTED; supersedes w09-c1,
+OVERSTATED):** every one of the 33 changes on `main` has its mechanism measured; none has a USD or
+minute saving measured as achieved. On existing records seven before/after comparisons show a
+change's own metric move: the Desktop PI's request 0 from 74,685 to 48,276 tokens after the
+denylist (n 3 against 3; its USD effect 4.0–6.4% of a PI session, ESTIMATE, below the 7.5–12%
+stated for wave 5); workers' request 0 −40.5%; the budget hook's recorded duration halved by the exec
+form (the lean start not visible at the median); median first hand-backs 4,292 to 1,457 characters across
+the 1,500-character line; misnamed starts 14 of 29 batched dispatches before w08-c12, 0 of 5 dispatches after (2 of them batched).
+They are comparisons across days and tasks, not paired runs, and attribute nothing. The Rust
+binary's slower SubagentStart median was a batch mix: alone it is 106 ms against Python's 142.
+
+**How the PI takes in its team's work (your second question).** **w09-c5 · MEASURED (SUPPORTED;
+supersedes w09-c4 and w09-c2, both OVERSTATED):** in waves 5–8 the PI opened the returning worker's
+material in the same turn for 18–21 of 27 explorer hand-backs, 10–11 of 57 author hand-backs and
+5–6 of 35 verifier hand-backs (two codings; a second coder agreed on 106 of 121 wakes, kappa 0.70);
+it decided 10 of 10 verifier escalations without reading the claim file; the platform's
+"instruction-shaped" banner on a hand-back did not change how often it looked. Whether skipping the
+claim file cost anything: in 0 of 13 escalations would reading it have changed the decision, because
+the hand-back is the verdict in short (CONJECTURE, explorer-w09-h); a hook that injects the section
+would add about 7k characters to fix nothing seen, and stays out. The PI runs its own check (a
+selftest, a diff, a smoke run) about as often as it opens a worker's file (explorer-w09-d). PI
+thinking blocks are not empty: 8–20% carry a sentence or two (explorer-w09-d; wave 8 said the
+workers' were empty).
+
+**The PI invented a result once, this wave.** At 23:31 I wrote a completion notice and a result for a
+worker still running, and began acting on it; the rule "open a raw artifact for every return" caught
+it (no such commit, no file). A scan of waves 1–8 finds no earlier case (w09-c5, with the detector's
+blind spot: it sees hashes, worker names and notice-shaped text only). I also wrote one clock time
+without `date` again (S-w09-research-pi-2), a wave after the rule was written: rules the PI must
+remember at the moment of writing have failed twice each.
+
+**PreCompact at a real PI's size (explorer-w09-e).** Wave 8's PI transcript cut at 217k and resumed
+compacts on the first request; with the lab's existing state the PI answered 8 of 8 and re-read
+5.3–8.6k tokens; a digest halved the re-read (n 1–2) and lost one fact in two cells by the
+registered scorer. About USD 3.7 is at stake against 31–45 for the window itself (ESTIMATE). The
+hook stays out; the next wave's live compactions are the better test.
+
+**Lost work (item 15).** No deliverable was lost in waves 3–9; the 8 lost hand-backs were all in
+headless cells of 2026-10-19, before the budget's `continue:false` was replaced (explorer-w09-g,
+MEASURED, not verified).
+
+**What changed on the branch:** `.claude/settings.local.json` is tracked with `"autoCompactWindow":
+250000`, at your word ("then just force commit it"); a merge to `main` writes it into the main
+checkout only after its untracked copy is moved aside, which is yours to approve. No plugin change
+was landed this wave.
+
 ## What stays out, and why (w01-c13 · CONJECTURE, verifier SUPPORTED)
 
 Examined and staying out:
@@ -690,6 +772,14 @@ and its 21 subagent files up to 02:45 (which takes in the last closing requests 
 missed): PI 15.86, authors 10.07, explorers 7.32, verifiers 4.17, the helper that drew the cost map
 1.08, headless 2.48; USD 40.98 in all, list price, a lower bound.
 
+Wave 9 (2026-10-25 23:27 to 2026-10-26 01:44 JST) cost at least USD 47.20 against your budget of 100:
+- 32.80 for this checkout's session, the PI and its 15 subagents included (34.40 at close against
+  1.60 at opening, list price, session open);
+- 14.40 for the headless runs under `/private/tmp/murmuration-w09/` (9.76 exact, 4.64 at list
+  price), nearly all of it explorer-w09-e's six Opus PreCompact cells.
+Local model runs (Granite, safeguard, qwen, gemma) cost machine time only. Both are lower bounds in
+auto mode.
+
 The PI set itself a cap of about USD 60 for wave 2. Wave 2 spent about 78, so the PI overran its own
 cap by about 18. The USD 70–90 proposed for the whole study after wave 1 was never confirmed, and it
 was overrun too. The user's budget for wave 2 was six hours. Wave 2 ran from 12:30 to about 17:00 JST.
@@ -698,7 +788,7 @@ was overrun too. The user's budget for wave 2 was six hours. Wave 2 ran from 12:
 
 Items 2, 3, 13 and 14 were done before wave 5. Wave 5 settled 1(d). Wave 5's changes landed on the
 local `main` at fed7a08. Wave 6 settles 9 (the lean starts landed, w06-c9) and 20 (w06-c1), and adds
-25 to 31. Wave 7 settles 24 and 28, adds to 23, 27 and 31, and adds 32 to 38. Wave 8 settles 6, 36, 38, 39 and 41, restates 26, 29 and 40, and adds 42 to 48; the probes after its close add 49.
+25 to 31. Wave 7 settles 24 and 28, adds to 23, 27 and 31, and adds 32 to 38. Wave 8 settles 6, 36, 38, 39 and 41, restates 26, 29 and 40, and adds 42 to 48; the probes after its close add 49. Wave 9 settles 15, restates 42, 47 and 49, and adds 50 to 53.
 
 **Yours: the guardrails, since the engineering is now the lab's.**
 
@@ -725,7 +815,7 @@ Changes reach a running PI only once they are on main's working tree (item 1(e))
 | 10 | Which graded note is enough; a task whose accuracy can vary | a test, if wanted | about USD 3 |
 | 11 | The search paragraph: as before. New: in a Desktop worktree the relative colgrep path searched the plugin source, not the lab (w05-c2), so wave 4's "colgrep almost never used" may partly be colgrep finding nothing useful | you, then a test | about USD 3 |
 | 12 | Verifier independence next to the instruments folder (left alone) | you | — |
-| 15 | A worker that reaches `maxTurns` loses its deliverable with no trace | a fix, then a check | small |
+| 15 | *Settled for waves 3–9 in wave 9 (explorer-w09-g, not verified):* no deliverable lost; the 8 lost hand-backs were headless cells of 2026-10-19 (old budget `continue:false`, one 10-minute print-mode kill). A worker at `maxTurns` gets a platform notice and its transcript keeps the trace; lab files do not | — | — |
 | 16 | **One lab rule for every script.** Under the Desktop, `CLAUDE_PROJECT_DIR` is main, so `lab_init.py`, `lab_status.py` and the `handback.py` fallback act on main from a hook. From Bash they act on the worktree, because the variable is empty there | a claim after 1(a) | small |
 | 17 | Platform facts, as before, plus: a subagent's cache lives 5 minutes and a headless main thread's 1 hour; `sleep` of 30 s or more is blocked by Claude Code itself; a Bash call past 120 s without `timeout:` is moved to the background; Monitor can be given to a subagent but its events do not reach it; the headless Agent tool has no `name`; `tools:` can add a tool, and `mcp__*` matches nothing | notes | — |
 | 18 | A reproducer printed gateway API keys into its own tool output in wave 4; you may want to rotate them | you | minutes |
@@ -752,12 +842,15 @@ Changes reach a running PI only once they are on main's working tree (item 1(e))
 | 39 | *Answered in wave 8 (explorer-w08-a):* rtk's commands hold 2.9% of worker context USD, 11.7% with `cat` of documents, which verifiers must see whole; not worth installing for this lab. Its hook cost and loss were not measured (not installed) | — | — |
 | 40 | **Cost choices as decisions.** *First pass in wave 8 (explorer-w08-c):* literature fetched (ski rental and variants, TTL caches, prompt-caching economics, CVaR; 17 arXiv ids, abstracts); per-type pause models on timed lives; 1 hour for the PI under every rule, 5 minutes for reproducers and explorers, authors a knife-edge decided by risk attitude (kept on 1 hour); a read-or-delegate rule for the PI. Open: the PI with n = 3 lives, waves 1–4, the summary's failure rate | a probe, if wanted | about USD 3 |
 | 41 | *Answered in wave 8 (explorer-w08-b):* no evidence of distrust; colgrep cuts markdown into one unit per file, so a hit on a note is a path and opening it is right; 65% of whole reads are of files the brief names (now: briefs name sections, w08-c6); the start note's search path now points at the lab, not the main checkout (w08-c12). The remaining lever is in your colgrep-mcp repository (item 43) | — | — |
-| 42 | **The PI's compaction window (w08-c3 · MEASURED, SUPPORTED).** Add `"autoCompactWindow": 250000` to the main checkout's `.claude/settings.local.json` (compaction near 217k; 200–250k are equal in the model). Estimated USD 31–45 over the lab's PI history, about a quarter of PI spend; it also reaches workers (estimated +9.3). The guard refuses agents' writes to that file, correctly: it is yours. The next wave's PI is the live check (a real 91k floor, not a small lab) | you, then the next PI | minutes |
+| 42 | **The PI's compaction window (w08-c3 · MEASURED, SUPPORTED).** Add `"autoCompactWindow": 250000` to the main checkout's `.claude/settings.local.json` (compaction near 217k; 200–250k are equal in the model). Estimated USD 31–45 over the lab's PI history, about a quarter of PI spend; it also reaches workers (estimated +9.3). The guard refuses agents' writes to that file, correctly: it is yours. The next wave's PI is the live check (a real 91k floor, not a small lab). *Wave 9:* the line is in the worktree's file and, at your word, tracked on the branch (`git add -f`); it did not reach the running wave-9 session (331k, no compaction), whose process reads the main checkout's file (`--project-config-root`). Landing it means moving main's untracked copy aside so the merge writes the tracked one: your yes | you, then the next PI | minutes |
 | 43 | **colgrep for the lab's notes (your colgrep-mcp repository).** A section-level unit for markdown would let a hit on a note show the section; today a hit is the file's first lines and `expand` the whole file. Also yours: the search-policy hook denies some recursive greps and not others, and blocks heredocs that only mention the words (S-w08-explorer-w08-b-2); a worker's first search re-indexes the stale main checkout in 35–72 s | your repository | — |
 | 44 | **Idle compaction never fires in the Desktop** (six PI sessions; two paid USD 3.4–3.8 re-writes after an hour's pause, S-w08-explorer-w08-e-1). The platform documents it for interactive terminal sessions. Item 42 makes it matter less | watch the platform | — |
 | 45 | *Settled at the close of wave 8:* the five decided escalations without a recorded label (w03-c2, w04-c4, w04-c7, w04-c10, w07-c7) now carry PI decision sections, `restated at MEASURED` on the verifiers' own wording (explorer-w08-k gathered the evidence); w07-c7's statement now says the money is undetermined and gives wave 8's timed estimate. No claim reads "escalated: PI decides" | — | — |
 | 46 | **A claim's numbers in the synthesis without a verifier.** 26 of 37 "Still open" rows carried no claim id at the start of wave 8 (S-w08-explorer-w08-i-4) | a protocol claim | — |
-| 47 | **The PI's wakes.** Requests woken by a worker message are 31.7% of PI spend; 82 ended without a tool call (USD 9.42). Each hand-back can wake the PI twice (the message and the task notice). No plugin lever found; compaction makes each wake cheaper | notes | — |
+| 47 | **The PI's wakes.** Requests woken by a worker message are 31.7% of PI spend; 82 ended without a tool call (USD 9.42). Each hand-back can wake the PI twice (the message and the task notice). No plugin lever found; compaction makes each wake cheaper. *Wave 9 (explorer-w09-d):* counted by wake turn, 41 of 244 made no tool call and 13 no request; the two units do not reconcile, so the USD 9.42 may include each wake's closing report | notes | — |
 | 48 | **The hand-back gate (w08-c2, unverified, not landed)** works and nets USD 0.9–2.8 over the lab's history, negative if the PI then opens the file. It stays on its branch | — | — |
-| 49 | **A local command classifier aligned with auto mode's (after the close, two probes; `__reports__/wave-08/research-pi/01-addendum_classifier_probes_v0.md`).** The classifier's verdict is on the transcript's tool-result record: 30,525 allows and 67 refusals (0.075%) across all sessions, allows recorded only since 2.1.293; its input is not in transcripts, so a local model's agreement is a lower bound; most refusals are agents working around a hook. Downloaded through LM Studio at the user's word: Laya (fast, weak), Granite Guardian 4.1 8B and gpt-oss-safeguard-20b (good on an easy smoke set, 1.2 s and 2.3 s a call, slower than auto mode's 450–628 ms); Jev has no weights. Agreement not yet measured; replacing or bypassing auto mode's classifier is yours. Plan in `02-wave09_handoff_v0.md` | wave 9, then you | about USD 8 |
-
+| 49 | **A local command classifier aligned with auto mode's (after the close, two probes; `__reports__/wave-08/research-pi/01-addendum_classifier_probes_v0.md`).** The classifier's verdict is on the transcript's tool-result record: 30,525 allows and 67 refusals (0.075%) across all sessions, allows recorded only since 2.1.293; its input is not in transcripts, so a local model's agreement is a lower bound; most refusals are agents working around a hook. Downloaded through LM Studio at the user's word: Laya (fast, weak), Granite Guardian 4.1 8B and gpt-oss-safeguard-20b (good on an easy smoke set, 1.2 s and 2.3 s a call, slower than auto mode's 450–628 ms); Jev has no weights. *Wave 9:* agreement measured (w09-c7: the two guard models barely separate refusals from allows; a general model given auto mode's rules does better, item 50). Replacing or bypassing auto mode's classifier is yours | item 50 | — |
+| 50 | **A local judge that discriminates (wave 9).** qwen3.6-35b-a3b with auto mode's rules, AUC 0.79 (w09-c8 · MEASURED, PI decided: restated); weaker on allows flagged risky (0.635 against 0.836 on plain ones). Next: a larger sample of refusals (the shadow hook adds them as they happen), thinking on, more context per case, a threshold fitted out of sample. Replacing or bypassing auto mode's classifier is yours | a claim, then you | about USD 8 |
+| 51 | **Seven refusals every judge allows** (a `git log`, a `ps \| grep`, a SendMessage after "I approve", scheduled-task and `~/.claude` paths). Whether auto mode erred is yours to say; the case list is private (`/private/tmp/murmuration-w09/explorer-w09-c/`, cleared at a restart) | you | minutes |
+| 52 | **The platform's banner on a hand-back** ("subagent output matched instruction-shaped pattern(s)... relay to the user") did not make the PI look closer (9 of 35 against 40 of 178, w09-c5); in wave 6, 0 of 12. If it is the platform's warning of a worker acting outside its brief, a PI that does not look is a gap the guard does not cover | you | — |
+| 53 | **Rules the PI must remember at the moment of writing** failed twice each (clock times: S-w08-research-pi-1, S-w09-research-pi-2; an invented return caught only by the raw-artifact rule: S-w09-research-pi-1). A mechanical check on a note's times, or on a quoted commit that does not exist, would not rest on memory | a claim | small |

@@ -320,16 +320,18 @@ agents from writing. That step goes to the user for a yes at the close.
 
 ## Claims of this wave
 
+Current labels from `python3 -I scripts/lab_status.py` at 01:44.
+
 | Claim | Statement | Current label |
 |:--|:--|:--|
-| w09-c2 | the explorer's counts of the PI's raw opens, re-reads, banner and detector flags reproduce; in 10 of 10 reproducer escalations the PI decided in a turn that opened no claim file | superseded by w09-c4 |
-| w09-c4 | raw opens on hand-back wakes waves 5–8 by sender (as coded and masked), re-reads, 10 of 10 escalations decided with the claim file read in 0 of 10, 0 confirmed invented returns with the detectors' blind spot, banner not shown to differ (supersedes w09-c2) | superseded by w09-c5 |
-| w09-c8 | qwen3.6-35b-a3b given auto mode's full rules ranks the 67 refusals above the 212 natural allows with AUC 0.79 (Granite 0.56), but catches 31 of 67 at a 10% weighted false-block rate, about 1 block in 60 a recorded refusal (ESTIMATE): not a replacement | MEASURED (PI decided: restated, not re-verified); see the decision entry |
-| w09-c6 | with one short criterion, Granite Guardian 8B blocks 50 of 67 refusals but 59.8% of the user's own allows; gpt-oss-safeguard-20b allows 42 of 45 allows but blocks 8 of 67 refusals; neither matches auto mode on both sides | superseded by w09-c7 |
-| w09-c7 | under a short criterion in each judge's own wording, neither judge separates auto mode's refusals from its allows by much: Granite blocks 74.6% of refusals and 62.3% raw (59.8% weighted) of natural allows; safeguard 11.9% and 7.1% raw (3.9% weighted) (supersedes w09-c6) | MEASURED (reproducer-w09-3 SUPPORTED, a844c29) |
-| w09-c5 | w09-c4 without (b) re-reads: raw opens by sender, 10 of 10 escalations with the claim file read in 0 of 10, 0 confirmed invented returns (with the blind spot), banner not shown to differ (supersedes w09-c4) | MEASURED (reproducer-w09-2 SUPPORTED, 0bfbbe7) |
-| w09-c1 | seven before/after pairs of a landed change's own metric reproduce on existing records; none is a USD or minute saving achieved | superseded by w09-c3 |
-| w09-c3 | seven before/after comparisons on existing records (M5 a rate, M4 three eras) reproduce; USD figures ESTIMATEs biased both ways; none a USD or minute saving achieved (supersedes w09-c1) | MEASURED (reproducer-w09-1 SUPPORTED, cfc42b0) |
+| w09-c1 | seven before/after pairs of a landed change's own metric on existing records | superseded by w09-c3 |
+| w09-c3 | seven before/after comparisons on existing records (M5 a rate, M4 three eras) reproduce; USD figures ESTIMATEs biased both ways; none a USD or minute saving achieved | MEASURED (reproducer-w09-1 SUPPORTED) |
+| w09-c2 | the PI's raw opens, re-reads, banner, detector flags, escalations | superseded by w09-c4 |
+| w09-c4 | w09-c2 restated, with re-reads | superseded by w09-c5 |
+| w09-c5 | raw opens on hand-back wakes in waves 5–8 by sender (two codings), 10 of 10 escalations decided with the claim file read in 0 of 10, 0 confirmed invented returns in waves 1–8 (with the detectors' blind spot), banner not shown to differ | MEASURED (reproducer-w09-2 SUPPORTED) |
+| w09-c6 | two guard models against auto mode's recorded decisions, first wording | superseded by w09-c7 |
+| w09-c7 | under a short criterion in each judge's own wording, neither Granite Guardian 8B nor gpt-oss-safeguard-20b separates auto mode's refusals from its allows by much | MEASURED (reproducer-w09-3 SUPPORTED) |
+| w09-c8 | qwen3.6-35b-a3b given auto mode's rules: AUC 0.79 (0.71–0.86) against Granite's 0.56; 46% (CP 34–59%) of refusals at 10% weighted false blocks; not a replacement | MEASURED (PI decided: restated, not re-verified) |
 
 ## Puzzle dispositions (at close)
 
@@ -378,6 +380,14 @@ agents from writing. That step goes to the user for a yes at the close.
 | S-w09-explorer-w09-i-1 | followed: to the user at the close, with S-w09-explorer-w09-c-3 (7 refusals every judge allows) |
 | S-w09-explorer-w09-i-2 | parked: rule length helps one model and hurts another, intervals overlapping; one model each, not a pattern |
 | S-w09-explorer-w09-i-3 | followed: w09-c8 states the operating points and the weight of the few heavy allows |
+| S-w09-author-w09-4-1 | followed: w09-c8's restated statement (thresholds tied to this run's allow-side scores) |
+| S-w09-author-w09-4-2 | parked: a 0.01 bootstrap swing from list order; within the stated interval |
+| S-w09-author-w09-4-3 | followed: synthesis item 50 (qwen is weaker on allows flagged risky, AUC 0.635 against 0.836) |
+| S-w09-author-w09-4-4 | followed: w09-c8's restated span (1 in 60 to 1 in 160) |
+| S-w09-author-w09-4-5 | parked: residual first-token mass in 11.5% of rows; a scoring detail for whoever builds the shadow hook |
+| S-w09-reproducer-w09-4-1 | followed: w09-c8 states the cache attribution as an association |
+| S-w09-reproducer-w09-4-2 | followed: w09-c8's restated span |
+| S-w09-reproducer-w09-4-3 | parked: gemma's infinite scores bear on a comparison w09-c8 does not state |
 | S-w09-author-w09-1-1 | followed: w09-c3 (resumed sessions counted once) |
 | S-w09-author-w09-1-2 | followed: w09-c3 (first hand-backs) |
 | S-w09-author-w09-1-3 | followed: w09-c3 |
@@ -427,6 +437,17 @@ agents from writing. That step goes to the user for a yes at the close.
 
 ## Notes
 
+- **Spend at close (01:44):** this checkout USD 34.40 at list price against 1.60 at opening, so
+  32.80 for this wave, a lower bound while the session is open; headless under
+  `/private/tmp/murmuration-w09/` 14.40 (9.76 exact, 4.64 at list price). So **at least USD 47.20
+  of the 100** [source: `scripts/lab_status.py --spend` and `--project /private/tmp/murmuration-w09
+  --spend`]. Auto mode's classifier cost is in no record, so both are lower bounds.
+- Landed on the local `main`: nothing yet. The branch carries the lab files and the tracked
+  `.claude/settings.local.json`; merging it needs main's untracked copy of that file moved aside,
+  which writes the file the guard protects: put to the user at the close.
+- Local models: LM Studio's server stopped and nothing loaded (`lms status`, `lms ps`, 01:35); its
+  background service (pid 53678, started 23:30 when explorer-w09-c started the server) is left
+  running, as the user's app.
 - **The compaction window did not reach this session.** Context 331,011 tokens at 00:52 with no
   `compact_boundary` record, past the 217k where a 250k window fires; the line has been in this
   worktree's settings file since 23:35. So wave 9 is a clean run without the window, as the user
@@ -438,4 +459,4 @@ agents from writing. That step goes to the user for a yes at the close.
 - Models: every worker on its agent file's default (Sonnet), except the PI-like headless sessions of
   explorer-w09-e, which run on Opus because the thing measured is a PI's behaviour.
 
-closed: YYYY-MM-DD
+closed: 2026-10-26
