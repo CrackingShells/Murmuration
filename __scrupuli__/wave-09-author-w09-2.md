@@ -25,3 +25,7 @@ refs: `__reports__/wave-09/explorer-w09-d/data/banner_vs_raw.txt`; `__reports__/
 ## S-w09-author-w09-2-7
 A numbers check against the live session: the explorer reported "D1 tokens checked: 18" on `a75de3b4`, my re-run an hour later reports 35 on the same script, because the transcript grew. The two positive-control hits (D2 23:30:43, D1 23:30:47) are still the only flags. A count taken on a file that is open is not reproducible by a later reader; I report it as a time-stamped re-run. The claim does not rest on the number 18 or 35.
 refs: `/private/tmp/murmuration-w09/author-w09-2/out/w9/fabrication_scan.tsv` (not committed; its rows are in the claim text); explorer-w09-d `data/fabrication_scan.tsv` last rows
+
+## S-w09-author-w09-2-8
+My cut of waves 5-8 hand-backs with a request, peer messages out, is 120 (author 57, reproducer 35, explorer 27, other 1); the verifier's own cut is 121 (author 58). One author wake is a hand-back in its cut and not in mine (trigger shape or a mid-turn merge); I did not find which. The by-sender denominators therefore depend on how a trigger is defined, to one wake.
+refs: `__reports__/wave-09/author-w09-2/rawopen_masked.txt`; `__pondus__/w09-c2.md` section "verdict: reproducer-w09-2", (a)
