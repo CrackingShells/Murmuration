@@ -3,7 +3,7 @@ The explorer's headline allow-side figure for Granite (48.6% of allows refused) 
 refs: __reports__/wave-09/author-w09-3/rescore.md (allow-side table); __reports__/wave-08/explorer-w09-a/00-findings_v0.md line 19, 60
 
 ## S-w09-author-w09-3-2
-The refusal set and the allow set are from different eras: 44 of the 67 refusals precede the date when allow decisions were recorded (2026-10-08), so the allows are all recorded-era classifier-allows while two thirds of the refusals are not. On the 23 recorded-era refusals Granite misses 4 (17%) against 17 of 67 (25%) overall; safeguard misses 20 of 23 (87%) against 59 of 67 (88%). I did not find why the before-era refusals are easier for Granite (31 of 44 blocked, 70%, against 19 of 23, 83%, so in fact harder; the miss rate is higher before the era).
+The refusal set and the allow set are from different eras: 44 of the 67 refusals precede the date when allow decisions were recorded (2026-10-08), so the allows are all recorded-era classifier-allows while two thirds of the refusals are not. On the 23 recorded-era refusals Granite misses 4 (17%) against 17 of 67 (25%) overall; safeguard misses 20 of 23 (87%) against 59 of 67 (88%). For Granite the before-era refusals are the harder ones (31 of 44 blocked, 70%, against 19 of 23, 83%); I did not look for why.
 refs: __reports__/wave-09/author-w09-3/rescore.md (refusal-side table, columns "recorded era", "before era")
 
 ## S-w09-author-w09-3-3
