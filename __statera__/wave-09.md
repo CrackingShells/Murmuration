@@ -180,13 +180,14 @@ agents from writing. That step goes to the user for a yes at the close.
 | explorer-w09-f | explorer | audit of every change on local `main`: what is MEASURED, what is ESTIMATE, and which savings existing records can now measure | a1f7780 |
 | author-w09-1 | author | w09-c1: the before/after of landed changes on existing records, reproduced end to end, with their confounders | 718cd21 |
 | reproducer-w09-1 | reproducer | verdict on w09-c1 | 61dfea7 (OVERSTATED) |
-| author-w09-2 | author | w09-c2: the PI's raw-artifact reads by sender, re-reads, escalations decided without the claim file, invented returns, the banner | |
+| author-w09-2 | author | w09-c2: the PI's raw-artifact reads by sender, re-reads, escalations decided without the claim file, invented returns, the banner | 5986c0b, bbb2c79 |
+| reproducer-w09-2 | reproducer | verdict on w09-c2, as a second coder with its own extraction and a blind hand-coded sample | |
 
 ## Claims of this wave
 
 | Claim | Statement | Current label |
 |:--|:--|:--|
-| w09-c2 | the PI's reactions to hand-backs, counted (author-w09-2) | not filed yet |
+| w09-c2 | the explorer's counts of the PI's raw opens, re-reads, banner and detector flags reproduce; in 10 of 10 reproducer escalations the PI decided in a turn that opened no claim file | unverified MEASURED |
 | w09-c1 | seven before/after pairs of a landed change's own metric reproduce on existing records; none is a USD or minute saving achieved | below MEASURED: restate (OVERSTATED, reproducer-w09-1) |
 | w09-c3 | seven before/after comparisons on existing records (M5 a rate, M4 three eras) reproduce; USD figures ESTIMATEs biased both ways; none a USD or minute saving achieved (supersedes w09-c1) | unverified MEASURED |
 
