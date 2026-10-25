@@ -87,6 +87,13 @@ to be in the main checkout's own file, which only the user writes (the guard den
 (context 190,178 at 23:43), the Desktop read the worktree file live and the baseline is not clean;
 the transcript's `compact_boundary` record will show it, and the close reports whichever happened.
 
+**reproducer-w09-2 on w09-c4: OVERSTATED on (b) only (f874741).** (a), (c), (d), (e) reproduce,
+the banner from its own coding too (9/37 against 45/179, p 1.00). The one-wake difference is an
+author-w06-3 wake whose only record is an "API Error" text. (b) fails: 172 of the 588 "read" rows
+are writes and hold 92 of the 243 repeats, and "139 identical" is a match on truncated text (71 of
+327 on full text). What changes: the re-read share is not claimed this wave (explorer-w09-d's 41%
+stays an unverified explorer figure); w09-c5 restates w09-c4 without (b).
+
 **00:02, reproducer-w09-2 on w09-c2: OVERSTATED (10c5d2d).** Every count re-runs; as a second
 coder with its own rule it agrees with the author's codes on 106 of 121 hand-back wakes (kappa
 0.70), and a blind hand sample of 20 (seed 9202) agrees 18 of 20 with the author (kappa 0.78). The
@@ -208,8 +215,9 @@ agents from writing. That step goes to the user for a yes at the close.
 
 | Claim | Statement | Current label |
 |:--|:--|:--|
-| w09-c2 | the explorer's counts of the PI's raw opens, re-reads, banner and detector flags reproduce; in 10 of 10 reproducer escalations the PI decided in a turn that opened no claim file | below MEASURED: restate (OVERSTATED, reproducer-w09-2) |
-| w09-c4 | raw opens on hand-back wakes waves 5–8 by sender (as coded and masked), re-reads, 10 of 10 escalations decided with the claim file read in 0 of 10, 0 confirmed invented returns with the detectors' blind spot, banner not shown to differ (supersedes w09-c2) | unverified MEASURED |
+| w09-c2 | the explorer's counts of the PI's raw opens, re-reads, banner and detector flags reproduce; in 10 of 10 reproducer escalations the PI decided in a turn that opened no claim file | superseded by w09-c4 |
+| w09-c4 | raw opens on hand-back wakes waves 5–8 by sender (as coded and masked), re-reads, 10 of 10 escalations decided with the claim file read in 0 of 10, 0 confirmed invented returns with the detectors' blind spot, banner not shown to differ (supersedes w09-c2) | below MEASURED: restate (OVERSTATED on (b), reproducer-w09-2, f874741) |
+| w09-c5 | w09-c4 without (b) re-reads (author-w09-2) | not filed yet |
 | w09-c1 | seven before/after pairs of a landed change's own metric reproduce on existing records; none is a USD or minute saving achieved | superseded by w09-c3 |
 | w09-c3 | seven before/after comparisons on existing records (M5 a rate, M4 three eras) reproduce; USD figures ESTIMATEs biased both ways; none a USD or minute saving achieved (supersedes w09-c1) | MEASURED (reproducer-w09-1 SUPPORTED, cfc42b0) |
 
