@@ -128,6 +128,13 @@ transcripts end on something other than a hand-back; item 15 (lost deliverables)
 than thought. Not followed yet. The SubagentStart rows (Rust 282 ms, n = 6, against Python exec
 166 ms, n = 25) point the wrong way for a port; left to the verifier and to the close.
 
+**The settings file, tracked (4586446).** At the user's word ("then just force commit it"),
+`.claude/settings.local.json` is now tracked on this branch (`git add -f`), equal to the main
+checkout's untracked copy plus `"autoCompactWindow": 250000` (`diff` of the two, the only
+difference). At the merge to `main`, git will refuse while main's untracked copy sits in the way;
+moving it aside lets the merge write the tracked one into main, which is the file the guard keeps
+agents from writing. That step goes to the user for a yes at the close.
+
 ## Dispatches
 
 | Agent | Role | Brief (one line) | Returned |
