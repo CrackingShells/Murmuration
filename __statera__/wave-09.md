@@ -87,6 +87,18 @@ to be in the main checkout's own file, which only the user writes (the guard den
 (context 190,178 at 23:43), the Desktop read the worktree file live and the baseline is not clean;
 the transcript's `compact_boundary` record will show it, and the close reports whichever happened.
 
+**23:54, reproducer-w09-1 on w09-c1: OVERSTATED (61dfea7).** All seven sets of figures reproduce
+from its own extraction, and "none is a USD or minute saving achieved" holds for each; the
+statement is stronger than the evidence in four places, all conceded by the author: "pairs" (M5 has
+no before arm, M4 three eras), "own metric" (M1 is the live PI's request 0, probably not independent
+of w06-c1), "ceiling" (the USD figures are ESTIMATEs biased both ways), and M3's confounders omit
+concurrent starts. It settles the odd row: the Rust binary's 282 ms against exec's 166 ms at
+SubagentStart is a batch mix on thin n, not a slower port (alone 106 ms, n 3, against 142 ms, n 13;
+three or more together 335, n 4, against 293.5, n 8) [source: `__pondus__/w09-c1.md`, verdict
+section]. Also: the PI's tool list fell from 52 to 23 with w05-c7, all 29 removed on the denylist.
+What changes: author-w09-1 files w09-c3 at the verified scope, `supersedes: w09-c1`; the same
+verifier reads it.
+
 **23:51, explorer-w09-e back (832716a, 3353e3b; checked: commits, `runs_scored.tsv`).** The route
 works at real size: wave 8's PI transcript cut at 216,872 tokens, a clone at 104666a, `--resume
 --fork-session`; the compaction fires on the first request (boundary 219–222k). Six Opus cells,
@@ -167,7 +179,7 @@ agents from writing. That step goes to the user for a yes at the close.
 | explorer-w09-e | explorer | PreCompact v2 at real size: fork a real PI session at the compaction point, compact with and without a state digest, measure re-reads and answer accuracy (pilot) | 832716a, 3353e3b |
 | explorer-w09-f | explorer | audit of every change on local `main`: what is MEASURED, what is ESTIMATE, and which savings existing records can now measure | a1f7780 |
 | author-w09-1 | author | w09-c1: the before/after of landed changes on existing records, reproduced end to end, with their confounders | 718cd21 |
-| reproducer-w09-1 | reproducer | verdict on w09-c1 | |
+| reproducer-w09-1 | reproducer | verdict on w09-c1 | 61dfea7 (OVERSTATED) |
 | author-w09-2 | author | w09-c2: the PI's raw-artifact reads by sender, re-reads, escalations decided without the claim file, invented returns, the banner | |
 
 ## Claims of this wave
@@ -175,7 +187,8 @@ agents from writing. That step goes to the user for a yes at the close.
 | Claim | Statement | Current label |
 |:--|:--|:--|
 | w09-c2 | the PI's reactions to hand-backs, counted (author-w09-2) | not filed yet |
-| w09-c1 | seven before/after pairs of a landed change's own metric reproduce on existing records; none is a USD or minute saving achieved | unverified MEASURED |
+| w09-c1 | seven before/after pairs of a landed change's own metric reproduce on existing records; none is a USD or minute saving achieved | below MEASURED: restate (OVERSTATED, reproducer-w09-1) |
+| w09-c3 | w09-c1 at its verified scope (author-w09-1) | not filed yet |
 
 ## Puzzle dispositions (at close)
 
