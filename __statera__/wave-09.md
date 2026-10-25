@@ -188,7 +188,7 @@ agents from writing. That step goes to the user for a yes at the close.
 |:--|:--|:--|
 | w09-c2 | the PI's reactions to hand-backs, counted (author-w09-2) | not filed yet |
 | w09-c1 | seven before/after pairs of a landed change's own metric reproduce on existing records; none is a USD or minute saving achieved | below MEASURED: restate (OVERSTATED, reproducer-w09-1) |
-| w09-c3 | w09-c1 at its verified scope (author-w09-1) | not filed yet |
+| w09-c3 | seven before/after comparisons on existing records (M5 a rate, M4 three eras) reproduce; USD figures ESTIMATEs biased both ways; none a USD or minute saving achieved (supersedes w09-c1) | unverified MEASURED |
 
 ## Puzzle dispositions (at close)
 
