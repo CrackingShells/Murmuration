@@ -87,6 +87,11 @@ to be in the main checkout's own file, which only the user writes (the guard den
 (context 190,178 at 23:43), the Desktop read the worktree file live and the baseline is not clean;
 the transcript's `compact_boundary` record will show it, and the close reports whichever happened.
 
+**00:09, w09-c5 SUPPORTED (0bfbbe7).** The PI-behaviour counts stand at MEASURED without the
+re-read figure (`lab_status.py`: w09-c5 MEASURED; w09-c2 and w09-c4 superseded). It took three
+heads to get there: the first stated the explorer's rule, which its code did not follow; the second
+counted writes as reads.
+
 **00:08, round 2 opened.** Spend at least USD 33.44 of 100 (this checkout 20.64 against 1.60 at
 opening, headless 14.40) [source: `scripts/lab_status.py --spend`, both projects]. Two cheap probes,
 both from this round's puzzles: explorer-w09-g on S-w09-explorer-w09-f-3 (are deliverables lost,
@@ -225,8 +230,8 @@ agents from writing. That step goes to the user for a yes at the close.
 | Claim | Statement | Current label |
 |:--|:--|:--|
 | w09-c2 | the explorer's counts of the PI's raw opens, re-reads, banner and detector flags reproduce; in 10 of 10 reproducer escalations the PI decided in a turn that opened no claim file | superseded by w09-c4 |
-| w09-c4 | raw opens on hand-back wakes waves 5–8 by sender (as coded and masked), re-reads, 10 of 10 escalations decided with the claim file read in 0 of 10, 0 confirmed invented returns with the detectors' blind spot, banner not shown to differ (supersedes w09-c2) | below MEASURED: restate (OVERSTATED on (b), reproducer-w09-2, f874741) |
-| w09-c5 | w09-c4 without (b) re-reads: raw opens by sender, 10 of 10 escalations with the claim file read in 0 of 10, 0 confirmed invented returns (with the blind spot), banner not shown to differ (supersedes w09-c4) | unverified MEASURED |
+| w09-c4 | raw opens on hand-back wakes waves 5–8 by sender (as coded and masked), re-reads, 10 of 10 escalations decided with the claim file read in 0 of 10, 0 confirmed invented returns with the detectors' blind spot, banner not shown to differ (supersedes w09-c2) | superseded by w09-c5 |
+| w09-c5 | w09-c4 without (b) re-reads: raw opens by sender, 10 of 10 escalations with the claim file read in 0 of 10, 0 confirmed invented returns (with the blind spot), banner not shown to differ (supersedes w09-c4) | MEASURED (reproducer-w09-2 SUPPORTED, 0bfbbe7) |
 | w09-c1 | seven before/after pairs of a landed change's own metric reproduce on existing records; none is a USD or minute saving achieved | superseded by w09-c3 |
 | w09-c3 | seven before/after comparisons on existing records (M5 a rate, M4 three eras) reproduce; USD figures ESTIMATEs biased both ways; none a USD or minute saving achieved (supersedes w09-c1) | MEASURED (reproducer-w09-1 SUPPORTED, cfc42b0) |
 
