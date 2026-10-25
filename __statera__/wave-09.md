@@ -76,6 +76,17 @@ This session's context was 165,919 tokens at 23:36: if the line goes into the ma
 now and this session compacts near 217k, a running session picks it up; if not, the measurement
 needs a session started after the edit.
 
+**23:45, the user's decision on the window.** "After all, I think it's bad to interrupt the current
+cycle. Let's treat wave 9 as another instance of running the research loop without the
+autocompact window setting and then the next cycles will have it once we merge this loop to
+`main`." So wave 9 stays in this session, as one more PI run without the window: a baseline for
+the next waves, not the live test. Two facts for the next PI: (1) `.claude/settings.local.json` is
+gitignored in both checkouts (`.gitignore:24`), so a merge to `main` does not carry the line; it has
+to be in the main checkout's own file, which only the user writes (the guard denies agents);
+(2) the line is in this worktree's file since 23:35. If this session still compacts near 217k
+(context 190,178 at 23:43), the Desktop read the worktree file live and the baseline is not clean;
+the transcript's `compact_boundary` record will show it, and the close reports whichever happened.
+
 **23:39, explorer-w09-f back (a1f7780; checked: the commit and files exist).** 33 landed changes
 waves 1–8; every one has its mechanism recorded (29 MEASURED by current label); none has a USD or
 minute saving measured as achieved. On existing records it read before/afters for several: PI
