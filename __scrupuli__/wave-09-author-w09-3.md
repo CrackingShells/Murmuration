@@ -25,3 +25,7 @@ refs: __reports__/wave-09/author-w09-3/spotcheck.md; /private/tmp/murmuration-w0
 ## S-w09-author-w09-3-7
 "Allow" here means "classifier allow" only: calls auto mode allowed by mode accept (4,835), rule accept (2,722) or a hook never reached the classifier and are not in the 30,663. A local judge that blocks more of the classifier-allowed calls is compared on a population that already excludes the calls a rule waved through, so the allow-side disagreement is conditional on reaching the classifier.
 refs: __reports__/wave-09/explorer-w09-c/tables_counts.md (decider totals)
+
+## S-w09-author-w09-3-8
+The coordinator's message for w09-c7 gave "132/212 = 59.8%" and "2/28 = 3.9%", which are the stratum-weighted natural rates, not the raw fractions (62.3% and 7.1%). The two bases differ most for safeguard (3.9% weighted against 7.1% raw) because its 2 blocked allows sit in low-weight strata; w09-c7 prints both, labelled.
+refs: __reports__/wave-09/author-w09-3/selectivity.md; __reports__/wave-09/author-w09-3/rescore.md
