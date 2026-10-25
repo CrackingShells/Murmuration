@@ -87,6 +87,23 @@ to be in the main checkout's own file, which only the user writes (the guard den
 (context 190,178 at 23:43), the Desktop read the worktree file live and the baseline is not clean;
 the transcript's `compact_boundary` record will show it, and the close reports whichever happened.
 
+**23:48, explorer-w09-d back (5bdeb78; checked: commit, report, coded table rows 74 and 91).**
+Over 244 PI wake turns of waves 1–8, a raw artifact was opened in the same turn in 22/8/18/16/36/36%
+(waves 1–3, 4, 5, 6, 7, 8); in waves 5–8 by sender: explorers 18 of 27, authors 10 of 57, verifiers 5
+of 41. The PI runs its own check instead about as often as it opens one (23 against 18 of 72
+sampled). 41% of 588 reads in waves 5–8 re-read a file already read. Two escalations were decided
+with no claim file opened (S-w09-explorer-w09-d-1), against the skill's rule. The scan for results
+stated before a worker returned found 0 in waves 1–8 and fires on this session's 23:31 case. The
+platform's "instruction-shaped" banner did not raise the raw-open rate (9/35 against 41/188; 0/12
+in wave 6). Thinking blocks are not empty (8–20% carry narration); the wave-8 synthesis said they
+were [source: `__reports__/wave-09/explorer-w09-d/00-findings_v0.md`, MEASURED counts and
+CONJECTURE readings by the explorer, not verified]. What changes: (1) the rule "open a raw artifact
+for every agent that returns" is followed for explorers and mostly not for authors and verifiers,
+whose hand-back is about a claim file the PI does not open; the counts are hardened as w09-c2 with
+a second, blind coder as the verifier; (2) the banner result is a guardrail matter (a warning the
+PI does not act on), for the user at the close; (3) my own 23:31 error is the first of its kind on
+record, so it is not yet a pattern.
+
 **23:45, author-w09-1 back (718cd21, d99bc5a; checked: the commits exist).** w09-c1 filed at
 MEASURED: seven pairs reproduce, and four of the explorer's figures move once resumed sessions and
 workers are counted once. PI request 0 n = 3 vs 3, not 5 (70daedf1 is a resume of ad75be4f), −35.4%;
@@ -116,16 +133,18 @@ than thought. Not followed yet. The SubagentStart rows (Rust 282 ms, n = 6, agai
 | Agent | Role | Brief (one line) | Returned |
 |:--|:--|:--|:--|
 | explorer-w09-c | explorer | rebuild the labelled set; offline agreement of local judges with auto mode, judged with auto mode's own rules against wave 8's short criterion; refusals, rewrite pairs, synthetic and allows reported apart | |
-| explorer-w09-d | explorer | qualitative study of the PI: what it reads, why, and how it reacts to each hand-back, on a coded sample of PI turns of waves 5–8 | |
+| explorer-w09-d | explorer | qualitative study of the PI: what it reads, why, and how it reacts to each hand-back, on a coded sample of PI turns of waves 5–8 | 5bdeb78, b3d83fa |
 | explorer-w09-e | explorer | PreCompact v2 at real size: fork a real PI session at the compaction point, compact with and without a state digest, measure re-reads and answer accuracy (pilot) | |
 | explorer-w09-f | explorer | audit of every change on local `main`: what is MEASURED, what is ESTIMATE, and which savings existing records can now measure | a1f7780 |
 | author-w09-1 | author | w09-c1: the before/after of landed changes on existing records, reproduced end to end, with their confounders | 718cd21 |
 | reproducer-w09-1 | reproducer | verdict on w09-c1 | |
+| author-w09-2 | author | w09-c2: the PI's raw-artifact reads by sender, re-reads, escalations decided without the claim file, invented returns, the banner | |
 
 ## Claims of this wave
 
 | Claim | Statement | Current label |
 |:--|:--|:--|
+| w09-c2 | the PI's reactions to hand-backs, counted (author-w09-2) | not filed yet |
 | w09-c1 | seven before/after pairs of a landed change's own metric reproduce on existing records; none is a USD or minute saving achieved | unverified MEASURED |
 
 ## Puzzle dispositions (at close)
