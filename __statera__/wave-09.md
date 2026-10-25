@@ -87,7 +87,7 @@ to be in the main checkout's own file, which only the user writes (the guard den
 (context 190,178 at 23:43), the Desktop read the worktree file live and the baseline is not clean;
 the transcript's `compact_boundary` record will show it, and the close reports whichever happened.
 
-**23:52, author-w09-1 back (718cd21, d99bc5a; checked: the commits exist).** w09-c1 filed at
+**23:45, author-w09-1 back (718cd21, d99bc5a; checked: the commits exist).** w09-c1 filed at
 MEASURED: seven pairs reproduce, and four of the explorer's figures move once resumed sessions and
 workers are counted once. PI request 0 n = 3 vs 3, not 5 (70daedf1 is a resume of ad75be4f), −35.4%;
 "halved" author pauses not distinguishable (p 0.095); the 171 end records are 91 workers; first
