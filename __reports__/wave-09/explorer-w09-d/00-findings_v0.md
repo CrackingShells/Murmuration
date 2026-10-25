@@ -72,5 +72,5 @@ Commands (all read-only on the transcripts; outputs in `/private/tmp/murmuration
 - `python3 -I __instrumenta__/w09d_sample.py out` (seed 9): `sample.tsv` and the batches I read.
 - `python3 -I __instrumenta__/w09d_orient.py out w123 w4 w5 w6 w7 w8`: `orientation_table.tsv`.
 - `raw_open_by_wave.txt`, `auto_codes_by_wave.txt`, `population_stats.txt`: short Python over `out/*_turns.jsonl` run inline (strict raw-open rule: `obj_class` of `w09d_turns.py` in {worker report, puzzle file, claim file, instrumenta script, transcript/data, older report, PI report} or the sender's name in the path).
-- Scripts: `__instrumenta__/w09d_turns.py`, `w09d_sample.py`, `w09d_orient.py` at the commit that contains this report.
+- Scripts: `__instrumenta__/w09d_turns.py@5bdeb78`, `__instrumenta__/w09d_sample.py@5bdeb78`, `__instrumenta__/w09d_orient.py@5bdeb78`.
 - Extracted turn summaries with user prompts stay in `/private/tmp/murmuration-w09/explorer-w09-d/out/batch_0*.txt` (not committed).
