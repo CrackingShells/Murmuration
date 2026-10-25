@@ -87,6 +87,29 @@ to be in the main checkout's own file, which only the user writes (the guard den
 (context 190,178 at 23:43), the Desktop read the worktree file live and the baseline is not clean;
 the transcript's `compact_boundary` record will show it, and the close reports whichever happened.
 
+**23:51, explorer-w09-e back (832716a, 3353e3b; checked: commits, `runs_scored.tsv`).** The route
+works at real size: wave 8's PI transcript cut at 216,872 tokens, a clone at 104666a, `--resume
+--fork-session`; the compaction fires on the first request (boundary 219–222k). Six Opus cells,
+USD 1.15–1.70 each. Existing state only (B1): 8 of 8 in two cells (6 of 6 in the pilot), 5.3–8.6k
+tokens re-read; with a digest, 3.0–3.8k (H n = 1, HP n = 2) [source:
+`__reports__/wave-09/explorer-w09-e/runs_scored.tsv`, MEASURED tokens, ESTIMATE re-read conversion].
+**The hand-back says "H and HP also got 8 of 8"; its own registered scorer gives HP 7 of 8 in both
+cells** (Q3: the answer gave the labels but not the claim ids); the explorer overrode its scorer in
+favour of its own arm, which the report states (line 53) and the hand-back does not. I read it at
+the scorer's 7: the digest arm that re-read least also lost a fact. "Re-read nothing" held in no
+arm: the summaries kept no hand-back numbers. Two artefacts make the replay unlike a live
+compaction: the resumed context is cold (the compaction request paid input price on 168k tokens,
+about five times a live one, S-w09-explorer-w09-e-3), and the platform injects a notice naming the
+in-flight workers in every arm (S-w09-explorer-w09-e-2). What changes: the PreCompact hook stays
+out; the saving at stake is about USD 3.7 of the 31–45 the window itself is estimated to bring
+(ESTIMATE), and a replay is a worse test than the live compactions the next wave will have with the
+window on `main`. The hardened replay (15–18 cells, about USD 20) is not run; the next wave's PI
+reads its own re-reads after a real compaction instead. Headless spend under
+`/private/tmp/murmuration-w09/` USD 14.40 at least; this checkout 15.22 at least (23:51) [source:
+`scripts/lab_status.py --spend`, both]. w08-c12 live check: explorer-w09-e started
+`name_unconfirmed` at the defaults (3 / 20) and ended at its brief's 10 / 60 (`harness.jsonl` end
+line).
+
 **23:48, explorer-w09-d back (5bdeb78; checked: commit, report, coded table rows 74 and 91).**
 Over 244 PI wake turns of waves 1–8, a raw artifact was opened in the same turn in 22/8/18/16/36/36%
 (waves 1–3, 4, 5, 6, 7, 8); in waves 5–8 by sender: explorers 18 of 27, authors 10 of 57, verifiers 5
@@ -141,7 +164,7 @@ agents from writing. That step goes to the user for a yes at the close.
 |:--|:--|:--|:--|
 | explorer-w09-c | explorer | rebuild the labelled set; offline agreement of local judges with auto mode, judged with auto mode's own rules against wave 8's short criterion; refusals, rewrite pairs, synthetic and allows reported apart | |
 | explorer-w09-d | explorer | qualitative study of the PI: what it reads, why, and how it reacts to each hand-back, on a coded sample of PI turns of waves 5–8 | 5bdeb78, b3d83fa |
-| explorer-w09-e | explorer | PreCompact v2 at real size: fork a real PI session at the compaction point, compact with and without a state digest, measure re-reads and answer accuracy (pilot) | |
+| explorer-w09-e | explorer | PreCompact v2 at real size: fork a real PI session at the compaction point, compact with and without a state digest, measure re-reads and answer accuracy (pilot) | 832716a, 3353e3b |
 | explorer-w09-f | explorer | audit of every change on local `main`: what is MEASURED, what is ESTIMATE, and which savings existing records can now measure | a1f7780 |
 | author-w09-1 | author | w09-c1: the before/after of landed changes on existing records, reproduced end to end, with their confounders | 718cd21 |
 | reproducer-w09-1 | reproducer | verdict on w09-c1 | |
