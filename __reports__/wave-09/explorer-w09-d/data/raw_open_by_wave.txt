@@ -1,0 +1,18 @@
+wake turns (B/N-led) with a request: share that opened a raw artifact in the same turn / same or next turn (strict: Read, cat/sed/head/tail/grep/jq on worker report, puzzle, claim, script, data, PI report; not git, not lab_status)
+w123  wakes= 80 raw same turn= 18 (22%)  same or next turn= 30 (38%)
+w4    wakes= 24 raw same turn=  2 (8%)  same or next turn=  4 (17%)
+w5    wakes= 22 raw same turn=  4 (18%)  same or next turn=  5 (23%)
+w6    wakes= 38 raw same turn=  6 (16%)  same or next turn= 11 (29%)
+w7    wakes= 28 raw same turn= 10 (36%)  same or next turn= 13 (46%)
+w8    wakes= 39 raw same turn= 14 (36%)  same or next turn= 21 (54%)
+
+by sender role, waves 5-8 pooled (B-led wakes with a request): n, raw same turn
+  explorer   n= 27 raw= 18 (67%)
+  author     n= 57 raw= 10 (18%)
+  reproducer n= 41 raw=  5 (12%)
+  other      n=  2 raw=  1 (50%)
+by wave and role:
+  w5 expl 4/5 auth 0/9 repr 0/8
+  w6 expl 2/3 auth 2/17 repr 1/16
+  w7 expl 5/6 auth 5/16 repr 0/6
+  w8 expl 7/13 auth 3/15 repr 4/11

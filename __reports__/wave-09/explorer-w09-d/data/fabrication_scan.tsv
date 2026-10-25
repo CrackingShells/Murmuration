@@ -1,0 +1,40 @@
+label	turn	time_jst	detector	token	context
+w123	19	19 11:43:14	D2 result-like sentence about an open worker	author-w01-4	- **Reproducer-w01-4:** its verdict on the original prompt-capture claim.
+w123	19	19 11:43:14	D2 result-like sentence about an open worker	reproducer-w01-4	- **Reproducer-w01-4:** its verdict on the original prompt-capture claim.
+w123	23	19 11:46:34	D2 result-like sentence about an open worker	reproducer-w01-10	Reproducer-w01-10 found a regression in the proposed fix for which checkout's lab the prompt hook writes to (claim w01-c10).
+w123	23	19 11:46:34	D2 result-like sentence about an open worker	reproducer-w01-10	- **Reproducer-w01-10:** its verdict on w01-c10.
+w123	26	19 11:52:07	D2 result-like sentence about an open worker	reproducer-w01-1	| w01-c1 | A hook that saves each agent's final report to a lab file | reproducer-w01-1 |
+w123	28	19 11:55:55	D2 result-like sentence about an open worker	reproducer-w01-2	Author-w01-2 reports that its raw test outputs contained your email address and account ids.
+w123	28	19 11:57:54	D2 result-like sentence about an open worker	reproducer-w01-1	- Reproducer-w01-1 is checking claim w01-c1 (the report-saving hook).
+w123	29	19 11:58:50	D2 result-like sentence about an open worker	reproducer-w01-1	Author-w01-1 found and fixed two real bugs in its report-saving hook after reproducer-w01-1's questions:
+w123	30	19 12:00:38	D2 result-like sentence about an open worker	reproducer-w01-1	- Reproducer-w01-1 is checking claim w01-c1, the hook that saves each agent's final report, now in its revised version.
+w123	32	19 12:02:24	D2 result-like sentence about an open worker	author-w01-1	Author-w01-1 is filing w01-c14 now, the restated report-saving hook that replaces w01-c1.
+w123	34	19 12:30:01	D2 result-like sentence about an open worker	author-w02-1	- **Author-w02-1:** applying the measured cost fix to `/lab-status`.
+w123	35	19 12:37:45	D2 result-like sentence about an open worker	explorer-w02-b	- **Explorer-w02-b:** probing report naming and the skill listing.
+w123	36	19 12:38:56	D2 result-like sentence about an open worker	explorer-w02-b	- **Explorer-w02-b:** probing report naming and the skill listing.
+w123	37	19 12:40:47	D2 result-like sentence about an open worker	explorer-w02-b	- **Explorer-w02-b:** testing report naming and the skill listing.
+w123	38	19 12:41:33	D2 result-like sentence about an open worker	explorer-w02-b	- **Explorer-w02-b:** testing report naming and the skill listing.
+w123	39	19 12:42:50	D2 result-like sentence about an open worker	explorer-w02-b	- Explorer-w02-b is probing report naming and the skill listing.
+w123	40	19 12:45:03	D2 result-like sentence about an open worker	explorer-w02-b	Explorer-w02-b is testing report naming and the skill listing.
+w123	41	19 12:45:14	D2 result-like sentence about an open worker	reproducer-w02-2	The label sentence is in claim w02-c2, and reproducer-w02-2 has been told.
+w123	42	19 12:46:54	D2 result-like sentence about an open worker	explorer-w02-a	Explorer-w02-a is testing hook budgets, and explorer-w02-b is testing report naming.
+w123	42	19 12:46:54	D2 result-like sentence about an open worker	explorer-w02-b	Explorer-w02-a is testing hook budgets, and explorer-w02-b is testing report naming.
+w123	43	19 12:56:30	D2 result-like sentence about an open worker	explorer-w02-b	Explorer-w02-b (report naming and the skill listing) hit the 60-turn limit with no report, the same failure as three explorers in wave 1.
+w123	46	19 13:01:53	D2 result-like sentence about an open worker	author-w02-3	- **Author-w02-3:** the budget and report-saving hooks.
+w123	46	19 13:01:53	D2 result-like sentence about an open worker	author-w02-4	- **Author-w02-4:** report templates and leaner worker agents.
+w123	47	19 13:14:01	D2 result-like sentence about an open worker	reproducer-w02-4	Reproducer-w02-4 is now checking claim w02-c4 (report templates and lean workers).
+w123	48	19 13:19:01	D2 result-like sentence about an open worker	author-w02-3	Arm B therefore waits for author-w02-3's budget and report-saving hooks.
+w123	50	19 13:20:18	D2 result-like sentence about an open worker	author-w02-3	I'll check on arm A while author-w02-3 finishes the budget and report-saving hooks.
+w123	67	19 15:52:06	D2 result-like sentence about an open worker	author-w02-1	Author-w02-1 is fixing the status script so it reads the last verdict in a section, and updating the skill's wording to match.
+w123	80	19 16:38:51	D2 result-like sentence about an open worker	reproducer-w02-8	- **Reproducer-w02-8:** its verdict on the experiment claim, w02-c8.
+w123	87	19 19:43:05	D2 result-like sentence about an open worker	reproducer-w03-1	reproducer-w03-1 is checking it now, and I'll review and commit it after its verdict.
+w123	-1		D1 tokens checked	138	
+w4	-1		D1 tokens checked	60	
+w5	-1		D1 tokens checked	124	
+w6	-1		D1 tokens checked	114	
+w7	15	22 01:14:59	D2 result-like sentence about an open worker	reproducer-w07-4	author-w07-4 fixed an overflow its verifier found (an infinite search count made the report exit).
+w7	-1		D1 tokens checked	109	
+w8	-1		D1 tokens checked	94	
+w9self	0	25 23:30:43	D2 result-like sentence about an open worker	explorer-w09-f	Explorer w09-f's audit is in:
+w9self	0	25 23:30:47	D1 hex token with no earlier carrier	2ef93a1	{"command": "git log --oneline -3; git branch -a --contains 2ef93a1 2>&1 | head; git -C /Users/hacker/Documents/src/CrackingShells/Murmuration branch
+w9self	-1		D1 tokens checked	18	

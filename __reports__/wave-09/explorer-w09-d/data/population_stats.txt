@@ -1,0 +1,51 @@
+Source: out/<label>_turns.jsonl, out/read_table.tsv from __instrumenta__/w09d_turns.py (MEASURED counts; "used later" is a file-name string proxy)
+PER SESSION: B = hand-back message triggers, N = notice triggers; wake turns = turns led by B or N
+label Btrig Ntrig | wake-turns zero-step(no request) text-only(no tool call) with-calls | closing-request-without-call after calls
+w123    74   13 |   85   5  13  67 |  65
+w4      24    1 |   25   1   5  19 |  19
+w5      22    3 |   25   3   7  15 |  15
+w6      39    1 |   40   2   5  33 |  33
+w7      28    1 |   29   1   6  22 |  22
+w8      39    1 |   40   1   5  34 |  34
+TOTAL {'B': 226, 'N': 20, 'wake': 244, 'zero': 13, 'txt': 41, 'calls': 190, 'closers': 188}
+
+hand-back chars (B-led turns): n, median, max
+w123 72 4599 21079
+w4 24 3857 6388
+w5 22 4856 7292
+w6 39 4723 9608
+w7 28 5060 6990
+w8 39 2033 6624
+
+READS (read-type calls incl. lab_status, git, search; multi-path calls split): n, chars, used later (string proxy), repeat of a file read earlier, whole
+w123  n=227 chars= 321222 used_later=122 (54%) repeat=118 (52%) whole= 84
+w4    n= 86 chars= 185647 used_later= 41 (48%) repeat= 31 (36%) whole= 15
+w5    n=115 chars= 189588 used_later= 70 (61%) repeat= 45 (39%) whole= 31
+w6    n=101 chars= 204903 used_later= 50 (50%) repeat= 31 (31%) whole= 25
+w7    n=164 chars= 303260 used_later=102 (62%) repeat= 74 (45%) whole= 50
+w8    n=208 chars= 260150 used_later=114 (55%) repeat= 93 (45%) whole= 52
+
+READS by class, waves 5-8 pooled: n, chars, used_later%, repeat%
+  lab_status             n= 45 chars= 142078 used=  0% repeat=  0%
+  other                  n=116 chars= 100223 used= 44% repeat= 42%
+  synthesis              n= 38 chars=  87276 used= 97% repeat= 89%
+  puzzle file            n= 36 chars=  81719 used= 14% repeat= 11%
+  worker report          n= 37 chars=  78108 used= 68% repeat= 38%
+  wave note              n= 45 chars=  77469 used= 91% repeat= 73%
+  skill/reference        n= 32 chars=  54171 used= 72% repeat= 44%
+  plugin source          n= 36 chars=  51414 used= 94% repeat= 58%
+  report (older/other)   n= 33 chars=  45131 used= 64% repeat= 27%
+  search                 n=  7 chars=  39921 used=  0% repeat=  0%
+  PI report              n= 28 chars=  33463 used= 79% repeat= 57%
+  statera other          n= 21 chars=  29632 used= 81% repeat= 67%
+  other md               n= 21 chars=  29016 used= 52% repeat= 29%
+  framing                n=  6 chars=  27815 used= 67% repeat= 33%
+  claim file             n= 18 chars=  27788 used= 28% repeat= 28%
+  transcript/data        n= 29 chars=  15791 used= 66% repeat= 38%
+  agent file             n= 15 chars=  13904 used= 67% repeat= 40%
+  bash-view              n=  1 chars=   9487 used=  0% repeat=  0%
+  instrumenta script     n= 12 chars=   8870 used= 50% repeat= 25%
+  git                    n=  3 chars=   2652 used=  0% repeat=  0%
+  code other             n=  9 chars=   1973 used= 56% repeat= 22%
+
+thinking blocks with text (narration) per session

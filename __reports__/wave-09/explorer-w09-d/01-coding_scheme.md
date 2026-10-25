@@ -64,3 +64,13 @@ Thinking is empty, so "why" comes only from the PI's visible text and from what 
 Stratified over waves 5-8 (about 25 each) with a few from waves 1-4: for each session the orientation stretch; all human prompts (up to 4);
 hand-back wakes drawn to cover (a) no-action wakes, (b) wakes with a raw open, (c) wakes with a dispatch and no open, (d) the long wakes
 (most steps), (e) a spread over the session's time; a few N wakes. Turns are extracted as summaries by script; the PI's text is cut at 500 characters a step.
+
+## Addendum, added during coding (before the coded table was summarised)
+
+- **V** (own check): the PI ran a command that re-tests what the hand-back says (selftests, a diff against a named commit, a smoke run, its own probe) instead of reading an artifact. Counted with raw opens as "raw check" in the tables, shown separately.
+- **No request**: a turn whose trigger produced no model request (the notice or message was queued behind other input). It is not a wake; the auto codes call it H0, so the report separates it.
+- **F (a result stated before the worker returned), added at the PI's word (message during the run).** Two mechanical detectors over each PI transcript, run on waves 1-8 and calibrated on the PI's own wave-9 session:
+  - D1: a hex token of 7-40 characters (with a digit and a letter; a short hash matches a longer one by 7-character prefix) that first occurs in text the PI authored (text, thinking, tool-call inputs) with no earlier carrier in any tool result, user record, attachment or system record.
+  - D2: a sentence of the PI's text or thinking that names an open worker (dispatched or resumed, no hand-back or notice since) and carries a result word, without a plan or wait word; every hit read by hand.
+  - D3: PI text shaped like a task notification ("Agent '...' completed").
+  Limits: a fabricated result with no hash, no worker name and no notification shape is not seen; thinking is mostly empty before wave 9.
