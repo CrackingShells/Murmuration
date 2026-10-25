@@ -1,0 +1,8 @@
+== lab_status substring masked: False
+  waves 5-8 hand-backs (peer messages excluded), raw open in the same turn: author 10/57; explorer 18/27; other 0/1; reproducer 5/35 ; all 33/120
+  the peer messages left out: other 1/1; reproducer 0/6
+  waves 1-8 hand-backs, banner: 9/35, no banner: 40/178; two-sided Fisher exact p = 0.66
+== lab_status substring masked: True
+  waves 5-8 hand-backs (peer messages excluded), raw open in the same turn: author 11/57; explorer 21/27; other 0/1; reproducer 6/35 ; all 38/120
+  the peer messages left out: other 1/1; reproducer 0/6
+  waves 1-8 hand-backs, banner: 11/35, no banner: 44/178; two-sided Fisher exact p = 0.40
