@@ -1,0 +1,13 @@
+duplicates by uuid: 0
+PostToolBatch | ${CLAUDE_PLUGIN_DATA}/bin/murmuration budget | n 2 median 26.0 min 24 max 28 2026-10-24T05:45 2026-10-25T14:44
+PostToolBatch | python3 "${CLAUDE_PLUGIN_ROOT}/scripts/budget.py" | n 44 median 105.0 min 79 max 1753 2026-10-20T01:04 2026-10-21T13:04
+PostToolBatch | python3 -S -I "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py" budget | n 30 median 103.5 min 63 max 488 2026-10-21T15:34 2026-10-21T17:27
+PostToolBatch | python3 -S -I ${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py budget | n 35 median 51 min 29 max 182 2026-10-23T15:28 2026-10-23T20:03
+SubagentStart | ${CLAUDE_PLUGIN_DATA}/bin/murmuration budget | n 9 median 197 min 104 max 429 2026-10-24T05:22 2026-10-25T14:48
+SubagentStart | Loading the colgrep search policy | n 273 median 287 min 179 max 2301 2026-10-19T02:01 2026-10-25T14:48
+SubagentStart | Loading tool routing policy... | n 273 median 164 min 99 max 2190 2026-10-19T02:01 2026-10-25T14:48
+SubagentStart | python3 "${CLAUDE_PLUGIN_ROOT}/scripts/budget.py" | n 47 median 467 min 215 max 1825 2026-10-20T00:34 2026-10-21T13:13
+SubagentStart | python3 -S -I "${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py" budget | n 20 median 247.0 min 180 max 1347 2026-10-21T15:27 2026-10-21T17:18
+SubagentStart | python3 -S -I ${CLAUDE_PLUGIN_ROOT}/scripts/run_hook.py budget | n 25 median 166 min 103 max 499 2026-10-23T15:16 2026-10-23T19:32
+PostToolBatch string-lean (2, -28.5, 36.5) lean-exec (52, 30.0, 81.5) string-exec (54, 39.5, 85.0)
+SubagentStart string-lean (220, -45.5, 362.0) lean-exec (81, -4.0, 329.5) string-exec (301, 169, 436)
