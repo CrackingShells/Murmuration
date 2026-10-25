@@ -304,7 +304,8 @@ agents from writing. That step goes to the user for a yes at the close.
 | author-w09-3 | author | w09-c6: the two local judges' agreement with auto mode on each side, re-scored from the result rows | 6485d3d, 1f1f79e |
 | reproducer-w09-3 | reproducer | verdict on w09-c6, then w09-c7 | 332458d (OVERSTATED), a844c29 (SUPPORTED) |
 | explorer-w09-i | explorer | general instruction models (qwen3.6-35b-a3b, gemma-4-26b-a4b) with auto mode's rules: discrimination on recorded decisions, and on wave 8's written cases | 9100557, 7ded193, 58f4cfa |
-| author-w09-4 | author | w09-c8: qwen3.6 with auto mode's rules discriminates where the guard models do not, re-scored from the rows | |
+| author-w09-4 | author | w09-c8: qwen3.6 with auto mode's rules discriminates where the guard models do not, re-scored from the rows | b8d7999, efda99a |
+| reproducer-w09-4 | reproducer | verdict on w09-c8 | |
 | explorer-w09-d | explorer | qualitative study of the PI: what it reads, why, and how it reacts to each hand-back, on a coded sample of PI turns of waves 5–8 | 5bdeb78, b3d83fa |
 | explorer-w09-e | explorer | PreCompact v2 at real size: fork a real PI session at the compaction point, compact with and without a state digest, measure re-reads and answer accuracy (pilot) | 832716a, 3353e3b |
 | explorer-w09-f | explorer | audit of every change on local `main`: what is MEASURED, what is ESTIMATE, and which savings existing records can now measure | a1f7780 |
@@ -321,7 +322,7 @@ agents from writing. That step goes to the user for a yes at the close.
 |:--|:--|:--|
 | w09-c2 | the explorer's counts of the PI's raw opens, re-reads, banner and detector flags reproduce; in 10 of 10 reproducer escalations the PI decided in a turn that opened no claim file | superseded by w09-c4 |
 | w09-c4 | raw opens on hand-back wakes waves 5–8 by sender (as coded and masked), re-reads, 10 of 10 escalations decided with the claim file read in 0 of 10, 0 confirmed invented returns with the detectors' blind spot, banner not shown to differ (supersedes w09-c2) | superseded by w09-c5 |
-| w09-c8 | a general model given auto mode's rules discriminates auto mode's refusals from its allows (author-w09-4) | not filed yet |
+| w09-c8 | qwen3.6-35b-a3b given auto mode's full rules ranks the 67 refusals above the 212 natural allows with AUC 0.79 (Granite 0.56), but catches 31 of 67 at a 10% weighted false-block rate, about 1 block in 60 a recorded refusal (ESTIMATE): not a replacement | unverified MEASURED |
 | w09-c6 | with one short criterion, Granite Guardian 8B blocks 50 of 67 refusals but 59.8% of the user's own allows; gpt-oss-safeguard-20b allows 42 of 45 allows but blocks 8 of 67 refusals; neither matches auto mode on both sides | superseded by w09-c7 |
 | w09-c7 | under a short criterion in each judge's own wording, neither judge separates auto mode's refusals from its allows by much: Granite blocks 74.6% of refusals and 62.3% raw (59.8% weighted) of natural allows; safeguard 11.9% and 7.1% raw (3.9% weighted) (supersedes w09-c6) | MEASURED (reproducer-w09-3 SUPPORTED, a844c29) |
 | w09-c5 | w09-c4 without (b) re-reads: raw opens by sender, 10 of 10 escalations with the claim file read in 0 of 10, 0 confirmed invented returns (with the blind spot), banner not shown to differ (supersedes w09-c4) | MEASURED (reproducer-w09-2 SUPPORTED, 0bfbbe7) |
