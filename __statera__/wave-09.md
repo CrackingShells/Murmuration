@@ -87,6 +87,19 @@ to be in the main checkout's own file, which only the user writes (the guard den
 (context 190,178 at 23:43), the Desktop read the worktree file live and the baseline is not clean;
 the transcript's `compact_boundary` record will show it, and the close reports whichever happened.
 
+**00:19, explorer-w09-g back (3905c79, 6f8ea89; checked: commits, `41-rows.md`).** 40 rows, not 41;
+three were live workers of this wave when explorer-w09-f counted. Of 37 ended: 27 wave-2 probe
+workers whose agent types had no hand-back tool and ended on a delivered final text, 2 that had
+handed back and ended on trailing text, 7 wave-2 explorers stopped by the old budget's
+`continue:false`, 1 killed by the headless 10-minute wait. 8 hand-back messages lost, all in headless
+cells of 2026-10-19; none in waves 3–9; the report file survived in 6 of the 7 budget-stopped
+explorers. In a wider scan, 24 agents got a platform "turn limit / without delivering" notice, 14
+resumed and delivered; none after 2026-10-20T01:18Z [source:
+`__reports__/wave-09/explorer-w09-g/00-findings_v0.md`, MEASURED by the explorer, not verified].
+What changes: item 15 is settled for waves 3–9 at the explorer's label (no lost deliverable; the
+trace is in the platform's notice and the transcript, not in lab files); nothing to land, so no
+claim. Its 312 against explorer-w09-f's 306 transcripts is left as a count difference.
+
 **00:09, w09-c5 SUPPORTED (0bfbbe7).** The PI-behaviour counts stand at MEASURED without the
 re-read figure (`lab_status.py`: w09-c5 MEASURED; w09-c2 and w09-c4 superseded). It took three
 heads to get there: the first stated the explorer's rule, which its code did not follow; the second
@@ -222,7 +235,7 @@ agents from writing. That step goes to the user for a yes at the close.
 | reproducer-w09-1 | reproducer | verdict on w09-c1 | 61dfea7 (OVERSTATED) |
 | author-w09-2 | author | w09-c2: the PI's raw-artifact reads by sender, re-reads, escalations decided without the claim file, invented returns, the banner | 5986c0b, bbb2c79 |
 | reproducer-w09-2 | reproducer | verdict on w09-c2, as a second coder with its own extraction and a blind hand-coded sample; then w09-c4 | 10c5d2d (OVERSTATED), f874741 (OVERSTATED on (b)) |
-| explorer-w09-g | explorer | the 41 of 306 worker transcripts ending without a hand-back: finished, resumed, stopped, maxTurns, error or lost | |
+| explorer-w09-g | explorer | the 41 of 306 worker transcripts ending without a hand-back: finished, resumed, stopped, maxTurns, error or lost | 3905c79, 6f8ea89 |
 | explorer-w09-h | explorer | did escalation decisions made without reading the claim file lose anything; size a lever that does not depend on the PI remembering | |
 
 ## Claims of this wave
