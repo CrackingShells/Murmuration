@@ -87,6 +87,14 @@ to be in the main checkout's own file, which only the user writes (the guard den
 (context 190,178 at 23:43), the Desktop read the worktree file live and the baseline is not clean;
 the transcript's `compact_boundary` record will show it, and the close reports whichever happened.
 
+**23:55, w09-c3 SUPPORTED (cfc42b0).** reproducer-w09-1 found its four points met and nothing new
+stated; the start-concurrency script reproduces its own split. Soft spot it notes: the binary's
+n 3 / n 4 strata come from the `all` run, which grows with the live wave; the saved table holds the
+frozen run. So the answer to the user's third sentence stands at MEASURED: every landed change has
+its mechanism measured; none has a USD or minute saving measured as achieved; seven comparisons on
+existing records show the change's own metric moved (`lab_status.py`: w09-c3 MEASURED, w09-c1
+superseded by w09-c3).
+
 **23:54, reproducer-w09-1 on w09-c1: OVERSTATED (61dfea7).** All seven sets of figures reproduce
 from its own extraction, and "none is a USD or minute saving achieved" holds for each; the
 statement is stronger than the evidence in four places, all conceded by the author: "pairs" (M5 has
@@ -188,8 +196,8 @@ agents from writing. That step goes to the user for a yes at the close.
 | Claim | Statement | Current label |
 |:--|:--|:--|
 | w09-c2 | the explorer's counts of the PI's raw opens, re-reads, banner and detector flags reproduce; in 10 of 10 reproducer escalations the PI decided in a turn that opened no claim file | unverified MEASURED |
-| w09-c1 | seven before/after pairs of a landed change's own metric reproduce on existing records; none is a USD or minute saving achieved | below MEASURED: restate (OVERSTATED, reproducer-w09-1) |
-| w09-c3 | seven before/after comparisons on existing records (M5 a rate, M4 three eras) reproduce; USD figures ESTIMATEs biased both ways; none a USD or minute saving achieved (supersedes w09-c1) | unverified MEASURED |
+| w09-c1 | seven before/after pairs of a landed change's own metric reproduce on existing records; none is a USD or minute saving achieved | superseded by w09-c3 |
+| w09-c3 | seven before/after comparisons on existing records (M5 a rate, M4 three eras) reproduce; USD figures ESTIMATEs biased both ways; none a USD or minute saving achieved (supersedes w09-c1) | MEASURED (reproducer-w09-1 SUPPORTED, cfc42b0) |
 
 ## Puzzle dispositions (at close)
 
