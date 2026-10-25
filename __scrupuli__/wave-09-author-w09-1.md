@@ -29,3 +29,7 @@ refs: `__reports__/wave-09/author-w09-1/tokens.md` (M2 block)
 ## S-w09-author-w09-1-8
 Rows 21 and 22 of the explorer's table sit in the "measurable on records" list while their own last-cell text says the risk avoided is N; the 33-row tally adds up, but the R and N sizes (7 and 13) depend on how a mixed cell is read (5-6 and 13-14).
 refs: `__reports__/wave-09/author-w09-1/tally.md`
+
+## S-w09-author-w09-1-9
+Resumed after w09-c1 was ruled OVERSTATED: the head said "ceiling" for a figure that leaves out the cache write, and "pairs" for a rate and for three eras. I wrote both words without checking them against the unit of the number. The same failure as S-w09-author-w09-1-1, in the wording instead of the count. A one-line check at filing time (name the unit and the direction of each bias next to every USD figure) would have caught it.
+refs: `__pondus__/w09-c1.md` head, `__pondus__/w09-c3.md`
