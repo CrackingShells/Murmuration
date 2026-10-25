@@ -21,3 +21,15 @@ refs: __pondus__/w01-c5.md, w01-c8.md, w05-c1.md, w08-c1.md; my scan in /private
 ## S-w09-reproducer-w09-2-6
 My first extraction mis-split awk programs at the semicolons inside the quotes and read heredoc bodies as commands: it gave 18/10/5 for explorer/author/reproducer, the same as the author's, and the match was a coincidence of two errors in opposite directions. After fixing it I got 20/11/7. A matching headline total from two coders is weak evidence when the rules differ.
 refs: __instrumenta__/w09c2v_extract.py (segs)
+
+## S-w09-reproducer-w09-2-7
+The "read" rows of `read_table.tsv` are not all reads: 172 of the 588 rows of waves 5-8 are kind `write` (a compound command that writes and also matches the view regex; 69 have a heredoc in the key, so prose inside a wave-note heredoc can match "cat", "sed -n" or "grep"). They carry 92 of the 243 repeats. The repeat share does not depend on them (42% on read-kind rows only, 44% to 50% on mine), the counts do.
+refs: /private/tmp/murmuration-w09/reproducer-w09-2/author_out/read_table.tsv (regenerated, not committed); __instrumenta__/w09d_turns.py call_info (reads_too); __instrumenta__/w09c2v_rereads_banner.py
+
+## S-w09-reproducer-w09-2-8
+"Identical call text" is the `key` of `read_table.tsv`, which is the command cut to 140 to 160 characters after whitespace is squeezed; 185 of 588 keys are at that length. Two different heredoc edits of the same wave note that start alike count as identical. The head describes it as call text identical to an earlier read.
+refs: __instrumenta__/w09d_turns.py (call_info, `one(c1, 140)` and `one(c1, 160)`); __instrumenta__/w09c2_counts.py lines 90-95
+
+## S-w09-reproducer-w09-2-9
+A pseudo-wake: an API error ("Can't reach the API server") is written to the PI transcript as an assistant text record after a hand-back, so a cut that counts assistant records counts a wake with no work. The author's cut (n_steps) drops it; mine kept it in the first run (121 against 120).
+refs: transcript 74fa512e line 631 (0-based) and the next 8 records
