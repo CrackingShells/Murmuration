@@ -87,6 +87,14 @@ to be in the main checkout's own file, which only the user writes (the guard den
 (context 190,178 at 23:43), the Desktop read the worktree file live and the baseline is not clean;
 the transcript's `compact_boundary` record will show it, and the close reports whichever happened.
 
+**23:52, author-w09-1 back (718cd21, d99bc5a; checked: the commits exist).** w09-c1 filed at
+MEASURED: seven pairs reproduce, and four of the explorer's figures move once resumed sessions and
+workers are counted once. PI request 0 n = 3 vs 3, not 5 (70daedf1 is a resume of ad75be4f), −35.4%;
+"halved" author pauses not distinguishable (p 0.095); the 171 end records are 91 workers; first
+hand-backs 4,292 → 1,457; the explorer's "0 of 15" misnamed after w08-c12 not reproducible (0 of 5
+dispatches, 2 batched). The tally is 33 after all (9 + 1 + 7 + 3 + 13). What changes: the
+explorer's report is not quoted again where the claim differs; reproducer-w09-1 dispatched.
+
 **23:39, explorer-w09-f back (a1f7780; checked: the commit and files exist).** 33 landed changes
 waves 1–8; every one has its mechanism recorded (29 MEASURED by current label); none has a USD or
 minute saving measured as achieved. On existing records it read before/afters for several: PI
@@ -111,13 +119,14 @@ than thought. Not followed yet. The SubagentStart rows (Rust 282 ms, n = 6, agai
 | explorer-w09-d | explorer | qualitative study of the PI: what it reads, why, and how it reacts to each hand-back, on a coded sample of PI turns of waves 5–8 | |
 | explorer-w09-e | explorer | PreCompact v2 at real size: fork a real PI session at the compaction point, compact with and without a state digest, measure re-reads and answer accuracy (pilot) | |
 | explorer-w09-f | explorer | audit of every change on local `main`: what is MEASURED, what is ESTIMATE, and which savings existing records can now measure | a1f7780 |
-| author-w09-1 | author | w09-c1: the before/after of landed changes on existing records, reproduced end to end, with their confounders | |
+| author-w09-1 | author | w09-c1: the before/after of landed changes on existing records, reproduced end to end, with their confounders | 718cd21 |
+| reproducer-w09-1 | reproducer | verdict on w09-c1 | |
 
 ## Claims of this wave
 
 | Claim | Statement | Current label |
 |:--|:--|:--|
-| w09-c1 | the before/after of landed changes on existing records (author-w09-1) | not filed yet |
+| w09-c1 | seven before/after pairs of a landed change's own metric reproduce on existing records; none is a USD or minute saving achieved | unverified MEASURED |
 
 ## Puzzle dispositions (at close)
 
