@@ -87,6 +87,16 @@ to be in the main checkout's own file, which only the user writes (the guard den
 (context 190,178 at 23:43), the Desktop read the worktree file live and the baseline is not clean;
 the transcript's `compact_boundary` record will show it, and the close reports whichever happened.
 
+**00:51, w09-c7 SUPPORTED (a844c29); round 3 opened.** The classifier answer stands at MEASURED:
+under a short criterion in each judge's own wording, neither guard model separates auto mode's
+refusals from its allows by much (the raw intervals overlap on both judges). Spend at least USD
+42.38 of 100 (this checkout 29.58 against 1.60; headless 14.40) [source: `scripts/lab_status.py
+--spend`]. What changes: two guard models are not "a classifier we can run locally" in general. One
+more probe on the user's first sentence, explorer-w09-i: two general instruction models on disk,
+given auto mode's rules, scored for discrimination (not one-sided agreement), and on wave 8's
+written cases to settle S-w09-explorer-w09-c-1 (labels unlike auto mode's policy, or recorded calls
+unlike written ones). After it, the wave closes.
+
 **00:49, reproducer-w09-3 on w09-c6: OVERSTATED (332458d).** All 378 case ids join back to auto
 mode's recorded decisions by `tool_use` id (67 classifier blocks, 311 classifier allows); polarity
 re-parses 462/462 and 196/196; counts, intervals and weights match; a Granite spot re-run of 22 cases
@@ -276,7 +286,8 @@ agents from writing. That step goes to the user for a yes at the close.
 |:--|:--|:--|:--|
 | explorer-w09-c | explorer | rebuild the labelled set; offline agreement of local judges with auto mode, judged with auto mode's own rules against wave 8's short criterion; refusals, rewrite pairs, synthetic and allows reported apart | 1713dc5 |
 | author-w09-3 | author | w09-c6: the two local judges' agreement with auto mode on each side, re-scored from the result rows | 6485d3d, 1f1f79e |
-| reproducer-w09-3 | reproducer | verdict on w09-c6: labels from auto mode's records, verdict polarity, the own-sessions cut, wording | 332458d (OVERSTATED) |
+| reproducer-w09-3 | reproducer | verdict on w09-c6, then w09-c7 | 332458d (OVERSTATED), a844c29 (SUPPORTED) |
+| explorer-w09-i | explorer | general instruction models (qwen3.6-35b-a3b, gemma-4-26b-a4b) with auto mode's rules: discrimination on recorded decisions, and on wave 8's written cases | |
 | explorer-w09-d | explorer | qualitative study of the PI: what it reads, why, and how it reacts to each hand-back, on a coded sample of PI turns of waves 5–8 | 5bdeb78, b3d83fa |
 | explorer-w09-e | explorer | PreCompact v2 at real size: fork a real PI session at the compaction point, compact with and without a state digest, measure re-reads and answer accuracy (pilot) | 832716a, 3353e3b |
 | explorer-w09-f | explorer | audit of every change on local `main`: what is MEASURED, what is ESTIMATE, and which savings existing records can now measure | a1f7780 |
@@ -293,8 +304,8 @@ agents from writing. That step goes to the user for a yes at the close.
 |:--|:--|:--|
 | w09-c2 | the explorer's counts of the PI's raw opens, re-reads, banner and detector flags reproduce; in 10 of 10 reproducer escalations the PI decided in a turn that opened no claim file | superseded by w09-c4 |
 | w09-c4 | raw opens on hand-back wakes waves 5–8 by sender (as coded and masked), re-reads, 10 of 10 escalations decided with the claim file read in 0 of 10, 0 confirmed invented returns with the detectors' blind spot, banner not shown to differ (supersedes w09-c2) | superseded by w09-c5 |
-| w09-c6 | with one short criterion, Granite Guardian 8B blocks 50 of 67 refusals but 59.8% of the user's own allows; gpt-oss-safeguard-20b allows 42 of 45 allows but blocks 8 of 67 refusals; neither matches auto mode on both sides | below MEASURED: restate (OVERSTATED, reproducer-w09-3, 332458d) |
-| w09-c7 | under a short criterion in each judge's own wording, neither judge separates auto mode's refusals from its allows by much: Granite blocks 74.6% of refusals and 62.3% raw (59.8% weighted) of natural allows; safeguard 11.9% and 7.1% raw (3.9% weighted) (supersedes w09-c6) | unverified MEASURED |
+| w09-c6 | with one short criterion, Granite Guardian 8B blocks 50 of 67 refusals but 59.8% of the user's own allows; gpt-oss-safeguard-20b allows 42 of 45 allows but blocks 8 of 67 refusals; neither matches auto mode on both sides | superseded by w09-c7 |
+| w09-c7 | under a short criterion in each judge's own wording, neither judge separates auto mode's refusals from its allows by much: Granite blocks 74.6% of refusals and 62.3% raw (59.8% weighted) of natural allows; safeguard 11.9% and 7.1% raw (3.9% weighted) (supersedes w09-c6) | MEASURED (reproducer-w09-3 SUPPORTED, a844c29) |
 | w09-c5 | w09-c4 without (b) re-reads: raw opens by sender, 10 of 10 escalations with the claim file read in 0 of 10, 0 confirmed invented returns (with the blind spot), banner not shown to differ (supersedes w09-c4) | MEASURED (reproducer-w09-2 SUPPORTED, 0bfbbe7) |
 | w09-c1 | seven before/after pairs of a landed change's own metric reproduce on existing records; none is a USD or minute saving achieved | superseded by w09-c3 |
 | w09-c3 | seven before/after comparisons on existing records (M5 a rate, M4 three eras) reproduce; USD figures ESTIMATEs biased both ways; none a USD or minute saving achieved (supersedes w09-c1) | MEASURED (reproducer-w09-1 SUPPORTED, cfc42b0) |
