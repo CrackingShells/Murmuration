@@ -1,0 +1,48 @@
+(a) wakes with a request: raw artifact opened in the same turn (tn['raw_here'], strict rule of w09d_turns.py:is_raw)
+  w123  wakes=85 with request=80  raw same turn 18/80 (22%)  same or next 30/80 (38%)
+  w4    wakes=25 with request=24  raw same turn 2/24 (8%)  same or next 4/24 (17%)
+  w5    wakes=25 with request=22  raw same turn 4/22 (18%)  same or next 5/22 (23%)
+  w6    wakes=40 with request=38  raw same turn 6/38 (16%)  same or next 11/38 (29%)
+  w7    wakes=29 with request=28  raw same turn 10/28 (36%)  same or next 13/28 (46%)
+  w8    wakes=40 with request=39  raw same turn 14/39 (36%)  same or next 21/39 (54%)
+(a2) B-led wakes with a request, waves 5-8, by sender role (role = prefix of the agent name in the trigger)
+  author     10/57 (18%)
+  explorer   18/27 (67%)
+  other      1/2 (50%)
+  reproducer 5/41 (12%)
+  all        34/127 (27%)
+    ('w5', 'author') 0/9
+    ('w5', 'explorer') 4/5
+    ('w5', 'reproducer') 0/8
+    ('w6', 'author') 2/17
+    ('w6', 'explorer') 2/3
+    ('w6', 'other') 1/2
+    ('w6', 'reproducer') 1/16
+    ('w7', 'author') 5/16
+    ('w7', 'explorer') 5/6
+    ('w7', 'reproducer') 0/6
+    ('w8', 'author') 3/15
+    ('w8', 'explorer') 7/13
+    ('w8', 'reproducer') 4/11
+(a3) the same, with the raw read in the same turn OR the next turn, by role
+  author     15/57 (26%)
+  explorer   22/27 (81%)
+  other      1/2 (50%)
+  reproducer 12/41 (29%)
+(a4) sensitivity, waves 5-8, B-led wakes with a request, same turn, by role: (view) only Read/cat/sed/head/tail/grep/jq-type view calls count, not ls/du/find/wc/awk/python3 queries; (linked) only a path naming the sender, or a claim file whose id (wNN-cK) is in the first 260 characters of the hand-back
+  author     n=57  rule as coded 10  view-only 9  linked-to-sender 8
+  explorer   n=27  rule as coded 18  view-only 16  linked-to-sender 15
+  other      n=2  rule as coded 1  view-only 1  linked-to-sender 0
+  reproducer n=41  rule as coded 5  view-only 4  linked-to-sender 3
+(b) reads in waves 5-8 (rows of read_table.tsv; a call naming up to 3 paths gives up to 3 rows)
+  rows 588, characters 957901
+  rows with a path (lab_status, search, git-without-path have none): 532
+  repeat by file NAME (w09d_turns.py rule): 243/588 (41%) of all rows, 243/532 (46%) of rows with a path
+  repeat by NORMALISED PATH (worktree prefix stripped; no basename collisions): 225/532 (42%) of rows with a path
+  of the name-repeats, identical call text to an earlier row: 139 rows, 114228 characters
+  name-repeats after the PI's own write to that file: 28
+  synthesis reads 38, repeats 34
+  wave-note reads 45, repeats 33
+(e) B-led wakes with a request, all waves 1-8: raw read in the same turn, banner in the first 260 characters of the hand-back vs not
+  banner=True 9/35 (26%)
+  banner=False 41/188 (22%)

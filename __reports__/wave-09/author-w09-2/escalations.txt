@@ -1,0 +1,59 @@
+# condensed output of w09c2_escalations.py (snippets of PI text left out); blocks whose sender is not a reproducer are false hits of the ESCALATE word
+=== w123 T019 19 11:43:07 from=author-w01-5 ids=['w01-c5', 'w01-c8']
+   wake turn: opens claim file(s): none ; raw_here=False
+   T019 19 11:43:07 decision-text=True writes-decision-section=False
+=== w123 T020 19 11:43:15 from=reproducer-w01-4 ids=['w01-c4']
+   VERIFIER ESCALATION on w01-c4: turns up to and including the wake that opened __pondus__/w01-c4*: none
+   wake turn: opens claim file(s): none ; raw_here=False
+   T020 19 11:43:15 decision-text=True writes-decision-section=False
+=== w123 T030 19 12:00:15 from=reproducer-w01-2 ids=['w01-c2']
+   VERIFIER ESCALATION on w01-c2: turns up to and including the wake that opened __pondus__/w01-c2*: [(18, '19 11:41:36')]
+   wake turn: opens claim file(s): none ; raw_here=False
+   T030 19 12:00:15 decision-text=True writes-decision-section=False
+   T031 19 12:00:47 decision-text=True writes-decision-section=False
+=== w123 T031 19 12:00:47 from=author-w01-2 ids=['w01-c2']
+   wake turn: opens claim file(s): none ; raw_here=True
+   T031 19 12:00:47 decision-text=True writes-decision-section=False
+=== w123 T077 19 16:27:18 from=reproducer-w02-10 ids=['w02-c10']
+   VERIFIER ESCALATION on w02-c10: turns up to and including the wake that opened __pondus__/w02-c10*: none
+   wake turn: opens claim file(s): none ; raw_here=True
+   T077 19 16:27:18 decision-text=True writes-decision-section=False
+=== w123 T094 19 20:49:52 from=reproducer-w03-2 ids=['w03-c2']
+   VERIFIER ESCALATION on w03-c2: turns up to and including the wake that opened __pondus__/w03-c2*: none
+   wake turn: opens claim file(s): none ; raw_here=False
+   T094 19 20:49:52 decision-text=True writes-decision-section=False
+   T096 19 22:19:28 decision-text=True writes-decision-section=False
+=== w123 T095 19 20:54:16 from=author-w03-2 ids=['w03-c2']
+   wake turn: opens claim file(s): none ; raw_here=False
+   T096 19 22:19:28 decision-text=True writes-decision-section=False
+=== w4 T010 20 10:18:59 from=reproducer-w04-4 ids=['w04-c4']
+   VERIFIER ESCALATION on w04-c4: turns up to and including the wake that opened __pondus__/w04-c4*: none
+   wake turn: opens claim file(s): none ; raw_here=False
+   T010 20 10:18:59 decision-text=True writes-decision-section=False: 'PI decision on w04-c4: restate the head in place to the verifier\'s figures, as in wave 3\'s precedent. The finding is "workers look first (14 of 15, by `ls`, 0 colgrep), but strict reu'
+=== w4 T014 20 10:32:48 from=reproducer-w04-7 ids=['w04-c4', 'w04-c7']
+   VERIFIER ESCALATION on w04-c7: turns up to and including the wake that opened __pondus__/w04-c7*: none
+   wake turn: opens claim file(s): none ; raw_here=False
+   T014 20 10:32:48 decision-text=True writes-decision-section=False
+=== w4 T019 20 10:41:08 from=reproducer-w04-10 ids=['w04-c10']
+   VERIFIER ESCALATION on w04-c10: turns up to and including the wake that opened __pondus__/w04-c10*: none
+   wake turn: opens claim file(s): none ; raw_here=False
+   T019 20 10:41:08 decision-text=True writes-decision-section=False
+   T020 20 10:41:27 decision-text=True writes-decision-section=False
+=== w6 T013 21 19:36:36 from=reproducer-w06-3 ids=['w06-c3']
+   VERIFIER ESCALATION on w06-c3: turns up to and including the wake that opened __pondus__/w06-c3*: [(10, '21 19:19:53')]
+   wake turn: opens claim file(s): none ; raw_here=False
+   T013 21 19:36:36 decision-text=True writes-decision-section=False: 'ESCALATE, with the measurements reproduced. My decision: - **Restatement accepted.** author-w06-3 files w06-c5, which supersedes w06-c3: m4 (a) has no outage to observe, (b) leaves a transcript-only recor'
+=== w7 T020 22 01:41:32 from=reproducer-w07-6 ids=['w07-c7']
+   VERIFIER ESCALATION on w07-c7: turns up to and including the wake that opened __pondus__/w07-c7*: none
+   wake turn: opens claim file(s): none ; raw_here=False
+   T020 22 01:41:32 decision-text=True writes-decision-section=False: 'reproducer-w07-6 escalated w07-c7, because the author wants it restated. Its checks hold: the key is honoured, a B author kept 100% of its cache across a 333 s gap run alone, and a resumed B author also wrote 1-hour cache ('
+=== w8 T014 24 01:48:41 from=explorer-w08-i ids=['w05-c1', 'w07-c3', 'w07-c7', 'w08-c4']
+   wake turn: opens claim file(s): none ; raw_here=False
+   T019 24 02:16:38 decision-text=True writes-decision-section=False
+=== w8 T017 24 02:09:14 from=author-w08-9 ids=['w01-c1', 'w01-c10', 'w02-c7', 'w02-c8', 'w08-c9']
+   wake turn: opens claim file(s): none ; raw_here=False
+   T018 24 02:12:28 decision-text=True writes-decision-section=False: 'reproducer-w08-9 escalated w08-c9 for a restatement. The title was false for w02-c7 and w02-c8, whose wave notes record "below MEASURED: restate". The author fixed that and two other defects at d24f3c'
+=== w8 T018 24 02:12:28 from=reproducer-w08-9 ids=['w01-c1', 'w01-c10', 'w02-c7', 'w02-c8', 'w07-c7', 'w08-c9']
+   VERIFIER ESCALATION on w08-c9: turns up to and including the wake that opened __pondus__/w08-c9*: none
+   wake turn: opens claim file(s): none ; raw_here=False
+   T018 24 02:12:28 decision-text=True writes-decision-section=False: 'reproducer-w08-9 escalated w08-c9 for a restatement. The title was false for w02-c7 and w02-c8, whose wave notes record "below MEASURED: restate". The author fixed that and two other defects at d24f3c'
