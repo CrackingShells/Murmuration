@@ -87,6 +87,21 @@ to be in the main checkout's own file, which only the user writes (the guard den
 (context 190,178 at 23:43), the Desktop read the worktree file live and the baseline is not clean;
 the transcript's `compact_boundary` record will show it, and the close reports whichever happened.
 
+**00:19, explorer-w09-h back (aed13a4, 6de1dc1; checked: commits, `01-escalation_table.md`).** 13
+escalations located. In 0 of 13 would reading the verifier's section and exchange have changed the
+decision (CONJECTURE, one reader, quotes in the table): the hand-back already carried the findings
+and the author's request (median hand-back 4,458 characters, median section 6,929). 5 superseded as
+decided, 9 restated in place, 0 reversed; the 9 decision sections were written 2–5 days after the
+wakes (wave 8's close). In one queued case (w01-c5) the PI did read the section and decided the same
+way. Lever sized, not built: a UserPromptSubmit hook injecting the verdict section on ESCALATE, 98
+characters (pointer) to 6,929 (section) per escalation [source:
+`__reports__/wave-09/explorer-w09-h/00-findings_v0.md`, ESTIMATE]. What changes: no lever. The rule
+is not followed, and on this evidence not following it cost nothing, because the hand-back is the
+verdict in short; injecting the section would carry about 7k characters into the PI's context to fix
+nothing seen. The worst fit, w07-c7, is not a reading failure: the hand-back said "6-tool headless
+only, no resume tested" and the PI landed it anyway; the decision rested on what it had read. Stays
+out; recorded for the synthesis.
+
 **00:19, explorer-w09-g back (3905c79, 6f8ea89; checked: commits, `41-rows.md`).** 40 rows, not 41;
 three were live workers of this wave when explorer-w09-f counted. Of 37 ended: 27 wave-2 probe
 workers whose agent types had no hand-back tool and ended on a delivered final text, 2 that had
@@ -236,7 +251,7 @@ agents from writing. That step goes to the user for a yes at the close.
 | author-w09-2 | author | w09-c2: the PI's raw-artifact reads by sender, re-reads, escalations decided without the claim file, invented returns, the banner | 5986c0b, bbb2c79 |
 | reproducer-w09-2 | reproducer | verdict on w09-c2, as a second coder with its own extraction and a blind hand-coded sample; then w09-c4 | 10c5d2d (OVERSTATED), f874741 (OVERSTATED on (b)) |
 | explorer-w09-g | explorer | the 41 of 306 worker transcripts ending without a hand-back: finished, resumed, stopped, maxTurns, error or lost | 3905c79, 6f8ea89 |
-| explorer-w09-h | explorer | did escalation decisions made without reading the claim file lose anything; size a lever that does not depend on the PI remembering | |
+| explorer-w09-h | explorer | did escalation decisions made without reading the claim file lose anything; size a lever that does not depend on the PI remembering | aed13a4, 6de1dc1 |
 
 ## Claims of this wave
 
