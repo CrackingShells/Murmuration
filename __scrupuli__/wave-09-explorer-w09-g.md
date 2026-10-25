@@ -1,0 +1,22 @@
+## symbols
+none new.
+
+## S-w09-explorer-w09-g-1
+Item 15 says a worker at `maxTurns` "loses its deliverable with no trace". The lab-era evidence is 2 workers at 150 (wave-4 cells `ux-c1`, `ux-c2`, a task built to overrun: 150 files, one `cat` each) and 4 explorers at the old limit 60 (waves 1-2), all 4 resumed and delivered in 67 to 108 s. No worker of waves 3 to 9 hit a turn limit in any parent notice I could find, and the trace the PI gets is the platform's own notice, which lab files do not copy. So the fix item 15 asks for may be for a loss that has happened 2 times, both by design. What I cannot tell is whether the notice wording survives the 2.1.30x versions, because no later notice exists to compare.
+refs: __reports__/wave-09/explorer-w09-g/notices.tsv (last 4 rows, `turn_limit` 150); transcripts `a9a115dc`, `a6c3cbe7` in `~/.claude/projects/-private-tmp-murmuration-w04-author-w04-2-runs-ux-c{1,2}-lab/*/subagents/`; __pondus__/w04-c3.md line 32
+
+## S-w09-explorer-w09-g-2
+explorer-w02-a (`a209ed43`) ended with the tool result "The user doesn't want to proceed with this tool use ... STOP what you are doing and wait" and "[Request interrupted by user for tool use]", with no human at the keyboard: the platform's 10-minute print-mode ceiling kills a background worker through the permission-rejection path. A worker reading that text is told to wait for a user who does not exist. The PI logged the ceiling (S-w02-research-pi-2) from the arm's stderr, and nothing in the plugin tells a headless lab to set `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0` that I could find. Does any later wave run headless with background workers, and does it set the variable?
+refs: ~/.claude/projects/*expC-A-lab/*/subagents/agent-a209ed43358aee992.jsonl (last 3 records); __scrupuli__/wave-02-research-pi.md (S-w02-research-pi-2); ab96c5ed.jsonl 04:22:41Z-04:23:28Z
+
+## S-w09-explorer-w09-g-3
+The parent of 6 of the 7 budget-stopped explorers told the user "no report came back" while `00-findings_v0.md` was on disk (written by Bash or Write, result without error). The report-check hook made the file the first thing the worker does after a deny, so the file exists exactly when the hand-back is about to be lost, and the platform's notice ("Its unsent text is not shown") says nothing about it. Is a "report file exists at the convention path" line in the hand-back save (handback.py) a cheap way to make the PI's belief match the disk, and did w02-c3's "5 of 6 survived" count s3 differently from my 6 of 7?
+refs: __reports__/wave-09/explorer-w09-g/41-rows.md (rows 28-35); transcripts `a8fbd949` (b2), `a0986197` (g2), `a80a542f`, `a8909368`, `abbdc628` (h1-h3), `ae1333c3` (s3) under `~/.claude/projects/*w02-author-w02-3-runs-*-lab/`; __pondus__/w02-c3.md line 41
+
+## S-w09-explorer-w09-g-4
+reproducer-w08-5 wrote "`SubagentHandback` refused a second report, so I sent this to `main` by message instead. A first send to `research-pi` was not delivered." Yet author-w08-1, -3, -5, -9 hand back, then end on a text turn (stored `draft`), then hand back again 7 to 13 s later and the second is stored `delivered`. So either the refusal is specific to the reproducer's case or the "refused" came from something the handbacks file does not record. 4 of the 16 drafts are never followed by a delivered section, and those are the two resumed-by-message agents; the PI's notice for them says "delivered ... not repeated here", which is true of the earlier report and not of the last text.
+refs: murmuration-wave-8-928ebd/__statera__/handbacks/wave-08-reproducer-w08-5.md (hand-back 3, 4); .../wave-08-author-w08-1.md (hand-back 2, 3); murmuration-wave-4-3417be/__statera__/handbacks/wave-04-author-w04-4.md (hand-back 2, 3)
+
+## S-w09-explorer-w09-g-5
+f's 41 is not reproducible from the files today: 40 rows (37 ended, 3 live), and its denominator 306 against my 312 for the same glob. The glob `*Murmuration-murmuration-*` also leaves out the lab worktrees `blissful-villani`, `xenodochial-franklin`, `lab-system-optimization` (53 subagent files, the lab's real waves 5-7 work) and every `/private/tmp/murmuration-w0N-*` experiment folder (612 files in all), and it keeps 264 hbtest/essayist probe cells under `---reports`. "Subagent transcripts of the lab" is a population that depends on which of these is meant; every count about "the lab" in waves 8-9 may share it.
+refs: __reports__/wave-09/explorer-w09-g/f_all.tsv (312 rows), wide_all.tsv (876 rows); __instrumenta__/w09f_threads.py (line 3, the dirs filter)

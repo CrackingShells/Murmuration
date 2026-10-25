@@ -1,0 +1,34 @@
+proj	sess	agent	name	atype	notice_ts	turn_limit	no_report	text_at_stop	later_handback_delivered	later_handback_ts	file_end
+n-murmuration-system-optimization-8cff9e	ab96c5ed	a1f4458c	explorer-w01-c	murmuration:explorer	2026-10-19T02:11:59.923Z	60	1		yes	2026-10-19T02:13:34.574Z	2026-10-19T02:13:35.468Z
+n-murmuration-system-optimization-8cff9e	ab96c5ed	a1f4458c	explorer-w01-c	murmuration:explorer	2026-10-19T02:11:59.999Z	60	1		yes	2026-10-19T02:13:34.574Z	2026-10-19T02:13:35.468Z
+n-murmuration-system-optimization-8cff9e	ab96c5ed	ac6c2717	explorer-w01-b	murmuration:explorer	2026-10-19T02:12:35.413Z	60	1		yes	2026-10-19T02:14:23.563Z	2026-10-19T02:14:24.515Z
+n-murmuration-system-optimization-8cff9e	ab96c5ed	ac6c2717	explorer-w01-b	murmuration:explorer	2026-10-19T02:12:35.466Z	60	1		yes	2026-10-19T02:14:23.563Z	2026-10-19T02:14:24.515Z
+n-murmuration-system-optimization-8cff9e	ab96c5ed	a996dba2	explorer-w01-d	murmuration:explorer	2026-10-19T02:17:05.638Z	60	1		yes	2026-10-19T02:18:37.517Z	2026-10-19T02:18:38.328Z
+n-murmuration-system-optimization-8cff9e	ab96c5ed	a996dba2	explorer-w01-d	murmuration:explorer	2026-10-19T02:17:30.540Z	60	1		yes	2026-10-19T02:18:37.517Z	2026-10-19T02:18:38.328Z
+n-murmuration-system-optimization-8cff9e	ab96c5ed	ae06a641	explorer-w02-b	murmuration:explorer	2026-10-19T03:56:17.140Z	60	1		yes	2026-10-19T03:57:28.132Z	2026-10-19T03:57:29.514Z
+n-murmuration-system-optimization-8cff9e	ab96c5ed	ae06a641	explorer-w02-b	murmuration:explorer	2026-10-19T03:56:17.151Z	60	1		yes	2026-10-19T03:57:28.132Z	2026-10-19T03:57:29.514Z
+-scratchpad-w02-author-w02-3-runs-b2-lab	1bfed190	a8fbd949	explorer-w02-b2	murmuration:explorer	2026-10-19T04:25:27.079Z		1		no		2026-10-19T04:25:25.896Z
+-scratchpad-w02-author-w02-3-runs-g2-lab	6705265a	a0986197	explorer-w02-g2	murmuration:explorer	2026-10-19T04:24:55.417Z		1		no		2026-10-19T04:24:54.175Z
+-scratchpad-w02-author-w02-3-runs-g2-lab	6705265a	a0986197	explorer-w02-g2	murmuration:explorer	2026-10-19T04:24:55.515Z		1		no		2026-10-19T04:24:54.175Z
+-scratchpad-w02-author-w02-3-runs-h1-lab	9e56d0a6	a80a542f	explorer-w02-h1	murmuration:explorer	2026-10-19T04:21:05.573Z		1		no		2026-10-19T04:21:04.566Z
+-scratchpad-w02-author-w02-3-runs-h2-lab	75b8c383	a8909368	explorer-w02-h2	murmuration:explorer	2026-10-19T04:21:17.199Z		1		no		2026-10-19T04:21:15.794Z
+-scratchpad-w02-author-w02-3-runs-h3-lab	240d66b3	abbdc628	explorer-w02-h3	murmuration:explorer	2026-10-19T04:21:03.935Z		1		no		2026-10-19T04:21:02.913Z
+-scratchpad-w02-author-w02-3-runs-s1-lab	8a99ccba	a975154b		murmuration:explorer	2026-10-19T04:23:30.015Z		1		yes	2026-10-19T04:23:53.611Z	2026-10-19T04:23:54.818Z
+-scratchpad-w02-author-w02-3-runs-s1-lab	8a99ccba	a975154b		murmuration:explorer	2026-10-19T04:23:30.120Z		1		yes	2026-10-19T04:23:53.611Z	2026-10-19T04:23:54.818Z
+-scratchpad-w02-author-w02-3-runs-s2-lab	1d1d1946	ab92f515		murmuration:explorer	2026-10-19T04:23:31.919Z		1		no		2026-10-19T04:23:30.969Z
+-scratchpad-w02-author-w02-3-runs-s2-lab	bc379c82	abf57f5f	explorer-w02-s2	murmuration:explorer	2026-10-19T04:32:35.793Z		1		yes	2026-10-19T04:32:47.099Z	2026-10-19T04:32:48.521Z
+-scratchpad-w02-author-w02-3-runs-s3-lab	176fee53	ae1333c3		murmuration:explorer	2026-10-19T04:32:33.295Z		1		no		2026-10-19T04:32:32.230Z
+-scratchpad-w02-author-w02-3-runs-s3-lab	176fee53	ae1333c3		murmuration:explorer	2026-10-19T04:32:33.356Z		1		no		2026-10-19T04:32:32.230Z
+-w02-explorer-w02-a-runs-anx-e-1--c7l7k0	ba815aff	a6d5de4b		worker	2026-10-19T03:45:56.273Z		1		yes	2026-10-19T03:46:04.793Z	2026-10-19T03:46:05.435Z
+-w02-explorer-w02-a-runs-anx-e-2--bqjl5t	057a8877	a545f7ef		worker	2026-10-19T03:45:58.611Z		1		yes	2026-10-19T03:46:06.864Z	2026-10-19T03:46:07.573Z
+-w02-explorer-w02-a-runs-anx-e-3--b9hyrm	fbe3dc6f	a9f28f08		worker	2026-10-19T03:46:03.448Z		1		yes	2026-10-19T03:46:11.875Z	2026-10-19T03:46:12.920Z
+-w02-explorer-w02-a-runs-anx-f-2--h32vwe	61272862	a5a80f90		worker	2026-10-19T03:46:56.501Z		1		yes	2026-10-19T03:47:03.517Z	2026-10-19T03:47:04.529Z
+-w02-explorer-w02-a-runs-anx-f-3--hk4ial	4fde296c	a9e16ae5		worker	2026-10-19T03:46:57.405Z		1		yes	2026-10-19T03:47:05.584Z	2026-10-19T03:47:06.458Z
+-w02-explorer-w02-a-runs-anx-f-4--i164os	2b65bab4	ac8f0cba		worker	2026-10-19T03:47:07.008Z		1		yes	2026-10-19T03:47:14.048Z	2026-10-19T03:47:15.155Z
+-w02-explorer-w02-a-runs-anx-f-5--ii7r2z	97719032	aa172b6b		worker	2026-10-19T03:47:08.305Z		1		yes	2026-10-19T03:47:17.832Z	2026-10-19T03:47:18.677Z
+-w02-explorer-w02-a-runs-e3-gate2-x0qqnh	fb5550c2	a37975f2		worker	2026-10-19T03:33:38.556Z		1		no		2026-10-19T03:33:38.396Z
+-w02-explorer-w02-a-runs-t4-conti-ulh5qu	11f790a4	ac251acb		worker	2026-10-19T03:44:27.481Z		1		yes	2026-10-19T03:44:36.765Z	2026-10-19T03:44:37.765Z
+muration-w04-author-w04-2-runs-ux-c1-lab	2145e218	a9a115dc		murmuration:explorer	2026-10-20T01:17:28.753Z	150	1		no		2026-10-20T01:17:27.657Z
+muration-w04-author-w04-2-runs-ux-c1-lab	2145e218	a9a115dc		murmuration:explorer	2026-10-20T01:17:34.053Z	150	1		no		2026-10-20T01:17:27.657Z
+muration-w04-author-w04-2-runs-ux-c2-lab	13d06657	a6c3cbe7		murmuration:explorer	2026-10-20T01:18:08.984Z	150	1		no		2026-10-20T01:18:07.970Z
+muration-w04-author-w04-2-runs-ux-c2-lab	13d06657	a6c3cbe7		murmuration:explorer	2026-10-20T01:18:12.141Z	150	1		no		2026-10-20T01:18:07.970Z
