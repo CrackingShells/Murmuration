@@ -470,3 +470,29 @@ After all, I think it's bad to interrupt the current cycle. Let's treat wave 9 a
 > A merge to main won’t carry the setting. .claude/settings.local.json is gitignored in both checkouts (line 24 of .gitignore). The next waves get the window only if the line is in the main checkout’s own .claude/settings.local.json. The guard stops agents from writing that file, so you’ll need to add it there yourself before the next wave opens.
 
 then just force commit it
+
+## 2026-10-26 10:47
+
+You can merge to `main`; I will add the window compact setting in the file myself. There are a couple of things from this wave's study that I find interesting to keep in a slightly more structured form. I would like proper plots with the scripts that can regenerate them associated with dedicated findings reports. The items are:
+
+**tool calls classification**:
+> The two dedicated guard models fail (w09-c7, verified). Granite Guardian 8B blocks most of everything, refusals and allows alike. gpt-oss-safeguard-20b lets most of everything through. Neither separates refusals from allows by much.
+> A general model given auto mode’s rules does better (w09-c8, MEASURED, my decision on an escalation). qwen3.6-35b-a3b ranks refusals above allows with AUC 0.79 (0.71–0.86). At a threshold that wrongly blocks 10% of allows, it catches 46% of refusals (34–59%). With the rules cached it answers in 0.7–0.9 s, near auto mode’s 628 ms.
+> It is a lead for a shadow hook, not a replacement. Replacing or bypassing auto mode stays your call.
+> Hand-written test cases are useless for this. Every judge scored 22 of 22 on wave 8’s written cases (Granite 20).
+> Seven refusals that every judge allowed look ordinary: a git log, a ps | grep, a SendMessage after you wrote “I approve”. Did auto mode err there? The case list is in /private/tmp/murmuration-w09/explorer-w09-c/, which a restart clears.
+
+--> For me that's really surprising. It essentially means the topic of such classifier is really open when it's in fact a critical component for the integrity of the platforms on which autonomous LLM-based agent systems are working. It is enough to lead to new research project if we have the resources (we have money and hardware but at this point, mostly time is lacking to review everything). The fact also that there are seven refusals that even Anthropic's classifier strangely refused is also interesting in its own way. 
+
+**how PI takes in the team's work**
+> How the PI takes in its team’s work (w09-c5, verified; a second coder agreed, kappa 0.70).
+> In waves 5–8 the PI opened the returning worker’s material for about 18–21 of 27 explorers, but only 10–11 of 57 authors and 5–6 of 35 verifiers.
+> It decided 10 of 10 escalations without reading the claim file. That cost nothing in the 13 cases checked, because the hand-back already carries the verdict in short. I’m adding no hook for it.
+
+That's also very interesting data from the perspective of agent systems behavior. This is the kind of metric we can measure and compare across agent systems using different language models. I also want proper plots, their scripts and findings reports produced for these. We also need to visualize, and then measure, the communication graph of the agent system. We need to know who dispatched who, and when. The purpose is to replay the evolution of the structure of the small lab during a wave. and to see if there is any correlation between the structure of the communication graph (and usual graph properties using in social network studies) and how the agent that delegate work tend to check or not the work of their subagents, and can we find why? 
+
+In addition:
+
+> My own errors this wave. At 23:31 I invented a worker’s result inside my own turn and began acting on it; the raw-artifact check caught it, and a scan of waves 1–8 found no earlier case. I also wrote one clock time without checking it. Both are recorded.
+
+Do you know why you invented this? what lead you to this mistake? can it be traced to our agent system architecture or is it the result of your faulty interpretation of a handback message?
