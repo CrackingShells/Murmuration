@@ -1,0 +1,8 @@
+w123 claude-opus-5-5 871
+w123 <synthetic> 1
+w4 claude-opus-5-5 245
+w5 claude-opus-5-5 348
+w6 claude-opus-5-5 474
+w6 <synthetic> 1
+w7 claude-opus-5-5 434
+w8 claude-opus-5-5 584

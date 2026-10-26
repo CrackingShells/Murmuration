@@ -1,0 +1,120 @@
+population: hand-back wakes with a request (n_steps>0), peer messages that open 'Another Claude session sent a message' left out
+  waves 1-8: 213 (w09c5: 178 + 35 = 213); waves 5-8: 120 (w09c5: 120)
+
+FIGURE 1: raw open in the wake turn, by sender role, waves 5-8 (as coded / lab_status masked / second coder R2)
+  explorer, as coded                  18/27  =  66.7%   95% CP [46.0, 83.5]
+  explorer, masked                    21/27  =  77.8%   95% CP [57.7, 91.4]
+  explorer, second coder R2           20/27  =  74.1%   95% CP [53.7, 88.9]
+  author, as coded                    10/57  =  17.5%   95% CP [ 8.7, 29.9]
+  author, masked                      11/57  =  19.3%   95% CP [10.0, 31.9]
+  author, second coder R2             11/58  =  19.0%   95% CP [ 9.9, 31.4]
+  verifier, as coded                   5/35  =  14.3%   95% CP [ 4.8, 30.3]
+  verifier, masked                     6/35  =  17.1%   95% CP [ 6.6, 33.6]
+  verifier, second coder R2            7/35  =  20.0%   95% CP [ 8.4, 36.9]
+  second coder R2 against the as-coded / masked flag on the hand-backs both cut (matched by label and timestamp): n matched 120 of R2's 121 and the rule's 120
+  R2 vs as coded  agree 105/120, Cohen kappa 0.70
+  R2 vs masked    agree 108/120, Cohen kappa 0.77
+
+FIGURE 2: raw open in the wake turn, by wave, as coded (filled) and masked (open); peer messages out
+  all hand-backs, w1-3, coded         14/69  =  20.3%   95% CP [11.6, 31.7]
+  all hand-backs, w1-3, masked        15/69  =  21.7%   95% CP [12.7, 33.3]
+  all hand-backs, w4, coded            2/24  =   8.3%   95% CP [ 1.0, 27.0]
+  all hand-backs, w4, masked           2/24  =   8.3%   95% CP [ 1.0, 27.0]
+  all hand-backs, w5, coded            4/21  =  19.0%   95% CP [ 5.4, 41.9]
+  all hand-backs, w5, masked           4/21  =  19.0%   95% CP [ 5.4, 41.9]
+  all hand-backs, w6, coded            5/35  =  14.3%   95% CP [ 4.8, 30.3]
+  all hand-backs, w6, masked           8/35  =  22.9%   95% CP [10.4, 40.1]
+  all hand-backs, w7, coded           10/28  =  35.7%   95% CP [18.6, 55.9]
+  all hand-backs, w7, masked          11/28  =  39.3%   95% CP [21.5, 59.4]
+  all hand-backs, w8, coded           14/36  =  38.9%   95% CP [23.1, 56.5]
+  all hand-backs, w8, masked          15/36  =  41.7%   95% CP [25.5, 59.2]
+  explorer, w1-3, coded                5/9   =  55.6%   95% CP [21.2, 86.3]
+  explorer, w1-3, masked               5/9   =  55.6%   95% CP [21.2, 86.3]
+  explorer, w5, coded                  4/5   =  80.0%   95% CP [28.4, 99.5]
+  explorer, w5, masked                 4/5   =  80.0%   95% CP [28.4, 99.5]
+  explorer, w6, coded                  2/3   =  66.7%   95% CP [ 9.4, 99.2]
+  explorer, w6, masked                 3/3   = 100.0%   95% CP [29.2, 100.0]
+  explorer, w7, coded                  5/6   =  83.3%   95% CP [35.9, 99.6]
+  explorer, w7, masked                 6/6   = 100.0%   95% CP [54.1, 100.0]
+  explorer, w8, coded                  7/13  =  53.8%   95% CP [25.1, 80.8]
+  explorer, w8, masked                 8/13  =  61.5%   95% CP [31.6, 86.1]
+  author, w1-3, coded                  7/39  =  17.9%   95% CP [ 7.5, 33.5]
+  author, w1-3, masked                 7/39  =  17.9%   95% CP [ 7.5, 33.5]
+  author, w4, coded                    1/12  =   8.3%   95% CP [ 0.2, 38.5]
+  author, w4, masked                   1/12  =   8.3%   95% CP [ 0.2, 38.5]
+  author, w5, coded                    0/9   =   0.0%   95% CP [ 0.0, 33.6]
+  author, w5, masked                   0/9   =   0.0%   95% CP [ 0.0, 33.6]
+  author, w6, coded                    2/17  =  11.8%   95% CP [ 1.5, 36.4]
+  author, w6, masked                   3/17  =  17.6%   95% CP [ 3.8, 43.4]
+  author, w7, coded                    5/16  =  31.2%   95% CP [11.0, 58.7]
+  author, w7, masked                   5/16  =  31.2%   95% CP [11.0, 58.7]
+  author, w8, coded                    3/15  =  20.0%   95% CP [ 4.3, 48.1]
+  author, w8, masked                   3/15  =  20.0%   95% CP [ 4.3, 48.1]
+  verifier, w1-3, coded                2/21  =   9.5%   95% CP [ 1.2, 30.4]
+  verifier, w1-3, masked               3/21  =  14.3%   95% CP [ 3.0, 36.3]
+  verifier, w4, coded                  1/12  =   8.3%   95% CP [ 0.2, 38.5]
+  verifier, w4, masked                 1/12  =   8.3%   95% CP [ 0.2, 38.5]
+  verifier, w5, coded                  0/7   =   0.0%   95% CP [ 0.0, 41.0]
+  verifier, w5, masked                 0/7   =   0.0%   95% CP [ 0.0, 41.0]
+  verifier, w6, coded                  1/14  =   7.1%   95% CP [ 0.2, 33.9]
+  verifier, w6, masked                 2/14  =  14.3%   95% CP [ 1.8, 42.8]
+  verifier, w7, coded                  0/6   =   0.0%   95% CP [ 0.0, 45.9]
+  verifier, w7, masked                 0/6   =   0.0%   95% CP [ 0.0, 45.9]
+  verifier, w8, coded                  4/8   =  50.0%   95% CP [15.7, 84.3]
+  verifier, w8, masked                 4/8   =  50.0%   95% CP [15.7, 84.3]
+  median hand-back length (characters, after the harness frame), by wave:
+    w1-3  n= 69 median  4699
+    w4    n= 24 median  3857
+    w5    n= 21 median  4906
+    w6    n= 35 median  4801
+    w7    n= 28 median  5060
+    w8    n= 36 median  2135
+
+FIGURE 3: the 14 claims with a verifier ESCALATE verdict (explorer-w09-h's table; sizes from ranges.tsv)
+  w01-c2   hb 4572   section  6905 exchange  2551 read-in-wake no          delivery peer        fate restated   | MEASURED (PI decided: restated)
+  w01-c4   hb 6036   section 11727 exchange  4629 read-in-wake no          delivery peer        fate superseded | superseded by w01-c10, w01-c9
+  w01-c5   hb 4527   section  9351 exchange  4494 read-in-wake yes         delivery queued      fate superseded | superseded by w01-c8
+  w01-c8   hb None   section  8321 exchange  3487 read-in-wake not checked delivery not located fate restated   | MEASURED (PI decided: restated, not re-verified)
+  w02-c10  hb 3819   section  6341 exchange  2451 read-in-wake no          delivery peer        fate restated   | MEASURED (PI decided: restated)
+  w03-c2   hb 5965   section 10591 exchange  2911 read-in-wake no          delivery peer        fate restated   | MEASURED (PI decided: restated); statement later adds "Grep 
+  w04-c10  hb 4476   section  4783 exchange  2173 read-in-wake no          delivery peer        fate restated   | MEASURED (PI decided: restated)
+  w04-c4   hb 3407   section  7175 exchange  2691 read-in-wake no          delivery peer        fate restated   | MEASURED (PI decided: restated)
+  w04-c7   hb 4125   section  6954 exchange  3111 read-in-wake no          delivery peer        fate restated   | MEASURED (PI decided: restated)
+  w05-c1   hb 4657   section  5621 exchange  1989 read-in-wake no          delivery queued      fate restated   | MEASURED (PI decided: restated)
+  w06-c3   hb 4513   section  6427 exchange  2268 read-in-wake no          delivery peer        fate superseded | superseded by w06-c5
+  w07-c7   hb 4440   section  5136 exchange  1714 read-in-wake no          delivery peer        fate restated   | MEASURED (PI decided); statement: 1-hour cache "kept by risk
+  w08-c1   hb 3027   section  6603 exchange  1629 read-in-wake no          delivery queued      fate superseded | superseded by w08-c4
+  w08-c9   hb 2033   section  8032 exchange  3293 read-in-wake no          delivery peer        fate superseded | superseded by w08-c11
+  claims 14; read in wake: {'no': 12, 'yes': 1, 'not checked': 1}; fate: {'restated': 9, 'superseded': 5}
+  hand-back chars n=13 median 4476; section median [6905, 6954]; exchange median [2551, 2691]
+
+FIGURE 4: raw open in the wake turn, banner in the first 260 characters of the hand-back against none, by role, waves 1-8 (peer messages out)
+  explorer, banner, as coded           7/7   = 100.0%   95% CP [59.0, 100.0]
+  explorer, banner, masked             7/7   = 100.0%   95% CP [59.0, 100.0]
+  explorer, no banner, as coded       16/29  =  55.2%   95% CP [35.7, 73.6]
+  explorer, no banner, masked         19/29  =  65.5%   95% CP [45.7, 82.1]
+  explorer  raw_coded: banner 7/7 vs none 16/29, two-sided Fisher exact p = 0.03
+  explorer  raw_masked: banner 7/7 vs none 19/29, two-sided Fisher exact p = 0.15
+  author, banner, as coded             1/15  =   6.7%   95% CP [ 0.2, 31.9]
+  author, banner, masked               1/15  =   6.7%   95% CP [ 0.2, 31.9]
+  author, no banner, as coded         17/93  =  18.3%   95% CP [11.0, 27.6]
+  author, no banner, masked           18/93  =  19.4%   95% CP [11.9, 28.9]
+  author    raw_coded: banner 1/15 vs none 17/93, two-sided Fisher exact p = 0.46
+  author    raw_masked: banner 1/15 vs none 18/93, two-sided Fisher exact p = 0.46
+  verifier, banner, as coded           1/12  =   8.3%   95% CP [ 0.2, 38.5]
+  verifier, banner, masked             3/12  =  25.0%   95% CP [ 5.5, 57.2]
+  verifier, no banner, as coded        7/56  =  12.5%   95% CP [ 5.2, 24.1]
+  verifier, no banner, masked          7/56  =  12.5%   95% CP [ 5.2, 24.1]
+  verifier  raw_coded: banner 1/12 vs none 7/56, two-sided Fisher exact p = 1.00
+  verifier  raw_masked: banner 3/12 vs none 7/56, two-sided Fisher exact p = 0.36
+  all, banner, as coded                9/35  =  25.7%   95% CP [12.5, 43.3]
+  all, banner, masked                 11/35  =  31.4%   95% CP [16.9, 49.3]
+  all, no banner, as coded            40/178 =  22.5%   95% CP [16.6, 29.3]
+  all, no banner, masked              44/178 =  24.7%   95% CP [18.6, 31.7]
+  all       raw_coded: banner 9/35 vs none 40/178, two-sided Fisher exact p = 0.66
+  all       raw_masked: banner 11/35 vs none 44/178, two-sided Fisher exact p = 0.40
+
+FIGURE 5: wave 8 (PI session 70daedf1), hand-back arrivals and the PI's raw opens, JST
+  hand-back arrivals (peer messages out) by role: {'explorer': 13, 'author': 15, 'verifier': 8}; leading a turn with a raw open (masked): {'explorer': 8, 'author': 3, 'verifier': 4}
+  PI raw opens in wave 8 by lane and (in a hand-back wake turn?): {('other', False): 9, ('puzzle file', True): 11, ('worker report', True): 3, ('other', True): 8, ('claim file', True): 3}
+  arrivals total 36; arrivals mid-turn 0
