@@ -1,0 +1,144 @@
+label	turn	epoch	kind	class	basename	turn_trigger
+w123	1	1792375033.83	bash-view	transcript/data	settings.local.json	H
+w123	1	1792375039.897	bash-view	transcript/data	settings.local.json	H
+w123	1	1792375046.454	bash-view	report (older/other)	13-architecture_v6.md	H
+w123	1	1792375052.834	read-whole	report (older/other)	12-architecture_v5.md	H
+w123	1	1792375052.834	read-whole	report (older/other)	00-review_fable_v0.md	H
+w123	1	1792375092.527	bash-view	report (older/other)	platform_probes	H
+w123	1	1792375301.336	bash-view	report (older/other)	08-hooks_leverage_v0.md	H
+w123	1	1792375307.836	bash-view	report (older/other)	08-information_counsel_v0.md	H
+w123	3	1792375766.893	bash-view	puzzle file	wave-01-explorer-w01-e.md	B
+w123	6	1792376261.629	bash-query	report (older/other)	w01	B
+w123	7	1792376332.722	bash-view	transcript/data	ab96c5ed-ead3-4b36-9671-6076e3914087.jsonl	B
+w123	8	1792376874.712	bash-view	claim file	w01-c5.md	B
+w123	11	1792377262.989	bash-query	transcript/data	installed_plugins.json	B
+w123	13	1792377454.737	bash-query	claim file	w01-c5.md	B
+w123	18	1792377735.354	bash-view	report (older/other)	lab_spend.py	B
+w123	18	1792377773.287	bash-query	claim file	w01-c1.md	B
+w123	26	1792378310.261	bash-query	report (older/other)	w01	B
+w123	31	1792378865.188	bash-query	transcript/data	otel_events.json	B
+w123	34	1792379001.376	bash-view	report (older/other)	lab_spend.py	B
+w123	46	1792382393.746	bash-query	report (older/other)	w02	B
+w123	53	1792383765.069	bash-view	transcript/data	stdout.jsonl	N
+w123	58	1792386852.003	bash-view	transcript/data	stdout.jsonl	B
+w123	61	1792390187.169	bash-view	transcript/data	stdout.jsonl	N
+w123	71	1792393406.569	bash-view	transcript/data	stdout.jsonl	N
+w123	73	1792394240.638	bash-view	transcript/data	stdout.jsonl	N
+w123	77	1792394862.744	bash-view	transcript/data	stdout.jsonl	B
+w123	78	1792395311.9	bash-query	transcript/data	installed_plugins.json	B
+w123	82	1792395723.213	bash-view	claim file	w02-c	B
+w123	96	1792415988.647	bash-query	puzzle file	wave-03-author-w03-1.md	H
+w123	97	1792421606.65	bash-view	transcript/data	plugin.json	H
+w123	97	1792421623.806	bash-query	transcript/data	installed_plugins.json	H
+w123	97	1792421633.24	bash-query	transcript/data	installed_plugins.json	H
+w4	1	1792456069.443	bash-view	report (older/other)	02-next_pi_session_v0.md	H
+w4	1	1792456110.299	bash-query	transcript/data	c533f1c6-c56e-4c8d-b6ff-e90c3ddea2f4.jsonl	H
+w4	1	1792456122.933	bash-query	transcript/data	c533f1c6-c56e-4c8d-b6ff-e90c3ddea2f4.jsonl	H
+w4	1	1792456155.621	bash-view	transcript/data	hook_events.jsonl	H
+w4	1	1792456164.033	bash-view	transcript/data	hook_events.jsonl	H
+w4	1	1792456209.756	bash-view	claim file	w01-c10.md	H
+w4	1	1792456229.606	bash-query	report (older/other)	reflective_run	H
+w4	1	1792456235.296	bash-view	report (older/other)	e2e_drive.py	H
+w4	17	1792460358.944	bash-query	puzzle file	wave-04-	B
+w4	25	1792461007.468	bash-query	puzzle file	wave-04-	B
+w5	1	1792560609.458	bash-view	transcript/data	installed_plugins.json	H
+w5	1	1792560642.332	bash-view	transcript/data	6b0e1f2a-b6d1-40f5-840c-f38548cd357e.jsonl	H
+w5	1	1792560891.443	bash-view	transcript/data	marketplace.json	H
+w5	1	1792560895.533	bash-view	transcript/data	marketplace.json	H
+w5	1	1792560912.704	bash-view	transcript/data	settings.local.json	H
+w5	1	1792560980.531	bash-view	report (older/other)	w04	H
+w5	4	1792561196.447	bash-view	transcript/data	settings.json	H
+w5	4	1792561277.746	bash-view	transcript/data	known_marketplaces.json	H
+w5	4	1792561322.046	bash-query	instrumenta script	__instrumenta__	H
+w5	5	1792561910.612	bash-view	worker report	01-run_log.md	B
+w5	5	1792561933.274	read-whole	worker report	wave4_gantt.png	B
+w5	5	1792561933.274	bash-view	puzzle file	wave-05-explorer-w05-a.md	B
+w5	6	1792562032.438	bash-view	worker report	per_category_table.tsv	B
+w5	8	1792562680.272	bash-view	puzzle file	wave-05-explorer-w05-d.md	B
+w5	8	1792562741.52	bash-view	report (older/other)	00-experiment_protocol_v0.md	B
+w5	13	1792564470.907	bash-view	worker report	timing_table.md	B
+w6	0	1792570795.421	bash-view	claim file	w05-c7.md	X
+w6	0	1792570805.064	bash-view	report (older/other)	author-w05-2	X
+w6	3	1792571563.622	bash-view	puzzle file	wave-06-explorer-w06-c.md	B
+w6	3	1792571598.663	bash-view	puzzle file	wave-06-reproducer-w06-1.md	B
+w6	3	1792571671.383	bash-view	instrumenta script	w06c_pi_wakeups.py	B
+w6	5	1792572016.746	bash-view	puzzle file	wave-06-reproducer-w06-2.md	B
+w6	6	1792572470.957	bash-view	claim file	w04-c5.md	B
+w6	6	1792572487.172	bash-view	puzzle file	wave-06-explorer-w06-b.md	B
+w6	6	1792572498.32	bash-view	report (older/other)	01-findings_v1.md	B
+w6	7	1792572710.317	bash-view	puzzle file	wave-06-explorer-w06-a.md	B
+w6	10	1792578008.943	bash-view	instrumenta script	w06c3_	B
+w6	10	1792578324.89	bash-view	claim file	w06-c3.md	B
+w6	18	1792581877.039	bash-view	instrumenta script	w06c3_run_all.py	B
+w6	19	1792582421.542	bash-view	puzzle file	wave-06-author-w06-4.md	B
+w6	25	1792584610.833	bash-view	puzzle file	wave-06-reproducer-w06-5.md	B
+w6	40	1792588792.728	bash-view	puzzle file	wave-06-author-w06-7.md	B
+w6	42	1792591736.381	read-whole	transcript/data	map_light.png	H
+w6	42	1792591760.414	read-whole	transcript/data	map2.png	H
+w7	0	1792596158.968	bash-view	report (older/other)	research-pi	X
+w7	0	1792596170.57	bash-view	PI report	permission_mechanisms.md	X
+w7	0	1792596347.716	bash-query	report (older/other)	wave-06	X
+w7	1	1792597043.585	bash-view	puzzle file	wave-07-explorer-w07-e.md	B
+w7	1	1792597080.833	bash-view	worker report	00-findings_v0.md	B
+w7	2	1792597208.55	bash-view	puzzle file	wave-07-explorer-w07-f.md	B
+w7	2	1792597229.522	bash-view	worker report	00-findings_v0.md	B
+w7	3	1792597313.606	bash-view	puzzle file	wave-07-explorer-w07-b.md	B
+w7	3	1792597341.475	bash-view	worker report	tables.md	B
+w7	3	1792597400.897	bash-query	worker report	tables.md	B
+w7	4	1792597501.185	bash-view	puzzle file	wave-07-explorer-w07-c.md	B
+w7	5	1792597627.136	bash-view	puzzle file	wave-07-author-w07-1.md	B
+w7	6	1792597817.29	bash-view	puzzle file	wave-07-explorer-w07-d.md	B
+w7	7	1792598113.961	bash-view	puzzle file	wave-07-author-w07-2.md	B
+w7	8	1792598271.661	bash-view	puzzle file	wave-07-explorer-w07-a.md	B
+w7	8	1792598305.008	bash-query	worker report	docs_hooks_2026-10-22.md	B
+w7	8	1792598396.404	bash-view	worker report	ttl_breakeven.md	B
+w7	10	1792598840.078	bash-query	other	author-w07-4	B
+w7	21	1792601376.704	bash-view	puzzle file	wave-07-author-w07-5.md	B
+w7	21	1792601423.599	bash-query	PI report	lab_cost_map.html	B
+w7	29	1792604285.094	bash-query	transcript/data	installed_plugins.json	B
+w7	29	1792604291.139	bash-view	transcript/data	known_marketplaces.json	B
+w7	29	1792604507.64	bash-view	PI report	lab_cost_map.html	B
+w7	32	1792621680.052	bash-query	worker report	raw	H
+w7	32	1792621696.574	bash-view	worker report	table_py_parse.txt	H
+w7	32	1792621742.808	bash-view	PI report	lab_cost_map.html	H
+w7	32	1792621763.008	bash-view	PI report	lab_cost_map.html	H
+w7	32	1792621770.504	bash-view	PI report	lab_cost_map.html	H
+w7	36	1792623051.326	bash-view	worker report	requests.tsv	H
+w7	37	1792623216.558	bash-view	worker report	big_results.tsv	H
+w7	37	1792623223.39	bash-query	worker report	big_results.tsv	H
+w7	37	1792623237.697	bash-query	worker report	big_results.tsv	H
+w7	39	1792623872.247	bash-query	worker report	requests.tsv	H
+w8	0	1792768356.356	bash-view	report (older/other)	wave-07	H
+w8	0	1792768361.466	bash-view	PI report	00-wave07_report_v0.md	H
+w8	0	1792768379.913	bash-view	transcript/data	settings.json	H
+w8	0	1792768420.687	bash-query	report (older/other)	explorer-w07-b	H
+w8	0	1792768426.389	bash-query	transcript/data	ad75be4f-14dd-4dd8-90c7-fb175ed36239.jsonl	H
+w8	0	1792768451.502	bash-query	report (older/other)	explorer-w07-b	H
+w8	0	1792768477.264	bash-view	report (older/other)	04-protocol_p5_rustguard_v1.md	H
+w8	1	1792769149.876	bash-view	puzzle file	wave-08-explorer-w08-c.md	B
+w8	1	1792769167.829	bash-view	worker report	tables.md	B
+w8	2	1792769255.239	bash-view	puzzle file	wave-08-explorer-w08-a.md	B
+w8	2	1792769304.375	bash-view	puzzle file	wave-08-explorer-w08-d.md	B
+w8	3	1792769503.467	bash-view	puzzle file	wave-08-explorer-w08-b.md	B
+w8	4	1792770803.235	bash-query	transcript/data	ad75be4f-14dd-4dd8-90c7-fb175ed36239.jsonl	B
+w8	6	1792771632.137	bash-view	claim file	w08-c2.md	B
+w8	7	1792771857.682	bash-view	puzzle file	wave-08-author-w08-1.md	B
+w8	8	1792772337.591	bash-view	puzzle file	wave-08-author-w08-3.md	B
+w8	8	1792772353.774	bash-view	claim file	w08-c3.md	B
+w8	8	1792772446.714	bash-query	PI report	lab_cost_map.html	B
+w8	15	1792774501.584	bash-query	puzzle file	wave-08-explorer-w08-j.md	B
+w8	15	1792774509.605	bash-query	puzzle file	wave-08-explorer-w08-j.md	B
+w8	22	1792776270.336	bash-view	worker report	proposed_decision_sections.md	B
+w8	26	1792778874.881	bash-query	instrumenta script	w08_v10_	B
+w8	26	1792778881.453	bash-view	claim file	w08-c10.md	B
+w8	28	1792780251.664	bash-view	instrumenta script	w08d_pi_context.py	B
+w8	28	1792780265.039	bash-query	transcript/data	w8_requests.tsv	B
+w8	28	1792780269.448	bash-query	transcript/data	w8_items.tsv	B
+w8	30	1792781750.793	bash-query	PI report	00-wave08_report_v0.md	B
+w8	30	1792781755.669	read-part	PI report	00-wave08_report_v0.md	B
+w8	30	1792781814.581	bash-query	puzzle file	wave-08-author-w08-5.md	B
+w8	33	1792782045.571	bash-view	worker report	proposed_sections.md	B
+w8	37	1792786056.973	bash-query	puzzle file	wave-08-explorer-w08-h.md	B
+w8	41	1792819176.116	bash-view	report (older/other)	README.md	H
+w8	41	1792819204.253	bash-view	report (older/other)	README.md	H
+w8	42	1792820138.618	bash-query	puzzle file	wave-09-explorer-w09-a.md	B
