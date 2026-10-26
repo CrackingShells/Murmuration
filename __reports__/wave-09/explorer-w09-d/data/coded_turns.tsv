@@ -1,0 +1,106 @@
+b	label_turn	stratum	trig	acts	W	P	Q	quote_or_note
+0	w123:T000	O	H	(no steps; orientation coded separately)				
+1	w123:T004	N	N	C(resume explorer) Pz(own puzzle) Rel			Q	"stopped at its 60-turn limit ... a data point for the turn-limit tuning target"
+2	w123:T019	B	B	Nil Rel	-			PI relays figures "0 of 38 distinct agent stops ..." as "I've applied my decision" (no tool call; claim head not opened)
+3	w123:T024	B	B	Pz(own puzzle) Rel	-			"Claim w01-c10 came back overstated, as I expected." no artifact opened
+4	w123:T033	B	B	C(msg to reproducer) Rel	W			dispatch-like message; claim w01-c14 not opened in turn (opened next turn by auto)
+5	w123:T048	B	B	Nil Rel	-			text-only relay of three caveats
+6	w123:T054	B	B	V(selftests) Cm D Rel	-			PI re-ran selftests and git grep for identifiers before committing "fbbbcc3"; own check, not a read of the report
+7	w123:T065	B	B	V(selftest) Cm C(msg author) Rel	-	P?		"One question will decide whether the budget does anything in a real lab" -> new probe request after verdict
+8	w123:T078	B	B	D(verifier) Cl(files claim w02-c8 from the hand-back table) V(git grep) Rel	W			claim written from hand-back; report path named in hand-back opened next turn (auto H1n)
+9	w123:T087	H	H	A(answered with data: transcripts queried in 4 steps) D Wn Rel				user asked why heredocs; PI measured on 41 worker runs: "The data backs up what you're seeing."
+10	w123:T089	H	H	Br(drafts brief) Rel				adds "No reason in the prompts" and "The author follows the rule too" to user's instruction
+11	w123:T090	B	B	V(selftests, mutants) Cm D Rel	-			SUPPORTED committed after PI's own checks
+12	w4:T000	O	H	(orientation coded separately)				
+13	w4:T001	H	H	Or(reads synthesis, wave-03, next-PI note as the prompt names them; hooks.json; user_words.py) probe				reads named by the user's prompt
+14	w4:T003	B	B	Nil Rel	-		Q	"The author also rewrote its claim head while the verification was still running. That is the protocol habit already listed in open item 5, so I'll record it." (no record made this turn)
+15	w4:T004	B	B	V(lab_status) H2 Cm Rel	W			verdict recorded in wave note from hand-back + lab_status; no claim file opened
+16	w4:T006	B	B	Nil Rel	-			"Noted. ... I'm parking that as a follow-up" no write
+17	w4:T007	B	B	Nil Rel	-			"That trade-off is open, and I'll put it in front of you."
+18	w4:T009	B	B	V(lab_status) Pre(protocol addendum) C(msg raise) D Rel	W		Q	"always via ls ... so it doesn't meet the condition requested" -> pre-registers a new test (E3c) on hand-back alone
+19	w4:T015	B	B	C(msg author: restate) Rel	W		Q	"In 9 of 12 runs the task fit the budget, so it never produced the overshoot under test"
+20	w5:T000	O	H	(orientation coded separately)				
+21	w5:T001	H	H	Or(git log/status; user_words tail; wave-4 branch files by sed -n ranges and awk by heading; synthesis open items)				"Found that wave 4 is on an unmerged branch and your prompt landed in the main checkout" (thinking text, s5)
+22	w5:T004	H	H	V(settings greps) Ask(AskUserQuestion) Merge(wave 4) Cm D(probes)				"Confirmed: this Desktop worktree reads local settings from the main checkout's .claude/settings.local.json"
+23	w5:T007	B	B	Nil(defers) Rel	-			"I'll reassess once probe d returns." report path in hand-back not opened this turn
+24	w5:T008	B	B	O(two puzzle files) V(git show, sed agents) Ref Cm D(4 workers) Rel		P?		"Before reassessing I'll read probe d's puzzles and check current spend." then "Reassessment: four of the five probes, from different sides, point at the same mechanism"
+25	w5:T009	B	B	Pre(protocol v1) C(msg author) D(verifier) Ref Rel	W	P(by reasoning)	Q	"passes the pre-registered rule, but it carries a cost the rule never measured. An allowlist silently removes every MCP server" -> new denylist protocol, no artifact opened
+26	w5:T013	B	B	O(timing_table, puzzle file) V(own probe of CLAUDE_CODE_SHELL=/bin/bash) Cp(copies probe into report folder) Rel		P(own test)		"Confirmed all five tools resolve to the same binaries under bash" (thinking text): PI re-ran what the explorer claimed
+27	w5:T015	B	B	C(msg author: restate) Rel	W		Q	"That's the third time this wave that a verifier caught a claim stating more than its runs showed."
+28	w5:T016	B	B	C(msg verifier) Rel	W			one-line relay
+29	w5:T017	B	B	Ref(wave note) Cm Rel	W			"The PI-tools strand is done."
+30	w5:T020	B	B	V(date, git log) Ref(corrects own times) Cm C(answers verifier) Rel		P(verifier's question)	Q(self)	"The verifier caught something real in Q3 and Q7: my entry times were guesses, not read from a clock."
+31	w5:T021	B	B	Cl(files w05-c10 superseding w05-c9) C(msg verifier) Rel	W		Q	adopts verifier's reading: "earlier notes record closing state, so their silence doesn't show those PIs never re-planned"
+32	w5:T022	B	B	Nil Rel	-			"w05-c10 is SUPPORTED at CONJECTURE ... Still waiting on the verdicts"
+33	w5:T023	N	N	Nil(no request: 0 steps)	-			task notice with no model request of its own (queued behind the next hand-back)
+34	w5:T024	B	B	Nil Rel	-		Q	"The author also edited the claim head m[id-verification]"
+35	w5:T025	B	B	Nil Rel	-			"Whether 0.6 s saved per /lab-status call is worth that extra code is a leanness judgement I'll put to y[ou]" (engineering choice handed to user, an hour before the user's 17:06 prompt)
+36	w5:T029	B	B	O(grep verdict lines of claim) Cm C(msg author) V(lab_status 92 puzzles) D Rel			Q	"I'm accepting w05-c1's switch to subagent mode on substance (though noting the unrecorded change in the protocol)" (thinking)
+37	w5:T030	H	H	Merge Cm Reload Rel		P(user's critique)		"Your points change the frame ... engineering choices about Murmuration are the lab's to make, not yours to gate."
+38	w5:T034	X	X	Nil Rel	-			child-session note: "The fresh wave-6 PI grew from 46.7k to about 137k tokens of context reading itself in"
+39	w5:T038	X	X	Nil Rel	-			child-session note relayed in one sentence
+40	w6:T000	O	X	Or(resume note, framing whole 9.9k, synthesis wave-5 section by awk 15k, wave-05 Reassessments+Notes by awk 10k) own-transcript check, 3 probes+verifier dispatched, then PI works direction D itself				"Read the wave-6 opening, framing, synthesis and wave-5 notes. Now doing the Desktop check of w05-c7 on my own transcript." / "While the four run, I'm working direction D myself ... so the PI's wait is used."
+41	w6:T002	B	B	Ref(wave note) Cm Rel	W(own claim)			"Paired with the wave-5 PI on the same version, request 0 fell from 74,966 to 46,738 tokens ... Recording it now."
+42	w6:T006	B	B	O(w04-c5 claim head+verdict lines, hooks.json, explorer puzzle file, platform probe grep) Rel		P	Q	"Explorer-b's result changes the SA1 question. Language is not the lever" ; "Under the user's rule that looks like waste left in place, so I'm checking whe[ther]"
+43	w6:T008	B	B	Nil(no request: 0 steps)	-			hand-back queued behind other input
+44	w6:T009	N	N	Nil(no request: 0 steps)	-			
+45	w6:T010	B	B	O(worker's scripts grepped for the harness-flagged permission flag) V(lab_status) D(2) Ref Rel		P(harness warning -> raw check)	Q	"The harness flagged a permission-mode pattern in its report, so I'm checking what it ran" -> "a worker ran unauthorized headless test sessions in the user-only permission mode" (thinking)
+46	w6:T012	B	B	Nil Rel	-		Q	"author-w06-3 agrees its m4 pass is vacuous, and the verifier is likely to escalate. I'll decide once that verdict lands."
+47	w6:T014	B	B	Corr(PI protocol text) C(msg author) Cm Rel	W	P(self-correction)	Q(self)	"Fair catch, and it applies to my own v1 text as well."
+48	w6:T015	B	B	C(msg verifier) Rel	W			
+49	w6:T016	B	B	Ref(wave note) Cm Rel	W			"Stage 1 is settled: w06-c6 is SUPPORTED."
+50	w6:T018	B	B	O(grep for the flag in files) V(lab_status) Pre(protocol e3 v1) C Ref Rel		P(by reasoning)		"One fact matters more than the counts: the incident that started this came through a script file" -> narrows v1
+51	w6:T019	B	B	O(author puzzle file) V(revert diff vs 134e3ac) Pre(E2 protocol) D(2) Rel		P		"The miss is also not just a threshold artefact. The margin goes to announcing outages"
+52	w6:T021	B	B	Nil Rel	-		Q	"I'm not buying the quiet-machine re-measure. Re-measuring a near-miss until it passes is exactly what pre-registration exists to stop."
+53	w6:T022	B	B	O(verifier puzzle file) Ref(puzzle dispositions in wave note) Cm Rel	-		Q	"Verdict OVERSTATED, and the decision is unchanged: nothing lands."
+54	w6:T026	B	B	D(verifier) Pz(own puzzle S-w06-research-pi-2) Rel	W	P(by reasoning)	Q(self)	"This time the miss is my rule, not the build ... repeats the w04-c5 mistake that explorer-b flagged"
+55	w6:T040	B	B	O(author puzzle file) C(msg verifier) Ref(puzzle rows) Cm Rel	-			"Waiting for reproducer-w06-8's verdict"
+56	w6:T041	B	B	V(lab_status; own request-shape checks) Ref(close) Cm Rel	-			"All 199 of this session's requests used one shape with 23 tools and no denied name." (check promised in wave note)
+57	w6:T042	H	H	Build(artifact: reads bundled dataviz skill, writes page, renders with headless Chrome, reads screenshot) Rel				"I can't open the in-app browser (it's on the PI's denylist), so I'll render with headless Chrome and look at a screenshot."
+58	w6:T043	H	H	Card(proposes wave 7 via start_session) Rel		P(user text)		"I've changed my position on Rust, and I've proposed wave 7 as a card"
+59	w6:T047	H	H	Investigate(strings in the claude binary; the test session's transcript) Rel			Q	"A 'say ok' answer uses no tools, so it can't tell those apart."
+60	w6:T048	H	H	Check(git log main..HEAD) Merge Cm Rel		P(user's premise corrected)	Q(user)	"Not quite. Three commits made after the wave-6 merge are only on the wave branch"
+61	w6:T052	X	X	Nil Rel	-			child-session note rephrased with a link
+62	w6:T058	X	X	Nil Rel	-			child-session note rephrased with a link
+63	w7:T000	O	X	Or(~20 steps before first dispatch: resume note, references/waves+briefs+templates 10k, wave-06 note read-part 25k, synthesis sections by sed ranges 14k, six claim heads/verdicts, cost-map html, hooks.json, lab_status, framing truncated to 400 cols x 80 lines) Ref(wave-07 note) D(6 explorers)				"Still orienting: I've read the wave-6 note and am moving on to the synthesis, the claims and the permission notes before I open wave 7." ; "Opening the wave-7 note now, then I'll send six small probes out in parallel."
+64	w7:T001	B	B	O(puzzle file, report head) V(agent file, SKILL grep) Ref Cm D(author)		P	Q	"Denying the Skill tool entirely strips the skills listing ... (31.5k -> 19.6k tokens), while finer-grained attempts failed" (thinking) -> author sent to test that change
+65	w7:T002	B	B	O(puzzle file, report section) Ref Cm D(author)		P		"the managed file ... likely won't take effect: Claude Code 2.1.304 only honors the first managed settings source" (thinking)
+66	w7:T003	B	B	O(puzzle file, report dir, grep, tables section) Ref D(new explorer-w07-g) V(agent-file greps)		P	Q	"The workers' agent files already say how to wait (that landed in wave 5), so the remaining retry cost is mostly the 33 worktree-isolation refusals" ; new probe "split the Bash 1.3 s"
+67	w7:T005	B	B	O(author puzzle file, claim head) D(verifier) Ref C(msg author's address to verifier)			Q	"I confirmed that the PI without the skills listing genuinely fails under the rule, since the dataviz skill has no SKILL.md ... so I won't override this." (thinking)
+68	w7:T006	B	B	O(puzzle file, report section; lab_status.py lines 435-475) V Ref D(author) O(reproducer-w07-1 puzzle file)		P		"a slow git worktree list subprocess is dragging down lab_status.py's warm cache ... and a silent under-count bug in the spend report. I'll bundle a fix" (thinking)
+69	w7:T009	B	B	D(verifier) Ref Rel	W			"the platform silently merged two hook rows with the same command string, which is a platform fact worth keeping."
+70	w7:T013	B	B	D(verifier) Ref Rel	W			"By the registered rule c1-c3 decide, so it lands if the verifier supports it."
+71	w7:T015	B	B	Nil Rel	-			"The synthesis will mark them UNVERIFIED unless the verifier finds a source."
+72	w7:T016	B	B	Ref(decision: lands) Cm Rel	W		Q	"Decision: the async origin rule lands. ... which matters more than its two costs"
+73	w7:T017	B	B	Nil(plans own action)	-			"I'll set the README's minimum version to 2.1.295 myself at the merge"
+74	w7:T019	B	B	Nil Rel	-			"conceded that the money's sign is undetermined (0.414 against a threshold of 0.385)"
+75	w7:T020	B	B	V(git diff --stat, lab_status) Ref(decision) Merge Cm Rel	W(ESCALATE decided without opening the claim file in this turn)		Q	"My decision is that it lands by its registered rule. It is one line, reversible, and fails safe"
+76	w7:T024	B	B	C(resume verifier) Rel	W			"Resuming the same verifier to check v1."
+77	w7:T025	B	B	Nil Rel	-			text lists smoke-test results (42 rows, selftests)
+78	w7:T026	N	N	Nil(no request: 0 steps)	-			
+79	w7:T027	B	B	Nil Rel	-		Q	"nothing runs it automatically until you install the pre-commit hook or push the CI file"
+80	w7:T030	X	X	Nil(no request: 0 steps)	-			"[Request interrupted by user]"
+81	w7:T032	H	H	A(computes wave-7 spend by role from transcripts; reads writing-reports skill; edits html) Rel				"Splitting wave 7's spend by role from this session's transcripts"
+82	w7:T036	H	H	A(recomputes from explorer-w07-b requests.tsv) Corr(own earlier claim) Build(script+html) Rel		P(user's quoted sentence)	Q(self)	"Recomputing changes my earlier conclusion: explorers and verifiers still lose with a 1-hour cache, but authors land right at break-even" (thinking)
+83	w7:T037	H	H	A(big_results.tsv queried; synthesis edit) Rel		P	Q(user's hypothesis)	"Mostly no: our scripts' output turns out to be a small part of this cost."
+84	w7:T040	X	X	Nil(no request: 0 steps)	-			system reminder only
+85	w8:T000	O	H	Or(~20 steps before first dispatch: working_defaults whole, framing whole, synthesis sections by sed, wave-07 note+report sections, waves.md and briefs.md whole, lab_status, harness log hunt) Ref(wave-08 note) D(first batch)				"Orientation done (baseline USD 373.40 total, this session 1.30). Writing the wave-8 note now, then dispatching the first batch." ; "Next I'll read the wave-7 note's dispositions and the wave procedures, then plan wave 8."
+86	w8:T004	B	B	V(spend, own note times via git log) Corr(own guessed times) Rel	W			"I caught a timestamp error in my wave note ("00:45"/"01:05" vs. the actual 00:53)" (thinking); report not opened this turn
+87	w8:T008	B	B	O(claim head w08-c3, harness log) V(grep colgrep hint) D(verifier) Rel		P	Q	"w08-c1's numbers check out on its own data set, but the title overstates the result by omitting the 587 Python-handled events" (thinking)
+88	w8:T009	B	B	V(diff stat, 4 selftests, live install, smoke run) Merge Cm Rel	-			"Every selftest passes ... Installing the new binary into the live data folder, then merging to main." (landing steps of w08-c8)
+89	w8:T011	B	B	Corr(skill text) C(msg verifier) Cm Rel	W	P(verifier's verdict on PI's own claim)		"w08-c7 is overstated ... I'm restating it as w08-c8"
+90	w8:T013	B	B	O(cost-map html parsed; lever ladder; puzzles) Pz(drafts dispositions for all open puzzles) Rel			Q	"Reading its lever ladder and its first puzzles myself before I show it to you."
+91	w8:T017	B	B	Nil Rel	-			"I'll decide on the verdict."
+92	w8:T018	B	B	C(msg author) Rel	W(ESCALATE decided from hand-back)			"My decision: the narrower statement is filed as w08-c11, superseding w08-c9"
+93	w8:T021	B	B	Nil Rel	-	P(by reasoning)	Q	"A confidently wrong name is worse than today's swap, and I dispatched four explorers at once this very wave." (before the verdict)
+94	w8:T030	B	B	Merge V(smoke run) Ref(synthesis) Cm Rel	-			"My own write attempt was correctly blocked by guard rule G4, so I won't try to route around it." (thinking)
+95	w8:T031	B	B	Nil Rel	-		Q	"One gap: it shows no cost for the second implementation, because it looked in w08-c12's head and the measurement is in w08-c5's."
+96	w8:T032	N	N	Nil(no request: 0 steps)	-			
+97	w8:T033	B	B	O(proposed_sections.md) Ref(synthesis) V(lab_status) Rel			Q	"These decisions are mine, so I'm reading the proposed sections myself before appending anything." ; "That's only the text of a puzzle; no claim is left undecided."
+98	w8:T035	B	B	C(msg author: narrower claim) Rel	W			"My decision: the change is worth landing, on a narrower statement filed as w08-c15"
+99	w8:T036	B	B	C(msg verifier with two figures to reconcile) Rel	W		Q	"It corrects my brief: 8,098 base allows, not 6,882 ... the verifier will settle which."
+100	w8:T037	B	B	Merge V(ancestor test, smoke-run transcript) Pz(dispositions) Ref Cm Rel	-			"Landing it, after checking that its branch includes w08-c13's landed tree." ; "Smoke run passed clean - 0 guard denials across all 7 Bash calls" (thinking)
+101	w8:T040	H	H	A(tests the user's doubt: colgrep search, colgrep -n, colgrep --json) Rel		P(user's challenge)	Q(own earlier text)	"Confirmed: each markdown hit is a whole file"; "colgrep's --json output only returns the whole unit and score, not match locations" (thinking)
+102	w8:T041	H	H	A(reads colgrep-mcp conventions, searches server code with colgrep, expands hit) Build(report) Rel				"Confirmed the bug: hit_from_raw snippets using code_lines[:snippet_lines], just the unit's first lines" (thinking)
+103	w8:T042	B	B	O(puzzle headers by awk) Ref(wave note) Cm Rel		P		"Three things change the design: ... The classifier's real input isn't in the transcripts" (report file itself not opened this turn)
+104	w8:T043	H	H	Replan(no wave 9; refile probes under wave 8) Rel		P(user's correction)		"Understood: no wave 9."

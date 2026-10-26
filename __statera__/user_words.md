@@ -442,3 +442,31 @@ I don't understand how that's relevant. Didn't you also tried `-n` and it worked
 ## 2026-10-24 14:37
 
 Ah, my bad, I didn't want you to start wave 9, only brainstorm with me for the wave 9 hadnoff. But it's okay, finish your cheap probes as part of a wave 8 extra work and close to main. I still need to add the parameter to limit context window size
+
+## 2026-10-25 23:23
+
+/murmuration:research-loop Proceed with wave 9. You an consult the end of wave 8 for pointers about the latest open questions. Of course, as always this is not a checklist, you are responsible for the research of your team.
+
+## 2026-10-25 23:36
+
+> No commit or settings file actually sets autoCompactWindow—the only related values are DISABLE_MICROCOMPACT=1 and a null cache entry—so I’ll proceed without that window. Running a few cheap probes before diving in further.
+
+that's a shame I would have like you to stop and we would have added it before anything else to be able to measure that effect. I have added it right now. Can you see it?
+
+## 2026-10-25 23:42
+
+I've added the line to the main checkout's .claude/settings.local.json. Finish this round of explorers here, watch whether this session compacts near 217k, then write a hand-off so I start a fresh PI session for the rest of wave 9.
+
+## 2026-10-25 23:43
+
+`/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-research-wave-9-a25ae6/.claude/settings.local.json`
+
+## 2026-10-25 23:45
+
+After all, I think it's bad to interrupt the current cycle. Let's treat wave 9 as another instance of running the research loop without the autocompact window setting and then the next cycles will have it once we merge this loop to `main`
+
+## 2026-10-25 23:50
+
+> A merge to main won’t carry the setting. .claude/settings.local.json is gitignored in both checkouts (line 24 of .gitignore). The next waves get the window only if the line is in the main checkout’s own .claude/settings.local.json. The guard stops agents from writing that file, so you’ll need to add it there yourself before the next wave opens.
+
+then just force commit it

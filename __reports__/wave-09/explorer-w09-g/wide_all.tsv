@@ -1,0 +1,877 @@
+proj	sess	agent	atype	name	last_tool	hb	tool_msgs	n	fin	hsc	intr	hbres	end	parent	cls
+src-CrackingShells-Murmuration-probes-out-work	225ca75e	ac23ca35	probe:probe-fm		Write	0	1	31	A:end_turn:text	0	0		2026-10-18T09:48:01.455Z	notified:completed	final_text
+src-CrackingShells-Murmuration-probes-out-work	3343af52	ab45acab	probe:probe-author	solo	None	0	0	30	A:end_turn:text	0	0		2026-10-18T09:41:20.107Z	delivered:[Subagent hand-back]	final_text
+src-CrackingShells-Murmuration-probes-out-work	7ff92b62	a8999a0c	probe:probe-verifier	v2	SubagentHandback	2	2	32	U:tool_result	0	0	delivered	2026-10-18T09:43:29.309Z	notified:completed	ended_on_handback_result
+src-CrackingShells-Murmuration-probes-out-work	dc4a514e	a9cec7fb	probe:probe-verifier	v2	None	0	0	23	A:end_turn:text	0	0		2026-10-18T09:43:07.069Z	notified:completed	final_text
+src-CrackingShells-Murmuration-probes-out-work	ec70ebcf	a6641ac1	probe:probe-author	author	SendMessage	0	2	63	A:end_turn:text	0	0		2026-10-18T09:41:00.217Z	notified:completed	final_text
+src-CrackingShells-Murmuration-probes-out-work	ec70ebcf	ab961816	probe:probe-verifier	verifier	SendMessage	0	2	54	A:end_turn:text	0	0		2026-10-18T09:40:56.740Z	notified:completed	final_text
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	a12a5117	murmuration:reproducer	reproducer-w06-5	SubagentHandback	1	56	348	U:tool_result	0	0	delivered	2026-10-21T12:09:36.044Z	async-launch-only	ended_on_handback_result
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	a1789b5d	murmuration:reproducer	reproducer-w06-2	SubagentHandback	1	29	192	U:tool_result	0	0	delivered	2026-10-21T08:40:14.181Z	async-launch-only	ended_on_handback_result
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	a1e75b37	murmuration:reproducer	reproducer-w06-1	SubagentHandback	1	32	203	U:tool_result	0	0	delivered	2026-10-21T08:26:31.977Z	async-launch-only	ended_on_handback_result
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	a217651a	murmuration:reproducer	reproducer-w06-4	SubagentHandback	1	40	249	U:tool_result	0	0	delivered	2026-10-21T11:48:53.643Z	async-launch-only	ended_on_handback_result
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	a77bca03	murmuration:reproducer	reproducer-w06-7	SubagentHandback	3	88	547	U:tool_result	0	0	delivered	2026-10-21T12:55:03.525Z	async-launch-only	ended_on_handback_result
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	a7ee55f8	murmuration:author	author-w06-6	SubagentHandback	3	219	1373	U:tool_result	0	0	delivered	2026-10-21T12:55:55.452Z	delivered:[Subagent hand-back]	ended_on_handback_result
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	a9a26af6	murmuration:reproducer	reproducer-w06-8	SubagentHandback	2	35	262	U:tool_result	0	0	delivered	2026-10-21T13:22:47.658Z	async-launch-only	ended_on_handback_result
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	aadf5d29	murmuration:reproducer	reproducer-w06-3	SubagentHandback	3	45	276	U:tool_result	0	0	delivered	2026-10-21T10:39:40.412Z	async-launch-only	ended_on_handback_result
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	ab1abd0c	murmuration:explorer	explorer-w06-c	SubagentHandback	1	55	337	U:tool_result	0	0	delivered	2026-10-21T08:32:29.883Z	async-launch-only	ended_on_handback_result
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	ab38dba1	murmuration:author	author-w06-3	SubagentHandback	4	91	640	U:tool_result	0	0	delivered	2026-10-21T10:39:16.781Z	notified:completed	ended_on_handback_result
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	ab959ad9	murmuration:reproducer	reproducer-w06-6	SubagentHandback	2	71	440	U:tool_result	0	0	delivered	2026-10-21T13:06:44.239Z	async-launch-only	ended_on_handback_result
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	abba48b6	murmuration:explorer	explorer-w06-a	SubagentHandback	1	42	286	U:tool_result	0	0	delivered	2026-10-21T08:51:32.629Z	async-launch-only	ended_on_handback_result
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	abe4253a	claude-code-guide	guide-w06-perm	SubagentHandback	1	22	107	U:tool_result	0	0	delivered	2026-10-21T10:41:58.239Z	async-launch-only	ended_on_handback_result
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	ad0411cd	murmuration:author	author-w06-4	SubagentHandback	2	128	929	U:tool_result	0	0	delivered	2026-10-21T11:45:07.626Z	async-launch-only	ended_on_handback_result
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	ad975b2e	murmuration:author	author-w06-5	SubagentHandback	9	269	1815	U:tool_result	0	0	delivered	2026-10-21T12:54:23.524Z	delivered:[Subagent hand-back]	ended_on_handback_result
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	ae712c7b	murmuration:author	author-w06-7	SubagentHandback	1	22	184	U:tool_result	0	0	delivered	2026-10-21T13:19:42.043Z	async-launch-only	ended_on_handback_result
+-worktrees-Murmuration-blissful-villani-34edd8	74fa512e	aece499f	murmuration:explorer	explorer-w06-b	SubagentHandback	1	59	392	U:tool_result	0	0	delivered	2026-10-21T08:47:40.317Z	async-launch-only	ended_on_handback_result
+ees-Murmuration-lab-system-optimization-1aa673	6b0e1f2a	a07b75cc	murmuration:explorer	explorer-w05-b	SubagentHandback	1	43	268	U:tool_result	0	0	delivered	2026-10-21T05:53:45.658Z	async-launch-only	ended_on_handback_result
+ees-Murmuration-lab-system-optimization-1aa673	6b0e1f2a	a0afa2a1	murmuration:author	author-w05-2	SubagentHandback	4	64	467	U:tool_result	0	0	delivered	2026-10-21T06:38:20.299Z	async-launch-only	ended_on_handback_result
+ees-Murmuration-lab-system-optimization-1aa673	6b0e1f2a	a238a71d	murmuration:reproducer	reproducer-w05-5	SubagentHandback	1	35	272	U:tool_result	0	0	delivered	2026-10-21T07:11:08.816Z	notified:completed	ended_on_handback_result
+ees-Murmuration-lab-system-optimization-1aa673	6b0e1f2a	a28f9331	murmuration:explorer	explorer-w05-e	SubagentHandback	1	48	301	U:tool_result	0	0	delivered	2026-10-21T05:51:43.749Z	async-launch-only	ended_on_handback_result
+ees-Murmuration-lab-system-optimization-1aa673	6b0e1f2a	a2f75017	murmuration:reproducer	reproducer-w05-8	SubagentHandback	2	31	188	U:tool_result	0	0	delivered	2026-10-21T07:05:22.529Z	notified:completed	ended_on_handback_result
+ees-Murmuration-lab-system-optimization-1aa673	6b0e1f2a	a341139a	murmuration:author	author-w05-3	SubagentHandback	3	143	1022	U:tool_result	0	0	delivered	2026-10-21T07:13:17.066Z	async-launch-only	ended_on_handback_result
+ees-Murmuration-lab-system-optimization-1aa673	6b0e1f2a	a71e1fd6	murmuration:reproducer	reproducer-w05-1	SubagentHandback	1	35	209	U:tool_result	0	0	delivered	2026-10-21T07:13:54.403Z	async-launch-only	ended_on_handback_result
+ees-Murmuration-lab-system-optimization-1aa673	6b0e1f2a	a72b2c15	murmuration:explorer	explorer-w05-a	SubagentHandback	1	44	268	U:tool_result	0	0	delivered	2026-10-21T05:51:59.470Z	async-launch-only	ended_on_handback_result
+ees-Murmuration-lab-system-optimization-1aa673	6b0e1f2a	a731f050	murmuration:reproducer	reproducer-w05-3	SubagentHandback	1	35	220	U:tool_result	0	0	delivered	2026-10-21T06:33:20.987Z	notified:completed	ended_on_handback_result
+ees-Murmuration-lab-system-optimization-1aa673	6b0e1f2a	a81aa03a	murmuration:explorer	explorer-w05-d	SubagentHandback	1	73	432	U:tool_result	0	0	delivered	2026-10-21T06:04:03.894Z	async-launch-only	ended_on_handback_result
+ees-Murmuration-lab-system-optimization-1aa673	6b0e1f2a	a8372d73	murmuration:explorer	explorer-w05-f	SubagentHandback	1	42	271	U:tool_result	0	0	delivered	2026-10-21T06:34:16.281Z	async-launch-only	ended_on_handback_result
+ees-Murmuration-lab-system-optimization-1aa673	6b0e1f2a	a9dadfbf	murmuration:reproducer	reproducer-w05-6	SubagentHandback	2	35	222	U:tool_result	0	0	delivered	2026-10-21T06:38:54.815Z	async-launch-only	ended_on_handback_result
+ees-Murmuration-lab-system-optimization-1aa673	6b0e1f2a	aa07355e	murmuration:reproducer	reproducer-w05-4	SubagentHandback	1	52	332	U:tool_result	0	0	delivered	2026-10-21T07:13:49.559Z	async-launch-only	ended_on_handback_result
+ees-Murmuration-lab-system-optimization-1aa673	6b0e1f2a	aaaf392f	murmuration:explorer	explorer-w05-c	SubagentHandback	1	56	354	U:tool_result	0	0	delivered	2026-10-21T05:55:59.775Z	async-launch-only	ended_on_handback_result
+ees-Murmuration-lab-system-optimization-1aa673	6b0e1f2a	adb10d59	murmuration:author	author-w05-1	SubagentHandback	3	74	505	U:tool_result	0	0	delivered	2026-10-21T07:14:50.166Z	async-launch-only	ended_on_handback_result
+e-run-w01-author-w01-1-scratch-p1-default-work	5d6752f9	aa84e7d9	hbtest:hb	author-w99-1	None	0	0	14	A:end_turn:text	0	0		2026-10-19T02:21:54.150Z	delivered:[Subagent hand-back]	final_text
+tive-run-w01-author-w01-1-scratch-p2-auto-work	8ca606cc	a7173f8f	hbtest:hb	author-w99-1	SubagentHandback	1	1	17	U:tool_result	0	0	delivered	2026-10-19T02:22:19.569Z	no-trace	ended_on_handback_result
+-run-w01-author-w01-1-scratch-p3-auto-two-work	c837e457	a883d24c	hbtest:hb		SubagentHandback	2	2	23	U:tool_result	0	0	delivered	2026-10-19T02:24:08.332Z	delivered:[Subagent hand-back]	ended_on_handback_result
+n-w01-author-w01-1-scratch-p3-default-two-work	b79dd70f	a742e5f4	hbtest:hb		None	0	0	14	A:end_turn:text	0	0		2026-10-19T02:23:40.054Z	delivered:[Subagent hand-back]	final_text
+-run-w01-author-w01-1-scratch-p4-auto-two-work	1351e148	a4f26fe7	hbtest:hb	author-w99-1	SubagentHandback	2	2	23	U:tool_result	0	0	delivered	2026-10-19T02:53:19.945Z	notified:completed	ended_on_handback_result
+-run-w01-author-w01-1-scratch-p4-auto-two-work	8f52cbb6	a1279dd5	hbtest:hb	author-w99-1	SubagentHandback	2	2	23	U:tool_result	0	0	delivered	2026-10-19T02:26:05.592Z	notified:completed	ended_on_handback_result
+-run-w01-author-w01-1-scratch-p4-auto-two-work	dacefc84	ac322119	hbtest:hb		SubagentHandback	2	2	23	U:tool_result	0	0	delivered	2026-10-19T02:40:29.431Z	delivered:[Subagent hand-back]	ended_on_handback_result
+-run-w01-author-w01-1-scratch-p4-auto-two-work	ffdc5201	a83e2b78	hbtest:hb		SubagentHandback	2	2	23	U:tool_result	0	0	delivered	2026-10-19T02:34:02.894Z	delivered:[Subagent hand-back]	ended_on_handback_result
+n-w01-author-w01-1-scratch-p4-default-two-work	00356061	ab890bf7	hbtest:hb		None	0	0	18	A:end_turn:text	0	0		2026-10-19T02:25:39.753Z	delivered:[Subagent hand-back]	final_text
+n-w01-author-w01-1-scratch-p4-default-two-work	5509c50d	a2623b17	hbtest:hb		None	0	0	18	A:end_turn:text	0	0		2026-10-19T02:52:55.088Z	delivered:[Subagent hand-back]	final_text
+n-w01-author-w01-1-scratch-p4-default-two-work	694c5aab	a83a93dc	hbtest:hb	author-w99-1	None	0	0	18	A:end_turn:text	0	0		2026-10-19T02:33:39.332Z	delivered:[Subagent hand-back]	final_text
+n-w01-author-w01-1-scratch-p4-default-two-work	81648deb	a395cbd1	hbtest:hb	author-w99-1	None	0	0	19	A:end_turn:text	0	0		2026-10-19T02:40:05.074Z	delivered:[Subagent hand-back]	final_text
+w01-author-w01-1-scratch-p5-auto-bg-nasty-work	07d77502	a80de6e5	hbtest:hb	author-w99-2	SubagentHandback	1	1	17	U:tool_result	0	0	delivered	2026-10-19T02:40:45.275Z	notified:completed	ended_on_handback_result
+w01-author-w01-1-scratch-p5-auto-bg-nasty-work	7265f21e	af0cad78	hbtest:hb	author-w99-2	SubagentHandback	1	1	17	U:tool_result	0	0	delivered	2026-10-19T02:26:18.688Z	notified:completed	ended_on_handback_result
+w01-author-w01-1-scratch-p5-auto-bg-nasty-work	d6afafc1	a6997ab1	hbtest:hb	author-w99-2	SubagentHandback	1	1	17	U:tool_result	0	0	delivered	2026-10-19T02:53:33.910Z	notified:completed	ended_on_handback_result
+w01-author-w01-1-scratch-p5-auto-bg-nasty-work	ee224e98	a55cb47b	hbtest:hb	author-w99-2	SubagentHandback	1	1	17	U:tool_result	0	0	delivered	2026-10-19T02:34:17.723Z	notified:completed	ended_on_handback_result
+-author-w01-1-scratch-p5-default-bg-nasty-work	29d66cbd	ad46dd8e	hbtest:hb	author-w99-2	None	0	0	15	A:end_turn:text	0	0		2026-10-19T02:53:47.868Z	notified:completed	final_text
+-author-w01-1-scratch-p5-default-bg-nasty-work	908a6f50	a87eb1b1	hbtest:hb	author-w99-2	None	0	0	15	A:end_turn:text	0	0		2026-10-19T02:34:32.844Z	notified:completed	final_text
+-author-w01-1-scratch-p5-default-bg-nasty-work	d63bbbd8	a5f67b77	hbtest:hb	author-w99-2	None	0	0	15	A:end_turn:text	0	0		2026-10-19T02:26:34.539Z	notified:completed	final_text
+-author-w01-1-scratch-p5-default-bg-nasty-work	e9290c5e	a11073d8	hbtest:hb	author-w99-2	None	0	0	15	A:end_turn:text	0	0		2026-10-19T02:40:59.105Z	notified:completed	final_text
+w01-author-w01-1-scratch-p6-auto-stoponly-work	7e5d4fb7	a9ca3b2e	hbtest:hb	author-w99-1	SubagentHandback	1	1	17	U:tool_result	0	0	delivered	2026-10-19T02:41:13.075Z	no-trace	ended_on_handback_result
+w01-author-w01-1-scratch-p6-auto-stoponly-work	83e8e5e6	a74fac8c	hbtest:hb	author-w99-1	SubagentHandback	1	1	17	U:tool_result	0	0	delivered	2026-10-19T02:26:51.812Z	no-trace	ended_on_handback_result
+w01-author-w01-1-scratch-p6-auto-stoponly-work	b965eb04	a6b38d92	hbtest:hb	author-w99-1	SubagentHandback	1	1	16	U:tool_result	0	0	delivered	2026-10-19T02:53:59.512Z	no-trace	ended_on_handback_result
+w01-author-w01-1-scratch-p6-auto-stoponly-work	cfbcd044	a95abe50	hbtest:hb	author-w99-1	SubagentHandback	1	1	17	U:tool_result	0	0	delivered	2026-10-19T02:34:50.171Z	no-trace	ended_on_handback_result
+w01-author-w01-1-scratch-p8-d299-auto-two-work	1a538c3b	a57530d6	hbtest:hb	author-w99-1	SubagentHandback	2	2	17	U:tool_result	0	0	delivered	2026-10-19T02:27:41.555Z	notified:completed	ended_on_handback_result
+w01-author-w01-1-scratch-p8-d299-auto-two-work	2a88c1b5	ad4166a2	hbtest:hb	author-w99-1	SubagentHandback	2	2	20	U:tool_result	0	0	delivered	2026-10-19T02:54:59.137Z	notified:completed	ended_on_handback_result
+w01-author-w01-1-scratch-p8-d299-auto-two-work	af537eef	af2cbbd9	hbtest:hb	author-w99-1	SubagentHandback	2	2	17	U:tool_result	0	0	delivered	2026-10-19T02:35:42.392Z	notified:completed	ended_on_handback_result
+w01-author-w01-1-scratch-p8-d299-auto-two-work	b3c7f3be	a720cd3c	hbtest:hb	author-w99-1	SubagentHandback	2	2	16	U:tool_result	0	0	delivered	2026-10-19T02:42:01.799Z	notified:completed	ended_on_handback_result
+-author-w01-1-scratch-p8-d299-default-two-work	7268c63d	ac9d141e	hbtest:hb	author-w99-1	None	0	0	13	A:end_turn:text	0	0		2026-10-19T02:35:18.427Z	delivered:[Subagent hand-back]	final_text
+-author-w01-1-scratch-p8-d299-default-two-work	9ec8ed53	a11cf254	hbtest:hb		None	0	0	13	A:end_turn:text	0	0		2026-10-19T02:41:42.093Z	delivered:[Subagent hand-back]	final_text
+-author-w01-1-scratch-p8-d299-default-two-work	a2a70d8e	a30b069a	hbtest:hb		None	0	0	13	A:end_turn:text	0	0		2026-10-19T02:54:30.519Z	delivered:[Subagent hand-back]	final_text
+-author-w01-1-scratch-p8-d299-default-two-work	fdbdbe25	aa54ce6c	hbtest:hb		None	0	0	13	A:end_turn:text	0	0		2026-10-19T02:27:16.681Z	delivered:[Subagent hand-back]	final_text
+-run-w01-author-w01-1-scratch-p9-auto-big-work	44431b84	ab0c1488	hbtest:hb	author-w99-4	SubagentHandback	1	1	17	U:tool_result	0	0	delivered	2026-10-19T02:42:26.108Z	no-trace	ended_on_handback_result
+-run-w01-author-w01-1-scratch-p9-auto-big-work	ce773b8a	aca025b0	hbtest:hb	author-w99-4	SubagentHandback	1	1	17	U:tool_result	0	0	delivered	2026-10-19T02:38:31.710Z	no-trace	ended_on_handback_result
+-run-w01-author-w01-1-scratch-p9-auto-big-work	f49e2064	af8a73a1	hbtest:hb	author-w99-4	SubagentHandback	1	1	17	U:tool_result	0	0	delivered	2026-10-19T02:55:24.105Z	no-trace	ended_on_handback_result
+ive-run-w01-author-w01-1-scratch-q3-hooks-work	f4bf6b0a	a0acf271	hbtest:hb	author-w99-1	SubagentHandback	1	1	17	U:tool_result	0	0	delivered	2026-10-19T02:51:29.878Z	no-trace	ended_on_handback_result
+e-run-w01-author-w01-1-scratch-w1-sub-302-work	17601329	a1b0fd16	hbtest:hbw		Bash	0	15	125	A:end_turn:text	0	0		2026-10-19T02:36:26.449Z	delivered:[Subagent hand-back]	final_text
+e-run-w01-author-w01-1-scratch-w1-sub-302-work	8fae589c	a58697b2	hbtest:hbw	author-w99-3	Bash	0	15	125	A:end_turn:text	0	0		2026-10-19T02:31:55.407Z	delivered:[Subagent hand-back]	final_text
+e-run-w01-author-w01-1-scratch-w1-sub-302-work	94a1a791	a4a24870	hbtest:hbw	author-w99-3	Bash	0	15	124	A:end_turn:text	0	0		2026-10-19T02:56:00.722Z	delivered:[Subagent hand-back]	final_text
+e-run-w01-author-w01-1-scratch-w1-sub-302-work	be305a4d	a3ed96ae	hbtest:hbw		Bash	0	15	124	A:end_turn:text	0	0		2026-10-19T02:43:05.065Z	delivered:[Subagent hand-back]	final_text
+e-run-w01-author-w01-1-scratch-w1-sub-302-work	c693cf37	ac71857b	hbtest:hbw		Write	0	1	25	A:end_turn:text	0	0		2026-10-19T02:30:09.682Z	delivered:[Subagent hand-back]	final_text
+e-run-w01-author-w01-1-scratch-w3-sub-299-work	26e509a4	a6f516d2	hbtest:hbw	author-w99-3	Bash	0	15	75	A:end_turn:text	0	0		2026-10-19T02:56:46.320Z	delivered:[Subagent hand-back]	final_text
+e-run-w01-author-w01-1-scratch-w3-sub-299-work	5b7f6745	a56a102e	hbtest:hbw	author-w99-3	Bash	0	15	75	A:end_turn:text	0	0		2026-10-19T02:32:35.645Z	delivered:[Subagent hand-back]	final_text
+e-run-w01-author-w01-1-scratch-w3-sub-299-work	8a6729f3	a029beb6	hbtest:hbw	author-w99-3	Bash	0	15	75	A:end_turn:text	0	0		2026-10-19T02:43:59.124Z	delivered:[Subagent hand-back]	final_text
+e-run-w01-author-w01-1-scratch-w3-sub-299-work	bd285972	a5456c66	hbtest:hbw	author-w99-3	Write	0	1	18	A:end_turn:text	0	0		2026-10-19T02:30:51.675Z	delivered:[Subagent hand-back]	final_text
+e-run-w01-author-w01-1-scratch-w3-sub-299-work	ec9e498b	a0be6eed	hbtest:hbw		Bash	0	15	75	A:end_turn:text	0	0		2026-10-19T02:37:15.727Z	delivered:[Subagent hand-back]	final_text
+-des-bg-off-long-p-inh-p0-dfl-dfl-0-r0-bc-work	d4773fa2	a8be788e	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:45:02.520Z	notified:completed	final_text
+-des-bg-off-long-p-inh-p0-dfl-dfl-0-r1-bc-work	95402188	a4b9735c	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:45:08.792Z	notified:completed	final_text
+-des-bg-off-long-p-inh-p0-dfl-dfl-0-r2-bc-work	5f5e93f7	afdc8d2c	essayist		Bash	0	1	21	A:end_turn:text	0	0		2026-10-19T02:45:18.227Z	notified:completed	final_text
+-des-bg-off-long-p-inh-p0-dfl-dfl-0-r3-bc-work	8dacfde9	ad32cfa8	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:45:24.212Z	notified:completed	final_text
+-des-bg-off-long-p-inh-p0-dfl-dfl-0-r4-bc-work	f8fabdc2	a4d30109	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:45:26.963Z	notified:completed	final_text
+-des-bg-off-long-p-inh-p0-dfl-dfl-0-r5-bc-work	cbb9139c	a49b393e	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:45:41.820Z	notified:completed	final_text
+-des-bg-off-long-p-inh-p0-dfl-dfl-0-r6-bc-work	f725e844	a2ca68a9	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:45:40.838Z	notified:completed	final_text
+-des-bg-off-long-p-inh-p0-dfl-dfl-0-r7-bc-work	b22b1b18	a66a84fb	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:45:49.925Z	notified:completed	final_text
+-des-bg-off-long-p-inh-p0-dfl-dfl-0-r8-bc-work	3f32f3be	acdca054	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:45:51.033Z	notified:completed	final_text
+-des-bg-off-long-p-inh-p0-dfl-dfl-0-r9-bc-work	208ac3d4	ada144fb	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:46:09.607Z	notified:completed	final_text
+2-runs-des-bg-off-long-p-inh-p0-dfl-dfl-0-work	0f5a6a90	a6e04287	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:28:16.024Z	notified:completed	final_text
+2-runs-des-bg-off-long-p-inh-p0-dfl-dfl-1-work	e952658a	a193dbf4	essayist		SubagentHandback	1	2	24	U:tool_result	0	0	delivered	2026-10-19T02:29:14.676Z	delivered:[Subagent hand-back]	ended_on_handback_result
+des-bg-off-short-p-inh-p0-dfl-dfl-0-r0-pk-work	85180b8f	ae350e93	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:36:14.535Z	notified:completed	final_text
+des-bg-off-short-p-inh-p0-dfl-dfl-0-r1-pk-work	709f0c14	a5bf740d	essayist		Bash	0	1	21	A:None:text	0	0		2026-10-19T02:36:25.625Z	notified:completed	other
+des-bg-off-short-p-inh-p0-dfl-dfl-0-r2-pk-work	7ccfba79	ad5e4586	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:36:33.494Z	notified:completed	final_text
+des-bg-off-short-p-inh-p0-dfl-dfl-0-r3-pk-work	e12157da	a6576e53	essayist		Bash	0	1	21	A:end_turn:text	0	0		2026-10-19T02:36:44.404Z	notified:completed	final_text
+des-bg-off-short-p-inh-p0-dfl-dfl-0-r4-pk-work	97f0b109	ae29c0c8	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:36:36.634Z	notified:completed	final_text
+des-bg-off-short-p-inh-p0-dfl-dfl-0-r5-pk-work	b3ebf80a	a5afb9f9	essayist		Bash	0	1	21	A:end_turn:text	0	0		2026-10-19T02:36:49.123Z	notified:completed	final_text
+des-bg-off-short-p-inh-p0-dfl-dfl-0-r6-pk-work	33e73a63	a57f638c	essayist		Bash	0	1	22	A:None:text	0	0		2026-10-19T02:36:56.681Z	notified:completed	other
+des-bg-off-short-p-inh-p0-dfl-dfl-0-r7-pk-work	34846b3b	a6ee2b8e	essayist		Bash	0	1	21	A:end_turn:text	0	0		2026-10-19T02:37:04.439Z	notified:completed	final_text
+des-bg-off-short-p-inh-p0-dfl-dfl-0-r8-pk-work	f2d22be5	a255837a	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:37:11.483Z	notified:completed	final_text
+des-bg-off-short-p-inh-p0-dfl-dfl-0-r9-pk-work	b139e61a	a1956f10	essayist		Bash	0	2	26	A:end_turn:text	0	0		2026-10-19T02:37:19.532Z	notified:completed	final_text
+-runs-des-bg-off-short-p-inh-p0-dfl-dfl-0-work	51dbe41b	a0d3a269	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:28:09.160Z	notified:completed	final_text
+-runs-des-bg-off-short-p-inh-p0-dfl-dfl-1-work	4c1d2395	a57ad6cd	essayist		SubagentHandback	1	2	24	U:tool_result	0	0	delivered	2026-10-19T02:29:10.288Z	delivered:[Subagent hand-back]	ended_on_handback_result
+s-des-bg-on-long-p-inh-p0-dfl-dfl-0-r0-bc-work	048134ea	a125ad89	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:43:05.779Z	notified:completed	final_text
+s-des-bg-on-long-p-inh-p0-dfl-dfl-0-r1-bc-work	a169a8df	ae450e28	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:43:07.314Z	notified:completed	final_text
+s-des-bg-on-long-p-inh-p0-dfl-dfl-0-r2-bc-work	7520e59b	afe0c824	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:43:08.344Z	notified:completed	final_text
+s-des-bg-on-long-p-inh-p0-dfl-dfl-0-r3-bc-work	5e547e29	ace2b0c6	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:43:10.334Z	notified:completed	final_text
+s-des-bg-on-long-p-inh-p0-dfl-dfl-0-r4-bc-work	4e126afe	a20b49fc	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:43:33.054Z	notified:completed	final_text
+s-des-bg-on-long-p-inh-p0-dfl-dfl-0-r5-bc-work	191cf181	a83290c8	essayist		Bash	0	1	21	A:end_turn:text	0	0		2026-10-19T02:43:35.241Z	notified:completed	final_text
+s-des-bg-on-long-p-inh-p0-dfl-dfl-0-r6-bc-work	c819259b	a17e4884	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:43:35.193Z	notified:completed	final_text
+s-des-bg-on-long-p-inh-p0-dfl-dfl-0-r7-bc-work	e6437f06	ac922fb6	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:43:40.183Z	notified:completed	final_text
+s-des-bg-on-long-p-inh-p0-dfl-dfl-0-r8-bc-work	084023a8	a7c4fe58	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:44:00.347Z	notified:completed	final_text
+s-des-bg-on-long-p-inh-p0-dfl-dfl-0-r9-bc-work	738e75d9	a39325e9	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:44:01.010Z	notified:completed	final_text
+-2-runs-des-bg-on-long-p-inh-p0-dfl-dfl-0-work	343e91b0	a9eadb83	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:28:12.000Z	notified:completed	final_text
+-2-runs-des-bg-on-long-p-inh-p0-dfl-dfl-1-work	562433cf	a44a1a28	essayist		SubagentHandback	1	2	24	U:tool_result	0	0	delivered	2026-10-19T02:29:04.837Z	delivered:[Subagent hand-back]	ended_on_handback_result
+2-runs-des-bg-on-short-p-inh-p0-dfl-dfl-0-work	566353e1	aa7c6a44	essayist		Bash	0	1	21	A:end_turn:text	0	0		2026-10-19T02:27:54.669Z	notified:completed	final_text
+2-runs-des-bg-on-short-p-inh-p0-dfl-dfl-1-work	1c7cb5ea	ad554b36	essayist		SubagentHandback	1	2	24	U:tool_result	0	0	delivered	2026-10-19T02:28:47.389Z	delivered:[Subagent hand-back]	ended_on_handback_result
+2-runs-des-fg-off-long-p-inh-p0-dfl-dfl-0-work	492c1ca9	a1311da1	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:27:47.287Z	delivered:[Subagent hand-back]	final_text
+2-runs-des-fg-off-long-p-inh-p0-dfl-dfl-1-work	49650cd0	a147a056	essayist		SubagentHandback	1	2	23	U:tool_result	0	0	delivered	2026-10-19T02:28:43.828Z	no-trace	ended_on_handback_result
+des-fg-off-short-p-inh-p0-dfl-dfl-0-r0-bc-work	46bcd873	a120e457	essayist		Bash	0	1	21	A:end_turn:text	0	0		2026-10-19T02:43:55.502Z	delivered:[Subagent hand-back]	final_text
+des-fg-off-short-p-inh-p0-dfl-dfl-0-r1-bc-work	e08c747a	ac4f2ab0	essayist		Bash	0	1	21	A:end_turn:text	0	0		2026-10-19T02:44:00.300Z	delivered:[Subagent hand-back]	final_text
+des-fg-off-short-p-inh-p0-dfl-dfl-0-r2-bc-work	d5ea930f	aecda9bf	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:44:18.458Z	delivered:[Subagent hand-back]	final_text
+des-fg-off-short-p-inh-p0-dfl-dfl-0-r3-bc-work	a23c789a	a8aa01e3	essayist		Write	0	2	25	A:end_turn:text	0	0		2026-10-19T02:44:29.855Z	delivered:[Subagent hand-back]	final_text
+des-fg-off-short-p-inh-p0-dfl-dfl-0-r4-bc-work	fb4eddb1	a156839b	essayist		Bash	0	1	21	A:end_turn:text	0	0		2026-10-19T02:44:21.672Z	delivered:[Subagent hand-back]	final_text
+des-fg-off-short-p-inh-p0-dfl-dfl-0-r5-bc-work	5b8fe9bb	a1762328	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:44:23.175Z	delivered:[Subagent hand-back]	final_text
+des-fg-off-short-p-inh-p0-dfl-dfl-0-r6-bc-work	44a33f26	aa2d4b35	essayist		Bash	0	1	21	A:end_turn:text	0	0		2026-10-19T02:44:34.984Z	delivered:[Subagent hand-back]	final_text
+des-fg-off-short-p-inh-p0-dfl-dfl-0-r7-bc-work	528358e8	acc538ad	essayist		Bash	0	1	21	A:end_turn:text	0	0		2026-10-19T02:44:40.048Z	delivered:[Subagent hand-back]	final_text
+des-fg-off-short-p-inh-p0-dfl-dfl-0-r8-bc-work	18a701ba	a897ff9e	essayist		Write	0	2	25	A:end_turn:text	0	0		2026-10-19T02:44:54.958Z	delivered:[Subagent hand-back]	final_text
+des-fg-off-short-p-inh-p0-dfl-dfl-0-r9-bc-work	6d98304b	af535dcf	essayist		Write	0	2	25	A:end_turn:text	0	0		2026-10-19T02:44:59.507Z	delivered:[Subagent hand-back]	final_text
+-runs-des-fg-off-short-p-inh-p0-dfl-dfl-0-work	768cc5d2	a41d809f	essayist		Bash	0	1	21	A:end_turn:text	0	0		2026-10-19T02:27:38.859Z	delivered:[Subagent hand-back]	final_text
+-runs-des-fg-off-short-p-inh-p0-dfl-dfl-1-work	d134cf2d	a6df357c	essayist		SubagentHandback	1	2	24	U:tool_result	0	0	delivered	2026-10-19T02:28:34.945Z	no-trace	ended_on_handback_result
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r0-hr-work	d1d21bef	a63a5583	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:31:42.403Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r0-pk-work	32d8a092	a9677125	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:35:05.713Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r1-hr-work	848fb1a0	a19b402d	essayist		Bash	0	1	21	A:end_turn:text	0	0		2026-10-19T02:31:37.513Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r1-pk-work	8f6b6e20	aa41d3b7	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:35:11.631Z	delivered:[Subagent hand-back]	final_text
+-des-fg-on-long-p-inh-p0-dfl-dfl-0-r10-pk-work	8575dd34	a125c000	essayist		Agent	0	1	22	A:end_turn:text	0	0		2026-10-19T02:35:54.170Z	delivered:[Subagent hand-back]	final_text
+-des-fg-on-long-p-inh-p0-dfl-dfl-0-r10-pk-work	8575dd34	aefcec44	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:36:11.589Z	notified:completed	final_text
+-des-fg-on-long-p-inh-p0-dfl-dfl-0-r11-pk-work	aaaddff5	a731391d	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:36:10.650Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r2-hr-work	b14c4fa4	a4091df5	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:31:37.509Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r2-pk-work	b4d4c203	ad3d086b	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:35:07.820Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r3-hr-work	b320d5f0	a27c63b2	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:31:40.336Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r3-pk-work	5963a99e	a840a76f	essayist		Write	0	2	25	A:end_turn:text	0	0		2026-10-19T02:35:16.711Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r4-hr-work	3097811d	af001983	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:32:04.426Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r4-pk-work	5f5b6ae8	abf7a70d	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:35:33.444Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r5-hr-work	b80d434f	a8bc3eab	essayist		Write	0	2	27	A:end_turn:text	0	0		2026-10-19T02:32:16.325Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r5-pk-work	bd6fc27f	a10453d7	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:35:39.432Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r6-hr-work	03661d10	a97fa333	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:32:10.501Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r6-pk-work	616cd270	a00b9a11	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:35:40.675Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r7-hr-work	8ae29f74	a07d5d7e	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:32:10.026Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r7-pk-work	78a0c1b2	a18a2cb0	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:35:44.110Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r8-hr-work	52527b41	a1d3cf08	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:32:27.619Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r8-pk-work	7bb79f24	a592e7ee	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:35:56.043Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r9-hr-work	20202e3f	a83db10a	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:32:38.869Z	delivered:[Subagent hand-back]	final_text
+s-des-fg-on-long-p-inh-p0-dfl-dfl-0-r9-pk-work	5d8d1015	a05f083a	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:36:03.692Z	delivered:[Subagent hand-back]	final_text
+-2-runs-des-fg-on-long-p-inh-p0-dfl-dfl-0-work	96dd0672	a43f6b86	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:22:21.549Z	delivered:[Subagent hand-back]	final_text
+-2-runs-des-fg-on-long-p-inh-p0-dfl-dfl-0-work	bd03edce	a0d7122c	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:27:46.200Z	delivered:[Subagent hand-back]	final_text
+-2-runs-des-fg-on-long-p-inh-p0-dfl-dfl-1-work	03699dab	af14e6f5	essayist		SubagentHandback	1	2	24	U:tool_result	0	0	delivered	2026-10-19T02:22:52.013Z	no-trace	ended_on_handback_result
+-2-runs-des-fg-on-long-p-inh-p0-dfl-dfl-1-work	486d225f	ae6d748f	essayist		SubagentHandback	1	2	24	U:tool_result	0	0	delivered	2026-10-19T02:28:44.004Z	no-trace	ended_on_handback_result
+-2-runs-des-fg-on-long-p-inh-p0-dfl-hig-0-work	619fd1c8	ad353694	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:22:50.342Z	delivered:[Subagent hand-back]	final_text
+-2-runs-des-fg-on-long-p-inh-p0-omi-dfl-0-work	b92779ec	abe4f376	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:22:20.353Z	delivered:[Subagent hand-back]	final_text
+-2-runs-des-fg-on-long-p-inh-p1-dfl-dfl-0-work	59d2cced	aa535b67	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:22:20.353Z	delivered:[Subagent hand-back]	final_text
+-runs-des-fg-on-long-sdk-inh-p0-dfl-dfl-0-work	6ed5c051	a37cb785	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:22:22.996Z	delivered:[Subagent hand-back]	final_text
+-runs-des-fg-on-long-sdk-inh-p1-omi-hig-1-work	ca057938	a7b8fa2d	essayist		SubagentHandback	1	2	24	U:tool_result	0	0	delivered	2026-10-19T02:23:00.502Z	no-trace	ended_on_handback_result
+2-runs-des-fg-on-short-p-inh-p0-dfl-dfl-0-work	7db16456	acc5d080	essayist		Write	0	2	25	A:end_turn:text	0	0		2026-10-19T02:27:49.370Z	delivered:[Subagent hand-back]	final_text
+2-runs-des-fg-on-short-p-inh-p0-dfl-dfl-1-work	e0a4ecf3	aed333da	essayist		SubagentHandback	1	3	28	U:tool_result	0	0	delivered	2026-10-19T02:28:26.014Z	no-trace	ended_on_handback_result
+author-w01-2-runs-des-pm-acceptEdits-fg-0-work	ca1ac2bb	a2ff0aee	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:26:10.040Z	delivered:[Subagent hand-back]	final_text
+w01-author-w01-2-runs-des-pm-auto-fg-0-pk-work	58b37aac	ab6d7b47	essayist		SubagentHandback	1	2	24	U:tool_result	0	0	delivered	2026-10-19T02:38:09.740Z	no-trace	ended_on_handback_result
+un-w01-author-w01-2-runs-des-pm-auto-fg-0-work	3774fb5f	a55cc322	essayist		SubagentHandback	1	2	24	U:tool_result	0	0	delivered	2026-10-19T02:25:21.972Z	no-trace	ended_on_handback_result
+un-w01-author-w01-2-runs-des-pm-auto-fg-0-work	ae83172c	aa4c0e4d	essayist		SubagentHandback	1	2	24	U:tool_result	0	0	delivered	2026-10-19T02:26:38.877Z	no-trace	ended_on_handback_result
+w01-author-w01-2-runs-des-pm-auto-fg-1-pk-work	c236d05c	a6ab5850	essayist		SubagentHandback	1	2	24	U:tool_result	0	0	delivered	2026-10-19T02:38:09.360Z	no-trace	ended_on_handback_result
+w01-author-w01-2-runs-des-pm-auto-fg-2-pk-work	caa6dbe6	a16f9997	essayist		SubagentHandback	1	2	24	U:tool_result	0	0	delivered	2026-10-19T02:38:13.556Z	no-trace	ended_on_handback_result
+-w01-2-runs-des-pm-bypassPermissions-fg-0-work	f1730e23	a9b92403	essayist		Bash	0	1	21	A:end_turn:text	0	0		2026-10-19T02:25:13.249Z	delivered:[Subagent hand-back]	final_text
+-w01-2-runs-des-pm-bypassPermissions-fg-0-work	f4b26992	af3b9930	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:26:38.529Z	delivered:[Subagent hand-back]	final_text
+w01-author-w01-2-runs-des-pm-default-fg-0-work	c6877fae	abfe0d05	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:26:10.018Z	delivered:[Subagent hand-back]	final_text
+w01-author-w01-2-runs-des-pm-dontAsk-fg-0-work	0f818220	a09160a5	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:26:09.339Z	delivered:[Subagent hand-back]	final_text
+w01-author-w01-2-runs-des-pm-plan-fg-0-pk-work	f1a3ae0e	a87e618f	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:37:34.281Z	delivered:[Subagent hand-back]	final_text
+un-w01-author-w01-2-runs-des-pm-plan-fg-0-work	b11e4511	affad4fd	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:26:16.023Z	delivered:[Subagent hand-back]	final_text
+w01-author-w01-2-runs-des-pm-plan-fg-1-pk-work	3027c08f	af9d0f20	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:37:38.933Z	delivered:[Subagent hand-back]	final_text
+w01-author-w01-2-runs-des-pm-plan-fg-2-pk-work	dfe914b3	a3886b9d	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:37:43.471Z	delivered:[Subagent hand-back]	final_text
+w01-author-w01-2-runs-des-pm-plan-fg-3-pk-work	fc0e1dbd	afa29b1a	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:37:55.799Z	delivered:[Subagent hand-back]	final_text
+-ins-bg-off-long-p-inh-p0-dfl-dfl-0-r0-bc-work	f4bef2f3	ab971da3	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:48:24.304Z	notified:completed	final_text
+-ins-bg-off-long-p-inh-p0-dfl-dfl-0-r1-bc-work	7224f7c9	acfc8dd0	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:48:26.786Z	notified:completed	final_text
+-ins-bg-off-long-p-inh-p0-dfl-dfl-0-r2-bc-work	c32f88d3	a3d00b92	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:48:46.289Z	notified:completed	final_text
+-ins-bg-off-long-p-inh-p0-dfl-dfl-0-r3-bc-work	4565f349	a4bc7b25	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:48:53.444Z	notified:completed	final_text
+-ins-bg-off-long-p-inh-p0-dfl-dfl-0-r4-bc-work	b91d3fb2	a5023ecd	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:48:54.264Z	notified:completed	final_text
+-ins-bg-off-long-p-inh-p0-dfl-dfl-0-r5-bc-work	a87a319c	a4303b6e	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:48:54.141Z	notified:completed	final_text
+-ins-bg-off-long-p-inh-p0-dfl-dfl-0-r6-bc-work	0ad92487	ab38f14c	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:49:13.946Z	notified:completed	final_text
+-ins-bg-off-long-p-inh-p0-dfl-dfl-0-r7-bc-work	4465defa	a8fca1bb	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:49:25.712Z	notified:completed	final_text
+-ins-bg-off-long-p-inh-p0-dfl-dfl-0-r8-bc-work	4c477626	aadf75db	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:49:24.395Z	notified:completed	final_text
+-ins-bg-off-long-p-inh-p0-dfl-dfl-0-r9-bc-work	5874471a	a6827684	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:49:25.512Z	notified:completed	final_text
+2-runs-ins-bg-off-long-p-inh-p0-dfl-dfl-0-work	0bc2edff	ae631919	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:30:01.733Z	notified:completed	final_text
+2-runs-ins-bg-off-long-p-inh-p0-dfl-dfl-1-work	0edb9cac	aa2028d9	essayist		SubagentHandback	1	2	30	U:tool_result	0	0	delivered	2026-10-19T02:31:07.138Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ins-bg-off-short-p-inh-p0-dfl-dfl-0-r0-pk-work	d1d8266b	a9a76e93	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:39:32.018Z	notified:completed	final_text
+ins-bg-off-short-p-inh-p0-dfl-dfl-0-r1-pk-work	2c3e1ff3	a2053c6e	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:39:53.842Z	notified:completed	final_text
+ins-bg-off-short-p-inh-p0-dfl-dfl-0-r2-pk-work	b8b46731	aa768ab2	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:39:53.884Z	notified:completed	final_text
+ins-bg-off-short-p-inh-p0-dfl-dfl-0-r3-pk-work	ef436f94	a3aea5fb	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:40:02.374Z	notified:completed	final_text
+ins-bg-off-short-p-inh-p0-dfl-dfl-0-r4-pk-work	d959d9fc	a52fdcee	essayist		Write	0	2	33	A:end_turn:text	0	0		2026-10-19T02:40:08.383Z	notified:completed	final_text
+ins-bg-off-short-p-inh-p0-dfl-dfl-0-r5-pk-work	9da3ba06	a020dff1	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:40:18.361Z	notified:completed	final_text
+ins-bg-off-short-p-inh-p0-dfl-dfl-0-r6-pk-work	af422cc0	afa93d30	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:40:12.194Z	notified:completed	final_text
+ins-bg-off-short-p-inh-p0-dfl-dfl-0-r7-pk-work	0c9d7437	acb716c7	essayist		Bash	0	1	28	A:None:text	0	0		2026-10-19T02:40:21.166Z	notified:completed	other
+ins-bg-off-short-p-inh-p0-dfl-dfl-0-r8-pk-work	5785f68d	a65e834a	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:40:25.134Z	notified:completed	final_text
+ins-bg-off-short-p-inh-p0-dfl-dfl-0-r9-pk-work	3b9be273	ab325ff8	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:40:35.165Z	notified:completed	final_text
+-runs-ins-bg-off-short-p-inh-p0-dfl-dfl-0-work	8e676b4a	af42f34c	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:29:48.311Z	notified:completed	final_text
+-runs-ins-bg-off-short-p-inh-p0-dfl-dfl-1-work	efe39de8	a0ee8184	essayist		SubagentHandback	1	2	30	U:tool_result	0	0	delivered	2026-10-19T02:31:00.516Z	delivered:[Subagent hand-back]	ended_on_handback_result
+s-ins-bg-on-long-p-inh-p0-dfl-dfl-0-r0-bc-work	e4407eff	a9389a68	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:46:11.785Z	notified:completed	final_text
+s-ins-bg-on-long-p-inh-p0-dfl-dfl-0-r1-bc-work	9ac6b55a	a5b39c78	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:46:17.097Z	notified:completed	final_text
+s-ins-bg-on-long-p-inh-p0-dfl-dfl-0-r2-bc-work	b955f8d5	a763a2fa	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:46:19.570Z	notified:completed	final_text
+s-ins-bg-on-long-p-inh-p0-dfl-dfl-0-r3-bc-work	7b64bd2c	ad3c9754	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:46:37.547Z	notified:completed	final_text
+s-ins-bg-on-long-p-inh-p0-dfl-dfl-0-r4-bc-work	fec0fb45	aaab0c88	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:46:39.819Z	notified:completed	final_text
+s-ins-bg-on-long-p-inh-p0-dfl-dfl-0-r5-bc-work	34c25a12	a88f9cfd	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:46:49.687Z	notified:completed	final_text
+s-ins-bg-on-long-p-inh-p0-dfl-dfl-0-r6-bc-work	6d8d5166	af7546b7	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:46:51.037Z	notified:completed	final_text
+s-ins-bg-on-long-p-inh-p0-dfl-dfl-0-r7-bc-work	af2a2c73	af979f06	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:47:06.556Z	notified:completed	final_text
+s-ins-bg-on-long-p-inh-p0-dfl-dfl-0-r8-bc-work	99b4e637	ac8bdebc	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:47:08.074Z	notified:completed	final_text
+s-ins-bg-on-long-p-inh-p0-dfl-dfl-0-r9-bc-work	6e468fb4	a514e531	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:47:16.949Z	notified:completed	final_text
+-2-runs-ins-bg-on-long-p-inh-p0-dfl-dfl-0-work	a5ba2ab6	a94c9e59	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:29:49.934Z	notified:completed	final_text
+-2-runs-ins-bg-on-long-p-inh-p0-dfl-dfl-1-work	1764c295	aa8ebf90	essayist		SubagentHandback	1	2	28	U:tool_result	0	0	delivered	2026-10-19T02:30:55.282Z	delivered:[Subagent hand-back]	ended_on_handback_result
+2-runs-ins-bg-on-short-p-inh-p0-dfl-dfl-0-work	8497641e	aa273010	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:29:37.170Z	notified:completed	final_text
+2-runs-ins-bg-on-short-p-inh-p0-dfl-dfl-1-work	09a57f0d	af4f94bb	essayist		SubagentHandback	1	2	31	U:tool_result	0	0	delivered	2026-10-19T02:30:37.949Z	delivered:[Subagent hand-back]	ended_on_handback_result
+2-runs-ins-fg-off-long-p-inh-p0-dfl-dfl-0-work	7c6f3577	a622f6ac	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:29:36.273Z	delivered:[Subagent hand-back]	final_text
+2-runs-ins-fg-off-long-p-inh-p0-dfl-dfl-1-work	d9b29f4c	aab2f7e5	essayist		SubagentHandback	1	2	30	U:tool_result	0	0	delivered	2026-10-19T02:30:36.080Z	no-trace	ended_on_handback_result
+ins-fg-off-short-p-inh-p0-dfl-dfl-0-r0-bc-work	4d1e2d2b	a5fab8ba	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:47:16.900Z	delivered:[Subagent hand-back]	final_text
+ins-fg-off-short-p-inh-p0-dfl-dfl-0-r1-bc-work	a852b6c7	a4668abe	essayist		Write	0	2	34	A:end_turn:text	0	0		2026-10-19T02:47:36.129Z	delivered:[Subagent hand-back]	final_text
+ins-fg-off-short-p-inh-p0-dfl-dfl-0-r2-bc-work	683f3582	a3bc2b70	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:47:36.498Z	delivered:[Subagent hand-back]	final_text
+ins-fg-off-short-p-inh-p0-dfl-dfl-0-r3-bc-work	9bbbef24	a9eaf95f	essayist		Write	0	2	33	A:end_turn:text	0	0		2026-10-19T02:47:50.946Z	delivered:[Subagent hand-back]	final_text
+ins-fg-off-short-p-inh-p0-dfl-dfl-0-r4-bc-work	d6d31054	a6e81232	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:47:40.329Z	delivered:[Subagent hand-back]	final_text
+ins-fg-off-short-p-inh-p0-dfl-dfl-0-r5-bc-work	6e350ba5	aeac6cb9	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:47:56.247Z	delivered:[Subagent hand-back]	final_text
+ins-fg-off-short-p-inh-p0-dfl-dfl-0-r6-bc-work	7980d736	a1ca543c	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:47:56.056Z	delivered:[Subagent hand-back]	final_text
+ins-fg-off-short-p-inh-p0-dfl-dfl-0-r7-bc-work	f276dc9a	a03d02e5	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:47:59.459Z	delivered:[Subagent hand-back]	final_text
+ins-fg-off-short-p-inh-p0-dfl-dfl-0-r8-bc-work	64ad903d	a4b79df2	essayist		Write	0	2	34	A:end_turn:text	0	0		2026-10-19T02:48:20.756Z	delivered:[Subagent hand-back]	final_text
+ins-fg-off-short-p-inh-p0-dfl-dfl-0-r9-bc-work	07ee8ce9	a67d0e7a	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:48:21.668Z	delivered:[Subagent hand-back]	final_text
+-runs-ins-fg-off-short-p-inh-p0-dfl-dfl-0-work	2203bd3d	a24e6905	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:29:27.334Z	delivered:[Subagent hand-back]	final_text
+-runs-ins-fg-off-short-p-inh-p0-dfl-dfl-1-work	f2b1f961	a97f893d	essayist		SubagentHandback	1	2	30	U:tool_result	0	0	delivered	2026-10-19T02:30:13.620Z	no-trace	ended_on_handback_result
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r0-hr-work	c1ab8053	ac772293	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:32:35.549Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r0-pk-work	1336faac	a321df07	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:38:23.674Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r1-hr-work	69993db0	a25b8355	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:32:42.740Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r1-pk-work	62254ab5	a4256cb5	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:38:39.827Z	delivered:[Subagent hand-back]	final_text
+-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r10-pk-work	983a699e	ab3c1c0d	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:39:34.384Z	delivered:[Subagent hand-back]	final_text
+-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r11-pk-work	fac23d1b	a6eb389c	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:39:37.497Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r2-hr-work	1599a471	a0a4ee56	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:32:50.592Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r2-pk-work	4ec6b07d	af82c8f0	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:38:40.815Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r3-hr-work	21cf693b	a87fa05a	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:32:59.617Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r3-pk-work	c15839cc	a8b6eb29	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:38:45.519Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r4-hr-work	628df953	a1a0a572	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:33:04.719Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r4-pk-work	38748bdd	af4d38a4	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:38:50.428Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r5-hr-work	233231ec	a12b85ee	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:33:06.422Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r5-pk-work	2453325b	aa4940b4	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:39:06.868Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r6-hr-work	ad4b49e7	a80e9e1b	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:33:12.341Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r6-pk-work	4da5317b	a859c2bb	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:39:06.322Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r7-hr-work	6e3cf6e6	a2917f2e	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:33:21.518Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r7-pk-work	15cb7701	a059ca56	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:39:12.369Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r8-hr-work	81a7dc8d	adc32733	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:33:30.487Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r8-pk-work	2c61d9dc	a3684152	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:39:15.928Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r9-hr-work	c0f45f2a	adb5b386	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:33:30.573Z	delivered:[Subagent hand-back]	final_text
+s-ins-fg-on-long-p-inh-p0-dfl-dfl-0-r9-pk-work	3ff39cd5	a5995f2e	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:39:38.001Z	delivered:[Subagent hand-back]	final_text
+-2-runs-ins-fg-on-long-p-inh-p0-dfl-dfl-0-work	5d7b13e7	a2dd63be	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:22:48.858Z	delivered:[Subagent hand-back]	final_text
+-2-runs-ins-fg-on-long-p-inh-p0-dfl-dfl-0-work	cdeb35b3	a942c858	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:29:26.666Z	delivered:[Subagent hand-back]	final_text
+-2-runs-ins-fg-on-long-p-inh-p0-dfl-dfl-1-work	64cc8ebb	af926835	essayist		SubagentHandback	1	2	30	U:tool_result	0	0	delivered	2026-10-19T02:30:22.318Z	no-trace	ended_on_handback_result
+-2-runs-ins-fg-on-long-p-inh-p0-dfl-dfl-1-work	69d381c5	a5dbccba	essayist		SubagentHandback	1	2	30	U:tool_result	0	0	delivered	2026-10-19T02:23:43.318Z	no-trace	ended_on_handback_result
+-2-runs-ins-fg-on-long-p-inh-p0-dfl-hig-0-work	0f997c77	ac3a9f01	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:23:23.362Z	delivered:[Subagent hand-back]	final_text
+-2-runs-ins-fg-on-long-p-inh-p0-omi-dfl-0-work	5698db54	a860e076	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:23:15.553Z	delivered:[Subagent hand-back]	final_text
+-2-runs-ins-fg-on-long-p-inh-p1-dfl-dfl-0-work	064372a0	a7dba86a	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:23:18.621Z	delivered:[Subagent hand-back]	final_text
+-runs-ins-fg-on-long-sdk-inh-p0-dfl-dfl-0-work	df69250a	a91c25f6	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:23:18.583Z	delivered:[Subagent hand-back]	final_text
+-runs-ins-fg-on-long-sdk-inh-p1-omi-hig-1-work	e0e2498b	ad40eaeb	essayist		SubagentHandback	1	2	30	U:tool_result	0	0	delivered	2026-10-19T02:23:54.633Z	no-trace	ended_on_handback_result
+2-runs-ins-fg-on-short-p-inh-p0-dfl-dfl-0-work	9dfbda55	a405b869	essayist		Write	0	2	33	A:end_turn:text	0	0		2026-10-19T02:29:18.738Z	delivered:[Subagent hand-back]	final_text
+2-runs-ins-fg-on-short-p-inh-p0-dfl-dfl-1-work	bf45f2a8	adad23e1	essayist		SubagentHandback	1	2	29	U:tool_result	0	0	delivered	2026-10-19T02:30:03.082Z	no-trace	ended_on_handback_result
+author-w01-2-runs-ins-pm-acceptEdits-fg-0-work	7318b7c2	ad310fd6	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:26:46.900Z	delivered:[Subagent hand-back]	final_text
+w01-author-w01-2-runs-ins-pm-auto-fg-0-pk-work	60146365	a8693bad	essayist		SubagentHandback	1	2	30	U:tool_result	0	0	delivered	2026-10-19T02:41:38.435Z	no-trace	ended_on_handback_result
+un-w01-author-w01-2-runs-ins-pm-auto-fg-0-work	655b065c	a497c426	essayist		SubagentHandback	1	2	33	U:tool_result	0	0	delivered	2026-10-19T02:27:16.226Z	no-trace	ended_on_handback_result
+un-w01-author-w01-2-runs-ins-pm-auto-fg-0-work	816745cf	aa3d8933	essayist		SubagentHandback	1	2	30	U:tool_result	0	0	delivered	2026-10-19T02:25:21.593Z	no-trace	ended_on_handback_result
+w01-author-w01-2-runs-ins-pm-auto-fg-1-pk-work	caf08748	ac110604	essayist		SubagentHandback	1	2	30	U:tool_result	0	0	delivered	2026-10-19T02:41:34.221Z	no-trace	ended_on_handback_result
+w01-author-w01-2-runs-ins-pm-auto-fg-2-pk-work	670cc6ba	a4bee5d3	essayist		SubagentHandback	1	2	30	U:tool_result	0	0	delivered	2026-10-19T02:41:34.947Z	no-trace	ended_on_handback_result
+-w01-2-runs-ins-pm-bypassPermissions-fg-0-work	54c67dde	a81e129f	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:27:10.978Z	delivered:[Subagent hand-back]	final_text
+-w01-2-runs-ins-pm-bypassPermissions-fg-0-work	9920fc0b	a7ef7989	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:25:18.090Z	delivered:[Subagent hand-back]	final_text
+w01-author-w01-2-runs-ins-pm-default-fg-0-work	2d7c7db6	ac6a9160	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:26:42.405Z	delivered:[Subagent hand-back]	final_text
+w01-author-w01-2-runs-ins-pm-dontAsk-fg-0-work	6947e060	a2d58653	essayist		Bash	0	1	27	A:end_turn:text	0	0		2026-10-19T02:26:59.626Z	delivered:[Subagent hand-back]	final_text
+w01-author-w01-2-runs-ins-pm-plan-fg-0-pk-work	dcf9ceb6	afb8e078	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:40:55.960Z	delivered:[Subagent hand-back]	final_text
+un-w01-author-w01-2-runs-ins-pm-plan-fg-0-work	619d7c94	a79e0ed6	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:27:08.191Z	delivered:[Subagent hand-back]	final_text
+w01-author-w01-2-runs-ins-pm-plan-fg-1-pk-work	edc9495c	a190b3c8	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:41:01.149Z	delivered:[Subagent hand-back]	final_text
+w01-author-w01-2-runs-ins-pm-plan-fg-2-pk-work	b408aceb	aaf9ef84	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:40:59.592Z	delivered:[Subagent hand-back]	final_text
+w01-author-w01-2-runs-ins-pm-plan-fg-3-pk-work	30f8be3d	acab0bf8	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:41:07.816Z	delivered:[Subagent hand-back]	final_text
+e-run-w01-author-w01-2-runs-otel-des-auto-work	26e8b437	a1b8e065	essayist		SubagentHandback	1	2	24	U:tool_result	0	0	delivered	2026-10-19T02:43:34.717Z	no-trace	ended_on_handback_result
+run-w01-author-w01-2-runs-otel-des-bypass-work	42d56023	a2977f5c	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:44:05.160Z	delivered:[Subagent hand-back]	final_text
+e-run-w01-author-w01-2-runs-otel-ins-auto-work	2ed28e54	a49db33d	essayist		SubagentHandback	1	2	30	U:tool_result	0	0	delivered	2026-10-19T02:26:47.090Z	no-trace	ended_on_handback_result
+run-w01-author-w01-2-runs-otel-ins-bypass-work	22492202	a709bd6f	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:44:31.822Z	delivered:[Subagent hand-back]	final_text
+--reflective-run-w01-author-w01-2-runs-t0-work	8316fec0	a4a96935	essayist		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:19:34.562Z	delivered:[Subagent hand-back]	final_text
+--reflective-run-w01-author-w01-2-runs-t1-work	18049620	a0224004	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:20:30.515Z	delivered:[Subagent hand-back]	final_text
+--reflective-run-w01-author-w01-2-runs-t2-work	0c53a08b	a9a38b66	essayist		SubagentHandback	1	2	25	U:tool_result	0	0	delivered	2026-10-19T02:21:29.708Z	no-trace	ended_on_handback_result
+ctive-run-w01-explorer-w01-f-scratch-run1-work	b6251cfa	ab4b7e0e	scribe		Bash	0	1	28	A:end_turn:text	0	0		2026-10-19T02:04:25.130Z	notified:completed	final_text
+ctive-run-w01-explorer-w01-f-scratch-run2-work	c10e3825	ae0cd990	scribe		Read	0	1	27	A:end_turn:text	0	0		2026-10-19T02:05:21.134Z	delivered:[Subagent hand-back]	final_text
+ctive-run-w01-explorer-w01-f-scratch-run3-work	36d39bdb	a8b913df	scribe		Read	0	1	27	A:end_turn:text	0	0		2026-10-19T02:05:45.214Z	delivered:[Subagent hand-back]	final_text
+ctive-run-w01-explorer-w01-f-scratch-run7-work	2cdf5eab	a5457de8	scribe		Read	0	2	33	A:end_turn:text	0	0		2026-10-19T02:09:55.738Z	delivered:[Subagent hand-back]	final_text
+oducer-w01-1-quickrun-scratch-p4-auto-two-work	769e8ac0	aa8f3a35	hbtest:hb	author-w99-1	SubagentHandback	2	2	27	U:tool_result	0	0	delivered	2026-10-19T02:47:28.013Z	notified:completed	ended_on_handback_result
+cer-w01-1-quickrun-scratch-p4-default-two-work	422bdf5f	a9612036	hbtest:hb		None	0	0	18	A:end_turn:text	0	0		2026-10-19T02:46:59.046Z	delivered:[Subagent hand-back]	final_text
+tive-run-w01-reproducer-w01-2-scratch-des-auto	6d19ea4e	adc01396	essayist		SubagentHandback	1	2	24	U:tool_result	0	0	delivered	2026-10-19T02:53:25.855Z	no-trace	ended_on_handback_result
+ve-run-w01-reproducer-w01-2-scratch-des-bypass	d489b43b	a0c126c3	essayist		Bash	0	1	22	A:end_turn:text	0	0		2026-10-19T02:53:18.687Z	delivered:[Subagent hand-back]	final_text
+tive-run-w01-reproducer-w01-2-scratch-ins-auto	8f37efac	a19e7ab3	essayist		SubagentHandback	1	2	30	U:tool_result	0	0	delivered	2026-10-19T02:53:29.619Z	no-trace	ended_on_handback_result
+ve-run-w01-reproducer-w01-2-scratch-ins-bypass	6ddbcb6f	af4a5d6b	essayist		Bash	0	2	34	A:end_turn:text	0	0		2026-10-19T02:53:30.830Z	delivered:[Subagent hand-back]	final_text
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	a025b8a8	murmuration:explorer		SubagentHandback	1	64	478	U:tool_result	0	0	delivered	2026-10-21T15:50:07.026Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	a0873166	murmuration:reproducer		SubagentHandback	1	34	254	U:tool_result	0	0	delivered	2026-10-21T16:41:32.941Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	a095514b	murmuration:author		SubagentHandback	4	61	389	U:tool_result	0	0	delivered	2026-10-21T16:14:53.552Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	a16341e7	murmuration:author		SubagentHandback	2	47	310	U:tool_result	0	0	delivered	2026-10-21T16:30:09.310Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	a189798b	murmuration:author		SubagentHandback	2	74	468	U:tool_result	0	0	delivered	2026-10-21T16:16:14.435Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	a1c4c74b	murmuration:reproducer		SubagentHandback	1	36	231	U:tool_result	0	0	delivered	2026-10-21T16:17:43.548Z	async-launch-only	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	a23c4933	murmuration:explorer		SubagentHandback	1	54	377	U:tool_result	0	0	delivered	2026-10-21T15:57:21.953Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	a2950d0c	murmuration:explorer		SubagentHandback	1	62	382	U:tool_result	0	0	delivered	2026-10-21T15:58:59.058Z	async-launch-only	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	a4a65563	murmuration:explorer		SubagentHandback	1	76	455	U:tool_result	0	0	delivered	2026-10-21T15:40:04.819Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	a4bf5d14	murmuration:author		SubagentHandback	5	109	662	U:tool_result	0	0	delivered	2026-10-21T17:35:13.285Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	a64c3cce	murmuration:reproducer		SubagentHandback	1	43	308	U:tool_result	0	0	delivered	2026-10-21T17:28:48.576Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	a674132b	murmuration:reproducer		SubagentHandback	1	30	196	U:tool_result	0	0	delivered	2026-10-21T16:17:05.640Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	a94950bf	murmuration:author		SubagentHandback	3	69	440	U:tool_result	0	0	delivered	2026-10-21T16:14:26.373Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	a95788c7	murmuration:explorer		SubagentHandback	1	49	338	U:tool_result	0	0	delivered	2026-10-21T15:41:42.661Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	a9fea296	murmuration:author		SubagentHandback	2	41	245	U:tool_result	0	0	delivered	2026-10-21T15:50:24.560Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	abd83b10	murmuration:reproducer		SubagentHandback	1	46	318	U:tool_result	0	0	delivered	2026-10-21T16:15:28.121Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	abeaf67d	general-purpose		SubagentHandback	1	44	238	U:tool_result	0	0	delivered	2026-10-21T17:41:21.084Z	async-launch-only	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	ae0dc939	murmuration:explorer		SubagentHandback	1	44	323	U:tool_result	0	0	delivered	2026-10-21T15:37:19.148Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	aec16b62	murmuration:reproducer		SubagentHandback	1	23	170	U:tool_result	0	0	delivered	2026-10-21T15:50:54.105Z	async-launch-only	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	aec4e23f	murmuration:explorer		SubagentHandback	1	48	353	U:tool_result	0	0	delivered	2026-10-21T15:44:53.231Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ktrees-Murmuration-xenodochial-franklin-bc67fb	f023f552	afe2c93c	murmuration:reproducer		SubagentHandback	2	83	522	U:tool_result	0	0	delivered	2026-10-21T17:31:51.128Z	delivered:[Subagent hand-back]	ended_on_handback_result
+rmuration-w04-author-w04-2-quick-runs-q-a1-lab	d9bb8fc9	ae7e91a3	murmuration:explorer	explorer-w04-qa1	SubagentHandback	1	22	164	U:tool_result	0	0	delivered	2026-10-20T01:21:07.432Z	async-launch-only	ended_on_handback_result
+rmuration-w04-author-w04-2-quick-runs-q-c1-lab	9b79d7de	ae58e9d6	murmuration:explorer		SubagentHandback	1	23	126	U:tool_result	0	0	delivered	2026-10-20T01:21:07.173Z	async-launch-only	ended_on_handback_result
+mp-murmuration-w04-author-w04-2-runs-e1-a1-lab	5c12ef82	a07245d9	murmuration:explorer		SubagentHandback	1	93	579	U:tool_result	0	0	delivered	2026-10-20T00:47:48.584Z	async-launch-only	ended_on_handback_result
+mp-murmuration-w04-author-w04-2-runs-e1-a2-lab	72f00235	a1ff961b	murmuration:explorer		SubagentHandback	1	70	442	U:tool_result	0	0	delivered	2026-10-20T00:47:35.596Z	async-launch-only	ended_on_handback_result
+mp-murmuration-w04-author-w04-2-runs-e1-a3-lab	7aad3bb6	a5a897a5	murmuration:explorer		SubagentHandback	1	93	577	U:tool_result	0	0	delivered	2026-10-20T00:47:46.201Z	async-launch-only	ended_on_handback_result
+mp-murmuration-w04-author-w04-2-runs-e1-b1-lab	aaed6afe	aadf3e34	murmuration:explorer	explorer-w04-e1b1	SubagentHandback	1	73	461	U:tool_result	0	0	delivered	2026-10-20T00:47:10.077Z	async-launch-only	ended_on_handback_result
+mp-murmuration-w04-author-w04-2-runs-e1-b2-lab	8dff4425	aacdd765	murmuration:explorer		SubagentHandback	1	93	591	U:tool_result	0	0	delivered	2026-10-20T00:48:13.579Z	async-launch-only	ended_on_handback_result
+mp-murmuration-w04-author-w04-2-runs-e1-b3-lab	0ad15ee4	aa9accb5	murmuration:explorer		SubagentHandback	1	92	574	U:tool_result	0	0	delivered	2026-10-20T00:47:44.860Z	async-launch-only	ended_on_handback_result
+p-murmuration-w04-author-w04-2-runs-e1b-a1-lab	5564283e	a5fb2508	murmuration:explorer		SubagentHandback	2	105	551	U:tool_result	0	0	delivered	2026-10-20T01:32:10.702Z	async-launch-only	ended_on_handback_result
+p-murmuration-w04-author-w04-2-runs-e1b-a2-lab	09167978	ad721e5c	murmuration:explorer		SubagentHandback	2	79	421	U:tool_result	0	0	delivered	2026-10-20T01:30:37.003Z	async-launch-only	ended_on_handback_result
+p-murmuration-w04-author-w04-2-runs-e1b-a3-lab	4b17eab8	a227a214	murmuration:explorer		SubagentHandback	2	80	421	U:tool_result	0	0	delivered	2026-10-20T01:31:15.055Z	async-launch-only	ended_on_handback_result
+p-murmuration-w04-author-w04-2-runs-e1b-b1-lab	ce051a6a	ae362474	murmuration:explorer		SubagentHandback	1	75	397	U:tool_result	0	0	delivered	2026-10-20T01:30:26.717Z	async-launch-only	ended_on_handback_result
+p-murmuration-w04-author-w04-2-runs-e1b-b2-lab	7fd3214b	ae30b94b	murmuration:explorer		SubagentHandback	1	87	620	U:tool_result	0	0	delivered	2026-10-20T01:30:56.225Z	async-launch-only	ended_on_handback_result
+p-murmuration-w04-author-w04-2-runs-e1b-b3-lab	3192df05	a33c4c2d	murmuration:explorer		SubagentHandback	1	97	509	U:tool_result	0	0	delivered	2026-10-20T01:30:44.493Z	async-launch-only	ended_on_handback_result
+p-murmuration-w04-author-w04-2-runs-e1c-b1-lab	f35fbb18	a8d87032	murmuration:explorer		SubagentHandback	1	83	438	U:tool_result	0	0	delivered	2026-10-20T01:47:59.865Z	async-launch-only	ended_on_handback_result
+p-murmuration-w04-author-w04-2-runs-e1c-b2-lab	133891e9	a98b4c80	murmuration:explorer		SubagentHandback	2	80	429	U:tool_result	0	0	delivered	2026-10-20T01:48:06.549Z	async-launch-only	ended_on_handback_result
+p-murmuration-w04-author-w04-2-runs-e1c-b3-lab	93104a2c	a1ca5318	murmuration:explorer		SubagentHandback	1	66	355	U:tool_result	0	0	delivered	2026-10-20T01:47:44.396Z	async-launch-only	ended_on_handback_result
+mp-murmuration-w04-author-w04-2-runs-e2-c1-lab	87cdbaa7	ad6dc758	murmuration:explorer	explorer-w04-e2c1	SubagentHandback	1	93	573	U:tool_result	0	0	delivered	2026-10-20T00:53:37.681Z	async-launch-only	ended_on_handback_result
+mp-murmuration-w04-author-w04-2-runs-e2-c2-lab	943d4c8b	a61a34e4	murmuration:explorer		SubagentHandback	1	93	574	U:tool_result	0	0	delivered	2026-10-20T00:53:43.492Z	async-launch-only	ended_on_handback_result
+mp-murmuration-w04-author-w04-2-runs-e2-c3-lab	5c04479c	a6332832	murmuration:explorer		SubagentHandback	1	93	573	U:tool_result	0	0	delivered	2026-10-20T00:55:29.525Z	async-launch-only	ended_on_handback_result
+p-murmuration-w04-author-w04-2-runs-e2b-a1-lab	25e750d6	ad02511a	murmuration:explorer		SubagentHandback	1	36	203	U:tool_result	0	0	delivered	2026-10-20T01:35:19.018Z	async-launch-only	ended_on_handback_result
+p-murmuration-w04-author-w04-2-runs-e2b-a2-lab	9aeba98d	a52f0e92	murmuration:explorer		SubagentHandback	1	49	272	U:tool_result	0	0	delivered	2026-10-20T01:35:40.338Z	async-launch-only	ended_on_handback_result
+p-murmuration-w04-author-w04-2-runs-e2b-a3-lab	acbcfc45	acd8416e	murmuration:explorer		SubagentHandback	1	59	318	U:tool_result	0	0	delivered	2026-10-20T01:35:55.786Z	async-launch-only	ended_on_handback_result
+p-murmuration-w04-author-w04-2-runs-e2b-c1-lab	dd8c0e27	a2d82499	murmuration:explorer		SubagentHandback	1	72	375	U:tool_result	0	0	delivered	2026-10-20T01:31:00.871Z	async-launch-only	ended_on_handback_result
+p-murmuration-w04-author-w04-2-runs-e2b-c2-lab	805dbc7b	a1267b2f	murmuration:explorer		SubagentHandback	1	77	401	U:tool_result	0	0	delivered	2026-10-20T01:30:20.065Z	async-launch-only	ended_on_handback_result
+p-murmuration-w04-author-w04-2-runs-e2b-c3-lab	97046749	ab016e49	murmuration:explorer		SubagentHandback	1	73	379	U:tool_result	0	0	delivered	2026-10-20T01:30:11.260Z	async-launch-only	ended_on_handback_result
+-murmuration-w04-author-w04-2-runs-pilot-A-lab	24b72e63	a5245ef5	murmuration:explorer	explorer-w04-pilotA	SubagentHandback	1	93	573	U:tool_result	0	0	delivered	2026-10-20T00:41:49.285Z	async-launch-only	ended_on_handback_result
+-murmuration-w04-author-w04-2-runs-pilot-C-lab	b7294619	ae8934b0	murmuration:explorer		SubagentHandback	1	93	575	U:tool_result	0	0	delivered	2026-10-20T00:41:42.405Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-u-a1-lab	256bc655	afa151a6	murmuration:explorer		SubagentHandback	1	95	523	U:tool_result	0	0	delivered	2026-10-20T01:07:37.642Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-u-a2-lab	839793e8	a7252b93	murmuration:explorer		SubagentHandback	1	93	497	U:tool_result	0	0	delivered	2026-10-20T01:08:19.924Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-u-a3-lab	b94dc244	afee3712	murmuration:explorer		SubagentHandback	1	93	485	U:tool_result	0	0	delivered	2026-10-20T01:08:06.268Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-u-b1-lab	ee3b6857	a179b904	murmuration:explorer		SubagentHandback	1	92	487	U:tool_result	0	0	delivered	2026-10-20T01:07:14.647Z	notified:completed	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-u-b2-lab	52b06e37	add534ed	murmuration:explorer		SubagentHandback	1	73	393	U:tool_result	0	0	delivered	2026-10-20T01:06:53.207Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-u-b3-lab	14ef1252	abc1d5f9	murmuration:explorer		SubagentHandback	1	92	482	U:tool_result	0	0	delivered	2026-10-20T01:07:55.797Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-u-c1-lab	8cb655bb	a7a4cee2	murmuration:explorer		SubagentHandback	1	94	494	U:tool_result	0	0	delivered	2026-10-20T01:08:20.033Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-u-c2-lab	66c31846	acda2bd5	murmuration:explorer		SubagentHandback	1	93	483	U:tool_result	0	0	delivered	2026-10-20T01:08:02.684Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-u-c3-lab	e79c9799	a303e312	murmuration:explorer		SubagentHandback	1	92	475	U:tool_result	0	0	delivered	2026-10-20T01:07:58.532Z	async-launch-only	ended_on_handback_result
+mp-murmuration-w04-author-w04-2-runs-ux-a1-lab	66f45475	a90f2359	murmuration:explorer		SubagentHandback	2	87	464	U:tool_result	0	0	delivered	2026-10-20T01:14:27.495Z	async-launch-only	ended_on_handback_result
+mp-murmuration-w04-author-w04-2-runs-ux-a2-lab	d20dcdc6	a5e529ef	murmuration:explorer		SubagentHandback	2	77	412	U:tool_result	0	0	delivered	2026-10-20T01:14:34.515Z	async-launch-only	ended_on_handback_result
+mp-murmuration-w04-author-w04-2-runs-ux-c1-lab	2145e218	a9a115dc	murmuration:explorer		Bash	0	150	766	U:tool_result	0	0		2026-10-20T01:17:27.657Z	async-launch-only	turn_limit
+mp-murmuration-w04-author-w04-2-runs-ux-c2-lab	13d06657	a6c3cbe7	murmuration:explorer		Bash	0	150	766	U:tool_result	0	0		2026-10-20T01:18:07.970Z	async-launch-only	turn_limit
+tmp-murmuration-w04-author-w04-2-runs-x-a1-lab	bdb89377	a22d7a1d	murmuration:explorer		SubagentHandback	2	84	533	U:tool_result	0	0	delivered	2026-10-20T00:53:58.323Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-x-a2-lab	9e6d5db8	aa68bc4c	murmuration:explorer		SubagentHandback	2	98	808	U:tool_result	0	0	delivered	2026-10-20T00:54:58.321Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-x-a3-lab	4e1e0438	a9a84269	murmuration:explorer		SubagentHandback	2	85	541	U:tool_result	0	0	delivered	2026-10-20T00:54:13.086Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-x-b1-lab	46c03530	a6768ce7	murmuration:explorer		SubagentHandback	1	89	552	U:tool_result	0	0	delivered	2026-10-20T00:54:32.506Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-x-b2-lab	0716fd35	a418cabb	murmuration:explorer		SubagentHandback	1	82	511	U:tool_result	0	0	delivered	2026-10-20T00:54:52.355Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-x-b3-lab	07916288	a7a32880	murmuration:explorer		SubagentHandback	1	81	514	U:tool_result	0	0	delivered	2026-10-20T00:54:07.668Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-x-c1-lab	8c049514	a80ee4b4	murmuration:explorer		SubagentHandback	2	84	517	U:tool_result	0	0	delivered	2026-10-20T01:01:26.252Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-x-c2-lab	2e0c7e8f	abfafab0	murmuration:explorer		SubagentHandback	2	76	468	U:tool_result	0	0	delivered	2026-10-20T01:00:05.428Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w04-author-w04-2-runs-x-c3-lab	d84c7406	a7288e87	murmuration:explorer		SubagentHandback	2	89	557	U:tool_result	0	0	delivered	2026-10-20T01:00:58.926Z	async-launch-only	ended_on_handback_result
+muration-w04-author-w04-3-runs-pilot-st1r1-lab	9d73fa86	ab343ae4	murmuration:author		SubagentHandback	1	6	64	U:tool_result	0	0	delivered	2026-10-20T00:44:12.994Z	no-trace	ended_on_handback_result
+mp-murmuration-w04-author-w04-3-runs-st1r1-lab	2f407cf8	a163ac6e	murmuration:author		SubagentHandback	1	5	53	U:tool_result	0	0	delivered	2026-10-20T00:46:01.640Z	no-trace	ended_on_handback_result
+mp-murmuration-w04-author-w04-3-runs-st1r2-lab	b2bd75be	a199e332	murmuration:author		SubagentHandback	1	5	48	U:tool_result	0	0	delivered	2026-10-20T00:45:53.329Z	no-trace	ended_on_handback_result
+mp-murmuration-w04-author-w04-3-runs-st1r3-lab	d9438b58	abb72aef	murmuration:author		SubagentHandback	1	5	52	U:tool_result	0	0	delivered	2026-10-20T00:46:13.986Z	no-trace	ended_on_handback_result
+mp-murmuration-w04-author-w04-3-runs-st2r1-lab	7489dad8	aeecde3d	murmuration:author		SubagentHandback	1	5	55	U:tool_result	0	0	delivered	2026-10-20T00:46:13.121Z	no-trace	ended_on_handback_result
+mp-murmuration-w04-author-w04-3-runs-st2r2-lab	9452965e	aa2294e7	murmuration:author		SubagentHandback	1	5	48	U:tool_result	0	0	delivered	2026-10-20T00:46:14.667Z	no-trace	ended_on_handback_result
+mp-murmuration-w04-author-w04-3-runs-st2r3-lab	eee100a8	ab1df908	murmuration:author		SubagentHandback	1	6	57	U:tool_result	0	0	delivered	2026-10-20T00:46:22.972Z	no-trace	ended_on_handback_result
+uration-w04-author-w04-4-scratch-runs-rec1-lab	1f39bc08	a2cadde5	murmuration:explorer		SubagentHandback	2	14	99	U:tool_result	0	0	delivered	2026-10-20T00:40:05.625Z	async-launch-only	ended_on_handback_result
+ation-w04-reproducer-w04-2-quick-runs-q-a1-lab	978ae98a	adcde424	murmuration:explorer	explorer-w04-qa1	SubagentHandback	1	22	124	U:tool_result	0	0	delivered	2026-10-20T01:27:23.921Z	async-launch-only	ended_on_handback_result
+ation-w04-reproducer-w04-2-quick-runs-q-c1-lab	6b881322	ae0659f2	murmuration:explorer		SubagentHandback	1	23	124	U:tool_result	0	0	delivered	2026-10-20T01:27:34.092Z	async-launch-only	ended_on_handback_result
+mp-murmuration-w05-author-w05-1-e5-runs-A1-lab	21284db1	a5039c28	murmuration:author		SubagentHandback	1	18	111	U:tool_result	0	1	delivered	2026-10-21T06:53:52.973Z	delivered:[Subagent hand-back]	ended_on_handback_result
+mp-murmuration-w05-author-w05-1-e5-runs-A2-lab	0c4849f5	a57b6eaf	murmuration:author		SubagentHandback	1	22	138	U:tool_result	0	1	delivered	2026-10-21T06:54:26.327Z	no-trace	ended_on_handback_result
+mp-murmuration-w05-author-w05-1-e5-runs-A3-lab	2eac3110	afa71a61	murmuration:author		SubagentHandback	1	17	103	U:tool_result	0	1	delivered	2026-10-21T06:54:32.150Z	delivered:[Subagent hand-back]	ended_on_handback_result
+mp-murmuration-w05-author-w05-1-e5-runs-B1-lab	bec52655	a9c4a6f8	murmuration:author		SubagentHandback	1	16	100	U:tool_result	0	1	delivered	2026-10-21T06:53:54.973Z	no-trace	ended_on_handback_result
+mp-murmuration-w05-author-w05-1-e5-runs-B2-lab	5af3b8fe	a0e98a6e	murmuration:author		SubagentHandback	1	17	101	U:tool_result	0	1	delivered	2026-10-21T06:54:24.636Z	no-trace	ended_on_handback_result
+mp-murmuration-w05-author-w05-1-e5-runs-B3-lab	04f6cae0	a8c62046	murmuration:author		SubagentHandback	1	16	94	U:tool_result	0	1	delivered	2026-10-21T06:54:56.033Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w05-author-w05-1-e5-runs-pilot-A2-lab	1f3a02c8	ae58dc95	murmuration:author		SubagentHandback	1	19	110	U:tool_result	0	1	delivered	2026-10-21T06:42:23.647Z	no-trace	ended_on_handback_result
+muration-w05-author-w05-1-e5-runs-pilot-B2-lab	03c5a8d0	a8094a6d	murmuration:author		SubagentHandback	1	17	101	U:tool_result	0	1	delivered	2026-10-21T06:42:54.923Z	delivered:[Subagent hand-back]	ended_on_handback_result
+p-murmuration-w05-author-w05-1-pilot-tools-cwd	6d2ff858	a31a6cb6	waitprobe:waitm		SubagentHandback	1	6	53	U:tool_result	0	0	delivered	2026-10-21T06:12:26.257Z	delivered:[Subagent hand-back]	ended_on_handback_result
+p-murmuration-w05-author-w05-1-pilot-tools-cwd	75badc44	a3664a4d	waitprobe:waitm		SubagentHandback	1	5	44	U:tool_result	0	0	delivered	2026-10-21T06:10:07.756Z	no-trace	ended_on_handback_result
+p-murmuration-w05-author-w05-1-pilot-tools-cwd	75badc44	a6e9aa6d	waitprobe:waitn		SubagentHandback	1	5	48	U:tool_result	0	0	delivered	2026-10-21T06:10:45.918Z	no-trace	ended_on_handback_result
+p-murmuration-w05-author-w05-1-pilot-tools-cwd	a2520020	a614bbc1	waitprobe:waitm		SubagentHandback	1	7	56	U:tool_result	0	0	delivered	2026-10-21T06:16:04.070Z	delivered:[Subagent hand-back]	ended_on_handback_result
+p-murmuration-w05-author-w05-1-pilot-tools-cwd	ce764a07	a1845b0a	waitprobe:waitm		SubagentHandback	1	2	29	U:tool_result	0	0	delivered	2026-10-21T06:17:38.486Z	no-trace	ended_on_handback_result
+e-tmp-murmuration-w05-author-w05-2-runs-A1-lab	f3937588	a903a190	murmuration:explorer		SubagentHandback	2	3	32	U:tool_result	0	0	delivered	2026-10-21T06:17:30.048Z	no-trace	ended_on_handback_result
+e-tmp-murmuration-w05-author-w05-2-runs-A2-lab	849c640e	a6073cc4	murmuration:explorer		SubagentHandback	2	3	32	U:tool_result	0	0	delivered	2026-10-21T06:18:24.567Z	no-trace	ended_on_handback_result
+e-tmp-murmuration-w05-author-w05-2-runs-A3-lab	a25bf474	ad042e2a	murmuration:explorer		SubagentHandback	2	3	32	U:tool_result	0	0	delivered	2026-10-21T06:19:17.044Z	no-trace	ended_on_handback_result
+e-tmp-murmuration-w05-author-w05-2-runs-B1-lab	6b7cad91	abff0b05	murmuration:explorer		SubagentHandback	2	3	32	U:tool_result	0	0	delivered	2026-10-21T06:17:31.376Z	no-trace	ended_on_handback_result
+e-tmp-murmuration-w05-author-w05-2-runs-B2-lab	6070b2a6	a3eaf2a0	murmuration:explorer		SubagentHandback	2	3	32	U:tool_result	0	0	delivered	2026-10-21T06:18:22.840Z	no-trace	ended_on_handback_result
+e-tmp-murmuration-w05-author-w05-2-runs-B3-lab	0024a08e	a4ab58bd	murmuration:explorer		SubagentHandback	2	3	32	U:tool_result	0	0	delivered	2026-10-21T06:19:17.320Z	no-trace	ended_on_handback_result
+e-tmp-murmuration-w05-author-w05-2-runs-D1-lab	837e281a	ad82a4a2	murmuration:explorer		SubagentHandback	2	3	32	U:tool_result	0	0	delivered	2026-10-21T06:20:17.876Z	no-trace	ended_on_handback_result
+e-tmp-murmuration-w05-author-w05-2-runs-D2-lab	d19004d9	a95f98c3	murmuration:explorer		SubagentHandback	2	5	40	U:tool_result	0	0	delivered	2026-10-21T06:20:36.137Z	no-trace	ended_on_handback_result
+e-tmp-murmuration-w05-author-w05-2-runs-D3-lab	79948468	ad6bcb22	murmuration:explorer		SubagentHandback	2	3	32	U:tool_result	0	0	delivered	2026-10-21T06:20:26.255Z	no-trace	ended_on_handback_result
+tmp-murmuration-w05-author-w05-2-runs-a6A1-lab	645be9fb	a2c6078c	murmuration:explorer		SubagentHandback	2	3	33	U:tool_result	0	0	delivered	2026-10-21T06:27:27.040Z	no-trace	ended_on_handback_result
+tmp-murmuration-w05-author-w05-2-runs-a6A2-lab	38954201	af6aeee9	murmuration:explorer		SubagentHandback	2	3	33	U:tool_result	0	0	delivered	2026-10-21T06:28:23.753Z	no-trace	ended_on_handback_result
+tmp-murmuration-w05-author-w05-2-runs-a6A3-lab	f6137476	a8821d8f	murmuration:explorer		SubagentHandback	2	3	32	U:tool_result	0	0	delivered	2026-10-21T06:29:24.628Z	no-trace	ended_on_handback_result
+tmp-murmuration-w05-author-w05-2-runs-a6D1-lab	facc68a2	a53e3ada	murmuration:explorer		SubagentHandback	2	3	32	U:tool_result	0	0	delivered	2026-10-21T06:27:31.737Z	no-trace	ended_on_handback_result
+tmp-murmuration-w05-author-w05-2-runs-a6D2-lab	82789031	a1773167	murmuration:explorer		SubagentHandback	2	3	33	U:tool_result	0	0	delivered	2026-10-21T06:28:30.195Z	no-trace	ended_on_handback_result
+tmp-murmuration-w05-author-w05-2-runs-a6D3-lab	de6d3f2c	ae8e60ec	murmuration:explorer		SubagentHandback	2	5	44	U:tool_result	0	0	delivered	2026-10-21T06:30:54.187Z	no-trace	ended_on_handback_result
+-murmuration-w05-author-w05-2-runs-pilot-A-lab	84a3cf3f	ae80d94b	murmuration:explorer		SubagentHandback	2	3	32	U:tool_result	0	0	delivered	2026-10-21T06:15:41.679Z	no-trace	ended_on_handback_result
+-murmuration-w05-author-w05-2-runs-pilot-B-lab	75e32d9c	a58f91bc	murmuration:explorer		SubagentHandback	2	3	32	U:tool_result	0	0	delivered	2026-10-21T06:15:44.006Z	no-trace	ended_on_handback_result
+-tmp-murmuration-w05-author-w05-3-runs-m4a-lab	c48a2495	a347fd9a	murmuration:explorer		SubagentHandback	1	89	469	U:tool_result	0	0	delivered	2026-10-21T06:42:46.459Z	async-launch-only	ended_on_handback_result
+-tmp-murmuration-w05-author-w05-3-runs-m4b-lab	c0df3995	a4c28cf7	murmuration:explorer		SubagentHandback	1	7	51	U:tool_result	0	0	delivered	2026-10-21T06:44:06.295Z	async-launch-only	ended_on_handback_result
+-tmp-murmuration-w05-author-w05-3-runs-m4c-lab	4e94e2ce	a90d2956	murmuration:explorer		SubagentHandback	1	24	150	U:tool_result	0	0	delivered	2026-10-21T06:46:26.499Z	async-launch-only	ended_on_handback_result
+urmuration-w05-reproducer-w05-1-e5-runs-A1-lab	8e6bf194	ab9443f0	murmuration:author		SubagentHandback	1	22	142	U:tool_result	0	1	delivered	2026-10-21T07:09:39.961Z	delivered:[Subagent hand-back]	ended_on_handback_result
+urmuration-w05-reproducer-w05-1-e5-runs-B1-lab	3a461411	a82e9ba3	murmuration:author		SubagentHandback	1	18	104	U:tool_result	0	1	delivered	2026-10-21T07:09:41.094Z	no-trace	ended_on_handback_result
+p-murmuration-w05-reproducer-w05-3-runs-A1-lab	cdf980c0	a8c3dd7b	murmuration:explorer		SubagentHandback	2	3	32	U:tool_result	0	0	delivered	2026-10-21T06:27:22.361Z	no-trace	ended_on_handback_result
+p-murmuration-w05-reproducer-w05-3-runs-B1-lab	62bbda7f	a47fe778	murmuration:explorer		SubagentHandback	2	3	33	U:tool_result	0	0	delivered	2026-10-21T06:27:27.422Z	no-trace	ended_on_handback_result
+murmuration-w05-reproducer-w05-6-runs-r6A1-lab	b0b18b00	a5cb90fb	murmuration:explorer		SubagentHandback	2	3	32	U:tool_result	0	0	delivered	2026-10-21T06:33:54.439Z	no-trace	ended_on_handback_result
+murmuration-w05-reproducer-w05-6-runs-r6D1-lab	8fa0ab5e	a275dff3	murmuration:explorer		SubagentHandback	2	3	32	U:tool_result	0	0	delivered	2026-10-21T06:34:07.037Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	1735357e	a0ebe507	wt:worker		SubagentHandback	1	3	33	U:tool_result	0	0	delivered	2026-10-21T09:12:23.841Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	1735357e	a8038696	wt:worker		SubagentHandback	1	3	30	U:tool_result	0	0	delivered	2026-10-21T09:12:16.572Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	1a560a05	a0db355d	wt:worker	worker-1	SubagentHandback	1	3	33	U:tool_result	0	0	delivered	2026-10-21T09:11:06.440Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	1a560a05	aee75156	wt:worker	worker-0	SubagentHandback	1	3	29	U:tool_result	0	0	delivered	2026-10-21T09:10:58.753Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	208af3c7	a1129ead	wt:worker		SubagentHandback	1	1	27	U:tool_result	0	0	delivered	2026-10-21T09:02:16.233Z	delivered:[Subagent hand-back]	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	208af3c7	a2b7afe7	wt:worker		SubagentHandback	1	2	36	U:tool_result	0	0	delivered	2026-10-21T09:02:19.231Z	delivered:[Subagent hand-back]	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	236c20cb	a2d2e94c	wt:worker		SubagentHandback	1	2	37	U:tool_result	0	0	delivered	2026-10-21T09:00:12.623Z	delivered:[Subagent hand-back]	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	255ca3e6	a13182d7	wt:worker		SubagentHandback	1	2	35	U:tool_result	0	0	delivered	2026-10-21T09:15:48.489Z	delivered:[Subagent hand-back]	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	255ca3e6	ad980f81	wt:worker		SubagentHandback	1	1	27	U:tool_result	0	0	delivered	2026-10-21T09:15:47.027Z	delivered:[Subagent hand-back]	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	26810b20	a840ad98	wt:worker		SubagentHandback	1	2	35	U:tool_result	0	0	delivered	2026-10-21T09:18:17.135Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	26810b20	ac7e04ee	wt:worker		SubagentHandback	1	1	27	U:tool_result	0	0	delivered	2026-10-21T09:18:09.959Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	39f192a7	a45c422f	wt:worker	worker-0	SubagentHandback	1	3	40	U:tool_result	0	0	delivered	2026-10-21T09:20:56.929Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	39f192a7	a54f0d37	wt:worker	worker-3	SubagentHandback	1	3	40	U:tool_result	0	0	delivered	2026-10-21T09:21:25.702Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	39f192a7	a91dc164	wt:worker	worker-1	SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:21:08.256Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	39f192a7	abc5a5cb	wt:worker	worker-2	SubagentHandback	1	3	40	U:tool_result	0	0	delivered	2026-10-21T09:21:17.528Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	39f192a7	adbdd78e	wt:worker	worker-4	SubagentHandback	1	3	40	U:tool_result	0	0	delivered	2026-10-21T09:21:34.332Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	4980b529	a3dc25bd	wt:worker	worker-1	SubagentHandback	1	3	39	U:tool_result	0	0	delivered	2026-10-21T09:11:35.094Z	notified:completed	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	4980b529	adbcc44d	wt:worker	worker-0	SubagentHandback	1	3	39	U:tool_result	0	0	delivered	2026-10-21T09:11:28.076Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	4cce28ad	a8c0e431	wt:worker	worker-Z	SubagentHandback	1	2	36	U:tool_result	0	0	delivered	2026-10-21T09:16:33.077Z	notified:completed	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	674f1713	af0280b6	wt:worker	worker-1	SubagentHandback	1	3	43	U:tool_result	0	0	delivered	2026-10-21T09:13:47.984Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	674f1713	af6e8f2a	wt:worker	worker-0	SubagentHandback	1	3	39	U:tool_result	0	0	delivered	2026-10-21T09:13:40.603Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	7410ff1b	a91c9550	wt:worker		SubagentHandback	1	3	42	U:tool_result	0	0	delivered	2026-10-21T09:22:25.691Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	7410ff1b	a9a67338	wt:worker		SubagentHandback	1	3	39	U:tool_result	0	0	delivered	2026-10-21T09:22:18.712Z	delivered:[Subagent hand-back]	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	770f585b	a3843da3	wt:worker		SubagentHandback	1	1	27	U:tool_result	0	0	delivered	2026-10-21T09:25:10.333Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	770f585b	a5876bbc	wt:worker		SubagentHandback	1	2	36	U:tool_result	0	0	delivered	2026-10-21T09:25:17.531Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	7eb61ac3	a3165d5c	wt:worker	worker-D	SubagentHandback	1	1	27	U:tool_result	0	0	delivered	2026-10-21T09:17:07.893Z	notified:completed	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	7eb61ac3	af6e1ac9	wt:worker	worker-Z	SubagentHandback	1	2	35	U:tool_result	0	0	delivered	2026-10-21T09:17:11.458Z	notified:completed	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	81e85676	a3352591	wt:worker	worker-3	SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:07:39.491Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	81e85676	a35cd1bc	wt:worker	worker-0	SubagentHandback	1	3	40	U:tool_result	0	0	delivered	2026-10-21T09:07:10.579Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	81e85676	a869ad0f	wt:worker	worker-2	SubagentHandback	1	3	40	U:tool_result	0	0	delivered	2026-10-21T09:07:29.479Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	81e85676	ada68006	wt:worker	worker-4	SubagentHandback	1	3	40	U:tool_result	0	0	delivered	2026-10-21T09:07:48.082Z	notified:completed	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	81e85676	ae9f6ae1	wt:worker	worker-1	SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:07:20.589Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	8448f1d7	ac078f2f	wt:worker	worker-1	SubagentHandback	1	3	39	U:tool_result	0	0	delivered	2026-10-21T09:22:52.883Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	8448f1d7	afa82783	wt:worker	worker-0	SubagentHandback	1	3	39	U:tool_result	0	0	delivered	2026-10-21T09:22:45.221Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	89823f77	a1bcca7c	wt:worker		SubagentHandback	1	2	36	U:tool_result	0	0	delivered	2026-10-21T09:14:54.319Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	89823f77	a5d096f3	wt:worker		SubagentHandback	1	1	27	U:tool_result	0	0	delivered	2026-10-21T09:14:45.378Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	8c46ddf5	a68f6e06	wt:worker	worker-A	Bash	0	3	44	A:end_turn:text	0	0		2026-10-21T09:05:52.286Z	notified:completed	final_text
+-private-tmp-murmuration-w06-author-w06-3-work	9967b0dd	ab34c68b	wt:worker	worker-Z	SubagentHandback	1	2	35	U:tool_result	0	0	delivered	2026-10-21T09:01:23.536Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	9967b0dd	abb9271c	wt:worker	worker-D	SubagentHandback	1	1	27	U:tool_result	0	0	delivered	2026-10-21T09:01:16.011Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	9fb1a45a	a735f430	wt:worker	worker-1	SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:09:08.745Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	9fb1a45a	a8571cc5	wt:worker	worker-2	SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:09:18.556Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	9fb1a45a	ac634c05	wt:worker	worker-0	SubagentHandback	1	3	40	U:tool_result	0	0	delivered	2026-10-21T09:08:59.892Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	9fb1a45a	ae159c9c	wt:worker	worker-4	SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:09:36.577Z	notified:completed	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	9fb1a45a	ae161aca	wt:worker	worker-3	SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:09:27.646Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	a0f5b030	a031f1af	wt:worker		SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:08:30.577Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	a0f5b030	a380766e	wt:worker		SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:08:16.817Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	a0f5b030	a4fa48cd	wt:worker		SubagentHandback	1	3	39	U:tool_result	0	0	delivered	2026-10-21T09:08:22.864Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	a0f5b030	a690802d	wt:worker		SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:08:38.948Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	a0f5b030	af409659	wt:worker		SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:08:08.266Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	a7825e18	a24d55c9	wt:worker	worker-D	SubagentHandback	1	1	27	U:tool_result	0	0	delivered	2026-10-21T09:24:01.251Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	a7825e18	ae6a3e4c	wt:worker	worker-Z	SubagentHandback	1	2	35	U:tool_result	0	0	delivered	2026-10-21T09:24:07.841Z	notified:completed	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	ab2d561c	a78860a0	wt:worker		SubagentHandback	1	4	48	U:tool_result	0	0	delivered	2026-10-21T09:19:53.934Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	ab2d561c	a7da6a41	wt:worker		SubagentHandback	1	4	50	U:tool_result	0	0	delivered	2026-10-21T09:20:06.099Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	acd1a6e5	a595d91f	wt:worker		SubagentHandback	1	4	49	U:tool_result	0	0	delivered	2026-10-21T08:56:33.187Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	ce13f023	ac7e1c88	wt:worker	worker-A	Bash	0	3	44	A:end_turn:text	0	0		2026-10-21T09:20:31.399Z	notified:completed	final_text
+-private-tmp-murmuration-w06-author-w06-3-work	d2b2c6bb	a136e21f	wt:worker		SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:10:30.599Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	d2b2c6bb	a27c436d	wt:worker		SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:10:40.781Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	d2b2c6bb	a2a6558b	wt:worker		SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:09:58.688Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	d2b2c6bb	a8a62468	wt:worker		SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:10:20.003Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	d2b2c6bb	ae1e1f92	wt:worker		SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:10:09.283Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	d3024606	a12a71d6	wt:worker	worker-0	SubagentHandback	1	3	39	U:tool_result	0	0	delivered	2026-10-21T09:13:13.359Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	d3024606	a13ced92	wt:worker	worker-1	SubagentHandback	1	3	43	U:tool_result	0	0	delivered	2026-10-21T09:13:21.768Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	dc88528b	a10f22b5	wt:worker		SubagentHandback	1	3	42	U:tool_result	0	0	delivered	2026-10-21T09:11:53.290Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	dc88528b	a32daae4	wt:worker		SubagentHandback	1	3	39	U:tool_result	0	0	delivered	2026-10-21T09:11:59.488Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	dee36731	a5d6c682	wt:worker	worker-A	Bash	0	3	44	A:end_turn:text	0	0		2026-10-21T09:04:45.456Z	delivered:[Subagent hand-back]	final_text
+-private-tmp-murmuration-w06-author-w06-3-work	f283b9d5	a2298c01	wt:worker		SubagentHandback	1	4	49	U:tool_result	0	0	delivered	2026-10-21T09:04:18.936Z	delivered:[Subagent hand-back]	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	f283b9d5	a8047080	wt:worker		SubagentHandback	1	4	50	U:tool_result	0	0	delivered	2026-10-21T09:04:06.839Z	delivered:[Subagent hand-back]	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	f3dd6ff2	a3b30b64	wt:worker		SubagentHandback	1	3	33	U:tool_result	0	0	delivered	2026-10-21T09:22:00.461Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	f3dd6ff2	ad091428	wt:worker		SubagentHandback	1	3	30	U:tool_result	0	0	delivered	2026-10-21T09:21:52.749Z	no-trace	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	f8c15149	a33b008f	wt:worker		SubagentHandback	1	3	30	U:tool_result	0	0	delivered	2026-10-21T09:12:42.195Z	delivered:[Subagent hand-back]	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	f8c15149	a989f63f	wt:worker	worker-1	SubagentHandback	1	3	33	U:tool_result	0	0	delivered	2026-10-21T09:12:49.438Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	fa1680f5	a0160aa1	wt:worker	worker-B	SubagentHandback	1	4	49	U:tool_result	0	0	delivered	2026-10-21T09:05:24.496Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	fa1680f5	a6c5db71	wt:worker	worker-A	SubagentHandback	1	4	48	U:tool_result	0	0	delivered	2026-10-21T09:05:13.970Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	fc45102a	a3a67ea7	wt:worker	worker-3	SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:06:41.109Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	fc45102a	a605edd9	wt:worker	worker-2	SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:06:33.027Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	fc45102a	a9d5db8c	wt:worker	worker-0	SubagentHandback	1	3	40	U:tool_result	0	0	delivered	2026-10-21T09:06:15.629Z	async-launch-only	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	fc45102a	ad34d6f5	wt:worker	worker-4	SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:06:49.403Z	notified:completed	ended_on_handback_result
+-private-tmp-murmuration-w06-author-w06-3-work	fc45102a	af0c747b	wt:worker	worker-1	SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T09:06:24.679Z	async-launch-only	ended_on_handback_result
+tmp-murmuration-w06-author-w06-4-runs-f-a0-lab	a10052ed	a0ba18fe	murmuration:explorer		SubagentHandback	1	5	57	U:tool_result	0	0	delivered	2026-10-21T11:15:48.815Z	no-trace	ended_on_handback_result
+tmp-murmuration-w06-author-w06-4-runs-f-b0-lab	83f3fa75	a3880119	murmuration:explorer	explorer-w99-0	SubagentHandback	2	8	71	U:tool_result	0	0	delivered	2026-10-21T11:08:12.823Z	no-trace	ended_on_handback_result
+tmp-murmuration-w06-author-w06-4-runs-f-b1-lab	93c8743f	a09e4bf4	murmuration:explorer	explorer-w99-0	SubagentHandback	2	7	69	U:tool_result	0	0	delivered	2026-10-21T11:12:10.311Z	no-trace	ended_on_handback_result
+tmp-murmuration-w06-author-w06-4-runs-f-c0-lab	93c3c9d4	a0151be2	murmuration:explorer	explorer-w99-0	SubagentHandback	2	7	73	U:tool_result	0	0	delivered	2026-10-21T11:09:30.878Z	no-trace	ended_on_handback_result
+tmp-murmuration-w06-author-w06-4-runs-f-c1-lab	0629caa9	a8c93890	murmuration:explorer		SubagentHandback	2	8	71	U:tool_result	0	0	delivered	2026-10-21T11:13:14.944Z	no-trace	ended_on_handback_result
+mp-murmuration-w06-author-w06-4-runs-f-fx0-lab	eecef670	aa916bf4	murmuration:explorer		SubagentHandback	2	6	66	U:tool_result	0	0	delivered	2026-10-21T11:11:20.410Z	no-trace	ended_on_handback_result
+mp-murmuration-w06-author-w06-4-runs-f-fx1-lab	667d03e6	aecc65e8	murmuration:explorer	explorer-w99-0	SubagentHandback	2	8	75	U:tool_result	0	0	delivered	2026-10-21T11:15:00.179Z	no-trace	ended_on_handback_result
+p-murmuration-w06-author-w06-4-runs-f-mid0-lab	cd87c646	a2c52efe	murmuration:explorer		SubagentHandback	2	5	55	U:tool_result	0	0	delivered	2026-10-21T11:10:23.692Z	no-trace	ended_on_handback_result
+p-murmuration-w06-author-w06-4-runs-f-mid1-lab	812ad9c0	ad9a2664	murmuration:explorer		SubagentHandback	2	5	58	U:tool_result	0	0	delivered	2026-10-21T11:13:57.596Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w06-author-w06-4-runs-f-s2-main-0-lab	f789a73d	a2497ece	murmuration:explorer		SubagentHandback	1	6	45	U:tool_result	0	0	delivered	2026-10-21T11:03:16.756Z	no-trace	ended_on_handback_result
+muration-w06-author-w06-4-runs-f-s2-main-0-lab	f789a73d	ac3e1604	murmuration:explorer		SubagentHandback	1	6	43	U:tool_result	0	0	delivered	2026-10-21T11:03:00.841Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w06-author-w06-4-runs-f-s2-main-1-lab	9416e9b2	a3a902fd	murmuration:explorer		SubagentHandback	1	5	40	U:tool_result	0	0	delivered	2026-10-21T11:05:26.340Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w06-author-w06-4-runs-f-s2-main-1-lab	9416e9b2	af85a006	murmuration:explorer		SubagentHandback	1	7	52	U:tool_result	0	0	delivered	2026-10-21T11:05:46.921Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w06-author-w06-4-runs-f-s2-main-2-lab	f1de82be	a5759313	murmuration:explorer	explorer-w99-1	SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-21T11:06:37.214Z	no-trace	ended_on_handback_result
+muration-w06-author-w06-4-runs-f-s2-main-2-lab	f1de82be	a7aab535	murmuration:explorer	explorer-w99-0	SubagentHandback	1	7	50	U:tool_result	0	0	delivered	2026-10-21T11:06:19.673Z	async-launch-only	ended_on_handback_result
+rmuration-w06-author-w06-4-runs-f-s2-new-0-lab	3a2ef456	a1b7e1e0	murmuration:explorer	explorer-w99-0	SubagentHandback	1	7	64	U:tool_result	0	0	delivered	2026-10-21T11:03:50.392Z	async-launch-only	ended_on_handback_result
+rmuration-w06-author-w06-4-runs-f-s2-new-0-lab	3a2ef456	afcb989d	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	68	U:tool_result	0	0	delivered	2026-10-21T11:04:10.982Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-4-runs-f-s2-new-1-lab	fade2d17	a5e56999	murmuration:explorer		SubagentHandback	1	7	68	U:tool_result	0	0	delivered	2026-10-21T11:04:43.712Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-4-runs-f-s2-new-1-lab	fade2d17	a934248c	murmuration:explorer		SubagentHandback	1	6	61	U:tool_result	0	0	delivered	2026-10-21T11:05:00.381Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-4-runs-f-s2-new-2-lab	76849489	abf37b56	murmuration:explorer	explorer-w99-0	SubagentHandback	1	6	60	U:tool_result	0	0	delivered	2026-10-21T11:07:07.575Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-4-runs-f-s2-new-2-lab	76849489	acf1a0c9	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	67	U:tool_result	0	0	delivered	2026-10-21T11:07:26.174Z	no-trace	ended_on_handback_result
+tmp-murmuration-w06-author-w06-4-runs-g-b0-lab	33c2bb56	a7690300	murmuration:explorer	explorer-w99-0	SubagentHandback	2	7	68	U:tool_result	0	0	delivered	2026-10-21T11:25:13.943Z	notified:completed	ended_on_handback_result
+tmp-murmuration-w06-author-w06-4-runs-g-b1-lab	dc4fa0a8	afec5b91	murmuration:explorer	explorer-w99-0	SubagentHandback	2	8	72	U:tool_result	0	0	delivered	2026-10-21T11:28:09.782Z	notified:completed	ended_on_handback_result
+tmp-murmuration-w06-author-w06-4-runs-g-c0-lab	01c06218	a61c41a0	murmuration:explorer	explorer-w99-0	SubagentHandback	2	7	74	U:tool_result	0	0	delivered	2026-10-21T11:27:19.521Z	no-trace	ended_on_handback_result
+mp-murmuration-w06-author-w06-4-runs-g-fx0-lab	947e78eb	ad5dda4d	murmuration:explorer		SubagentHandback	1	5	53	U:tool_result	0	0	delivered	2026-10-21T11:30:08.464Z	no-trace	ended_on_handback_result
+mp-murmuration-w06-author-w06-4-runs-g-fx1-lab	13c4409a	a48da1f7	murmuration:explorer		SubagentHandback	1	6	56	U:tool_result	0	0	delivered	2026-10-21T11:43:16.665Z	delivered:[Subagent hand-back]	ended_on_handback_result
+mp-murmuration-w06-author-w06-4-runs-g-fx2-lab	396532d4	ae3cc21d	murmuration:explorer		SubagentHandback	2	7	67	U:tool_result	0	0	delivered	2026-10-21T11:44:12.852Z	no-trace	ended_on_handback_result
+p-murmuration-w06-author-w06-4-runs-g-mid0-lab	177c7f3b	abd202eb	murmuration:explorer		SubagentHandback	1	3	47	U:tool_result	0	0	delivered	2026-10-21T11:26:00.463Z	delivered:[Subagent hand-back]	ended_on_handback_result
+p-murmuration-w06-author-w06-4-runs-g-mid1-lab	f081723d	a7314861	murmuration:explorer	explorer-w99-0	SubagentHandback	2	5	54	U:tool_result	0	0	delivered	2026-10-21T11:29:03.783Z	no-trace	ended_on_handback_result
+muration-w06-author-w06-4-runs-g-s2-main-0-lab	d46c3c7a	a2edd4a3	murmuration:explorer		SubagentHandback	1	7	48	U:tool_result	0	0	delivered	2026-10-21T11:19:32.284Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w06-author-w06-4-runs-g-s2-main-0-lab	d46c3c7a	a99c5cea	murmuration:explorer		SubagentHandback	1	7	48	U:tool_result	0	0	delivered	2026-10-21T11:19:57.247Z	no-trace	ended_on_handback_result
+muration-w06-author-w06-4-runs-g-s2-main-1-lab	f8ad9b73	acaef097	murmuration:explorer		SubagentHandback	1	5	41	U:tool_result	0	0	delivered	2026-10-21T11:22:24.419Z	no-trace	ended_on_handback_result
+muration-w06-author-w06-4-runs-g-s2-main-1-lab	f8ad9b73	ad629f3b	murmuration:explorer		SubagentHandback	1	7	52	U:tool_result	0	0	delivered	2026-10-21T11:22:49.236Z	no-trace	ended_on_handback_result
+muration-w06-author-w06-4-runs-g-s2-main-2-lab	7033463a	ab191769	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	48	U:tool_result	0	0	delivered	2026-10-21T11:23:45.888Z	no-trace	ended_on_handback_result
+muration-w06-author-w06-4-runs-g-s2-main-2-lab	7033463a	ac1aa723	murmuration:explorer	explorer-w99-0	SubagentHandback	1	6	50	U:tool_result	0	0	delivered	2026-10-21T11:23:25.405Z	async-launch-only	ended_on_handback_result
+rmuration-w06-author-w06-4-runs-g-s2-new-0-lab	f884344a	a529ce5d	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	64	U:tool_result	0	0	delivered	2026-10-21T11:20:55.553Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-4-runs-g-s2-new-0-lab	f884344a	a6fd5938	murmuration:explorer		SubagentHandback	1	5	55	U:tool_result	0	0	delivered	2026-10-21T11:20:31.207Z	delivered:[Subagent hand-back]	ended_on_handback_result
+rmuration-w06-author-w06-4-runs-g-s2-new-1-lab	8e06fed9	a1280514	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	64	U:tool_result	0	0	delivered	2026-10-21T11:21:51.644Z	notified:completed	ended_on_handback_result
+rmuration-w06-author-w06-4-runs-g-s2-new-1-lab	8e06fed9	ab8af669	murmuration:explorer	explorer-w99-0	SubagentHandback	1	7	65	U:tool_result	0	0	delivered	2026-10-21T11:21:28.707Z	async-launch-only	ended_on_handback_result
+rmuration-w06-author-w06-4-runs-g-s2-new-2-lab	45193bdb	a3f4e3c5	murmuration:explorer		SubagentHandback	1	7	63	U:tool_result	0	0	delivered	2026-10-21T11:24:37.860Z	delivered:[Subagent hand-back]	ended_on_handback_result
+rmuration-w06-author-w06-4-runs-g-s2-new-2-lab	45193bdb	a5b18aef	murmuration:explorer		SubagentHandback	1	7	63	U:tool_result	0	0	delivered	2026-10-21T11:24:20.633Z	delivered:[Subagent hand-back]	ended_on_handback_result
+murmuration-w06-author-w06-4-runs-main-fx0-lab	42fca1a3	a73fc175	murmuration:explorer		SubagentHandback	1	4	41	U:tool_result	0	0	delivered	2026-10-21T10:55:19.281Z	delivered:[Subagent hand-back]	ended_on_handback_result
+murmuration-w06-author-w06-4-runs-main-fx1-lab	eb670ada	a776a4db	murmuration:explorer	explorer-w99-0	SubagentHandback	2	7	56	U:tool_result	0	0	delivered	2026-10-21T10:56:07.962Z	notified:completed	ended_on_handback_result
+p-murmuration-w06-author-w06-4-runs-out-a0-lab	34b8ca59	a8ec0fd3	murmuration:explorer		SubagentHandback	2	8	75	U:tool_result	0	0	delivered	2026-10-21T10:44:49.865Z	no-trace	ended_on_handback_result
+p-murmuration-w06-author-w06-4-runs-out-b0-lab	29f585e1	a0cb0c1b	murmuration:explorer		SubagentHandback	2	7	69	U:tool_result	0	0	delivered	2026-10-21T10:41:23.652Z	delivered:[Subagent hand-back]	ended_on_handback_result
+p-murmuration-w06-author-w06-4-runs-out-b1-lab	114d2c66	a70c4b30	murmuration:explorer	explorer-w99-0	SubagentHandback	2	8	71	U:tool_result	0	0	delivered	2026-10-21T10:42:53.379Z	no-trace	ended_on_handback_result
+p-murmuration-w06-author-w06-4-runs-out-b2-lab	6cecafc9	acc4bed6	murmuration:explorer		SubagentHandback	2	8	76	U:tool_result	0	0	delivered	2026-10-21T10:45:44.515Z	no-trace	ended_on_handback_result
+p-murmuration-w06-author-w06-4-runs-out-c0-lab	7c8996bd	a19dd527	murmuration:explorer	explorer-w99-0	SubagentHandback	2	8	79	U:tool_result	0	0	delivered	2026-10-21T10:43:53.083Z	notified:completed	ended_on_handback_result
+-murmuration-w06-author-w06-4-runs-out2-a0-lab	c3654f52	aa259d31	murmuration:explorer		SubagentHandback	1	5	57	U:tool_result	0	0	delivered	2026-10-21T10:46:29.696Z	no-trace	ended_on_handback_result
+-murmuration-w06-author-w06-4-runs-out2-a1-lab	5791704c	aaed94da	murmuration:explorer	explorer-w99-0	SubagentHandback	1	5	53	U:tool_result	0	0	delivered	2026-10-21T10:48:57.594Z	notified:completed	ended_on_handback_result
+-murmuration-w06-author-w06-4-runs-out2-b1-lab	6a74285f	a09ab724	murmuration:explorer	explorer-w99-0	SubagentHandback	2	6	64	U:tool_result	0	0	delivered	2026-10-21T10:48:18.000Z	no-trace	ended_on_handback_result
+-murmuration-w06-author-w06-4-runs-out2-b2-lab	df4ae2ea	ad8319e8	murmuration:explorer	explorer-w99-0	SubagentHandback	2	8	80	U:tool_result	0	0	delivered	2026-10-21T10:50:58.064Z	no-trace	ended_on_handback_result
+-murmuration-w06-author-w06-4-runs-out2-c0-lab	a48b70fd	a9ad2b6a	murmuration:explorer		SubagentHandback	2	6	68	U:tool_result	0	0	delivered	2026-10-21T10:47:39.070Z	no-trace	ended_on_handback_result
+-murmuration-w06-author-w06-4-runs-out2-c1-lab	b52c58dd	ad897b40	murmuration:explorer	explorer-w99-0	SubagentHandback	2	7	68	U:tool_result	0	0	delivered	2026-10-21T10:50:07.353Z	no-trace	ended_on_handback_result
+murmuration-w06-author-w06-4-runs-out2-fx0-lab	b1b0736a	a4768662	murmuration:explorer		SubagentHandback	1	6	57	U:tool_result	0	0	delivered	2026-10-21T10:53:32.391Z	no-trace	ended_on_handback_result
+murmuration-w06-author-w06-4-runs-out2-fx1-lab	6cdadfb5	ab84165f	murmuration:explorer		SubagentHandback	2	6	65	U:tool_result	0	0	delivered	2026-10-21T10:54:34.376Z	no-trace	ended_on_handback_result
+urmuration-w06-author-w06-4-runs-out2-mid0-lab	63e5acfa	ac911859	murmuration:explorer		SubagentHandback	2	5	58	U:tool_result	0	0	delivered	2026-10-21T10:51:56.042Z	delivered:[Subagent hand-back]	ended_on_handback_result
+urmuration-w06-author-w06-4-runs-out2-mid1-lab	bd1d50f8	a3aab92a	murmuration:explorer	explorer-w99-0	SubagentHandback	2	5	54	U:tool_result	0	0	delivered	2026-10-21T10:52:43.705Z	notified:completed	ended_on_handback_result
+urmuration-w06-author-w06-4-runs-pilot-new-lab	aa3aac82	afcd9aa0	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	63	U:tool_result	0	0	delivered	2026-10-21T10:36:05.695Z	no-trace	ended_on_handback_result
+urmuration-w06-author-w06-4-runs-pilot-new-lab	aa3aac82	aff7e3f0	murmuration:explorer	explorer-w99-0	SubagentHandback	1	7	63	U:tool_result	0	0	delivered	2026-10-21T10:35:47.294Z	no-trace	ended_on_handback_result
+urmuration-w06-author-w06-4-runs-s2-main-0-lab	c999ede8	a2b3b4ac	murmuration:explorer	explorer-w99-0	SubagentHandback	1	6	47	U:tool_result	0	0	delivered	2026-10-21T10:56:38.391Z	async-launch-only	ended_on_handback_result
+urmuration-w06-author-w06-4-runs-s2-main-0-lab	c999ede8	adbc5d52	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	55	U:tool_result	0	0	delivered	2026-10-21T10:57:00.924Z	notified:completed	ended_on_handback_result
+urmuration-w06-author-w06-4-runs-s2-main-1-lab	89a3ef5c	a5681c1e	murmuration:explorer		SubagentHandback	1	7	48	U:tool_result	0	0	delivered	2026-10-21T10:59:29.776Z	no-trace	ended_on_handback_result
+urmuration-w06-author-w06-4-runs-s2-main-1-lab	89a3ef5c	aa410360	murmuration:explorer		SubagentHandback	1	5	43	U:tool_result	0	0	delivered	2026-10-21T10:59:07.692Z	no-trace	ended_on_handback_result
+urmuration-w06-author-w06-4-runs-s2-main-2-lab	78058470	a1bdd4c8	murmuration:explorer		SubagentHandback	1	7	56	U:tool_result	0	0	delivered	2026-10-21T11:00:22.680Z	no-trace	ended_on_handback_result
+urmuration-w06-author-w06-4-runs-s2-main-2-lab	78058470	afe9bea7	murmuration:explorer		SubagentHandback	1	6	46	U:tool_result	0	0	delivered	2026-10-21T10:59:59.818Z	delivered:[Subagent hand-back]	ended_on_handback_result
+murmuration-w06-author-w06-4-runs-s2-new-0-lab	958f0eb8	a1f012c2	murmuration:explorer		SubagentHandback	1	6	60	U:tool_result	0	0	delivered	2026-10-21T10:57:46.214Z	no-trace	ended_on_handback_result
+murmuration-w06-author-w06-4-runs-s2-new-0-lab	958f0eb8	a477b5bb	murmuration:explorer		SubagentHandback	1	6	60	U:tool_result	0	0	delivered	2026-10-21T10:57:30.727Z	no-trace	ended_on_handback_result
+murmuration-w06-author-w06-4-runs-s2-new-1-lab	5695b200	a1bcf22d	murmuration:explorer		SubagentHandback	1	7	64	U:tool_result	0	0	delivered	2026-10-21T10:58:18.085Z	delivered:[Subagent hand-back]	ended_on_handback_result
+murmuration-w06-author-w06-4-runs-s2-new-1-lab	5695b200	adf204ca	murmuration:explorer		SubagentHandback	1	5	53	U:tool_result	0	0	delivered	2026-10-21T10:58:35.027Z	no-trace	ended_on_handback_result
+murmuration-w06-author-w06-4-runs-s2-new-2-lab	48566313	a6811c58	murmuration:explorer		SubagentHandback	1	7	64	U:tool_result	0	0	delivered	2026-10-21T11:00:59.777Z	delivered:[Subagent hand-back]	ended_on_handback_result
+murmuration-w06-author-w06-4-runs-s2-new-2-lab	48566313	aa1b807b	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	65	U:tool_result	0	0	delivered	2026-10-21T11:01:20.387Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2a-1-main-lab	80b5859d	a96f43e3	murmuration:explorer	explorer-w99-1	SubagentHandback	1	8	57	U:tool_result	0	0	delivered	2026-10-21T11:56:40.849Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2a-1-main-lab	80b5859d	add42d15	murmuration:explorer	explorer-w99-0	SubagentHandback	1	6	47	U:tool_result	0	0	delivered	2026-10-21T11:56:16.812Z	no-trace	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2a-1-new-lab	31c2b0d3	a211c354	murmuration:explorer		SubagentHandback	1	7	51	U:tool_result	0	0	delivered	2026-10-21T11:56:36.667Z	no-trace	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2a-1-new-lab	31c2b0d3	aad93780	murmuration:explorer		SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-21T11:56:12.956Z	delivered:[Subagent hand-back]	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2a-2-main-lab	93ef21ab	a08c2c48	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	55	U:tool_result	0	0	delivered	2026-10-21T11:57:31.641Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2a-2-main-lab	93ef21ab	ae21ed31	murmuration:explorer	explorer-w99-0	SubagentHandback	1	6	47	U:tool_result	0	0	delivered	2026-10-21T11:57:10.156Z	async-launch-only	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2a-2-new-lab	eaf6917d	a0bd4763	murmuration:explorer	explorer-w99-0	SubagentHandback	1	6	47	U:tool_result	0	0	delivered	2026-10-21T11:57:11.828Z	async-launch-only	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2a-2-new-lab	eaf6917d	a907bf6a	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	56	U:tool_result	0	0	delivered	2026-10-21T11:57:38.968Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2a-3-main-lab	69a8b3db	a59a82a9	murmuration:explorer	explorer-w99-1	SubagentHandback	1	6	43	U:tool_result	0	0	delivered	2026-10-21T11:58:32.320Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2a-3-main-lab	69a8b3db	ae0cbf08	murmuration:explorer	explorer-w99-0	SubagentHandback	1	6	43	U:tool_result	0	0	delivered	2026-10-21T11:58:13.562Z	async-launch-only	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2a-3-new-lab	9b01fd6c	a0b7f9f0	murmuration:explorer		SubagentHandback	1	5	44	U:tool_result	0	0	delivered	2026-10-21T11:58:10.583Z	delivered:[Subagent hand-back]	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2a-3-new-lab	9b01fd6c	a0ddd4d3	murmuration:explorer		SubagentHandback	1	6	49	U:tool_result	0	0	delivered	2026-10-21T11:58:28.271Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2a-4-main-lab	12c69474	ac25f658	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	48	U:tool_result	0	0	delivered	2026-10-21T11:59:23.372Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2a-4-main-lab	12c69474	ad816bd0	murmuration:explorer		SubagentHandback	1	5	41	U:tool_result	0	0	delivered	2026-10-21T11:59:01.286Z	delivered:[Subagent hand-back]	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2a-4-new-lab	9ca37a45	a1cde9be	murmuration:explorer		SubagentHandback	1	6	48	U:tool_result	0	0	delivered	2026-10-21T11:59:01.584Z	delivered:[Subagent hand-back]	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2a-4-new-lab	9ca37a45	a8370c4d	murmuration:explorer		SubagentHandback	1	6	46	U:tool_result	0	0	delivered	2026-10-21T11:59:19.322Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2a-5-main-lab	b7ab536a	a133125e	murmuration:explorer		SubagentHandback	1	7	53	U:tool_result	0	0	delivered	2026-10-21T11:59:59.437Z	delivered:[Subagent hand-back]	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2a-5-main-lab	b7ab536a	aee99226	murmuration:explorer		SubagentHandback	1	5	40	U:tool_result	0	0	delivered	2026-10-21T12:00:14.193Z	no-trace	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2a-5-new-lab	bab2bef7	a16d2551	murmuration:explorer		SubagentHandback	1	7	48	U:tool_result	0	0	delivered	2026-10-21T11:59:58.276Z	no-trace	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2a-5-new-lab	bab2bef7	abe9e15b	murmuration:explorer		SubagentHandback	1	7	48	U:tool_result	0	0	delivered	2026-10-21T12:00:17.533Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2b-1-main-lab	8141ca14	a46f63b4	murmuration:explorer		SubagentHandback	1	5	41	U:tool_result	0	0	delivered	2026-10-21T12:02:34.030Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2b-1-main-lab	8141ca14	a6ebea5a	murmuration:explorer		SubagentHandback	1	7	55	U:tool_result	0	0	delivered	2026-10-21T12:02:18.762Z	delivered:[Subagent hand-back]	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2b-1-new-lab	20045b25	a26ad7bb	murmuration:explorer		SubagentHandback	1	5	47	U:tool_result	0	0	delivered	2026-10-21T12:02:12.863Z	delivered:[Subagent hand-back]	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2b-1-new-lab	20045b25	aed3bc9c	murmuration:explorer		SubagentHandback	1	6	50	U:tool_result	0	0	delivered	2026-10-21T12:02:35.332Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2b-2-main-lab	d58574a6	a20b74d1	murmuration:explorer		SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-21T12:03:06.944Z	delivered:[Subagent hand-back]	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2b-2-main-lab	d58574a6	a624a869	murmuration:explorer		SubagentHandback	1	7	48	U:tool_result	0	0	delivered	2026-10-21T12:03:26.615Z	no-trace	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2b-2-new-lab	029e2835	aac95085	murmuration:explorer	explorer-w99-0	SubagentHandback	1	7	53	U:tool_result	0	0	delivered	2026-10-21T12:03:16.877Z	async-launch-only	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2b-2-new-lab	029e2835	aebb5f54	murmuration:explorer	explorer-w99-1	SubagentHandback	1	5	40	U:tool_result	0	0	delivered	2026-10-21T12:03:31.235Z	notified:completed	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2b-3-main-lab	a7ddd6ca	ae715674	murmuration:explorer		SubagentHandback	1	6	46	U:tool_result	0	0	delivered	2026-10-21T12:04:15.885Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2b-3-main-lab	a7ddd6ca	af7b499e	murmuration:explorer		SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-21T12:03:58.981Z	no-trace	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2b-3-new-lab	c07aaf88	a1dbff71	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	47	U:tool_result	0	0	delivered	2026-10-21T12:04:27.271Z	no-trace	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2b-3-new-lab	c07aaf88	afffb95a	murmuration:explorer		SubagentHandback	1	6	50	U:tool_result	0	0	delivered	2026-10-21T12:04:08.499Z	delivered:[Subagent hand-back]	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2b-4-main-lab	22aef4e1	a2b46fea	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	52	U:tool_result	0	0	delivered	2026-10-21T12:05:15.930Z	no-trace	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-e2b-4-main-lab	22aef4e1	af87af07	murmuration:explorer	explorer-w99-0	SubagentHandback	1	5	41	U:tool_result	0	0	delivered	2026-10-21T12:04:55.431Z	async-launch-only	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2b-4-new-lab	fae347b3	ab4f6fb4	murmuration:explorer	explorer-w99-1	SubagentHandback	1	6	46	U:tool_result	0	0	delivered	2026-10-21T12:05:18.188Z	no-trace	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-e2b-4-new-lab	fae347b3	adaed6c8	murmuration:explorer	explorer-w99-0	SubagentHandback	1	5	41	U:tool_result	0	0	delivered	2026-10-21T12:05:00.429Z	async-launch-only	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-pilot-main-lab	03d882f5	a45225d7	murmuration:explorer	explorer-w99-1	SubagentHandback	1	5	44	U:tool_result	0	0	delivered	2026-10-21T11:53:42.232Z	notified:completed	ended_on_handback_result
+rmuration-w06-author-w06-6-runs-pilot-main-lab	03d882f5	ae0da317	murmuration:explorer	explorer-w99-0	SubagentHandback	1	6	44	U:tool_result	0	0	delivered	2026-10-21T11:53:24.566Z	async-launch-only	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-pilot-new-lab	3bcbc5ed	ad7d4d4e	murmuration:explorer	explorer-w99-1	SubagentHandback	1	5	41	U:tool_result	0	0	delivered	2026-10-21T11:53:47.576Z	notified:completed	ended_on_handback_result
+urmuration-w06-author-w06-6-runs-pilot-new-lab	3bcbc5ed	ae234b71	murmuration:explorer	explorer-w99-0	SubagentHandback	1	7	53	U:tool_result	0	0	delivered	2026-10-21T11:53:31.515Z	async-launch-only	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	0608216e	aaca563e	wt:worker	worker-Z	SubagentHandback	1	2	36	U:tool_result	0	0	delivered	2026-10-21T10:34:52.691Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	0608216e	ac409ec7	wt:worker	worker-D	SubagentHandback	1	1	27	U:tool_result	0	0	delivered	2026-10-21T10:34:45.756Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	323f92a7	a97a1550	wt:worker	worker-0	SubagentHandback	1	3	39	U:tool_result	0	0	delivered	2026-10-21T10:33:07.311Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	323f92a7	aa1fbcba	wt:worker	worker-1	SubagentHandback	1	3	39	U:tool_result	0	0	delivered	2026-10-21T10:33:14.380Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	37cc8990	a1a53df9	wt:worker	worker-A	SubagentHandback	1	4	48	U:tool_result	0	0	delivered	2026-10-21T10:26:59.936Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	37cc8990	ae436d37	wt:worker	worker-B	SubagentHandback	1	4	49	U:tool_result	0	0	delivered	2026-10-21T10:27:11.448Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	6d2876e7	a9e3e6b5	wt:worker		SubagentHandback	1	3	43	U:tool_result	0	0	delivered	2026-10-21T10:32:46.459Z	delivered:[Subagent hand-back]	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	6d2876e7	ac814f6c	wt:worker		Bash	0	1	23	U:tool_result	0	0		2026-10-21T10:32:50.938Z	async-launch-only	other
+vate-tmp-murmuration-w06-reproducer-w06-3-work	8095e0fb	ac357ccd	wt:worker	worker-A	Bash	0	3	42	A:end_turn:text	0	0		2026-10-21T10:27:32.914Z	delivered:[Subagent hand-back]	final_text
+vate-tmp-murmuration-w06-reproducer-w06-3-work	81c1bc26	a3859712	wt:worker		SubagentHandback	1	3	39	U:tool_result	0	0	delivered	2026-10-21T10:29:18.378Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	81c1bc26	a6053ee9	wt:worker		SubagentHandback	1	3	43	U:tool_result	0	0	delivered	2026-10-21T10:29:26.631Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	a4171c7a	a947fe82	wt:worker	worker-1	SubagentHandback	1	3	30	U:tool_result	0	0	delivered	2026-10-21T10:33:40.587Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	a4171c7a	ab79737d	wt:worker	worker-0	SubagentHandback	1	3	30	U:tool_result	0	0	delivered	2026-10-21T10:33:33.847Z	async-launch-only	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	b6de2bce	adf9e719	wt:worker		SubagentHandback	1	2	36	U:tool_result	0	0	delivered	2026-10-21T10:30:28.189Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	c0bbffa8	a057ddb8	wt:worker	worker-0	SubagentHandback	1	3	43	U:tool_result	0	0	delivered	2026-10-21T10:29:47.099Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	c0bbffa8	a0d52292	wt:worker	worker-1	SubagentHandback	1	3	43	U:tool_result	0	0	delivered	2026-10-21T10:29:54.390Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	c4325cbf	a2765cbf	wt:worker	worker-D	SubagentHandback	1	1	27	U:tool_result	0	0	delivered	2026-10-21T10:30:55.372Z	notified:completed	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	c4325cbf	a2edb29d	wt:worker	worker-Z	SubagentHandback	1	2	35	U:tool_result	0	0	delivered	2026-10-21T10:30:58.217Z	notified:completed	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	f086d1fa	a1a531a8	wt:worker	worker-0	SubagentHandback	1	3	44	U:tool_result	0	0	delivered	2026-10-21T10:27:59.694Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	f086d1fa	a5082c84	wt:worker	worker-1	SubagentHandback	1	3	39	U:tool_result	0	0	delivered	2026-10-21T10:28:06.730Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	f086d1fa	a85242f9	wt:worker	worker-3	SubagentHandback	1	3	40	U:tool_result	0	0	delivered	2026-10-21T10:28:22.016Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	f086d1fa	a9693723	wt:worker	worker-2	SubagentHandback	1	3	40	U:tool_result	0	0	delivered	2026-10-21T10:28:14.426Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	f086d1fa	ab3b4134	wt:worker	worker-4	SubagentHandback	1	3	39	U:tool_result	0	0	delivered	2026-10-21T10:28:29.640Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	f1811079	a8649321	wt:worker	worker-1	SubagentHandback	1	3	33	U:tool_result	0	0	delivered	2026-10-21T10:28:58.698Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	f1811079	ab169746	wt:worker	worker-0	SubagentHandback	1	3	30	U:tool_result	0	0	delivered	2026-10-21T10:28:50.577Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	f67a2c1c	a1cbe17a	wt:worker		SubagentHandback	1	1	27	U:tool_result	0	0	delivered	2026-10-21T10:31:53.168Z	no-trace	ended_on_handback_result
+vate-tmp-murmuration-w06-reproducer-w06-3-work	f67a2c1c	a751a5f7	wt:worker	worker-Z	SubagentHandback	1	2	35	U:tool_result	0	0	delivered	2026-10-21T10:31:59.865Z	no-trace	ended_on_handback_result
+uration-w06-reproducer-w06-6-runs-r-1-main-lab	97b42436	a3fe9f1d	murmuration:explorer		SubagentHandback	1	7	51	U:tool_result	0	0	delivered	2026-10-21T12:14:29.024Z	delivered:[Subagent hand-back]	ended_on_handback_result
+uration-w06-reproducer-w06-6-runs-r-1-main-lab	97b42436	a8f2ca08	murmuration:explorer		SubagentHandback	1	7	50	U:tool_result	0	0	delivered	2026-10-21T12:13:53.441Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w06-reproducer-w06-6-runs-r-1-new-lab	0cc082e6	a1f427c8	murmuration:explorer	explorer-w99-0	SubagentHandback	1	7	53	U:tool_result	0	0	delivered	2026-10-21T12:13:52.621Z	async-launch-only	ended_on_handback_result
+muration-w06-reproducer-w06-6-runs-r-1-new-lab	0cc082e6	a734943a	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	48	U:tool_result	0	0	delivered	2026-10-21T12:14:19.063Z	notified:completed	ended_on_handback_result
+uration-w06-reproducer-w06-6-runs-r-2-main-lab	4353294e	a09e3058	murmuration:explorer		SubagentHandback	1	5	45	U:tool_result	0	0	delivered	2026-10-21T12:15:17.377Z	delivered:[Subagent hand-back]	ended_on_handback_result
+uration-w06-reproducer-w06-6-runs-r-2-main-lab	4353294e	ae92adcb	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	51	U:tool_result	0	0	delivered	2026-10-21T12:15:43.827Z	no-trace	ended_on_handback_result
+muration-w06-reproducer-w06-6-runs-r-2-new-lab	dd5ceb25	a4ddb669	murmuration:explorer		SubagentHandback	1	6	50	U:tool_result	0	0	delivered	2026-10-21T12:15:20.342Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w06-reproducer-w06-6-runs-r-2-new-lab	dd5ceb25	a87c1d46	murmuration:explorer		SubagentHandback	1	6	50	U:tool_result	0	0	delivered	2026-10-21T12:15:48.578Z	delivered:[Subagent hand-back]	ended_on_handback_result
+uration-w06-reproducer-w06-6-runs-r-3-main-lab	e55491e0	a28929f1	murmuration:explorer		SubagentHandback	1	7	52	U:tool_result	0	0	delivered	2026-10-21T12:16:53.463Z	delivered:[Subagent hand-back]	ended_on_handback_result
+uration-w06-reproducer-w06-6-runs-r-3-main-lab	e55491e0	aa12b6b6	murmuration:explorer		SubagentHandback	1	6	43	U:tool_result	0	0	delivered	2026-10-21T12:16:27.458Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w06-reproducer-w06-6-runs-r-3-new-lab	eeef9f13	a2932308	murmuration:explorer		SubagentHandback	1	7	49	U:tool_result	0	0	delivered	2026-10-21T12:16:56.267Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w06-reproducer-w06-6-runs-r-3-new-lab	eeef9f13	aaa41c02	murmuration:explorer		SubagentHandback	1	7	51	U:tool_result	0	0	delivered	2026-10-21T12:16:34.094Z	delivered:[Subagent hand-back]	ended_on_handback_result
+uration-w06-reproducer-w06-6-runs-r-4-main-lab	c486d404	acfbd91f	murmuration:explorer	explorer-w99-0	SubagentHandback	1	7	49	U:tool_result	0	0	delivered	2026-10-21T12:18:00.062Z	no-trace	ended_on_handback_result
+uration-w06-reproducer-w06-6-runs-r-4-main-lab	c486d404	ad948a81	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	51	U:tool_result	0	0	delivered	2026-10-21T12:18:23.066Z	no-trace	ended_on_handback_result
+muration-w06-reproducer-w06-6-runs-r-4-new-lab	30393ddd	a458489b	murmuration:explorer		SubagentHandback	1	5	43	U:tool_result	0	0	delivered	2026-10-21T12:17:52.975Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w06-reproducer-w06-6-runs-r-4-new-lab	30393ddd	a609b4af	murmuration:explorer		SubagentHandback	1	6	46	U:tool_result	0	0	delivered	2026-10-21T12:18:12.092Z	no-trace	ended_on_handback_result
+uration-w06-reproducer-w06-6-runs-r-5-main-lab	ba6889a3	a44d4f66	murmuration:explorer		SubagentHandback	1	7	55	U:tool_result	0	0	delivered	2026-10-21T12:25:17.666Z	delivered:[Subagent hand-back]	ended_on_handback_result
+uration-w06-reproducer-w06-6-runs-r-5-main-lab	ba6889a3	a7abf316	murmuration:explorer		SubagentHandback	1	7	48	U:tool_result	0	0	delivered	2026-10-21T12:25:35.267Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w06-reproducer-w06-6-runs-r-5-new-lab	de7d2290	ad5c49de	murmuration:explorer		SubagentHandback	1	5	44	U:tool_result	0	0	delivered	2026-10-21T12:25:16.075Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w06-reproducer-w06-6-runs-r-5-new-lab	de7d2290	ae088804	murmuration:explorer		SubagentHandback	1	5	45	U:tool_result	0	0	delivered	2026-10-21T12:25:34.589Z	delivered:[Subagent hand-back]	ended_on_handback_result
+uration-w06-reproducer-w06-6-runs-r-6-main-lab	fd446b08	a1bca126	murmuration:explorer		SubagentHandback	1	6	46	U:tool_result	0	0	delivered	2026-10-21T12:26:04.396Z	delivered:[Subagent hand-back]	ended_on_handback_result
+uration-w06-reproducer-w06-6-runs-r-6-main-lab	fd446b08	a23b1347	murmuration:explorer		SubagentHandback	1	6	50	U:tool_result	0	0	delivered	2026-10-21T12:26:27.297Z	no-trace	ended_on_handback_result
+muration-w06-reproducer-w06-6-runs-r-6-new-lab	ef1b83ba	a67e52a1	murmuration:explorer		SubagentHandback	1	5	45	U:tool_result	0	0	delivered	2026-10-21T12:26:08.817Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w06-reproducer-w06-6-runs-r-6-new-lab	ef1b83ba	a976825f	murmuration:explorer		SubagentHandback	1	6	50	U:tool_result	0	0	delivered	2026-10-21T12:26:33.302Z	no-trace	ended_on_handback_result
+uration-w06-reproducer-w06-6-runs-r-7-main-lab	1e508cd1	a2cbe2eb	murmuration:explorer		SubagentHandback	1	5	40	U:tool_result	0	0	delivered	2026-10-21T12:27:21.055Z	no-trace	ended_on_handback_result
+uration-w06-reproducer-w06-6-runs-r-7-main-lab	1e508cd1	a44c5331	murmuration:explorer		SubagentHandback	1	6	45	U:tool_result	0	0	delivered	2026-10-21T12:27:03.452Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w06-reproducer-w06-6-runs-r-7-new-lab	88b61c08	a2e0980b	murmuration:explorer	explorer-w99-0	SubagentHandback	1	5	44	U:tool_result	0	0	delivered	2026-10-21T12:27:05.089Z	async-launch-only	ended_on_handback_result
+muration-w06-reproducer-w06-6-runs-r-7-new-lab	88b61c08	a55d4cdd	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	53	U:tool_result	0	0	delivered	2026-10-21T12:27:25.318Z	no-trace	ended_on_handback_result
+uration-w06-reproducer-w06-6-runs-r-8-main-lab	02ecaf92	a123c74d	murmuration:explorer		SubagentHandback	1	5	43	U:tool_result	0	0	delivered	2026-10-21T12:27:53.046Z	delivered:[Subagent hand-back]	ended_on_handback_result
+uration-w06-reproducer-w06-6-runs-r-8-main-lab	02ecaf92	aed3842d	murmuration:explorer		SubagentHandback	1	7	53	U:tool_result	0	0	delivered	2026-10-21T12:28:13.686Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w06-reproducer-w06-6-runs-r-8-new-lab	f5b3f6a8	a62a9c27	murmuration:explorer		SubagentHandback	1	6	44	U:tool_result	0	0	delivered	2026-10-21T12:27:56.625Z	delivered:[Subagent hand-back]	ended_on_handback_result
+muration-w06-reproducer-w06-6-runs-r-8-new-lab	f5b3f6a8	ae4f523a	murmuration:explorer		SubagentHandback	1	7	53	U:tool_result	0	0	delivered	2026-10-21T12:30:23.164Z	no-trace	ended_on_handback_result
+on-w06-reproducer-w06-8-runs-ordinary-auto-lab	c5f2c904	a0e2a780	murmuration:explorer		SubagentHandback	2	9	62	U:tool_result	0	0	delivered	2026-10-21T13:09:49.985Z	delivered:[Subagent hand-back]	ended_on_handback_result
+w06-reproducer-w06-8-runs-ordinary-default-lab	1483c00b	a2fd19f5	murmuration:explorer	explorer-w99-1	Bash	0	7	59	A:end_turn:text	0	0		2026-10-21T13:09:44.869Z	delivered:[Subagent hand-back]	final_text
+w06-reproducer-w06-8-runs-r2-ordinary-auto-lab	7c8a7a74	a8ee384f	murmuration:explorer	explorer-w99-1	SubagentHandback	2	9	65	U:tool_result	0	0	delivered	2026-10-21T13:21:44.709Z	notified:completed	ended_on_handback_result
+eproducer-w06-8-runs-worker-bypass-default-lab	a3a22910	ab1b08ed	murmuration:explorer		Bash	0	2	34	A:end_turn:text	0	0		2026-10-21T13:11:23.270Z	notified:completed	final_text
+murmuration-w07-author-w07-3-runs-pair-1-A-lab	5376790e	a6524f7a	murmuration:explorer		SubagentHandback	1	10	66	U:tool_result	0	0	delivered	2026-10-21T15:51:54.880Z	no-trace	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-1-B-lab	4b17d9f6	a5280b53	murmuration:explorer	explorer-w99-1	SubagentHandback	1	9	53	U:tool_result	0	0	delivered	2026-10-21T15:51:44.379Z	notified:completed	ended_on_handback_result
+urmuration-w07-author-w07-3-runs-pair-10-A-lab	cd8d3985	a3500a0a	murmuration:explorer	explorer-w99-1	SubagentHandback	1	8	60	U:tool_result	0	0	delivered	2026-10-21T15:58:28.647Z	no-trace	ended_on_handback_result
+urmuration-w07-author-w07-3-runs-pair-10-B-lab	af6e4716	ad0ee2b4	murmuration:explorer	explorer-w99-1	SubagentHandback	1	9	62	U:tool_result	0	0	delivered	2026-10-21T15:58:31.092Z	notified:completed	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-2-A-lab	136b7476	a3cf186a	murmuration:explorer		SubagentHandback	1	8	59	U:tool_result	0	0	delivered	2026-10-21T15:52:34.866Z	delivered:[Subagent hand-back]	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-2-B-lab	fe463752	a7883dd3	murmuration:explorer		SubagentHandback	1	10	67	U:tool_result	0	0	delivered	2026-10-21T15:52:39.912Z	delivered:[Subagent hand-back]	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-3-A-lab	29539d32	adcbb4ab	murmuration:explorer	explorer-w99-1	SubagentHandback	1	10	58	U:tool_result	0	0	delivered	2026-10-21T15:53:16.280Z	notified:completed	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-3-B-lab	5fe2ed2f	a7fb5505	murmuration:explorer	explorer-w99-1	SubagentHandback	1	10	61	U:tool_result	0	0	delivered	2026-10-21T15:53:22.702Z	notified:completed	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-4-A-lab	6c7d40b3	a15ed1c0	murmuration:explorer		SubagentHandback	1	10	71	U:tool_result	0	0	delivered	2026-10-21T15:54:11.040Z	delivered:[Subagent hand-back]	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-4-B-lab	e4da7ff3	acec9bf9	murmuration:explorer	explorer-w99-1	SubagentHandback	1	9	66	U:tool_result	0	0	delivered	2026-10-21T15:54:06.905Z	no-trace	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-5-A-lab	57bc4afb	a10c9aac	murmuration:explorer	explorer-w99-1	SubagentHandback	1	8	58	U:tool_result	0	0	delivered	2026-10-21T15:54:53.091Z	notified:completed	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-5-B-lab	056920ca	a7863f73	murmuration:explorer	explorer-w99-1	SubagentHandback	1	9	65	U:tool_result	0	0	delivered	2026-10-21T15:54:56.040Z	notified:completed	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-6-A-lab	31944c83	aaf1085a	murmuration:explorer		SubagentHandback	1	10	67	U:tool_result	0	0	delivered	2026-10-21T15:55:40.541Z	no-trace	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-6-B-lab	a886bd6f	a5bf1066	murmuration:explorer	explorer-w99-1	SubagentHandback	1	10	71	U:tool_result	0	0	delivered	2026-10-21T15:55:40.565Z	notified:completed	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-7-A-lab	3515fc5b	a13955e2	murmuration:explorer	explorer-w99-1	SubagentHandback	1	10	54	U:tool_result	0	0	delivered	2026-10-21T15:56:18.744Z	no-trace	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-7-B-lab	15bad959	a9179214	murmuration:explorer		SubagentHandback	1	10	61	U:tool_result	0	0	delivered	2026-10-21T15:56:21.533Z	delivered:[Subagent hand-back]	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-8-A-lab	4ec4eea5	a09ee7dd	murmuration:explorer	explorer-w99-1	SubagentHandback	1	10	66	U:tool_result	0	0	delivered	2026-10-21T15:57:04.709Z	no-trace	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-8-B-lab	e4b313dc	ae086ad2	murmuration:explorer		SubagentHandback	1	10	74	U:tool_result	0	0	delivered	2026-10-21T15:57:07.905Z	no-trace	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-9-A-lab	fb3102b7	af63fe66	murmuration:explorer		SubagentHandback	1	10	64	U:tool_result	0	0	delivered	2026-10-21T15:57:49.866Z	no-trace	ended_on_handback_result
+murmuration-w07-author-w07-3-runs-pair-9-B-lab	aeb15ae9	a09d4bcd	murmuration:explorer	explorer-w99-1	SubagentHandback	1	10	71	U:tool_result	0	0	delivered	2026-10-21T15:57:53.174Z	notified:completed	ended_on_handback_result
+urmuration-w07-author-w07-3-runs-pair-90-A-lab	61193c51	a2da47f7	murmuration:explorer		SubagentHandback	1	9	65	U:tool_result	0	0	delivered	2026-10-21T15:50:45.197Z	delivered:[Subagent hand-back]	ended_on_handback_result
+urmuration-w07-author-w07-3-runs-pair-90-B-lab	8c3af47e	ac3091c0	murmuration:explorer	explorer-w99-1	SubagentHandback	1	9	65	U:tool_result	0	0	delivered	2026-10-21T15:50:52.762Z	notified:completed	ended_on_handback_result
+p-murmuration-w07-author-w07-3-runs-x2-1-A-lab	d386d290	ac4b92f1	murmuration:explorer	explorer-w99-1	SubagentHandback	1	5	44	U:tool_result	0	0	delivered	2026-10-21T15:59:48.504Z	no-trace	ended_on_handback_result
+p-murmuration-w07-author-w07-3-runs-x2-1-B-lab	e60e9c1a	aa70044d	murmuration:explorer	explorer-w99-1	SubagentHandback	1	7	62	U:tool_result	0	0	delivered	2026-10-21T16:01:18.612Z	no-trace	ended_on_handback_result
+tmp-murmuration-w07-author-w07-6-quick-work-A1	47791b29	abab2320	murmuration:author		SubagentHandback	1	5	47	U:tool_result	0	0	delivered	2026-10-21T16:10:52.488Z	no-trace	ended_on_handback_result
+tmp-murmuration-w07-author-w07-6-quick-work-B1	2ce5a512	a06d8b73	murmuration:author	author-test	SubagentHandback	1	5	47	U:tool_result	0	0	delivered	2026-10-21T16:11:21.908Z	notified:completed	ended_on_handback_result
+ivate-tmp-murmuration-w07-author-w07-6-work-A1	047e48a1	a3b26a0d	murmuration:author	author-test	SubagentHandback	1	5	47	U:tool_result	0	0	delivered	2026-10-21T16:02:04.559Z	no-trace	ended_on_handback_result
+ivate-tmp-murmuration-w07-author-w07-6-work-A2	d9117336	ae883a09	murmuration:author	author-test	SubagentHandback	1	5	43	U:tool_result	0	0	delivered	2026-10-21T16:03:13.658Z	notified:completed	ended_on_handback_result
+ivate-tmp-murmuration-w07-author-w07-6-work-A3	be5c1dee	a17a7b98	murmuration:author	author-test	SubagentHandback	1	4	43	U:tool_result	0	0	delivered	2026-10-21T16:09:50.300Z	notified:completed	ended_on_handback_result
+ivate-tmp-murmuration-w07-author-w07-6-work-B1	f6b84b3a	a97f6542	murmuration:author	author-test	SubagentHandback	1	5	46	U:tool_result	0	0	delivered	2026-10-21T16:02:45.521Z	no-trace	ended_on_handback_result
+ivate-tmp-murmuration-w07-author-w07-6-work-B2	b03eaeb3	ae53b4dc	murmuration:author	author-test	SubagentHandback	1	5	47	U:tool_result	0	0	delivered	2026-10-21T16:03:34.554Z	notified:completed	ended_on_handback_result
+ivate-tmp-murmuration-w07-author-w07-6-work-B3	04e3ec1c	afd2eabd	murmuration:author	author-test	SubagentHandback	1	4	43	U:tool_result	0	0	delivered	2026-10-21T16:09:46.648Z	notified:completed	ended_on_handback_result
+rmuration-w07-explorer-w07-c-runs-http-sub-cwd	17d17462	ab16b6cc	w7c:worker	worker-1	Bash	0	2	43	A:end_turn:text	0	0		2026-10-21T15:37:17.213Z	notified:completed	final_text
+tion-w07-explorer-w07-c-runs-sub-stop-dead-cwd	3d6209c7	afcf4254	w7c:worker	worker-1	Bash	0	1	22	A:end_turn:text	0	0		2026-10-21T15:37:28.881Z	notified:completed	final_text
+uration-w07-reproducer-w07-3-runs-pair-1-A-lab	5cad9e39	a8c1e131	murmuration:explorer	explorer-w99-1	SubagentHandback	1	8	48	U:tool_result	0	0	delivered	2026-10-21T16:11:25.021Z	notified:completed	ended_on_handback_result
+uration-w07-reproducer-w07-3-runs-pair-1-B-lab	4f0ae650	a26bb4c8	murmuration:explorer	explorer-w99-1	SubagentHandback	1	9	64	U:tool_result	0	0	delivered	2026-10-21T16:11:30.951Z	notified:completed	ended_on_handback_result
+uration-w07-reproducer-w07-3-runs-pair-2-A-lab	8bcec61b	a75d581c	murmuration:explorer	explorer-w99-1	SubagentHandback	1	10	54	U:tool_result	0	0	delivered	2026-10-21T16:12:08.025Z	notified:completed	ended_on_handback_result
+uration-w07-reproducer-w07-3-runs-pair-2-B-lab	c6019078	a7e85b19	murmuration:explorer	explorer-w99-1	SubagentHandback	1	10	56	U:tool_result	0	0	delivered	2026-10-21T16:12:09.406Z	no-trace	ended_on_handback_result
+uration-w07-reproducer-w07-3-runs-pair-3-A-lab	4a656a00	a6fafd33	murmuration:explorer		SubagentHandback	1	10	67	U:tool_result	0	0	delivered	2026-10-21T16:12:53.722Z	delivered:[Subagent hand-back]	ended_on_handback_result
+uration-w07-reproducer-w07-3-runs-pair-3-B-lab	74d5af80	a3ac8805	murmuration:explorer		SubagentHandback	1	10	65	U:tool_result	0	0	delivered	2026-10-21T16:12:52.776Z	no-trace	ended_on_handback_result
+uration-w07-reproducer-w07-3-runs-pair-4-A-lab	dcfa2aed	aec2554f	murmuration:explorer	explorer-w99-1	SubagentHandback	1	9	65	U:tool_result	0	0	delivered	2026-10-21T16:13:34.733Z	no-trace	ended_on_handback_result
+uration-w07-reproducer-w07-3-runs-pair-4-B-lab	64be86a1	af73e783	murmuration:explorer	explorer-w99-1	SubagentHandback	1	8	60	U:tool_result	0	0	delivered	2026-10-21T16:13:27.026Z	no-trace	ended_on_handback_result
+uration-w07-reproducer-w07-3-runs-pair-5-A-lab	483a39e6	ac858c2b	murmuration:explorer	explorer-w99-1	SubagentHandback	1	9	62	U:tool_result	0	0	delivered	2026-10-21T16:14:09.571Z	notified:completed	ended_on_handback_result
+uration-w07-reproducer-w07-3-runs-pair-5-B-lab	9516950c	a952a2de	murmuration:explorer		SubagentHandback	1	9	52	U:tool_result	0	0	delivered	2026-10-21T16:14:07.305Z	no-trace	ended_on_handback_result
+uration-w07-reproducer-w07-3-runs-pair-6-A-lab	b2ad6c83	a3a3360f	murmuration:explorer		SubagentHandback	1	10	70	U:tool_result	0	0	delivered	2026-10-21T16:14:52.497Z	no-trace	ended_on_handback_result
+uration-w07-reproducer-w07-3-runs-pair-6-B-lab	fd8d531b	a2d396f2	murmuration:explorer		SubagentHandback	1	10	68	U:tool_result	0	0	delivered	2026-10-21T16:14:45.989Z	no-trace	ended_on_handback_result
+rmuration-w07-reproducer-w07-3-runs-x2-1-A-lab	c3c7d27c	ac51b5c3	murmuration:explorer		SubagentHandback	1	5	46	U:tool_result	0	0	delivered	2026-10-21T16:10:32.310Z	no-trace	ended_on_handback_result
+rmuration-w07-reproducer-w07-3-runs-x2-1-B-lab	42d077c5	ac0e984f	murmuration:explorer	explorer-w99-1	SubagentHandback	1	6	45	U:tool_result	0	0	delivered	2026-10-21T16:10:40.082Z	no-trace	ended_on_handback_result
+e-tmp-murmuration-w07-reproducer-w07-6-work-A4	5039ccd1	a1a64325	murmuration:author	author-test	SubagentHandback	1	4	43	U:tool_result	0	0	delivered	2026-10-21T16:28:36.832Z	notified:completed	ended_on_handback_result
+e-tmp-murmuration-w07-reproducer-w07-6-work-A4	9a26f1d4	a696f126	murmuration:author	author-test	SubagentHandback	1	4	40	U:tool_result	0	0	delivered	2026-10-21T16:20:58.940Z	no-trace	ended_on_handback_result
+e-tmp-murmuration-w07-reproducer-w07-6-work-AR	da799863	a9009ce3	murmuration:author	author-test	SubagentHandback	2	4	41	U:tool_result	0	0	delivered	2026-10-21T16:21:00.241Z	notified:completed	ended_on_handback_result
+e-tmp-murmuration-w07-reproducer-w07-6-work-B4	04423bfe	a8bcc756	murmuration:author	author-test	Bash	0	2	30	U:tool_result	0	0		2026-10-21T16:22:27.827Z	async-launch-only	other
+e-tmp-murmuration-w07-reproducer-w07-6-work-BC	c95d6170	af6c02fc	murmuration:author	author-test	SubagentHandback	2	6	59	U:tool_result	0	0	delivered	2026-10-21T16:40:25.285Z	notified:completed	ended_on_handback_result
+e-tmp-murmuration-w07-reproducer-w07-6-work-BR	4f13bb47	a5f8df54	murmuration:author		SubagentHandback	1	2	29	U:tool_result	0	0	delivered	2026-10-21T16:21:22.812Z	no-trace	ended_on_handback_result
+tion-w07-reproducer-w07-7-runs-pi-terminal-lab	011d4e75	a490696e	murmuration:explorer	explorer-w99-1	SubagentHandback	1	3	37	U:tool_result	0	0	delivered	2026-10-21T17:23:02.023Z	no-trace	ended_on_handback_result
+tion-w07-reproducer-w07-7-runs-pi-terminal-lab	011d4e75	ab542104	murmuration:author	author-w99-2	SubagentHandback	1	3	37	U:tool_result	0	0	delivered	2026-10-21T17:22:57.178Z	no-trace	ended_on_handback_result
+n-w07-reproducer-w07-7-runs-r2-pi-terminal-lab	67855f76	a799808d	murmuration:author	author-w99-2	SubagentHandback	1	3	37	U:tool_result	0	0	delivered	2026-10-21T17:24:15.616Z	no-trace	ended_on_handback_result
+n-w07-reproducer-w07-7-runs-r2-pi-terminal-lab	67855f76	afd9fcd1	murmuration:explorer	explorer-w99-1	SubagentHandback	1	6	56	U:tool_result	0	0	delivered	2026-10-21T17:26:25.040Z	no-trace	ended_on_handback_result
+n-w08-author-w08-2-live-runs-a-nopath-auto-lab	29b8985d	a1c2a551	murmuration:author		SubagentHandback	2	5	48	U:tool_result	0	0	delivered	2026-10-23T15:54:21.887Z	async-launch-only	ended_on_handback_result
+tion-w08-author-w08-2-live-runs-a-off-auto-lab	3632e486	ac5202ea	murmuration:author		SubagentHandback	1	11	92	U:tool_result	0	0	delivered	2026-10-23T15:54:51.982Z	async-launch-only	ended_on_handback_result
+ation-w08-author-w08-2-live-runs-a-on-auto-lab	6126b6d8	ab6114c7	murmuration:author		SubagentHandback	2	23	160	U:tool_result	0	0	delivered	2026-10-23T15:55:30.300Z	async-launch-only	ended_on_handback_result
+on-w08-author-w08-2-live-runs-a-on-auto-r2-lab	a1948c35	af9c6954	murmuration:author		SubagentHandback	2	15	120	U:tool_result	0	0	delivered	2026-10-23T15:59:43.738Z	async-launch-only	ended_on_handback_result
+on-w08-author-w08-2-live-runs-a-on-auto-r3-lab	9e9b218c	aedf3460	murmuration:author	author-w08-x12	SubagentHandback	2	19	141	U:tool_result	0	0	delivered	2026-10-23T15:59:51.659Z	async-launch-only	ended_on_handback_result
+tion-w08-author-w08-2-live-runs-e-off-auto-lab	0a88a116	a7699f4d	murmuration:explorer		SubagentHandback	1	7	58	U:tool_result	0	0	delivered	2026-10-23T15:51:28.941Z	async-launch-only	ended_on_handback_result
+ation-w08-author-w08-2-live-runs-e-on-auto-lab	b50119f0	a964f7fc	murmuration:explorer		SubagentHandback	1	8	65	U:tool_result	0	0	delivered	2026-10-23T15:40:29.010Z	async-launch-only	ended_on_handback_result
+ation-w08-author-w08-2-live-runs-e-on-auto-lab	d8d688a8	ad27e716	murmuration:explorer		SubagentHandback	2	12	103	U:tool_result	0	0	delivered	2026-10-23T15:43:42.232Z	async-launch-only	ended_on_handback_result
+on-w08-author-w08-2-live-runs-e-on-auto-r2-lab	38d78ec5	a20ec0ed	murmuration:explorer		SubagentHandback	2	11	92	U:tool_result	0	0	delivered	2026-10-23T15:59:23.688Z	async-launch-only	ended_on_handback_result
+on-w08-author-w08-2-live-runs-e-on-auto-r3-lab	fc7a7e3c	a0c64530	murmuration:explorer		SubagentHandback	1	19	80	U:tool_result	0	0	delivered	2026-10-23T15:58:38.538Z	async-launch-only	ended_on_handback_result
+on-w08-author-w08-2-live-runs-e-on-default-lab	24473558	a3ac7753	murmuration:explorer	explorer-w08-x2	Write	0	20	98	A:end_turn:text	0	0		2026-10-23T15:56:59.649Z	async-launch-only	final_text
+n-w08-author-w08-2-live-runs-e-repeat-auto-lab	d0b821d4	a9ffdf8f	murmuration:explorer		SubagentHandback	2	14	126	U:tool_result	0	0	delivered	2026-10-23T15:52:58.869Z	async-launch-only	ended_on_handback_result
+on-w08-author-w08-2-live-runs-e-short-auto-lab	fcd80dee	a24f221e	murmuration:explorer	explorer-w08-x4	SubagentHandback	1	6	51	U:tool_result	0	0	delivered	2026-10-23T15:51:03.314Z	async-launch-only	ended_on_handback_result
+tion-w08-author-w08-2-qlive-runs-e-on-auto-lab	1a7cbc24	a70f08fb	murmuration:explorer		SubagentHandback	2	17	114	U:tool_result	0	0	delivered	2026-10-23T16:06:21.696Z	async-launch-only	ended_on_handback_result
+n-w08-author-w08-2-qlive-runs-e-short-auto-lab	34551f12	a5dabe44	murmuration:explorer	explorer-w08-x4	SubagentHandback	1	6	46	U:tool_result	0	0	delivered	2026-10-23T16:04:21.583Z	notified:completed	ended_on_handback_result
+urmuration-w08-author-w08-3-cells-sub-comp-lab	110dc930	af4e93eb	general-purpose		Read	0	1	29	A:end_turn:text	0	0		2026-10-23T16:07:58.831Z	delivered:[Subagent hand-back]	final_text
+urmuration-w08-author-w08-3-cells-sub-comp-lab	4750439b	a5849622	general-purpose		Read	0	7	125	A:end_turn:text	0	0		2026-10-23T16:09:58.900Z	delivered:[Subagent hand-back]	final_text
+murmuration-w08-author-w08-3-cells-sub-ctl-lab	1e2c33eb	a52437ea	general-purpose		Read	0	1	29	A:end_turn:text	0	0		2026-10-23T16:08:18.288Z	delivered:[Subagent hand-back]	final_text
+murmuration-w08-author-w08-3-cells-sub-ctl-lab	b59e1e82	a053af15	general-purpose		Read	0	8	66	A:end_turn:text	0	0		2026-10-23T16:10:33.730Z	delivered:[Subagent hand-back]	final_text
+-murmuration-w08-author-w08-5-S-live-py-bg-lab	0d60e600	a0a9c998	murmuration:author		None	0	0	20	A:end_turn:text	0	0		2026-10-23T16:41:01.957Z	notified:completed	final_text
+-murmuration-w08-author-w08-5-S-live-py-bg-lab	0d60e600	a1736916	murmuration:author		None	0	0	20	A:end_turn:text	0	0		2026-10-23T16:41:01.383Z	notified:completed	final_text
+-murmuration-w08-author-w08-5-S-live-py-bg-lab	0d60e600	a242bccc	murmuration:author		None	0	0	20	A:end_turn:text	0	0		2026-10-23T16:41:00.903Z	notified:completed	final_text
+-murmuration-w08-author-w08-5-S-live-py-bg-lab	0d60e600	ae0ceb61	murmuration:author		None	0	0	20	A:end_turn:text	0	0		2026-10-23T16:41:00.197Z	notified:completed	final_text
+-murmuration-w08-author-w08-5-S-live-py-fg-lab	b30c9b3c	a4ac97c0	murmuration:author		None	0	0	20	A:None:text	0	0		2026-10-23T16:40:42.355Z	delivered:[Subagent hand-back]	other
+-murmuration-w08-author-w08-5-S-live-py-fg-lab	b30c9b3c	ad235f81	murmuration:author		None	0	0	20	A:end_turn:text	0	0		2026-10-23T16:40:41.549Z	delivered:[Subagent hand-back]	final_text
+-murmuration-w08-author-w08-5-S-live-py-fg-lab	b30c9b3c	aea8df78	murmuration:author		None	0	0	20	A:end_turn:text	0	0		2026-10-23T16:40:42.434Z	delivered:[Subagent hand-back]	final_text
+-murmuration-w08-author-w08-5-S-live-py-fg-lab	b30c9b3c	af4f7853	murmuration:author		None	0	0	20	A:end_turn:text	0	0		2026-10-23T16:40:42.257Z	delivered:[Subagent hand-back]	final_text
+tmp-murmuration-w08-author-w08-5-S-live-r2-lab	f1f2ab88	a1a3b430	w08c5-r2:author		None	0	0	19	A:None:text	0	0		2026-10-23T16:27:25.327Z	delivered:[Subagent hand-back]	other
+tmp-murmuration-w08-author-w08-5-S-live-r2-lab	f1f2ab88	a836310b	w08c5-r2:author		None	0	0	19	A:end_turn:text	0	0		2026-10-23T16:27:25.903Z	delivered:[Subagent hand-back]	final_text
+tmp-murmuration-w08-author-w08-5-S-live-r2-lab	f1f2ab88	aade0299	w08c5-r2:author		None	0	0	19	A:end_turn:text	0	0		2026-10-23T16:27:25.106Z	delivered:[Subagent hand-back]	final_text
+tmp-murmuration-w08-author-w08-5-S-live-r2-lab	f1f2ab88	ab463f63	w08c5-r2:author		None	0	0	19	A:end_turn:text	0	0		2026-10-23T16:27:26.228Z	delivered:[Subagent hand-back]	final_text
+tmp-murmuration-w08-author-w08-5-S-live-r3-lab	5fa497b1	a7802cc1	w08c5-r3:author		None	0	0	19	A:end_turn:text	0	0		2026-10-23T16:27:50.124Z	notified:completed	final_text
+tmp-murmuration-w08-author-w08-5-S-live-r3-lab	5fa497b1	a78a4385	w08c5-r3:author		None	0	0	19	A:end_turn:text	0	0		2026-10-23T16:27:50.336Z	notified:completed	final_text
+tmp-murmuration-w08-author-w08-5-S-live-r3-lab	5fa497b1	a914a0a5	w08c5-r3:author		None	0	0	19	A:end_turn:text	0	0		2026-10-23T16:27:50.671Z	notified:completed	final_text
+tmp-murmuration-w08-author-w08-5-S-live-r3-lab	5fa497b1	ac9f310b	w08c5-r3:author		None	0	0	19	A:end_turn:text	0	0		2026-10-23T16:27:51.210Z	notified:completed	final_text
+tmp-murmuration-w08-author-w08-5-S-live-r4-lab	36efb573	a76ba97a	w08c5-r4:author		None	0	0	19	A:end_turn:text	0	0		2026-10-23T16:28:34.217Z	delivered:[Subagent hand-back]	final_text
+tmp-murmuration-w08-author-w08-5-S-live-r4-lab	36efb573	a83d844f	w08c5-r4:author		None	0	0	19	A:end_turn:text	0	0		2026-10-23T16:28:33.916Z	delivered:[Subagent hand-back]	final_text
+tmp-murmuration-w08-author-w08-5-S-live-r4-lab	36efb573	ab0fc90e	w08c5-r4:author		None	0	0	19	A:end_turn:text	0	0		2026-10-23T16:28:35.080Z	delivered:[Subagent hand-back]	final_text
+tmp-murmuration-w08-author-w08-5-S-live-r4-lab	36efb573	afb651c3	w08c5-r4:author		None	0	0	19	A:end_turn:text	0	0		2026-10-23T16:28:34.674Z	delivered:[Subagent hand-back]	final_text
+-murmuration-w08-author-w08-5-S-live-rs-bg-lab	657e120c	a6459c6f	murmuration:author		None	0	0	20	A:end_turn:text	0	0		2026-10-23T16:41:41.975Z	notified:completed	final_text
+-murmuration-w08-author-w08-5-S-live-rs-bg-lab	657e120c	aa380897	murmuration:author		None	0	0	20	A:end_turn:text	0	0		2026-10-23T16:41:41.539Z	notified:completed	final_text
+-murmuration-w08-author-w08-5-S-live-rs-bg-lab	657e120c	abe0e7b0	murmuration:author		None	0	0	20	A:end_turn:text	0	0		2026-10-23T16:41:40.445Z	async-launch-only	final_text
+-murmuration-w08-author-w08-5-S-live-rs-bg-lab	657e120c	abfa43fc	murmuration:author		None	0	0	20	A:end_turn:text	0	0		2026-10-23T16:41:42.049Z	notified:completed	final_text
+-murmuration-w08-author-w08-5-S-live-rs-fg-lab	903ba537	a0c21c6d	murmuration:author		None	0	0	20	A:end_turn:text	0	0		2026-10-23T16:41:20.410Z	notified:completed	final_text
+-murmuration-w08-author-w08-5-S-live-rs-fg-lab	903ba537	a0e46167	murmuration:author		None	0	0	20	A:end_turn:text	0	0		2026-10-23T16:41:21.884Z	notified:completed	final_text
+-murmuration-w08-author-w08-5-S-live-rs-fg-lab	903ba537	a3968333	murmuration:author		None	0	0	20	A:end_turn:text	0	0		2026-10-23T16:41:21.236Z	notified:completed	final_text
+-murmuration-w08-author-w08-5-S-live-rs-fg-lab	903ba537	ab11f664	murmuration:author		None	0	0	20	A:end_turn:text	0	0		2026-10-23T16:41:21.691Z	notified:completed	final_text
+ration-w08-explorer-w08-e-runs-e2-subagent-lab	7558dbbc	add2007e	general-purpose		Read	0	6	130	A:stop_sequence:text	0	0		2026-10-23T15:47:12.531Z	no-trace	other
+urmuration-w08-explorer-w08-f-work-S-default-1	afbb5070	ab9fb051	w08f:th-default	solver	SubagentHandback	1	7	65	U:tool_result	0	0	delivered	2026-10-23T15:43:16.519Z	no-trace	ended_on_handback_result
+urmuration-w08-explorer-w08-f-work-S-default-2	c40b5549	a00c24fa	w08f:th-default	solver	SubagentHandback	1	7	57	U:tool_result	0	0	delivered	2026-10-23T15:44:05.934Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-f-work-S-default-3	0425e539	abccf7c5	w08f:th-default	solver	SubagentHandback	1	7	65	U:tool_result	0	0	delivered	2026-10-23T15:44:50.205Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-f-work-S-high-1	53650d95	ad7ccf5d	w08f:th-high	solver	SubagentHandback	1	7	57	U:tool_result	0	0	delivered	2026-10-23T15:43:17.584Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-f-work-S-high-2	5fe1beb0	a8b0a020	w08f:th-high	solver	SubagentHandback	1	7	57	U:tool_result	0	0	delivered	2026-10-23T15:44:05.236Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-f-work-S-high-3	baa8769b	a6ee1c40	w08f:th-high	solver	SubagentHandback	1	7	57	U:tool_result	0	0	delivered	2026-10-23T15:44:56.721Z	notified:completed	ended_on_handback_result
+mp-murmuration-w08-explorer-w08-f-work-S-low-1	9f78c892	aaa97f97	w08f:th-low	solver	SubagentHandback	1	7	56	U:tool_result	0	0	delivered	2026-10-23T15:43:13.450Z	notified:completed	ended_on_handback_result
+mp-murmuration-w08-explorer-w08-f-work-S-low-2	c8fd1dcc	ad7b678d	w08f:th-low	solver	SubagentHandback	1	7	62	U:tool_result	0	0	delivered	2026-10-23T15:44:05.997Z	notified:completed	ended_on_handback_result
+mp-murmuration-w08-explorer-w08-f-work-S-low-3	76760015	a0684e50	w08f:th-low	solver	SubagentHandback	1	7	61	U:tool_result	0	0	delivered	2026-10-23T15:45:03.237Z	notified:completed	ended_on_handback_result
+mp-murmuration-w08-explorer-w08-f-work-S-max-1	b60f8d14	ae980b8f	w08f:th-max	solver	SubagentHandback	1	7	57	U:tool_result	0	0	delivered	2026-10-23T15:43:35.124Z	notified:completed	ended_on_handback_result
+mp-murmuration-w08-explorer-w08-f-work-S-max-2	24f2a0ef	a62490d7	w08f:th-max	solver	SubagentHandback	1	7	57	U:tool_result	0	0	delivered	2026-10-23T15:44:19.328Z	notified:completed	ended_on_handback_result
+mp-murmuration-w08-explorer-w08-f-work-S-max-3	d7e351b5	af483e50	w08f:th-max	solver	SubagentHandback	1	7	57	U:tool_result	0	0	delivered	2026-10-23T15:45:00.670Z	notified:completed	ended_on_handback_result
+rmuration-w08-explorer-w08-f-work-VA-default-1	159fc68b	a8e4c941	w08f:vf-default	verifier	SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-23T15:46:11.820Z	notified:completed	ended_on_handback_result
+rmuration-w08-explorer-w08-f-work-VA-default-2	1af98a87	aba4887a	w08f:vf-default	verifier	SubagentHandback	1	5	45	U:tool_result	0	0	delivered	2026-10-23T15:47:30.462Z	notified:completed	ended_on_handback_result
+rmuration-w08-explorer-w08-f-work-VA-default-3	ca679ddd	a425439d	w08f:vf-default	verifier	SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-23T15:48:46.017Z	notified:completed	ended_on_handback_result
+-murmuration-w08-explorer-w08-f-work-VA-high-1	b6332d46	a2c08eaf	w08f:vf-high	verifier	SubagentHandback	1	4	41	U:tool_result	0	0	delivered	2026-10-23T15:46:04.127Z	notified:completed	ended_on_handback_result
+-murmuration-w08-explorer-w08-f-work-VA-high-2	051c491b	a72ce34f	w08f:vf-high	verifier	SubagentHandback	1	4	39	U:tool_result	0	0	delivered	2026-10-23T15:47:31.183Z	notified:completed	ended_on_handback_result
+-murmuration-w08-explorer-w08-f-work-VA-high-3	75a04ab3	a860a83e	w08f:vf-high	verifier	SubagentHandback	1	4	41	U:tool_result	0	0	delivered	2026-10-23T15:48:43.345Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-f-work-VA-low-1	cee8a138	a21a4470	w08f:vf-low	verifier	SubagentHandback	1	4	37	U:tool_result	0	0	delivered	2026-10-23T15:46:00.741Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-f-work-VA-low-2	c4488c8b	abe40671	w08f:vf-low	verifier	SubagentHandback	1	4	37	U:tool_result	0	0	delivered	2026-10-23T15:47:29.242Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-f-work-VA-low-3	efde2d2e	a1d26aca	w08f:vf-low	verifier	SubagentHandback	1	4	39	U:tool_result	0	0	delivered	2026-10-23T15:48:45.173Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-f-work-VA-max-1	9ab08e22	a3ea7340	w08f:vf-max	verifier	SubagentHandback	1	7	58	U:tool_result	0	0	delivered	2026-10-23T15:47:08.393Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-f-work-VA-max-2	617e1f1f	a0258166	w08f:vf-max	verifier	SubagentHandback	1	7	58	U:tool_result	0	0	delivered	2026-10-23T15:48:18.676Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-f-work-VA-max-3	36eb0bea	a85b7081	w08f:vf-max	verifier	SubagentHandback	1	6	49	U:tool_result	0	0	delivered	2026-10-23T15:49:52.589Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-f-work-VA-medium-1	1f10b8ba	a8da9ffb	w08f:vf-medium	verifier	SubagentHandback	1	5	45	U:tool_result	0	0	delivered	2026-10-23T15:46:03.340Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-f-work-VA-medium-2	6cebc26b	a0b007cc	w08f:vf-medium	verifier	SubagentHandback	1	5	45	U:tool_result	0	0	delivered	2026-10-23T15:47:30.686Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-f-work-VA-medium-3	cc3ab76d	aa3f0760	w08f:vf-medium	verifier	SubagentHandback	1	5	45	U:tool_result	0	0	delivered	2026-10-23T15:48:46.170Z	notified:completed	ended_on_handback_result
+rmuration-w08-explorer-w08-f-work-VB-default-1	ec6ef702	a354a9fe	w08f:vf-default	verifier	SubagentHandback	1	5	45	U:tool_result	0	0	delivered	2026-10-23T15:50:19.426Z	notified:completed	ended_on_handback_result
+rmuration-w08-explorer-w08-f-work-VB-default-2	ad428bac	a5ff66a9	w08f:vf-default	verifier	SubagentHandback	1	4	39	U:tool_result	0	0	delivered	2026-10-23T15:52:03.544Z	notified:completed	ended_on_handback_result
+rmuration-w08-explorer-w08-f-work-VB-default-3	140fee92	a42b7686	w08f:vf-default	verifier	SubagentHandback	1	4	37	U:tool_result	0	0	delivered	2026-10-23T15:53:31.581Z	notified:completed	ended_on_handback_result
+-murmuration-w08-explorer-w08-f-work-VB-high-1	0068dc39	a7a9d586	w08f:vf-high	verifier	SubagentHandback	1	5	46	U:tool_result	0	0	delivered	2026-10-23T15:50:18.744Z	notified:completed	ended_on_handback_result
+-murmuration-w08-explorer-w08-f-work-VB-high-2	5a577063	a466b392	w08f:vf-high	verifier	SubagentHandback	1	5	43	U:tool_result	0	0	delivered	2026-10-23T15:52:05.685Z	notified:completed	ended_on_handback_result
+-murmuration-w08-explorer-w08-f-work-VB-high-3	1ed1599d	aead59ef	w08f:vf-high	verifier	SubagentHandback	1	4	38	U:tool_result	0	0	delivered	2026-10-23T15:53:31.623Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-f-work-VB-low-1	2a36eced	ab8ac460	w08f:vf-low	verifier	SubagentHandback	1	4	36	U:tool_result	0	0	delivered	2026-10-23T15:50:12.073Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-f-work-VB-low-2	9cc7825f	a4a2eaa5	w08f:vf-low	verifier	SubagentHandback	1	4	38	U:tool_result	0	0	delivered	2026-10-23T15:51:59.047Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-f-work-VB-low-3	544a62be	a60838dc	w08f:vf-low	verifier	SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-23T15:53:33.218Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-f-work-VB-max-1	fc552f77	a05f0c1b	w08f:vf-max	verifier	SubagentHandback	1	7	57	U:tool_result	0	0	delivered	2026-10-23T15:51:38.547Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-f-work-VB-max-2	0ae25830	a74171b3	w08f:vf-max	verifier	SubagentHandback	1	8	61	U:tool_result	0	0	delivered	2026-10-23T15:53:08.567Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-f-work-VB-max-3	8398b5b5	aa124354	w08f:vf-max	verifier	SubagentHandback	1	8	60	U:tool_result	0	0	delivered	2026-10-23T15:54:55.202Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-f-work-VB-medium-1	42cdaeaa	a36d6ff0	w08f:vf-medium	verifier	SubagentHandback	1	5	45	U:tool_result	0	0	delivered	2026-10-23T15:50:16.666Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-f-work-VB-medium-2	9ef7f776	ad6a628d	w08f:vf-medium	verifier	SubagentHandback	1	5	43	U:tool_result	0	0	delivered	2026-10-23T15:52:03.256Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-f-work-VB-medium-3	54285317	ab92e4fa	w08f:vf-medium	verifier	SubagentHandback	1	4	39	U:tool_result	0	0	delivered	2026-10-23T15:53:32.134Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-g-t2-work-V-base-1	95a44074	a6f4d10f	w08g:vf-base	verifier	SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-23T16:08:58.602Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-g-t2-work-V-base-2	3f6690df	ac17188c	w08g:vf-base	verifier	SubagentHandback	1	5	41	U:tool_result	0	0	delivered	2026-10-23T16:09:34.989Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-g-t2-work-V-base-3	884974d3	a1628ef9	w08g:vf-base	verifier	SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-23T16:10:13.255Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-g-t2-work-V-base-4	86d24e7e	a300e767	w08g:vf-base	verifier	SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-23T16:10:52.368Z	notified:completed	ended_on_handback_result
+muration-w08-explorer-w08-g-t2-work-V-lever1-1	c3c480e7	af6f684f	w08g:vf-lever1	verifier	SubagentHandback	1	4	39	U:tool_result	0	0	delivered	2026-10-23T16:09:16.455Z	notified:completed	ended_on_handback_result
+muration-w08-explorer-w08-g-t2-work-V-lever1-2	9d867f39	a7d7df72	w08g:vf-lever1	verifier	SubagentHandback	1	5	41	U:tool_result	0	0	delivered	2026-10-23T16:09:52.878Z	notified:completed	ended_on_handback_result
+muration-w08-explorer-w08-g-t2-work-V-lever1-3	84963e76	afd6c2d8	w08g:vf-lever1	verifier	SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-23T16:10:32.316Z	notified:completed	ended_on_handback_result
+muration-w08-explorer-w08-g-t2-work-V-lever1-4	2ef34d84	a5b92722	w08g:vf-lever1	verifier	SubagentHandback	1	5	41	U:tool_result	0	0	delivered	2026-10-23T16:11:11.220Z	notified:completed	ended_on_handback_result
+murmuration-w08-explorer-w08-g-t2-work-W0-base	3854996c	a9797056	w08g:vf-base	verifier	SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-23T16:08:20.282Z	notified:completed	ended_on_handback_result
+murmuration-w08-explorer-w08-g-t2-work-W0-base	efc07efa	a357df6b	w08g:vf-base	verifier	SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-23T16:08:39.466Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-g-t3-work-V-base-1	4385a83e	a73d9ddb	w08g:vf-base	verifier	SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-23T16:08:58.295Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-g-t3-work-V-base-2	79c11954	a3c89fb3	w08g:vf-base	verifier	SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-23T16:09:37.045Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-g-t3-work-V-base-3	80a81918	ae13085a	w08g:vf-base	verifier	SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-23T16:10:15.997Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-g-t3-work-V-base-4	c0bb8715	a0f08ea5	w08g:vf-base	verifier	SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-23T16:10:58.081Z	notified:completed	ended_on_handback_result
+muration-w08-explorer-w08-g-t3-work-V-lever1-1	67418bfc	a1d879e3	w08g:vf-lever1	verifier	SubagentHandback	1	5	41	U:tool_result	0	0	delivered	2026-10-23T16:09:16.877Z	notified:completed	ended_on_handback_result
+muration-w08-explorer-w08-g-t3-work-V-lever1-2	53bcdc1c	ae48a058	w08g:vf-lever1	verifier	SubagentHandback	1	4	39	U:tool_result	0	0	delivered	2026-10-23T16:09:56.969Z	notified:completed	ended_on_handback_result
+muration-w08-explorer-w08-g-t3-work-V-lever1-3	374ab962	a1a55f37	w08g:vf-lever1	verifier	SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-23T16:10:35.898Z	notified:completed	ended_on_handback_result
+muration-w08-explorer-w08-g-t3-work-V-lever1-4	c0ae87f6	a134ce83	w08g:vf-lever1	verifier	SubagentHandback	1	4	39	U:tool_result	0	0	delivered	2026-10-23T16:11:18.468Z	notified:completed	ended_on_handback_result
+murmuration-w08-explorer-w08-g-t3-work-W0-base	4cf30e4b	aca2507e	w08g:vf-base	verifier	SubagentHandback	1	5	43	U:tool_result	0	0	delivered	2026-10-23T16:08:20.741Z	notified:completed	ended_on_handback_result
+murmuration-w08-explorer-w08-g-t3-work-W0-base	9cd1bcbc	a3bfa884	w08g:vf-base	verifier	SubagentHandback	1	5	42	U:tool_result	0	0	delivered	2026-10-23T16:08:37.877Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-g-t4-work-V-base-1	0deebe33	a6c10a3d	w08g:vf-base	verifier	SubagentHandback	1	12	58	U:tool_result	0	0	delivered	2026-10-23T16:12:37.107Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-g-t4-work-V-base-2	836f8e2e	a3d46cc4	w08g:vf-base	verifier	SubagentHandback	1	12	58	U:tool_result	0	0	delivered	2026-10-23T16:13:25.841Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-g-t4-work-V-base-3	52b29f1e	a3fa76ca	w08g:vf-base	verifier	SubagentHandback	1	12	58	U:tool_result	0	0	delivered	2026-10-23T16:14:07.960Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-g-t4-work-V-base-4	b22ec1d6	ae7cff74	w08g:vf-base	verifier	SubagentHandback	1	12	59	U:tool_result	0	0	delivered	2026-10-23T16:14:55.336Z	notified:completed	ended_on_handback_result
+muration-w08-explorer-w08-g-t4-work-V-lever1-1	46814ea6	a7de3d5b	w08g:vf-lever1	verifier	SubagentHandback	1	12	59	U:tool_result	0	0	delivered	2026-10-23T16:13:02.305Z	notified:completed	ended_on_handback_result
+muration-w08-explorer-w08-g-t4-work-V-lever1-2	f50f70f0	a54d32a3	w08g:vf-lever1	verifier	SubagentHandback	1	11	51	U:tool_result	0	0	delivered	2026-10-23T16:13:45.127Z	notified:completed	ended_on_handback_result
+muration-w08-explorer-w08-g-t4-work-V-lever1-3	9dbfce01	a6bae454	w08g:vf-lever1	verifier	SubagentHandback	1	12	59	U:tool_result	0	0	delivered	2026-10-23T16:14:32.291Z	notified:completed	ended_on_handback_result
+muration-w08-explorer-w08-g-t4-work-V-lever1-4	203c8053	a764f999	w08g:vf-lever1	verifier	SubagentHandback	1	12	58	U:tool_result	0	0	delivered	2026-10-23T16:15:17.977Z	notified:completed	ended_on_handback_result
+murmuration-w08-explorer-w08-g-t4-work-W0-base	12257b91	ab26e39d	w08g:vf-base	verifier	SubagentHandback	1	12	58	U:tool_result	0	0	delivered	2026-10-23T16:12:13.655Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-g-t5-work-V-base-1	5557d0ee	ae146857	w08g:vf-base	verifier	SubagentHandback	1	19	70	U:tool_result	0	0	delivered	2026-10-23T16:12:43.274Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-g-t5-work-V-base-2	59406454	a8d09c87	w08g:vf-base	verifier	SubagentHandback	1	20	74	U:tool_result	0	0	delivered	2026-10-23T16:13:37.975Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-g-t5-work-V-base-3	e4d75c36	a7f10b27	w08g:vf-base	verifier	SubagentHandback	1	20	75	U:tool_result	0	0	delivered	2026-10-23T16:14:26.839Z	notified:completed	ended_on_handback_result
+urmuration-w08-explorer-w08-g-t5-work-V-base-4	175a9cae	aee4af31	w08g:vf-base	verifier	SubagentHandback	1	6	47	U:tool_result	0	0	delivered	2026-10-23T16:15:17.211Z	notified:completed	ended_on_handback_result
+muration-w08-explorer-w08-g-t5-work-V-lever1-1	be74c0ab	aa99f08d	w08g:vf-lever1	verifier	SubagentHandback	1	20	74	U:tool_result	0	0	delivered	2026-10-23T16:13:08.240Z	notified:completed	ended_on_handback_result
+muration-w08-explorer-w08-g-t5-work-V-lever1-2	a8602559	a438b45b	w08g:vf-lever1	verifier	SubagentHandback	1	6	49	U:tool_result	0	0	delivered	2026-10-23T16:14:01.054Z	notified:completed	ended_on_handback_result
+muration-w08-explorer-w08-g-t5-work-V-lever1-3	ab7950e0	aea3bd0e	w08g:vf-lever1	verifier	SubagentHandback	1	20	74	U:tool_result	0	0	delivered	2026-10-23T16:14:53.381Z	notified:completed	ended_on_handback_result
+muration-w08-explorer-w08-g-t5-work-V-lever1-4	1784ba3f	ae0c12d5	w08g:vf-lever1	verifier	SubagentHandback	1	19	67	U:tool_result	0	0	delivered	2026-10-23T16:15:41.307Z	notified:completed	ended_on_handback_result
+murmuration-w08-explorer-w08-g-t5-work-W0-base	0bcb916c	ad709794	w08g:vf-base	verifier	SubagentHandback	1	20	75	U:tool_result	0	0	delivered	2026-10-23T16:12:17.311Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-g-work-V-base-1	32624399	a0eab22b	w08g:vf-base	verifier	SubagentHandback	1	6	44	U:tool_result	0	0	delivered	2026-10-23T16:01:13.749Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-g-work-V-base-2	34da4f6a	a1dc4561	w08g:vf-base	verifier	SubagentHandback	1	5	41	U:tool_result	0	0	delivered	2026-10-23T16:02:08.754Z	notified:completed	ended_on_handback_result
+p-murmuration-w08-explorer-w08-g-work-V-base-3	f6f7e14d	a7337af3	w08g:vf-base	verifier	SubagentHandback	1	5	38	U:tool_result	0	0	delivered	2026-10-23T16:03:04.416Z	notified:completed	ended_on_handback_result
+murmuration-w08-explorer-w08-g-work-V-lever1-1	a21de970	a746f7d8	w08g:vf-lever1	verifier	SubagentHandback	1	5	38	U:tool_result	0	0	delivered	2026-10-23T16:01:31.194Z	notified:completed	ended_on_handback_result
+murmuration-w08-explorer-w08-g-work-V-lever1-2	f1538569	a8155442	w08g:vf-lever1	verifier	SubagentHandback	1	5	41	U:tool_result	0	0	delivered	2026-10-23T16:02:28.325Z	notified:completed	ended_on_handback_result
+murmuration-w08-explorer-w08-g-work-V-lever1-3	96f4558d	a037c7b3	w08g:vf-lever1	verifier	SubagentHandback	1	5	38	U:tool_result	0	0	delivered	2026-10-23T16:03:22.179Z	notified:completed	ended_on_handback_result
+murmuration-w08-explorer-w08-g-work-V-lever2-1	a06302b7	ac1da746	w08g:vf-lever2	verifier	SubagentHandback	1	5	38	U:tool_result	0	0	delivered	2026-10-23T16:01:50.059Z	notified:completed	ended_on_handback_result
+murmuration-w08-explorer-w08-g-work-V-lever2-2	ba9c5f57	a3c5c5e0	w08g:vf-lever2	verifier	SubagentHandback	1	5	38	U:tool_result	0	0	delivered	2026-10-23T16:02:45.031Z	notified:completed	ended_on_handback_result
+murmuration-w08-explorer-w08-g-work-V-lever2-3	c7c2bd6b	a54909c1	w08g:vf-lever2	verifier	SubagentHandback	1	5	41	U:tool_result	0	0	delivered	2026-10-23T16:03:42.263Z	notified:completed	ended_on_handback_result
+mp-murmuration-w08-explorer-w08-g-work-W0-base	ef4925d9	a44c85d6	w08g:vf-base	verifier	SubagentHandback	1	7	51	U:tool_result	0	0	delivered	2026-10-23T16:00:50.199Z	notified:completed	ended_on_handback_result
+vate-tmp-murmuration-w08-research-pi-smoke-lab	47f1b3bc	ab019ba4	murmuration:explorer		SubagentHandback	2	5	46	U:tool_result	0	0	delivered	2026-10-23T16:24:36.113Z	no-trace	ended_on_handback_result
+ate-tmp-murmuration-w08-research-pi-smoke2-lab	fcf88bb8	a14d3808	murmuration:explorer		SubagentHandback	2	3	36	U:tool_result	0	0	delivered	2026-10-23T18:18:56.231Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ate-tmp-murmuration-w08-research-pi-smoke2-lab	fcf88bb8	a96c436a	murmuration:explorer		SubagentHandback	2	5	43	U:tool_result	0	0	delivered	2026-10-23T18:19:00.147Z	delivered:[Subagent hand-back]	ended_on_handback_result
+ate-tmp-murmuration-w08-research-pi-smoke3-lab	da185666	a26e3cba	murmuration:explorer		SubagentHandback	1	6	48	U:tool_result	0	0	delivered	2026-10-23T18:55:19.693Z	no-trace	ended_on_handback_result
+ate-tmp-murmuration-w08-research-pi-smoke4-lab	c79d01e1	a97dc4e4	murmuration:explorer		SubagentHandback	1	6	43	U:tool_result	0	0	delivered	2026-10-23T20:06:41.710Z	no-trace	ended_on_handback_result

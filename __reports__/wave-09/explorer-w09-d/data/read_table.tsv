@@ -1,0 +1,965 @@
+label	turn	trig	kind	class	path	chars	whole	used_later	used_same_turn	repeat	repeat_after_own_write
+w123	1	H	bash-view	skill/reference	/Users/hacker/Documents/src/CrackingShells/Murmuration/skills/research-loop	2568	True	True	False	False	False
+w123	1	H	bash-view	other md	S/references/working_defaults.md	2568	True	True	False	False	False
+w123	1	H	bash-view	other md	S/references/waves.md	2568	True	True	False	False	False
+w123	1	H	git	report (older/other)	__reports__/genesis	1621	False	True	True	False	False
+w123	1	H	git	report (older/other)	__reports__/design_review	1621	False	False	False	False	False
+w123	1	H	write	other md	__design__/README.md	1389	False	True	False	False	False
+w123	1	H	write	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	1389	False	True	True	False	False
+w123	1	H	write	other	M/__design__	1389	False	True	True	False	False
+w123	1	H	bash-view	framing	__design__/framing.md	3192	True	True	True	False	False
+w123	1	H	bash-view	wave note	__statera__/wave-01.md	330	True	True	True	False	False
+w123	1	H	bash-view	statera other	__statera__/user_words.md	330	True	True	True	False	False
+w123	1	H	bash-view	other md	__roadmap__/murmuration/build/pilot/reflective_run.md	330	True	True	True	False	False
+w123	1	H	bash-view	statera other	__statera__/user_words.md	1946	True	True	True	True	False
+w123	1	H	bash-view	other md	__roadmap__/murmuration/build/pilot/reflective_run.md	1946	True	True	True	True	False
+w123	1	H	bash-view	transcript/data	.claude/settings.local.json	1946	True	True	False	False	False
+w123	1	H	bash-view	report (older/other)	__reports__/genesis/13-architecture_v6.md	5663	True	True	True	False	False
+w123	1	H	bash-view	report (older/other)	__reports__/design_review/00-review_opus_v0.md	5663	True	False	False	False	False
+w123	1	H	bash-view	plugin source	hooks/hooks.json	5663	True	True	True	False	False
+w123	1	H	read-whole	report (older/other)	/Users/hacker/Documents/src/CrackingShells/Murmuration/__reports__/genesis/12-architecture_v5.md	33409	True	True	True	False	False
+w123	1	H	read-whole	report (older/other)	/Users/hacker/Documents/src/CrackingShells/Murmuration/__reports__/design_review/00-review_fable_v0.md	12152	True	False	False	False	False
+w123	1	H	lab_status	lab_status		3929	False	False	False	False	False
+w123	1	H	bash-view	report (older/other)	__reports__/genesis/08-hooks_leverage_v0.md	6148	False	False	False	False	False
+w123	1	H	bash-view	plugin source	scripts/user_words.py	6148	False	True	False	False	False
+w123	1	H	bash-view	report (older/other)	__reports__/genesis/08-information_counsel_v0.md	4440	False	False	False	False	False
+w123	1	H	bash-view	report (older/other)	__reports__/genesis/06-stores_umbod_sustainability_v0.md	4440	False	False	False	False	False
+w123	2	H	bash-view	statera other	__statera__/user_words.md	490	True	True	True	True	False
+w123	2	H	bash-view	statera other	/Users/hacker/Documents/src/CrackingShells/Murmuration/__statera__/user_words.md	490	True	True	True	True	False
+w123	3	B	bash-view	puzzle file	__scrupuli__/wave-01-explorer-w01-e.md	1829	True	False	False	False	False
+w123	3	B	bash-view	report (older/other)	__reports__/reflective_run/w01/explorer-w01-e	1829	True	True	True	False	False
+w123	3	B	bash-view	transcript/data	.claude/projects/-Users-hacker-Documents-explore-combinatorics-on-binary/82e8a947-1a0c-441c-bc39-df8e2e5fa743.jsonl	1829	True	False	False	False	False
+w123	6	B	write	transcript/data	.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087.jsonl	1920	False	True	True	False	False
+w123	6	B	write	report (older/other)	__reports__/reflective_run/w01/explorer-w01-f/report.md	1920	False	True	True	False	False
+w123	6	B	write	report (older/other)	__reports__/reflective_run/w01/explorer-w01-f/report.md	1920	False	True	True	True	False
+w123	6	B	write	transcript/data	.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087.jsonl	22	False	True	True	True	False
+w123	6	B	write	report (older/other)	__reports__/reflective_run/w01/explorer-w01-c/report.md	22	False	True	True	True	False
+w123	6	B	write	report (older/other)	__reports__/reflective_run/w01/explorer-w01-c/report.md	22	False	True	True	True	False
+w123	6	B	write	transcript/data	.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087.jsonl	1109	False	True	True	True	False
+w123	6	B	write	report (older/other)	__reports__/reflective_run/w01/explorer-w01-c/report.md	1109	False	True	True	True	False
+w123	6	B	write	report (older/other)	__reports__/reflective_run/w01/explorer-w01-c/report.md	1109	False	True	True	True	False
+w123	6	B	write	report (older/other)	__reports__/reflective_run/tools/save_handback.py	357	False	True	True	False	False
+w123	6	B	write	transcript/data	.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087.jsonl	357	False	False	False	True	False
+w123	6	B	write	report (older/other)	__reports__/reflective_run/tools/save_handback.py	357	False	True	True	True	False
+w123	6	B	bash-query	report (older/other)	__reports__/reflective_run/w01	183	False	False	False	False	False
+w123	6	B	bash-query	report (older/other)	__reports__/reflective_run/w01	183	False	False	False	True	False
+w123	7	B	bash-view	transcript/data	.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087.jsonl	554	True	False	False	True	False
+w123	7	B	bash-view	report (older/other)	__reports__/reflective_run/tools/save_handback.py	554	True	True	False	True	False
+w123	7	B	bash-view	report (older/other)	__reports__/reflective_run/w01/explorer-w01-d/report.md	554	True	True	True	True	False
+w123	7	B	write	wave note	__statera__/wave-01.md	462	False	True	False	True	True
+w123	7	B	write	other md	w01/explorer-w01-d/report.md	462	False	True	False	True	False
+w123	7	B	write	wave note	__statera__/wave-01.md	462	False	True	False	True	False
+w123	8	B	bash-view	claim file	__pondus__/w01-c5.md	3747	False	False	False	False	False
+w123	11	B	bash-query	transcript/data	.claude/plugins/installed_plugins.json	6489	False	True	True	False	False
+w123	11	B	bash-query	transcript/data	.claude/plugins/installed_plugins.json	6489	False	True	True	True	False
+w123	13	B	bash-query	claim file	__pondus__/w01-c5.md	8277	False	False	False	True	False
+w123	18	B	lab_status	lab_status		1454	False	False	False	False	False
+w123	18	B	bash-query	claim file	__pondus__/w01-c1.md	494	False	True	False	False	False
+w123	18	B	bash-query	claim file	__pondus__/w01-c2.md	494	False	False	False	False	False
+w123	18	B	bash-query	report (older/other)	__reports__/reflective_run/w01/author-w01-1	494	False	True	True	False	False
+w123	26	B	lab_status	lab_status		23312	False	False	False	False	False
+w123	26	B	write	framing	__design__/framing.md	234	False	True	True	True	False
+w123	26	B	write	framing	__design__/framing.md	234	False	True	True	True	False
+w123	26	B	write	claim file	__pondus__/w01-c3.md	234	False	False	False	False	False
+w123	26	B	bash-query	report (older/other)	__reports__/reflective_run/w01	137	False	False	False	True	False
+w123	26	B	bash-query	report (older/other)	__reports__/reflective_run	137	False	True	True	False	False
+w123	26	B	bash-query	report (older/other)	__reports__/reflective_run	137	False	True	True	True	False
+w123	28	B	git	report (older/other)	__reports__/reflective_run	473	False	True	True	True	False
+w123	28	B	git	other	dev/null	473	False	False	False	False	False
+w123	28	B	git	report (older/other)	__reports__/reflective_run	473	False	True	True	True	False
+w123	28	B	write	claim file	__pondus__/w01-c12.md	45	False	False	False	False	False
+w123	28	B	write	framing	__design__/framing.md	45	False	True	False	True	False
+w123	28	B	write	framing	__design__/framing.md	45	False	True	False	True	False
+w123	29	B	write	claim file	__pondus__/w01-c13.md	5	False	False	False	False	False
+w123	29	B	write	claim file	__pondus__/w01-c13.md	5	False	False	False	True	False
+w123	29	B	write	claim file	__pondus__/w01-c13.md	5	False	False	False	True	False
+w123	31	B	write	plugin source	scripts/lab_status.py	1266	False	True	False	False	False
+w123	31	B	write	other	Claims/p	1266	False	False	False	False	False
+w123	31	B	write	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad/puzzles.txt	1266	False	False	False	False	False
+w123	31	B	bash-query	transcript/data	otel_events.json	237	False	True	True	False	False
+w123	31	B	bash-query	other	./.git	237	False	False	False	False	False
+w123	31	B	bash-query	transcript/data	otel_events.json	237	False	True	True	True	False
+w123	34	B	lab_status	lab_status		1102	False	False	False	False	False
+w123	34	B	write	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad	87	False	True	True	False	False
+w123	34	B	write	other md	S/dispo.md	87	False	False	False	False	False
+w123	34	B	write	wave note	__statera__/wave-01.md	87	False	True	True	True	True
+w123	34	B	bash-view	statera other	/Users/hacker/Documents/src/CrackingShells/Murmuration/__statera__/user_words.md	501	True	True	True	True	False
+w123	34	B	bash-view	statera other	__statera__/user_words.md	501	True	True	True	True	False
+w123	34	B	bash-view	statera other	/Users/hacker/Documents/src/CrackingShells/Murmuration/__statera__/user_words.md	501	True	True	True	True	False
+w123	34	B	write	wave note	__statera__/wave-02.md	0	False	True	True	False	False
+w123	34	B	write	statera other	__statera__/user_words.md	0	False	True	True	True	False
+w123	34	B	write	other md	_vN.md	0	False	False	False	False	False
+w123	37	B	lab_status	lab_status		31	False	False	False	False	False
+w123	39	B	git	git		8	False	False	False	False	False
+w123	42	B	bash-view	plugin source	scripts/lab_init.py	1485	False	True	True	False	False
+w123	42	B	bash-view	skill/reference	skills/lab/SKILL.md	1485	False	True	False	False	False
+w123	46	B	bash-view	other	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-system-optimization-8cff9e	426	True	True	True	False	False
+w123	46	B	bash-view	plugin source	hooks/hooks.json	426	True	True	False	True	False
+w123	46	B	bash-view	skill/reference	skills/research-loop/templates	426	True	True	True	False	False
+w123	46	B	bash-query	report (older/other)	__reports__/reflective_run/w02	101	False	False	False	False	False
+w123	46	B	bash-query	other	dev/null	101	False	False	False	True	False
+w123	46	B	bash-query	report (older/other)	__reports__/reflective_run/w02	101	False	False	False	True	False
+w123	46	B	write	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad/w02/expC	367	False	False	False	False	False
+w123	46	B	write	other	S/A/plugin	367	False	True	True	False	False
+w123	46	B	write	other	S/A/lab	367	False	False	False	False	False
+w123	46	B	bash-view	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad/w02/expC	117	True	False	False	True	False
+w123	46	B	bash-view	code other	S/run_arm.sh	117	True	True	False	False	False
+w123	46	B	bash-view	other	S/A/exit.txt	117	True	False	False	False	False
+w123	53	N	bash-view	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad/w02/expC	2155	True	False	False	True	False
+w123	53	N	bash-view	other	S/A/exit.txt	2155	True	False	False	True	False
+w123	53	N	bash-view	other	S/A/end.txt	2155	True	False	False	False	False
+w123	54	B	lab_status	lab_status		612	False	False	False	False	False
+w123	54	B	bash-view	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad/w02/expC	117	True	False	False	True	False
+w123	54	B	bash-view	code other	S/run_arm.sh	117	True	True	False	True	False
+w123	54	B	bash-view	other	S/B/exit.txt	117	True	False	False	True	False
+w123	54	B	lab_status	lab_status		589	False	False	False	False	False
+w123	58	B	bash-view	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad/w02/expC	582	True	False	False	True	False
+w123	58	B	bash-view	transcript/data	S/B/stdout.jsonl	582	True	True	False	False	False
+w123	58	B	bash-view	claim file	S/B/lab/__pondus__	582	True	True	False	False	False
+w123	61	N	bash-view	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad/w02/expC	462	True	False	False	True	False
+w123	61	N	bash-view	other	S/B/exit.txt	462	True	False	False	True	False
+w123	61	N	bash-view	other	S/B/end.txt	462	True	False	False	True	False
+w123	62	B	bash-view	other md	README.md	3535	True	True	True	True	False
+w123	63	B	bash-view	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad/w02/expC	117	True	False	False	True	False
+w123	63	B	bash-view	code other	S/run_arm_noceiling.sh	117	True	True	False	False	False
+w123	63	B	bash-view	other	S/B2/exit.txt	117	True	False	False	True	False
+w123	63	B	lab_status	lab_status		1128	False	False	False	False	False
+w123	63	B	write	claim file	__pondus__/w02-c4.md	15	False	False	False	False	False
+w123	63	B	write	puzzle file	__scrupuli__/wave-02-research-pi.md	15	False	False	False	False	False
+w123	63	B	write	claim file	__pondus__/w02-c4.md	15	False	False	False	True	False
+w123	64	B	bash-query	plugin source	scripts/budget.py	1211	False	True	False	False	False
+w123	69	B	lab_status	lab_status		11245	False	False	False	False	False
+w123	71	N	bash-view	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad/w02/expC	297	True	False	False	True	True
+w123	71	N	bash-view	other	S/B2/exit.txt	297	True	False	False	True	False
+w123	71	N	bash-view	other	S/B2/end.txt	297	True	False	False	True	False
+w123	72	B	bash-view	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad/w02/expC	117	True	False	False	True	False
+w123	72	B	bash-view	code other	S/run_arm_stress.sh	117	True	True	False	False	False
+w123	72	B	bash-view	other	S/B3/exit.txt	117	True	False	False	True	False
+w123	73	N	bash-view	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad/w02/expC	344	True	False	False	True	False
+w123	73	N	bash-view	other	S/B3/exit.txt	344	True	False	False	True	False
+w123	73	N	bash-view	other	S/B3/end.txt	344	True	False	False	True	False
+w123	74	B	bash-view	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad/w02/expC	117	True	False	False	True	False
+w123	74	B	bash-view	code other	S/run_arm_forced.sh	117	True	False	False	False	False
+w123	74	B	bash-view	other	S/B4/exit.txt	117	True	False	False	True	False
+w123	77	B	bash-view	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad/w02/expC	569	True	False	False	True	False
+w123	77	B	bash-view	other	S/B4/exit.txt	569	True	False	False	True	False
+w123	77	B	bash-view	other	S/B4/end.txt	569	True	False	False	True	False
+w123	78	B	write	claim file	__pondus__/w02-c8.md	72	False	True	False	False	False
+w123	78	B	write	report (older/other)	__reports__/reflective_run/w02/explorer-w02-c	72	False	True	True	False	False
+w123	78	B	write	plugin source	scripts/lab_status.py	72	False	True	True	True	True
+w123	78	B	write	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad	88	False	True	True	True	False
+w123	78	B	write	code other	SC/dispo2.py	88	False	True	False	False	False
+w123	78	B	write	code other	SC/dispo2.py	88	False	True	False	True	False
+w123	78	B	bash-query	transcript/data	.claude/plugins/installed_plugins.json	3	False	True	False	True	False
+w123	78	B	write	other	s/holds	0	False	False	False	False	False
+w123	78	B	write	other	entries/holds	0	False	False	False	True	False
+w123	78	B	write	synthesis	__statera__/synthesis.md	0	False	True	False	False	False
+w123	79	B	write	other md	README.md	47	False	True	False	True	True
+w123	79	B	write	other md	README.md	47	False	True	False	True	False
+w123	80	B	write	synthesis	__statera__/synthesis.md	0	False	True	False	True	False
+w123	80	B	write	synthesis	__statera__/synthesis.md	0	False	True	False	True	False
+w123	80	B	write	claim file	__pondus__/w02-c7.md	111	False	False	False	False	False
+w123	80	B	write	wave note	__statera__/wave-02.md	111	False	True	False	True	True
+w123	80	B	write	claim file	__pondus__/w02-c7.md	111	False	False	False	True	False
+w123	81	B	write	claim file	__pondus__/w02-c8.md	98	False	False	False	True	False
+w123	81	B	write	wave note	__statera__/wave-02.md	98	False	True	False	True	False
+w123	81	B	write	code other	lab_status.py	98	False	True	False	True	False
+w123	81	B	write	synthesis	__statera__/synthesis.md	50	False	True	False	True	False
+w123	81	B	write	synthesis	__statera__/synthesis.md	50	False	True	False	True	False
+w123	82	B	lab_status	lab_status		2559	False	False	False	False	False
+w123	82	B	lab_status	lab_status		5225	False	False	False	False	False
+w123	82	B	write	synthesis	__statera__/synthesis.md	3779	False	True	True	True	False
+w123	82	B	write	wave note	__statera__/wave-02.md	3779	False	True	True	True	False
+w123	82	B	bash-view	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad	2377	True	True	True	True	True
+w123	82	B	bash-view	claim file	__pondus__/w02-c	2377	True	False	False	False	False
+w123	82	B	bash-view	puzzle file	__scrupuli__/wave-02-	2377	True	True	True	False	False
+w123	82	B	write	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad	397	False	True	True	True	False
+w123	82	B	write	code other	SP/dispo2.py	397	False	False	False	True	True
+w123	82	B	write	code other	SP/dispo2.py	397	False	False	False	True	False
+w123	82	B	write	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad	33	False	True	False	True	False
+w123	82	B	write	other md	SP/dispo2.md	33	False	False	False	False	False
+w123	82	B	write	wave note	__statera__/wave-02.md	33	False	True	True	True	False
+w123	82	B	write	other	s/per	590	False	False	False	False	False
+w123	82	B	write	other	answer/per	590	False	False	False	True	False
+w123	82	B	write	wave note	__statera__/wave-02.md	590	False	True	True	True	False
+w123	82	B	git	git		2595	False	False	False	False	False
+w123	85	H	git	plugin source	hooks/hooks.json	2056	False	True	False	True	True
+w123	85	H	git	plugin source	scripts/budget.py	2056	False	True	False	True	True
+w123	86	H	bash-view	skill/reference	skills/research-loop/references/briefs.md	780	True	True	False	False	False
+w123	86	H	bash-view	skill/reference	skills/research-loop/templates/wave.md	780	True	False	False	False	False
+w123	86	H	bash-view	statera other	__statera__/user_words.md	780	True	True	True	True	False
+w123	86	H	bash-view	skill/reference	skills/research-loop/templates/wave.md	2507	True	False	False	True	False
+w123	86	H	bash-view	statera other	__statera__/user_words.md	2507	True	True	True	True	False
+w123	86	H	bash-view	skill/reference	skills/research-loop/references/briefs.md	2507	True	True	False	True	False
+w123	88	H	search	search		528	False	False	False	False	False
+w123	88	H	search	search		2026	False	False	False	False	False
+w123	90	B	lab_status	lab_status		924	False	False	False	False	False
+w123	90	B	bash-view	other md	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-system-optimization-8cff9e/ab96c5ed-ead3-4b36-9671-6076e3914087/scratchpad/brief_author_w03_2.md	8	True	False	False	False	False
+w123	95	B	lab_status	lab_status		2676	False	False	False	False	False
+w123	95	B	write	plugin source	scripts/lab_status.py	147	False	True	False	True	False
+w123	95	B	write	other	tmp/ls.txt	147	False	False	False	False	False
+w123	95	B	write	other	tmp/ls.txt	147	False	False	False	True	False
+w123	96	H	lab_status	lab_status		7417	False	False	False	False	False
+w123	96	H	bash-query	puzzle file	__scrupuli__/wave-03-author-w03-1.md	2390	False	False	False	False	False
+w123	96	H	bash-query	puzzle file	__scrupuli__/wave-03-reproducer-w03-2.md	2390	False	False	False	False	False
+w123	96	H	bash-query	puzzle file	__scrupuli__/wave-03-author-w03-2.md	2390	False	False	False	False	False
+w123	96	H	bash-view	synthesis	__statera__/synthesis.md	2223	False	True	True	True	True
+w123	96	H	bash-view	synthesis	__statera__/synthesis.md	2223	False	True	True	True	False
+w123	96	H	write	synthesis	__statera__/synthesis.md	331	False	True	True	True	False
+w123	96	H	write	wave note	__statera__/wave-03.md	331	False	True	True	False	False
+w123	96	H	write	wave note	__statera__/wave-03.md	331	False	True	True	True	False
+w123	97	H	read-whole	skill/reference	/Users/hacker/.claude/plugins/cache/cracking-shells/writing-history/1.1.0/skills/writing-history/references/branches.md	10829	True	False	False	False	False
+w123	97	H	bash-view	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	170	True	True	True	True	True
+w123	97	H	bash-view	statera other	__statera__/user_words.md	170	True	True	True	True	False
+w123	97	H	bash-view	statera other	__statera__/user_words.md	170	True	True	True	True	False
+w123	97	H	bash-view	other md	__roadmap__/murmuration/build/pilot/README.md	1804	True	True	True	True	True
+w123	97	H	bash-view	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	19	True	True	True	True	False
+w123	97	H	bash-view	other	claude/murmuration-system-optimization-8cff9e	19	True	True	True	True	True
+w123	97	H	bash-view	statera other	__statera__/user_words.md	19	True	True	True	True	False
+w123	97	H	bash-view	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	370	True	True	True	True	False
+w123	97	H	bash-view	other	dev/null	370	True	False	False	True	True
+w123	97	H	bash-view	transcript/data	.claude-plugin/plugin.json	370	True	False	False	False	False
+w123	97	H	bash-query	transcript/data	.claude/plugins/installed_plugins.json	512	False	True	True	True	False
+w123	97	H	bash-query	transcript/data	.claude/plugins/installed_plugins.json	373	False	True	True	True	False
+w123	97	H	search	search		2074	False	False	False	False	False
+w123	97	H	search	search		480	False	False	False	False	False
+w123	97	H	write	synthesis	__statera__/synthesis.md	67	False	False	False	True	False
+w123	97	H	write	other	.Trash/murmuration-raw-runs-2026-10-19	67	False	True	True	False	False
+w123	97	H	write	other	.Trash/colgrep-stale-indexes-2026-10-19	67	False	True	True	False	False
+w4	1	H	git	report (older/other)	__reports__/pilot	680	False	False	False	False	False
+w4	1	H	git	other	dev/null	680	False	False	False	False	False
+w4	1	H	git	other	Asia/Tokyo	680	False	False	False	False	False
+w4	1	H	read-whole	skill/reference	/Users/hacker/Documents/src/CrackingShells/Murmuration/skills/research-loop/references/working_defaults.md	2111	True	False	False	False	False
+w4	1	H	bash-view	synthesis	__statera__/synthesis.md	14499	True	True	False	False	False
+w4	1	H	bash-view	wave note	__statera__/wave-03.md	12750	True	False	False	False	False
+w4	1	H	bash-view	report (older/other)	__reports__/pilot/02-next_pi_session_v0.md	5407	True	False	False	False	False
+w4	1	H	bash-view	plugin source	hooks/hooks.json	1060	True	True	True	False	False
+w4	1	H	bash-view	other	dev/null	1060	True	False	False	True	False
+w4	1	H	bash-view	other	.claude/settings	1060	True	True	True	False	False
+w4	1	H	write	plugin source	scripts/user_words.py	13803	False	True	True	False	False
+w4	1	H	bash-query	other	.claude/projects	2735	False	True	True	False	False
+w4	1	H	bash-query	other	.claude/projects	2735	False	True	True	True	False
+w4	1	H	bash-query	transcript/data	c533f1c6-c56e-4c8d-b6ff-e90c3ddea2f4.jsonl	2735	False	True	True	False	False
+w4	1	H	lab_status	lab_status		4581	False	False	False	False	False
+w4	1	H	write	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-4-3417be/c533f1c6-c56e-4c8d-b6ff-e90c3ddea2f4/scratchpad	33	False	True	True	False	False
+w4	1	H	write	other	S/probe	33	False	False	False	False	False
+w4	1	H	write	code other	S/probe/hookprobe.py	33	False	True	True	False	False
+w4	1	H	bash-view	transcript/data	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-4-3417be/c533f1c6-c56e-4c8d-b6ff-e90c3ddea2f4/scratchpad/probe/hook_events.jsonl	227	True	False	False	False	False
+w4	1	H	bash-view	transcript/data	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-4-3417be/c533f1c6-c56e-4c8d-b6ff-e90c3ddea2f4/scratchpad/probe/hook_events.jsonl	210	True	False	False	True	False
+w4	1	H	write	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-4-3417be/c533f1c6-c56e-4c8d-b6ff-e90c3ddea2f4/scratchpad	3338	False	True	True	True	False
+w4	1	H	write	other	S/probe/settings.local.json.bak	3338	False	False	False	False	False
+w4	1	H	write	transcript/data	.claude/settings.local.json	3338	False	True	True	False	False
+w4	1	H	bash-view	claim file	__pondus__/w01-c10.md	4618	False	False	False	False	False
+w4	1	H	bash-view	agent file	agents/explorer.md	4618	False	True	True	False	False
+w4	1	H	bash-view	plugin source	scripts/handback.py	3493	False	True	True	False	False
+w4	1	H	bash-view	plugin source	scripts/handback.py	6788	False	True	True	True	False
+w4	1	H	bash-query	report (older/other)	__reports__/reflective_run	355	False	True	True	False	False
+w4	1	H	bash-query	report (older/other)	__reports__/reflective_run/w03	355	False	False	False	False	False
+w4	1	H	bash-query	report (older/other)	__reports__/reflective_run/w03	355	False	False	False	True	False
+w4	1	H	bash-view	report (older/other)	__reports__/reflective_run/w03/author-w03-1/e2e_drive.py	4062	False	False	False	False	False
+w4	1	H	bash-view	report (older/other)	__reports__/reflective_run/w03/author-w03-1/prep.sh	4062	False	False	False	False	False
+w4	1	H	bash-view	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-4-3417be/c533f1c6-c56e-4c8d-b6ff-e90c3ddea2f4/scratchpad	10	True	True	True	True	False
+w4	1	H	bash-view	other	S/probe/ps_env.txt	10	True	False	False	False	False
+w4	1	H	bash-view	other	S/../tasks/be0v7br4l.output	10	True	False	False	False	False
+w4	1	H	bash-view	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-4-3417be/c533f1c6-c56e-4c8d-b6ff-e90c3ddea2f4	92	True	True	True	False	False
+w4	1	H	bash-view	other	S/tasks/be0v7br4l.output	92	True	False	False	True	False
+w4	1	H	bash-view	other	S/scratchpad/probe	92	True	False	False	True	False
+w4	1	H	bash-query	other	Library/Logs/Claude	1388	False	True	True	False	False
+w4	1	H	bash-query	other	dev/null	1388	False	False	False	True	False
+w4	1	H	bash-query	other	Library/Logs/Claude	1388	False	True	True	True	False
+w4	1	H	bash-query	other	Library/Logs/Claude/main	922	False	False	False	False	False
+w4	1	H	bash-query	other	Library/Logs/Claude/main.log	922	False	True	True	False	False
+w4	1	H	bash-query	other	dev/null	922	False	False	False	True	False
+w4	1	H	write	other	.claude/agents	3157	False	True	True	False	False
+w4	1	H	write	framing	__design__/framing.md	3157	False	False	False	False	False
+w4	1	H	write	claim file	__pondus__/w02-c2.md	3157	False	False	False	False	False
+w4	1	H	lab_status	lab_status		2129	False	False	False	False	False
+w4	1	H	bash-view	plugin source	scripts/budget.py	1338	False	True	True	False	False
+w4	1	H	bash-view	statera other	__statera__/.harness	1338	False	True	True	False	False
+w4	1	H	bash-view	plugin source	scripts/budget.py	1720	False	True	True	True	False
+w4	1	H	bash-view	plugin source	scripts/budget.py	1720	False	True	True	True	False
+w4	1	H	bash-view	statera other	__statera__/.harness/a682e6ed4c8ec011f.json	1720	False	True	True	False	False
+w4	4	B	lab_status	lab_status		3645	False	False	False	False	False
+w4	9	B	lab_status	lab_status		460	False	False	False	False	False
+w4	17	B	write	other	Asia/Tokyo	452	False	False	False	True	True
+w4	17	B	write	plugin source	scripts/lab_status.py	452	False	True	True	False	False
+w4	17	B	write	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-4-3417be/c533f1c6-c56e-4c8d-b6ff-e90c3ddea2f4/scratchpad/ls1.txt	452	False	False	False	False	False
+w4	17	B	bash-query	puzzle file	__scrupuli__/wave-04-	27286	False	True	False	False	False
+w4	17	B	write	other	.claude/projects/-private-tmp-murmuration-w04	570	False	False	False	False	False
+w4	17	B	write	other	dev/null	570	False	False	False	True	True
+w4	17	B	write	other	private/tmp/murmuration-w04/__statera__	570	False	True	False	False	False
+w4	20	B	write	wave note	__statera__/wave-04.md	26	False	True	False	False	False
+w4	20	B	write	wave note	__statera__/wave-04.md	26	False	True	False	True	False
+w4	20	B	write	other	Asia/Tokyo	26	False	False	False	True	False
+w4	24	B	bash-query	synthesis	__statera__/synthesis.md	4869	False	True	False	True	False
+w4	25	B	git	git		874	False	False	False	False	False
+w4	25	B	bash-view	synthesis	__statera__/synthesis.md	1120	False	True	True	True	False
+w4	25	B	bash-view	synthesis	__statera__/synthesis.md	1120	False	True	True	True	False
+w4	25	B	bash-query	other	dev/stdin	3874	False	False	False	False	False
+w4	25	B	bash-query	puzzle file	__scrupuli__/wave-04-	3874	False	True	True	True	False
+w4	25	B	write	code other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-4-3417be/c533f1c6-c56e-4c8d-b6ff-e90c3ddea2f4/scratchpad/dispo.py	2	False	True	False	False	False
+w4	25	B	write	wave note	__statera__/wave-04.md	2	False	True	True	True	False
+w4	25	B	write	synthesis	__statera__/synthesis.md	2	False	True	True	True	False
+w4	25	B	write	wave note	__statera__/wave-04.md	1	False	True	False	True	False
+w4	25	B	write	code other	user_words.py	1	False	False	False	True	True
+w4	25	B	write	code other	resume_brief.py	1	False	False	False	False	False
+w4	25	B	write	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-4-3417be/c533f1c6-c56e-4c8d-b6ff-e90c3ddea2f4/scratchpad	166	False	True	False	True	False
+w4	25	B	write	other md	SP/stillopen.md	166	False	False	False	False	False
+w4	25	B	write	statera other	__statera__/user_words.md	166	False	True	False	False	False
+w4	26	B	write	other	Asia/Tokyo	341	False	False	False	True	True
+w4	26	B	write	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-4-3417be/c533f1c6-c56e-4c8d-b6ff-e90c3ddea2f4/scratchpad	341	False	False	False	True	False
+w4	26	B	write	code other	SP/dispo.py	341	False	False	False	True	False
+w4	26	B	lab_status	lab_status		513	False	False	False	False	False
+w4	26	B	lab_status	lab_status		267	False	False	False	False	False
+w4	26	B	bash-query	other	dev/null	567	False	False	False	True	True
+w5	1	H	bash-view	other	dev/null	4796	True	False	False	False	False
+w5	1	H	bash-view	skill/reference	/Users/hacker/Documents/src/CrackingShells/Murmuration/skills/research-loop/references/working_defaults.md	4796	True	True	False	False	False
+w5	1	H	write	statera other	__statera__/user_words.md	2290	False	True	True	False	False
+w5	1	H	write	report (older/other)	__reports__/pilot	2290	False	False	False	False	False
+w5	1	H	write	report (older/other)	__reports__/reflective_run	2290	False	True	True	False	False
+w5	1	H	write	other	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be	9925	False	True	False	False	False
+w5	1	H	write	wave note	W4/__statera__/wave-04.md	9925	False	True	True	False	False
+w5	1	H	bash-view	other	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be	2769	False	True	False	True	False
+w5	1	H	bash-view	wave note	W4/__statera__/wave-04.md	2769	False	True	True	True	False
+w5	1	H	bash-view	synthesis	W4/__statera__/synthesis.md	2769	False	True	False	False	False
+w5	1	H	bash-view	other	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-4-3417be	2546	True	True	False	True	False
+w5	1	H	bash-view	synthesis	W4/__statera__/synthesis.md	2546	True	True	False	True	False
+w5	1	H	bash-view	transcript/data	.claude/plugins/installed_plugins.json	2546	True	True	True	False	False
+w5	1	H	bash-view	other	.claude/plugins/cache/murmuration-local/murmuration/0.1.0	1447	True	False	False	False	False
+w5	1	H	bash-view	other	C/hooks	1447	True	False	False	False	False
+w5	1	H	bash-view	other	C/agents	1447	True	True	True	False	False
+w5	1	H	bash-view	transcript/data	.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-lab-system-optimization-1aa673/6b0e1f2a-b6d1-40f5-840c-f38548cd357e.jsonl	1169	True	True	False	False	False
+w5	1	H	bash-view	plugin source	.claude/plugins/cache/murmuration-local/murmuration/0.1.0/hooks/hooks.json	1169	True	False	False	False	False
+w5	1	H	bash-view	other	.claude/plugins/cache/murmuration-local/murmuration/0.1.0	542	True	False	False	True	False
+w5	1	H	bash-view	other	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673	542	True	True	True	False	False
+w5	1	H	bash-view	agent file	C/agents/explorer.md	542	True	True	False	False	False
+w5	1	H	write	skill/reference	skills/research-loop/references/waves.md	2140	False	True	True	False	False
+w5	1	H	write	skill/reference	skills/research-loop/templates/wave.md	2140	False	True	True	False	False
+w5	1	H	bash-view	skill/reference	skills/lab-status/SKILL.md	2183	False	False	False	False	False
+w5	1	H	lab_status	lab_status		2659	False	False	False	False	False
+w5	1	H	bash-view	transcript/data	.claude-plugin/marketplace.json	662	False	True	True	False	False
+w5	1	H	bash-view	other	/Users/hacker/Documents/src/CrackingShells/Murmuration/.claude-plugin/	479	True	False	False	False	False
+w5	1	H	bash-view	transcript/data	/Users/hacker/Documents/src/CrackingShells/Murmuration/.claude-plugin/marketplace.json	479	True	True	True	True	False
+w5	1	H	bash-view	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	479	True	True	True	False	False
+w5	1	H	write	transcript/data	.claude/settings.local.json	226	False	True	True	False	False
+w5	1	H	write	other	TMPDIR/settings.local.json.bak-w5	226	False	True	True	False	False
+w5	1	H	write	transcript/data	.claude-plugin/marketplace.json	226	False	True	True	True	False
+w5	1	H	bash-view	transcript/data	/Users/hacker/Documents/src/CrackingShells/Murmuration/.claude/settings.local.json	535	True	True	True	True	False
+w5	1	H	bash-view	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	535	True	True	True	True	False
+w5	1	H	bash-view	transcript/data	/Users/hacker/.claude/plugins/installed_plugins.json	535	True	True	True	True	False
+w5	1	H	bash-view	framing	__design__/framing.md	1788	False	True	False	False	False
+w5	1	H	bash-view	report (older/other)	__reports__/reflective_run/w04	1788	False	False	False	False	False
+w5	1	H	bash-view	other	.claude/projects	1788	False	True	False	False	False
+w5	1	H	write	skill/reference	skills/research-loop/references/briefs.md	1574	False	True	False	False	False
+w5	1	H	write	wave note	__statera__/wave-05.md	1574	False	True	True	False	False
+w5	1	H	write	puzzle file	__scrupuli__/wave-05-research-pi.md	1574	False	True	True	False	False
+w5	4	H	bash-view	transcript/data	.claude/settings.json	16	True	False	False	False	False
+w5	4	H	bash-view	transcript/data	.claude/settings.local.json	16	True	True	True	True	False
+w5	4	H	bash-view	other	dev/null	16	True	False	False	True	False
+w5	4	H	bash-view	statera other	__statera__/user_words.md	79	True	True	True	True	False
+w5	4	H	bash-view	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	79	True	True	True	True	False
+w5	4	H	bash-view	transcript/data	.claude/plugins/known_marketplaces.json	79	True	True	True	False	False
+w5	4	H	write	transcript/data	/Users/hacker/Documents/src/CrackingShells/Murmuration/.claude/settings.local.json	82	False	True	True	True	False
+w5	4	H	write	other	TMPDIR/m5	82	False	False	False	False	False
+w5	4	H	write	other	TMPDIR/m5	82	False	False	False	True	False
+w5	4	H	bash-query	instrumenta script	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673/__instrumenta__	231	False	True	False	False	False
+w5	4	H	bash-query	other	.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-4-3417be	231	False	False	False	False	False
+w5	4	H	bash-query	other	P/c533f1c6-c56e-4c8d-b6ff-e90c3ddea2f4/subagents	231	False	True	False	False	False
+w5	4	H	bash-view	statera other	/Users/hacker/Documents/src/CrackingShells/Murmuration/__statera__/user_words.md	533	True	True	True	True	False
+w5	4	H	bash-view	statera other	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673/__statera__/user_words.md	533	True	True	True	True	False
+w5	4	H	bash-view	agent file	agents/research-pi.md	1741	False	True	False	False	False
+w5	4	H	bash-view	wave note	__statera__/wave-0	1741	False	True	True	False	False
+w5	4	H	bash-view	wave note	__statera__/wave-02.md	3394	False	False	False	False	False
+w5	5	B	bash-view	worker report	__reports__/wave-05/explorer-w05-e/01-run_log.md	4751	False	False	False	False	False
+w5	5	B	bash-view	puzzle file	__scrupuli__/wave-05-explorer-w05-e.md	4751	False	False	False	False	False
+w5	5	B	lab_status	lab_status		697	False	False	False	False	False
+w5	5	B	read-whole	worker report	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673/__reports__/wave-05/explorer-w05-a/wave4_gantt.png	0	True	True	True	False	False
+w5	5	B	bash-view	puzzle file	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673/__scrupuli__/wave-05-explorer-w05-a.md	4055	True	False	False	False	False
+w5	6	B	bash-view	worker report	__reports__/wave-05/explorer-w05-b/per_category_table.tsv	4164	True	False	False	False	False
+w5	6	B	bash-view	puzzle file	__scrupuli__/wave-05-explorer-w05-b.md	4164	True	False	False	False	False
+w5	8	B	lab_status	lab_status		9059	False	False	False	False	False
+w5	8	B	bash-view	agent file	agents/author.md	1613	False	False	False	False	False
+w5	8	B	bash-view	agent file	agents/author.md	1613	False	False	False	True	False
+w5	8	B	bash-view	report (older/other)	__reports__/reflective_run/w04/00-experiment_protocol_v0.md	1613	False	True	True	False	False
+w5	9	B	write	report (older/other)	__reports__/wave-05/00-experiment_protocol_v0.md	2061	False	True	False	True	False
+w5	9	B	write	report (older/other)	__reports__/wave-05/00-experiment_protocol_v1.md	2061	False	True	True	False	False
+w5	9	B	write	report (older/other)	__reports__/wave-05/00-experiment_protocol_v1.md	2061	False	True	True	True	False
+w5	13	B	bash-view	worker report	__reports__/wave-05/explorer-w05-f/timing_table.md	2904	False	False	False	False	False
+w5	13	B	bash-view	puzzle file	__scrupuli__/wave-05-explorer-w05-f.md	2904	False	False	False	False	False
+w5	13	B	write	report (older/other)	__reports__/wave-05/research-pi	168	False	True	True	False	False
+w5	13	B	write	code other	private/tmp/murmuration-w05/research-pi/probe.sh	168	False	True	False	False	False
+w5	13	B	write	PI report	__reports__/wave-05/research-pi/shell_probe.sh	168	False	False	False	False	False
+w5	18	B	git	git		2587	False	False	False	False	False
+w5	19	B	bash-view	agent file	agents/author.md	893	False	False	False	True	False
+w5	19	B	bash-view	agent file	agents/author.md	893	False	False	False	True	False
+w5	19	B	bash-view	skill/reference	skills/research-loop/references/briefs.md	469	False	True	True	True	False
+w5	19	B	bash-view	skill/reference	skills/research-loop/references/working_defaults.md	469	False	True	True	True	False
+w5	19	B	write	wave note	__statera__/wave-05.md	108	False	True	True	True	True
+w5	19	B	write	claim file	__pondus__/w05-c8.md	108	False	False	False	False	False
+w5	19	B	write	other md	briefs.md	108	False	True	False	True	False
+w5	20	B	bash-query	wave note	__statera__/wave-05.md	1034	False	True	True	True	False
+w5	20	B	write	wave note	__statera__/wave-05.md	216	False	True	True	True	False
+w5	20	B	write	skill/reference	skills/research-loop/references/briefs.md	216	False	True	True	True	False
+w5	20	B	write	skill/reference	skills/research-loop/references/working_defaults.md	216	False	True	True	True	False
+w5	29	B	git	claim file	__pondus__/w05-c	511	False	False	False	False	False
+w5	29	B	write	claim file	__pondus__/w05-c4.md	939	False	False	False	False	False
+w5	29	B	write	claim file	__pondus__/w05-c4.md	939	False	False	False	True	False
+w5	29	B	write	report (older/other)	__reports__/wave-05/00-experiment_protocol_v1.md	939	False	False	False	True	False
+w5	29	B	lab_status	lab_status		22502	False	False	False	False	False
+w5	29	B	bash-query	synthesis	__statera__/synthesis.md	484	False	True	True	True	False
+w5	29	B	bash-query	synthesis	__statera__/synthesis.md	484	False	True	True	True	False
+w5	29	B	lab_status	lab_status		323	False	False	False	False	False
+w5	29	B	lab_status	lab_status		213	False	False	False	False	False
+w5	29	B	write	wave note	__statera__/wave-05.md	57	False	True	True	True	True
+w5	29	B	write	other	private/tmp/murmuration-w05	57	False	True	True	False	False
+w5	29	B	write	code other	lab_status.py	57	False	True	True	False	False
+w5	29	B	write	wave note	__statera__/wave-05.md	60	False	True	True	True	False
+w5	29	B	write	wave note	__statera__/wave-05.md	60	False	True	True	True	False
+w5	29	B	write	wave note	__statera__/wave-05.md	60	False	True	True	True	False
+w5	29	B	read-part	synthesis	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673/__statera__/synthesis.md	6185	False	True	True	True	False
+w5	29	B	read-part	synthesis	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/lab-system-optimization-1aa673/__statera__/synthesis.md	2232	False	True	True	True	False
+w5	29	B	bash-query	other	dev/null	54	False	False	False	True	True
+w5	29	B	bash-query	other	dev/null	54	False	False	False	True	False
+w5	29	B	lab_status	lab_status		978	False	False	False	False	False
+w5	30	H	write	statera other	__statera__/user_words.md	80	False	True	True	True	True
+w5	30	H	write	other md	tmp/uw_main.md	80	False	False	False	False	False
+w5	30	H	write	other	dev/null	80	False	False	False	True	False
+w5	30	H	write	code other	private/tmp/murmuration-w05/research-pi/envprobe.sh	850	False	False	False	False	False
+w5	30	H	write	PI report	__reports__/wave-05/research-pi/env_probe.sh	850	False	True	True	False	False
+w5	30	H	write	PI report	__reports__/wave-05/research-pi/shell_check.md	850	False	True	True	False	False
+w6	0	X	bash-view	skill/reference	/Users/hacker/Documents/src/CrackingShells/Murmuration/skills/research-loop/references/working_defaults.md	3719	True	True	False	False	False
+w6	0	X	bash-view	wave note	__statera__/wave-06.md	3719	True	True	True	False	False
+w6	0	X	bash-view	framing	__design__/framing.md	9942	True	True	True	False	False
+w6	0	X	bash-query	synthesis	__statera__/synthesis.md	5022	False	True	True	False	False
+w6	0	X	bash-query	wave note	__statera__/wave-05.md	5022	False	False	False	False	False
+w6	0	X	bash-query	synthesis	__statera__/synthesis.md	5022	False	True	True	True	False
+w6	0	X	bash-query	wave note	__statera__/wave-05.md	5245	False	False	False	True	False
+w6	0	X	bash-query	wave note	__statera__/wave-05.md	5245	False	False	False	True	False
+w6	0	X	bash-query	other	.claude/projects	176	False	True	True	False	False
+w6	0	X	bash-query	other	.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-blissful-villani-34edd8	176	False	True	True	False	False
+w6	0	X	bash-query	other	dev/null	176	False	False	False	False	False
+w6	0	X	bash-view	agent file	agents/research-pi.md	557	True	True	True	False	False
+w6	0	X	bash-view	agent file	agents/research-pi.md	557	True	True	True	True	False
+w6	0	X	bash-view	claim file	__pondus__/w05-c7.md	5666	False	False	False	False	False
+w6	0	X	bash-view	report (older/other)	__reports__/wave-05/author-w05-2	1014	False	True	True	False	False
+w6	0	X	bash-view	worker report	__reports__/wave-05/author-w05-2/desktop_projection_D_e6b.txt	1014	False	True	True	False	False
+w6	0	X	write	claim file	__pondus__/w06-c1.md	1638	False	True	False	False	False
+w6	0	X	write	instrumenta script	__instrumenta__/w06_request0_check.py	1638	False	False	False	False	False
+w6	0	X	write	PI report	__reports__/wave-06/research-pi/request0_check.txt	1638	False	False	False	False	False
+w6	0	X	search	search		8990	False	False	False	False	False
+w6	0	X	lab_status	lab_status		2481	False	False	False	False	False
+w6	0	X	bash-view	agent file	agents/research-pi.md	949	False	True	True	True	False
+w6	0	X	bash-view	skill/reference	skills/research-loop/references/waves.md	949	False	True	True	False	False
+w6	0	X	search	search		12742	False	False	False	False	False
+w6	0	X	search	search		6199	False	False	False	False	False
+w6	0	X	search	search		4495	False	False	False	False	False
+w6	0	X	bash-view	framing	/Users/hacker/Documents/src/CrackingShells/Murmuration/skills/research-loop/templates/framing.md	666	False	True	True	True	False
+w6	0	X	bash-view	skill/reference	skills/research-loop/references/waves.md	666	False	True	True	True	False
+w6	0	X	bash-view	skill/reference	skills/lab/SKILL.md	666	False	False	False	False	False
+w6	0	X	write	other	session/-	22	False	False	False	False	False
+w6	0	X	write	wave note	__statera__/wave-06.md	22	False	True	True	True	False
+w6	0	X	write	wave note	__statera__/wave-06.md	22	False	True	True	True	False
+w6	0	X	write	other	session/-	20	False	False	False	True	False
+w6	0	X	write	wave note	__statera__/wave-06.md	20	False	True	False	True	False
+w6	0	X	write	wave note	__statera__/wave-06.md	20	False	True	False	True	False
+w6	3	B	bash-view	puzzle file	__scrupuli__/wave-06-explorer-w06-c.md	4820	True	True	True	False	False
+w6	3	B	bash-view	worker report	__reports__/wave-06/explorer-w06-c/00-findings_v0.md	4820	True	True	True	False	False
+w6	3	B	bash-view	skill/reference	skills/research-loop/references/waves.md	2475	False	True	True	True	False
+w6	3	B	bash-view	puzzle file	__scrupuli__/wave-06-reproducer-w06-1.md	5162	False	False	False	False	False
+w6	3	B	bash-view	worker report	__reports__/wave-06/explorer-w06-c/00-findings_v0.md	5162	False	True	True	True	False
+w6	3	B	bash-view	instrumenta script	__instrumenta__/w06c_pi_wakeups.py	990	False	True	False	False	False
+w6	3	B	bash-view	transcript/data	.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-blissful-villani-34edd8/74fa512e-a149-4bbb-bd20-2d434b0f997f.jsonl	990	False	True	False	False	False
+w6	5	B	bash-view	puzzle file	__scrupuli__/wave-06-reproducer-w06-2.md	632	True	False	False	False	False
+w6	5	B	bash-view	skill/reference	skills/research-loop/references/waves.md	632	True	True	True	True	False
+w6	5	B	bash-view	skill/reference	skills/research-loop/references/waves.md	632	True	True	True	True	False
+w6	6	B	bash-view	claim file	__pondus__/w04-c5.md	2564	False	False	False	False	False
+w6	6	B	bash-view	claim file	__pondus__/w04-c5.md	2564	False	False	False	True	False
+w6	6	B	bash-view	plugin source	hooks/hooks.json	2627	True	True	False	False	False
+w6	6	B	bash-view	puzzle file	__scrupuli__/wave-06-explorer-w06-b.md	2627	True	True	False	False	False
+w6	6	B	bash-view	report (older/other)	__reports__/platform_probes/01-findings_v1.md	3566	True	False	False	False	False
+w6	7	B	lab_status	lab_status		3168	False	False	False	False	False
+w6	10	B	bash-view	instrumenta script	__instrumenta__/w06c3_	1629	True	True	True	False	False
+w6	10	B	bash-view	instrumenta script	__instrumenta__/w06c3_tables.sh	1629	True	False	False	False	False
+w6	10	B	bash-view	claim file	__pondus__/w06-c3.md	1629	True	False	False	False	False
+w6	10	B	lab_status	lab_status		1692	False	False	False	False	False
+w6	11	H	bash-view	skill/reference	skills/research-loop/references/briefs.md	242	True	True	True	False	False
+w6	11	H	bash-view	skill/reference	skills/research-loop/references/working_defaults.md	242	True	True	True	True	False
+w6	11	H	bash-view	agent file	agents/explorer.md	242	True	True	True	False	False
+w6	11	H	bash-view	skill/reference	skills/research-loop/references/working_defaults.md	852	False	True	True	True	False
+w6	11	H	bash-view	agent file	agents/explorer.md	852	False	True	True	True	False
+w6	11	H	bash-view	agent file	agents/author.md	852	False	True	True	False	False
+w6	11	H	git	statera other	__statera__/user_words.md	2065	False	True	True	False	False
+w6	18	B	lab_status	lab_status		2696	False	False	False	False	False
+w6	19	B	bash-view	puzzle file	__scrupuli__/wave-06-author-w06-4.md	727	True	False	False	False	False
+w6	19	B	bash-view	claim file	__pondus__/w06-c4.md	727	True	False	False	False	False
+w6	19	B	bash-view	transcript/data	mcp.json	727	True	False	False	False	False
+w6	22	B	write	puzzle file	__scrupuli__/wave-06-reproducer-w06-4.md	452	False	False	False	False	False
+w6	22	B	write	wave note	__statera__/wave-06.md	452	False	True	True	True	True
+w6	22	B	write	other	197/197	452	False	False	False	False	False
+w6	25	B	lab_status	lab_status		2039	False	False	False	False	False
+w6	27	B	lab_status	lab_status		164	False	False	False	False	False
+w6	27	B	lab_status	lab_status		954	False	False	False	False	False
+w6	27	B	lab_status	lab_status		1050	False	False	False	False	False
+w6	31	B	bash-view	synthesis	__statera__/synthesis.md	1537	False	True	False	True	False
+w6	31	B	bash-view	synthesis	__statera__/synthesis.md	1537	False	True	False	True	False
+w6	37	B	bash-query	plugin source	hooks/hooks.json	570	False	True	False	True	True
+w6	38	B	lab_status	lab_status		1297	False	False	False	False	False
+w6	38	B	lab_status	lab_status		290	False	False	False	False	False
+w6	38	B	read-part	synthesis	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/blissful-villani-34edd8/__statera__/synthesis.md	2681	False	True	True	True	False
+w6	38	B	read-part	synthesis	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/blissful-villani-34edd8/__statera__/synthesis.md	1747	False	True	True	True	False
+w6	38	B	bash-view	synthesis	__statera__/synthesis.md	1586	False	True	True	True	False
+w6	39	B	lab_status	lab_status		14948	False	False	False	False	False
+w6	40	B	bash-view	puzzle file	__scrupuli__/wave-06-author-w06-7.md	978	True	False	False	False	False
+w6	41	B	lab_status	lab_status		383	False	False	False	False	False
+w6	41	B	lab_status	lab_status		1022	False	False	False	False	False
+w6	41	B	write	wave note	__statera__/wave-06.md	90	False	True	True	True	True
+w6	41	B	write	other md	permission_mechanisms.md	90	False	True	False	False	False
+w6	41	B	write	other	197/197	90	False	False	False	True	False
+w6	41	B	lab_status	lab_status		24	False	False	False	False	False
+w6	42	H	bash-view	other	private/tmp/claude-501/bundled-skills/2.1.304/af37090a1566e05d33145c5395ce9161/dataviz	1725	False	False	False	False	False
+w6	42	H	bash-view	other md	D/references/palette.md	1725	False	False	False	False	False
+w6	42	H	read-whole	transcript/data	/private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-blissful-villani-34edd8/74fa512e-a149-4bbb-bd20-2d434b0f997f/scratchpad/map_light.png	0	True	False	False	False	False
+w6	42	H	read-whole	transcript/data	/private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-blissful-villani-34edd8/74fa512e-a149-4bbb-bd20-2d434b0f997f/scratchpad/map2.png	0	True	False	False	False	False
+w6	45	H	bash-query	other	Library/Application	86	False	True	True	False	False
+w6	45	H	bash-query	other	Support/ClaudeCode	86	False	True	True	False	False
+w6	45	H	bash-query	other	Library/Application	86	False	True	True	True	False
+w6	47	H	bash-query	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-blissful-villani-34edd8/74fa512e-a149-4bbb-bd20-2d434b0f997f/scratchpad/cc_strings.txt	3536	False	False	False	False	False
+w6	47	H	bash-query	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-blissful-villani-34edd8/74fa512e-a149-4bbb-bd20-2d434b0f997f/scratchpad/cc_strings.txt	3100	False	False	False	True	False
+w6	47	H	write	other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-blissful-villani-34edd8/74fa512e-a149-4bbb-bd20-2d434b0f997f/scratchpad/mgd	1259	False	False	False	False	False
+w6	47	H	write	other	bin/bash	1259	False	False	False	False	False
+w6	47	H	write	other	S/dbg.log	1259	False	False	False	False	False
+w7	0	X	bash-view	skill/reference	/Users/hacker/Documents/src/CrackingShells/Murmuration/skills/research-loop/references/working_defaults.md	2252	True	False	False	False	False
+w7	0	X	bash-view	other	/Users/hacker/Library/Application	2252	True	True	False	False	False
+w7	0	X	bash-view	other	Support/Claude/side-session-notes/local_a1cc5690-301c-4ea7-815d-6c9664d6c5c0	2252	True	True	False	False	False
+w7	0	X	bash-view	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	3251	True	True	True	False	False
+w7	0	X	bash-view	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	3251	True	True	True	True	False
+w7	0	X	bash-view	statera other	__statera__/user_words.md	3251	True	True	True	False	False
+w7	0	X	bash-view	wave note	__statera__/wave-06.md	506	True	True	True	False	False
+w7	0	X	bash-view	synthesis	__statera__/synthesis.md	506	True	True	False	False	False
+w7	0	X	bash-view	report (older/other)	__reports__/wave-06/research-pi	506	True	True	True	False	False
+w7	0	X	bash-view	other md	references/waves.md	3457	True	False	False	False	False
+w7	0	X	bash-view	other md	references/briefs.md	3457	True	True	False	False	False
+w7	0	X	bash-view	other md	templates/wave.md	3457	True	True	False	False	False
+w7	0	X	read-part	wave note	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/xenodochial-franklin-bc67fb/__statera__/wave-06.md	25226	False	True	True	True	False
+w7	0	X	read-part	wave note	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/xenodochial-franklin-bc67fb/__statera__/wave-06.md	2411	False	True	True	True	False
+w7	0	X	bash-view	synthesis	__statera__/synthesis.md	1990	True	True	False	True	False
+w7	0	X	bash-view	PI report	__reports__/wave-06/research-pi/permission_mechanisms.md	1990	True	False	False	False	False
+w7	0	X	bash-view	PI report	__reports__/wave-06/research-pi/managed_setting_check.md	1990	True	True	True	False	False
+w7	0	X	bash-view	synthesis	__statera__/synthesis.md	7199	False	True	False	True	False
+w7	0	X	bash-view	synthesis	__statera__/synthesis.md	7199	False	True	False	True	False
+w7	0	X	bash-view	bash-view		9487	True	False	False	False	False
+w7	0	X	write	PI report	__reports__/wave-06/research-pi/lab_cost_map.html	2615	False	True	False	False	False
+w7	0	X	write	plugin source	hooks/hooks.json	2615	False	True	False	False	False
+w7	0	X	bash-view	plugin source	hooks/hooks.json	2770	True	True	False	True	False
+w7	0	X	bash-view	statera other	__statera__/user_words.md	2770	True	True	True	True	False
+w7	0	X	bash-view	statera other	__statera__/user_words.md	2770	True	True	True	True	False
+w7	0	X	lab_status	lab_status		5242	False	False	False	False	False
+w7	0	X	bash-view	framing	__design__/framing.md	6080	True	False	False	False	False
+w7	0	X	write	wave note	__statera__/wave-07.md	515	False	True	False	False	False
+w7	0	X	write	wave note	__statera__/wave-07.md	515	False	True	False	True	False
+w7	0	X	write	other	private/tmp/murmuration-w07	515	False	True	False	False	False
+w7	0	X	bash-query	report (older/other)	__reports__/wave-06	1711	False	False	False	False	False
+w7	0	X	bash-query	report (older/other)	__reports__/wave-06/explorer-w06-a	1711	False	False	False	False	False
+w7	0	X	bash-query	report (older/other)	__reports__/wave-06/explorer-w06-b	1711	False	True	False	False	False
+w7	0	X	bash-query	other	.cargo/registry/cache	31	False	False	False	False	False
+w7	0	X	bash-query	other	.cargo/registry/cache	545	False	False	False	True	False
+w7	0	X	bash-query	other	.cargo/registry/cache	545	False	False	False	True	False
+w7	1	B	bash-view	puzzle file	__scrupuli__/wave-07-explorer-w07-e.md	1807	True	False	False	False	False
+w7	1	B	bash-view	report (older/other)	__reports__/wave-07/explorer-w07-e	1807	True	True	True	False	False
+w7	1	B	bash-view	report (older/other)	__reports__/wave-07/explorer-w07-e	1807	True	True	True	True	False
+w7	1	B	bash-view	agent file	agents/research-pi.md	1898	False	True	True	False	False
+w7	1	B	bash-view	skill/reference	skills/research-loop/SKILL.md	1898	False	True	True	False	False
+w7	1	B	bash-view	worker report	__reports__/wave-07/explorer-w07-e/00-findings_v0.md	1898	False	True	False	False	False
+w7	2	B	bash-view	puzzle file	__scrupuli__/wave-07-explorer-w07-f.md	2782	True	False	False	False	False
+w7	2	B	bash-view	report (older/other)	__reports__/wave-07/explorer-w07-f	2782	True	True	True	False	False
+w7	2	B	bash-view	transcript/data	.claude/remote-settings.json	2782	True	True	True	False	False
+w7	2	B	bash-view	worker report	__reports__/wave-07/explorer-w07-f/00-findings_v0.md	3474	False	True	True	True	False
+w7	2	B	bash-view	worker report	__reports__/wave-07/explorer-w07-f/00-findings_v0.md	3474	False	True	True	True	False
+w7	2	B	bash-view	worker report	__reports__/wave-07/explorer-w07-f/prompt_origin_summary.txt	3474	False	False	False	False	False
+w7	3	B	bash-view	puzzle file	__scrupuli__/wave-07-explorer-w07-b.md	2967	True	False	False	False	False
+w7	3	B	bash-view	report (older/other)	__reports__/wave-07/explorer-w07-b	2967	True	True	True	False	False
+w7	3	B	bash-view	worker report	__reports__/wave-07/explorer-w07-b/00-findings_v0.md	2967	True	True	False	True	False
+w7	3	B	bash-view	worker report	__reports__/wave-07/explorer-w07-b/tables.md	1913	False	False	False	False	False
+w7	3	B	bash-query	worker report	__reports__/wave-07/explorer-w07-b/tables.md	1490	False	False	False	True	False
+w7	3	B	bash-view	agent file	agents/proof-adversary.md	478	False	False	False	False	False
+w7	4	B	bash-view	puzzle file	__scrupuli__/wave-07-explorer-w07-c.md	3147	True	False	False	False	False
+w7	4	B	bash-view	worker report	__reports__/wave-07/explorer-w07-c/00-findings_v0.md	3147	True	True	False	True	False
+w7	4	B	bash-view	worker report	__reports__/wave-07/explorer-w07-c/runs	3147	True	False	False	False	False
+w7	5	B	bash-view	puzzle file	__scrupuli__/wave-07-author-w07-1.md	2075	True	True	False	False	False
+w7	5	B	bash-view	claim file	__pondus__/w07-c1.md	2075	True	True	False	False	False
+w7	6	B	lab_status	lab_status		3525	False	False	False	False	False
+w7	6	B	lab_status	lab_status		2084	False	False	False	False	False
+w7	6	B	write	puzzle file	__scrupuli__/wave-07-reproducer-w07-1.md	932	False	False	False	False	False
+w7	6	B	write	wave note	__statera__/wave-07.md	932	False	True	False	True	True
+w7	6	B	write	skill/reference	SKILL.md	932	False	True	False	True	True
+w7	7	B	bash-view	puzzle file	__scrupuli__/wave-07-author-w07-2.md	3166	False	False	False	False	False
+w7	7	B	bash-view	worker report	__reports__/wave-07/author-w07-2/q2_live.txt	3166	False	True	True	False	False
+w7	8	B	lab_status	lab_status		3248	False	False	False	False	False
+w7	8	B	bash-query	worker report	__reports__/wave-07/explorer-w07-c/docs_hooks_2026-10-22.md	1766	False	True	False	False	False
+w7	8	B	bash-query	other	.claude/plugins/data	1766	False	False	False	False	False
+w7	8	B	bash-query	other	dev/null	1766	False	False	False	False	False
+w7	8	B	bash-query	other	.claude/plugins/cache	314	False	False	False	True	False
+w7	8	B	bash-query	other	dev/null	314	False	False	False	True	False
+w7	8	B	bash-query	other	.claude/plugins/cache	314	False	False	False	True	False
+w7	8	B	bash-view	worker report	__reports__/wave-07/explorer-w07-g/ttl_breakeven.md	1844	True	True	True	False	False
+w7	8	B	bash-view	worker report	__reports__/wave-07/explorer-w07-g/00-findings_v0.md	1844	True	True	False	True	False
+w7	8	B	bash-view	puzzle file	__scrupuli__/wave-07-explorer-w07-g.md	1844	True	False	False	False	False
+w7	10	B	bash-query	other	private/tmp/murmuration-w07/author-w07-4	394	False	True	True	False	False
+w7	10	B	bash-query	other	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/xenodochial-franklin-bc67fb	394	False	True	False	False	False
+w7	18	B	write	plugin source	hooks/hooks.json	1100	False	True	True	True	False
+w7	18	B	write	other md	README.md	1100	False	True	True	False	False
+w7	18	B	bash-view	plugin source	hooks/hooks.json	724	False	True	True	True	False
+w7	18	B	write	plugin source	hooks/hooks.json	154	False	True	True	True	False
+w7	18	B	write	other	later./-	154	False	False	False	False	False
+w7	18	B	write	other md	README.md	154	False	True	False	True	False
+w7	18	B	write	other	tmp/claude-501/st_	140	False	False	False	False	False
+w7	18	B	write	other	s.txt	140	False	False	False	False	False
+w7	18	B	write	other	tmp/claude-501/st_	140	False	False	False	True	False
+w7	18	B	bash-query	code other	run_hook.py	191	False	True	True	False	False
+w7	18	B	bash-query	plugin source	scripts/budget.py	191	False	True	True	False	False
+w7	18	B	bash-query	plugin source	scripts/budget.py	191	False	True	True	True	False
+w7	18	B	bash-view	plugin source	scripts/budget.py	3935	False	True	True	True	False
+w7	18	B	write	plugin source	scripts/budget.py	117	False	True	True	True	False
+w7	18	B	write	transcript/data	hooks.json	117	False	True	True	True	False
+w7	18	B	write	code other	run_hook.py	117	False	False	False	True	False
+w7	20	B	write	agent file	agents/author.md	224	False	True	False	False	False
+w7	20	B	write	wave note	__statera__/wave-07.md	224	False	True	False	True	True
+w7	20	B	write	code other	lab_status.py	224	False	True	False	False	False
+w7	20	B	lab_status	lab_status		1634	False	False	False	False	False
+w7	20	B	lab_status	lab_status		14228	False	False	False	False	False
+w7	21	B	bash-view	plugin source	hooks/hooks.json	1287	True	True	False	True	False
+w7	21	B	bash-view	plugin source	scripts/install_binary.py	1287	True	True	False	False	False
+w7	21	B	bash-view	puzzle file	__scrupuli__/wave-07-author-w07-5.md	1287	True	True	False	False	False
+w7	21	B	bash-query	PI report	__reports__/wave-06/research-pi/lab_cost_map.html	921	False	True	False	True	False
+w7	21	B	bash-query	PI report	__reports__/wave-06/research-pi/lab_cost_map.html	921	False	True	False	True	False
+w7	21	B	bash-query	PI report	__reports__/wave-06/research-pi/lab_cost_map.html	921	False	True	False	True	False
+w7	23	B	write	plugin source	scripts/lab_status.py	96	False	True	True	True	False
+w7	23	B	write	other	dev/null	96	False	False	False	True	True
+w7	23	B	write	plugin source	scripts/lab_status.py	96	False	True	True	True	False
+w7	23	B	bash-view	synthesis	__statera__/synthesis.md	5392	False	True	False	True	False
+w7	23	B	bash-view	synthesis	__statera__/synthesis.md	5392	False	True	False	True	False
+w7	28	B	bash-view	plugin source	scripts/git-hooks/pre-commit	1389	False	True	True	False	False
+w7	28	B	bash-view	plugin source	scripts/build_manifest.py	1389	False	True	False	False	False
+w7	29	B	write	plugin source	hooks/hooks.json	232	False	True	False	True	True
+w7	29	B	write	transcript/data	hooks.json	232	False	True	False	True	False
+w7	29	B	write	other	tmp/claude-501/st_	232	False	False	False	True	False
+w7	29	B	bash-query	transcript/data	/Users/hacker/.claude/plugins/installed_plugins.json	262	False	False	False	False	False
+w7	29	B	bash-query	other	.claude/plugins/data	262	False	False	False	True	True
+w7	29	B	bash-query	other	.claude/plugins/data/murmuration-murmuration-local	262	False	True	True	False	False
+w7	29	B	bash-view	other	/Users/hacker/.claude/plugins/cache/murmuration-local/murmuration/0.1.0	316	True	False	False	False	False
+w7	29	B	bash-view	other	/Users/hacker/.claude/plugins/cache/murmuration-local/murmuration/0.1.0	316	True	False	False	True	False
+w7	29	B	bash-view	transcript/data	.claude/plugins/known_marketplaces.json	316	True	False	False	False	False
+w7	29	B	lab_status	lab_status		420	False	False	False	False	False
+w7	29	B	write	plugin source	scripts/lab_status.py	2045	False	True	True	True	True
+w7	29	B	write	other	dev/null	2045	False	False	False	True	False
+w7	29	B	write	other	Claims/p	2045	False	False	False	False	False
+w7	29	B	lab_status	lab_status		260	False	False	False	False	False
+w7	29	B	write	other md	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-xenodochial-franklin-bc67fb/f023f552-e4a3-4823-a275-6d98b51b849c/scratchpad/syn_w7.md	249	False	False	False	False	False
+w7	29	B	write	code other	permission_guard.py	249	False	False	False	False	False
+w7	29	B	write	other	Write/Edit	249	False	False	False	False	False
+w7	29	B	bash-view	PI report	__reports__/wave-07/research-pi/lab_cost_map.html	733	False	True	True	True	True
+w7	29	B	write	synthesis	__statera__/synthesis.md	483	False	True	True	True	True
+w7	29	B	write	transcript/data	.claude/remote-settings.json	483	False	True	True	True	False
+w7	29	B	write	worker report	__reports__/wave-07/explorer-w07-f/00-findings_v0.md	483	False	True	True	True	False
+w7	29	B	write	wave note	__statera__/wave-07.md	93	False	True	True	True	True
+w7	29	B	write	other md	user_words.md	93	False	True	True	True	True
+w7	29	B	write	other md	user_words.md	93	False	True	True	True	False
+w7	29	B	git	git		54	False	False	False	False	False
+w7	32	H	bash-query	worker report	__reports__/wave-07/explorer-w07-d/raw	929	False	False	False	False	False
+w7	32	H	bash-query	PI report	__reports__/wave-06/research-pi/lab_cost_map.html	929	False	True	True	True	False
+w7	32	H	bash-view	skill/reference	/Users/hacker/.claude/plugins/cache/cracking-shells/writing-reports/1.1.3/skills/writing-reports/references/software-knowledge-transfer.md	1322	True	False	False	False	False
+w7	32	H	bash-view	other	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/xenodochial-franklin-bc67fb	1322	True	True	True	True	False
+w7	32	H	bash-view	worker report	__reports__/wave-07/explorer-w07-d/raw/table_py_parse.txt	1322	True	True	True	False	False
+w7	32	H	lab_status	lab_status		2459	False	False	False	False	False
+w7	32	H	lab_status	lab_status		6690	False	False	False	False	False
+w7	32	H	lab_status	lab_status		2362	False	False	False	False	False
+w7	32	H	bash-view	PI report	__reports__/wave-07/research-pi/lab_cost_map.html	8463	False	True	True	True	False
+w7	32	H	bash-view	PI report	__reports__/wave-07/research-pi/lab_cost_map.html	3907	True	True	True	True	False
+w7	32	H	write	PI report	__reports__/wave-07/research-pi/lab_cost_map.html	488	False	True	True	True	False
+w7	32	H	write	other	dev/null	488	False	False	False	True	False
+w7	32	H	write	PI report	__reports__/wave-07/research-pi/lab_cost_map.html	1151	False	True	True	True	False
+w7	36	H	bash-view	worker report	__reports__/wave-07/explorer-w07-b/requests.tsv	798	False	True	True	False	False
+w7	36	H	bash-view	worker report	__reports__/wave-07/explorer-w07-b/requests.tsv	798	False	True	True	True	False
+w7	36	H	bash-view	instrumenta script	__instrumenta__/w07c7r_c4_sensitivity.py	798	False	False	False	False	False
+w7	37	H	bash-view	worker report	__reports__/wave-07/explorer-w07-b/big_results.tsv	199	False	True	True	False	False
+w7	37	H	bash-view	worker report	__reports__/wave-07/explorer-w07-b/big_results.tsv	199	False	True	True	True	False
+w7	37	H	lab_status	lab_status		1016	False	False	False	False	False
+w7	37	H	bash-query	worker report	__reports__/wave-07/explorer-w07-b/big_results.tsv	146	False	True	True	True	False
+w7	37	H	bash-query	wave note	__statera__/wave-0	146	False	True	False	False	False
+w7	37	H	bash-query	framing	__design__/framing.md	146	False	False	False	True	False
+w7	39	H	bash-query	worker report	__reports__/wave-07/explorer-w07-b/requests.tsv	355	False	True	True	True	False
+w7	39	H	bash-query	synthesis	__statera__/synthesis.md	355	False	True	True	True	True
+w7	41	H	bash-view	other	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/xenodochial-franklin-bc67fb	980	True	True	True	True	False
+w7	41	H	bash-view	statera other	__statera__/user_words.md	980	True	True	True	True	False
+w7	41	H	bash-view	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	980	True	True	True	True	True
+w8	0	H	git	other	dev/null	6843	False	False	False	False	False
+w8	0	H	read-whole	skill/reference	/Users/hacker/Documents/src/CrackingShells/Murmuration/skills/research-loop/references/working_defaults.md	2595	True	False	False	False	False
+w8	0	H	bash-view	statera other	__statera__/user_words.md	9297	True	True	True	False	False
+w8	0	H	read-whole	framing	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-8-928ebd/__design__/framing.md	9193	True	True	False	False	False
+w8	0	H	bash-view	synthesis	__statera__/synthesis.md	798	True	True	False	False	False
+w8	0	H	bash-view	synthesis	__statera__/synthesis.md	752	False	True	False	True	False
+w8	0	H	bash-view	synthesis	__statera__/synthesis.md	752	False	True	False	True	False
+w8	0	H	bash-view	synthesis	__statera__/synthesis.md	752	False	True	False	True	False
+w8	0	H	bash-view	synthesis	__statera__/synthesis.md	15563	False	True	False	True	False
+w8	0	H	lab_status	lab_status		4901	False	False	False	False	False
+w8	0	H	lab_status	lab_status		9106	False	False	False	False	False
+w8	0	H	bash-view	skill/reference	/Users/hacker/Documents/src/CrackingShells/Murmuration/skills/research-loop/references/waves.md	2234	True	True	False	False	False
+w8	0	H	bash-view	skill/reference	/Users/hacker/Documents/src/CrackingShells/Murmuration/skills/research-loop/templates/wave.md	2234	True	False	False	False	False
+w8	0	H	bash-view	skill/reference	/Users/hacker/Documents/src/CrackingShells/Murmuration/skills/research-loop/references/briefs.md	4974	True	True	False	False	False
+w8	0	H	bash-view	report (older/other)	__reports__/wave-07	617	True	True	False	False	False
+w8	0	H	bash-view	report (older/other)	__reports__/wave-07/research-pi	617	True	True	False	False	False
+w8	0	H	bash-view	PI report	__reports__/wave-07/research-pi/00-wave07_report_v0.md	617	True	False	False	False	False
+w8	0	H	bash-view	PI report	__reports__/wave-07/research-pi/00-wave07_report_v0.md	2765	False	False	False	True	False
+w8	0	H	bash-view	wave note	__statera__/wave-07.md	2765	False	True	False	False	False
+w8	0	H	bash-view	statera other	__statera__/harness.jsonl	220	True	True	True	False	False
+w8	0	H	bash-view	other	dev/null	220	True	False	False	True	False
+w8	0	H	bash-view	other	.claude/plugins/data	220	True	False	False	False	False
+w8	0	H	bash-view	other	.claude/plugins/data/murmuration-murmuration-local/bin	782	True	False	False	False	False
+w8	0	H	bash-view	transcript/data	.claude/settings.json	782	True	False	False	False	False
+w8	0	H	bash-view	other	dev/null	782	True	False	False	True	False
+w8	0	H	bash-view	statera other	__statera__/.harness	84	True	False	False	False	False
+w8	0	H	bash-view	statera other	__statera__/.harness	84	True	False	False	True	False
+w8	0	H	bash-view	statera other	__statera__/.harness	84	True	False	False	True	False
+w8	0	H	bash-query	report (older/other)	__reports__/wave-07/explorer-w07-b	759	False	False	False	False	False
+w8	0	H	bash-query	report (older/other)	__reports__/wave-07/explorer-w07-g	759	False	False	False	False	False
+w8	0	H	bash-query	other	.claude/projects	759	False	True	False	False	False
+w8	0	H	bash-query	other	.claude/projects	1112	False	True	False	True	False
+w8	0	H	bash-query	other	.claude/projects	1112	False	True	False	True	False
+w8	0	H	bash-query	transcript/data	.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-8-928ebd/ad75be4f-14dd-4dd8-90c7-fb175ed36239.jsonl	1112	False	True	False	False	False
+w8	0	H	bash-query	report (older/other)	__reports__/wave-07/explorer-w07-b	555	False	False	False	True	False
+w8	0	H	bash-query	report (older/other)	__reports__/wave-07	555	False	True	False	True	False
+w8	0	H	bash-query	report (older/other)	__reports__/wave-07/04-protocol_p5_rustguard_v1.md	555	False	False	False	False	False
+w8	0	H	lab_status	lab_status		222	False	False	False	False	False
+w8	0	H	bash-view	report (older/other)	__reports__/wave-07/04-protocol_p5_rustguard_v1.md	1861	False	False	False	True	False
+w8	0	H	bash-view	other	rust/src	1861	False	False	False	False	False
+w8	0	H	bash-view	other	rust/tests	1861	False	False	False	False	False
+w8	0	H	bash-query	plugin source	scripts/budget.py	1234	False	True	True	False	False
+w8	0	H	bash-query	plugin source	scripts/handback.py	1234	False	True	False	False	False
+w8	0	H	bash-query	plugin source	scripts/run_hook.py	1234	False	True	False	False	False
+w8	0	H	bash-query	plugin source	hooks/hooks.json	754	False	True	False	False	False
+w8	0	H	bash-query	statera other	__statera__/harness.jsonl	1017	False	True	True	True	False
+w8	0	H	bash-query	statera other	/Users/hacker/Documents/src/CrackingShells/Murmuration/__statera__/harness.jsonl	1017	False	True	True	True	False
+w8	0	H	bash-query	other	dev/null	1017	False	False	False	True	False
+w8	0	H	bash-query	plugin source	scripts/budget.py	5688	False	True	True	True	False
+w8	0	H	bash-view	plugin source	scripts/budget.py	7965	False	True	True	True	False
+w8	1	B	bash-view	puzzle file	__scrupuli__/wave-08-explorer-w08-c.md	3394	True	False	False	False	False
+w8	1	B	bash-view	worker report	__reports__/wave-08/explorer-w08-c/tables.md	2345	False	False	False	False	False
+w8	2	B	bash-view	puzzle file	__scrupuli__/wave-08-explorer-w08-a.md	2634	True	False	False	False	False
+w8	2	B	bash-view	worker report	__reports__/wave-08/explorer-w08-a/by_class.tsv	2634	True	False	False	False	False
+w8	2	B	write	other	dev/null	2221	False	False	False	True	False
+w8	2	B	bash-view	puzzle file	__scrupuli__/wave-08-explorer-w08-d.md	2550	True	False	False	False	False
+w8	2	B	bash-view	plugin source	scripts/handback.py	2550	True	True	False	True	False
+w8	3	B	bash-view	puzzle file	__scrupuli__/wave-08-explorer-w08-b.md	3600	True	False	False	False	False
+w8	3	B	bash-view	worker report	__reports__/wave-08/explorer-w08-b/00-findings_v0.md	3600	True	True	True	False	False
+w8	4	B	lab_status	lab_status		3426	False	False	False	False	False
+w8	4	B	write	wave note	__statera__/wave-08.md	627	False	True	True	False	False
+w8	4	B	write	wave note	__statera__/wave-08.md	627	False	True	True	True	False
+w8	4	B	write	plugin source	scripts/lab_init.py	627	False	False	False	False	False
+w8	4	B	git	git		11	False	False	False	False	False
+w8	4	B	write	other	s/note	61	False	False	False	False	False
+w8	4	B	write	other	40ff7b7/note	61	False	False	False	True	False
+w8	4	B	write	other	s/note	61	False	False	False	True	False
+w8	5	B	bash-view	statera other	__statera__/harness.jsonl	1334	True	True	False	True	False
+w8	6	B	bash-view	claim file	__pondus__/w08-c2.md	2635	False	True	True	False	False
+w8	6	B	write	wave note	__statera__/wave-08.md	50	False	True	False	True	True
+w8	6	B	write	claim file	__pondus__/w08-c2.md	50	False	False	False	True	False
+w8	6	B	write	wave note	__statera__/wave-08.md	50	False	True	False	True	False
+w8	7	B	bash-view	puzzle file	__scrupuli__/wave-08-author-w08-1.md	5628	True	False	False	False	False
+w8	8	B	bash-view	plugin source	scripts/budget.py	448	True	True	True	True	True
+w8	8	B	bash-view	statera other	__statera__/harness.jsonl	1086	True	True	False	True	False
+w8	8	B	bash-view	puzzle file	__scrupuli__/wave-08-author-w08-3.md	1086	True	False	False	False	False
+w8	8	B	bash-view	plugin source	scripts/permission_guard.py	1086	True	True	False	False	False
+w8	8	B	bash-view	claim file	__pondus__/w08-c3.md	865	False	True	True	False	False
+w8	8	B	bash-view	puzzle file	__scrupuli__/wave-08-author-w08-3.md	865	False	False	False	True	False
+w8	8	B	bash-view	puzzle file	__scrupuli__/wave-08-author-w08-3.md	865	False	False	False	True	False
+w8	8	B	lab_status	lab_status		5712	False	False	False	False	False
+w8	8	B	bash-query	PI report	__reports__/wave-07/research-pi/lab_cost_map.html	177	False	True	False	False	False
+w8	8	B	bash-query	PI report	__reports__/wave-07/research-pi/lab_cost_map.html	177	False	True	False	True	False
+w8	8	B	git	plugin source	hooks/hooks.json	2784	False	True	False	True	False
+w8	9	B	lab_status	lab_status		206	False	False	False	False	False
+w8	9	B	write	other	private/tmp/murmuration-w08/research-pi/smoke	266	False	False	False	False	False
+w8	9	B	write	other	S/lab/__statera__	266	False	True	True	False	False
+w8	9	B	write	other	S/lab/__design__	266	False	True	True	False	False
+w8	9	B	bash-view	other	.claude/plugins/data/murmuration-inline	285	True	True	True	False	False
+w8	9	B	bash-view	other	D/bin	285	True	False	False	True	False
+w8	9	B	bash-view	other	D/bin/.verified	285	True	True	True	False	False
+w8	9	B	bash-view	skill/reference	skills/research-loop/references/briefs.md	1327	False	True	True	True	False
+w8	9	B	bash-view	skill/reference	skills/research-loop/references/waves.md	1327	False	True	True	True	False
+w8	9	B	write	PI report	__reports__/wave-08/research-pi/handback_len.tsv	82	False	True	True	False	False
+w8	9	B	write	instrumenta script	__instrumenta__/w08_pi_handback_len.py	82	False	True	True	False	False
+w8	9	B	write	PI report	__reports__/wave-08/research-pi/handback_len.tsv	82	False	True	True	True	False
+w8	9	B	write	instrumenta script	__instrumenta__/w08_pi_handback_len.py	53	False	False	False	True	False
+w8	9	B	write	instrumenta script	__instrumenta__/w08_pi_handback_len.py	53	False	False	False	True	False
+w8	9	B	write	PI report	__reports__/wave-08/research-pi/handback_len.tsv	53	False	False	False	True	False
+w8	9	B	write	wave note	__statera__/wave-08.md	388	False	True	True	True	True
+w8	9	B	write	claim file	__pondus__/w08-c3.md	388	False	True	True	True	False
+w8	9	B	write	transcript/data	.claude/settings.local.json	388	False	True	True	False	False
+w8	9	B	bash-view	statera other	__statera__/harness.jsonl	29	True	True	False	True	False
+w8	9	B	bash-view	statera other	__statera__/handbacks	29	True	False	False	False	False
+w8	9	B	bash-view	other	dev/null	29	True	False	False	True	True
+w8	10	B	write	other	private/tmp/murmuration-w08/research-pi/murmuration.before-w08c4	180	False	True	False	False	False
+w8	10	B	write	other	private/tmp/murmuration-w08/research-pi/old_budget.rc	180	False	False	False	False	False
+w8	10	B	write	other	private/tmp/murmuration-w08/research-pi/old_budget.err	180	False	False	False	False	False
+w8	13	B	write	worker report	__reports__/wave-08/explorer-w08-h/lab_cost_map.html	2603	False	True	False	True	False
+w8	13	B	write	puzzle file	__scrupuli__/wave-08-explorer-w08-h.md	2603	False	False	False	False	False
+w8	14	B	lab_status	lab_status		4047	False	False	False	False	False
+w8	14	B	bash-view	wave note	__statera__/wave-08.md	97	True	True	True	True	True
+w8	14	B	bash-view	wave note	__statera__/wave-08.md	633	False	True	True	True	False
+w8	15	B	bash-query	puzzle file	__scrupuli__/wave-08-explorer-w08-j.md	1139	False	False	False	False	False
+w8	15	B	bash-query	puzzle file	__scrupuli__/wave-08-explorer-w08-j.md	853	False	False	False	True	False
+w8	16	B	bash-view	synthesis	__statera__/synthesis.md	1803	False	True	False	True	False
+w8	16	B	bash-view	synthesis	__statera__/synthesis.md	1803	False	True	False	True	False
+w8	16	B	git	claim file	__pondus__/w08-c5.md	621	False	False	False	False	False
+w8	16	B	git	other	claude/murmuration-wave-8-928ebd	621	False	True	False	False	False
+w8	22	B	lab_status	lab_status		270	False	False	False	False	False
+w8	22	B	write	plugin source	scripts/permission_guard.py	789	False	True	False	True	True
+w8	22	B	write	worker report	__reports__/wave-08/author-w08-9/decisions_table.md	789	False	False	False	False	False
+w8	22	B	bash-view	worker report	__reports__/wave-08/author-w08-9/proposed_decision_sections.md	1037	False	True	True	False	False
+w8	26	B	bash-query	instrumenta script	__instrumenta__/w08_v10_	923	False	False	False	False	False
+w8	26	B	bash-query	claim file	__pondus__/w08-c10.md	923	False	False	False	False	False
+w8	26	B	bash-view	claim file	__pondus__/w08-c10.md	2946	False	False	False	True	False
+w8	27	B	write	other	HOME/.claude/plugins/data/murmuration-murmuration-local	323	False	True	False	False	False
+w8	27	B	write	plugin source	scripts/install_binary.py	323	False	True	False	False	False
+w8	27	B	write	other	D/bin/murmuration	323	False	True	True	False	False
+w8	27	B	bash-query	synthesis	__statera__/synthesis.md	1426	False	True	True	True	False
+w8	27	B	write	synthesis	__statera__/synthesis.md	146	False	True	False	True	False
+w8	27	B	write	transcript/data	.claude/settings.local.json	146	False	True	True	True	False
+w8	27	B	write	other	reach/p	146	False	False	False	False	False
+w8	28	B	bash-view	instrumenta script	__instrumenta__/w08d_pi_context.py	422	False	True	True	False	False
+w8	28	B	bash-view	instrumenta script	__instrumenta__/w08d_pi_context.py	422	False	True	True	True	False
+w8	28	B	bash-query	other	private/tmp/murmuration-w08/research-pi/pi_self	262	False	True	False	False	False
+w8	28	B	bash-query	transcript/data	w8_requests.tsv	262	False	False	False	False	False
+w8	28	B	bash-query	transcript/data	w8_items.tsv	262	False	False	False	False	False
+w8	28	B	bash-query	other	private/tmp/murmuration-w08/research-pi/pi_self	359	False	True	False	True	False
+w8	28	B	bash-query	transcript/data	w8_items.tsv	359	False	False	False	True	False
+w8	30	B	write	other	HOME/.claude/plugins/data/murmuration-murmuration-local	156	False	True	False	True	False
+w8	30	B	write	plugin source	scripts/install_binary.py	156	False	True	False	True	False
+w8	30	B	write	other	D/bin/murmuration	156	False	True	True	True	False
+w8	30	B	write	synthesis	__statera__/synthesis.md	121	False	True	True	True	False
+w8	30	B	write	PI report	__reports__/wave-08/research-pi/00-wave08_report_v0.md	121	False	True	True	False	False
+w8	30	B	write	wave note	__statera__/wave-08.md	121	False	True	True	True	True
+w8	30	B	bash-query	synthesis	__statera__/synthesis.md	235	False	True	True	True	False
+w8	30	B	bash-query	PI report	__reports__/wave-08/research-pi/00-wave08_report_v0.md	235	False	True	True	True	False
+w8	30	B	read-part	synthesis	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-8-928ebd/__statera__/synthesis.md	296	False	True	True	True	False
+w8	30	B	read-part	PI report	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-wave-8-928ebd/__reports__/wave-08/research-pi/00-wave08_report_v0.md	198	False	True	True	True	False
+w8	30	B	write	synthesis	__statera__/synthesis.md	55	False	True	True	True	False
+w8	30	B	write	PI report	__reports__/wave-08/research-pi/00-wave08_report_v0.md	55	False	True	False	True	False
+w8	30	B	write	wave note	__statera__/wave-08.md	55	False	True	True	True	False
+w8	30	B	bash-query	puzzle file	__scrupuli__/wave-08-author-w08-5.md	787	False	False	False	False	False
+w8	30	B	bash-query	puzzle file	__scrupuli__/wave-08-reproducer-w08-10.md	787	False	False	False	False	False
+w8	33	B	bash-view	worker report	__reports__/wave-08/explorer-w08-k/proposed_sections.md	3173	True	True	True	False	False
+w8	33	B	write	worker report	__reports__/wave-08/explorer-w08-k/proposed_sections.md	279	False	False	False	True	False
+w8	33	B	write	plugin source	scripts/lab_status.py	279	False	True	False	False	False
+w8	33	B	write	plugin source	scripts/lab_status.py	279	False	True	False	True	False
+w8	33	B	lab_status	lab_status		226	False	False	False	False	False
+w8	33	B	write	synthesis	__statera__/synthesis.md	20	False	True	False	True	False
+w8	33	B	write	synthesis	__statera__/synthesis.md	20	False	True	False	True	False
+w8	33	B	write	synthesis	__statera__/synthesis.md	20	False	True	False	True	False
+w8	34	B	lab_status	lab_status		446	False	False	False	False	False
+w8	37	B	write	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	131	False	True	True	False	False
+w8	37	B	write	other	claude/murmuration-wave-8-928ebd	131	False	True	True	True	False
+w8	37	B	write	other	private/tmp/murmuration-w08/research-pi/smoke4	131	False	False	False	False	False
+w8	37	B	bash-query	other	.claude/projects	74	False	True	False	True	False
+w8	37	B	bash-query	other	HOME/.claude/projects	74	False	True	False	True	False
+w8	37	B	bash-query	other	.claude/projects	74	False	True	False	True	False
+w8	37	B	write	code other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-8-928ebd/ad75be4f-14dd-4dd8-90c7-fb175ed36239/scratchpad/dispositions.py	112	False	True	True	False	False
+w8	37	B	write	other md	private/tmp/murmuration-w08/research-pi/disp_rows.md	112	False	True	True	False	False
+w8	37	B	write	other	private/tmp/murmuration-w08/research-pi/missing.txt	112	False	True	True	False	False
+w8	37	B	bash-query	puzzle file	__scrupuli__/wave-08-explorer-w08-h.md	651	False	False	False	True	False
+w8	37	B	write	code other	private/tmp/claude-501/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-wave-8-928ebd/ad75be4f-14dd-4dd8-90c7-fb175ed36239/scratchpad/dispositions.py	5	False	False	False	True	False
+w8	37	B	write	other md	private/tmp/murmuration-w08/research-pi/disp_rows.md	5	False	True	True	True	False
+w8	37	B	write	other	private/tmp/murmuration-w08/research-pi/missing.txt	5	False	False	False	True	False
+w8	37	B	write	wave note	__statera__/wave-08.md	48	False	True	True	True	False
+w8	37	B	write	other md	private/tmp/murmuration-w08/research-pi/claims_rows.md	48	False	False	False	False	False
+w8	37	B	write	other md	private/tmp/murmuration-w08/research-pi/disp_rows.md	48	False	False	False	True	False
+w8	38	B	lab_status	lab_status		251	False	False	False	False	False
+w8	40	H	search	search		3159	False	False	False	False	False
+w8	40	H	bash-view	wave note	__statera__/wave-05.md	195	True	True	True	False	False
+w8	40	H	bash-view	wave note	__statera__/wave-05.md	195	True	True	True	True	False
+w8	40	H	bash-view	wave note	__statera__/wave-05.md	195	True	True	True	True	False
+w8	41	H	bash-view	other	/Users/hacker/Documents/src/CrackingShells/colgrep-mcp	1345	True	True	True	False	False
+w8	41	H	bash-view	report (older/other)	R/__reports__/colgrep_mcp/README.md	1345	True	True	True	False	False
+w8	41	H	bash-view	report (older/other)	R/__reports__/colgrep_mcp/01-findings_colgrep_behaviour_v0.md	1345	True	False	False	False	False
+w8	41	H	search	search		1775	False	False	False	False	False
+w8	41	H	search	search		2561	False	False	False	False	False
+w8	41	H	bash-view	other	/Users/hacker/Documents/src/CrackingShells/colgrep-mcp	992	True	True	True	True	False
+w8	41	H	bash-view	other md	R/AGENTS.md	992	True	False	False	False	False
+w8	41	H	bash-view	report (older/other)	R/__reports__/consistency/README.md	992	True	True	True	True	False
+w8	41	H	bash-view	skill/reference	.claude/skills/scheduling-work	2100	True	False	False	False	False
+w8	41	H	bash-view	other	SW/references	2100	True	False	False	False	False
+w8	41	H	bash-view	other md	SW/references/reminder-contract.md	2100	True	False	False	False	False
+w8	41	H	bash-view	skill/reference	.claude/skills/scheduling-work	5641	False	False	False	True	False
+w8	41	H	bash-view	other md	SW/references/write-rules.md	5641	False	False	False	False	False
+w8	41	H	bash-view	other md	SW/references/conventions.md	5641	False	False	False	False	False
+w8	41	H	bash-query	skill/reference	HOME/.claude/skills/scheduling-work/config/personal-setup.json	57	False	False	False	False	False
+w8	41	H	lab_status	lab_status		1458	False	False	False	False	False
+w8	42	B	bash-query	puzzle file	__scrupuli__/wave-09-explorer-w09-a.md	1424	False	False	False	False	False
+w8	44	B	write	report (older/other)	__reports__/wave-09/explorer-w09-a	106	False	True	True	False	False
+w8	44	B	write	report (older/other)	__reports__/wave-08/explorer-w09-a	106	False	True	True	True	False
+w8	44	B	write	report (older/other)	__reports__/wave-09/explorer-w09-b	106	False	True	True	False	False
+w8	44	B	write	synthesis	__statera__/synthesis.md	366	False	False	False	True	True
+w8	44	B	write	PI report	__reports__/wave-08/research-pi/01-addendum_classifier_probes_v0.md	366	False	True	True	False	False
+w8	44	B	write	other md	02-wave09_handoff_v0.md	366	False	True	True	False	False
+w9self	0	H	bash-view	skill/reference	/Users/hacker/Documents/src/CrackingShells/Murmuration/skills/research-loop/references/working_defaults.md	14269	True	False	False	False	False
+w9self	0	H	bash-view	framing	__design__/framing.md	4396	True	False	False	False	False
+w9self	0	H	bash-view	statera other	__statera__/user_words.md	4396	True	False	False	False	False
+w9self	0	H	bash-view	statera other	__statera__/user_words.md	5019	True	False	False	True	False
+w9self	0	H	bash-view	statera other	__statera__/user_words.md	5019	True	False	False	True	False
+w9self	0	H	bash-view	wave note	__statera__/wave-08.md	114	True	False	False	False	False
+w9self	0	H	bash-view	wave note	__statera__/wave-08.md	114	True	False	False	True	False
+w9self	0	H	read-part	wave note	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-research-wave-9-a25ae6/__statera__/wave-08.md	6067	False	False	False	True	False
+w9self	0	H	git	git		4164	False	False	False	False	False
+w9self	0	H	bash-view	PI report	__reports__/wave-08/research-pi/02-wave09_handoff_v0.md	3676	True	False	False	False	False
+w9self	0	H	bash-view	PI report	__reports__/wave-08/research-pi/01-addendum_classifier_probes_v0.md	3676	True	False	False	False	False
+w9self	0	H	bash-view	PI report	__reports__/wave-08/research-pi/01-addendum_classifier_probes_v0.md	2417	True	False	False	True	False
+w9self	0	H	bash-view	transcript/data	/Users/hacker/Documents/src/CrackingShells/Murmuration/.claude/settings.local.json	2417	True	True	False	False	False
+w9self	0	H	bash-view	transcript/data	.claude/settings.local.json	2417	True	True	False	True	False
+w9self	0	H	bash-view	transcript/data	.claude/settings.json	355	True	False	False	False	False
+w9self	0	H	bash-view	transcript/data	/Users/hacker/Documents/src/CrackingShells/Murmuration/.claude/settings.json	355	True	False	False	True	False
+w9self	0	H	bash-view	transcript/data	.claude/settings.json	355	True	False	False	True	False
+w9self	0	H	read-part	synthesis	/Users/hacker/Documents/tmp/claude-worktrees/Murmuration/murmuration-research-wave-9-a25ae6/__statera__/synthesis.md	35807	False	False	False	False	False
+w9self	0	H	bash-view	puzzle file	__scrupuli__/wave-09-explorer-w09-a.md	2556	True	False	False	False	False
+w9self	0	H	bash-view	puzzle file	__scrupuli__/wave-09-explorer-w09-b.md	2556	True	False	False	False	False
+w9self	0	H	bash-view	puzzle file	__scrupuli__/wave-08-research-pi.md	2556	True	False	False	False	False
+w9self	0	H	bash-query	other	.claude/projects	973	False	True	True	False	False
+w9self	0	H	bash-query	other	.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-research-wave-9-a25ae6	973	False	True	True	False	False
+w9self	0	H	bash-query	other	dev/null	973	False	False	False	False	False
+w9self	0	H	bash-view	skill/reference	/Users/hacker/Documents/src/CrackingShells/Murmuration/skills/research-loop	3675	True	False	False	False	False
+w9self	0	H	bash-view	other md	R/references/waves.md	3675	True	False	False	False	False
+w9self	0	H	bash-view	other md	R/templates/wave.md	3675	True	False	False	False	False
+w9self	0	H	bash-view	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	615	True	True	True	False	False
+w9self	0	H	bash-view	transcript/data	claude.json	615	True	False	False	False	False
+w9self	0	H	lab_status	lab_status		2511	False	False	False	False	False
+w9self	0	H	bash-view	instrumenta script	__instrumenta__/w09a_	3379	True	False	False	False	False
+w9self	0	H	bash-view	instrumenta script	__instrumenta__/w09b_	3379	True	False	False	False	False
+w9self	0	H	bash-view	instrumenta script	__instrumenta__/w08d_pi_	3379	True	False	False	False	False
+w9self	0	H	bash-view	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	1671	True	True	True	True	False
+w9self	0	H	bash-view	other	dev/null	1671	True	False	False	True	False
+w9self	0	H	bash-view	claim file	__pondus__/w08-c3.md	1671	True	False	False	False	False
+w9self	0	H	bash-view	statera other	__statera__/harness.jsonl	1190	True	False	False	False	False
+w9self	0	H	bash-view	worker report	__reports__/wave-09/explorer-w09-f/00-findings_v0.md	242	False	True	False	False	False
+w9self	0	H	bash-view	claim file	__pondus__/w04-c3.md	242	False	False	False	False	False
+w9self	0	H	bash-view	puzzle file	__scrupuli__/wave-09-explorer-w09-f.md	242	False	True	True	False	False
+w9self	0	H	git	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	745	False	True	True	True	False
+w9self	0	H	bash-view	statera other	__statera__/harness.jsonl	656	True	False	False	True	False
+w9self	0	H	bash-view	transcript/data	.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-research-wave-9-a25ae6/a75de3b4-109f-42c3-807e-967d61a35df2/subagents/agent-abd0ba3399096c09d.jsonl	656	True	True	True	False	False
+w9self	0	H	bash-view	transcript/data	.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-research-wave-9-a25ae6/a75de3b4-109f-42c3-807e-967d61a35df2/subagents/agent-abd0ba3399096c09d.jsonl	398	True	True	True	True	False
+w9self	0	H	bash-view	transcript/data	meta.json	398	True	False	False	False	False
+w9self	0	H	bash-view	statera other	__statera__/harness.jsonl	398	True	False	False	True	False
+w9self	2	H	bash-view	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	48	True	True	True	True	False
+w9self	2	H	bash-view	transcript/data	M/.claude/settings.local.json	48	True	True	True	True	False
+w9self	2	H	bash-view	transcript/data	M/.claude/settings.local.json	48	True	True	True	True	False
+w9self	2	H	bash-view	transcript/data	.claude/settings.local.json	590	True	True	True	True	False
+w9self	2	H	bash-view	transcript/data	.claude/settings.local.json	590	True	True	True	True	False
+w9self	2	H	bash-view	worker report	__reports__/wave-08/author-w08-3/m6_settings_location.txt	590	True	True	True	False	False
+w9self	3	B	git	worker report	__reports__/wave-09/explorer-w09-f/00-findings_v0.md	12420	False	True	True	True	False
+w9self	3	B	bash-view	puzzle file	__scrupuli__/wave-09-explorer-w09-f.md	2112	False	False	False	True	False
+w9self	3	B	bash-view	worker report	__reports__/wave-09/explorer-w09-f/00-findings_v0.md	2112	False	True	True	True	False
+w9self	4	H	bash-view	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	214	True	True	True	True	False
+w9self	4	H	bash-view	transcript/data	M/.claude/settings.local.json	214	True	True	True	True	False
+w9self	4	H	bash-view	other	/Users/hacker/Documents	214	True	True	True	False	False
+w9self	5	H	bash-query	transcript/data	.claude/settings.local.json	34	False	True	True	True	False
+w9self	5	H	bash-query	transcript/data	.claude/projects/-Users-hacker-Documents-tmp-claude-worktrees-Murmuration-murmuration-research-wave-9-a25ae6/a75de3b4-109f-42c3-807e-967d61a35df2.jsonl	34	False	False	False	False	False
+w9self	6	H	git	transcript/data	.claude/settings.local.json	48	False	True	True	True	False
+w9self	6	H	git	other	/Users/hacker/Documents/src/CrackingShells/Murmuration	48	False	True	True	True	False
+w9self	6	H	git	transcript/data	.claude/settings.local.json	48	False	True	True	True	False

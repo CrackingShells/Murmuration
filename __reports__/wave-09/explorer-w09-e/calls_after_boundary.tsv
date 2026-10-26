@@ -1,0 +1,13 @@
+run	call	tool	result_chars	command_start
+OP_B1_pilot6q	1	Bash	17444	git log --oneline -3 && ls __pondus__ | grep w08 && grep -n "evidence\|^label\|label:" __pondus__/w08-c1.md | head -20; echo ---; grep -n "label" __pondus__/w08-c2.md | head; echo ---; python3 -I scri
+OP_B1_pilot6q	2	Bash	1666	python3 -I scripts/lab_status.py 2>&1 | grep -E "escalated|w08-c|warning|^! " | grep -v "is not a puzzle id"
+OP_B1_2	2	Bash	13500	git log --oneline -5 && ls __pondus__ | grep w08; grep -n "00:11" -A4 __statera__/user_words.md | head -12; python3 -I scripts/lab_status.py 2>&1 | head -80
+OP_B1_2	3	Bash	3002	python3 -I scripts/lab_status.py 2>&1 | grep -E "escalated|w08-c|^- w0[5-7]" | grep -E "escalated|w08"; grep -n "^evidence:" __pondus__/w08-c1.md; grep -n "^label:" __pondus__/w08-c1.md __pondus__/w08
+OP_B1_2	4	Bash	11236	cd LAB/__reports__/wave-08 && ls explorer-w08-d explorer-w08-b | head -40; for f in explorer-w08-d/0*-findings*.md; do grep -niE "sessions|requests|costlies
+OP_H_2	1	Bash	12867	sed -n 1,8p __pondus__/w08-c1.md; echo ----D; cat __statera__/handbacks/wave-08-explorer-w08-d.md 2>/dev/null || ls __statera__/handbacks | grep w08; echo ----B; cat __statera__/handbacks/wave-08-expl
+OP_H_2	2	Bash	719	python3 -I scripts/lab_status.py 2>/dev/null | grep -iE "escalat|w08-c1|w08-c2" | head -20
+OP_HP_2	1	Bash	10039	sed -n '1,8p' __pondus__/w08-c1.md; echo ----; grep -n 'evidence' __pondus__/w08-c1.md | head; echo ----D; cat __statera__/handbacks/wave-08-explorer-w08-d.md 2>/dev/null || ls __statera__/handbacks |
+OP_HP_2	2	Bash	705	ls __statera__/handbacks | grep w08; f=$(ls __statera__/handbacks/*w08-b* __statera__/handbacks/*explorer-w08-b* 2>/dev/null | head -1); echo "$f"; grep -n -i 'top.10\|top 10\|plain\|identifier' "$f" 
+OP_B1_3	1	Bash	17307	cd LAB; git log --oneline -1; grep -n "evidence:\|^label\|^status\|^verdict\|budget.rs" __pondus__/w08-c1.md | head -20; echo ---; grep -n "^label\|^status\
+OP_B1_3	2	Bash	13704	cd LAB; python3 -I scripts/lab_status.py 2>&1 | grep -E "escalated|w08-c" ; echo ---; ls __reports__/wave-08/explorer-w08-d/ __reports__/wave-08/explorer-w0
+OP_HP_3	1	Bash	11897	sed -n '1,8p' __pondus__/w08-c1.md | cut -c1-400; echo ---; sed -n '1,8p' __pondus__/w08-c2.md | cut -c1-300; echo ---; cat __statera__/handbacks/wave-08-explorer-w08-d.md 2>/dev/null || ls __statera_

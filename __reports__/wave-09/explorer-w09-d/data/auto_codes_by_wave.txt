@@ -1,0 +1,7 @@
+auto codes on wake turns (B/N-led, with a request); H1 = raw artifact read in the turn (strict), H1n = only in the next turn, W = dispatch/message/wave-note write with no H1 or H1n; H2 wave-note write; H3 dispatch; H4 message to the sender; H4o message to another worker; H8 git commit
+w123 wakes 80 H1 18(22%) H1n 12(15%) H2 18(22%) H3 25(31%) H4 8(10%) H4o 19(24%) H8 22(28%) W 31(39%) H0 13(16%)
+w4 wakes 24 H1 2(8%) H1n 2(8%) H2 6(25%) H3 6(25%) H4 3(12%) H4o 8(33%) H8 10(42%) W 15(62%) H0 5(21%)
+w5 wakes 22 H1 4(18%) H1n 1(5%) H2 9(41%) H3 5(23%) H4 3(14%) H4o 3(14%) H8 10(45%) W 10(45%) H0 7(32%)
+w6 wakes 38 H1 6(16%) H1n 5(13%) H2 21(55%) H3 11(29%) H4 7(18%) H4o 9(24%) H8 24(63%) W 21(55%) H0 5(13%)
+w7 wakes 28 H1 10(36%) H1n 3(11%) H2 18(64%) H3 14(50%) H4 3(11%) H4o 4(14%) H8 18(64%) W 8(29%) H0 6(21%)
+w8 wakes 39 H1 14(36%) H1n 7(18%) H2 18(46%) H3 13(33%) H4 4(10%) H4o 9(23%) H8 20(51%) W 13(33%) H0 5(13%)

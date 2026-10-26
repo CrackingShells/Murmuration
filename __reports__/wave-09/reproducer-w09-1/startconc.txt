@@ -1,0 +1,13 @@
+string concurrent starts 1 n 22 median 327.5 min 215 max 1072
+string concurrent starts 2 n 8 median 405.5 min 225 max 1486
+string concurrent starts >=3 n 17 median 655 min 326 max 1825
+lean concurrent starts 1 n 12 median 215.5 min 180 max 579
+lean concurrent starts 2 n 2 median 281.5 min 223 max 340
+lean concurrent starts >=3 n 6 median 817.0 min 430 max 1347
+exec concurrent starts 1 n 13 median 142 min 103 max 230
+exec concurrent starts 2 n 4 median 186.0 min 111 max 262
+exec concurrent starts >=3 n 8 median 293.5 min 134 max 499
+binary concurrent starts 1 n 3 median 106 min 104 max 124
+binary concurrent starts 2 n 2 median 226.0 min 197 max 255
+binary concurrent starts >=3 n 4 median 335.0 min 178 max 429
+binary records: [(1792819373, 197), (1792819373, 255), (1792938590, 178), (1792938590, 309), (1792938590, 361), (1792938590, 429), (1792939173, 124), (1792939547, 106), (1792939719, 104)]

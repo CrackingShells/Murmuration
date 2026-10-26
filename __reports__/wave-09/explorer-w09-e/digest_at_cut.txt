@@ -1,0 +1,62 @@
+LAB DIGEST (computed by the lab's hook from its files and this session's transcript at the moment of compaction; every line number is exact for the files as they stand now).
+Keep this block in the summary word for word under the heading `Lab digest`, then add what only you know: your plan, what you decided and why, what you were about to do.
+
+1. The user's words (`__statera__/user_words.md`, 2026-10-24 00:11), verbatim:
+   > /murmuration:research-loop You can proceed with wave 8 following the results of wave 7 and all other puzzles. The overarching goal is to progressively optimize murmuration by using it yourself. You are Murmuration and you optimize murmuration. Budget is 150USD; it is currently midnight, you have 6 hours. Use them.
+
+2. Workers in flight (harness.jsonl: started, not ended; 8 others have ended). Dispatches rows are at the wave-note line shown:
+   - author-w08-3 (author, started 2026-10-24T00:54): author w08-c3: a PI compaction threshold with a PreCompact hook carrying the lab state; Opus PI-like run through it [__statera__/wave-08.md:161]
+   - explorer-w08-g (explorer, started 2026-10-24T00:58): explorer worker requests that could have been merged: USD, and one agent-file line tested [__statera__/wave-08.md:162]
+   - reproducer-w08-1 (reproducer, started 2026-10-24T01:10): reproducer verify w08-c1 with its own replay set from wave-8 events, the fall-back, `localtime_r`, the title against e3/e4 [__statera__/wave-08.md:163]
+
+3. Claims of this wave, label as the lab's rules give it (not the author's), with line numbers of the head fields:
+   - w08-c1: unverified MEASURED | __pondus__/w08-c1.md lines 1-49; label:3, scope:4, evidence:5, method:6, author:48; first verdict section none yet
+   - w08-c2: unverified MEASURED (the mechanism, live and offline) | __pondus__/w08-c2.md lines 1-60; label:3, scope:4, evidence:5, method:6, author:7; first verdict section none yet
+   Lab-wide (72 claim files): escalated, PI decides: 9 (w01-c2, w01-c8, w02-c10, w03-c2, w04-c4, w04-c7, w04-c10, w05-c1, w07-c7); disputed: 0; unverified: 2 (w08-c1, w08-c2). Full table: `python3 scripts/lab_status.py`.
+
+4. Wave note map (__statera__/wave-08.md, 187 lines):
+   - 1-4 # Wave 08
+   - 5-29 ## The user's sentence this wave serves
+   - 30-52 ## What does not add up
+   - 53-54 ## Reassessments
+   - 55-92 **Explorers c, a, d back (note committed 00:29, 40ff7b7).**
+   - 93-106 **explorer-w08-e back (00:52, 1c44fee).**
+   - 107-123 **explorer-w08-f back (59720e6).**
+   - 124-135 **author-w08-2 back (w08-c2 filed at 3318c4c; `date` 01:07).**
+   - 136-149 **author-w08-1 back (w08-c1 filed; claim commits deef5e3, 96a80b4, 5cb807c).**
+   - 150-165 ## Dispatches
+   - 166-170 ## Claims of this wave
+   - 171-175 ## Puzzle dispositions (at close)
+   - 176-187 ## Notes
+
+5. Already read in this session (newest first; path, lines, approx tokens of that result). To check a detail, read the exact range, not the file:
+   - __pondus__/w08-c2.md 1-12
+   - __scrupuli__/wave-08-explorer-w08-d.md whole (~1k tok)
+   - __scrupuli__/wave-08-explorer-w08-a.md whole (~1k tok)
+   - __reports__/wave-08/explorer-w08-a/by_class.tsv whole (~1k tok)
+   - __reports__/wave-08/explorer-w08-c/tables.md 1-40
+   - __scrupuli__/wave-08-explorer-w08-c.md whole
+   - scripts/budget.py 363-500 (~1k tok)
+   - hooks/hooks.json whole (~1k tok)
+   - __statera__/wave-07.md 5-55 (~1k tok)
+   - /Users/hacker/Documents/src/CrackingShells/Murmuration/skills/research-loop/references/briefs.md whole (~1k tok)
+   - /Users/hacker/Documents/src/CrackingShells/Murmuration/skills/research-loop/references/waves.md whole (~1k tok)
+   - __statera__/wave-07.md 582-603 (~2k tok)
+   - __statera__/synthesis.md 569-626 (~3k tok)
+   - __statera__/synthesis.md 505-626
+   - __design__/framing.md whole (~2k tok)
+   - __statera__/user_words.md head/tail (~2k tok)
+   - /Users/hacker/Documents/src/CrackingShells/Murmuration/skills/research-loop/references/working_defaults.md whole
+
+6. Hand-backs on disk (`__statera__/handbacks/<wave>-<name>.md`, message verbatim; the report it points to, with its line count):
+   - author-w08-2 (6204B) -> __reports__/wave-08/01-protocol_p2_shorthandback_v0.md (36 lines)
+   - explorer-w08-a (3954B)
+   - explorer-w08-b (4856B) -> __reports__/wave-08/explorer-w08-b/00-findings_v0.md (80 lines)
+   - explorer-w08-c (6036B) -> __reports__/wave-08/explorer-w08-c/00-findings_v0.md (138 lines)
+   - explorer-w08-d (3768B) -> __reports__/wave-08/explorer-w08-d/00-findings_v0.md (87 lines)
+   - explorer-w08-e (2761B)
+   - explorer-w08-f (2251B) -> __reports__/wave-08/explorer-w08-f/00-findings_v0.md (90 lines)
+
+7. Your plan and last words before this compaction:
+   plan (last update_plan call, 15:11Z; may be stale): [in_progress] Read working defaults, framing, wave-07 note and puzzles; [pending] Plan wave 8 and write wave note; [pending] Dispatch explorers/authors/verifiers; [pending] Act on results and puzzles; [pending] Close wave 8 and report open items
+   last words: reproducer-w08-1 is now checking w08-c1. It builds its own replay set from this wave's live events and confirms the fallback works. It also checks the one `unsafe` call (`localtime_r`, used for local time) and whether the claim's title says more than its timings support. Still running: author-w08-3 (compaction), explorer-w08-g (request count) and reproducer-w08-1.

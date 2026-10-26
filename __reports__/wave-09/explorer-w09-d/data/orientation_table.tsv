@@ -1,0 +1,7 @@
+label	steps_to_first_dispatch	reads	chars_read	secs	steps_with_text	top_classes_by_chars
+w123	20	10	91618	254	3	report (older/other) 65794; skill/reference 7706; statera other 5838; other md 4169; lab_status 3929
+w4	21	22	113083	234	4	plugin source 27266; other 25563; report (older/other) 16639; synthesis 14499; wave note 12750
+w5	37	21	85389	779	4	other 52797; skill/reference 11187; statera other 7108; transcript/data 5580; framing 5365
+w6	18	11	68661	154	3	synthesis 15066; claim file 10581; wave note 10491; framing 9942; search 8990
+w7	19	17	118558	228	4	wave note 30701; synthesis 20371; other 10874; other md 10371; bash-view 9487
+w8	22	23	98183	214	3	synthesis 18619; lab_status 14229; other 12528; skill/reference 12037; report (older/other) 11379

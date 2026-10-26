@@ -1,0 +1,5 @@
+start records 159 resumed 68
+dispatches 91 with meta name 71 no meta file 0
+pre n 86 with meta 66 wrong 14 batched 37 wrong&batched 14 wrong&unbatched 0
+post n 5 with meta 5 wrong 0 batched 2 wrong&batched 0 wrong&unbatched 0
+[('author-w04-1', 'author-w04-3', 'unknown'), ('author-w04-3', 'author-w04-1', 'unknown'), ('reproducer-w04-8', 'reproducer-w04-9', 'brief'), ('reproducer-w04-9', 'reproducer-w04-8', 'brief'), ('explorer-w05-b', 'explorer-w05-e', 'brief'), ('explorer-w05-e', 'explorer-w05-b', 'brief'), ('author-w05-1', 'author-w05-2', 'unknown'), ('author-w05-2', 'author-w05-3', 'unknown'), ('author-w05-3', 'author-w05-1', 'unknown'), ('explorer-w06-a', 'explorer-w06-b', 'unknown'), ('explorer-w06-b', 'explorer-w06-c', 'unknown'), ('explorer-w06-c', 'explorer-w06-a', 'unknown'), ('explorer-w08-e', 'explorer-w08-f', 'unknown'), ('explorer-w08-f', 'explorer-w08-e', 'unknown')]

@@ -1,0 +1,323 @@
+label	turn	time_jst	trig	arrival	from	hb_chars	steps	calls	secs	codes
+w123	0	19 10:56:27	H	idle		240	0	0	0	H0,H1n
+w123	1	19 10:56:27	H	mid		2214	23	30	331	H1,H2,H3,H8
+w123	2	19 11:04:30	H	idle		202	3	2	22	H1n,H2
+w123	3	19 11:09:22	B	idle	explorer-w01-e	7166	3	2	31	H1
+w123	4	19 11:11:59	N	idle	explorer-w01-c	1259	4	3	25	H4,W
+w123	5	19 11:12:35	N	idle	explorer-w01-b	1265	2	1	15	H1n,H4
+w123	6	19 11:13:34	B	idle	explorer-w01-f	19110	16	20	267	H1,H2,H3,H4o,H8
+w123	7	19 11:18:38	B	idle	explorer-w01-d	21079	4	3	61	H1,H2,H3
+w123	8	19 11:27:49	B	idle	author-w01-5	7953	4	3	41	H1,H3
+w123	9	19 11:31:24	B	idle	author-w01-3	8335	4	3	50	H2,H3,W
+w123	10	19 11:32:52	B	idle	author-w01-6	11202	2	2	31	H1n,H3
+w123	11	19 11:34:16	B	idle	author-w01-4	9119	4	4	52	H1,H3,H4o
+w123	12	19 11:35:34	B	idle	author-w01-5	3176	2	1	21	H1n,H3
+w123	13	19 11:37:08	B	idle	author-w01-3	2450	4	3	41	H1,H2,H8
+w123	14	19 11:39:14	B	idle	reproducer-w01-3	4396	1	0	8	H0
+w123	15	19 11:39:24	N	idle	reproducer-w01-3	940	0	0	0	H0
+w123	16	19 11:41:06	B	idle	author-w01-5	3454	1	0	7	H0
+w123	17	19 11:41:14	B	idle	author-w01-6	5950	2	1	19	H1n
+w123	18	19 11:41:36	B	idle	author-w01-4	3606	5	5	87	H1,H2,H4
+w123	19	19 11:43:07	B	idle	author-w01-5	1863	1	0	6	H0
+w123	20	19 11:43:15	N+B	idle	author-w01-5	930	4	4	41	H3,H4o,W
+w123	21	19 11:44:26	B	idle	author-w01-4	5738	2	1	18	H3,W
+w123	22	19 11:45:47	B	idle	author-w01-1	9591	2	2	34	H3,W
+w123	23	19 11:46:24	B	idle	author-w01-4	2913	1	0	10	H0
+w123	24	19 11:48:21	B	idle	reproducer-w01-10	4925	2	1	21	
+w123	25	19 11:48:44	B	idle	author-w01-4	2460	1	0	6	H0,H1n
+w123	26	19 11:49:23	B	idle	reproducer-w01-9	5562	10	9	163	H1,H3,H4o,H8
+w123	27	19 11:54:28	B	idle	reproducer-w01-11	2590	5	4	77	H4,W
+w123	28	19 11:55:48	B	idle	author-w01-2	4860	9	8	126	H4o,H8,W
+w123	29	19 11:58:30	B	idle	reproducer-w01-11	4262	2	1	19	
+w123	30	19 12:00:15	B	idle	reproducer-w01-2	4572	2	2	23	H1n,H2,H4o
+w123	31	19 12:00:47	B	idle	author-w01-2	1484	3	2	42	H1
+w123	32	19 12:01:32	B	idle	reproducer-w01-1	6159	3	2	51	H4o,W
+w123	33	19 12:02:37	B	idle	author-w01-1	3843	2	1	12	H4o,W
+w123	34	19 12:03:15	B	idle	reproducer-w01-1	3199	12	17	1605	H2,H3,H8,W
+w123	35	19 12:37:05	B	idle	author-w02-1	6125	3	2	39	H3,W
+w123	36	19 12:38:24	B	idle	author-w02-2	7624	2	2	31	H2,H3,W
+w123	37	19 12:40:31	B	idle	author-w02-1	4626	2	1	16	H6
+w123	38	19 12:41:18	B	idle	reproducer-w02-1	4271	2	1	15	H4o,W
+w123	39	19 12:42:27	B	idle	author-w02-1	2420	3	2	22	H8
+w123	40	19 12:44:49	B	idle	author-w02-2	8151	2	1	14	H4,W
+w123	41	19 12:45:09	B	idle	author-w02-2	1201	1	0	5	H0
+w123	42	19 12:46:24	B	idle	reproducer-w02-2	4216	3	2	30	H8
+w123	43	19 12:56:17	N	idle	explorer-w02-b	1267	2	1	13	H4,W
+w123	44	19 12:57:29	B	idle	explorer-w02-b	11013	1	0	15	H0
+w123	45	19 12:57:46	N	idle	explorer-w02-b	935	0	0	0	H0,H1n
+w123	46	19 12:58:17	B	idle	explorer-w02-a	13151	11	12	215	H1,H2,H3,H8
+w123	47	19 13:13:25	B	idle	author-w02-4	7346	2	1	36	H3,W
+w123	48	19 13:18:52	B	idle	reproducer-w02-4	3641	1	0	9	H0
+w123	49	19 13:19:03	N	idle	reproducer-w02-4	946	0	0	0	H0
+w123	50	19 13:20:09	B	idle	author-w02-4	3421	2	1	17	
+w123	51	19 13:20:29	B	idle	reproducer-w02-4	2840	1	0	8	H0
+w123	52	19 13:20:39	N	idle	reproducer-w02-4	946	0	0	0	H0,H1n
+w123	53	19 13:22:41	N	idle	bjm8jp775	472	4	3	46	H1
+w123	54	19 13:52:20	B	idle	author-w02-3	9112	6	6	95	H3,H8,W
+w123	55	19 14:10:06	B	idle	reproducer-w02-3	4877	2	1	24	H4o,W
+w123	56	19 14:11:11	B	idle	reproducer-w02-3	4886	1	0	10	H0
+w123	57	19 14:11:24	N	idle	reproducer-w02-3	937	0	0	0	H0,H1n
+w123	58	19 14:14:06	B	idle	author-w02-3	5243	2	2	29	H1,H3
+w123	59	19 14:19:03	B	idle	author-w02-3	2630	1	0	5	H0
+w123	60	19 14:20:42	B	idle	reproducer-w02-5	4960	2	1	20	H1n,H8
+w123	61	19 15:09:20	N	idle	bw20osrr5	474	4	3	74	H1,H3
+w123	62	19 15:29:10	B	idle	explorer-w02-c	6607	6	5	122	H2,H4o,H8,W
+w123	63	19 15:39:57	B	idle	author-w02-3	6679	6	6	113	H3,H8,W
+w123	64	19 15:46:04	B	idle	author-w02-3	2733	3	2	31	
+w123	65	19 15:47:40	B	idle	reproducer-w02-6	4321	3	2	32	H4o,H8,W
+w123	66	19 15:50:39	B	idle	author-w02-3	3318	2	1	15	H4o,W
+w123	67	19 15:51:33	B	idle	reproducer-w02-6	2842	3	2	33	H4o,H8,W
+w123	68	19 15:53:48	B	idle	author-w02-1	3525	2	1	15	H3,W
+w123	69	19 15:55:15	B	idle	author-w02-1	2056	3	2	28	
+w123	70	19 15:55:46	B	idle	reproducer-w02-9	4150	2	1	18	H1n,H8
+w123	71	19 16:03:17	N	idle	bid3h1fp8	474	3	3	31	H1,H4o
+w123	72	19 16:08:35	B	idle	explorer-w02-c	4916	5	4	83	H1n,H8
+w123	73	19 16:17:09	N	idle	b789pprp1	459	3	2	32	H1,H4o
+w123	74	19 16:21:08	B	idle	explorer-w02-c	5120	3	3	45	H4o,H8,W
+w123	75	19 16:23:32	B	idle	author-w02-4	3902	2	1	20	H3,W
+w123	76	19 16:26:22	B	idle	author-w02-4	3360	1	0	7	H0,H1n
+w123	77	19 16:27:18	B	idle	reproducer-w02-10	3819	5	5	61	H1,H2,H4o,H8
+w123	78	19 16:33:06	B	idle	explorer-w02-c	4699	7	8	146	H1,H3,H8
+w123	79	19 16:36:25	B	idle	reproducer-w02-7	1782	2	2	20	H4,W
+w123	80	19 16:37:38	B	idle	reproducer-w02-8	2841	4	4	72	H2,H4,W
+w123	81	19 16:39:24	B	idle	reproducer-w02-8	4806	4	3	41	H1n,H2
+w123	82	19 16:40:09	B+X	idle	author-w02-3	4881	15	16	237	H1,H2,H8
+w123	83	19 17:54:30	H	mid		36	1	0	22	H0
+w123	84	19 18:02:35	H	idle		223	2	2	56	
+w123	85	19 18:14:31	H	mid		1251	6	7	103	
+w123	86	19 18:24:29	H	mid		319	6	6	88	H2,H3,W
+w123	87	19 19:39:21	H+B	idle		258	10	10	223	H2,H3,W
+w123	88	19 19:51:40	H	idle		1003	9	12	109	H2,W
+w123	89	19 19:57:04	H	mid		188	4	4	36	
+w123	90	19 20:05:36	B	idle	reproducer-w03-1	6268	9	9	76	H2,H3,H8,W
+w123	91	19 20:15:18	H	idle		821	2	1	12	H2,W
+w123	92	19 20:31:56	B	idle	author-w03-2	7888	4	3	35	H2,H3,W
+w123	93	19 20:47:57	B	idle	author-w03-2	2381	1	0	11	H0
+w123	94	19 20:49:52	B	idle	reproducer-w03-2	5965	6	7	50	H2,H4o,W
+w123	95	19 20:54:16	B	idle	author-w03-2	4499	5	5	48	H1n,H2,H8
+w123	96	19 22:19:28	H	mid		103	9	10	132	H1,H2,H8
+w123	97	19 23:51:40	H	mid		278	30	34	341	H1,H8
+w4	0	20 09:27:20	H	idle		214	0	0	0	H0,H1n
+w4	1	20 09:27:20	H	mid		2452	35	47	527	H1,H2,H3,H4o,H8
+w4	2	20 09:38:12	B	idle	author-w04-6	3853	2	1	10	H3,W
+w4	3	20 09:41:35	B	idle	author-w04-6	2322	1	0	3	H0
+w4	4	20 09:42:05	B	idle	reproducer-w04-6	3618	4	3	25	H2,H8,W
+w4	5	20 09:45:25	B	idle	author-w04-1	6064	2	1	19	H3,W
+w4	6	20 09:51:32	B	idle	author-w04-1	2335	1	0	5	H0
+w4	7	20 09:52:26	B	idle	reproducer-w04-1	3116	1	0	5	H0
+w4	8	20 09:52:35	N	idle	reproducer-w04-1	903	0	0	0	H0
+w4	9	20 10:07:56	B	idle	author-w04-3	6388	4	4	57	H3,H4,H8,W
+w4	10	20 10:18:59	B	idle	reproducer-w04-4	3407	3	2	23	H2,H4o,H8,W
+w4	11	20 10:23:50	B	idle	author-w04-2	5568	4	5	70	H3,H4,H8,W
+w4	12	20 10:28:54	B	idle	author-w04-3	5631	4	3	45	H3,W
+w4	13	20 10:32:16	B	idle	author-w04-3	2308	3	2	25	H4,H8,W
+w4	14	20 10:32:48	B	idle	reproducer-w04-7	4125	2	2	14	H2,H4o,H8,W
+w4	15	20 10:35:34	B	idle	reproducer-w04-2	3862	2	1	13	H4o,W
+w4	16	20 10:36:28	B	idle	reproducer-w04-3	4377	2	1	7	H1n,H4o
+w4	17	20 10:38:30	B	idle	author-w04-2	4220	7	7	77	H1,H3
+w4	18	20 10:40:35	B	idle	author-w04-3	2550	1	0	5	H0
+w4	19	20 10:41:08	B	idle	reproducer-w04-10	4476	2	1	8	H4o,W
+w4	20	20 10:41:27	B	idle	author-w04-3	1700	2	1	16	H2,H8,W
+w4	21	20 10:42:12	B	idle	author-w04-2	2862	1	0	3	H0
+w4	22	20 10:43:04	B	idle	reproducer-w04-9	4566	2	1	12	H4o,W
+w4	23	20 10:43:22	B	idle	reproducer-w04-8	3995	4	3	30	H4o,H8,W
+w4	24	20 10:44:29	B	idle	reproducer-w04-9	2466	2	1	15	H1n
+w4	25	20 10:48:12	B	idle	reproducer-w04-5	6074	12	11	233	H1,H2,H4o,H8
+w4	26	20 10:53:38	B	idle	reproducer-w04-8	3751	11	10	103	H2,H8,W
+w5	0	21 14:29:01	H	idle		224	0	0	0	H0,H1n
+w5	1	21 14:29:01	H	mid		335	30	32	500	H1,H2,H8
+w5	2	21 14:39:37	X	idle		217	0	0	0	H0
+w5	3	21 14:39:37	H	mid		148	0	0	0	H0,H1n
+w5	4	21 14:39:46	H	idle		71	14	20	259	H1,H2,H3,H8
+w5	5	21 14:51:43	B	idle	explorer-w05-e	5562	6	7	68	H1,H2,H8
+w5	6	21 14:53:45	B	idle	explorer-w05-b	5393	3	2	23	H1
+w5	7	21 14:55:59	B	idle	explorer-w05-c	5443	2	1	17	H1n
+w5	8	21 15:04:03	B	idle	explorer-w05-d	4906	7	12	256	H1,H2,H3,H8
+w5	9	21 15:25:12	B	idle	author-w05-2	7292	6	6	75	H2,H3,H4,H8,W
+w5	10	21 15:32:33	B	idle	author-w05-2	5538	2	1	17	H3,W
+w5	11	21 15:33:20	B	idle	reproducer-w05-3	4806	1	0	5	H0
+w5	12	21 15:33:29	N	idle	reproducer-w05-3	908	0	0	0	H0,H1n
+w5	13	21 15:34:16	B	idle	explorer-w05-f	4490	6	5	132	H1,H2,H8
+w5	14	21 15:37:15	B	idle	author-w05-2	1901	1	0	5	H0
+w5	15	21 15:37:39	B	idle	reproducer-w05-6	4934	2	1	12	H4o,W
+w5	16	21 15:38:20	B	idle	author-w05-2	2567	2	1	7	H4o,W
+w5	17	21 15:38:54	B	idle	reproducer-w05-6	2492	2	1	11	H2,H8,W
+w5	18	21 15:57:53	B	idle	author-w05-3	5948	4	4	57	H3,H8,W
+w5	19	21 15:58:56	B	idle	author-w05-1	4926	11	13	120	H2,H3,H8,W
+w5	20	21 16:02:42	B	idle	reproducer-w05-8	2752	5	4	67	H2,H4,H8,W
+w5	21	21 16:04:39	B	idle	reproducer-w05-8	3957	2	2	17	H2,H4,H8,W
+w5	22	21 16:05:22	B	idle	reproducer-w05-8	1916	1	0	3	H0
+w5	23	21 16:05:27	N	idle	reproducer-w05-8	919	0	0	0	H0
+w5	24	21 16:09:43	B	idle	author-w05-3	3603	1	0	4	H0
+w5	25	21 16:11:08	B	idle	reproducer-w05-5	5447	1	0	5	H0
+w5	26	21 16:11:15	N	idle	reproducer-w05-5	908	0	0	0	H0
+w5	27	21 16:11:56	B	idle	author-w05-1	2558	1	0	4	H0
+w5	28	21 16:13:16	B	idle	author-w05-3	2305	1	0	5	H0
+w5	29	21 16:13:49	B	idle	reproducer-w05-4	5838	17	19	274	H2,H4o,H8,W
+w5	30	21 17:06:57	H	idle		2228	14	16	316	H2,H8,W
+w5	31	21 17:25:09	X	idle		1934	1	0	4	H0
+w5	32	21 17:25:29	X	idle		1776	1	0	3	H0
+w5	33	21 17:26:44	X	idle		1638	1	0	5	H0
+w5	34	21 17:34:48	X	idle		1823	1	0	5	H0
+w5	35	21 17:39:35	X	idle		1813	1	0	3	H0
+w5	36	21 17:40:41	X	idle		1750	1	0	2	H0
+w5	37	21 17:48:32	X	idle		1745	1	0	4	H0
+w5	38	21 17:53:17	X	idle		1728	1	0	2	H0
+w5	39	21 19:19:26	X	idle		1690	2	1	30	H4o,W
+w5	40	21 19:26:26	X	idle		1753	1	0	4	H0
+w6	0	21 17:18:47	X	idle		4609	30	33	379	H1,H2,H3,H8
+w6	1	21 17:25:17	B	idle	reproducer-w06-1	1651	2	1	11	H4,W
+w6	2	21 17:26:31	B	idle	reproducer-w06-1	4699	2	1	11	H1n,H2,H8
+w6	3	21 17:32:29	B	idle	explorer-w06-c	4723	10	9	136	H1,H2,H3,H8
+w6	4	21 17:39:18	B	idle	reproducer-w06-2	2017	2	1	15	H1n,H4
+w6	5	21 17:40:14	B	idle	reproducer-w06-2	3535	3	2	25	H1,H2,H8
+w6	6	21 17:47:40	B	idle	explorer-w06-b	5337	4	3	50	H1
+w6	7	21 17:51:32	B	idle	explorer-w06-a	4149	5	4	103	H2,H3,H8,W
+w6	8	21 18:26:06	B	idle	author-w06-3	5700	0	0	0	H0
+w6	9	21 19:19:26	N	idle	author-w06-3	918	0	0	0	H0,H1n
+w6	10	21 19:19:53	B	idle	local_7ccde0cd-ae81-4026-9907-ce2a933259d0	1038	5	5	390	H1,H2,H3,H8
+w6	11	21 19:27:25	H	idle		475	8	8	65	H2,H8,W
+w6	12	21 19:36:22	B	idle	author-w06-3	4801	1	0	10	H0
+w6	13	21 19:36:36	B	idle	reproducer-w06-3	4513	6	7	96	H2,H3,H4,H8,W
+w6	14	21 19:38:28	B	idle	reproducer-w06-3	2562	2	2	20	H4o,H8,W
+w6	15	21 19:39:16	B	idle	author-w06-3	2013	2	1	7	H4o,W
+w6	16	21 19:39:40	B	idle	reproducer-w06-3	1834	2	1	10	H2,H8,W
+w6	17	21 19:41:58	B	idle	guide-w06-perm	9608	4	3	103	H2,H3,H8,W
+w6	18	21 20:24:04	B	idle	author-w06-5	6272	5	4	92	H1n,H2,H4,H8
+w6	19	21 20:33:17	B	idle	author-w06-4	6052	4	4	108	H1,H2,H3,H8
+w6	20	21 20:43:02	B	idle	author-w06-5	5610	3	3	55	H2,H4,H8,W
+w6	21	21 20:45:07	B	idle	author-w06-4	5695	1	0	3	H0
+w6	22	21 20:48:53	B	idle	reproducer-w06-4	4078	3	2	32	H2,H8,W
+w6	23	21 20:56:24	B	idle	author-w06-5	5096	3	2	35	H2,H3,H8,W
+w6	24	21 21:08:39	B	idle	author-w06-5	4044	3	3	52	H2,H4,H8,W
+w6	25	21 21:09:35	B	idle	reproducer-w06-5	5947	4	3	44	H4o,H8,W
+w6	26	21 21:10:52	B	idle	author-w06-6	5047	3	2	48	H2,H3,H8,W
+w6	27	21 21:21:18	B	idle	author-w06-5	5682	6	5	72	H2,H3,H8,W
+w6	28	21 21:32:19	B	idle	author-w06-5	2828	1	0	6	H0
+w6	29	21 21:32:30	B	idle	author-w06-6	5583	1	0	4	H0
+w6	30	21 21:32:55	B	idle	reproducer-w06-6	5585	3	2	28	H2,H4o,H8,W
+w6	31	21 21:33:50	B	idle	reproducer-w06-7	6940	4	3	40	H2,H4o,H8,W
+w6	32	21 21:48:45	B	idle	author-w06-5	5094	2	1	15	H4o,W
+w6	33	21 21:53:06	B	idle	author-w06-5	2218	2	1	14	H4,W
+w6	34	21 21:53:28	B	idle	reproducer-w06-7	7201	2	1	11	H4o,W
+w6	35	21 21:54:23	B	idle	author-w06-5	2238	1	0	3	H0
+w6	36	21 21:55:03	B	idle	reproducer-w06-7	2920	2	1	13	
+w6	37	21 21:55:55	B	idle	author-w06-6	3603	4	3	25	H4o,W
+w6	38	21 22:06:44	B	idle	reproducer-w06-6	3045	13	14	135	H3,H8,W
+w6	39	21 22:12:46	B	idle	reproducer-w06-8	5433	4	3	60	H1n,H2,H3,H8
+w6	40	21 22:19:41	B	idle	author-w06-7	4585	4	3	26	H1,H2,H4o,H8
+w6	41	21 22:22:47	B	idle	reproducer-w06-8	5154	10	10	128	H1n,H2,H8
+w6	42	21 23:05:17	H+X	idle		1275	13	16	284	H1,H8
+w6	43	21 23:28:45	H	idle		1241	4	3	97	
+w6	44	21 23:50:21	H	idle		1228	8	9	143	H8
+w6	45	22 00:08:17	H	idle		377	3	2	17	
+w6	46	22 00:08:37	H	idle		468	2	1	18	
+w6	47	22 00:12:08	H	idle		130	12	11	132	H8
+w6	48	22 00:19:29	H	idle		62	4	4	33	H8
+w6	49	22 00:27:36	X	idle		2236	1	0	25	H0
+w6	50	22 00:38:57	X	idle		1677	1	0	5	H0
+w6	51	22 00:41:40	X	idle		1675	1	0	4	H0
+w6	52	22 00:43:32	X	idle		1766	1	0	9	H0
+w6	53	22 00:46:28	X	idle		1677	1	0	5	H0
+w6	54	22 00:47:49	X	idle		1676	1	0	5	H0
+w6	55	22 00:51:35	X	idle		1695	1	0	4	H0
+w6	56	22 00:56:05	X	idle		1665	1	0	4	H0
+w6	57	22 01:01:01	X	idle		1739	1	0	4	H0
+w6	58	22 01:03:09	X	idle		1658	1	0	3	H0
+w7	0	22 00:22:09	X	idle		7544	21	29	326	H1,H2,H3,H8
+w7	1	22 00:37:19	B	idle	explorer-w07-e	5286	6	5	97	H1,H2,H3,H8
+w7	2	22 00:40:04	B	idle	explorer-w07-f	5129	5	5	92	H1,H2,H3,H8
+w7	3	22 00:41:42	B	idle	explorer-w07-b	4471	7	6	108	H1,H2,H3,H8
+w7	4	22 00:44:53	B	idle	explorer-w07-c	5928	4	4	93	H1,H2,H3,H8
+w7	5	22 00:46:50	B	idle	author-w07-1	4518	5	5	56	H1,H2,H3,H4o,H8
+w7	6	22 00:50:07	B	idle	explorer-w07-d	4536	5	6	86	H1n,H2,H3,H8
+w7	7	22 00:54:58	B	idle	author-w07-2	6303	4	4	65	H1,H2,H4,H8
+w7	8	22 00:57:21	B	idle	explorer-w07-a	4992	8	9	217	H1,H2,H3,H8
+w7	9	22 01:02:38	B	idle	author-w07-2	5197	2	2	28	H2,H3,H8,W
+w7	10	22 01:06:12	B	idle	author-w07-4	5364	4	5	72	H1,H2,H3,H4,H8
+w7	11	22 01:08:09	B	idle	author-w07-4	3652	2	1	16	H4,W
+w7	12	22 01:09:58	B	idle	author-w07-4	3314	2	1	14	H3,W
+w7	13	22 01:13:30	B	idle	author-w07-6	4840	2	2	31	H2,H3,H8,W
+w7	14	22 01:14:26	B	idle	author-w07-2	2192	2	1	7	
+w7	15	22 01:14:53	B	idle	author-w07-4	1999	1	0	5	H0
+w7	16	22 01:15:27	B	idle	reproducer-w07-2	5427	2	1	21	H2,H8,W
+w7	17	22 01:16:14	B	idle	author-w07-3	2113	1	0	4	H0
+w7	18	22 01:17:05	B	idle	reproducer-w07-4	5371	14	13	194	H2,H8,W
+w7	19	22 01:30:09	B	idle	author-w07-6	2692	1	0	4	H0
+w7	20	22 01:41:32	B	idle	reproducer-w07-6	4440	4	3	51	H1n,H2,H8
+w7	21	22 01:49:08	B	idle	author-w07-5	6990	4	4	81	H1,H2,H3,H8
+w7	22	22 02:16:13	B	idle	author-w07-5	6635	1	0	5	H0
+w7	23	22 02:17:11	B	idle	reproducer-w07-5	5136	6	6	132	H2,H3,H4o,H8,W
+w7	24	22 02:27:04	B	idle	author-w07-5	6472	2	1	13	H4o,W
+w7	25	22 02:28:48	B	idle	reproducer-w07-7	5138	1	0	7	H0
+w7	26	22 02:28:58	N	idle	reproducer-w07-7	930	0	0	0	H0
+w7	27	22 02:30:24	B	idle	author-w07-5	6706	1	0	12	H0
+w7	28	22 02:31:51	B	idle	reproducer-w07-5	3983	5	4	73	H1n,H2,H3,H4o,H8
+w7	29	22 02:35:13	B	idle	author-w07-5	2233	26	27	534	H1,H2,H8
+w7	30	22 07:24:18	X	idle		29	0	0	0	H0
+w7	31	22 07:27:46	H	idle		263	0	0	0	H0,H1n
+w7	32	22 07:27:46	H	mid		2247	19	21	276	H1,H8
+w7	33	22 07:47:02	H	idle		263	0	0	0	H0
+w7	34	22 07:47:02	H	mid		502	3	2	32	H8
+w7	35	22 07:50:43	H	idle		263	0	0	0	H0,H1n
+w7	36	22 07:50:43	H	mid		478	9	9	165	H1,H8
+w7	37	22 07:53:31	H	idle		581	6	5	56	H1,H8
+w7	38	22 08:04:19	H	idle		263	0	0	0	H0,H1n
+w7	39	22 08:04:19	H	mid		974	4	5	44	H1,H8
+w7	40	22 08:08:58	H	idle		263	0	0	0	H0
+w7	41	22 08:08:58	H	mid		321	6	6	61	H8
+w7	42	22 08:10:14	H	idle		263	0	0	0	H0
+w7	43	22 08:10:14	H	mid		189	6	7	38	
+w8	0	24 00:11:44	H	idle		434	29	39	349	H1,H2,H3,H8
+w8	1	24 00:25:46	B	idle	explorer-w08-c	6375	3	2	26	H1
+w8	2	24 00:27:29	B	idle	explorer-w08-a	4243	6	7	139	H1,H2,H3,H8
+w8	3	24 00:31:36	B	idle	explorer-w08-b	5129	3	2	35	H1,H2,H8
+w8	4	24 00:53:03	B	idle	explorer-w08-e	3024	7	7	100	H2,H3,H8,W
+w8	5	24 00:58:04	B	idle	explorer-w08-f	2480	4	4	57	H1n,H2,H3,H8
+w8	6	24 01:07:01	B	idle	author-w08-2	6624	3	2	36	H1,H2,H8
+w8	7	24 01:10:30	B	idle	author-w08-1	6129	4	3	45	H1,H2,H3,H8
+w8	8	24 01:18:11	B	idle	explorer-w08-g	2530	16	15	248	H1,H2,H3,H4o,H8
+w8	9	24 01:23:06	B	idle	author-w08-1	1838	18	17	298	H2,H3,H8,W
+w8	10	24 01:28:55	B	idle	reproducer-w08-6	1549	5	4	40	H4,H8,W
+w8	11	24 01:29:55	B	idle	reproducer-w08-6	2050	3	2	28	H2,H4,H8,W
+w8	12	24 01:30:37	B	idle	reproducer-w08-6	1122	5	5	84	H2,H3,H8,W
+w8	13	24 01:35:06	B	idle	explorer-w08-h	2260	4	3	73	
+w8	14	24 01:48:41	B	idle	explorer-w08-i	3000	6	6	63	H1n,H2,H3,H8
+w8	15	24 01:54:50	B	idle	explorer-w08-j	3151	5	4	62	H1,H2,H3,H8
+w8	16	24 02:01:08	B	idle	author-w08-5	2221	6	5	91	H3,W
+w8	17	24 02:09:14	B	idle	author-w08-9	2334	1	0	4	H0
+w8	18	24 02:12:28	B	idle	reproducer-w08-9	2033	2	1	15	H4o,W
+w8	19	24 02:16:38	B	idle	author-w08-9	1633	2	1	11	H4o,W
+w8	20	24 02:21:29	B	idle	author-w08-5	2552	1	0	3	H0
+w8	21	24 02:22:15	B	idle	author-w08-5	3096	1	0	8	H0,H1n
+w8	22	24 02:22:55	B	idle	reproducer-w08-5	1757	8	7	121	H1,H2,H4o,H8
+w8	23	24 02:44:04	B	idle	author-w08-10	2256	2	1	20	H3,W
+w8	24	24 02:56:52	B	idle	author-w08-5	1795	2	1	22	H4o,W
+w8	25	24 03:06:34	B	idle	author-w08-10	1769	2	1	20	H1n,H4
+w8	26	24 03:07:32	B	idle	reproducer-w08-10	1578	5	4	35	H1,H4o
+w8	27	24 03:16:43	B	idle	reproducer-w08-5	1533	10	9	267	H1n,H2,H8
+w8	28	24 03:30:25	B	idle	author-w08-10	1927	7	7	53	H1,H4
+w8	29	24 03:49:02	B	idle	author-w08-10	1532	1	0	4	H0,H1n
+w8	30	24 03:53:24	B	idle	reproducer-w08-10	1670	16	21	305	H1,H2,H3,H4o,H8
+w8	31	24 03:59:40	B	idle	explorer-w08-h	1420	1	0	3	H0
+w8	32	24 03:59:45	N	idle	explorer-w08-h	916	0	0	0	H0,H1n
+w8	33	24 04:00:43	B	idle	explorer-w08-k	2024	5	4	45	H1,H8
+w8	34	24 04:32:07	B	idle	author-w08-14	1886	4	4	41	H3,W
+w8	35	24 05:03:46	B	idle	reproducer-w08-14	1525	2	1	29	H4o,W
+w8	36	24 05:04:32	B	idle	author-w08-14	1211	2	1	10	H1n,H4o
+w8	37	24 05:05:03	B	idle	reproducer-w08-14	1066	14	13	229	H1,H2,H8
+w8	38	24 05:20:47	B	idle	reproducer-w08-5	1118	2	1	12	H6
+w8	39	24 13:48:03	H	idle		214	0	0	0	H0
+w8	40	24 13:48:03	H	mid		2717	9	12	135	H1n
+w8	41	24 14:18:47	H	idle		1454	18	24	274	H1,H2,H3,H8
+w8	42	24 14:35:34	B	idle	explorer-w09-a	2669	3	2	27	H1,H2,H8
+w8	43	24 14:37:49	H	idle		247	2	1	20	
+w8	44	24 14:47:07	B	idle	explorer-w09-b	2424	6	7	104	H2,H8,W
+w9self	0	25 23:23:11	H	idle		342	41	46	546	H1,H2,H3,H4o,H8
+w9self	1	25 23:36:35	H	idle		232	0	0	0	H0,H1n
+w9self	2	25 23:36:35	H	mid		396	5	5	54	H1,H2
+w9self	3	25 23:38:51	B	idle	explorer-w09-f	2643	5	5	60	H1,H2,H3,H8
+w9self	4	25 23:42:00	H	idle		231	4	4	28	H1
+w9self	5	25 23:43:09	H	idle		121	3	2	24	H1
+w9self	6	25 23:45:00	H	idle		238	4	6	27	H2,H8,W
+w9self	7	25 23:45:30	B	idle	author-w09-1	2900	0	0	0	H0

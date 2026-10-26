@@ -1,0 +1,7 @@
+records 469 Counter({'end': 171, 'start': 159, 'note': 102, 'raise': 36, 'named': 1})
+exact duplicate records: 0
+end records 171 workers with an end 91
+last end: USD frac median 0.360 max 0.921 over1 0; blocks(stops>0) 0; time over1 2
+end records with used/B>1: 0  t_frac>1: 3
+workers with end and raise 28 raise records 36 workers raised overall 28 of which no end: 0
+vs budget before first raise: over1 [(1.1, 'author-w07-5')] median 0.57 n 28
