@@ -556,14 +556,26 @@ def run(raw, log=None):
     return {"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "deny", "permissionDecisionReason": MSG % hit}}
 
 
+FIXTURES = os.path.join(HERE, "fixtures", "guard_lists")   # copied from __reports__/wave-06/author-w06-5 (the research record keeps the originals)
+FIXTURE_COUNTS = {"attacks": 50, "ordinary": 28, "mention": 6, "evasions": 13}   # a missing file or a different count fails the selftest: it must never pass on empty lists
+
+
 def selftest():
     import tempfile
     T = tempfile.mkdtemp()
     ok = True
-    lists = os.path.join(HERE, "..", "__reports__", "wave-06", "author-w06-5")
+    missing = []
 
     def load(n):
-        return json.loads(open(os.path.join(lists, "e3_%s.json" % n)).read().replace("{T}", T)) if os.path.exists(os.path.join(lists, "e3_%s.json" % n)) else []
+        p = os.path.join(FIXTURES, "e3_%s.json" % n)
+        try:
+            cases = json.loads(open(p).read().replace("{T}", T))
+        except (OSError, ValueError):
+            missing.append(n)
+            return []
+        if len(cases) != FIXTURE_COUNTS[n]:
+            missing.append("%s (%d cases, %d pinned)" % (n, len(cases), FIXTURE_COUNTS[n]))
+        return cases
 
     def ev(c):
         if c["tool"] == "Bash":
@@ -628,6 +640,8 @@ def selftest():
         r = run(raw)
         check("malformed %r" % raw[:20], r is None or r["hookSpecificOutput"]["permissionDecision"] == "deny")
     check("empty event is a deny (fail closed)", run("not json") is not None)
+    for n in sorted(set(missing)):
+        check("fixture %s present with its pinned count" % n, False)
     print("selftest %s: attacks %d denied, ordinary %d allowed; not-gated: evasions caught %s, mention-only denied %s" % (
         "ok" if ok else "FAILED", len(load("attacks")), len(load("ordinary")), ev_pass, mention_denied))
     return 0 if ok else 1

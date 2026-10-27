@@ -1,0 +1,183 @@
+[
+ {
+  "id": "o01",
+  "group": "git",
+  "tool": "Bash",
+  "command": "git status"
+ },
+ {
+  "id": "o02",
+  "group": "git",
+  "tool": "Bash",
+  "command": "git log --oneline -5"
+ },
+ {
+  "id": "o03",
+  "group": "git",
+  "tool": "Bash",
+  "command": "git diff --stat"
+ },
+ {
+  "id": "o04",
+  "group": "git",
+  "tool": "Bash",
+  "command": "git add scripts/hello.py && git commit -q -m 'add hello' -- scripts/hello.py"
+ },
+ {
+  "id": "o05",
+  "group": "python",
+  "tool": "Bash",
+  "command": "python3 -I scripts/hello.py"
+ },
+ {
+  "id": "o06",
+  "group": "python",
+  "tool": "Bash",
+  "command": "python3 -I -c 'print(1+1)'"
+ },
+ {
+  "id": "o07",
+  "group": "claude",
+  "tool": "Bash",
+  "command": "claude --version"
+ },
+ {
+  "id": "o08",
+  "group": "claude",
+  "tool": "Bash",
+  "command": "claude -p hi --plugin-dir {T}/plugin --permission-mode auto --setting-sources user,project,local"
+ },
+ {
+  "id": "o09",
+  "group": "claude",
+  "tool": "Bash",
+  "command": "claude -p hi --model haiku --permission-mode default --setting-sources user,project,local --plugin-dir {T}/plugin"
+ },
+ {
+  "id": "o10",
+  "group": "claude",
+  "tool": "Bash",
+  "command": "claude -p hi --model haiku --permission-mode auto"
+ },
+ {
+  "id": "o11",
+  "group": "claude",
+  "tool": "Bash",
+  "command": "claude -p hi --setting-sources user"
+ },
+ {
+  "id": "o12",
+  "group": "claude",
+  "tool": "Bash",
+  "command": "claude -p hi --setting-sources=user,project,local --debug-file {T}/out/dbg.log"
+ },
+ {
+  "id": "o13",
+  "group": "claude",
+  "tool": "Bash",
+  "command": "CLAUDE_CODE_SHELL=/bin/bash claude -p hi --output-format json --permission-mode auto"
+ },
+ {
+  "id": "o14",
+  "group": "settings-read",
+  "tool": "Bash",
+  "command": "jq .permissions {T}/decoy/.claude/settings.json"
+ },
+ {
+  "id": "o15",
+  "group": "settings-read",
+  "tool": "Bash",
+  "command": "grep -n permissions {T}/decoy/.claude/settings.json"
+ },
+ {
+  "id": "o16",
+  "group": "settings-read",
+  "tool": "Bash",
+  "command": "cat {T}/decoy/.claude/settings.json | jq ."
+ },
+ {
+  "id": "o17",
+  "group": "settings-read",
+  "tool": "Bash",
+  "command": "jq . {T}/decoy/.claude/settings.local.json | head -5"
+ },
+ {
+  "id": "o18",
+  "group": "settings-read",
+  "tool": "Bash",
+  "command": "ls -la {T}/decoy/.claude"
+ },
+ {
+  "id": "o19",
+  "group": "settings-read",
+  "tool": "Bash",
+  "command": "diff {T}/decoy/new.json {T}/decoy/.claude/settings.json; true"
+ },
+ {
+  "id": "o20",
+  "group": "shell",
+  "tool": "Bash",
+  "command": "echo hello && ls"
+ },
+ {
+  "id": "o21",
+  "group": "shell",
+  "tool": "Bash",
+  "command": "sed -n 1,5p scripts/hello.py"
+ },
+ {
+  "id": "o22",
+  "group": "shell",
+  "tool": "Bash",
+  "command": "mkdir -p {T}/out && echo ok > {T}/out/x.txt"
+ },
+ {
+  "id": "o23",
+  "group": "shell",
+  "tool": "Bash",
+  "command": "wc -l scripts/hello.py | tr -d ' ' > {T}/out/n.txt"
+ },
+ {
+  "id": "o24",
+  "group": "shell",
+  "tool": "Bash",
+  "command": "for f in scripts/*.py; do python3 -I -m py_compile $f; done"
+ },
+ {
+  "id": "o25",
+  "group": "write",
+  "tool": "Write",
+  "input": {
+   "file_path": "{T}/out/notes.md",
+   "content": "notes\n"
+  }
+ },
+ {
+  "id": "o26",
+  "group": "write",
+  "tool": "Edit",
+  "input": {
+   "file_path": "{T}/out/notes.md",
+   "old_string": "notes",
+   "new_string": "more notes"
+  }
+ },
+ {
+  "id": "o27",
+  "group": "write",
+  "tool": "Write",
+  "input": {
+   "file_path": "{T}/out/settings.json",
+   "content": "{\"theme\": \"dark\"}"
+  }
+ },
+ {
+  "id": "o28",
+  "group": "write",
+  "tool": "Write",
+  "input": {
+   "file_path": "{T}/out/package.json",
+   "content": "{}"
+  }
+ }
+]

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Replay events through scripts/permission_guard.py and the Rust `murmuration guard`, each started as the hook starts it, and fail on any difference in exit code, stdout or log line.
 
-Sets, all from files or fixed seeds: the registered cases (__reports__/wave-06/author-w06-5/*.json), the 4 malformed events, the lab's recorded Bash/Write/Edit/MultiEdit/NotebookEdit calls
+Sets, all from files or fixed seeds: the registered cases (scripts/fixtures/guard_lists/*.json, copied from __reports__/wave-06/author-w06-5), the 4 malformed events, the lab's recorded Bash/Write/Edit/MultiEdit/NotebookEdit calls
 (~/.claude/projects/*Murmuration*), a fuzz set (default 10,000 Bash commands and 2,000 Write/Edit/NotebookEdit events built from rust/tests/fuzz_vocab.json), and a "typeconf"
 set of events with odd JSON types and sizes that is reported apart (the port denies a float, array or object where a string is expected; Python may not).
 
@@ -24,7 +24,7 @@ import threading
 import time
 
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
-LISTS = os.path.join(REPO, "__reports__", "wave-06", "author-w06-5")
+LISTS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures", "guard_lists")   # the registered cases, copied from __reports__/wave-06/author-w06-5
 ENV_BASE = dict(os.environ, LC_ALL="en_US.UTF-8")
 for k in [k for k in ENV_BASE if k.startswith("PYTHON")]:
     del ENV_BASE[k]
