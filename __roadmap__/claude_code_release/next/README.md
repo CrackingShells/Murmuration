@@ -19,7 +19,7 @@ graph TD
     rust_portability[Rust portability by conditional compilation]:::inprogress
     targets_contract[One binary naming and target contract]:::inprogress
     ci_workflow[CI builds and commits the binaries]:::inprogress
-    readme_and_nest_prep[READMEs and the Nest entry]:::inprogress
+    readme_and_nest_prep[READMEs and the Nest entry]:::done
     next[Integration]:::planned
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
@@ -34,7 +34,7 @@ graph TD
 | `rust_portability.md` | 📄 Leaf Task | 🔄 In Progress |
 | `targets_contract.md` | 📄 Leaf Task | 🔄 In Progress |
 | `ci_workflow.md` | 📄 Leaf Task | 🔄 In Progress |
-| `readme_and_nest_prep.md` | 📄 Leaf Task | 🔄 In Progress |
+| `readme_and_nest_prep.md` | 📄 Leaf Task | ✅ Done |
 | `next/` | 📁 Directory | ⬜ Planned |
 
 ## Amendment Log
