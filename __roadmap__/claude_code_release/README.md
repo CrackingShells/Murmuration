@@ -18,7 +18,7 @@ First public release of Murmuration as a Claude Code plugin, a pure-dev cycle (n
 - ✅ Each dispatched leaf passes its gates and an adversarial verifier's attacks
 - ✅ The git-subdir probe install shows `${CLAUDE_PLUGIN_ROOT}` and `${CLAUDE_PLUGIN_DATA}` resolved and the guard live
 - ✅ `origin/main` holds a `build(bin)` commit by CI and `install_smoke` passed in that run
-- ✅ `murmuration@cracking-shells` installs from Nest and the guard denies `pkill`
+- ✅ `murmuration@cracking-shells` installs from Nest and the installed guard denies fixture attack `a01` (G1, a `claude` bypass flag) and allows `ls`
 - ✅ Nothing is pushed to GitHub or Nest without the user's go-ahead (three: scratch CI repo, `main`, Nest)
 
 ## Gotchas
@@ -27,6 +27,8 @@ First public release of Murmuration as a Claude Code plugin, a pure-dev cycle (n
 - The org's `check_plugin.py` is advisory here: its rules exist for cross-harness portability, which this cycle does not claim. On `plugins/murmuration` at db28904 it reports 47 problems: 43 "hook command should start with `uv run --no-project --quiet python`" (the hooks use exec form, `python3 -S -I` and the binary), 3 "the plugin root must be the only placeholder" (rows that also use `${CLAUDE_PLUGIN_DATA}`), 1 "`PostToolBatch` not every harness knows". `claude plugin validate plugins/murmuration` passes.
 - Nest entry: committed on `../Nest` branch `feat/list-murmuration` (c00093d), not pushed; `claude plugin validate` passes on it.
 - Version stays `0.1.0` under the new identity `murmuration@cracking-shells`. Bump `plugin.json` only after CI's `build(bin)` commit for the same sources is on `main`: a cached copy does not refresh under an unchanged version, and a bump ahead of the binaries ships the launcher.
+- The guard is a permission-bypass guard (G1 to G4 in `permission_guard.py`'s docstring), not a process guard: an earlier draft of these gates said it "denies `pkill`", which it never did (the `pkill` rule is the user's own, enforced outside this plugin). Gates use fixture attack `a01` instead.
+- Early probe, 2026-10-27, release tip 888b18b plus a throwaway SessionStart dump, installed from a bare clone through a `git-subdir` scratch marketplace (`murm-probe`, project scope in the scratchpad): exec-form `args` got `CLAUDE_PLUGIN_ROOT=~/.claude/plugins/cache/murm-probe/murmuration/0.1.0` (holds only the plugin subtree, no `__reports__`) and `CLAUDE_PLUGIN_DATA=~/.claude/plugins/data/murmuration-murm-probe`; `install_binary.py` ran and wrote the Python launcher (sources changed, as expected); that launcher denied `a01`/`a02` and allowed `ls`. Not yet seen: a live session routing a Bash call through the hook (the auto-mode classifier refused a nested `claude -p` with Bash allowed); `integrate` repeats the probe on the merged tree.
 - Research records (`probes/`, `validation/`, `__instrumenta__/`) cite root-relative paths such as `scripts/permission_guard.py@<commit>`. They are read at their commit and are not rewritten.
 - Subagents: Grep and `grep -r` are blocked by the colgrep hook; use colgrep `index_build` on the worktree path, then `search` with that path. No mamba or uv on this machine: system `python3` 3.12 (stdlib, `-I`), cargo 1.99.
 

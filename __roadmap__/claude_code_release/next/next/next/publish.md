@@ -9,7 +9,7 @@
 - ⬜ [run] The coordinator's local session reads the plugin from `plugins/murmuration` (`claude plugin list` shows the new path) after the switchover
 - ⬜ [run] `origin/main` has a `build(bin): …` commit by `github-actions[bot]`; `git ls-tree` shows the Unix binaries with mode 100755; `install_smoke` green in that run
 - ⬜ [behavioral] A scratch install from GitHub (git-subdir, `https://github.com/CrackingShells/Murmuration.git`) gives `.verified` in the data dir on macOS
-- ⬜ [behavioral] After the Nest push: `claude plugin marketplace update cracking-shells` then `claude plugin install murmuration@cracking-shells`; the cache holds the subdir only (or what it holds is reported); `/lab` in a scratch folder creates the lab files; the guard denies `pkill`
+- ⬜ [behavioral] After the Nest push: `claude plugin marketplace update cracking-shells` then `claude plugin install murmuration@cracking-shells`; the cache holds the subdir only (or what it holds is reported); `/lab` in a scratch folder creates the lab files; the installed guard denies fixture attack `a01` and allows `ls`
 **References**: `integrate.md` results; the campaign README Gotchas (version bump rule)
 
 ## Step 1: Switchover on the coordinator's machine
