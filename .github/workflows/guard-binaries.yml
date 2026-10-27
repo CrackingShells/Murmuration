@@ -16,6 +16,8 @@ permissions:
 
 env:
   PLUGIN: plugins/murmuration
+  # the contract's ALL_TARGETS, in the order the matrix lists them
+  ALL_TARGETS: "aarch64-apple-darwin x86_64-apple-darwin x86_64-unknown-linux-gnu aarch64-unknown-linux-gnu x86_64-pc-windows-msvc"
 
 jobs:
   build:
@@ -77,3 +79,189 @@ jobs:
             ${{ env.PLUGIN }}/bin/${{ matrix.target }}/sources.sha256
           if-no-files-found: error
           retention-days: 14
+
+  assemble:
+    # `!cancelled()` and not `success()`: a red Windows row must not skip this job. It decides itself which rows it can do without (Windows only).
+    needs: build
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: murmuration-*
+          path: artifacts
+      - name: Assemble bin/ from the artefacts and write the manifest
+        run: |
+          set -euo pipefail
+          want_hash=$(python3 -I "$PLUGIN/scripts/build_manifest.py" sources-hash)
+          # what `file` must say for each triple; keep in step with the matrix of `build`
+          pattern() {
+            case "$1" in
+              aarch64-apple-darwin) echo 'Mach-O 64-bit.*arm64' ;;
+              x86_64-apple-darwin) echo 'Mach-O 64-bit.*x86_64' ;;
+              x86_64-unknown-linux-gnu) echo 'ELF 64-bit.*x86-64' ;;
+              aarch64-unknown-linux-gnu) echo 'ELF 64-bit.*ARM aarch64' ;;
+              x86_64-pc-windows-msvc) echo 'PE32\+ executable.*x86-64' ;;
+            esac
+          }
+          failed=0
+          # a fault in the Windows artefact only drops Windows (Windows installs are deferred); a fault in any other fails the job
+          reject() {
+            if [ "$1" = x86_64-pc-windows-msvc ]; then
+              echo "::warning::$1 left out of bin/: $2"
+            else
+              echo "::error::$1: $2"
+              failed=1
+            fi
+          }
+          rm -rf "${PLUGIN:?}"/bin/*/
+          expected=()
+          for t in $ALL_TARGETS; do
+            dir="artifacts/murmuration-$t"
+            if [ ! -d "$dir" ]; then reject "$t" "no artefact murmuration-$t (its row did not finish)"; continue; fi
+            name=$(python3 -I "$PLUGIN/scripts/build_manifest.py" binary-name "$t")
+            if [ ! -f "$dir/$name" ] || [ ! -f "$dir/sources.sha256" ] || [ "$(find "$dir" -type f | wc -l)" -ne 2 ]; then
+              reject "$t" "the artefact is not exactly $name and sources.sha256: $(cd "$dir" && echo *)"; continue
+            fi
+            desc=$(file -b "$dir/$name")
+            if ! echo "$desc" | grep -Eq "$(pattern "$t")"; then
+              reject "$t" "$name is not a binary for this triple (file says: $desc)"; continue
+            fi
+            have_hash=$(tr -d '\r\n' < "$dir/sources.sha256")
+            if [ "$have_hash" != "$want_hash" ]; then
+              reject "$t" "built from other sources ($have_hash, this checkout has $want_hash)"; continue
+            fi
+            mkdir -p "$PLUGIN/bin/$t"
+            cp "$dir/$name" "$PLUGIN/bin/$t/$name"
+            if [ "$t" != x86_64-pc-windows-msvc ]; then chmod +x "$PLUGIN/bin/$t/$name"; fi
+            expected+=("$t")
+          done
+          if [ "$failed" -ne 0 ]; then exit 1; fi
+          list=$(IFS=,; echo "${expected[*]}")
+          echo "targets: $list"
+          python3 -I "$PLUGIN/scripts/build_manifest.py" --expect-targets "$list"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: bin-and-manifest
+          path: ${{ env.PLUGIN }}/bin
+          if-no-files-found: error
+          retention-days: 14
+
+  install_smoke:
+    needs: assemble
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - uses: actions/download-artifact@v8
+        with:
+          name: bin-and-manifest
+          path: assembled
+      - name: install_binary.py puts the verified binary in place
+        run: |
+          set -euo pipefail
+          # the checkout holds the previously committed bin/: replace it with what this run assembled (artefacts lose the executable bit)
+          rm -rf "${PLUGIN:?}/bin"
+          cp -R assembled "$PLUGIN/bin"
+          find "$PLUGIN/bin" -mindepth 2 -type f ! -name '*.exe' -exec chmod +x {} +
+          root="$RUNNER_TEMP/plugin-root"
+          data="$RUNNER_TEMP/plugin-data"
+          rm -rf "$root" "$data"
+          cp -R "$PLUGIN" "$root"
+          mkdir -p "$data"
+          rc=0
+          out=$(CLAUDE_PLUGIN_ROOT="$root" CLAUDE_PLUGIN_DATA="$data" python3 -S -I "$root/scripts/install_binary.py" < /dev/null) || rc=$?
+          echo "exit code $rc; stdout: [$out]"
+          if [ "$rc" -ne 0 ]; then echo "::error::install_binary.py exited $rc"; exit 1; fi
+          # the launcher path writes a JSON note to stdout; the binary path writes nothing
+          if [ -n "$out" ]; then echo "::error::the launcher was installed, not the binary"; exit 1; fi
+          if [ ! -f "$data/bin/.verified" ]; then echo "::error::no $data/bin/.verified stamp"; exit 1; fi
+          ls -l "$data/bin"
+
+  commit_back:
+    needs: install_smoke
+    # a push to main, or a dispatch on main that asked for it; never from another branch
+    if: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.commit_back)) }}
+    runs-on: ubuntu-24.04
+    # the only job that can write to the repository
+    permissions:
+      contents: write
+    # one commit at a time, queued and never cancelled half-way through a push
+    concurrency:
+      group: bin-commit
+      cancel-in-progress: false
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@v8
+        with:
+          name: bin-and-manifest
+          path: ${{ runner.temp }}/assembled
+      - name: Commit bin/ on top of the current main
+        env:
+          ASSEMBLED: ${{ runner.temp }}/assembled
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          want=""
+          for d in "$ASSEMBLED"/*/; do want="${want:+$want,}$(basename "$d")"; done
+          echo "targets: $want"
+          for attempt in 1 2 3; do
+            git fetch --no-tags origin main
+            tip=$(git rev-parse origin/main)
+            if [ "$tip" != "$GITHUB_SHA" ]; then
+              if ! git merge-base --is-ancestor "$GITHUB_SHA" "$tip"; then
+                echo "::notice::main no longer contains $GITHUB_SHA (rewritten); nothing committed, the run for the new main builds its own"
+                exit 0
+              fi
+              echo "::notice::main moved from $GITHUB_SHA to $tip during the run"
+            fi
+            git checkout -q -f -B main "$tip"
+            rm -rf "${PLUGIN:?}"/bin/*/
+            for d in "$ASSEMBLED"/*/; do cp -R "${d%/}" "$PLUGIN/bin/"; done
+            find "$PLUGIN/bin" -mindepth 2 -type f ! -name '*.exe' -exec chmod +x {} +
+            python3 -I "$PLUGIN/scripts/build_manifest.py" --expect-targets "$want"
+            # the binaries stand only while the sources they were built from are still the sources on main
+            if ! python3 -I -c '
+          import json, sys
+          a, b = (json.load(open(f)) for f in sys.argv[1:3])
+          keys = ("rust_sources_sha256", "scripts_sha256", "permission_guard_py_sha256")
+          sys.exit(0 if all(a.get(k) == b.get(k) for k in keys) else 1)
+          ' "$ASSEMBLED/manifest.json" "$PLUGIN/bin/manifest.json"; then
+              echo "::notice::the hashed sources changed between $GITHUB_SHA and $tip; nothing committed, the newer push runs its own build"
+              exit 0
+            fi
+            git add "$PLUGIN/bin"
+            if git diff --cached --quiet; then
+              echo "::notice::bin/ on main already holds these binaries; nothing to commit"
+              exit 0
+            fi
+            git commit -q -m "build(bin): guard binaries for ${GITHUB_SHA::7}"
+            if git push origin HEAD:main; then exit 0; fi
+            echo "::warning::push rejected (main moved again); attempt $attempt of 3"
+            sleep 5
+          done
+          echo "::error::main kept moving; bin/ not committed"
+          exit 1
