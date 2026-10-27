@@ -2,8 +2,8 @@
 """SessionStart hook: put the plugin's hook program where the hook rows exec it, `${CLAUDE_PLUGIN_DATA}/bin/murmuration` (subcommands `guard`, `budget`, `handback`), once per session; the Rust binary only when nothing doubts it.
 
 Python standard library only; hooks.json starts it in exec form (`python3 -S -I install_binary.py`, no shell).
-The binary for this platform (`bin/<target>/murmuration`, macOS arm64 or x86_64) is installed only when all of these hold:
-  (a) its sha256 equals the one in `bin/manifest.json`;
+The binary for this platform (`bin/<target>/<binary name>`: macOS or Linux, arm64/aarch64 or x86_64; the name and the target list come from scripts/build_manifest.py; Windows installs are a later cycle) is installed only when all of these hold:
+  (a) its sha256 equals the one in `bin/manifest.json`, and the manifest lists every binary that bin/ holds;
   (b) the sha256 of `scripts/permission_guard.py`, `budget.py`, `handback.py`, `run_hook.py` and of the Rust sources (computed with scripts/build_manifest.py's rule) equal the manifest's, so the binary was built from the rules that are on disk;
   (c) a copy of it, run on the fixed payloads of `scripts/guard_selftest_payloads.json`, gives the same exit code and stdout as `permission_guard.py` run by this interpreter on each of them, and run on six budget and
       hand-back events in a temporary lab (`hook_selftest`) it gives the Python scripts' stdout, exit code, log kinds and hand-back file.
@@ -22,7 +22,9 @@ import subprocess
 import sys
 
 SCRIPTS = ["permission_guard.py", "budget.py", "handback.py", "run_hook.py"]   # as in build_manifest.py
-TARGETS = {("Darwin", "arm64"): "aarch64-apple-darwin", ("Darwin", "x86_64"): "x86_64-apple-darwin"}
+# hosts whose installs are supported; the triples are build_manifest.ALL_TARGETS (Windows stays out until its install path exists: the SessionStart rows exec `python3` and the data path is bin/murmuration)
+TARGETS = {("Darwin", "arm64"): "aarch64-apple-darwin", ("Darwin", "x86_64"): "x86_64-apple-darwin",
+           ("Linux", "x86_64"): "x86_64-unknown-linux-gnu", ("Linux", "aarch64"): "aarch64-unknown-linux-gnu"}
 
 
 def digest(path):
@@ -37,8 +39,35 @@ def load_manifest_tool(root):
     return mod
 
 
+def sources_doubt(root, tool, manifest):
+    """Why the Rust sources on disk are not the ones the manifest records, or None. Names the files; says so when only their line endings differ (a CRLF checkout)."""
+    per, combined = tool.sources_hash(root)
+    if combined == manifest.get("rust_sources_sha256"):
+        return None
+    recorded = manifest.get("rust_sources")
+    if not isinstance(recorded, dict):
+        return "the Rust sources changed since the binaries were built"
+    changed = sorted(p for p in set(per) | set(recorded) if per.get(p) != recorded.get(p))
+    crlf = bool(changed)
+    for p in changed:
+        try:
+            with open(os.path.join(root, p), "rb") as fh:
+                lf = hashlib.sha256(fh.read().replace(b"\r\n", b"\n")).hexdigest()
+        except OSError:
+            lf = None
+        crlf = crlf and lf is not None and lf == recorded.get(p) and per.get(p) != lf
+    names = ", ".join(changed[:3]) + (", ..." if len(changed) > 3 else "")
+    if crlf:
+        return "the Rust sources differ from the build only in their line endings (CRLF: %s); the binaries were built from LF files" % names
+    return "the Rust sources changed since the binaries were built (%s)" % (names or "the set of files")
+
+
 def doubt(root, target):
-    """Why the binary may not be installed, or None."""
+    """Why the binary may not be installed, or None.
+
+    A stale binary (built from other sources than the ones on disk) is caught in two places. When the manifest still describes the old sources, `sources_doubt` says "changed". When someone regenerated the
+    manifest over the new sources without rebuilding (build_manifest.py hashes what it finds), every hash agrees and only `self_test` / `hook_selftest` can see it, by running the binary against the Python
+    scripts. CI is what makes that case rare: it builds, then writes the manifest in one job (`--expect-targets`)."""
     if target is None:
         return "no binary is built for this platform (%s %s)" % (platform.system(), platform.machine())
     try:
@@ -46,29 +75,41 @@ def doubt(root, target):
             manifest = json.load(fh)
     except (OSError, ValueError) as exc:
         return "bin/manifest.json cannot be read (%s)" % type(exc).__name__
-    src = os.path.join(root, "bin", target, "murmuration")
+    if not isinstance(manifest, dict) or not isinstance(manifest.get("binaries"), dict):
+        return "bin/manifest.json lists no binaries"
+    try:
+        tool = load_manifest_tool(root)
+    except Exception as exc:
+        return "scripts/build_manifest.py cannot be loaded (%s)" % type(exc).__name__
+    name = tool.binary_name(target)
+    src = os.path.join(root, "bin", target, name)
     if not os.path.isfile(src):
-        return "bin/%s/murmuration is missing" % target
-    if digest(src) != manifest.get("binaries", {}).get(target):
-        return "the binary bin/%s/murmuration does not match its hash in bin/manifest.json" % target
+        return "bin/%s/%s is missing" % (target, name)
+    if target not in manifest["binaries"]:
+        return "bin/manifest.json lists no binary for %s" % target
+    if digest(src) != manifest["binaries"][target]:
+        return "the binary bin/%s/%s does not match its hash in bin/manifest.json" % (target, name)
+    try:
+        extra = sorted(t for t in tool.present_binaries(root) if t not in manifest["binaries"])
+    except OSError as exc:
+        return "bin/ cannot be listed (%s)" % type(exc).__name__
+    if extra:
+        return "bin/ holds a binary for %s that bin/manifest.json does not list" % ", ".join(extra)
     if digest(os.path.join(root, "scripts", "permission_guard.py")) != manifest.get("permission_guard_py_sha256"):
         return "scripts/permission_guard.py changed since the binaries were built"
     scripts = manifest.get("scripts_sha256")
     if not isinstance(scripts, dict) or sorted(scripts) != sorted(SCRIPTS):
         return "bin/manifest.json does not list the hashes of %s" % ", ".join(SCRIPTS)
-    for name in SCRIPTS:
+    for n in SCRIPTS:
         try:
-            if digest(os.path.join(root, "scripts", name)) != scripts[name]:
-                return "scripts/%s changed since the binaries were built" % name
+            if digest(os.path.join(root, "scripts", n)) != scripts[n]:
+                return "scripts/%s changed since the binaries were built" % n
         except OSError:
-            return "scripts/%s cannot be read" % name
+            return "scripts/%s cannot be read" % n
     try:
-        _, combined = load_manifest_tool(root).sources_hash(root)
+        return sources_doubt(root, tool, manifest)
     except Exception as exc:
         return "the Rust sources cannot be hashed (%s)" % type(exc).__name__
-    if combined != manifest.get("rust_sources_sha256"):
-        return "the Rust sources changed since the binaries were built"
-    return None
 
 
 def run_guard(cmd, raw):
@@ -169,7 +210,7 @@ def install(root, data, target):
     dest, stamp = os.path.join(dest_dir, "murmuration"), os.path.join(dest_dir, ".verified")
     reason = doubt(root, target)
     if reason is None:
-        src = os.path.join(root, "bin", target, "murmuration")
+        src = os.path.join(root, "bin", target, load_manifest_tool(root).binary_name(target))
         sha = digest(src)
         guard_sha = digest(os.path.join(root, "scripts", "permission_guard.py"))
         want_stamp = json.dumps({"binary": sha, "guard": guard_sha, "scripts": {n: digest(os.path.join(root, "scripts", n)) for n in SCRIPTS}, "python": sys.version.split()[0]}, sort_keys=True)
@@ -218,7 +259,7 @@ def main():
         sys.stderr.write("murmuration install: cannot install the permission guard into %s (%s: %s); Bash calls will be blocked until this is fixed\n" % (data, type(exc).__name__, exc))
         return 1
     if state == "launcher":
-        note = "murmuration guard: the plugin's hooks (permission guard, budget, hand-back) run as the Python scripts, not the Rust binary, because %s. Decisions are the Python scripts'. To get the binary back, rebuild it with the pre-commit hook or `cargo build --release --offline` followed by `python3 scripts/build_manifest.py`, or reinstall the plugin; until then the Python scripts decide, which is correct and slower." % reason
+        note = "murmuration guard: the plugin's hooks (permission guard, budget, hand-back) run as the Python scripts, not the Rust binary, because %s. Decisions are the Python scripts'. The binary comes from CI (the `build(bin)` commit of the plugin's repository); until a release carries one that matches these files, the Python scripts decide, which is correct and slower." % reason
         sys.stderr.write(note + "\n")
         sys.stdout.write(json.dumps({"hookSpecificOutput": {"hookEventName": "SessionStart", "additionalContext": note}}))
     return 0
