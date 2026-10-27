@@ -34,6 +34,13 @@ First public release of Murmuration as a Claude Code plugin, a pure-dev cycle (n
 - Text encoding on Windows: the plugin scripts open text and read stdin in the locale encoding (cp1252 on Windows); the hooks run `python3 -S -I`, and `-I` ignores `PYTHONUTF8`, so only explicit `encoding="utf-8"` and byte-level stdin/stdout fix it. Seen on the CI Windows row, 2026-10-27; in windows_paths' scope.
 - Linux binaries are built on ubuntu-22.04 and link glibc dynamically (2.35): on an older glibc the self-test fails and the installer falls back to the Python launcher (safe, slower). A static musl target would remove that; not in this cycle.
 - Hook `if` filters on Windows (impl-windows-paths, docs reading only, 2026-10-27): permission rules are documented to normalise Windows paths to POSIX, and changelogs 2.1.162/2.1.176 fixed backslash and case-variant matching, but hook `if` normalisation of case, trailing dots, ADS and UNC forms is not documented, and `Write(...)` in `if` is undocumented. A guard that denies every Windows form is still bypassed if the `if` glob never starts it. The Windows-install cycle must settle this with a stub-hook probe on Windows, or drop `if` from the guard rows, before Windows enters `TARGETS`.
+- Guard gaps found by verify-windows-paths, 2026-10-27, all present before this campaign (both guards agree on each):
+  - **Posix, shipping platforms:** the G3 redirect regex misses a quoted target containing a space (a home folder such as `First Last`) and the `>|` clobber operator, so such a Bash write to a settings file is allowed. Not fixed in `windows_paths`, whose gate requires posix unchanged.
+  - **Windows cycle:**
+    - G2 is not seen through `cmd /c`, `powershell -c` or a `set`/`$env:` assignment;
+    - 8.3 short names (`SETTIN~1.JSO`) and Windows builtins (`copy`, `move`, `Set-Content`) are not read as writes;
+    - G4 ignores `.ps1`/`.bat`/`.cmd` scripts.
+  - **Performance:** a command of about 5M characters makes the Python guard time out at 20 s (Rust allows). A hook timeout is probably an allow.
 - Research records (`probes/`, `validation/`, `__instrumenta__/`) cite root-relative paths such as `scripts/permission_guard.py@<commit>`. They are read at their commit and are not rewritten.
 - Subagents: Grep and `grep -r` are blocked by the colgrep hook; use colgrep `index_build` on the worktree path, then `search` with that path. No mamba or uv on this machine: system `python3` 3.12 (stdlib, `-I`), cargo 1.99.
 
