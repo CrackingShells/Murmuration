@@ -150,41 +150,11 @@ fn days_from_civil(y: i64, m: i64, d: i64) -> i64 {
     era * 146_097 + doe - 719_468
 }
 
-/// Offset east of UTC in seconds of the local zone at `epoch_s`.
-#[allow(unsafe_code)]
-fn local_offset(epoch_s: i64) -> i64 {
-    #[repr(C)]
-    struct Tm {
-        sec: i32,
-        min: i32,
-        hour: i32,
-        mday: i32,
-        mon: i32,
-        year: i32,
-        wday: i32,
-        yday: i32,
-        isdst: i32,
-        gmtoff: i64,
-        zone: *const u8,
-    }
-    extern "C" {
-        fn localtime_r(t: *const i64, out: *mut Tm) -> *mut Tm;
-    }
-    let mut tm = Tm { sec: 0, min: 0, hour: 0, mday: 0, mon: 0, year: 0, wday: 0, yday: 0, isdst: 0, gmtoff: 0, zone: std::ptr::null() };
-    // SAFETY: `tm` is a valid, writable struct with the layout of C's `struct tm` on macOS and Linux (nine ints, then a long and a pointer); `localtime_r` only writes into it.
-    let ok = unsafe { !localtime_r(&epoch_s, &mut tm).is_null() };
-    if ok {
-        tm.gmtoff
-    } else {
-        0
-    }
-}
-
 /// `datetime.now().astimezone().isoformat(timespec=...)` for the clock reading `t`: `ms` true for milliseconds, false for seconds. Fractions are truncated, as `isoformat` does.
 pub(crate) fn iso_local(t: f64, ms: bool) -> String {
     let us = micros(t);
     let secs = us.div_euclid(1_000_000);
-    let off = local_offset(secs);
+    let off = crate::platform::local_offset(secs);
     let loc = secs + off;
     let (y, mo, d) = civil(loc.div_euclid(86_400));
     let sod = loc.rem_euclid(86_400);

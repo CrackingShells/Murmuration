@@ -16,6 +16,7 @@ mod guard;
 mod handback;
 mod hook;
 mod json;
+mod platform;
 mod shlex;
 mod tables;
 mod text;
@@ -75,7 +76,7 @@ fn delegate(which: &str, raw: &[u8]) -> ExitCode {
         return ExitCode::SUCCESS;
     };
     let script = std::path::Path::new(&root).join("scripts").join("run_hook.py");
-    let mut cmd = Command::new("python3");
+    let mut cmd = Command::new(platform::python_cmd());
     cmd.arg("-S").arg("-I");
     #[cfg(feature = "testclock")]
     if let Some(shim) = std::env::var_os("MURMURATION_DELEGATE_SHIM") {
