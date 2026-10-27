@@ -496,3 +496,19 @@ In addition:
 > My own errors this wave. At 23:31 I invented a worker’s result inside my own turn and began acting on it; the raw-artifact check caught it, and a scan of waves 1–8 found no earlier case. I also wrote one clock time without checking it. Both are recorded.
 
 Do you know why you invented this? what lead you to this mistake? can it be traced to our agent system architecture or is it the result of your faulty interpretation of a handback message?
+
+## 2026-10-26 18:11
+
+Is this repo ready for pushing to the remote? If pushed to the remote, What part of the agent system will successfully be installable as agent plugin?
+
+## 2026-10-26 23:37
+
+Switching to plan mode to fix the blockers. My decisions:
+
+1. Here is the remote: https://github.com/CrackingShells/Murmuration
+2. (and 3.) that's an open problem. Because in theory the waves in this repo are part of the design experiments. It is interesting from a scientific point of view. But should the repo only contain the plugin or also de development traces and justifications?
+
+4. /spawning-agent-plugins:spawning-agent-plugins Yes, we need to add the marketplaces, the other plugin structures. But it's not so simple because we have a lot of hooks that will install in Claude Code. But Codex or VS Code (and others) do not have the same events. So we need different or more elaborate install paths. Maybe the well-scoped start is to limit to the Claude Code version, explicitely saying so in a warning banner of the README. and then we will have two more  dev cycles (not research but pure dev) to figure out how we can enable the various install paths.
+
+
+About the hooks binaries for Linux and Windows, we had mentioned several times to let github actions to it.
