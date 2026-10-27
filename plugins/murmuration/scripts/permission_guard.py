@@ -27,6 +27,10 @@ Denied (the user's yes is needed; the message says so):
 Reading of the command (w08-c10): a command substitution (`$( )`, backticks) is cut out of the command and its inside is read as commands of their own, as before, AND the command is read once more with each substitution
 replaced by one word, so `claude -p "$(cat f)" <flag>` is seen with its flag on the `claude` command; the options of a wrapper that take a value (`env -u VAR`, `timeout -s SIG`, `ionice -c N`, `exec -a NAME`, ...) are
 skipped with their value, and the string of `env -S` is read as a command. Every reading that was made before is still made, so nothing that was denied is allowed by this.
+Redirections (leaf posix_redirects): the targets of a command's redirections are read twice, and every target of either reading is tested, the old reading first. The old reading is a pattern over the text (`>`, `>>`, `>|` and a target without a space or quote); it also
+reads a `>` inside quotes, which only makes the guard stricter, and it stays. The new one is `redirect_targets`: it finds each output operator outside quotes (`>`, `>>`, `>|`, `&>`, `&>>`, `N>`, `N>>`, `N>|`, `>&` followed by a word that is not a number or `-`, `<>`) and takes the next
+shell word with its quotes removed as bash removes them (`'..'`, `".."`, `$'..'` with its escapes, `$".."`, a backslash), so that a quoted target with a space, a backslash-escaped space, a target in pieces and an ANSI-C name are seen. A word that still holds a `$` or a backtick
+is an unknown target and goes to `protected` as written, as before. The splitter cuts at the `|` of `>|` as it always did; when a segment ends in `>` the command is also split with `>|` whole (`expand(clobber=True)`) and that reading is checked for G3 as well.
 Flavours: every path and program-name decision takes a flavour, "posix" or "nt", chosen by the OS this runs on (os.name) and passed explicitly by the selftest, which runs both on any host
 (fixtures/guard_lists/windows_paths.json holds the expected decision of each case under each; the Rust port reads the same file). posix is the reading of before: `/` separates, a backslash is a filename
 character, names are case-sensitive. nt reads a path as Windows resolves it, written out in `_nt_*` (not ntpath): `/` and `\` both separate; the prefixes `\\?\`, `\\.\`, `\??\` and `UNC\` are cut off; `C:x` is drive-relative (the
@@ -190,11 +194,12 @@ def display_name(p, fl=HOST):
     return name[2:] if "\\" not in p.replace("/", "\\") and _is_drive(name) else name
 
 
-def _split(cmd, quotes):
-    """One pass of the splitter; returns (segments, quote state at the end). With quotes=False a quote character is an ordinary character."""
-    segs, cur, i, q = [], [], 0, None
+def _split(cmd, quotes, clobber=False):
+    """One pass of the splitter; returns (segments, quote state at the end). With quotes=False a quote character is an ordinary character. With clobber=True the `|` of a `>|` is not a cut (the reading of `>|` as one operator)."""
+    segs, cur, i, q, gt = [], [], 0, None, False
     while i < len(cmd):
         c = cmd[i]
+        after_gt, gt = gt, False                 # the previous character was a plain `>` (not escaped, not quoted)
         if q == "'":
             cur.append(c)
             q = None if c == "'" else q
@@ -214,22 +219,25 @@ def _split(cmd, quotes):
         elif quotes and c in "'\"":
             q = c
             cur.append(c)
+        elif clobber and c == "|" and after_gt:
+            cur.append(c)
         elif c in "\n;|()`" or (c == "&" and not (cmd[i - 1:i] == ">" or cmd[i + 1:i + 2] == ">")):
             segs.append("".join(cur)); cur = []
         else:
             cur.append(c)
+            gt = c == ">"
         i += 1
     segs.append("".join(cur))
     return [x.strip() for x in segs if x.strip()], q
 
 
-def split_segments(cmd):
+def split_segments(cmd, clobber=False):
     """Split a shell command into simple-command strings: on newline ; & | ( ) backticks and $( ) (not on >& or &>); quotes respected (substitutions inside double
     quotes too). If a quote is left open (an apostrophe in prose, a stray quote), the text cannot be split safely: split again ignoring quotes, so that no
-    later segment hides inside the unclosed one."""
-    segs, q = _split(cmd, True)
+    later segment hides inside the unclosed one. The `|` of `>|` cuts, as it always did; with clobber=True it does not (see expand)."""
+    segs, q = _split(cmd, True, clobber)
     if q is not None:
-        segs, _ = _split(cmd, False)
+        segs, _ = _split(cmd, False, clobber)
     return segs
 
 
@@ -479,21 +487,22 @@ def _shell_script(toks, i):
     return None
 
 
-def expand(cmd, depth=0, work=None, fl=HOST):
+def expand(cmd, depth=0, work=None, fl=HOST, clobber=False):
     """Every simple command (list of words) of cmd, descending into `sh -c '...'`, `eval '...'` and `env -S '...'` strings (depth 3). The simple commands of the plain splitter come first, in order; then those of
-    the command and of each substitution inside it with the substitutions replaced by one word (so that `claude -p "$(cat f)" --flag` is also seen as `claude -p "SUBST" --flag`). Raises TooComplex."""
+    the command and of each substitution inside it with the substitutions replaced by one word (so that `claude -p "$(cat f)" --flag` is also seen as `claude -p "SUBST" --flag`). clobber=True is the reading in which `>|` is
+    one operator (see split_segments); decide makes it in addition to the plain one, never instead of it. Raises TooComplex."""
     work = [0] if work is None else work
     out = []
-    segs = split_segments(cmd)
+    segs = split_segments(cmd, clobber)
     for text in substitution_texts(cmd, work, fl):
-        segs += split_segments(text)
+        segs += split_segments(text, clobber)
     for seg in segs:
         toks = words(seg)
         out.append((seg, toks))
         k, _, strings, _ = _scan(toks, fl)
         if depth < 3:
             for st in strings:
-                out += expand(" ".join([st] + toks[k:]), depth + 1, work, fl)
+                out += expand(" ".join([st] + toks[k:]), depth + 1, work, fl, clobber)
         if depth < 3 and k < len(toks):
             prog = prog_name(toks[k], fl)
             if prog in SHELLS:
@@ -503,9 +512,9 @@ def expand(cmd, depth=0, work=None, fl=HOST):
                     js.append(j)
                 for j in js:
                     if j < len(toks):
-                        out += expand(toks[j], depth + 1, work, fl)
+                        out += expand(toks[j], depth + 1, work, fl, clobber)
             elif prog == "eval":
-                out += expand(" ".join(toks[k + 1:]), depth + 1, work, fl)
+                out += expand(" ".join(toks[k + 1:]), depth + 1, work, fl, clobber)
     return out
 
 
@@ -618,15 +627,172 @@ def slashed(segs):
     return [(t, words(t)) for t in (sg.replace("\\", "/") for sg, _ in segs)]
 
 
-def g3_bash(cmd, segs, cwd, fl=HOST):
-    hit = _g3_bash(cmd, segs, cwd, fl, True)
+_ANSI_ESC = {"a": "\a", "b": "\b", "e": "\x1b", "E": "\x1b", "f": "\f", "n": "\n", "r": "\r", "t": "\t", "v": "\v", "\\": "\\", "'": "'", '"': '"', "?": "?"}
+_OCT, _HEX, _DIG = "01234567", "0123456789abcdefABCDEF", "0123456789"
+_REDIR_SKIP = re.compile(r"""[\\'"$<>]""")
+
+
+def _ansi_c(s, i):
+    """s[i] is the first character after `$'`: (the text the shell makes of the string, the index after its closing quote, whether the quote was closed). Escapes as bash reads them (`\\n`, `\\xHH`, `\\NNN`, `\\uHHHH`, `\\UHHHHHHHH`, `\\cX`,
+    ...; an unknown one keeps its backslash; a value that is not a code point keeps its text); a NUL ends the text, as it ends a C string."""
+    out, n, cut = [], len(s), False
+    while i < n:
+        c = s[i]
+        if c == "'":
+            return "".join(out), i + 1, True
+        piece, i, val = c, i + 1, None
+        if c == "\\" and i < n:
+            d = s[i]
+            if d in _ANSI_ESC:
+                piece, i = _ANSI_ESC[d], i + 1
+            elif d in _OCT:
+                j = i
+                while j < n and j < i + 3 and s[j] in _OCT:
+                    j += 1
+                val, i = int(s[i:j], 8) & 255, j
+            elif d in "xuU":
+                j, top = i + 1, i + 1 + {"x": 2, "u": 4, "U": 8}[d]
+                while j < n and j < top and s[j] in _HEX:
+                    j += 1
+                if j > i + 1 and int(s[i + 1:j], 16) <= 0x10FFFF:
+                    val, i = int(s[i + 1:j], 16), j
+                else:
+                    piece, i = "\\" + d, i + 1
+            elif d == "c" and i + 1 < n:
+                val, i = (0x7F if s[i + 1] == "?" else ord(s[i + 1]) & 0x1F), i + 2
+            else:
+                piece, i = "\\" + d, i + 1
+        if val is not None:
+            if val == 0:
+                cut = True
+            else:
+                piece = chr(val)
+        if not cut:
+            out.append(piece)
+    return "".join(out), n, False
+
+
+def _redirect_word(s, i):
+    """(word, index after it, whether every quote in it was closed): the shell word at s[i:] with its quotes removed as bash removes them (`'...'`, `"..."` with a backslash before `$`, a backtick, `"` or a backslash only, `$'...'`, `$"..."`,
+    a backslash before any other character). The word ends at an unquoted blank, newline or one of `;&|<>()`. A `$` that remains makes the word one the guard cannot expand; it is passed on as written, as every other unknown target is."""
+    out, n, closed = [], len(s), True
+    while i < n:
+        c = s[i]
+        if c in " \t\n;&|<>()":
+            break
+        if c == "\\":
+            if i + 1 < n and s[i + 1] != "\n":
+                out.append(s[i + 1])
+            i += 2 if i + 1 < n else 1
+        elif c == "'":
+            j = s.find("'", i + 1)
+            out.append(s[i + 1:] if j < 0 else s[i + 1:j])
+            closed, i = closed and j >= 0, n if j < 0 else j + 1
+        elif c == '"' or s.startswith('$"', i):
+            i += 1 if c == '"' else 2
+            while True:
+                if i >= n:
+                    closed = False
+                    break
+                d = s[i]
+                if d == '"':
+                    i += 1
+                    break
+                if d == "\\" and i + 1 < n:
+                    e = s[i + 1]
+                    if e in '$`"\\':
+                        out.append(e)
+                    elif e != "\n":
+                        out.append(d + e)
+                    i += 2
+                else:
+                    out.append(d)
+                    i += 1
+        elif s.startswith("$'", i):
+            text, i, ok = _ansi_c(s, i + 2)
+            out.append(text)
+            closed = closed and ok
+        else:
+            out.append(c)
+            i += 1
+    return "".join(out), i, closed
+
+
+def _quote_end(s, i):
+    """s[i] opens a quote (`'`, `"`, or the `$` of `$'`): the index after its closing quote, or -1."""
+    if s[i] == "'":
+        j = s.find("'", i + 1)
+        return -1 if j < 0 else j + 1
+    q = '"' if s[i] == '"' else "'"
+    j, n = i + (1 if s[i] == '"' else 2), len(s)
+    while j < n and s[j] != q:
+        j += 2 if s[j] == "\\" else 1
+    return j + 1 if j < n else -1
+
+
+def _scan_redirects(seg, quotes):
+    """(targets, a quote was left open): the words that follow each output redirection operator of seg that is outside quotes: `>`, `>>`, `>|`, `&>`, `&>>`, `N>`, `N>>`, `N>|` (the operator is `>`, `>>` or `>|`, whatever stands before it),
+    `>&` and a word that is not a number or `-` (`2>&1`, `>&2`, `>&-` are not files), and `<>`. With quotes=False a quote character is an ordinary character in the search for operators (the words are still read with their quotes)."""
+    out, i, n, opn = [], 0, len(seg), False
+    while i < n:
+        m = _REDIR_SKIP.search(seg, i)
+        if not m:
+            break
+        i, c = m.start(), m.group(0)
+        if c == "\\":
+            i += 2
+        elif c in "'\"" or (c == "$" and seg.startswith("$'", i)):
+            if not quotes:
+                i += 1
+                continue
+            j = _quote_end(seg, i)
+            if j < 0:
+                opn = True
+                break
+            i = j
+        elif c == "<" and seg[i + 1:i + 2] != ">":
+            i += 1
+        elif c == "$":
+            i += 1
+        else:
+            j, dup = i + (2 if c == "<" else 1), False
+            nxt = seg[j:j + 1] if c == ">" else ""
+            if nxt in (">", "|"):
+                j += 1
+            elif nxt == "&":
+                j, dup = j + 1, True
+            while j < n and seg[j] in " \t\n":
+                j += 1
+            w, j, closed = _redirect_word(seg, j)
+            opn = opn or not closed
+            k = 0
+            while k < len(w) and w[k] in _DIG:
+                k += 1
+            if w and not (dup and (w == "-" or (k > 0 and w[k:] in ("", "-")))):
+                out.append(w)
+            i = j
+    return out, opn
+
+
+def redirect_targets(seg):
+    """The files the redirections of the simple command seg open for writing, as words with their quotes removed (a quote-aware reading, as bash does, so that a quoted target with a space is seen). A quote left open
+    makes the scan run again with quotes as ordinary characters, as the splitter does."""
+    out, opn = _scan_redirects(seg, True)
+    if opn:
+        out += _scan_redirects(seg, False)[0]
+    return out
+
+
+def g3_bash(cmd, segs, cwd, fl=HOST, script=True, redirects=False):
+    """redirects=False is the reading of before the leaf posix_redirects, unchanged; redirects=True tests only the targets of `redirect_targets` (and no script), so that a command denied before is denied for the same reason."""
+    hit = _g3_bash(cmd, segs, cwd, fl, script, False, redirects)
     if hit or fl != "nt":
         return hit
     # nt: the text read as written with the other reading of a dots-and-spaces name, then with each backslash a slash under both readings
-    return _g3_bash(cmd, segs, cwd, fl, True, True) or _g3_bash(cmd, slashed(segs), cwd, fl, False) or _g3_bash(cmd, slashed(segs), cwd, fl, False, True)
+    return _g3_bash(cmd, segs, cwd, fl, script, True, redirects) or _g3_bash(cmd, slashed(segs), cwd, fl, False, False, redirects) or _g3_bash(cmd, slashed(segs), cwd, fl, False, True, redirects)
 
 
-def _g3_bash(cmd, segs, cwd, fl, script, keep=False):
+def _g3_bash(cmd, segs, cwd, fl, script, keep=False, redirects=False):
     unknown, cur = False, cwd
     for seg, toks in segs:
         k, _ = program(toks, fl)
@@ -639,6 +805,11 @@ def _g3_bash(cmd, segs, cwd, fl, script, keep=False):
                 cur = _nt_str(*_nt_resolve(cur or "", t, keep))
             else:
                 cur = posixpath.normpath(t if posixpath.isabs(t) else posixpath.join(cur or "", t))
+            continue
+        if redirects:
+            for t in redirect_targets(seg):
+                if protected(t, cur, unknown, fl, keep):
+                    return "G3", "the command writes `%s`, a Claude Code settings file" % t
             continue
         targets = []
         for m in re.finditer(r"""(?:>>?|>\|)\s*(['"]?)([^\s;&|<>'"]+)\1""", seg):
@@ -659,7 +830,7 @@ def _g3_bash(cmd, segs, cwd, fl, script, keep=False):
         for t in targets:
             if protected(t, cur, unknown, fl, keep):
                 return "G3", "the command writes `%s`, a Claude Code settings file" % t
-    if not script:
+    if not script or redirects:
         return None
     nt = fl == "nt"
     if (INTERP_NT if nt else INTERP).search(cmd) or any(prog_name(t, fl) in (("python", "python3", "py", "pythonw") if nt else ("python", "python3")) for _, ts in segs for t in ts[:1]):
@@ -725,7 +896,14 @@ def decide(event, fl=HOST):
             segs = expand(cmd, fl=fl)
         except TooComplex:
             return "G?", "the command has too many command substitutions to be checked"
-        return g1(cmd, segs, fl) or g2(cmd, segs, fl) or (fl == "nt" and g2(cmd, slashed(segs), fl)) or g3_bash(cmd, segs, cwd, fl)
+        hit = g1(cmd, segs, fl) or g2(cmd, segs, fl) or (fl == "nt" and g2(cmd, slashed(segs), fl)) or g3_bash(cmd, segs, cwd, fl)
+        hit = hit or g3_bash(cmd, segs, cwd, fl, False, True)           # the quote-aware reading of the redirections comes after every older reading, so a denial keeps its reason
+        if hit or not any(sg.endswith(">") for sg, _ in segs):      # a segment that ends in `>` is where the splitter cut a `>|`
+            return hit
+        try:
+            return g3_bash(cmd, expand(cmd, fl=fl, clobber=True), cwd, fl, False, True)      # and the reading with `>|` whole
+        except TooComplex:
+            return "G?", "the command has too many command substitutions to be checked"
     if tool in ("Write", "Edit", "MultiEdit", "NotebookEdit"):
         return g3_edit(inp, cwd, fl) or g4_script(inp, cwd, fl)
     return None
@@ -756,6 +934,7 @@ def run(raw, log=None):
 FIXTURES = os.path.join(HERE, "fixtures", "guard_lists")   # copied from __reports__/wave-06/author-w06-5 (the research record keeps the originals)
 FIXTURE_COUNTS = {"attacks": 50, "ordinary": 28, "mention": 6, "evasions": 13}   # a missing file or a different count fails the selftest: it must never pass on empty lists
 WINDOWS_COUNT = 106   # windows_paths.json: each case carries the cwd and the expected decision under both flavours ("allow" or the group); the same file is read by the Rust tests and by check_guard_equal.py
+REDIRECTS_COUNT = 110   # redirects.json: the same layout; the forms of a Bash redirection onto a settings file that are denied, and the ones that must stay allowed
 
 
 def selftest():
@@ -792,17 +971,22 @@ def selftest():
     holes = json.load(open(os.path.join(HERE, "guard_selftest_holes.json"), encoding="utf-8"))        # w08-c10: the forms that hid a flag after a substitution or behind an option of a wrapper, and controls
     for c in holes:
         check("hole-form %s (%s)" % (c["id"], "deny" if c["deny"] else "allow"), bool(decide(dict(tool_name="Bash", tool_input={"command": c["command"]}, cwd=T))) == c["deny"])
-    try:
-        windows = json.loads(open(os.path.join(FIXTURES, "windows_paths.json"), encoding="utf-8").read())
-    except (OSError, ValueError):
-        windows = []
-    if len(windows) != WINDOWS_COUNT:
-        missing.append("windows_paths (%d cases, %d pinned)" % (len(windows), WINDOWS_COUNT))
-    for c in windows:       # both flavours run on every host: the posix column is what Unix decides, the nt column what Windows decides
-        e = dict(tool_name=c["tool"], tool_input={"command": c["command"]} if c["tool"] == "Bash" else c["input"], cwd=c["cwd"])
-        for fl in ("posix", "nt"):
-            hit = decide(e, fl)
-            check("windows %s under %s (want %s)" % (c["id"], fl, c[fl]), (hit[0] if hit else "allow") == c[fl])
+    def both_flavours(name, count):
+        """The cases of a list that carries the cwd and the expected decision under both flavours; a missing file or a different count fails the selftest."""
+        try:
+            cases = json.loads(open(os.path.join(FIXTURES, name + ".json"), encoding="utf-8").read())
+        except (OSError, ValueError):
+            cases = []
+        if len(cases) != count:
+            missing.append("%s (%d cases, %d pinned)" % (name, len(cases), count))
+        for c in cases:       # both flavours run on every host: the posix column is what Unix decides, the nt column what Windows decides
+            e = dict(tool_name=c["tool"], tool_input={"command": c["command"]} if c["tool"] == "Bash" else c["input"], cwd=c["cwd"])
+            for fl in ("posix", "nt"):
+                hit = decide(e, fl)
+                check("%s %s under %s (want %s)" % (name, c["id"], fl, c[fl]), (hit[0] if hit else "allow") == c[fl])
+        return cases
+    windows = both_flavours("windows_paths", WINDOWS_COUNT)
+    redirects = both_flavours("redirects", REDIRECTS_COUNT)
     ev_pass = [c["id"] for c in load("evasions") if decide(ev(c))]
     mention_denied = [c["id"] for c in load("mention") if decide(ev(c))]
     small = [
@@ -851,8 +1035,8 @@ def selftest():
     check("empty event is a deny (fail closed)", run("not json") is not None)
     for n in sorted(set(missing)):
         check("fixture %s present with its pinned count" % n, False)
-    print("selftest %s: attacks %d denied, ordinary %d allowed, windows_paths %d x 2 flavours; not-gated: evasions caught %s, mention-only denied %s" % (
-        "ok" if ok else "FAILED", len(load("attacks")), len(load("ordinary")), len(windows), ev_pass, mention_denied))
+    print("selftest %s: attacks %d denied, ordinary %d allowed, windows_paths %d and redirects %d x 2 flavours; not-gated: evasions caught %s, mention-only denied %s" % (
+        "ok" if ok else "FAILED", len(load("attacks")), len(load("ordinary")), len(windows), len(redirects), ev_pass, mention_denied))
     return 0 if ok else 1
 
 

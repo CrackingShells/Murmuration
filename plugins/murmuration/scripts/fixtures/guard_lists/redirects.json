@@ -1,0 +1,992 @@
+[
+ {
+  "id": "rd_gt_sp_dq_space",
+  "tool": "Bash",
+  "command": "echo x > \"/h/First Last/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator >, spaced, target dq_space"
+ },
+ {
+  "id": "rd_gt_nosp_sq_space",
+  "tool": "Bash",
+  "command": "echo x >'/h/First Last/.claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator >, tight, target sq_space"
+ },
+ {
+  "id": "rd_gtgt_sp_bs_space",
+  "tool": "Bash",
+  "command": "echo x >> /h/First\\ Last/.claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator >>, spaced, target bs_space"
+ },
+ {
+  "id": "rd_gtgt_nosp_adjacent",
+  "tool": "Bash",
+  "command": "echo x >>\".cl\"aude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator >>, tight, target adjacent"
+ },
+ {
+  "id": "rd_clobber_sp_ansi_c",
+  "tool": "Bash",
+  "command": "echo x >| $'/h/First Last/.claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator >|, spaced, target ansi_c"
+ },
+ {
+  "id": "rd_clobber_nosp_dq_plain",
+  "tool": "Bash",
+  "command": "echo x >|\".claude/settings.local.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator >|, tight, target dq_plain"
+ },
+ {
+  "id": "rd_amp_sp_piece_sq",
+  "tool": "Bash",
+  "command": "echo x &> /h/p/.claude/'settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator &>, spaced, target piece_sq"
+ },
+ {
+  "id": "rd_amp_nosp_dq_space",
+  "tool": "Bash",
+  "command": "echo x &>\"/h/First Last/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator &>, tight, target dq_space"
+ },
+ {
+  "id": "rd_ampgtgt_sp_sq_space",
+  "tool": "Bash",
+  "command": "echo x &>> '/h/First Last/.claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator &>>, spaced, target sq_space"
+ },
+ {
+  "id": "rd_ampgtgt_nosp_bs_space",
+  "tool": "Bash",
+  "command": "echo x &>>/h/First\\ Last/.claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator &>>, tight, target bs_space"
+ },
+ {
+  "id": "rd_fd_sp_adjacent",
+  "tool": "Bash",
+  "command": "echo x 2> \".cl\"aude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator 2>, spaced, target adjacent"
+ },
+ {
+  "id": "rd_fd_nosp_ansi_c",
+  "tool": "Bash",
+  "command": "echo x 2>$'/h/First Last/.claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator 2>, tight, target ansi_c"
+ },
+ {
+  "id": "rd_fdgtgt_sp_dq_plain",
+  "tool": "Bash",
+  "command": "echo x 2>> \".claude/settings.local.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator 2>>, spaced, target dq_plain"
+ },
+ {
+  "id": "rd_fdgtgt_nosp_piece_sq",
+  "tool": "Bash",
+  "command": "echo x 2>>/h/p/.claude/'settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator 2>>, tight, target piece_sq"
+ },
+ {
+  "id": "rd_fdclobber_sp_dq_space",
+  "tool": "Bash",
+  "command": "echo x 2>| \"/h/First Last/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator 2>|, spaced, target dq_space"
+ },
+ {
+  "id": "rd_fdclobber_nosp_sq_space",
+  "tool": "Bash",
+  "command": "echo x 2>|'/h/First Last/.claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator 2>|, tight, target sq_space"
+ },
+ {
+  "id": "rd_dup_sp_bs_space",
+  "tool": "Bash",
+  "command": "echo x >& /h/First\\ Last/.claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator >&, spaced, target bs_space"
+ },
+ {
+  "id": "rd_dup_nosp_adjacent",
+  "tool": "Bash",
+  "command": "echo x >&\".cl\"aude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator >&, tight, target adjacent"
+ },
+ {
+  "id": "rd_rw_sp_ansi_c",
+  "tool": "Bash",
+  "command": "echo x <> $'/h/First Last/.claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator <>, spaced, target ansi_c"
+ },
+ {
+  "id": "rd_rw_nosp_dq_plain",
+  "tool": "Bash",
+  "command": "echo x <>\".claude/settings.local.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "operator <>, tight, target dq_plain"
+ },
+ {
+  "id": "rd_form_gt_dq_space",
+  "tool": "Bash",
+  "command": "echo x > \"/h/First Last/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "spelling dq_space under >"
+ },
+ {
+  "id": "rd_form_clobber_dq_space",
+  "tool": "Bash",
+  "command": "echo x >| \"/h/First Last/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "spelling dq_space under >|"
+ },
+ {
+  "id": "rd_form_gt_sq_space",
+  "tool": "Bash",
+  "command": "echo x > '/h/First Last/.claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "spelling sq_space under >"
+ },
+ {
+  "id": "rd_form_clobber_sq_space",
+  "tool": "Bash",
+  "command": "echo x >| '/h/First Last/.claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "spelling sq_space under >|"
+ },
+ {
+  "id": "rd_form_gt_bs_space",
+  "tool": "Bash",
+  "command": "echo x > /h/First\\ Last/.claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "spelling bs_space under >"
+ },
+ {
+  "id": "rd_form_clobber_bs_space",
+  "tool": "Bash",
+  "command": "echo x >| /h/First\\ Last/.claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "spelling bs_space under >|"
+ },
+ {
+  "id": "rd_form_gt_adjacent",
+  "tool": "Bash",
+  "command": "echo x > \".cl\"aude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "spelling adjacent under >"
+ },
+ {
+  "id": "rd_form_clobber_adjacent",
+  "tool": "Bash",
+  "command": "echo x >| \".cl\"aude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "spelling adjacent under >|"
+ },
+ {
+  "id": "rd_form_gt_ansi_c",
+  "tool": "Bash",
+  "command": "echo x > $'/h/First Last/.claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "spelling ansi_c under >"
+ },
+ {
+  "id": "rd_form_clobber_ansi_c",
+  "tool": "Bash",
+  "command": "echo x >| $'/h/First Last/.claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "spelling ansi_c under >|"
+ },
+ {
+  "id": "rd_form_gt_dq_plain",
+  "tool": "Bash",
+  "command": "echo x > \".claude/settings.local.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "spelling dq_plain under >"
+ },
+ {
+  "id": "rd_form_clobber_dq_plain",
+  "tool": "Bash",
+  "command": "echo x >| \".claude/settings.local.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "spelling dq_plain under >|"
+ },
+ {
+  "id": "rd_form_gt_piece_sq",
+  "tool": "Bash",
+  "command": "echo x > /h/p/.claude/'settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "spelling piece_sq under >"
+ },
+ {
+  "id": "rd_form_clobber_piece_sq",
+  "tool": "Bash",
+  "command": "echo x >| /h/p/.claude/'settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "spelling piece_sq under >|"
+ },
+ {
+  "id": "cl_pipe_after",
+  "tool": "Bash",
+  "command": "echo x >| \".claude/settings.json\" | cat",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": ">| then a real pipe"
+ },
+ {
+  "id": "cl_and_after",
+  "tool": "Bash",
+  "command": "echo x >|/h/First\\ Last/.claude/settings.json && ls",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": ">| then &&"
+ },
+ {
+  "id": "cl_cd",
+  "tool": "Bash",
+  "command": "cd .claude && echo x >| settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": ">| after a cd into .claude"
+ },
+ {
+  "id": "cl_cd_quoted",
+  "tool": "Bash",
+  "command": "cd \"/h/First Last/.claude\" && echo x >| \"settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": ">| after a cd into a folder with a space"
+ },
+ {
+  "id": "cl_sh_c",
+  "tool": "Bash",
+  "command": "sh -c 'echo x >| .claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": ">| inside sh -c"
+ },
+ {
+  "id": "cl_eval",
+  "tool": "Bash",
+  "command": "eval 'echo x >| .claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": ">| inside eval"
+ },
+ {
+  "id": "cl_subst",
+  "tool": "Bash",
+  "command": "echo $(echo x >| .claude/settings.json)",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": ">| inside a command substitution"
+ },
+ {
+  "id": "cl_fd_clobber",
+  "tool": "Bash",
+  "command": "echo x 2>| .claude/settings.local.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "2>| to settings.local.json"
+ },
+ {
+  "id": "cl_managed",
+  "tool": "Bash",
+  "command": "echo x >| \"/Library/Application Support/ClaudeCode/managed-settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": ">| to the managed settings, a path with a space"
+ },
+ {
+  "id": "cl_managed_d",
+  "tool": "Bash",
+  "command": "echo x >| '/etc/claude-code/managed-settings.d/50 mine.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": ">| into managed-settings.d, a name with a space"
+ },
+ {
+  "id": "q_heredoc",
+  "tool": "Bash",
+  "command": "cat > \"/h/First Last/.claude/settings.json\" <<'EOF'\n{}\nEOF",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a here-doc written to a quoted target with a space"
+ },
+ {
+  "id": "q_tee_after",
+  "tool": "Bash",
+  "command": "echo x > \"/h/First Last/.claude/settings.json\" && echo done",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "quoted target, then another command"
+ },
+ {
+  "id": "q_cwd_rel",
+  "tool": "Bash",
+  "command": "echo x > \"dir with space/../.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "relative, quoted, with a space and a .. component"
+ },
+ {
+  "id": "q_dollar_prefix",
+  "tool": "Bash",
+  "command": "echo x > \"$HOME/First Last/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a $ in the word: passed on as written, the suffix decides"
+ },
+ {
+  "id": "q_dollar_single",
+  "tool": "Bash",
+  "command": "echo x > '$HOME/.claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a $ in single quotes: passed on as written"
+ },
+ {
+  "id": "q_unknown_var",
+  "tool": "Bash",
+  "command": "echo x > \"$TARGET\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a word that is a bare variable is an unknown target, as before"
+ },
+ {
+  "id": "q_unknown_bt",
+  "tool": "Bash",
+  "command": "echo x > \"`pick`/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a backtick makes the word unknown, as before; the command cuts the substitution out"
+ },
+ {
+  "id": "q_ansi_hex",
+  "tool": "Bash",
+  "command": "echo x > $'.claude/settings\\x2ejson'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "ANSI-C \\x2e is a dot"
+ },
+ {
+  "id": "q_ansi_octal",
+  "tool": "Bash",
+  "command": "echo x > $'\\056claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "ANSI-C \\056 is a dot"
+ },
+ {
+  "id": "q_ansi_uni",
+  "tool": "Bash",
+  "command": "echo x > $'.claude/settings\\u002ejson'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "ANSI-C \\u002e is a dot"
+ },
+ {
+  "id": "q_ansi_nul",
+  "tool": "Bash",
+  "command": "echo x > $'.claude/settings.json\\x00junk'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a NUL ends the name in the shell"
+ },
+ {
+  "id": "q_ansi_ctrl_nul",
+  "tool": "Bash",
+  "command": "echo x > $'.claude/settings.json\\c@junk'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "\\c@ is a NUL"
+ },
+ {
+  "id": "q_ansi_escaped_quote",
+  "tool": "Bash",
+  "command": "echo x > $'a\\'b'/.claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "an escaped quote inside $'...' does not end it"
+ },
+ {
+  "id": "q_dq_backslash_space",
+  "tool": "Bash",
+  "command": "echo x > \"/h/First\\ Last/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "inside double quotes a backslash before a space stays in the folder name; the file is still the settings file"
+ },
+ {
+  "id": "q_dq_escaped_quote",
+  "tool": "Bash",
+  "command": "echo x > \"/h/a\\\"b/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "an escaped double quote inside the word"
+ },
+ {
+  "id": "q_dollar_dq",
+  "tool": "Bash",
+  "command": "echo x > $\"/h/First Last/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "$\"...\" is a double-quoted word"
+ },
+ {
+  "id": "q_open_quote_fallback",
+  "tool": "Bash",
+  "command": "echo it's > \"/h/First Last/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a quote left open: the scan runs again with quotes as ordinary characters"
+ },
+ {
+  "id": "q_comment_apostrophe",
+  "tool": "Bash",
+  "command": "echo hi # don't\necho x > \"/h/First Last/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "an apostrophe in a comment on the line before"
+ },
+ {
+  "id": "q_continuation",
+  "tool": "Bash",
+  "command": "echo x > \\\n.claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a backslash-newline inside the word"
+ },
+ {
+  "id": "q_amp_glued",
+  "tool": "Bash",
+  "command": "echo x >/h/ok/a.txt&>\"/h/First Last/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "&> glued to the word before it"
+ },
+ {
+  "id": "q_dup_word",
+  "tool": "Bash",
+  "command": "echo x >&\"/h/First Last/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": ">& with a quoted non-digit word"
+ },
+ {
+  "id": "q_dup_spaced",
+  "tool": "Bash",
+  "command": "echo x >& .claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": ">& then a blank then a file"
+ },
+ {
+  "id": "q_two_redirects",
+  "tool": "Bash",
+  "command": "ls > /h/ok.txt 2> \"/h/First Last/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "the second of two redirections"
+ },
+ {
+  "id": "q_quote_gt_then_real",
+  "tool": "Bash",
+  "command": "echo \"a > b\" > '/h/First Last/.claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a quoted > first, then a real redirection"
+ },
+ {
+  "id": "q_old_pattern_kept",
+  "tool": "Bash",
+  "command": "echo \"x > .claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a > inside quotes that the old pattern already denied stays denied (a deny is never turned into an allow)"
+ },
+ {
+  "id": "q_nt_backslash_quoted",
+  "tool": "Bash",
+  "command": "echo x > \"C:\\Users\\First Last\\.claude\\settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "a Windows path in double quotes: a file name with backslashes on posix, the settings file on nt"
+ },
+ {
+  "id": "q_nt_backslash_sq",
+  "tool": "Bash",
+  "command": "echo x >| 'C:\\Users\\First Last\\.claude\\settings.json'",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "the same in single quotes with >|"
+ },
+ {
+  "id": "q_nt_bare",
+  "tool": "Bash",
+  "command": "echo x > C:\\Users\\x\\.claude\\settings.json",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "an unquoted Windows path: the shell drops the backslashes; nt reads it again as a path"
+ },
+ {
+  "id": "q_nt_slash_space",
+  "tool": "Bash",
+  "command": "echo x > \"C:/Users/First Last/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a drive path with slashes and a space: the suffix names the settings file under both"
+ },
+ {
+  "id": "ok_gt_in_dq",
+  "tool": "Bash",
+  "command": "echo \"a > b\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a > inside double quotes"
+ },
+ {
+  "id": "ok_gt_in_sq",
+  "tool": "Bash",
+  "command": "grep '>' f",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a > inside single quotes"
+ },
+ {
+  "id": "ok_gt_in_ansi",
+  "tool": "Bash",
+  "command": "echo $'a > b'",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a > inside $'...'"
+ },
+ {
+  "id": "ok_gt_escaped",
+  "tool": "Bash",
+  "command": "echo \\> b",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "an escaped >"
+ },
+ {
+  "id": "ok_clobber_in_quotes",
+  "tool": "Bash",
+  "command": "echo 'a >| b' \"c >| d\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": ">| inside quotes"
+ },
+ {
+  "id": "ok_space_name",
+  "tool": "Bash",
+  "command": "echo hi > \"/h/First Last/out.txt\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "an ordinary file with a space in its name"
+ },
+ {
+  "id": "ok_space_name_sq",
+  "tool": "Bash",
+  "command": "echo hi >> '/h/First Last/notes.md'",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "an ordinary file with a space, single quotes, append"
+ },
+ {
+  "id": "ok_space_name_bs",
+  "tool": "Bash",
+  "command": "echo hi > /h/First\\ Last/out.txt",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "an ordinary file, a backslash space"
+ },
+ {
+  "id": "ok_space_clobber",
+  "tool": "Bash",
+  "command": "echo hi >| \"/h/First Last/out.txt\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "an ordinary file with a space under >|"
+ },
+ {
+  "id": "ok_clobber_plain",
+  "tool": "Bash",
+  "command": "echo hi >| out.txt",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": ">| to an ordinary file"
+ },
+ {
+  "id": "ok_settings_elsewhere",
+  "tool": "Bash",
+  "command": "echo x > '/h/First Last/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "settings.json outside a .claude folder"
+ },
+ {
+  "id": "ok_claude_other",
+  "tool": "Bash",
+  "command": "echo x > \"/h/First Last/.claude/notes.md\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "another file in a .claude folder"
+ },
+ {
+  "id": "ok_settings_read",
+  "tool": "Bash",
+  "command": "jq . \"/h/First Last/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "reading a settings file with a space in its path"
+ },
+ {
+  "id": "ok_settings_read_redirect_out",
+  "tool": "Bash",
+  "command": "cat \"/h/First Last/.claude/settings.json\" > /tmp/copy.json",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "reading a settings file, writing a copy elsewhere"
+ },
+ {
+  "id": "ok_settings_read_in",
+  "tool": "Bash",
+  "command": "wc -c < \"/h/First Last/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "< from a settings file"
+ },
+ {
+  "id": "ok_dup_21",
+  "tool": "Bash",
+  "command": "make 2>&1",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "2>&1"
+ },
+ {
+  "id": "ok_dup_21_tail",
+  "tool": "Bash",
+  "command": "make 2>&1 | tail -5",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "2>&1 into a pipe"
+ },
+ {
+  "id": "ok_dup_gt2",
+  "tool": "Bash",
+  "command": "echo err >&2",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": ">&2"
+ },
+ {
+  "id": "ok_dup_close",
+  "tool": "Bash",
+  "command": "exec 3>&-",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": ">&-"
+ },
+ {
+  "id": "ok_dup_move",
+  "tool": "Bash",
+  "command": "echo x 1>&2-",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": ">&2- moves a descriptor"
+ },
+ {
+  "id": "ok_amp_devnull",
+  "tool": "Bash",
+  "command": "ls &>/dev/null",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "&> /dev/null"
+ },
+ {
+  "id": "ok_fd_devnull",
+  "tool": "Bash",
+  "command": "ls 2>/dev/null",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "2>/dev/null"
+ },
+ {
+  "id": "ok_heredoc",
+  "tool": "Bash",
+  "command": "cat <<EOF\nhello > there\nEOF",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a here-doc whose body has a >"
+ },
+ {
+  "id": "ok_heredoc_quoted",
+  "tool": "Bash",
+  "command": "cat <<'EOF'\n{\"a\": \".claude/settings.json\"}\nEOF",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a here-doc that names the file in its body"
+ },
+ {
+  "id": "ok_herestring",
+  "tool": "Bash",
+  "command": "cat <<< \"a > b\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a here-string"
+ },
+ {
+  "id": "ok_herestring_target",
+  "tool": "Bash",
+  "command": "cat <<< x > \"/h/First Last/out.txt\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a here-string into an ordinary file"
+ },
+ {
+  "id": "ok_pipeline",
+  "tool": "Bash",
+  "command": "ls | grep x",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a pipeline that writes nothing"
+ },
+ {
+  "id": "ok_pipeline_3",
+  "tool": "Bash",
+  "command": "cat f | sort | uniq -c",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a three-stage pipeline"
+ },
+ {
+  "id": "ok_pipeline_redirect",
+  "tool": "Bash",
+  "command": "ls | sort > \"/h/First Last/sorted.txt\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a pipeline whose last stage writes an ordinary file"
+ },
+ {
+  "id": "ok_rw_ordinary",
+  "tool": "Bash",
+  "command": "sort <> data.txt",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "<> on an ordinary file"
+ },
+ {
+  "id": "ok_subshell_redirect",
+  "tool": "Bash",
+  "command": "(cd /h/proj && ls) > out.txt",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a redirection after a subshell"
+ },
+ {
+  "id": "ok_dollar_target",
+  "tool": "Bash",
+  "command": "echo x > \"$OUT/First Last/log.txt\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a $ in a target that is not a settings file"
+ },
+ {
+  "id": "ok_ansi_target",
+  "tool": "Bash",
+  "command": "echo x > $'/h/First Last/out.txt'",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "ANSI-C name, ordinary file"
+ },
+ {
+  "id": "ok_ansi_nul_other",
+  "tool": "Bash",
+  "command": "echo x > $'/h/ok.txt\\x00.claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a NUL ends the name before the settings part"
+ },
+ {
+  "id": "ok_unclosed_ordinary",
+  "tool": "Bash",
+  "command": "echo it's > \"/h/First Last/out.txt\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a quote left open, ordinary file"
+ },
+ {
+  "id": "ok_numbers_only",
+  "tool": "Bash",
+  "command": "echo 2 > 3",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "numbers as words"
+ },
+ {
+  "id": "ok_cd_then_ordinary",
+  "tool": "Bash",
+  "command": "cd .claude && echo x > \"notes.md\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a cd into .claude, an ordinary file"
+ }
+]
