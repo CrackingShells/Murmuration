@@ -1,0 +1,13 @@
+#!/bin/sh
+# Dev git hook: when a commit touches the Python guard or the Rust crate, build the host binary into plugins/murmuration/rust/target/ and replay the corpus through both guards.
+# Install by hand:  ln -s ../../plugins/murmuration/scripts/git-hooks/pre-commit .git/hooks/pre-commit
+# CI owns bin/ (the binaries and bin/manifest.json): this hook writes nothing there and stages nothing.
+# Needs cargo (offline cache is enough: the crate has no dependencies) and python3. Fails the commit on any difference between permission_guard.py and `murmuration guard`.
+set -e
+root=$(git rev-parse --show-toplevel)
+cd "$root"
+if ! git diff --cached --name-only | grep -Eq '^plugins/murmuration/(scripts/permission_guard\.py|rust/)'; then
+  exit 0
+fi
+cargo build --release --offline --manifest-path plugins/murmuration/rust/Cargo.toml
+exec python3 -I plugins/murmuration/scripts/check_guard_equal.py --quick --rust plugins/murmuration/rust/target/release/murmuration

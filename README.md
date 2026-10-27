@@ -2,6 +2,13 @@
 
 [![License](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
 
+> [!WARNING]
+> **Claude Code only, macOS and Linux.** Murmuration is a Claude Code plugin (Claude Code 2.1.295 or
+> later). Its hooks use Claude Code events and options that other harnesses do not have, so it does
+> not install in Codex, VS Code, Cursor or other Agent Plugins clients; support for them is planned.
+> Windows installs are not supported yet: the hook binary is built for Windows, but the hooks that
+> install it run `python3`, which Windows does not provide under that name.
+
 A research team for Claude Code: a principal investigator that follows what does not add up, and
 colleagues who explore, prove, measure and check each other's work.
 
@@ -25,11 +32,20 @@ marketplace.
 
 ## Install
 
-Murmuration is not yet published to a marketplace. To try it, load it from a local clone:
+Murmuration is listed in [Nest](https://github.com/CrackingShells/Nest), the Cracking Shells
+marketplace:
+
+```bash
+claude plugin marketplace add CrackingShells/Nest
+claude plugin install murmuration@cracking-shells
+```
+
+The plugin lives in [`plugins/murmuration/`](plugins/murmuration/); the marketplace installs that
+folder only. To work on it from a clone, load it directly:
 
 ```bash
 git clone https://github.com/CrackingShells/Murmuration.git
-claude --plugin-dir /path/to/Murmuration
+claude --plugin-dir Murmuration/plugins/murmuration
 ```
 
 ## Use
@@ -70,7 +86,13 @@ delete: start Claude Code in it with `COLGREP_DATA_DIR=<folder>/.colgrep`.
 ## Requirements
 
 - Claude Code 2.1.295 or later (the permission guard fails closed through `onFailure: "block"`, added in 2.1.295; exec-form hooks need 2.1.139).
+- macOS or Linux (x86_64 or arm64).
 - Python 3 (standard library only) for the hooks and the status script.
+
+The hooks run a small Rust program, `murmuration`, built by CI for each platform and installed at
+session start into the plugin's data folder. It is installed only when its hash, the hashes of the
+sources it was built from, and a self-test against the Python hooks all agree; otherwise the Python
+hooks run instead, which is correct and slower, and the session is told why.
 
 ## Tools by role
 
@@ -99,11 +121,54 @@ does not happen in every run, and runs whose workers finish sooner are not affec
 CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0 claude -p --agent murmuration:research-pi --max-budget-usd 20 "<your question>"
 ```
 
+## Repository layout
+
+| Path | Holds |
+|:--|:--|
+| `plugins/murmuration/` | The plugin: agents, skills, hooks, the hook scripts, the Rust source of the hook binary, and the binaries CI built (`bin/`) |
+| `.github/workflows/guard-binaries.yml` | Builds, checks and commits the hook binaries |
+| everything else | The research record (below) |
+
+## Research record
+
+Murmuration was designed by running it, over nine research waves, and what the waves found changed
+the plugin. The record of that design experiment is kept here, as notebooks are kept beside a paper.
+Nothing in it is installed.
+
+| Path | Holds |
+|:--|:--|
+| `__design__/` | The framing of the design question; `settings_record/` keeps the Claude Code settings the lab ran with |
+| `__statera__/` | The maintainer's words (`user_words.md`), one note per wave, and the synthesis |
+| `__reports__/` | Design reviews, the genesis study, platform probes, and every worker's findings report by wave |
+| `__pondus__/` | One file per claim, with each verifier's verdict |
+| `__scrupuli__/` | Each agent's puzzles |
+| `__instrumenta__/` | The helper scripts the waves wrote |
+| `__roadmap__/` | The build roadmaps, including the one for this release |
+| `probes/`, `validation/` | Platform probes and the instrument validation of wave 1 |
+
+Claims cite evidence as `path@commit`; paths in them are the paths at that commit (the plugin lived at
+the repository root until this release).
+
+## Maintainers
+
+- **CI owns `plugins/murmuration/bin/`.** A push to `main` that touches `plugins/murmuration/rust/`
+  or `plugins/murmuration/scripts/` builds the binary for five targets, checks each one against the
+  Python guard, smoke-installs it, and commits the result as `build(bin): …`. Do not commit binaries
+  by hand.
+- **Bump the version only after the binaries.** Raise `version` in
+  `plugins/murmuration/.claude-plugin/plugin.json` only once CI's `build(bin)` commit for the same
+  sources is on `main`. Installed copies refresh only when the version changes, and a bump ahead of
+  the binaries ships the Python fallback.
+- **Pre-commit hook (optional):**
+  `ln -s ../../plugins/murmuration/scripts/git-hooks/pre-commit .git/hooks/pre-commit`. It rebuilds
+  the host binary under `rust/target/` and replays the guard corpus against the Python guard; it
+  never writes `bin/`.
+- **Selftests:** each script under `plugins/murmuration/scripts/` has a `--selftest` mode
+  (`python3 -I <script> --selftest`).
+
 ## Contributing
 
-Design records for contributors are in [`__reports__/`](__reports__/) and the build plan in
-[`__roadmap__/`](__roadmap__/). Questions and suggestions go to the issue tracker once the
-repository is published.
+Questions and suggestions go to the [issue tracker](https://github.com/CrackingShells/Murmuration/issues).
 
 ## License
 

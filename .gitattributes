@@ -1,0 +1,4 @@
+# The plugin tree stays LF: the installer hashes its Rust sources and scripts byte for byte, so a CRLF checkout would doubt every binary.
+# Scoped to the plugin so the research record keeps the bytes it was committed with.
+plugins/murmuration/** text=auto eol=lf
+plugins/murmuration/bin/** binary

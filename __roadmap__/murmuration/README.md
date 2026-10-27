@@ -41,6 +41,7 @@ graph TD
 | ID | Date | Source | Nodes Added | Rationale |
 |:---|:-----|:-------|:------------|:----------|
 | A1 | 2026-10-18 | __reports__/pi_decisions/00-wave1_note_v0.md | [] | Wave 1 consequences folded into existing build nodes (no new nodes): probe-verified hook behavior, PI claims in pondus, mention/follow, pilot reconciliations |
+| A2 | 2026-10-27 | __roadmap__/claude_code_release/README.md | [] | Publishing (GitHub push, Nest listing) moves to the pure-dev campaign claude_code_release; the gate "nothing is published without the PI's explicit go-ahead" carries over as the user's three go-aheads there |
 
 ## Progress
 | Node | Branch | Commits | Notes |
