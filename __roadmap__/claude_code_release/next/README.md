@@ -16,11 +16,11 @@ Portable crate, one target contract, a CI that owns `bin/`, and public-facing do
 ## Status
 ```mermaid
 graph TD
-    rust_portability[Rust portability by conditional compilation]:::inprogress
-    targets_contract[One binary naming and target contract]:::inprogress
-    ci_workflow[CI builds and commits the binaries]:::inprogress
+    rust_portability[Rust portability by conditional compilation]:::done
+    targets_contract[One binary naming and target contract]:::done
+    ci_workflow[CI builds and commits the binaries]:::done
     readme_and_nest_prep[READMEs and the Nest entry]:::done
-    next[Integration]:::planned
+    next[Integration]:::inprogress
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
     classDef planned    fill:#374151,color:#e5e7eb
@@ -31,11 +31,11 @@ graph TD
 ## Nodes
 | Node | Type | Status |
 |:-----|:-----|:-------|
-| `rust_portability.md` | 📄 Leaf Task | 🔄 In Progress |
-| `targets_contract.md` | 📄 Leaf Task | 🔄 In Progress |
-| `ci_workflow.md` | 📄 Leaf Task | 🔄 In Progress |
+| `rust_portability.md` | 📄 Leaf Task | ✅ Done |
+| `targets_contract.md` | 📄 Leaf Task | ✅ Done |
+| `ci_workflow.md` | 📄 Leaf Task | ✅ Done |
 | `readme_and_nest_prep.md` | 📄 Leaf Task | ✅ Done |
-| `next/` | 📁 Directory | ⬜ Planned |
+| `next/` | 📁 Directory | 🔄 In Progress |
 
 ## Amendment Log
 | ID | Date | Source | Nodes Added | Rationale |
@@ -44,3 +44,7 @@ graph TD
 ## Progress
 | Node | Branch | Commits | Notes |
 |:-----|:-------|:--------|:------|
+| `rust_portability.md` | `task/rust-portability` | 2 (bc7403d, bd18970; merge 4c491ce) | Verifier PASS WITH FINDINGS: Unix differential 27,193 events + 30,591 timestamps, 0 differences. Open: `text.rs` path helpers are POSIX-only, so a Windows guard binary allows backslash settings paths (G3); deferred to the Windows cycle, see campaign Gotchas. Gate amended (python3 spawn, d80f356) |
+| `targets_contract.md` | `task/targets-contract` | 6 (3c056eb..71d12cc; merge 30182ec) | Verifier PASS WITH FINDINGS; six findings fixed in 5b7c489, 71d12cc (hash allowlist incl. build.rs, .cargo/, nested src; bin/ strays refused; symlink refused; launcher survives a broken build_manifest). Known limit: a stale binary under a regenerated manifest is caught only on the self-test payloads |
+| `ci_workflow.md` | `task/ci-workflow` | 4 (merge 48bff52) | Verifier PASS WITH FINDINGS; timeouts, mkdir, ALL_TARGETS tie and universal-binary refusal fixed in ebd4d4b. Deviations accepted and amended (d80f356): macos-15, commit_back on main dispatch. Not run on GitHub; `act` skipped (no docker daemon) |
+| `readme_and_nest_prep.md` | `release/claude-code` (coordinator) | 3 (084bc5a, db28904, 888b18b) | Nest entry on `../Nest` `feat/list-murmuration` c00093d, not pushed |
