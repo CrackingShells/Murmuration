@@ -3,7 +3,7 @@ name = "murmuration"
 version = "0.1.0"
 edition = "2021"
 description = "One binary for the Murmuration plugin's hooks: `guard`, `budget` and `handback`."
-license = "MIT"
+license = "AGPL-3.0-only"
 publish = false
 
 [features]
