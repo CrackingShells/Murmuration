@@ -177,6 +177,8 @@ jobs:
 
   install_smoke:
     needs: assemble
+    # without a status function GitHub's implicit success() looks at every upstream job, so a red Windows build row would skip this job (seen in the 2026-10-27 dry run); gate on assemble's own result instead
+    if: ${{ !cancelled() && needs.assemble.result == 'success' }}
     timeout-minutes: 15
     strategy:
       fail-fast: false
@@ -222,7 +224,7 @@ jobs:
     needs: install_smoke
     timeout-minutes: 10
     # a push to main, or a dispatch on main that asked for it; never from another branch
-    if: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.commit_back)) }}
+    if: ${{ !cancelled() && needs.install_smoke.result == 'success' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.commit_back)) }}
     runs-on: ubuntu-24.04
     # the only job that can write to the repository
     permissions:
