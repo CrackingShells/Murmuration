@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deny the direct forms of skipping or loosening Claude Code's permission layer, from a PreToolUse hook.
+r"""Deny the direct forms of skipping or loosening Claude Code's permission layer, from a PreToolUse hook.
 
 Python standard library only. hooks.json starts it as `python3 -S -I permission_guard.py` (no `site`, no PYTHON* variables; the script imports only the
 standard library and reads MURMURATION_GUARD_LOG through os.environ, which -I leaves alone). The Bash row has no `if` rule: the guard starts on every
@@ -27,13 +27,21 @@ Denied (the user's yes is needed; the message says so):
 Reading of the command (w08-c10): a command substitution (`$( )`, backticks) is cut out of the command and its inside is read as commands of their own, as before, AND the command is read once more with each substitution
 replaced by one word, so `claude -p "$(cat f)" <flag>` is seen with its flag on the `claude` command; the options of a wrapper that take a value (`env -u VAR`, `timeout -s SIG`, `ionice -c N`, `exec -a NAME`, ...) are
 skipped with their value, and the string of `env -S` is read as a command. Every reading that was made before is still made, so nothing that was denied is allowed by this.
-This is a guard for the direct and the casual cases. A script file that holds the flag, a variable built from pieces, base64, a symlink: not seen.
+Flavours: every path and program-name decision takes a flavour, "posix" or "nt", chosen by the OS this runs on (os.name) and passed explicitly by the selftest, which runs both on any host
+(fixtures/guard_lists/windows_paths.json holds the expected decision of each case under each; the Rust port reads the same file). posix is the reading of before: `/` separates, a backslash is a filename
+character, names are case-sensitive. nt reads a path as Windows resolves it, written out in `_nt_*` (not ntpath): `/` and `\` both separate; the prefixes `\\?\`, `\\.\`, `\??\` and `UNC\` are cut off; `C:x` is drive-relative (the
+directory of that drive is not known, so any settings-file name there is denied); an alternate data stream (`name:stream`) is cut off a component; trailing dots and spaces of a component are cut off; names compare
+case-folded (ASCII, plus U+17F, U+130, U+131 and U+212A, which Windows does not fold: an over-deny); a program name is folded and loses one of `.exe .cmd .bat .com`. On nt the Bash text is read a second time with
+each backslash a slash (the shell reads `C:\a\claude.exe` as `C:aclaude.exe` when it is not quoted). nt fails closed: where it cannot tell, it denies.
+This is a guard for the direct and the casual cases. A script file that holds the flag, a variable built from pieces, base64, a symlink: not seen. On Windows also not seen: 8.3 short names (`CLAUDE~1`, `SETTIN~1.JSON`),
+junctions and symlinks to a settings directory, the builtins of cmd and PowerShell that write a file without a redirection (`copy`, `move`, `del`, `Set-Content`, `Out-File`, ...), a script whose extension is `.bat .cmd .ps1`.
 Only a managed setting (`disableBypassPermissionsMode`) holds against those; a plugin cannot set it.
 
 Optional: with MURMURATION_GUARD_LOG set to a file, each run appends one JSON line (the test of w06-c7 counts spawns with it).
 """
 import json
 import os
+import posixpath
 import re
 import shlex
 import sys
@@ -49,8 +57,133 @@ WRAP = {"env", "command", "nohup", "exec", "time", "sudo", "nice", "ionice", "st
 KEYWORDS = {"if", "then", "else", "elif", "do", "while", "until", "!", "{", "}", "fi", "done"}
 SHELLS = {"sh", "bash", "zsh", "dash", "ksh"}
 INTERP = re.compile(r"\b(?:python[\d.]*|node|ruby|perl|php|osascript|deno|bun)\b")
+INTERP_NT = re.compile(r"(?i)\b(?:python[\d.]*|node|ruby|perl|php|osascript|deno|bun)\b")
+NAMES_POSIX = re.compile(r"[^\s'\"=,()]*(?:managed-settings[^\s'\"),]*|settings(?:\.local)?\.json)")
+NAMES_NT = re.compile(r"(?i)[^\s'\"=,()]*(?:managed-settings[^\s'\"),]*|settings(?:\.local)?\.json)")
 WRITEISH = re.compile(r"""\bwrite|writeFile|\.dump\(|,\s*['"][wax]\+?b?['"]|mode\s*=\s*['"][wax]|\bopen\s*\([^)]*['"][wax]""")
 ASSIGN = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*=")
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------
+# Paths and program names, by flavour. "posix" is today's reading (posixpath: `/` separates, a backslash is a filename character, names are case-sensitive).
+# "nt" is the reading of Windows, written out here and not taken from ntpath (whose isabs and join changed between Python versions), so that the Rust port can follow it one for one.
+# The runtime flavour is chosen by the OS; both flavours run on any host, which is how the selftest and the Rust unit tests check them.
+HOST = "nt" if os.name == "nt" else "posix"
+NT_EXE = (".exe", ".cmd", ".bat", ".com")
+# the case-folding of names: the ASCII letters, and the four characters outside ASCII that fold into it (dotted and dotless I, long S, Kelvin sign); a name is only ever compared with an ASCII literal
+_NT_FOLD = {**{c: c + 32 for c in range(0x41, 0x5B)}, 0x17F: "s", 0x130: "i", 0x131: "i", 0x212A: "k"}
+SETTINGS_NAMES = ("settings.json", "settings.local.json")
+
+
+def nt_fold(s):
+    return s.translate(_NT_FOLD)
+
+
+def _is_drive(s):
+    return len(s) >= 2 and s[1] == ":" and s[0].isascii() and s[0].isalpha()
+
+
+def _nt_root(p):
+    """(drive, rooted, rest, ext): the drive (`C:` or ''), whether the path starts at a root (`C:\\`, `\\`, a UNC `\\\\server`, or an extended prefix), the text after the drive with `/` read as `\\`, and whether an extended prefix
+    (`\\\\?\\`, `\\\\.\\`, `\\??\\`, and `UNC\\` after it) was cut off. `C:x` is drive-relative: the drive and no root."""
+    s = p.replace("/", "\\")
+    ext = False
+    for pre in ("\\\\?\\", "\\\\.\\", "\\??\\"):
+        if s.startswith(pre):
+            s, ext = s[len(pre):], True
+            break
+    if ext and nt_fold(s[:4]) == "unc\\":
+        s = s[4:]
+    drive = ""
+    if _is_drive(s):
+        drive, s = s[:2], s[2:]
+    return drive, ext or s.startswith("\\"), s, ext
+
+
+def _nt_walk(stack, rooted, rest):
+    """Fold the components of `rest` onto stack as Windows resolves them: an alternate data stream (`:name`) is cut off a component, `.` and empty components vanish, `..` removes the last component (and stays when
+    there is none and the path is not rooted), and trailing dots and spaces are cut off (so `settings.json.`, `settings.json ` and `...` name what Win32 would open; a name that is only dots and spaces vanishes)."""
+    for comp in rest.split("\\"):
+        comp = comp.split(":", 1)[0]
+        if comp == ".":
+            continue
+        if comp == "..":
+            if stack and stack[-1] != "..":
+                stack.pop()
+            elif not rooted:
+                stack.append("..")
+            continue
+        comp = comp.rstrip(" .")
+        if comp:
+            stack.append(comp)
+    return stack
+
+
+def _nt_resolve(cwd, p):
+    """(drive, rooted, components) of the path p seen from the working directory cwd."""
+    drive, rooted, rest, ext = _nt_root(p)
+    if rooted:
+        return drive, True, _nt_walk([], True, rest)
+    if not isinstance(cwd, str):
+        raise TypeError("cwd")
+    cd, crooted, crest, _ = _nt_root(cwd)
+    return cd, crooted, _nt_walk(_nt_walk([], crooted, crest), crooted, rest)
+
+
+def _nt_str(drive, rooted, comps):
+    return drive + ("\\" if rooted else "") + "\\".join(comps)
+
+
+def _nt_join(a, p):
+    """`os.path.join(a, p)` as Windows reads it, as text (used to open a file; decisions use _nt_resolve)."""
+    drive, rooted, rest, ext = _nt_root(p)
+    if rooted and (drive or ext):
+        return p
+    if not isinstance(a, str):
+        raise TypeError("cwd")
+    if rooted:
+        return _nt_root(a)[0] + p
+    if drive:
+        p = rest
+    if not a:
+        return p
+    return a + p if a[-1] in "\\/" else a + "\\" + p
+
+
+def _nt_expanduser(p):
+    """`~` and `~\\...` (or `~/...`) to the home directory (USERPROFILE, then HOME; neither set: left alone)."""
+    if not p.startswith("~") or (len(p) > 1 and p[1] not in "\\/"):
+        return p
+    home = os.environ.get("USERPROFILE") or os.environ.get("HOME")
+    if not home:
+        return p
+    return home.rstrip("\\/") + p[1:]
+
+
+def expanduser(p, fl=HOST):
+    return _nt_expanduser(p) if fl == "nt" else posixpath.expanduser(p)
+
+
+def prog_name(t, fl=HOST):
+    """The name of the program word t: its basename. On nt the last component after `\\` or `/` (no drive, no `:stream`, no trailing dots or spaces), case-folded, without one `.exe`, `.cmd`, `.bat` or `.com`."""
+    if fl != "nt":
+        return posixpath.basename(t)
+    name = t.replace("/", "\\").rsplit("\\", 1)[-1]
+    if _is_drive(name):
+        name = name[2:]
+    name = nt_fold(name.split(":", 1)[0].rstrip(" ."))
+    for ext in NT_EXE:
+        if name.endswith(ext) and len(name) > len(ext):
+            return name[:-len(ext)]
+    return name
+
+
+def display_name(p, fl=HOST):
+    """The basename of p as a message shows it (nt: after the last `\\` or `/`, without a drive)."""
+    if fl != "nt":
+        return posixpath.basename(p)
+    name = p.replace("/", "\\").rsplit("\\", 1)[-1]
+    return name[2:] if "\\" not in p.replace("/", "\\") and _is_drive(name) else name
 
 
 def _split(cmd, quotes):
@@ -145,7 +278,7 @@ def _env_string(t, toks, i):
     return None
 
 
-def _scan(toks):
+def _scan(toks, fl=HOST):
     """(index of the program word, assignments before it, the strings of `env -S`, whether a wrapper option's value was skipped) after env assignments, wrappers (env, timeout N, nohup, ...) and shell keywords."""
     i, assigns, strings, skipped = 0, [], [], False
     while i < len(toks):
@@ -154,8 +287,8 @@ def _scan(toks):
             i += 1
         elif ASSIGN.match(t):
             assigns.append(t); i += 1
-        elif os.path.basename(t) in WRAP:
-            w = os.path.basename(t); i += 1
+        elif prog_name(t, fl) in WRAP:
+            w = prog_name(t, fl); i += 1
             while i < len(toks) and (toks[i].startswith("-") or ASSIGN.match(toks[i]) or (w in ("timeout", "gtimeout", "nice") and re.fullmatch(r"[\d.]+[smhd]?", toks[i]))):
                 o = toks[i]
                 if ASSIGN.match(o):
@@ -166,7 +299,7 @@ def _scan(toks):
                     if st is not None:
                         strings.append(st)
                 if o.startswith("-") and _value_option(w, o):
-                    if i < len(toks) and os.path.basename(toks[i]) != "claude":     # a value is never taken for the program, but `claude` is never taken for a value
+                    if i < len(toks) and prog_name(toks[i], fl) != "claude":     # a value is never taken for the program, but `claude` is never taken for a value
                         i += 1
                         skipped = True
         else:
@@ -174,9 +307,9 @@ def _scan(toks):
     return len(toks), assigns, strings, skipped
 
 
-def program(toks):
+def program(toks, fl=HOST):
     """(index of the program word, assignments before it) after env assignments, wrappers (env, timeout N, nohup, ...), their options (and the values of those) and shell keywords."""
-    k, assigns, _, _ = _scan(toks)
+    k, assigns, _, _ = _scan(toks, fl)
     return k, assigns
 
 
@@ -287,7 +420,7 @@ def _spans(s, quotes, work):
     return spans, any(f[0] in "SD" for f in stack)
 
 
-def _mask(s, work):
+def _mask(s, work, fl=HOST):
     """(s with every outermost matched substitution replaced by one word, the insides that were replaced). The word is `claude` when the inside names claude (`$(which claude) --flag`), else `SUBST`. Single quotes and backslashes are respected
     (as the plain splitter does, a quote left open makes the pass run again with quotes as ordinary characters); an unclosed substitution stays as it is."""
     spans, open_quote = _spans(s, True, work)
@@ -300,20 +433,20 @@ def _mask(s, work):
             continue
         inner = s[a:b]
         out.append(s[prev:st])
-        out.append("claude" if NAMES_CLAUDE.search(inner) else "SUBST")
+        out.append("claude" if _names_claude(fl).search(inner) else "SUBST")
         inners.append(inner)
         prev = en
     out.append(s[prev:])
     return "".join(out), inners
 
 
-def substitution_texts(cmd, work):
+def substitution_texts(cmd, work, fl=HOST):
     """The texts to split in addition to cmd itself: cmd and the inside of each of its substitutions (nested ones too), each with its own substitutions replaced by one word. Empty when cmd has none."""
     if "$(" not in cmd and "`" not in cmd and "<(" not in cmd and ">(" not in cmd:
         return []
     texts, queue = [], [cmd]
     while queue:
-        m, inners = _mask(queue.pop(0), work)
+        m, inners = _mask(queue.pop(0), work, fl)
         texts.append(m)
         queue += inners
     return texts if len(texts) > 1 or texts[0] != cmd else []
@@ -342,23 +475,23 @@ def _shell_script(toks, i):
     return None
 
 
-def expand(cmd, depth=0, work=None):
+def expand(cmd, depth=0, work=None, fl=HOST):
     """Every simple command (list of words) of cmd, descending into `sh -c '...'`, `eval '...'` and `env -S '...'` strings (depth 3). The simple commands of the plain splitter come first, in order; then those of
     the command and of each substitution inside it with the substitutions replaced by one word (so that `claude -p "$(cat f)" --flag` is also seen as `claude -p "SUBST" --flag`). Raises TooComplex."""
     work = [0] if work is None else work
     out = []
     segs = split_segments(cmd)
-    for text in substitution_texts(cmd, work):
+    for text in substitution_texts(cmd, work, fl):
         segs += split_segments(text)
     for seg in segs:
         toks = words(seg)
         out.append((seg, toks))
-        k, _, strings, _ = _scan(toks)
+        k, _, strings, _ = _scan(toks, fl)
         if depth < 3:
             for st in strings:
-                out += expand(" ".join([st] + toks[k:]), depth + 1, work)
+                out += expand(" ".join([st] + toks[k:]), depth + 1, work, fl)
         if depth < 3 and k < len(toks):
-            prog = os.path.basename(toks[k])
+            prog = prog_name(toks[k], fl)
             if prog in SHELLS:
                 js = [toks.index("-c", k + 1) + 1] if "-c" in toks[k + 1:] else []      # the word after the first `-c`, as before
                 j = _shell_script(toks, k + 1)                                          # and the string of `-c` as the shell reads its options (`-lc`, `-c -x`, ...)
@@ -366,17 +499,17 @@ def expand(cmd, depth=0, work=None):
                     js.append(j)
                 for j in js:
                     if j < len(toks):
-                        out += expand(toks[j], depth + 1, work)
+                        out += expand(toks[j], depth + 1, work, fl)
             elif prog == "eval":
-                out += expand(" ".join(toks[k + 1:]), depth + 1, work)
+                out += expand(" ".join(toks[k + 1:]), depth + 1, work, fl)
     return out
 
 
-def inert(toks):
-    k, _, _, skipped = _scan(toks)
+def inert(toks, fl=HOST):
+    k, _, _, skipped = _scan(toks, fl)
     if skipped or k >= len(toks):         # a wrapper option's value was skipped: the program may be one the old reading took for `inert`, so it counts as not inert
         return False
-    prog = os.path.basename(toks[k])
+    prog = prog_name(toks[k], fl)
     rest = toks[k + 1:]
     if prog in INERT:
         return not any(t == "--pre" or t.startswith("--pre=") for t in rest)
@@ -386,44 +519,77 @@ def inert(toks):
     return False
 
 
-def protected(path, cwd, unknown_dir=False):
+def _nt_test(comps):
+    """The settings-file test on the resolved components of a Windows path, names case-folded."""
+    base = nt_fold(comps[-1]) if comps else ""
+    parent = nt_fold(comps[-2]) if len(comps) > 1 else ""
+    if base.startswith("managed-settings") or parent == "managed-settings.d":
+        return True
+    return base in SETTINGS_NAMES and parent == ".claude"
+
+
+def _nt_protected(path, cwd, unknown_dir):
+    if not isinstance(path, str):
+        raise TypeError("path")
+    p = _nt_expanduser(path)
+    drive, rooted, rest, _ = _nt_root(p)
+    if not rooted:
+        if drive:                       # `C:x`: the working directory of that drive is not known
+            unknown_dir = True
+        if unknown_dir and "\\" not in rest:
+            comps = _nt_walk([], False, rest)
+            if comps and nt_fold(comps[-1]) in SETTINGS_NAMES:
+                return True
+    return _nt_test(_nt_resolve(cwd or "", p)[2])
+
+
+def protected(path, cwd, unknown_dir=False, fl=HOST):
     """True when path names a Claude Code settings file."""
-    p = os.path.expanduser(path)
-    if not os.path.isabs(p):
-        if "/" not in p and unknown_dir and os.path.basename(p) in ("settings.json", "settings.local.json"):
+    if fl == "nt":
+        return _nt_protected(path, cwd, unknown_dir)
+    p = posixpath.expanduser(path)
+    if not posixpath.isabs(p):
+        if "/" not in p and unknown_dir and posixpath.basename(p) in ("settings.json", "settings.local.json"):
             return True
-        p = os.path.join(cwd or "", p)
-    p = os.path.normpath(p)
-    base, parent = os.path.basename(p), os.path.basename(os.path.dirname(p))
+        p = posixpath.join(cwd or "", p)
+    p = posixpath.normpath(p)
+    base, parent = posixpath.basename(p), posixpath.basename(posixpath.dirname(p))
     if base.startswith("managed-settings") or parent == "managed-settings.d":
         return True
     return base in ("settings.json", "settings.local.json") and parent == ".claude"
 
 
 NAMES_CLAUDE = re.compile(r"(?<![\w.\-])claude(?![\w.\-/])|claude_agent_sdk")
+# nt: `CLAUDE`, `claude.exe`, `C:\...\claude.cmd`; a backslash after the name, as a slash, makes it a folder
+NAMES_CLAUDE_NT = re.compile(r"(?i:(?<![\w.\-])claude(?:\.(?:exe|cmd|bat|com))?(?![\w.\-/\\]))|claude_agent_sdk")
 
 
-def g1(cmd, segs):
+def _names_claude(fl):
+    return NAMES_CLAUDE_NT if fl == "nt" else NAMES_CLAUDE
+
+
+def g1(cmd, segs, fl=HOST):
     """G1 (v3): the bypass words, only when the same command text (heredoc bodies included) also names `claude` (the CLI) or `claude_agent_sdk`."""
-    if not NAMES_CLAUDE.search(cmd) and not any(NAMES_CLAUDE.search(sg) for sg, _ in segs):      # also the strings of `env -S<word>` and `sh -c`, where `-Sclaude` glues the word to the option
+    names = _names_claude(fl)
+    if not names.search(cmd) and not any(names.search(sg) for sg, _ in segs):      # also the strings of `env -S<word>` and `sh -c`, where `-Sclaude` glues the word to the option
         return None
     bad = [s for s, toks in segs if BYPASS.search(s) or BYPASS.search(" ".join(toks))]
-    hit = [s for s, toks in segs if (BYPASS.search(s) or BYPASS.search(" ".join(toks))) and not inert(toks)]
+    hit = [s for s, toks in segs if (BYPASS.search(s) or BYPASS.search(" ".join(toks))) and not inert(toks, fl)]
     if hit:
         m = BYPASS.search(hit[0]) or BYPASS.search(" ".join(words(hit[0])))
         return "G1", "the command carries `%s`" % (m.group(0) if m else "a bypass flag")
     return None
 
 
-def g2(cmd, segs):
+def g2(cmd, segs, fl=HOST):
     for seg, toks in segs:
-        k, assigns = program(toks)
+        k, assigns = program(toks, fl)
         for t in assigns + toks:
             if t.startswith("CLAUDE_CONFIG_DIR="):
                 return "G2", "the command sets CLAUDE_CONFIG_DIR, which leaves the user's settings and hooks behind"
         if toks[:1] in (["export"], ["declare"], ["typeset"]) and any(t.startswith("CLAUDE_CONFIG_DIR=") for t in toks):
             return "G2", "the command sets CLAUDE_CONFIG_DIR"
-        if k >= len(toks) or os.path.basename(toks[k]) != "claude":
+        if k >= len(toks) or prog_name(toks[k], fl) != "claude":
             continue
         args = toks[k + 1:]
         for v in flag_value(args, "--setting-sources"):
@@ -438,17 +604,31 @@ def g2(cmd, segs):
     return None
 
 
-def g3_bash(cmd, segs, cwd):
+def slashed(segs):
+    """The simple commands read with every backslash a slash. A Windows path typed without quotes loses its backslashes when the shell reads the word (`C:\\a\\claude.exe` is `C:aclaude.exe`); on nt the commands are read a second time like this, so that the program or target is also seen as the path it was meant to be."""
+    return [(t, words(t)) for t in (sg.replace("\\", "/") for sg, _ in segs)]
+
+
+def g3_bash(cmd, segs, cwd, fl=HOST):
+    hit = _g3_bash(cmd, segs, cwd, fl, True)
+    if hit or fl != "nt":
+        return hit
+    return _g3_bash(cmd, slashed(segs), cwd, fl, False)
+
+
+def _g3_bash(cmd, segs, cwd, fl, script):
     unknown, cur = False, cwd
     for seg, toks in segs:
-        k, _ = program(toks)
-        prog = os.path.basename(toks[k]) if k < len(toks) else ""
+        k, _ = program(toks, fl)
+        prog = prog_name(toks[k], fl) if k < len(toks) else ""
         if prog in ("cd", "pushd") and k + 1 < len(toks):
-            t = os.path.expanduser(toks[k + 1])
+            t = expanduser(toks[k + 1], fl)
             if "$" in t or "`" in t or t == "-":
                 unknown = True
+            elif fl == "nt":
+                cur = _nt_str(*_nt_resolve(cur or "", t))
             else:
-                cur = os.path.normpath(t if os.path.isabs(t) else os.path.join(cur or "", t))
+                cur = posixpath.normpath(t if posixpath.isabs(t) else posixpath.join(cur or "", t))
             continue
         targets = []
         for m in re.finditer(r"""(?:>>?|>\|)\s*(['"]?)([^\s;&|<>'"]+)\1""", seg):
@@ -467,18 +647,21 @@ def g3_bash(cmd, segs, cwd):
         elif prog == "dd":
             targets += [t[3:] for t in args if t.startswith("of=")]
         for t in targets:
-            if protected(t, cur, unknown):
+            if protected(t, cur, unknown, fl):
                 return "G3", "the command writes `%s`, a Claude Code settings file" % t
-    if INTERP.search(cmd) or any(os.path.basename(t) in ("python", "python3") for _, ts in segs for t in ts[:1]):
-        names = re.findall(r"[^\s'\"=,()]*(?:managed-settings[^\s'\"),]*|settings(?:\.local)?\.json)", cmd)
-        if names and WRITEISH.search(cmd) and any(protected(n, cur, True) or "/" in n and protected(n, cwd) for n in names):
+    if not script:
+        return None
+    nt = fl == "nt"
+    if (INTERP_NT if nt else INTERP).search(cmd) or any(prog_name(t, fl) in (("python", "python3", "py", "pythonw") if nt else ("python", "python3")) for _, ts in segs for t in ts[:1]):
+        names = (NAMES_NT if nt else NAMES_POSIX).findall(cmd)
+        if names and WRITEISH.search(cmd) and any(protected(n, cur, True, fl) or ("/" in n or (nt and "\\" in n)) and protected(n, cwd, False, fl) for n in names):
             return "G3", "a script in the command writes a Claude Code settings file"
     return None
 
 
-def g3_edit(inp, cwd):
+def g3_edit(inp, cwd, fl=HOST):
     p = inp.get("file_path") or inp.get("path") or inp.get("notebook_path") or ""
-    if p and protected(p, cwd):
+    if p and protected(p, cwd, False, fl):
         return "G3", "the edit targets `%s`, a Claude Code settings file" % p
     return None
 
@@ -494,18 +677,22 @@ def _hits(text):
     return out
 
 
-def g4_script(inp, cwd=""):
+def g4_script(inp, cwd="", fl=HOST):
     """G4 (v2): Write or Edit of a script file that ADDS the bypass words or a literal `--setting-sources` value without `user`.
     Edit: more of them in `new_string` than in `old_string`. Write over an existing file: more than the file holds now. Write of a new file: any."""
     p = inp.get("file_path") or inp.get("path") or inp.get("notebook_path") or ""
-    if not p.lower().endswith(SCRIPT_EXT):
+    if fl == "nt":                  # the file name as Windows resolves it: `X.PY`, `x.py.`, `x.py::$DATA` are scripts
+        comps = _nt_resolve("", p)[2]
+        if not (comps and nt_fold(comps[-1]).endswith(SCRIPT_EXT)):
+            return None
+    elif not p.lower().endswith(SCRIPT_EXT):
         return None
     if "new_source" in inp:         # NotebookEdit: the replaced cell is not known to the hook, so any occurrence counts
         new, old = _hits(str(inp.get("new_source") or "")), []
     elif "content" in inp:
         new, old = _hits(str(inp.get("content") or "")), []
         try:
-            with open(os.path.join(cwd or "", os.path.expanduser(p)), errors="replace") as fh:
+            with open(_nt_join(cwd or "", _nt_expanduser(p)) if fl == "nt" else posixpath.join(cwd or "", posixpath.expanduser(p)), errors="replace") as fh:
                 old = _hits(fh.read())
         except OSError:
             old = []
@@ -515,22 +702,22 @@ def g4_script(inp, cwd=""):
         old = [h for e in edits for h in _hits(str(e.get("old_string") or ""))]
     if len(new) > len(old):
         h = new[len(old)] if len(new) > len(old) else new[0]
-        return "G4", "the edit adds `%s` to the script `%s`" % (h, os.path.basename(p))
+        return "G4", "the edit adds `%s` to the script `%s`" % (h, display_name(p, fl))
     return None
 
 
-def decide(event):
-    """(group, why) when the event is to be denied, else None."""
+def decide(event, fl=HOST):
+    """(group, why) when the event is to be denied, else None. fl is the flavour of the paths and program names: "posix" or "nt" (the OS this runs on, by default)."""
     tool, inp, cwd = event.get("tool_name"), event.get("tool_input") or {}, event.get("cwd") or ""
     if tool == "Bash":
         cmd = inp.get("command") or ""
         try:
-            segs = expand(cmd)
+            segs = expand(cmd, fl=fl)
         except TooComplex:
             return "G?", "the command has too many command substitutions to be checked"
-        return g1(cmd, segs) or g2(cmd, segs) or g3_bash(cmd, segs, cwd)
+        return g1(cmd, segs, fl) or g2(cmd, segs, fl) or (fl == "nt" and g2(cmd, slashed(segs), fl)) or g3_bash(cmd, segs, cwd, fl)
     if tool in ("Write", "Edit", "MultiEdit", "NotebookEdit"):
-        return g3_edit(inp, cwd) or g4_script(inp, cwd)
+        return g3_edit(inp, cwd, fl) or g4_script(inp, cwd, fl)
     return None
 
 
@@ -558,6 +745,7 @@ def run(raw, log=None):
 
 FIXTURES = os.path.join(HERE, "fixtures", "guard_lists")   # copied from __reports__/wave-06/author-w06-5 (the research record keeps the originals)
 FIXTURE_COUNTS = {"attacks": 50, "ordinary": 28, "mention": 6, "evasions": 13}   # a missing file or a different count fails the selftest: it must never pass on empty lists
+WINDOWS_COUNT = 86   # windows_paths.json: each case carries the cwd and the expected decision under both flavours ("allow" or the group); the same file is read by the Rust tests and by check_guard_equal.py
 
 
 def selftest():
@@ -594,6 +782,17 @@ def selftest():
     holes = json.load(open(os.path.join(HERE, "guard_selftest_holes.json")))        # w08-c10: the forms that hid a flag after a substitution or behind an option of a wrapper, and controls
     for c in holes:
         check("hole-form %s (%s)" % (c["id"], "deny" if c["deny"] else "allow"), bool(decide(dict(tool_name="Bash", tool_input={"command": c["command"]}, cwd=T))) == c["deny"])
+    try:
+        windows = json.loads(open(os.path.join(FIXTURES, "windows_paths.json")).read())
+    except (OSError, ValueError):
+        windows = []
+    if len(windows) != WINDOWS_COUNT:
+        missing.append("windows_paths (%d cases, %d pinned)" % (len(windows), WINDOWS_COUNT))
+    for c in windows:       # both flavours run on every host: the posix column is what Unix decides, the nt column what Windows decides
+        e = dict(tool_name=c["tool"], tool_input={"command": c["command"]} if c["tool"] == "Bash" else c["input"], cwd=c["cwd"])
+        for fl in ("posix", "nt"):
+            hit = decide(e, fl)
+            check("windows %s under %s (want %s)" % (c["id"], fl, c[fl]), (hit[0] if hit else "allow") == c[fl])
     ev_pass = [c["id"] for c in load("evasions") if decide(ev(c))]
     mention_denied = [c["id"] for c in load("mention") if decide(ev(c))]
     small = [
@@ -642,8 +841,8 @@ def selftest():
     check("empty event is a deny (fail closed)", run("not json") is not None)
     for n in sorted(set(missing)):
         check("fixture %s present with its pinned count" % n, False)
-    print("selftest %s: attacks %d denied, ordinary %d allowed; not-gated: evasions caught %s, mention-only denied %s" % (
-        "ok" if ok else "FAILED", len(load("attacks")), len(load("ordinary")), ev_pass, mention_denied))
+    print("selftest %s: attacks %d denied, ordinary %d allowed, windows_paths %d x 2 flavours; not-gated: evasions caught %s, mention-only denied %s" % (
+        "ok" if ok else "FAILED", len(load("attacks")), len(load("ordinary")), len(windows), ev_pass, mention_denied))
     return 0 if ok else 1
 
 

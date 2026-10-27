@@ -1,0 +1,904 @@
+[
+ {
+  "id": "w01",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:\\Users\\u\\.claude\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "drive path"
+ },
+ {
+  "id": "w02",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "relative, backslash"
+ },
+ {
+  "id": "w03",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude\\settings.local.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3"
+ },
+ {
+  "id": "w04",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:/Users/u\\.claude/settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "mixed separators"
+ },
+ {
+  "id": "w05",
+  "tool": "Write",
+  "input": {
+   "file_path": ".Claude\\Settings.JSON",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "case"
+ },
+ {
+  "id": "w06",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude\\settings.json.",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "trailing dot"
+ },
+ {
+  "id": "w07",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude\\settings.json ",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "trailing space"
+ },
+ {
+  "id": "w08",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude\\settings.json::$DATA",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "data stream"
+ },
+ {
+  "id": "w09",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude\\settings.json:x",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "named stream"
+ },
+ {
+  "id": "w10",
+  "tool": "Write",
+  "input": {
+   "file_path": "\\\\?\\C:\\proj\\.claude\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "extended prefix"
+ },
+ {
+  "id": "w11",
+  "tool": "Write",
+  "input": {
+   "file_path": "\\\\server\\share\\proj\\.claude\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "UNC"
+ },
+ {
+  "id": "w12",
+  "tool": "Write",
+  "input": {
+   "file_path": "\\\\?\\UNC\\server\\share\\proj\\.claude\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "extended UNC"
+ },
+ {
+  "id": "w13",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:.claude\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "drive-relative"
+ },
+ {
+  "id": "w14",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:\\ProgramData\\ClaudeCode\\managed-settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "managed"
+ },
+ {
+  "id": "w15",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:\\ProgramData\\ClaudeCode\\Managed-Settings.JSON.",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "managed, case and trailing dot"
+ },
+ {
+  "id": "w16",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:\\ProgramData\\ClaudeCode\\managed-settings.d\\10.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "managed drop-in dir"
+ },
+ {
+  "id": "w17",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:\\ProgramData\\ClaudeCode\\MANAGED-SETTINGS.D\\10.json:x",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "managed drop-in, case and stream"
+ },
+ {
+  "id": "w18",
+  "tool": "Write",
+  "input": {
+   "file_path": "~\\.claude\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "home"
+ },
+ {
+  "id": "w19",
+  "tool": "Write",
+  "input": {
+   "file_path": "..\\.claude\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj\\sub",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "parent"
+ },
+ {
+  "id": "w20",
+  "tool": "Write",
+  "input": {
+   "file_path": "x\\..\\.claude\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "dot-dot"
+ },
+ {
+  "id": "w21",
+  "tool": "Write",
+  "input": {
+   "file_path": "\\.claude\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "root of the current drive"
+ },
+ {
+  "id": "w22",
+  "tool": "Write",
+  "input": {
+   "file_path": "\\\\.\\C:\\proj\\.claude\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "device prefix"
+ },
+ {
+  "id": "w23",
+  "tool": "Write",
+  "input": {
+   "file_path": "\\??\\C:\\proj\\.claude\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "NT object prefix"
+ },
+ {
+  "id": "w24",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude.\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "trailing dot on the directory"
+ },
+ {
+  "id": "w25",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude \\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "trailing space on the directory"
+ },
+ {
+  "id": "w26",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude\\.\\\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "dot and empty components"
+ },
+ {
+  "id": "w27",
+  "tool": "Write",
+  "input": {
+   "file_path": ".CLAUDE/settings.local.json:s:$DATA",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "case, slash, stream and type"
+ },
+ {
+  "id": "w28",
+  "tool": "Write",
+  "input": {
+   "file_path": "settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj\\.claude",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "relative to a .claude cwd"
+ },
+ {
+  "id": "w29",
+  "tool": "Edit",
+  "input": {
+   "file_path": "C:\\Users\\u\\.claude\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "Edit"
+ },
+ {
+  "id": "w30",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude\\.\\SETTINGS.LOCAL.JSON",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3"
+ },
+ {
+  "id": "w31",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude\\\u017fettings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "over-deny: long s folds to s (Windows does not fold it)"
+ },
+ {
+  "id": "w32",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude\\sett\u0131ngs.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "over-deny: dotless i folds to i (Windows does not fold it)"
+ },
+ {
+  "id": "w33",
+  "tool": "Write",
+  "input": {
+   "file_path": "D:settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "over-deny: drive-relative name, the directory of drive D is not known"
+ },
+ {
+  "id": "u01",
+  "tool": "Write",
+  "input": {
+   "file_path": "/h/proj/.claude/settings.json",
+   "content": ""
+  },
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "Unix form, both deny"
+ },
+ {
+  "id": "u02",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude/settings.json",
+   "content": ""
+  },
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "Unix relative form, both deny"
+ },
+ {
+  "id": "u03",
+  "tool": "Write",
+  "input": {
+   "file_path": "/h/proj/.Claude/Settings.json",
+   "content": ""
+  },
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "case: Unix is case-sensitive"
+ },
+ {
+  "id": "u04",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude/settings.json.",
+   "content": ""
+  },
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "trailing dot: another file on Unix"
+ },
+ {
+  "id": "c01",
+  "tool": "Write",
+  "input": {
+   "file_path": "settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow"
+ },
+ {
+  "id": "c02",
+  "tool": "Write",
+  "input": {
+   "file_path": "src\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow"
+ },
+ {
+  "id": "c03",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:\\proj\\notes\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow"
+ },
+ {
+  "id": "c04",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude\\agents\\x.md",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow"
+ },
+ {
+  "id": "c05",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:\\proj\\settings.json.bak",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow"
+ },
+ {
+  "id": "c06",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude\\settings.json.bak",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow"
+ },
+ {
+  "id": "c07",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:\\proj\\.claude-notes\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow"
+ },
+ {
+  "id": "c08",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:\\proj\\src\\.claude.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow"
+ },
+ {
+  "id": "c09",
+  "tool": "Write",
+  "input": {
+   "file_path": "x:y\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a stream on the directory name: not .claude"
+ },
+ {
+  "id": "b01",
+  "tool": "Bash",
+  "command": "claude.exe -p x --dangerously-skip-permissions",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G1"
+ },
+ {
+  "id": "b02",
+  "tool": "Bash",
+  "command": "CLAUDE -p x --dangerously-skip-permissions",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G1"
+ },
+ {
+  "id": "b03",
+  "tool": "Bash",
+  "command": "C:\\Users\\u\\AppData\\Roaming\\npm\\claude.cmd -p x --permission-mode bypassPermissions",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G1"
+ },
+ {
+  "id": "b04",
+  "tool": "Bash",
+  "command": "'C:\\Program Files\\claude.cmd' --bare -p x",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G2"
+ },
+ {
+  "id": "b05",
+  "tool": "Bash",
+  "command": "claude.EXE --bare -p x",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G2"
+ },
+ {
+  "id": "b06",
+  "tool": "Bash",
+  "command": "env.exe claude --bare",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G2"
+ },
+ {
+  "id": "b07",
+  "tool": "Bash",
+  "command": "C:\\tools\\claude.exe -p x --setting-sources project",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G2"
+ },
+ {
+  "id": "b08",
+  "tool": "Bash",
+  "command": "C:/tools/CLAUDE.EXE --bare",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G2"
+ },
+ {
+  "id": "b09",
+  "tool": "Bash",
+  "command": "C:\\tools\\claude.bat -p x --dangerously-skip-permissions",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G1"
+ },
+ {
+  "id": "b10",
+  "tool": "Bash",
+  "command": "claude.com -p x --bare",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G2"
+ },
+ {
+  "id": "b11",
+  "tool": "Bash",
+  "command": "claude -p x --settings '{\"disableAllHooks\":true}'",
+  "cwd": "C:\\proj",
+  "posix": "G2",
+  "nt": "G2",
+  "note": "plain claude, both deny"
+ },
+ {
+  "id": "b12",
+  "tool": "Bash",
+  "command": "claude.exe -p hi",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow"
+ },
+ {
+  "id": "b13",
+  "tool": "Bash",
+  "command": "claude.exe.bak --bare",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow"
+ },
+ {
+  "id": "b14",
+  "tool": "Bash",
+  "command": "myclaude.exe --bare",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow"
+ },
+ {
+  "id": "b15",
+  "tool": "Bash",
+  "command": "grep.exe bypassPermissions claude",
+  "cwd": "C:\\proj",
+  "posix": "G1",
+  "nt": "allow",
+  "note": "a search by its Windows name"
+ },
+ {
+  "id": "b16",
+  "tool": "Bash",
+  "command": "echo hi",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow"
+ },
+ {
+  "id": "b17",
+  "tool": "Bash",
+  "command": "CMD /C claude.exe -p x --dangerously-skip-permissions",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G1",
+  "note": "the flag is on a claude word whatever the program"
+ },
+ {
+  "id": "g01",
+  "tool": "Bash",
+  "command": "cp x C:\\Users\\u\\.claude\\settings.json",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "unquoted: the shell reads the backslashes away"
+ },
+ {
+  "id": "g02",
+  "tool": "Bash",
+  "command": "cp x '.claude\\settings.json'",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3"
+ },
+ {
+  "id": "g03",
+  "tool": "Bash",
+  "command": "echo x > .claude\\settings.json",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3"
+ },
+ {
+  "id": "g04",
+  "tool": "Bash",
+  "command": "cd C:\\proj\\.claude && echo x > settings.json",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3"
+ },
+ {
+  "id": "g05",
+  "tool": "Bash",
+  "command": "cd .claude; tee Settings.JSON",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3"
+ },
+ {
+  "id": "g06",
+  "tool": "Bash",
+  "command": "PYTHON.EXE -c \"open('.claude\\\\settings.json','w')\"",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3"
+ },
+ {
+  "id": "g07",
+  "tool": "Bash",
+  "command": "python -c \"open('.claude\\\\Settings.json','w')\"",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3"
+ },
+ {
+  "id": "g08",
+  "tool": "Bash",
+  "command": "type nul > C:\\ProgramData\\ClaudeCode\\managed-settings.json",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3"
+ },
+ {
+  "id": "g09",
+  "tool": "Bash",
+  "command": "echo {} >> C:\\proj\\.claude\\settings.local.json:x",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3"
+ },
+ {
+  "id": "g10",
+  "tool": "Bash",
+  "command": "mv.exe x .claude\\settings.json.",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "a Windows-named mv, trailing dot"
+ },
+ {
+  "id": "g11",
+  "tool": "Bash",
+  "command": "rm .claude\\SETTINGS.JSON",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3"
+ },
+ {
+  "id": "g12",
+  "tool": "Bash",
+  "command": "cp .claude\\settings.json C:\\tmp\\bak",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a read of the file"
+ },
+ {
+  "id": "g13",
+  "tool": "Bash",
+  "command": "echo x > src\\settings.json",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow"
+ },
+ {
+  "id": "g14",
+  "tool": "Bash",
+  "command": "cp x C:\\proj\\settings.json",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow"
+ },
+ {
+  "id": "s01",
+  "tool": "Write",
+  "input": {
+   "file_path": "run.PY",
+   "content": "subprocess.run(['claude', '--dangerously-skip-permissions'])"
+  },
+  "cwd": "C:\\proj",
+  "posix": "G4",
+  "nt": "G4",
+  "note": ".PY"
+ },
+ {
+  "id": "s02",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:\\proj\\tools\\Run.Sh",
+   "content": "subprocess.run(['claude', '--dangerously-skip-permissions'])"
+  },
+  "cwd": "C:\\proj",
+  "posix": "G4",
+  "nt": "G4",
+  "note": ".Sh"
+ },
+ {
+  "id": "s03",
+  "tool": "Write",
+  "input": {
+   "file_path": "run.py:x",
+   "content": "subprocess.run(['claude', '--dangerously-skip-permissions'])"
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G4",
+  "note": "stream on a script"
+ },
+ {
+  "id": "s04",
+  "tool": "Write",
+  "input": {
+   "file_path": "run.py.",
+   "content": "subprocess.run(['claude', '--dangerously-skip-permissions'])"
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G4",
+  "note": "trailing dot"
+ },
+ {
+  "id": "s05",
+  "tool": "Write",
+  "input": {
+   "file_path": "run.py ",
+   "content": "subprocess.run(['claude', '--dangerously-skip-permissions'])"
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G4",
+  "note": "trailing space"
+ },
+ {
+  "id": "s06",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:\\proj\\tools\\run.MJS",
+   "content": "subprocess.run(['claude', '--dangerously-skip-permissions'])"
+  },
+  "cwd": "C:\\proj",
+  "posix": "G4",
+  "nt": "G4"
+ },
+ {
+  "id": "s07",
+  "tool": "Write",
+  "input": {
+   "file_path": "run.py",
+   "content": "subprocess.run(['claude', '--dangerously-skip-permissions'])"
+  },
+  "cwd": "/h/proj",
+  "posix": "G4",
+  "nt": "G4",
+  "note": "lower-case .py, both deny"
+ },
+ {
+  "id": "s08",
+  "tool": "Write",
+  "input": {
+   "file_path": "run.PY",
+   "content": "print(1)"
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "benign"
+ },
+ {
+  "id": "s09",
+  "tool": "Write",
+  "input": {
+   "file_path": "run.txt",
+   "content": "subprocess.run(['claude', '--dangerously-skip-permissions'])"
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow"
+ }
+]
