@@ -1,42 +1,79 @@
-# CI for the Rust guard (a file for the maintainer; not pushed by the lab). Builds `murmuration` for each target, checks it against scripts/permission_guard.py, and uploads the binary
-# so that it can be committed under bin/<target>/. The lab built and committed only aarch64-apple-darwin and x86_64-apple-darwin; the other rows are untested here.
+# Builds the `murmuration` hook binary for five targets and checks each one on its own runner before it is uploaded.
 name: guard-binaries
 on:
   push:
-    paths: ["rust/**", "scripts/permission_guard.py", "scripts/check_guard_equal.py"]
+    # every file the manifest hashes lives under these two folders; plugins/murmuration/bin/** is left out so that a commit of binaries cannot start another run
+    paths: ["plugins/murmuration/rust/**", "plugins/murmuration/scripts/**"]
   workflow_dispatch:
+    inputs:
+      commit_back:
+        description: "Commit the assembled bin/ to main (only honoured when run on main)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+env:
+  PLUGIN: plugins/murmuration
+
 jobs:
   build:
+    permissions:
+      contents: read
     strategy:
+      # one red row (Windows above all) must not cancel the others
       fail-fast: false
       matrix:
         include:
-          - { os: macos-14, target: aarch64-apple-darwin }
-          - { os: macos-13, target: x86_64-apple-darwin }
-          - { os: ubuntu-latest, target: x86_64-unknown-linux-gnu }
-          - { os: ubuntu-24.04-arm, target: aarch64-unknown-linux-gnu }
+          # macos-14 is deprecated (unsupported from 2026-11-02, brownouts in October), so the arm64 Mac row is macos-15
+          - { os: macos-15, target: aarch64-apple-darwin, py: python3, filepat: 'Mach-O 64-bit.*arm64' }
+          - { os: macos-15-intel, target: x86_64-apple-darwin, py: python3, filepat: 'Mach-O 64-bit.*x86_64' }
+          - { os: ubuntu-22.04, target: x86_64-unknown-linux-gnu, py: python3, filepat: 'ELF 64-bit.*x86-64' }
+          - { os: ubuntu-22.04-arm, target: aarch64-unknown-linux-gnu, py: python3, filepat: 'ELF 64-bit.*ARM aarch64' }
+          - { os: windows-latest, target: x86_64-pc-windows-msvc, py: python, filepat: 'PE32\+ executable.*x86-64' }
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    env:
+      TARGET: ${{ matrix.target }}
+      PY: ${{ matrix.py }}
+      FILEPAT: ${{ matrix.filepat }}
     steps:
-      - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-      - run: rustup target add ${{ matrix.target }}
-      - run: cargo clippy --release --target ${{ matrix.target }} --manifest-path rust/Cargo.toml
-      - run: cargo build --release --target ${{ matrix.target }} --manifest-path rust/Cargo.toml
-      - run: mkdir -p bin/${{ matrix.target }} && cp rust/target/${{ matrix.target }}/release/murmuration bin/${{ matrix.target }}/murmuration
-      - run: python3 -I scripts/check_guard_equal.py --no-recorded --rust bin/${{ matrix.target }}/murmuration
-      - uses: actions/upload-artifact@v4
-        with: { name: "murmuration-${{ matrix.target }}", path: "bin/${{ matrix.target }}/murmuration" }
-  manifest:
-    # one job gathers every target's binary, commits them under bin/<target>/ and writes bin/manifest.json (sha256 of each binary, of scripts/permission_guard.py and of the Rust sources)
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-      - uses: actions/download-artifact@v4
-        with: { path: artifacts }
-      - run: |
-          for d in artifacts/murmuration-*; do t=${d#artifacts/murmuration-}; mkdir -p bin/$t; cp $d/murmuration bin/$t/murmuration; chmod +x bin/$t/murmuration; done
-          python3 -I scripts/build_manifest.py
-      - uses: actions/upload-artifact@v4
-        with: { name: "bin-and-manifest", path: "bin/" }
+      # without this the Windows runner checks sources out with CRLF and its sources hash differs from the other rows'
+      - run: git config --global core.autocrlf false
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0   # check_guard_equal.py runs `git show` on two old commits
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: cargo --version && rustc --version
+      - run: cargo test --manifest-path "$PLUGIN/rust/Cargo.toml" --target "$TARGET"
+      - run: cargo build --release --manifest-path "$PLUGIN/rust/Cargo.toml" --target "$TARGET"
+      - name: Copy the binary to bin/<target>/
+        run: |
+          name=$("$PY" -I "$PLUGIN/scripts/build_manifest.py" binary-name "$TARGET" | tr -d '\r')
+          mkdir -p "$PLUGIN/bin/$TARGET"
+          cp "$PLUGIN/rust/target/$TARGET/release/$name" "$PLUGIN/bin/$TARGET/$name"
+          echo "BIN=$PLUGIN/bin/$TARGET/$name" >> "$GITHUB_ENV"
+      - name: The Rust guard equals the Python guard
+        run: '"$PY" -I "$PLUGIN/scripts/check_guard_equal.py" --quick --no-recorded --rust "$GITHUB_WORKSPACE/$BIN"'
+      - name: The binary has the architecture of the triple
+        run: |
+          desc=$(file -b "$BIN")
+          echo "$desc"
+          echo "$desc" | grep -Eq "$FILEPAT" || { echo "::error::$BIN is not a binary for $TARGET (expected /$FILEPAT/)"; exit 1; }
+      - name: Record the sources the binary was built from
+        run: |
+          h=$("$PY" -I "$PLUGIN/scripts/build_manifest.py" sources-hash | tr -d '\r')
+          printf '%s\n' "$h" > "$PLUGIN/bin/$TARGET/sources.sha256"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: murmuration-${{ matrix.target }}
+          path: |
+            ${{ env.BIN }}
+            ${{ env.PLUGIN }}/bin/${{ matrix.target }}/sources.sha256
+          if-no-files-found: error
+          retention-days: 14
