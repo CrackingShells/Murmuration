@@ -46,14 +46,16 @@ fn quote_chars(c: u32) -> bool {
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------
 // splitting: `_split`, `split_segments`, `words`, `program`, `flag_value`, `expand`
 
-/// `_split`: one pass of the splitter; the segments (stripped, non-empty) and the quote left open at the end.
-fn split_pass(cmd: &[u32], quotes: bool) -> (Vec<Text>, Option<u32>) {
+/// `_split`: one pass of the splitter; the segments (stripped, non-empty) and the quote left open at the end. With `clobber` the `|` of a `>|` is not a cut (the reading of `>|` as one operator).
+fn split_pass(cmd: &[u32], quotes: bool, clobber: bool) -> (Vec<Text>, Option<u32>) {
     let (sq, dq, bs, bt, amp, gt) = (cp('\''), cp('"'), cp('\\'), cp('`'), cp('&'), cp('>'));
     let mut segs: Vec<Text> = Vec::new();
     let mut cur = Text::new();
     let mut q: Option<u32> = None;
+    let mut after_gt = false; // the previous character was a plain `>` (not escaped, not quoted)
     let mut i = 0;
     while let Some(c) = at(cmd, i) {
+        let prev_gt = std::mem::take(&mut after_gt);
         if q == Some(sq) {
             cur.push(c);
             if c == sq {
@@ -78,12 +80,15 @@ fn split_pass(cmd: &[u32], quotes: bool) -> (Vec<Text>, Option<u32>) {
         } else if quotes && quote_chars(c) {
             q = Some(c);
             cur.push(c);
+        } else if clobber && c == cp('|') && prev_gt {
+            cur.push(c);
         } else if [cp('\n'), cp(';'), cp('|'), cp('('), cp(')'), bt].contains(&c)
             || (c == amp && !((i > 0 && at(cmd, i - 1) == Some(gt)) || at(cmd, i + 1) == Some(gt)))
         {
             segs.push(std::mem::take(&mut cur));
         } else {
             cur.push(c);
+            after_gt = c == gt;
         }
         i += 1;
     }
@@ -92,10 +97,10 @@ fn split_pass(cmd: &[u32], quotes: bool) -> (Vec<Text>, Option<u32>) {
     (segs, q)
 }
 
-/// `split_segments`.
-fn split_segments(cmd: &[u32]) -> Vec<Text> {
-    let (segs, q) = split_pass(cmd, true);
-    if q.is_some() { split_pass(cmd, false).0 } else { segs }
+/// `split_segments`; `clobber` as in `split_pass` (`expand` passes it on).
+fn split_segments(cmd: &[u32], clobber: bool) -> Vec<Text> {
+    let (segs, q) = split_pass(cmd, true, clobber);
+    if q.is_some() { split_pass(cmd, false, clobber).0 } else { segs }
 }
 
 /// `words`.
@@ -454,12 +459,12 @@ fn shell_script(toks: &[Text]) -> Option<usize> {
 }
 
 /// `expand`: every simple command of `cmd`: those of the plain splitter first, in order, then those of the command and of each substitution inside it with the substitutions replaced by one word;
-/// descends into `sh -c '...'`, `eval '...'` and `env -S '...'` strings to depth 3.
-fn expand(cmd: &[u32], depth: usize, work: &mut usize, os: Os) -> Result<Vec<Seg>, TooComplex> {
+/// descends into `sh -c '...'`, `eval '...'` and `env -S '...'` strings to depth 3. `clobber` is the reading in which `>|` is one operator (see `split_pass`); `decide` makes it in addition to the plain one, never instead of it.
+fn expand(cmd: &[u32], depth: usize, work: &mut usize, os: Os, clobber: bool) -> Result<Vec<Seg>, TooComplex> {
     let mut out: Vec<Seg> = Vec::new();
-    let mut segs = split_segments(cmd);
+    let mut segs = split_segments(cmd, clobber);
     for t in substitution_texts(cmd, work, os)? {
-        segs.extend(split_segments(&t));
+        segs.extend(split_segments(&t, clobber));
     }
     for seg in segs {
         let toks = words(&seg);
@@ -470,7 +475,7 @@ fn expand(cmd: &[u32], depth: usize, work: &mut usize, os: Os) -> Result<Vec<Seg
             for st in &sc.strings {
                 let mut parts: Vec<Text> = vec![st.clone()];
                 parts.extend_from_slice(slice_toks(&toks, k));
-                out.extend(expand(&join_with(&parts, ' '), depth + 1, work, os)?);
+                out.extend(expand(&join_with(&parts, ' '), depth + 1, work, os, clobber)?);
             }
         }
         if depth < 3 && k < toks.len() {
@@ -489,11 +494,11 @@ fn expand(cmd: &[u32], depth: usize, work: &mut usize, os: Os) -> Result<Vec<Seg
                 }
                 for j in js {
                     if let Some(arg) = rest.get(j) {
-                        out.extend(expand(arg, depth + 1, work, os)?);
+                        out.extend(expand(arg, depth + 1, work, os, clobber)?);
                     }
                 }
             } else if eq(prog, "eval") {
-                out.extend(expand(&join_with(rest, ' '), depth + 1, work, os)?);
+                out.extend(expand(&join_with(rest, ' '), depth + 1, work, os, clobber)?);
             }
         }
     }
@@ -829,6 +834,244 @@ fn redirect_targets(seg: &[u32]) -> Vec<Text> {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------
+// the quote-aware reading of the redirections (leaf posix_redirects): `_ANSI_ESC`, `_ansi_c`, `_redirect_word`, `_quote_end`, `_scan_redirects`, `redirect_targets` of the Python file
+
+/// `_ANSI_ESC[d]`: the code point a one-character `$'...'` escape stands for.
+fn ansi_simple(d: u32) -> Option<u32> {
+    let ch = char::from_u32(d)?;
+    Some(match ch {
+        'a' => 0x07,
+        'b' => 0x08,
+        'e' | 'E' => 0x1B,
+        'f' => 0x0C,
+        'n' => 0x0A,
+        'r' => 0x0D,
+        't' => 0x09,
+        'v' => 0x0B,
+        '\\' | '\'' | '"' | '?' => d,
+        _ => return None,
+    })
+}
+
+/// The digit of `radix` (8 or 16, ASCII only) at `s[j]`.
+fn digit_at(s: &[u32], j: usize, radix: u32) -> Option<u32> {
+    at(s, j).and_then(char::from_u32).and_then(|ch| ch.to_digit(radix))
+}
+
+/// `_ansi_c`: `start` is the first character after `$'`; the text the shell makes of the string, the index after its closing quote and whether the quote was closed. An unknown escape keeps its backslash, a value that is not a code point
+/// keeps its text, and a NUL ends the text (as it ends a C string).
+fn ansi_c(s: &[u32], start: usize) -> (Text, usize, bool) {
+    let (sq, bs) = (cp('\''), cp('\\'));
+    let n = s.len();
+    let (mut out, mut i, mut cut) = (Text::new(), start, false);
+    while let Some(c) = at(s, i) {
+        if c == sq {
+            return (out, i + 1, true);
+        }
+        let mut piece: Text = vec![c];
+        let mut val: Option<u32> = None;
+        i += 1;
+        if c == bs {
+            if let Some(d) = at(s, i) {
+                if let Some(e) = ansi_simple(d) {
+                    piece = vec![e];
+                    i += 1;
+                } else if digit_at(s, i, 8).is_some() {
+                    let (mut j, mut v) = (i, 0_u32);
+                    while j < i + 3 {
+                        let Some(g) = digit_at(s, j, 8) else {
+                            break;
+                        };
+                        v = v * 8 + g;
+                        j += 1;
+                    }
+                    val = Some(v & 255);
+                    i = j;
+                } else if d == cp('x') || d == cp('u') || d == cp('U') {
+                    let top = i + 1 + if d == cp('x') { 2 } else if d == cp('u') { 4 } else { 8 };
+                    let (mut j, mut v) = (i + 1, 0_u64);
+                    while j < top {
+                        let Some(g) = digit_at(s, j, 16) else {
+                            break;
+                        };
+                        v = v * 16 + u64::from(g);
+                        j += 1;
+                    }
+                    match u32::try_from(v) {
+                        Ok(code) if j > i + 1 && code <= 0x0010_FFFF => {
+                            val = Some(code);
+                            i = j;
+                        }
+                        _ => {
+                            piece = vec![bs, d];
+                            i += 1;
+                        }
+                    }
+                } else if d == cp('c') && i + 1 < n {
+                    let x = at(s, i + 1).unwrap_or(0);
+                    val = Some(if x == cp('?') { 0x7F } else { x & 0x1F });
+                    i += 2;
+                } else {
+                    piece = vec![bs, d];
+                    i += 1;
+                }
+            }
+        }
+        if let Some(v) = val {
+            if v == 0 {
+                cut = true;
+            } else {
+                piece = vec![v];
+            }
+        }
+        if !cut {
+            out.extend(piece);
+        }
+    }
+    (out, n, false)
+}
+
+/// `_redirect_word`: the shell word at `s[start..]` with its quotes removed as bash removes them (`'...'`, `"..."` with a backslash before `$`, a backtick, `"` or a backslash only, `$'...'`, `$"..."`, a backslash before any other
+/// character); the word, the index after it and whether every quote in it was closed. The word ends at an unquoted blank, newline or one of `;&|<>()`. A `$` that remains makes it a word the guard cannot expand; it is passed on as written.
+fn redirect_word(s: &[u32], start: usize) -> (Text, usize, bool) {
+    let (sq, dq, bs) = (cp('\''), cp('"'), cp('\\'));
+    let n = s.len();
+    let (mut out, mut i, mut closed) = (Text::new(), start, true);
+    while let Some(c) = at(s, i) {
+        if " \t\n;&|<>()".chars().any(|b| cp(b) == c) {
+            break;
+        }
+        if c == bs {
+            match at(s, i + 1) {
+                Some(d) => {
+                    if d != cp('\n') {
+                        out.push(d);
+                    }
+                    i += 2;
+                }
+                None => i += 1,
+            }
+        } else if c == sq {
+            let close = (i + 1..n).find(|&j| at(s, j) == Some(sq));
+            out.extend_from_slice(slice(s, i + 1, close.unwrap_or(n)));
+            closed = closed && close.is_some();
+            i = close.map_or(n, |j| j + 1);
+        } else if c == dq || starts_at(s, i, "$\"") {
+            i += if c == dq { 1 } else { 2 };
+            loop {
+                let Some(d) = at(s, i) else {
+                    closed = false;
+                    break;
+                };
+                if d == dq {
+                    i += 1;
+                    break;
+                }
+                match at(s, i + 1) {
+                    Some(e) if d == bs => {
+                        if [cp('$'), cp('`'), dq, bs].contains(&e) {
+                            out.push(e);
+                        } else if e != cp('\n') {
+                            out.extend([d, e]);
+                        }
+                        i += 2;
+                    }
+                    _ => {
+                        out.push(d);
+                        i += 1;
+                    }
+                }
+            }
+        } else if starts_at(s, i, "$'") {
+            let (t, next, ok) = ansi_c(s, i + 2);
+            out.extend(t);
+            i = next;
+            closed = closed && ok;
+        } else {
+            out.push(c);
+            i += 1;
+        }
+    }
+    (out, i, closed)
+}
+
+/// `_quote_end`: `s[i]` opens a quote (`'`, `"`, or the `$` of `$'`); the index after its closing quote. A backslash escapes inside `"` and `$'` but not inside `'`.
+fn quote_end(s: &[u32], i: usize) -> Option<usize> {
+    let (sq, dq, bs) = (cp('\''), cp('"'), cp('\\'));
+    let n = s.len();
+    if at(s, i) == Some(sq) {
+        return (i + 1..n).find(|&j| at(s, j) == Some(sq)).map(|j| j + 1);
+    }
+    let (q, mut j) = if at(s, i) == Some(dq) { (dq, i + 1) } else { (sq, i + 2) };
+    while j < n && at(s, j) != Some(q) {
+        j += if at(s, j) == Some(bs) { 2 } else { 1 };
+    }
+    (j < n).then_some(j + 1)
+}
+
+/// `_scan_redirects`: the words that follow each output redirection operator of `seg` that is outside quotes: `>`, `>>`, `>|`, `&>`, `&>>`, `N>`, `N>>`, `N>|` (the operator is `>`, `>>` or `>|`, whatever stands before it), `>&` and a word that is
+/// not a number or `-` (`2>&1`, `>&2`, `>&-` are not files), and `<>`; and whether a quote was left open. With `quotes` false a quote character is an ordinary character in the search for operators (the words are still read with their quotes).
+fn scan_redirects(seg: &[u32], quotes: bool) -> (Vec<Text>, bool) {
+    let (bs, gt, lt, dollar) = (cp('\\'), cp('>'), cp('<'), cp('$'));
+    let special = [bs, cp('\''), cp('"'), dollar, lt, gt];
+    let n = seg.len();
+    let (mut out, mut i, mut open) = (Vec::new(), 0, false);
+    while let Some(k) = (i..n).find(|&k| at(seg, k).is_some_and(|x| special.contains(&x))) {
+        i = k;
+        let c = at(seg, i).unwrap_or(0);
+        if c == bs {
+            i += 2;
+        } else if quote_chars(c) || (c == dollar && starts_at(seg, i, "$'")) {
+            if !quotes {
+                i += 1;
+                continue;
+            }
+            match quote_end(seg, i) {
+                Some(j) => i = j,
+                None => {
+                    open = true;
+                    break;
+                }
+            }
+        } else if (c == lt && at(seg, i + 1) != Some(gt)) || c == dollar {
+            i += 1;
+        } else {
+            let mut j = i + if c == lt { 2 } else { 1 };
+            let mut dup = false;
+            let nxt = if c == gt { at(seg, j) } else { None };
+            if nxt == Some(gt) || nxt == Some(cp('|')) {
+                j += 1;
+            } else if nxt == Some(cp('&')) {
+                j += 1;
+                dup = true;
+            }
+            while at(seg, j).is_some_and(|x| x == cp(' ') || x == cp('\t') || x == cp('\n')) {
+                j += 1;
+            }
+            let (w, end, closed) = redirect_word(seg, j);
+            open = open || !closed;
+            let k = w.iter().take_while(|&&x| char::from_u32(x).is_some_and(|ch| ch.is_ascii_digit())).count();
+            let rest = slice(&w, k, w.len());
+            let is_fd = dup && (eq(&w, "-") || (k > 0 && (rest.is_empty() || eq(rest, "-"))));
+            if !w.is_empty() && !is_fd {
+                out.push(w);
+            }
+            i = end;
+        }
+    }
+    (out, open)
+}
+
+/// `redirect_targets` of the Python file: the files the redirections of the simple command `seg` open for writing, as words with their quotes removed. A quote left open makes the scan run again with quotes as ordinary characters, as the splitter does.
+fn quoted_redirect_targets(seg: &[u32]) -> Vec<Text> {
+    let (mut out, open) = scan_redirects(seg, true);
+    if open {
+        out.extend(scan_redirects(seg, false).0);
+    }
+    out
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------
 // the rules
 
 /// `_nt_test`: the settings-file test on the resolved components of a Windows path, names case-folded.
@@ -957,25 +1200,26 @@ fn slashed(segs: &[Seg]) -> Vec<Seg> {
         .collect()
 }
 
-/// `g3_bash`: a Bash command that writes a Claude Code settings file. On Windows the commands are read twice: as written, then with every backslash a slash.
-fn g3_bash(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os) -> Res<Option<Hit>> {
-    let first = g3_bash_once(cmd, segs, cwd, os, true, false)?;
+/// `g3_bash`: a Bash command that writes a Claude Code settings file. On Windows the commands are read twice: as written, then with every backslash a slash. `redirects` false is the reading of before the leaf posix_redirects; `redirects` true
+/// tests only the targets of `quoted_redirect_targets` (and runs no script check), so that a command denied before is denied for the same reason.
+fn g3_bash(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, script: bool, redirects: bool) -> Res<Option<Hit>> {
+    let first = g3_bash_once(cmd, segs, cwd, os, script, false, redirects)?;
     if first.is_some() || os != Os::Windows {
         return Ok(first);
     }
     // Windows: the text as written with the other reading of a dots-and-spaces name, then with every backslash a slash under both readings
-    if let Some(h) = g3_bash_once(cmd, segs, cwd, os, true, true)? {
+    if let Some(h) = g3_bash_once(cmd, segs, cwd, os, script, true, redirects)? {
         return Ok(Some(h));
     }
     let sl = slashed(segs);
-    if let Some(h) = g3_bash_once(cmd, &sl, cwd, os, false, false)? {
+    if let Some(h) = g3_bash_once(cmd, &sl, cwd, os, false, false, redirects)? {
         return Ok(Some(h));
     }
-    g3_bash_once(cmd, &sl, cwd, os, false, true)
+    g3_bash_once(cmd, &sl, cwd, os, false, true, redirects)
 }
 
 /// `_g3_bash`: one reading; the script check (`script`) is made on the first only.
-fn g3_bash_once(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, script: bool, keep: bool) -> Res<Option<Hit>> {
+fn g3_bash_once(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, script: bool, keep: bool, redirects: bool) -> Res<Option<Hit>> {
     let mut unknown = false;
     let mut cur = cwd.clone();
     for (seg, toks) in segs {
@@ -992,6 +1236,14 @@ fn g3_bash_once(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, script: bool, keep
             } else {
                 let base = if isabs(&t) { t } else { join(&cur, &t)? };
                 cur = Cwd::Str(normpath(&base));
+            }
+            continue;
+        }
+        if redirects {
+            for t in quoted_redirect_targets(seg) {
+                if protected(&t, &cur, unknown, os, keep)? {
+                    return Ok(hit("G3", cat(&[&text("the command writes `"), &t, &text("`, a Claude Code settings file")])));
+                }
             }
             continue;
         }
@@ -1031,7 +1283,7 @@ fn g3_bash_once(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, script: bool, keep
             }
         }
     }
-    if !script {
+    if !script || redirects {
         return Ok(None);
     }
     let nt = os == Os::Windows;
@@ -1238,13 +1490,28 @@ fn decide(event: &Value, os: Os) -> Res<Option<Hit>> {
         }
         let cmd = command_text(&inp)?;
         let mut work = 0;
-        let Ok(segs) = expand(&cmd, 0, &mut work, os) else {
-            return Ok(hit("G?", text("the command has too many command substitutions to be checked")));
+        let too_complex = || hit("G?", text("the command has too many command substitutions to be checked"));
+        let Ok(segs) = expand(&cmd, 0, &mut work, os, false) else {
+            return Ok(too_complex());
         };
         if let Some(h) = g1(&cmd, &segs, os).or_else(|| g2(&segs, os)).or_else(|| if os == Os::Windows { g2(&slashed(&segs), os) } else { None }) {
             return Ok(Some(h));
         }
-        return g3_bash(&cmd, &segs, &cwd, os);
+        // the quote-aware reading of the redirections comes after every older reading, so a denial keeps its reason
+        if let Some(h) = g3_bash(&cmd, &segs, &cwd, os, true, false)? {
+            return Ok(Some(h));
+        }
+        if let Some(h) = g3_bash(&cmd, &segs, &cwd, os, false, true)? {
+            return Ok(Some(h));
+        }
+        if !segs.iter().any(|(sg, _)| sg.last() == Some(&cp('>'))) {
+            return Ok(None); // a segment that ends in `>` is where the splitter cut a `>|`
+        }
+        let mut work = 0;
+        let Ok(alt) = expand(&cmd, 0, &mut work, os, true) else {
+            return Ok(too_complex());
+        };
+        return g3_bash(&cmd, &alt, &cwd, os, false, true); // and the reading with `>|` whole
     }
     if ["Write", "Edit", "MultiEdit", "NotebookEdit"].contains(&tool.as_str()) {
         // BORROW: explicit .as_str() for the slice-contains lookup
@@ -1339,16 +1606,18 @@ pub(crate) fn run_os(raw: &str, os: Os) -> Answer {
 mod tests {
     use super::*;
 
-    /// The cases of `windows_paths.json`; the file is read here, at test time, from the manifest directory, and is never embedded in the binary.
+    /// The pinned counts of the two lists that carry the expected decision under both flavours (`WINDOWS_COUNT` and `REDIRECTS_COUNT` of the Python file).
     const WINDOWS_COUNT: usize = 106;
+    const REDIRECTS_COUNT: usize = 110;
 
-    fn windows_cases() -> Vec<Value> {
-        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..").join("scripts").join("fixtures").join("guard_lists").join("windows_paths.json");
+    /// The cases of the list `name` (`windows_paths`, `redirects`); the file is read here, at test time, from the manifest directory, and is never embedded in the binary.
+    fn list_cases(name: &str) -> Vec<Value> {
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..").join("scripts").join("fixtures").join("guard_lists").join(format!("{name}.json"));
         let raw = std::fs::read(&path).unwrap_or_else(|e| panic!("cannot read {}: {e}", path.display()));
-        let parsed = json::loads(&String::from_utf8(raw).expect("windows_paths.json is UTF-8")).expect("windows_paths.json is JSON");
+        let parsed = json::loads(&String::from_utf8(raw).unwrap_or_else(|_| panic!("{name}.json is UTF-8"))).unwrap_or_else(|_| panic!("{name}.json is JSON"));
         match parsed {
             Value::Arr(cases) => cases,
-            _ => panic!("windows_paths.json is not a list"),
+            _ => panic!("{name}.json is not a list"),
         }
     }
 
@@ -1375,9 +1644,9 @@ mod tests {
         }
     }
 
-    fn check_all(os: Os, column: &str) {
-        let cases = windows_cases();
-        assert_eq!(cases.len(), WINDOWS_COUNT, "windows_paths.json has a pinned count");
+    fn check_all(list: &str, count: usize, os: Os, column: &str) {
+        let cases = list_cases(list);
+        assert_eq!(cases.len(), count, "{list}.json has a pinned count");
         let wrong: Vec<String> = cases
             .iter()
             .filter_map(|c| {
@@ -1385,17 +1654,49 @@ mod tests {
                 (want != got).then(|| format!("{}: want {want}, got {got}", string(&field(c, "id"))))
             })
             .collect();
-        assert!(wrong.is_empty(), "{column} decisions differ from the list: {wrong:?}");
+        assert!(wrong.is_empty(), "{list}: {column} decisions differ from the list: {wrong:?}");
     }
 
     #[test]
     fn windows_list_under_the_nt_flavour() {
-        check_all(Os::Windows, "nt");
+        check_all("windows_paths", WINDOWS_COUNT, Os::Windows, "nt");
     }
 
     #[test]
     fn windows_list_under_the_posix_flavour() {
-        check_all(Os::Unix, "posix");
+        check_all("windows_paths", WINDOWS_COUNT, Os::Unix, "posix");
+    }
+
+    #[test]
+    fn redirects_list_under_the_nt_flavour() {
+        check_all("redirects", REDIRECTS_COUNT, Os::Windows, "nt");
+    }
+
+    #[test]
+    fn redirects_list_under_the_posix_flavour() {
+        check_all("redirects", REDIRECTS_COUNT, Os::Unix, "posix");
+    }
+
+    #[test]
+    fn a_quoted_target_is_read_as_the_shell_reads_it() {
+        let t = |s: &str| quoted_redirect_targets(&text(s)).iter().map(|w| string(w)).collect::<Vec<_>>();
+        assert_eq!(t("echo x > \"a b/c\""), ["a b/c"]);
+        assert_eq!(t("echo x >| a\\ b"), ["a b"]);
+        assert_eq!(t("echo x >$'a\\x20b\\n'"), ["a b\n"]);
+        assert_eq!(t("echo x 2>&1 >&2 >&- 1>&2-"), Vec::<String>::new());
+        assert_eq!(t("echo x &>>\"p q\" <> r"), ["p q", "r"]);
+        assert_eq!(t("echo \"a > b\" 'c > d'"), Vec::<String>::new());
+        assert_eq!(t("echo $'a\\x00b' > $'u\\x00v'"), ["u"]);
+    }
+
+    #[test]
+    fn the_split_keeps_clobber_whole_only_when_asked() {
+        let cmd = text("echo x >| f");
+        let (mut w, mut w2) = (0, 0);
+        let plain: Vec<String> = expand(&cmd, 0, &mut w, Os::Unix, false).unwrap_or_default().iter().map(|(sg, _)| string(sg)).collect();
+        let whole: Vec<String> = expand(&cmd, 0, &mut w2, Os::Unix, true).unwrap_or_default().iter().map(|(sg, _)| string(sg)).collect();
+        assert_eq!(plain, ["echo x >", "f"]);
+        assert_eq!(whole, ["echo x >| f"]);
     }
 
     #[test]
