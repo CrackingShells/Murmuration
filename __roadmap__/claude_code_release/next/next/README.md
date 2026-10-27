@@ -15,7 +15,7 @@ Evidence, before any public push, that the release branch installs by git-subdir
 ## Status
 ```mermaid
 graph TD
-    integrate[Integrate and probe the install path]:::planned
+    integrate[Integrate and probe the install path]:::done
     next[Publish]:::planned
     windows_paths[Windows path semantics in both guards]:::done
     posix_redirects[Bash redirections the guard does not read]:::done
@@ -29,7 +29,7 @@ graph TD
 ## Nodes
 | Node | Type | Status |
 |:-----|:-----|:-------|
-| `integrate.md` | 📄 Leaf Task | ⬜ Planned |
+| `integrate.md` | 📄 Leaf Task | ✅ Done |
 | `next/` | 📁 Directory | ⬜ Planned |
 | `windows_paths.md` | 📄 Leaf Task | ✅ Done |
 | `posix_redirects.md` | 📄 Leaf Task | ✅ Done |
