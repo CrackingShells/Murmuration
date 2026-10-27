@@ -289,8 +289,8 @@ pub(crate) fn expanduser(p: &[u32]) -> Text {
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------
 // the reading of a Windows path, one for one with the `_nt_*` functions of `scripts/permission_guard.py` (not `ntpath`; the Python file says why)
 
-/// The names that lose their extension as a program (`.exe`, `.cmd`, `.bat`, `.com`).
-const NT_EXE: [&str; 4] = [".exe", ".cmd", ".bat", ".com"];
+/// The names that lose their extension as a program (`.exe`, `.cmd`, `.bat`, `.com`, `.ps1`).
+const NT_EXE: [&str; 5] = [".exe", ".cmd", ".bat", ".com", ".ps1"];
 
 /// `nt_fold`: the case folding of names: the ASCII letters, and the four characters outside ASCII that fold into it (dotted and dotless I, long S, Kelvin sign).
 #[must_use]
@@ -348,9 +348,10 @@ pub(crate) fn nt_root(p: &[u32]) -> NtRoot {
 }
 
 /// `_nt_walk`: the components of `rest` folded onto `stack` as Windows resolves them: an alternate data stream (`:name`) is cut off a component, `.` and empty components vanish,
-/// `..` removes the last component (and stays when there is none and the path is not rooted), and trailing dots and spaces are cut off.
+/// `..` removes the last component (and stays when there is none and the path is not rooted), and trailing dots and spaces are cut off. A name made only of dots and spaces (`...`) has two readings,
+/// because how Win32 treats it was not run: it vanishes (`keep` false), or it stays as an opaque name that a later `..` removes (`keep` true); the decisions test both.
 #[must_use]
-pub(crate) fn nt_walk(mut stack: Vec<Text>, rooted: bool, rest: &[u32]) -> Vec<Text> {
+pub(crate) fn nt_walk(mut stack: Vec<Text>, rooted: bool, rest: &[u32], keep: bool) -> Vec<Text> {
     for comp in rest.split(|&c| c == cp('\\')) {
         let cut = comp.iter().position(|&c| c == cp(':')).unwrap_or(comp.len());
         let comp = slice(comp, 0, cut);
@@ -366,8 +367,10 @@ pub(crate) fn nt_walk(mut stack: Vec<Text>, rooted: bool, rest: &[u32]) -> Vec<T
             continue;
         }
         let end = comp.iter().rposition(|&c| c != cp(' ') && c != cp('.')).map_or(0, |k| k + 1);
-        let comp = slice(comp, 0, end);
-        if !comp.is_empty() {
+        let name = slice(comp, 0, end);
+        if !name.is_empty() {
+            stack.push(name.to_vec());
+        } else if !comp.is_empty() && keep {
             stack.push(comp.to_vec());
         }
     }
@@ -377,21 +380,21 @@ pub(crate) fn nt_walk(mut stack: Vec<Text>, rooted: bool, rest: &[u32]) -> Vec<T
 /// A resolved Windows path: drive, whether rooted, components.
 pub(crate) type NtPath = (Text, bool, Vec<Text>);
 
-/// `_nt_resolve`: the path `p` seen from the working directory `cwd`.
+/// `_nt_resolve`: the path `p` seen from the working directory `cwd`, in the reading `keep` of a name made of dots and spaces (see [`nt_walk`]).
 ///
 /// # Errors
 /// Returns [`Fault::Type`] when `p` is relative and `cwd` is a truthy non-string.
-pub(crate) fn nt_resolve(cwd: &Cwd, p: &[u32]) -> Result<NtPath, Fault> {
+pub(crate) fn nt_resolve(cwd: &Cwd, p: &[u32], keep: bool) -> Result<NtPath, Fault> {
     let r = nt_root(p);
     if r.rooted {
-        return Ok((r.drive, true, nt_walk(Vec::new(), true, &r.rest)));
+        return Ok((r.drive, true, nt_walk(Vec::new(), true, &r.rest, keep)));
     }
     let Cwd::Str(c) = cwd else {
         return Err(Fault::Type);
     };
     let cr = nt_root(c);
-    let base = nt_walk(Vec::new(), cr.rooted, &cr.rest);
-    Ok((cr.drive, cr.rooted, nt_walk(base, cr.rooted, &r.rest)))
+    let base = nt_walk(Vec::new(), cr.rooted, &cr.rest, keep);
+    Ok((cr.drive, cr.rooted, nt_walk(base, cr.rooted, &r.rest, keep)))
 }
 
 /// `_nt_str`: a resolved path as text.
@@ -461,9 +464,15 @@ pub(crate) fn expanduser_for(p: &[u32], os: Os) -> Text {
 }
 
 /// `prog_name(t, fl)`: the name of the program word `t`: its basename. On Windows the last component after `\` or `/` (no drive, no `:stream`, no trailing dots or spaces),
-/// case-folded, without one of `.exe`, `.cmd`, `.bat`, `.com`.
+/// case-folded, without one of `.exe`, `.cmd`, `.bat`, `.com`, `.ps1`.
 #[must_use]
 pub(crate) fn prog_name(t: &[u32], os: Os) -> Text {
+    prog_name_with(t, os, &NT_EXE)
+}
+
+/// `prog_name(t, fl, exts)`: as [`prog_name`], losing one of `exts` (the test of an inert program passes only `.exe`).
+#[must_use]
+pub(crate) fn prog_name_with(t: &[u32], os: Os, exts: &[&str]) -> Text {
     if os == Os::Unix {
         return basename(t).to_vec();
     }
@@ -476,7 +485,7 @@ pub(crate) fn prog_name(t: &[u32], os: Os) -> Text {
     let name = slice(name, 0, cut);
     let end = name.iter().rposition(|&c| c != cp(' ') && c != cp('.')).map_or(0, |k| k + 1);
     let folded = nt_fold(slice(name, 0, end));
-    for ext in NT_EXE {
+    for ext in exts {
         let n = ext.chars().count();
         if folded.len() > n && starts_at(&folded, folded.len() - n, ext) {
             return slice(&folded, 0, folded.len() - n).to_vec();

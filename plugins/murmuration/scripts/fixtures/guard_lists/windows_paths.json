@@ -900,5 +900,197 @@
   "cwd": "C:\\proj",
   "posix": "allow",
   "nt": "allow"
+ },
+ {
+  "id": "w34",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:\\Users\\u\\.claude\\...\\..\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "a dots-only name then `..`: Win32 may drop it or keep it, deny if either reading reaches the file"
+ },
+ {
+  "id": "w35",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:\\Users\\u\\.claude\\   \\..\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "the same with three spaces"
+ },
+ {
+  "id": "w36",
+  "tool": "Write",
+  "input": {
+   "file_path": "managed-settings.d\\...\\..\\10-x.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "posix: the name starts with managed-settings, so both deny"
+ },
+ {
+  "id": "w37",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude\\...\\..\\settings.local.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "relative"
+ },
+ {
+  "id": "w38",
+  "tool": "Write",
+  "input": {
+   "file_path": ".claude\\. .\\..\\settings.json",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "dot space dot"
+ },
+ {
+  "id": "w39",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:\\proj\\...\\x.txt",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "control: a dots-only name that reaches no settings file"
+ },
+ {
+  "id": "w40",
+  "tool": "Write",
+  "input": {
+   "file_path": "C:\\proj\\...\\.claude\\x.txt",
+   "content": ""
+  },
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "control: a folder named .claude holds no settings file named x.txt"
+ },
+ {
+  "id": "g15",
+  "tool": "Bash",
+  "command": "echo x > C:\\Users\\u\\.claude\\...\\..\\settings.json",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3"
+ },
+ {
+  "id": "g16",
+  "tool": "Bash",
+  "command": "cd C:\\proj\\.claude\\...\\.. && echo x > settings.json",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "the directory the cd reaches depends on the reading"
+ },
+ {
+  "id": "b18",
+  "tool": "Bash",
+  "command": "GREP.EXE --dangerously-skip-permissions claude",
+  "cwd": "C:\\proj",
+  "posix": "G1",
+  "nt": "allow",
+  "note": "only .exe is stripped for the inert test"
+ },
+ {
+  "id": "b19",
+  "tool": "Bash",
+  "command": "grep.cmd --dangerously-skip-permissions claude",
+  "cwd": "C:\\proj",
+  "posix": "G1",
+  "nt": "G1"
+ },
+ {
+  "id": "b20",
+  "tool": "Bash",
+  "command": "ls.bat --dangerously-skip-permissions claude",
+  "cwd": "C:\\proj",
+  "posix": "G1",
+  "nt": "G1"
+ },
+ {
+  "id": "b21",
+  "tool": "Bash",
+  "command": "cat.cmd --dangerously-skip-permissions claude",
+  "cwd": "C:\\proj",
+  "posix": "G1",
+  "nt": "G1"
+ },
+ {
+  "id": "b22",
+  "tool": "Bash",
+  "command": "git.exe log --dangerously-skip-permissions claude",
+  "cwd": "C:\\proj",
+  "posix": "G1",
+  "nt": "allow"
+ },
+ {
+  "id": "b23",
+  "tool": "Bash",
+  "command": "git.com log --dangerously-skip-permissions claude",
+  "cwd": "C:\\proj",
+  "posix": "G1",
+  "nt": "G1"
+ },
+ {
+  "id": "b24",
+  "tool": "Bash",
+  "command": "claude_config_dir=C:\\x claude.exe -p hi",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G2",
+  "note": "environment names are case-insensitive on Windows"
+ },
+ {
+  "id": "b25",
+  "tool": "Bash",
+  "command": "Claude_Config_Dir=C:\\x claude -p hi",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G2"
+ },
+ {
+  "id": "b26",
+  "tool": "Bash",
+  "command": "export claude_config_dir=/x",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G2"
+ },
+ {
+  "id": "b27",
+  "tool": "Bash",
+  "command": "claude.ps1 -p x --bare",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G2",
+  "note": "npm installs claude.ps1"
+ },
+ {
+  "id": "b28",
+  "tool": "Bash",
+  "command": "C:\\Users\\u\\AppData\\Roaming\\npm\\claude.ps1 -p x --dangerously-skip-permissions",
+  "cwd": "C:\\proj",
+  "posix": "allow",
+  "nt": "G1"
  }
 ]
