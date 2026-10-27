@@ -2,16 +2,16 @@
 
 **Goal**: On Windows, both guards (`permission_guard.py`, the exact judge, and its Rust port) deny every direct form of a settings-file write and of a `claude` program name that Windows itself would resolve to the denied target, while macOS and Linux decisions stay byte-identical.
 **Pre-conditions**:
-- [ ] rust_portability and targets_contract merged into `release/claude-code` (platform module, `Os`, hash allowlist)
-- [ ] The user asked for this repair, 2026-10-27 ("Dispatch a dedicated implementer in its worktree for reparing this hole")
+- [x] rust_portability and targets_contract merged into `release/claude-code` (platform module, `Os`, hash allowlist)
+- [x] The user asked for this repair, 2026-10-27 ("Dispatch a dedicated implementer in its worktree for reparing this hole")
 **Success Gates**:
-- ⬜ [run] `python3 -I plugins/murmuration/scripts/permission_guard.py --selftest` exits 0 and runs the new list `fixtures/guard_lists/windows_paths.json` under both flavours (posix and nt) on any host, with its pinned count
-- ⬜ [run] `cargo test --manifest-path plugins/murmuration/rust/Cargo.toml` passes and runs the same list under both `Os` values, with the same expected decisions
-- ⬜ [run] Unix unchanged: old (`release/claude-code` tip at dispatch) vs new binary, and old vs new Python guard, give identical exit code and stdout on all 7 existing fixture lists, `guard_selftest_payloads.json` and `guard_selftest_holes.json`; `check_guard_equal.py --quick --no-recorded --rust <new>` prints "gated sets equal"
-- ⬜ [run] The nt flavour denies at least: `C:\Users\u\.claude\settings.json`, `.claude\settings.json`, `.claude\settings.local.json`, mixed separators, `.Claude\Settings.JSON`, a trailing dot or space (`settings.json.`, `settings.json `), an alternate data stream (`settings.json::$DATA`, `settings.json:x`), `\\?\C:\...`, a UNC path, drive-relative `C:.claude\settings.json`, and `managed-settings` under the same variations; and treats `claude.exe`, `CLAUDE`, `C:\...\claude.cmd` as the `claude` program for G1/G2
-- ⬜ [static] The posix flavour keeps a backslash as an ordinary filename character (a Unix file named `.claude\settings.json` is not a settings file) and stays case-sensitive
-- ⬜ [static] `check_guard_equal.py` replays `windows_paths.json` too, so the Windows CI row compares both guards natively on Windows
-- ⬜ [static] No text-mode `open()` without an encoding in `plugins/murmuration/scripts` (`python3 -I plugins/murmuration/scripts/check_text_io.py` exits 0; it also covers `read_text`, `write_text`, text-mode subprocess pipes, and the UTF-8 stdin and stdout of every `main()`)
+- ✅ [run] `python3 -I plugins/murmuration/scripts/permission_guard.py --selftest` exits 0 and runs the new list `fixtures/guard_lists/windows_paths.json` under both flavours (posix and nt) on any host, with its pinned count
+- ✅ [run] `cargo test --manifest-path plugins/murmuration/rust/Cargo.toml` passes and runs the same list under both `Os` values, with the same expected decisions
+- ✅ [run] Unix unchanged: old (`release/claude-code` tip at dispatch) vs new binary, and old vs new Python guard, give identical exit code and stdout on all 7 existing fixture lists, `guard_selftest_payloads.json` and `guard_selftest_holes.json`; `check_guard_equal.py --quick --no-recorded --rust <new>` prints "gated sets equal"
+- ✅ [run] The nt flavour denies at least: `C:\Users\u\.claude\settings.json`, `.claude\settings.json`, `.claude\settings.local.json`, mixed separators, `.Claude\Settings.JSON`, a trailing dot or space (`settings.json.`, `settings.json `), an alternate data stream (`settings.json::$DATA`, `settings.json:x`), `\\?\C:\...`, a UNC path, drive-relative `C:.claude\settings.json`, and `managed-settings` under the same variations; and treats `claude.exe`, `CLAUDE`, `C:\...\claude.cmd` as the `claude` program for G1/G2
+- ✅ [static] The posix flavour keeps a backslash as an ordinary filename character (a Unix file named `.claude\settings.json` is not a settings file) and stays case-sensitive
+- ✅ [static] `check_guard_equal.py` replays `windows_paths.json` too, so the Windows CI row compares both guards natively on Windows
+- ✅ [static] No text-mode `open()` without an encoding in `plugins/murmuration/scripts` (`python3 -I plugins/murmuration/scripts/check_text_io.py` exits 0; it also covers `read_text`, `write_text`, text-mode subprocess pipes, and the UTF-8 stdin and stdout of every `main()`)
 **References**: `plugins/murmuration/scripts/permission_guard.py` (settings-path check near lines 386-400, `"/" not in p` at 393; program names via `os.path.basename` at 157, 169, 361, 379, 426, 445, 472; G4 extensions); `plugins/murmuration/rust/src/text.rs` (posix-only isabs, basename, normpath, join), `rust/src/guard.rs`, `rust/src/platform.rs` (`Os`); campaign README Gotchas ("Windows guard binary is not trustworthy yet")
 
 ## Step 1: Flavour-parametrised path logic in the Python guard
