@@ -7,7 +7,7 @@ set of events with odd JSON types and sizes that is reported apart (the port den
 
     python3 -I scripts/check_guard_equal.py [--rust BIN] [--python-guard FILE] [--fuzz N] [--fuzz-write N] [--seed S] [--jobs J] [--quick] [--no-recorded] [--out DIR]
 
-Exit 0 when every gated set is equal; 1 otherwise. Intended for the dev git hook (scripts/git-hooks/pre-commit-guard-equal) and for CI.
+Exit 0 when every gated set is equal; 1 otherwise. Intended for the dev git hook (scripts/git-hooks/pre-commit) and for CI.
 """
 import argparse
 import concurrent.futures

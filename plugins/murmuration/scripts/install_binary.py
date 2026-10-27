@@ -4,7 +4,7 @@
 Python standard library only; hooks.json starts it in exec form (`python3 -S -I install_binary.py`, no shell).
 The binary for this platform (`bin/<target>/<binary name>`: macOS or Linux, arm64/aarch64 or x86_64; the name and the target list come from scripts/build_manifest.py; Windows installs are a later cycle) is installed only when all of these hold:
   (a) its sha256 equals the one in `bin/manifest.json`, and the manifest lists every binary that bin/ holds;
-  (b) the sha256 of `scripts/permission_guard.py`, `budget.py`, `handback.py`, `run_hook.py` and of the Rust sources (computed with scripts/build_manifest.py's rule) equal the manifest's, so the binary was built from the rules that are on disk;
+  (b) the sha256 of `scripts/permission_guard.py`, `budget.py`, `handback.py`, `run_hook.py` and of the Rust sources (computed with scripts/build_manifest.py's rule) equal the manifest's, which binds the binary to the scripts and to the listed Rust sources that are on disk (the hashes do not show how the binary was built: CI building the binary and the manifest from one checkout does);
   (c) a copy of it, run on the fixed payloads of `scripts/guard_selftest_payloads.json`, gives the same exit code and stdout as `permission_guard.py` run by this interpreter on each of them, and run on six budget and
       hand-back events in a temporary lab (`hook_selftest`) it gives the Python scripts' stdout, exit code, log kinds and hand-back file.
 On any doubt (and where no binary fits the platform) it installs a launcher that runs `scripts/permission_guard.py` instead, and tells the session why: a SessionStart
@@ -79,10 +79,14 @@ def doubt(root, target):
         return "bin/manifest.json lists no binaries"
     try:
         tool = load_manifest_tool(root)
-    except Exception as exc:
+    except KeyboardInterrupt:
+        raise
+    except BaseException as exc:   # SystemExit included: a broken build_manifest.py must end in the launcher, not in a failed hook that blocks every Bash call
         return "scripts/build_manifest.py cannot be loaded (%s)" % type(exc).__name__
     name = tool.binary_name(target)
     src = os.path.join(root, "bin", target, name)
+    if os.path.islink(src):
+        return "bin/%s/%s is a symlink, not a binary file" % (target, name)
     if not os.path.isfile(src):
         return "bin/%s/%s is missing" % (target, name)
     if target not in manifest["binaries"]:
@@ -108,7 +112,9 @@ def doubt(root, target):
             return "scripts/%s cannot be read" % n
     try:
         return sources_doubt(root, tool, manifest)
-    except Exception as exc:
+    except KeyboardInterrupt:
+        raise
+    except BaseException as exc:
         return "the Rust sources cannot be hashed (%s)" % type(exc).__name__
 
 
@@ -249,7 +255,10 @@ def install(root, data, target):
 
 
 def selftest():
-    """Each way a binary can be wrong is caught by doubt() or the self-tests, and install() then ends in the launcher.
+    """The mutations below are each caught by doubt() or by the self-tests, and install() then ends in the launcher.
+
+    What this shows is limited: the hashes bind a binary to the listed sources, and behaviour is checked only on the fixed payload set and the six hook events. A binary that is wrong on other inputs, or a
+    manifest regenerated over new sources around a stale binary that agrees on the payloads, passes; the protection against that is CI building the binary and the manifest from one checkout.
 
     Works on temporary copies of this plugin's scripts and Rust sources, for a fixed Linux target whatever the host is. The "binary" is a shell script that runs the Python scripts, so it behaves
     exactly like them; a mutation then makes it, or what it is checked against, wrong. A positive control (the unmutated copy installs the binary) comes first, so a mutation cannot pass by failing
@@ -344,6 +353,19 @@ def selftest():
             write(os.path.join(root, "bin", target, "murmuration"), launcher_body(root).replace(b"budget|handback) exec", b"budget|handback) exit 0 ; exec"))
             manifest(root)
 
+        def m_symlink(root):
+            path = os.path.join(root, "bin", target, "murmuration")
+            os.rename(path, path + ".real")
+            os.symlink(path + ".real", path)
+
+        def m_loader_exits(root):   # the manifest tool exits instead of raising
+            write(os.path.join(root, "scripts", "build_manifest.py"), b"raise SystemExit(3)\n", 0o644)
+
+        def m_new(rel):
+            def mutate(root):
+                write(os.path.join(root, rel), b"// added\n", 0o644)
+            return mutate
+
         cases = [("sources", m_sources, "Rust sources changed since the binaries were built (rust/src/guard.rs)"),
                  ("binary", m_binary, "does not match its hash"),
                  ("entry", m_entry, "lists no binary for " + target),
@@ -353,6 +375,11 @@ def selftest():
                  ("guard", m_guard, "scripts/permission_guard.py changed since the binaries were built"),
                  ("stale_old", m_stale_old_manifest, "does not match its hash"),
                  ("stale_new", m_stale_new_manifest, "the binary's decision differs from the Python script on the self-test payload"),
+                 ("symlink", m_symlink, "is a symlink"),
+                 ("loader_exits", m_loader_exits, "scripts/build_manifest.py cannot be loaded (SystemExit)"),
+                 ("build_rs", m_new("rust/build.rs"), "Rust sources changed since the binaries were built (rust/build.rs)"),
+                 ("cargo_config", m_new("rust/.cargo/config.toml"), "Rust sources changed since the binaries were built (rust/.cargo/config.toml)"),
+                 ("nested_module", m_new("rust/src/sub/mod.rs"), "Rust sources changed since the binaries were built (rust/src/sub/mod.rs)"),
                  ("stale_hooks", m_stale_hooks, "the binary's `budget/handback` differs from the Python script on the self-test")]
         reasons = {}
         for name, mutate, want in cases:
@@ -368,7 +395,11 @@ def selftest():
                 d = doubt(root, target)
                 assert (d is None) == (name in ("stale_new", "stale_hooks")), (name, d)   # the old manifest is caught by a hash; the regenerated one only by the self-tests
             reasons[name] = reason
-        assert len(set(reasons[n] for n in ("sources", "binary", "entry", "crlf", "extra", "missing", "guard", "stale_new", "stale_hooks"))) == 9, reasons   # each its own reason
+        assert len(set(reasons[n] for n in ("sources", "binary", "entry", "crlf", "extra", "missing", "guard", "stale_new", "stale_hooks", "symlink", "loader_exits", "build_rs"))) == 12, reasons   # each its own reason
+        # strays are not sources: a .DS_Store, a local rust/target/ and a file that is not .rs leave the control tree trusted
+        for rel in ("rust/.DS_Store", "rust/src/.DS_Store", "rust/target/release/x.rs", "rust/src/notes.txt"):
+            write(os.path.join(os.path.join(tmp, "control"), rel), b"stray", 0o644)
+        assert doubt(os.path.join(tmp, "control"), target) is None
     print("selftest install_binary: ok (%d mutations)" % len(cases))
     return 0
 
