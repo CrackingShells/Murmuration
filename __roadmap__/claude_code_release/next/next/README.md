@@ -18,6 +18,7 @@ graph TD
     integrate[Integrate and probe the install path]:::planned
     next[Publish]:::planned
     windows_paths[Windows path semantics in both guards]:::done
+    posix_redirects[Bash redirections the guard does not read]:::amendment
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
     classDef planned    fill:#374151,color:#e5e7eb
@@ -31,11 +32,13 @@ graph TD
 | `integrate.md` | 📄 Leaf Task | ⬜ Planned |
 | `next/` | 📁 Directory | ⬜ Planned |
 | `windows_paths.md` | 📄 Leaf Task | ✅ Done |
+| `posix_redirects.md` | 📄 Leaf Task | 🔵 Amendment |
 
 ## Amendment Log
 | ID | Date | Source | Nodes Added | Rationale |
 |:---|:-----|:-------|:------------|:----------|
 | A1 | 2026-10-27 | user, after the rust_portability verifier's finding | `windows_paths.md` | The Rust guard's path helpers are POSIX-only and the Python guard compares case-sensitively with a literal `/`; on Windows both would allow settings writes Windows resolves to the denied file. The user asked for a dedicated implementer. Runs beside `integrate`; must land before `publish`. |
+| A2 | 2026-10-27 | user, after verify-windows-paths' finding F5 | `posix_redirects.md` | Both guards miss a Bash redirect onto a settings file when the target is quoted with a space or uses `>|`; this is on macOS and Linux, the shipping platforms. The user asked for an implementer and a verifier, landing before `publish`. |
 
 ## Progress
 | Node | Branch | Commits | Notes |
