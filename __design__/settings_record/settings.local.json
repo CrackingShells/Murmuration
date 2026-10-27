@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(pkill:*)",
+      "Bash(killall:*)"
+    ]
+  },
+  "extraKnownMarketplaces": {
+    "murmuration-local": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/hacker/Documents/src/CrackingShells/Murmuration"
+      }
+    }
+  },
+  "agent": "murmuration:research-pi",
+  "enabledPlugins": {
+    "murmuration@murmuration-local": true
+  },
+  "autoCompactWindow": 250000
+}
