@@ -9,7 +9,7 @@
 - ⬜ [run] `cargo check --release --target T` passes for T in aarch64-apple-darwin, x86_64-apple-darwin, x86_64-unknown-linux-gnu, aarch64-unknown-linux-gnu, x86_64-pc-windows-msvc
 - ⬜ [run] Differential: the binary built from the `release/claude-code` tip before this leaf and the binary built after it give identical exit code and stdout on every payload of `scripts/guard_selftest_payloads.json` and on `check_guard_equal.py --quick --no-recorded --rust <new>` (macOS host)
 - ⬜ [run] `install_binary.hook_selftest(root, <new binary>)` returns `None` on the macOS host
-- ⬜ [static] No `std::os::unix`, `extern "C"` or `"python3"` literal outside `src/platform.rs`
+- ⬜ [static] No `std::os::unix`, `extern "C"` or `Command::new("python3")` outside `src/platform.rs` (amended 2026-10-27: `guard.rs` keeps the `"python3"` literal that classifies an interpreter in a command; only the spawn moves)
 **References**: `plugins/murmuration/rust/src/{guard.rs:1038, hook.rs:154-182, text.rs:277, main.rs:66-90}` — the four Unix-only sites; `plugins/murmuration/scripts/install_binary.py` `self_test`, `hook_selftest` — the equality oracle
 
 ## Step 1: Introduce the platform module, Unix arms only
