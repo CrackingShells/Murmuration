@@ -7,7 +7,7 @@ set of events with odd JSON types and sizes that is reported apart (the port den
 
     python3 -I scripts/check_guard_equal.py [--rust BIN] [--python-guard FILE] [--fuzz N] [--fuzz-write N] [--seed S] [--jobs J] [--quick] [--no-recorded] [--out DIR]
 
-Exit 0 when every gated set is equal; 1 otherwise. Intended for the dev git hook (scripts/git-hooks/pre-commit-guard-equal) and for CI.
+Exit 0 when every gated set is equal; 1 otherwise. Intended for the dev git hook (scripts/git-hooks/pre-commit) and for CI.
 """
 import argparse
 import concurrent.futures
@@ -31,8 +31,13 @@ for k in [k for k in ENV_BASE if k.startswith("PYTHON")]:
 
 
 def default_rust():
-    arch = "aarch64" if platform.machine() in ("arm64", "aarch64") else platform.machine()
-    return os.path.join(REPO, "bin", "%s-apple-darwin" % arch, "murmuration")
+    """The committed binary for this host (bin/<triple>/<binary name>, from build_manifest's contract), or None where no binary is built for it."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("build_manifest", os.path.join(os.path.dirname(os.path.abspath(__file__)), "build_manifest.py"))
+    tool = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(tool)
+    target = tool.host_target()
+    return None if target is None else os.path.join(REPO, "bin", target, tool.binary_name(target))
 
 
 def make_arena(root, exists_py):
@@ -280,7 +285,7 @@ def run_one(args):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rust", default=default_rust())
+    ap.add_argument("--rust", default=default_rust(), help="the murmuration binary to replay (default: the committed one for this host)")
     ap.add_argument("--python-guard", default=os.path.join(REPO, "scripts", "permission_guard.py"))
     ap.add_argument("--fuzz", type=int, default=10000)
     ap.add_argument("--fuzz-write", type=int, default=2000)
@@ -293,6 +298,8 @@ def main():
     ap.add_argument("--out", default=None)
     ap.add_argument("--sets", default=None, help="comma list of sets to run (registered,malformed,recorded,fuzz_bash,fuzz_write,typeconf,stress); default all")
     a = ap.parse_args()
+    if a.rust is None:
+        ap.error("no binary is built for this host (%s %s); pass --rust BIN" % (platform.system(), platform.machine()))
     if a.quick:
         a.fuzz, a.fuzz_write, a.recorded_sample = 300, 60, a.recorded_sample or 200
     work = a.out or tempfile.mkdtemp(prefix="guard_equal_")
