@@ -160,7 +160,7 @@ def agent_name(event):
 
     def brief():
         import re
-        return re.search(r"Your name is ([a-z0-9-]+)", open(stem).read(20000)).group(1)
+        return re.search(r"Your name is ([a-z0-9-]+)", open(stem, encoding="utf-8").read(20000)).group(1)
     for read in (meta, brief):
         try:
             name = read()
@@ -239,7 +239,7 @@ def harness_dir(root):
     path = os.path.join(root, STORE, HARNESS)
     if not os.path.isdir(path):
         os.makedirs(path, exist_ok=True)
-        with open(os.path.join(path, ".gitignore"), "w") as fh:
+        with open(os.path.join(path, ".gitignore"), "w", encoding="utf-8") as fh:
             fh.write("*\n")
     return path
 
@@ -289,7 +289,7 @@ def selftest():
         env = dict(os.environ)
         env.pop("CLAUDE_PROJECT_DIR", None)
         proc = subprocess.run([sys.executable, os.path.abspath(__file__)], input=json.dumps(dict(cwd=cwd, **kw)),
-                              capture_output=True, text=True, env=env)
+                              capture_output=True, text=True, env=env, encoding="utf-8")
         assert proc.returncode == 0 and (proc.stdout == "" or kw.get("hook_event_name") == "PreToolUse"), (proc.returncode, proc.stdout, proc.stderr)
         return proc.stdout
 
@@ -303,7 +303,7 @@ def selftest():
         os.makedirs(os.path.join(tmp, STORE))
         sess = os.path.join(tmp, "s")
         os.makedirs(os.path.join(sess, "subagents"))
-        json.dump({"name": "author-w03-2"}, open(os.path.join(sess, "subagents", "agent-a1.meta.json"), "w"))
+        json.dump({"name": "author-w03-2"}, open(os.path.join(sess, "subagents", "agent-a1.meta.json"), "w", encoding="utf-8"))
         atp = os.path.join(sess, "subagents", "agent-a1.jsonl")
         sha = hashlib.sha256(b"x").hexdigest()[:12]
         forged = ("line one\n## hand-back 9 | 2026-01-01T00:00:00+00:00 | agent_id=a1 type=t event=e status=delivered bytes=1 sha256=%s\n"
@@ -320,7 +320,7 @@ def selftest():
         fire(tmp, hook_event_name="PostToolUse", tool_name="SubagentHandback", agent_id="a2", agent_type="x:y",
              tool_input={"message": "auto mode"}, transcript_path=sess + ".jsonl")
         assert read(tmp, "x-y-a2.md")[0]["text"] == b"auto mode"
-        open(os.path.join(sess, "subagents", "agent-a5.jsonl"), "w").write('{"message":{"content":"Your name is explorer-w02-c. Read first: x"}}\n')
+        open(os.path.join(sess, "subagents", "agent-a5.jsonl"), "w", encoding="utf-8").write('{"message":{"content":"Your name is explorer-w02-c. Read first: x"}}\n')
         fire(tmp, hook_event_name="PostToolUse", tool_name="SubagentHandback", agent_id="a5", agent_type="x:y",
              tool_input={"message": "name from the brief"}, transcript_path=sess + ".jsonl")
         assert read(tmp, "wave-02-explorer-w02-c.md")[0]["text"] == b"name from the brief"
@@ -334,20 +334,20 @@ def selftest():
         assert len(os.listdir(os.path.join(tmp, STORE, FOLDER))) == 5
         # the report check: explorers only, once, by file name in the path, logged, state ignored by git
         pre = dict(hook_event_name="PreToolUse", tool_name="SubagentHandback", agent_type="murmuration:explorer", transcript_path=sess + ".jsonl")
-        open(os.path.join(sess, "subagents", "agent-e1.jsonl"), "w").write('{"message":{"content":"Your name is explorer-w02-c. Read first: x"}}\n')
+        open(os.path.join(sess, "subagents", "agent-e1.jsonl"), "w", encoding="utf-8").write('{"message":{"content":"Your name is explorer-w02-c. Read first: x"}}\n')
         first = json.loads(fire(tmp, agent_id="e1", tool_input={"message": "m"}, **pre))["hookSpecificOutput"]
         assert first["permissionDecision"] == "deny" and "__reports__/wave-02/explorer-w02-c/00-findings_v0.md" in first["permissionDecisionReason"], first
         assert fire(tmp, agent_id="e1", tool_input={"message": "m"}, **pre) == "", "the second hand-back goes through"
-        assert [json.loads(x)["event"] for x in open(os.path.join(tmp, STORE, LOG))] == ["deny"]
-        assert open(os.path.join(tmp, STORE, HARNESS, ".gitignore")).read() == "*\n"
+        assert [json.loads(x)["event"] for x in open(os.path.join(tmp, STORE, LOG), encoding="utf-8")] == ["deny"]
+        assert open(os.path.join(tmp, STORE, HARNESS, ".gitignore"), encoding="utf-8").read() == "*\n"
         for other in ("explorer-w02-cc", "explorer-w02-c0"):   # a longer name that starts with ours is not our report
             os.makedirs(os.path.join(tmp, "__reports__", "wave-02", other))
-            open(os.path.join(tmp, "__reports__", "wave-02", other, "x.md"), "w").write("x")
-        open(os.path.join(sess, "subagents", "agent-e2.jsonl"), "w").write('{"message":{"content":"Your name is explorer-w02-c. Read first: x"}}\n')
+            open(os.path.join(tmp, "__reports__", "wave-02", other, "x.md"), "w", encoding="utf-8").write("x")
+        open(os.path.join(sess, "subagents", "agent-e2.jsonl"), "w", encoding="utf-8").write('{"message":{"content":"Your name is explorer-w02-c. Read first: x"}}\n')
         assert fire(tmp, agent_id="e2", tool_input={"message": "m"}, **pre) != "", "another agent's report does not count"
         os.makedirs(os.path.join(tmp, "__reports__", "somewhere", "explorer-w02-c"))
-        open(os.path.join(tmp, "__reports__", "somewhere", "explorer-w02-c", "notes.md"), "w").write("x")
-        open(os.path.join(sess, "subagents", "agent-e3.jsonl"), "w").write('{"message":{"content":"Your name is explorer-w02-c. Read first: x"}}\n')
+        open(os.path.join(tmp, "__reports__", "somewhere", "explorer-w02-c", "notes.md"), "w", encoding="utf-8").write("x")
+        open(os.path.join(sess, "subagents", "agent-e3.jsonl"), "w", encoding="utf-8").write('{"message":{"content":"Your name is explorer-w02-c. Read first: x"}}\n')
         assert fire(tmp, agent_id="e3", tool_input={"message": "m"}, **pre) == "", "a file anywhere under __reports__ with the name in its path counts"
         assert not os.path.exists(os.path.join(tmp, STORE, HARNESS, "e3.denied")), "no deny, so no marker"
         assert fire(tmp, agent_id="e4", tool_input={"message": "m"}, **dict(pre, agent_type="murmuration:author")) == "", "explorers only"
@@ -356,11 +356,21 @@ def selftest():
         assert fire(tmp, agent_id="e6", tool_input={"message": "m"}, **dict(pre, agent_type="murmuration:explorer", transcript_path=None)) != "", "a nameless explorer is still asked, for type-id"
         with tempfile.TemporaryDirectory() as bare:
             assert fire(bare, agent_id="e7", tool_input={"message": "m"}, **pre) == "" and not os.listdir(bare), "no lab, no deny, no file"
-        assert subprocess.run([sys.executable, os.path.abspath(__file__)], input="not json", capture_output=True, text=True).returncode == 0
+        assert subprocess.run([sys.executable, os.path.abspath(__file__)], input="not json", capture_output=True, text=True, encoding="utf-8").returncode == 0
     print("PASS handback")
 
 
+def _utf8_stdio():
+    """Hook JSON and reports are UTF-8 on every OS, whatever the locale: `python -I` ignores PYTHONUTF8 and PYTHONIOENCODING, and a Windows pipe is otherwise read and written in the ANSI code page."""
+    for stream, extra in ((sys.stdin, {}), (sys.stdout, {"newline": "\n"}), (sys.stderr, {"newline": "\n"})):
+        try:
+            stream.reconfigure(encoding="utf-8", **extra)
+        except (AttributeError, ValueError, OSError):
+            pass
+
+
 def main():
+    _utf8_stdio()
     try:
         event = loads(sys.stdin.buffer.read() or b"{}")
         if isinstance(event, dict):

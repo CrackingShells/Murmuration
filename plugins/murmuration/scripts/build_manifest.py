@@ -128,14 +128,24 @@ def write_manifest(root, expect=None):
     dest = os.path.join(root, "bin", "manifest.json")
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     tmp = "%s.tmp%d" % (dest, os.getpid())
-    with open(tmp, "w") as fh:
+    with open(tmp, "w", encoding="utf-8") as fh:
         json.dump(m, fh, indent=2, sort_keys=True)
         fh.write("\n")
     os.replace(tmp, dest)
     return 0, "bin/manifest.json: %d binaries, %d rust sources" % (len(m["binaries"]), len(m["rust_sources"])), ""
 
 
+def _utf8_stdio():
+    """Hook JSON and reports are UTF-8 on every OS, whatever the locale: `python -I` ignores PYTHONUTF8 and PYTHONIOENCODING, and a Windows pipe is otherwise read and written in the ANSI code page."""
+    for stream, extra in ((sys.stdin, {}), (sys.stdout, {"newline": "\n"}), (sys.stderr, {"newline": "\n"})):
+        try:
+            stream.reconfigure(encoding="utf-8", **extra)
+        except (AttributeError, ValueError, OSError):
+            pass
+
+
 def main(argv=None):
+    _utf8_stdio()
     ap = argparse.ArgumentParser(prog="build_manifest.py", description=__doc__.split("\n")[0])
     ap.add_argument("command", nargs="*", metavar="binary-name TARGET | sources-hash", help="a subcommand; none writes the manifest")
     ap.add_argument("--root", default=PLUGIN_ROOT, help="the plugin tree (default: the one this script is in)")
@@ -233,7 +243,7 @@ def selftest():
             assert code == 1 and out == "" and err.startswith("build_manifest: manifest not written") and not os.path.exists(manifest), (expect, code, err)
         code, out, err = cli("--expect-targets", "x86_64-pc-windows-msvc,aarch64-apple-darwin", "--root", root)   # order of the arguments and of the list is free
         assert code == 0 and err == "" and os.path.isfile(manifest), (code, err)
-        m = json.load(open(manifest))
+        m = json.load(open(manifest, encoding="utf-8"))
         assert sorted(m["binaries"]) == ["aarch64-apple-darwin", "x86_64-pc-windows-msvc"] and m["binaries"]["x86_64-pc-windows-msvc"] == hashlib.sha256(b"win").hexdigest()
         assert sorted(m["rust_sources"]) == sorted(RUST_FILES[:3] + ["rust/src/main.rs", "rust/src/guard.rs"]) and sorted(m["scripts_sha256"]) == sorted(SCRIPTS)
         before = open(manifest, "rb").read()
@@ -242,7 +252,7 @@ def selftest():
         assert code == 1 and "x86_64-apple-darwin" in err and open(manifest, "rb").read() == before, (code, err)
         # the bare call writes whatever bin/ holds; sources-hash agrees with what it wrote
         assert cli("--root", root)[0] == 0
-        m = json.load(open(manifest))
+        m = json.load(open(manifest, encoding="utf-8"))
         assert sorted(m["binaries"]) == ["aarch64-apple-darwin", "x86_64-apple-darwin", "x86_64-pc-windows-msvc"]
         assert cli("--root", root, "sources-hash") == (0, m["rust_sources_sha256"] + "\n", "") and cli("sources-hash", "--root", root)[1] == m["rust_sources_sha256"] + "\n"
         put("rust/src/main.rs", b"changed")

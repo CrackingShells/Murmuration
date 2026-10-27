@@ -71,7 +71,7 @@ def doubt(root, target):
     if target is None:
         return "no binary is built for this platform (%s %s)" % (platform.system(), platform.machine())
     try:
-        with open(os.path.join(root, "bin", "manifest.json")) as fh:
+        with open(os.path.join(root, "bin", "manifest.json"), encoding="utf-8") as fh:
             manifest = json.load(fh)
     except (OSError, ValueError) as exc:
         return "bin/manifest.json cannot be read (%s)" % type(exc).__name__
@@ -125,7 +125,7 @@ def run_guard(cmd, raw):
 
 def self_test(root, binary):
     """The name of the first payload on which the binary and permission_guard.py differ, or None."""
-    with open(os.path.join(root, "scripts", "guard_selftest_payloads.json")) as fh:
+    with open(os.path.join(root, "scripts", "guard_selftest_payloads.json"), encoding="utf-8") as fh:
         payloads = json.load(fh)
     guard = os.path.join(root, "scripts", "permission_guard.py")
     for p in payloads:
@@ -174,7 +174,7 @@ def hook_selftest(root, binary):
             out = []
             for n, (which, event, transcript) in enumerate(steps):
                 if transcript is not None:
-                    with open(tx, "w") as fh:
+                    with open(tx, "w", encoding="utf-8") as fh:
                         fh.write(transcript)
                 cmd = [sys.executable, "-S", "-I", os.path.join(root, "scripts", "run_hook.py"), which] if who == "python" else [binary, which]
                 try:
@@ -182,7 +182,7 @@ def hook_selftest(root, binary):
                 except (OSError, subprocess.SubprocessError) as exc:
                     return "step %d (%s: %s)" % (n + 1, which, type(exc).__name__)
             try:
-                log = [json.loads(x)["event"] for x in open(lab + "/__statera__/harness.jsonl")]
+                log = [json.loads(x)["event"] for x in open(lab + "/__statera__/harness.jsonl", encoding="utf-8")]
                 shake = [re.sub(rb"\| \d{4}-[0-9T:+-]+ \|", b"|T|", open(os.path.join(dp, f), "rb").read()) for dp, _, fs in os.walk(lab + "/__statera__/handbacks") for f in fs]
             except (OSError, ValueError, KeyError, TypeError):
                 log, shake = None, None   # a program that wrote nothing, or something that is not a record, differs from the Python scripts
@@ -221,7 +221,7 @@ def install(root, data, target):
         guard_sha = digest(os.path.join(root, "scripts", "permission_guard.py"))
         want_stamp = json.dumps({"binary": sha, "guard": guard_sha, "scripts": {n: digest(os.path.join(root, "scripts", n)) for n in SCRIPTS}, "python": sys.version.split()[0]}, sort_keys=True)
         try:
-            current = digest(dest) == sha and open(stamp).read() == want_stamp
+            current = digest(dest) == sha and open(stamp, encoding="utf-8").read() == want_stamp
         except OSError:
             current = False
         if current:
@@ -324,7 +324,7 @@ def selftest():
 
         def m_entry(root):
             path = os.path.join(root, "bin", "manifest.json")
-            m = json.load(open(path))
+            m = json.load(open(path, encoding="utf-8"))
             del m["binaries"][target]
             write(path, json.dumps(m).encode(), 0o644)
 
@@ -404,7 +404,17 @@ def selftest():
     return 0
 
 
+def _utf8_stdio():
+    """Hook JSON and reports are UTF-8 on every OS, whatever the locale: `python -I` ignores PYTHONUTF8 and PYTHONIOENCODING, and a Windows pipe is otherwise read and written in the ANSI code page."""
+    for stream, extra in ((sys.stdin, {}), (sys.stdout, {"newline": "\n"}), (sys.stderr, {"newline": "\n"})):
+        try:
+            stream.reconfigure(encoding="utf-8", **extra)
+        except (AttributeError, ValueError, OSError):
+            pass
+
+
 def main():
+    _utf8_stdio()
     if "--selftest" in sys.argv[1:]:
         return selftest()
     root, data = os.environ.get("CLAUDE_PLUGIN_ROOT"), os.environ.get("CLAUDE_PLUGIN_DATA")

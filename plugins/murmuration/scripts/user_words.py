@@ -325,7 +325,7 @@ def selftest_origin():
         lab = os.path.join(tmp, "lab")
         os.makedirs(os.path.join(lab, STORE), exist_ok=True)
         tpath = os.path.join(tmp, "t.jsonl")
-        with open(tpath, "w") as fh:
+        with open(tpath, "w", encoding="utf-8") as fh:
             for r in records or []:
                 fh.write(json.dumps(r) + "\n")
             fh.write(raw or "")
@@ -336,11 +336,11 @@ def selftest_origin():
         env = dict(os.environ)
         env.pop("CLAUDE_PROJECT_DIR", None)
         proc = subprocess.Popen([sys.executable, os.path.abspath(__file__)], stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE, text=True, env=env, cwd=tmp)
+                                stderr=subprocess.PIPE, text=True, env=env, cwd=tmp, encoding="utf-8")
         if late is not None:  # the record reaches the file after the hook has started
             def append():
                 time.sleep(late_after)
-                with open(tpath, "a") as fh:
+                with open(tpath, "a", encoding="utf-8") as fh:
                     fh.write(json.dumps(late) + "\n")
             threading.Thread(target=append).start()
         out, err = proc.communicate(json.dumps(event))
@@ -421,13 +421,13 @@ def selftest_lab_root():
         if git == "dir":
             os.makedirs(os.path.join(path, ".git"), exist_ok=True)
         elif git == "file":  # a linked worktree has a `.git` file
-            with open(os.path.join(path, ".git"), "w") as fh:
+            with open(os.path.join(path, ".git"), "w", encoding="utf-8") as fh:
                 fh.write("gitdir: /elsewhere/.git/worktrees/x\n")
         return path
 
     def transcript(path, cwds, lead=2, pad=0):
         """A session file: `lead` queue records without cwd, `pad` records without cwd, then one record per cwd."""
-        with open(path, "w") as fh:
+        with open(path, "w", encoding="utf-8") as fh:
             for _ in range(lead + pad):
                 fh.write(json.dumps({"type": "queue-operation", "operation": "enqueue"}) + "\n")
             for cwd in cwds:
@@ -444,7 +444,7 @@ def selftest_lab_root():
         if tpath is not None:
             event["transcript_path"] = tpath
         proc = subprocess.run([sys.executable, os.path.abspath(__file__)], input=json.dumps(event),
-                              capture_output=True, text=True, env=env, cwd=tmp)
+                              capture_output=True, text=True, env=env, cwd=tmp, encoding="utf-8")
         assert proc.returncode == 0 and proc.stdout == "", (proc.returncode, proc.stdout, proc.stderr)
         hit = []
         for dirpath, dirs, files in os.walk(tmp):
@@ -495,12 +495,12 @@ def selftest_lab_root():
         # a head with no cwd within the limit counts as no transcript yet: the payload cwd decides
         assert land(cwd=other, tpath=T("h", [wt], pad=HEAD_LINES), project_dir=main) == ["other"]
         # a damaged head: an unparsable record and a relative cwd are skipped, a later good record is used
-        with open(os.path.join(tmp, "i.jsonl"), "w") as fh:
+        with open(os.path.join(tmp, "i.jsonl"), "w", encoding="utf-8") as fh:
             fh.write('{"type":"user","cwd": truncated\n{"type":"user","cwd":"relative/dir"}\n{"cwd":7}\n')
             fh.write(json.dumps({"type": "user", "cwd": wt}) + "\n")
         assert land(cwd=main, tpath=os.path.join(tmp, "i.jsonl"), project_dir=main) == ["wt"]
         # a first line larger than the byte budget is not read in full: the head gives up and the payload cwd decides
-        with open(os.path.join(tmp, "big.jsonl"), "w") as fh:
+        with open(os.path.join(tmp, "big.jsonl"), "w", encoding="utf-8") as fh:
             fh.write('{"type":"attachment","pad":"' + "x" * (HEAD_BYTES + 10) + '"}\n')
             fh.write(json.dumps({"type": "user", "cwd": wt}) + "\n")
         assert land(cwd=other, tpath=os.path.join(tmp, "big.jsonl"), project_dir=main) == ["other"]
@@ -544,7 +544,7 @@ def selftest():
         proc = subprocess.run(
             [sys.executable, os.path.abspath(__file__)],
             input=json.dumps({"prompt": prompt, "cwd": cwd or project}),
-            capture_output=True, text=True, env=env,
+            capture_output=True, text=True, env=env, encoding="utf-8",
         )
         assert proc.returncode == 0 and proc.stdout == "", (proc.returncode, proc.stdout, proc.stderr)
 
@@ -572,7 +572,7 @@ def selftest():
             assert skipped not in text, skipped
         assert len(re.findall(r"^## \d{4}-\d{2}-\d{2} \d{2}:\d{2}$", text, re.M)) == 3
         proc = subprocess.run([sys.executable, os.path.abspath(__file__)], input="not json",
-                              capture_output=True, text=True)
+                              capture_output=True, text=True, encoding="utf-8")
         assert proc.returncode == 0
     # Platform blocks and the paste wrapper: what a prompt stores (None = nothing).
     rem = "<system-reminder>\nLinked sessions now (status): a = local_1 (idle).\n</system-reminder>\n\n"
@@ -634,7 +634,17 @@ def selftest():
     print("PASS user_words")
 
 
+def _utf8_stdio():
+    """Hook JSON and reports are UTF-8 on every OS, whatever the locale: `python -I` ignores PYTHONUTF8 and PYTHONIOENCODING, and a Windows pipe is otherwise read and written in the ANSI code page."""
+    for stream, extra in ((sys.stdin, {}), (sys.stdout, {"newline": "\n"}), (sys.stderr, {"newline": "\n"})):
+        try:
+            stream.reconfigure(encoding="utf-8", **extra)
+        except (AttributeError, ValueError, OSError):
+            pass
+
+
 def main():
+    _utf8_stdio()
     if "--selftest" in sys.argv[1:]:
         selftest()
         return 0

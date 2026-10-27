@@ -1,13 +1,14 @@
 //! The permission guard: a line-for-line port of `scripts/permission_guard.py` (`decide` and `run`), over code points, with the regular expressions written out by hand.
 //!
-//! The Python file is the reference. Every function below names the Python function it ports. The patterns of `re` that Python evaluates with backtracking are
+//! The Python file is the reference. Every function below names the Python function it ports; the `os` argument is its `fl` (the flavour of paths and program names). The patterns of `re` that Python evaluates with backtracking are
 //! evaluated here by the equivalent deterministic scan; the comments say why the two agree.
 
 use crate::json::{self, Value};
+use crate::platform::{self, Os};
 use crate::shlex;
 use crate::text::{
-    at, basename, contains, cp, dirname, eq, expanduser, find_from, has_char, is_digit, is_space, is_word, isabs, join, join_with, normpath, slice, split_on,
-    split_ws, starts, starts_at, strip, string, text, Cwd, Fault, Text,
+    at, basename, contains, cp, dirname, display_name, eq, expanduser, expanduser_for, find_from, has_char, is_digit, is_space, is_word, isabs, join, join_with,
+    nt_fold, nt_join, nt_resolve, nt_root, nt_str, nt_walk, normpath, prog_name, prog_name_with, slice, split_on, split_ws, starts, starts_at, strip, string, text, Cwd, Fault, Text,
 };
 
 const INERT: &[&str] = &["grep", "egrep", "fgrep", "rg", "jq", "wc", "head", "tail", "cat", "ls", "diff", "sort", "uniq", "cut", "tr", "nl", "less"];
@@ -199,7 +200,7 @@ struct Scan {
 }
 
 /// `_scan`.
-fn scan(toks: &[Text]) -> Scan {
+fn scan(toks: &[Text], os: Os) -> Scan {
     let mut i = 0;
     let mut sc = Scan { k: 0, assigns: Vec::new(), strings: Vec::new(), skipped: false };
     while let Some(t) = toks.get(i) {
@@ -208,8 +209,9 @@ fn scan(toks: &[Text]) -> Scan {
         } else if is_assign(t) {
             sc.assigns.push(t.clone());
             i += 1;
-        } else if in_set(basename(t), WRAP) {
-            let w = basename(t);
+        } else if in_set(&prog_name(t, os), WRAP) {
+            let w_text = prog_name(t, os);
+            let w = w_text.as_slice();
             let timed = eq(w, "timeout") || eq(w, "gtimeout") || eq(w, "nice");
             i += 1;
             while let Some(o) = toks.get(i) {
@@ -228,7 +230,7 @@ fn scan(toks: &[Text]) -> Scan {
                 if starts(o, "-") && value_option(w, o) {
                     if let Some(v) = toks.get(i) {
                         // a value is never taken for the program, but `claude` is never taken for a value
-                        if !eq(basename(v), "claude") {
+                        if !eq(&prog_name(v, os), "claude") {
                             i += 1;
                             sc.skipped = true;
                         }
@@ -245,8 +247,8 @@ fn scan(toks: &[Text]) -> Scan {
 }
 
 /// `program`: the index of the program word and the assignments before it.
-fn program(toks: &[Text]) -> (usize, Vec<Text>) {
-    let sc = scan(toks);
+fn program(toks: &[Text], os: Os) -> (usize, Vec<Text>) {
+    let sc = scan(toks, os);
     (sc.k, sc.assigns)
 }
 
@@ -387,7 +389,7 @@ fn spans(s: &[u32], quotes: bool, work: &mut usize) -> Result<(Vec<Span>, bool),
 }
 
 /// `_mask`: the text with every outermost matched substitution replaced by one word, and the insides that were replaced.
-fn mask(s: &[u32], work: &mut usize) -> Result<(Text, Vec<Text>), TooComplex> {
+fn mask(s: &[u32], work: &mut usize, os: Os) -> Result<(Text, Vec<Text>), TooComplex> {
     let (mut sp, open_quote) = spans(s, true, work)?;
     if open_quote {
         sp = spans(s, false, work)?.0;
@@ -402,7 +404,7 @@ fn mask(s: &[u32], work: &mut usize) -> Result<(Text, Vec<Text>), TooComplex> {
         }
         let inner = slice(s, a, b).to_vec();
         out.extend_from_slice(slice(s, prev, st));
-        out.extend(text(if names_claude(&inner) { "claude" } else { "SUBST" }));
+        out.extend(text(if names_claude(&inner, os) { "claude" } else { "SUBST" }));
         inners.push(inner);
         prev = en;
     }
@@ -411,7 +413,7 @@ fn mask(s: &[u32], work: &mut usize) -> Result<(Text, Vec<Text>), TooComplex> {
 }
 
 /// `substitution_texts`: the texts to split in addition to `cmd`; empty when `cmd` has no substitution.
-fn substitution_texts(cmd: &[u32], work: &mut usize) -> Result<Vec<Text>, TooComplex> {
+fn substitution_texts(cmd: &[u32], work: &mut usize, os: Os) -> Result<Vec<Text>, TooComplex> {
     if !contains(cmd, "$(") && !has_char(cmd, '`') && !contains(cmd, "<(") && !contains(cmd, ">(") {
         return Ok(Vec::new());
     }
@@ -419,7 +421,7 @@ fn substitution_texts(cmd: &[u32], work: &mut usize) -> Result<Vec<Text>, TooCom
     let mut queue: std::collections::VecDeque<Text> = std::collections::VecDeque::new();
     queue.push_back(cmd.to_vec());
     while let Some(t) = queue.pop_front() {
-        let (m, inners) = mask(&t, work)?;
+        let (m, inners) = mask(&t, work, os)?;
         texts.push(m);
         queue.extend(inners);
     }
@@ -453,26 +455,27 @@ fn shell_script(toks: &[Text]) -> Option<usize> {
 
 /// `expand`: every simple command of `cmd`: those of the plain splitter first, in order, then those of the command and of each substitution inside it with the substitutions replaced by one word;
 /// descends into `sh -c '...'`, `eval '...'` and `env -S '...'` strings to depth 3.
-fn expand(cmd: &[u32], depth: usize, work: &mut usize) -> Result<Vec<Seg>, TooComplex> {
+fn expand(cmd: &[u32], depth: usize, work: &mut usize, os: Os) -> Result<Vec<Seg>, TooComplex> {
     let mut out: Vec<Seg> = Vec::new();
     let mut segs = split_segments(cmd);
-    for t in substitution_texts(cmd, work)? {
+    for t in substitution_texts(cmd, work, os)? {
         segs.extend(split_segments(&t));
     }
     for seg in segs {
         let toks = words(&seg);
         out.push((seg, toks.clone()));
-        let sc = scan(&toks);
+        let sc = scan(&toks, os);
         let k = sc.k;
         if depth < 3 {
             for st in &sc.strings {
                 let mut parts: Vec<Text> = vec![st.clone()];
                 parts.extend_from_slice(slice_toks(&toks, k));
-                out.extend(expand(&join_with(&parts, ' '), depth + 1, work)?);
+                out.extend(expand(&join_with(&parts, ' '), depth + 1, work, os)?);
             }
         }
         if depth < 3 && k < toks.len() {
-            let prog = basename(&toks[k]); // INDEX: k < toks.len() checked on the line above
+            let prog_text = prog_name(&toks[k], os); // INDEX: k < toks.len() checked on the line above
+            let prog = prog_text.as_slice();
             let rest = slice_toks(&toks, k + 1);
             if in_set(prog, SHELLS) {
                 let mut js: Vec<usize> = Vec::new();
@@ -486,11 +489,11 @@ fn expand(cmd: &[u32], depth: usize, work: &mut usize) -> Result<Vec<Seg>, TooCo
                 }
                 for j in js {
                     if let Some(arg) = rest.get(j) {
-                        out.extend(expand(arg, depth + 1, work)?);
+                        out.extend(expand(arg, depth + 1, work, os)?);
                     }
                 }
             } else if eq(prog, "eval") {
-                out.extend(expand(&join_with(rest, ' '), depth + 1, work)?);
+                out.extend(expand(&join_with(rest, ' '), depth + 1, work, os)?);
             }
         }
     }
@@ -498,8 +501,8 @@ fn expand(cmd: &[u32], depth: usize, work: &mut usize) -> Result<Vec<Seg>, TooCo
 }
 
 /// `inert`: a read-only search that may carry the words without being an attack.
-fn inert(toks: &[Text]) -> bool {
-    let sc = scan(toks);
+fn inert(toks: &[Text], os: Os) -> bool {
+    let sc = scan(toks, os);
     // a wrapper option's value was skipped: the program may be one the old reading took for `inert`, so it counts as not inert
     if sc.skipped {
         return false;
@@ -507,7 +510,8 @@ fn inert(toks: &[Text]) -> bool {
     let Some(first) = toks.get(sc.k) else {
         return false;
     };
-    let prog = basename(first);
+    let prog_text = prog_name_with(first, os, &[".exe"]); // only `grep.exe` is the grep; a `grep.cmd` or `ls.bat` can run anything
+    let prog = prog_text.as_slice();
     let rest = slice_toks(toks, sc.k + 1);
     if in_set(prog, INERT) {
         return !rest.iter().any(|t| eq(t, "--pre") || starts(t, "--pre="));
@@ -601,12 +605,27 @@ fn bypass_search(t: &[u32]) -> Option<Text> {
     bypass_search_from(t, 0).map(|(a, b)| slice(t, a, b).to_vec())
 }
 
-/// `NAMES_CLAUDE.search(cmd)`: `claude` not glued to a word, dot or dash, or `claude_agent_sdk`.
-fn names_claude(cmd: &[u32]) -> bool {
+/// `NAMES_CLAUDE.search(cmd)` (Windows: `NAMES_CLAUDE_NT`): `claude` not glued to a word, dot or dash, or `claude_agent_sdk`. On Windows the name is case-insensitive, may carry one of `.exe .cmd .bat .com .ps1`,
+/// and a backslash after it also glues it to a folder name.
+fn names_claude(cmd: &[u32], os: Os) -> bool {
     if contains(cmd, "claude_agent_sdk") {
         return true;
     }
     let bad_before = |c: u32| is_word(c) || c == cp('.') || c == cp('-');
+    if os == Os::Windows {
+        let bad_after = |c: u32| bad_before(c) || c == cp('/') || c == cp('\\');
+        return (0..cmd.len()).any(|i| {
+            let Some(e) = lit_ci(cmd, i, "claude") else {
+                return false;
+            };
+            if i > 0 && at(cmd, i - 1).is_some_and(bad_before) {
+                return false;
+            }
+            // the optional extension is tried first and, when what follows it is glued, dropped (the regex backtracks)
+            let clear = |end: usize| !at(cmd, end).is_some_and(bad_after);
+            [".exe", ".cmd", ".bat", ".com", ".ps1"].iter().any(|x| lit_ci(cmd, e, x).is_some_and(clear)) || clear(e)
+        });
+    }
     let bad_after = |c: u32| bad_before(c) || c == cp('/');
     (0..cmd.len()).any(|i| {
         starts_at(cmd, i, "claude") && !(i > 0 && at(cmd, i - 1).is_some_and(bad_before)) && !at(cmd, i + 6).is_some_and(bad_after)
@@ -619,23 +638,26 @@ fn boundary(t: &[u32], i: usize) -> bool {
     before != after
 }
 
-/// `INTERP.search(cmd)`: `\b(?:python[\d.]*|node|ruby|perl|php|osascript|deno|bun)\b`.
-fn interp_search(cmd: &[u32]) -> bool {
+/// `INTERP.search(cmd)` (Windows: `INTERP_NT`, case-insensitive): `\b(?:python[\d.]*|node|ruby|perl|php|osascript|deno|bun)\b`.
+fn interp_search(cmd: &[u32], os: Os) -> bool {
+    let lit = |i: usize, w: &str| -> Option<usize> {
+        if os == Os::Windows { lit_ci(cmd, i, w) } else { starts_at(cmd, i, w).then(|| i + w.chars().count()) }
+    };
     (0..cmd.len()).any(|i| {
         if !boundary(cmd, i) {
             return false;
         }
-        if starts_at(cmd, i, "python") {
-            let mut e = i + 6;
+        if let Some(from) = lit(i, "python") {
+            let mut e = from;
             while at(cmd, e).is_some_and(|c| is_digit(c) || c == cp('.')) {
                 e += 1;
             }
             // greedy with backtracking: the longest run first, then shorter ones
-            if (i + 6..=e).rev().any(|end| boundary(cmd, end)) {
+            if (from..=e).rev().any(|end| boundary(cmd, end)) {
                 return true;
             }
         }
-        ["node", "ruby", "perl", "php", "osascript", "deno", "bun"].iter().any(|w| starts_at(cmd, i, w) && boundary(cmd, i + w.chars().count()))
+        ["node", "ruby", "perl", "php", "osascript", "deno", "bun"].iter().any(|w| lit(i, w).is_some_and(|end| boundary(cmd, end)))
     })
 }
 
@@ -705,22 +727,23 @@ fn writeish(cmd: &[u32]) -> bool {
     })
 }
 
-/// The match of `managed-settings[^\s'"),]*|settings(?:\.local)?\.json` at `p`, as an end index.
-fn settings_literal_at(t: &[u32], p: usize) -> Option<usize> {
-    if starts_at(t, p, "managed-settings") {
-        let mut e = p + 16;
+/// The match of `managed-settings[^\s'"),]*|settings(?:\.local)?\.json` at `p`, as an end index (Windows: case-insensitive).
+fn settings_literal_at(t: &[u32], p: usize, os: Os) -> Option<usize> {
+    let lit = |q: usize, w: &str| -> Option<usize> {
+        if os == Os::Windows { lit_ci(t, q, w) } else { starts_at(t, q, w).then(|| q + w.chars().count()) }
+    };
+    if let Some(mut e) = lit(p, "managed-settings") {
         while at(t, e).is_some_and(|c| !is_space(c) && ![cp('\''), cp('"'), cp(')'), cp(',')].contains(&c)) {
             e += 1;
         }
         return Some(e);
     }
-    if starts_at(t, p, "settings") {
-        let q = p + 8;
-        if starts_at(t, q, ".local") && starts_at(t, q + 6, ".json") {
-            return Some(q + 11);
+    if let Some(q) = lit(p, "settings") {
+        if let Some(end) = lit(q, ".local").and_then(|a| lit(a, ".json")) {
+            return Some(end);
         }
-        if starts_at(t, q, ".json") {
-            return Some(q + 5);
+        if let Some(end) = lit(q, ".json") {
+            return Some(end);
         }
     }
     None
@@ -729,7 +752,7 @@ fn settings_literal_at(t: &[u32], p: usize) -> Option<usize> {
 /// `re.findall(r"[^\s'\"=,()]*(?:managed-settings[^\s'\"),]*|settings(?:\.local)?\.json)", cmd)`.
 ///
 /// The greedy prefix backtracks from its longest length, so at a start `s` the match uses the largest `p` in the run `[s, e]` where a literal matches.
-fn find_names(cmd: &[u32]) -> Vec<Text> {
+fn find_names(cmd: &[u32], os: Os) -> Vec<Text> {
     let in_run = |c: u32| !is_space(c) && ![cp('\''), cp('"'), cp('='), cp(','), cp('('), cp(')')].contains(&c);
     let mut out = Vec::new();
     let mut s = 0;
@@ -743,7 +766,7 @@ fn find_names(cmd: &[u32]) -> Vec<Text> {
                 while at(cmd, e).is_some_and(in_run) {
                     e += 1;
                 }
-                let f = (s..=e).rev().find_map(|p| settings_literal_at(cmd, p).map(|end| (p, end)));
+                let f = (s..=e).rev().find_map(|p| settings_literal_at(cmd, p, os).map(|end| (p, end)));
                 run = Some((e, f));
                 (e, f)
             }
@@ -808,8 +831,43 @@ fn redirect_targets(seg: &[u32]) -> Vec<Text> {
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------
 // the rules
 
-/// `protected`: true when `path` names a Claude Code settings file.
-fn protected(path: &[u32], cwd: &Cwd, unknown_dir: bool) -> Res<bool> {
+/// `_nt_test`: the settings-file test on the resolved components of a Windows path, names case-folded.
+fn nt_test(comps: &[Text]) -> bool {
+    let base = comps.last().map_or_else(Text::new, |c| nt_fold(c));
+    let parent = if comps.len() > 1 { comps.get(comps.len() - 2).map_or_else(Text::new, |c| nt_fold(c)) } else { Text::new() };
+    if starts(&base, "managed-settings") || eq(&parent, "managed-settings.d") {
+        return true;
+    }
+    (eq(&base, "settings.json") || eq(&base, "settings.local.json")) && eq(&parent, ".claude")
+}
+
+/// `_nt_protected`.
+fn nt_protected(path: &[u32], cwd: &Cwd, mut unknown_dir: bool, keep: bool) -> Res<bool> {
+    let p = expanduser_for(path, Os::Windows);
+    let r = nt_root(&p);
+    if !r.rooted {
+        if !r.drive.is_empty() {
+            unknown_dir = true; // `C:x`: the working directory of that drive is not known
+        }
+        if unknown_dir && !has_char(&r.rest, '\\') {
+            let comps = nt_walk(Vec::new(), false, &r.rest, keep);
+            if comps.last().is_some_and(|c| {
+                let f = nt_fold(c);
+                eq(&f, "settings.json") || eq(&f, "settings.local.json")
+            }) {
+                return Ok(true);
+            }
+        }
+    }
+    let (_, _, comps) = nt_resolve(cwd, &p, keep)?;
+    Ok(nt_test(&comps))
+}
+
+/// `protected`: true when `path` names a Claude Code settings file (`keep`: the reading of a Windows name made of dots and spaces that keeps it).
+fn protected(path: &[u32], cwd: &Cwd, unknown_dir: bool, os: Os, keep: bool) -> Res<bool> {
+    if os == Os::Windows {
+        return nt_protected(path, cwd, unknown_dir, keep);
+    }
     let mut p = expanduser(path);
     if !isabs(&p) {
         if !has_char(&p, '/') && unknown_dir && (eq(basename(&p), "settings.json") || eq(basename(&p), "settings.local.json")) {
@@ -827,28 +885,36 @@ fn protected(path: &[u32], cwd: &Cwd, unknown_dir: bool) -> Res<bool> {
 }
 
 /// `g1` (v3): the bypass words, only when the command also names `claude` or `claude_agent_sdk`.
-fn g1(cmd: &[u32], segs: &[Seg]) -> Option<Hit> {
-    if !names_claude(cmd) && !segs.iter().any(|(sg, _)| names_claude(sg)) {
+fn g1(cmd: &[u32], segs: &[Seg], os: Os) -> Option<Hit> {
+    if !names_claude(cmd, os) && !segs.iter().any(|(sg, _)| names_claude(sg, os)) {
         return None;
     }
     let carries = |s: &Text, toks: &Vec<Text>| bypass_search(s).is_some() || bypass_search(&join_with(toks, ' ')).is_some();
-    let (seg, _) = segs.iter().find(|(s, toks)| carries(s, toks) && !inert(toks))?;
+    let (seg, _) = segs.iter().find(|(s, toks)| carries(s, toks) && !inert(toks, os))?;
     let m = bypass_search(seg).or_else(|| bypass_search(&join_with(&words(seg), ' ')));
     let what = m.unwrap_or_else(|| text("a bypass flag"));
     hit("G1", cat(&[&text("the command carries `"), &what, &text("`")]))
 }
 
+/// `_config_dir`: `t` is a `CLAUDE_CONFIG_DIR=` assignment (Windows: environment names are case-insensitive, so `claude_config_dir=` too).
+fn config_dir(t: &[u32], os: Os) -> bool {
+    if os == Os::Windows {
+        return eq(&nt_fold(slice(t, 0, 18)), "claude_config_dir=");
+    }
+    starts(t, "CLAUDE_CONFIG_DIR=")
+}
+
 /// `g2`: a `claude` child that leaves the user's settings and hooks, and any `CLAUDE_CONFIG_DIR=` assignment.
-fn g2(segs: &[Seg]) -> Option<Hit> {
+fn g2(segs: &[Seg], os: Os) -> Option<Hit> {
     for (_, toks) in segs {
-        let (k, assigns) = program(toks);
-        if assigns.iter().chain(toks.iter()).any(|t| starts(t, "CLAUDE_CONFIG_DIR=")) {
+        let (k, assigns) = program(toks, os);
+        if assigns.iter().chain(toks.iter()).any(|t| config_dir(t, os)) {
             return hit("G2", text("the command sets CLAUDE_CONFIG_DIR, which leaves the user's settings and hooks behind"));
         }
         let Some(first) = toks.get(k) else {
             continue;
         };
-        if !eq(basename(first), "claude") {
+        if !eq(&prog_name(first, os), "claude") {
             continue;
         }
         let args = slice_toks(toks, k + 1);
@@ -880,17 +946,49 @@ fn non_flags(args: &[Text]) -> Vec<Text> {
     args.iter().filter(|t| !starts(t, "-")).cloned().collect()
 }
 
-/// `g3_bash`: a Bash command that writes a Claude Code settings file.
-fn g3_bash(cmd: &[u32], segs: &[Seg], cwd: &Cwd) -> Res<Option<Hit>> {
+/// `slashed`: the simple commands read with every backslash a slash (a Windows path typed without quotes loses its backslashes when the shell reads the word).
+fn slashed(segs: &[Seg]) -> Vec<Seg> {
+    segs.iter()
+        .map(|(sg, _)| {
+            let t: Text = sg.iter().map(|&c| if c == cp('\\') { cp('/') } else { c }).collect();
+            let toks = words(&t);
+            (t, toks)
+        })
+        .collect()
+}
+
+/// `g3_bash`: a Bash command that writes a Claude Code settings file. On Windows the commands are read twice: as written, then with every backslash a slash.
+fn g3_bash(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os) -> Res<Option<Hit>> {
+    let first = g3_bash_once(cmd, segs, cwd, os, true, false)?;
+    if first.is_some() || os != Os::Windows {
+        return Ok(first);
+    }
+    // Windows: the text as written with the other reading of a dots-and-spaces name, then with every backslash a slash under both readings
+    if let Some(h) = g3_bash_once(cmd, segs, cwd, os, true, true)? {
+        return Ok(Some(h));
+    }
+    let sl = slashed(segs);
+    if let Some(h) = g3_bash_once(cmd, &sl, cwd, os, false, false)? {
+        return Ok(Some(h));
+    }
+    g3_bash_once(cmd, &sl, cwd, os, false, true)
+}
+
+/// `_g3_bash`: one reading; the script check (`script`) is made on the first only.
+fn g3_bash_once(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, script: bool, keep: bool) -> Res<Option<Hit>> {
     let mut unknown = false;
     let mut cur = cwd.clone();
     for (seg, toks) in segs {
-        let (k, _) = program(toks);
-        let prog: &[u32] = toks.get(k).map_or(&[], |t| basename(t));
+        let (k, _) = program(toks, os);
+        let prog: Text = toks.get(k).map_or_else(Text::new, |t| prog_name(t, os));
+        let prog = prog.as_slice();
         if (eq(prog, "cd") || eq(prog, "pushd")) && k + 1 < toks.len() {
-            let t = expanduser(toks.get(k + 1).map_or(&[][..], |x| x));
+            let t = expanduser_for(toks.get(k + 1).map_or(&[][..], |x| x), os);
             if has_char(&t, '$') || has_char(&t, '`') || eq(&t, "-") {
                 unknown = true;
+            } else if os == Os::Windows {
+                let (d, r, c) = nt_resolve(&cur, &t, keep)?;
+                cur = Cwd::Str(nt_str(&d, r, &c));
             } else {
                 let base = if isabs(&t) { t } else { join(&cur, &t)? };
                 cur = Cwd::Str(normpath(&base));
@@ -928,17 +1026,26 @@ fn g3_bash(cmd: &[u32], segs: &[Seg], cwd: &Cwd) -> Res<Option<Hit>> {
             targets.extend(args.iter().filter(|t| starts(t, "of=")).map(|t| slice(t, 3, t.len()).to_vec()));
         }
         for t in targets {
-            if protected(&t, &cur, unknown)? {
+            if protected(&t, &cur, unknown, os, keep)? {
                 return Ok(hit("G3", cat(&[&text("the command writes `"), &t, &text("`, a Claude Code settings file")])));
             }
         }
     }
-    let first_is_python = segs.iter().any(|(_, ts)| ts.first().is_some_and(|t| eq(basename(t), "python") || eq(basename(t), "python3")));
-    if interp_search(cmd) || first_is_python {
-        let names = find_names(cmd);
+    if !script {
+        return Ok(None);
+    }
+    let nt = os == Os::Windows;
+    let first_is_python = segs.iter().any(|(_, ts)| {
+        ts.first().is_some_and(|t| {
+            let n = prog_name(t, os);
+            eq(&n, "python") || eq(&n, "python3") || (nt && (eq(&n, "py") || eq(&n, "pythonw")))
+        })
+    });
+    if interp_search(cmd, os) || first_is_python {
+        let names = find_names(cmd, os);
         if !names.is_empty() && writeish(cmd) {
             for n in &names {
-                if protected(n, &cur, true)? || (has_char(n, '/') && protected(n, cwd, false)?) {
+                if protected(n, &cur, true, os, keep)? || ((has_char(n, '/') || (nt && has_char(n, '\\'))) && protected(n, cwd, false, os, keep)?) {
                     return Ok(hit("G3", text("a script in the command writes a Claude Code settings file")));
                 }
             }
@@ -961,9 +1068,9 @@ fn edit_path(inp: &Value) -> Res<Text> {
 }
 
 /// `g3_edit`: the edit targets a settings file.
-fn g3_edit(inp: &Value, cwd: &Cwd) -> Res<Option<Hit>> {
+fn g3_edit(inp: &Value, cwd: &Cwd, os: Os) -> Res<Option<Hit>> {
     let p = edit_path(inp)?;
-    if !p.is_empty() && protected(&p, cwd, false)? {
+    if !p.is_empty() && (protected(&p, cwd, false, os, false)? || (os == Os::Windows && protected(&p, cwd, false, os, true)?)) {
         return Ok(hit("G3", cat(&[&text("the edit targets `"), &p, &text("`, a Claude Code settings file")])));
     }
     Ok(None)
@@ -1017,9 +1124,18 @@ fn script_ext(p: &[u32]) -> bool {
     SCRIPT_EXT.iter().any(|e| lowered.len() >= e.len() && starts_at(&lowered, lowered.len() - e.chars().count(), e))
 }
 
+/// The folded file name as Windows resolves it ends in one of the script extensions: `X.PY`, `x.py.`, `x.py::$DATA` are scripts.
+fn script_ext_nt(p: &[u32]) -> Res<bool> {
+    let (_, _, comps) = nt_resolve(&Cwd::Str(Text::new()), p, false)?;
+    Ok(comps.last().is_some_and(|c| {
+        let f = nt_fold(c);
+        SCRIPT_EXT.iter().any(|e| f.len() >= e.len() && starts_at(&f, f.len() - e.chars().count(), e))
+    }))
+}
+
 /// Reads the file Python's `open(path, errors="replace")` would read; `Ok(None)` for an `OSError`.
-fn read_old(cwd: &Cwd, p: &[u32]) -> Res<Option<Text>> {
-    let full = join(cwd, &expanduser(p))?;
+fn read_old(cwd: &Cwd, p: &[u32], os: Os) -> Res<Option<Text>> {
+    let full = if os == Os::Windows { nt_join(cwd, &expanduser_for(p, os))? } else { join(cwd, &expanduser(p))? };
     let mut bytes: Vec<u8> = Vec::new();
     for &c in &full {
         if let Some(ch) = char::from_u32(c) {
@@ -1039,9 +1155,9 @@ fn read_old(cwd: &Cwd, p: &[u32]) -> Res<Option<Text>> {
 }
 
 /// `g4_script`: Write or Edit of a script file that adds the bypass words or a `--setting-sources` value without `user`.
-fn g4_script(inp: &Value, cwd: &Cwd) -> Res<Option<Hit>> {
+fn g4_script(inp: &Value, cwd: &Cwd, os: Os) -> Res<Option<Hit>> {
     let p = edit_path(inp)?;
-    if !script_ext(&p) {
+    if !(if os == Os::Windows { script_ext_nt(&p)? } else { script_ext(&p) }) {
         return Ok(None);
     }
     let (new, old);
@@ -1050,7 +1166,7 @@ fn g4_script(inp: &Value, cwd: &Cwd) -> Res<Option<Hit>> {
         old = Vec::new();
     } else if inp.get("content").is_some() {
         new = hits(&py_str(inp.get("content"))?);
-        old = read_old(cwd, &p)?.map_or_else(Vec::new, |t| hits(&t));
+        old = read_old(cwd, &p, os)?.map_or_else(Vec::new, |t| hits(&t));
     } else {
         let mut edits: Vec<&Value> = vec![inp];
         match inp.get("edits") {
@@ -1074,7 +1190,7 @@ fn g4_script(inp: &Value, cwd: &Cwd) -> Res<Option<Hit>> {
     }
     if new.len() > old.len() {
         if let Some(h) = new.get(old.len()) {
-            return Ok(hit("G4", cat(&[&text("the edit adds `"), h, &text("` to the script `"), basename(&p), &text("`")])));
+            return Ok(hit("G4", cat(&[&text("the edit adds `"), h, &text("` to the script `"), &display_name(&p, os), &text("`")])));
         }
     }
     Ok(None)
@@ -1106,7 +1222,7 @@ fn command_text(inp: &Value) -> Res<Text> {
 }
 
 /// `decide`: the denial for an event, or `None`.
-fn decide(event: &Value) -> Res<Option<Hit>> {
+fn decide(event: &Value, os: Os) -> Res<Option<Hit>> {
     if !matches!(event, Value::Obj(_)) {
         return Err(Fault::Attribute);
     }
@@ -1122,23 +1238,23 @@ fn decide(event: &Value) -> Res<Option<Hit>> {
         }
         let cmd = command_text(&inp)?;
         let mut work = 0;
-        let Ok(segs) = expand(&cmd, 0, &mut work) else {
+        let Ok(segs) = expand(&cmd, 0, &mut work, os) else {
             return Ok(hit("G?", text("the command has too many command substitutions to be checked")));
         };
-        if let Some(h) = g1(&cmd, &segs).or_else(|| g2(&segs)) {
+        if let Some(h) = g1(&cmd, &segs, os).or_else(|| g2(&segs, os)).or_else(|| if os == Os::Windows { g2(&slashed(&segs), os) } else { None }) {
             return Ok(Some(h));
         }
-        return g3_bash(&cmd, &segs, &cwd);
+        return g3_bash(&cmd, &segs, &cwd, os);
     }
     if ["Write", "Edit", "MultiEdit", "NotebookEdit"].contains(&tool.as_str()) {
         // BORROW: explicit .as_str() for the slice-contains lookup
         if !matches!(inp, Value::Obj(_)) {
             return Err(Fault::Attribute);
         }
-        if let Some(h) = g3_edit(&inp, &cwd)? {
+        if let Some(h) = g3_edit(&inp, &cwd, os)? {
             return Ok(Some(h));
         }
-        return g4_script(&inp, &cwd);
+        return g4_script(&inp, &cwd, os);
     }
     Ok(None)
 }
@@ -1170,11 +1286,16 @@ fn what_text(event: &Value) -> Text {
     slice(&full, 0, 120).to_vec()
 }
 
-/// `run`: the decision for the raw stdin text. Never fails: any fault becomes a deny.
+/// `run`: the decision for the raw stdin text, in the flavour of the OS this binary was built for. Never fails: any fault becomes a deny.
 pub(crate) fn run(raw: &str) -> Answer {
+    run_os(raw, platform::host())
+}
+
+/// `run` for the paths and program names of `os` (the tests run both on any host).
+pub(crate) fn run_os(raw: &str, os: Os) -> Answer {
     let parsed = json::loads(raw);
     let outcome = parsed.as_ref().map_err(|e| *e).and_then(|event| {
-        let h = decide(event)?;
+        let h = decide(event, os)?;
         if !matches!(tool_input(event), Value::Obj(_)) {
             return Err(Fault::Attribute); // `ti.get` on a non-dict in `run`
         }
@@ -1212,4 +1333,100 @@ pub(crate) fn run(raw: &str) -> Answer {
         s
     });
     Answer { stdout, log_line: log }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// The cases of `windows_paths.json`; the file is read here, at test time, from the manifest directory, and is never embedded in the binary.
+    const WINDOWS_COUNT: usize = 106;
+
+    fn windows_cases() -> Vec<Value> {
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..").join("scripts").join("fixtures").join("guard_lists").join("windows_paths.json");
+        let raw = std::fs::read(&path).unwrap_or_else(|e| panic!("cannot read {}: {e}", path.display()));
+        let parsed = json::loads(&String::from_utf8(raw).expect("windows_paths.json is UTF-8")).expect("windows_paths.json is JSON");
+        match parsed {
+            Value::Arr(cases) => cases,
+            _ => panic!("windows_paths.json is not a list"),
+        }
+    }
+
+    fn field(c: &Value, key: &str) -> Text {
+        match c.get(key) {
+            Some(Value::Str(s)) => s.clone(),
+            _ => panic!("case without the string `{key}`"),
+        }
+    }
+
+    fn event(c: &Value) -> Value {
+        let tool_input = match c.get("input") {
+            Some(v) => v.clone(),
+            None => Value::Obj(vec![(text("command"), Value::Str(field(c, "command")))]),
+        };
+        Value::Obj(vec![(text("tool_name"), Value::Str(field(c, "tool"))), (text("tool_input"), tool_input), (text("cwd"), Value::Str(field(c, "cwd")))])
+    }
+
+    fn group_of(c: &Value, os: Os) -> String {
+        match decide(&event(c), os) {
+            Ok(Some(h)) => h.group.to_string(),
+            Ok(None) => "allow".to_string(),
+            Err(f) => format!("fault {}", f.name()),
+        }
+    }
+
+    fn check_all(os: Os, column: &str) {
+        let cases = windows_cases();
+        assert_eq!(cases.len(), WINDOWS_COUNT, "windows_paths.json has a pinned count");
+        let wrong: Vec<String> = cases
+            .iter()
+            .filter_map(|c| {
+                let (want, got) = (string(&field(c, column)), group_of(c, os));
+                (want != got).then(|| format!("{}: want {want}, got {got}", string(&field(c, "id"))))
+            })
+            .collect();
+        assert!(wrong.is_empty(), "{column} decisions differ from the list: {wrong:?}");
+    }
+
+    #[test]
+    fn windows_list_under_the_nt_flavour() {
+        check_all(Os::Windows, "nt");
+    }
+
+    #[test]
+    fn windows_list_under_the_posix_flavour() {
+        check_all(Os::Unix, "posix");
+    }
+
+    #[test]
+    fn run_follows_the_host_flavour() {
+        let raw = "{\"tool_name\": \"Write\", \"tool_input\": {\"file_path\": \".claude\\\\settings.json\", \"content\": \"\"}, \"cwd\": \"C:\\\\proj\"}";
+        assert_eq!(run(raw).stdout.is_empty(), !cfg!(windows));
+        assert!(run_os(raw, Os::Windows).stdout.contains("permission_guard (G3)"));
+        assert!(run_os(raw, Os::Unix).stdout.is_empty());
+    }
+
+    #[test]
+    fn program_names() {
+        let n = |s: &str, os: Os| string(&prog_name(&text(s), os));
+        assert_eq!(n("C:\\Tools\\CLAUDE.EXE", Os::Windows), "claude");
+        assert_eq!(n("C:/x/claude.cmd", Os::Windows), "claude");
+        assert_eq!(n("claude.exe.bak", Os::Windows), "claude.exe.bak");
+        assert_eq!(n(".exe", Os::Windows), ".exe");
+        assert_eq!(n("C:claude.", Os::Windows), "claude");
+        assert_eq!(n("C:\\Tools\\CLAUDE.EXE", Os::Unix), "C:\\Tools\\CLAUDE.EXE"); // a backslash is a filename character
+        assert_eq!(n("/usr/bin/claude", Os::Unix), "claude");
+    }
+
+    #[test]
+    fn nt_names_claude_is_case_folded_and_takes_an_extension() {
+        let yes = |s: &str| names_claude(&text(s), Os::Windows);
+        assert!(yes("CLAUDE -p x"));
+        assert!(yes("C:\\a\\claude.cmd -p x"));
+        assert!(yes("claude.EXE"));
+        assert!(!yes("claude.exe.bak"));
+        assert!(!yes("myclaude.exe"));
+        assert!(!yes("C:\\claude\\x"));
+        assert!(!names_claude(&text("CLAUDE -p x"), Os::Unix));
+    }
 }

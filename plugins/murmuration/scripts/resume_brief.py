@@ -64,7 +64,7 @@ def selftest():
             env.update(extra_env or {})
             proc = subprocess.run([sys.executable, os.path.abspath(__file__)],
                                   input=json.dumps({"cwd": tmp, "source": "resume"}),
-                                  capture_output=True, text=True, env=env)
+                                  capture_output=True, text=True, env=env, encoding="utf-8")
             assert proc.returncode == 0, proc.stderr
             return proc.stdout
 
@@ -72,24 +72,24 @@ def selftest():
         os.makedirs(os.path.join(tmp, "__statera__"))
         out = run()
         assert "No wave note yet" in out and "none" in out
-        with open(os.path.join(tmp, "__statera__", "wave-01.md"), "w") as fh:
+        with open(os.path.join(tmp, "__statera__", "wave-01.md"), "w", encoding="utf-8") as fh:
             fh.write("# Wave 01\n\nopened: 2026-01-01\n\nWAVE ONE BODY\n\nclosed: 2026-01-05\n")
-        with open(os.path.join(tmp, "__statera__", "wave-02.md"), "w") as fh:
+        with open(os.path.join(tmp, "__statera__", "wave-02.md"), "w", encoding="utf-8") as fh:
             fh.write("# Wave 02\n\nopened: 2026-01-06\n\nWAVE TWO BODY\n")
         os.makedirs(os.path.join(tmp, "__scrupuli__"))
-        with open(os.path.join(tmp, "__scrupuli__", "wave-01-explorer.md"), "w") as fh:
+        with open(os.path.join(tmp, "__scrupuli__", "wave-01-explorer.md"), "w", encoding="utf-8") as fh:
             fh.write("## S-w01-explorer-1\nodd rows\nrefs: a.csv\n\n## S-w01-explorer-2\nodd figure\nrefs: b.png\n")
-        with open(os.path.join(tmp, "__statera__", "wave-01.md"), "a") as fh:
+        with open(os.path.join(tmp, "__statera__", "wave-01.md"), "a", encoding="utf-8") as fh:
             fh.write("\n| S-w01-explorer-2 | parked: cosmetic |\n")
         out = run()
         assert "WAVE TWO BODY" in out and "WAVE ONE BODY" not in out, out
         assert "S-w01-explorer-1" in out and "odd rows" in out and "S-w01-explorer-2" not in out, out
         assert "! " not in out, out
-        with open(os.path.join(tmp, "__scrupuli__", "wave-02-explorer-w02-a.md"), "w") as fh:
+        with open(os.path.join(tmp, "__scrupuli__", "wave-02-explorer-w02-a.md"), "w", encoding="utf-8") as fh:
             fh.write("## Puzzle without an id\nbody\n\n## S-w02-explorer-w02-a-1\nsecond explorer\n")
         out = run()
         assert "S-w02-explorer-w02-a-1" in out and "! " in out and "'## Puzzle without an id' is not a puzzle id" in out, out
-        with open(os.path.join(tmp, "__scrupuli__", "wave-02-explorer-w02-a.md"), "w") as fh:
+        with open(os.path.join(tmp, "__scrupuli__", "wave-02-explorer-w02-a.md"), "w", encoding="utf-8") as fh:
             fh.write("1. numbered prose, no heading\n")
         os.remove(os.path.join(tmp, "__scrupuli__", "wave-01-explorer.md"))
         out = run()
@@ -97,7 +97,7 @@ def selftest():
         # CLAUDE_PROJECT_DIR no longer outranks the payload cwd (the lab above cwd is found first)
         assert "WAVE TWO BODY" in run({"CLAUDE_PROJECT_DIR": os.path.join(tmp, "elsewhere")})
         proc = subprocess.run([sys.executable, os.path.abspath(__file__)], input="not json",
-                              capture_output=True, text=True, cwd=tmp, env={**os.environ, "CLAUDE_PROJECT_DIR": ""})
+                              capture_output=True, text=True, cwd=tmp, env={**os.environ, "CLAUDE_PROJECT_DIR": ""}, encoding="utf-8")
         assert proc.returncode == 0
     selftest_e0()
     print("PASS resume_brief")
@@ -110,16 +110,16 @@ def selftest_e0():
 
     def lab(path, body, git):
         os.makedirs(os.path.join(path, "__statera__"))
-        with open(os.path.join(path, "__statera__", "wave-01.md"), "w") as fh:
+        with open(os.path.join(path, "__statera__", "wave-01.md"), "w", encoding="utf-8") as fh:
             fh.write("# Wave 01\n\nopened: 2026-01-01\n\n%s\n" % body)
         if git == "dir":
             os.makedirs(os.path.join(path, ".git"))
         else:
-            with open(os.path.join(path, ".git"), "w") as fh:
+            with open(os.path.join(path, ".git"), "w", encoding="utf-8") as fh:
                 fh.write("gitdir: /elsewhere/.git/worktrees/x\n")
 
     def session(path, cwds):
-        with open(path, "w") as fh:
+        with open(path, "w", encoding="utf-8") as fh:
             fh.write(json.dumps({"type": "queue-operation"}) + "\n")
             for cwd in cwds:
                 fh.write(json.dumps({"type": "user", "cwd": cwd}) + "\n")
@@ -142,7 +142,7 @@ def selftest_e0():
             if transcript:
                 event["transcript_path"] = transcript
             proc = subprocess.run([sys.executable, os.path.abspath(__file__)], input=json.dumps(event),
-                                  capture_output=True, text=True, env=env, cwd=tmp)
+                                  capture_output=True, text=True, env=env, cwd=tmp, encoding="utf-8")
             assert proc.returncode == 0, proc.stderr
             return proc.stdout
 
@@ -164,7 +164,17 @@ def selftest_e0():
         assert run(plain, None, os.path.join(tmp, "nowhere")) == ""
 
 
+def _utf8_stdio():
+    """Hook JSON and reports are UTF-8 on every OS, whatever the locale: `python -I` ignores PYTHONUTF8 and PYTHONIOENCODING, and a Windows pipe is otherwise read and written in the ANSI code page."""
+    for stream, extra in ((sys.stdin, {}), (sys.stdout, {"newline": "\n"}), (sys.stderr, {"newline": "\n"})):
+        try:
+            stream.reconfigure(encoding="utf-8", **extra)
+        except (AttributeError, ValueError, OSError):
+            pass
+
+
 def main():
+    _utf8_stdio()
     if "--selftest" in sys.argv[1:]:
         selftest()
         return 0

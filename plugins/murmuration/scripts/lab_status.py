@@ -637,7 +637,7 @@ def git_worktrees(root):
     """Paths of the git worktrees of root's repository, the main checkout first (needs git; else empty)."""
     try:
         out = subprocess.run(["git", "-C", root, "worktree", "list", "--porcelain"], capture_output=True,
-                             text=True, timeout=10).stdout
+                             text=True, timeout=10, encoding="utf-8").stdout
     except (OSError, subprocess.SubprocessError):
         return []
     return [line[9:] for line in out.splitlines() if line.startswith("worktree ")]
@@ -777,7 +777,7 @@ class Cache:
     def __init__(self, path):
         self.path, self.files, self.seen, self.dirty = path, {}, {}, False
         try:
-            with open(path) as fh:
+            with open(path, encoding="utf-8") as fh:
                 data = json.load(fh)
             if data.get("v") == CACHE_VERSION and isinstance(data.get("files"), dict):
                 self.files = data["files"]
@@ -809,9 +809,9 @@ class Cache:
             os.makedirs(os.path.dirname(self.path), exist_ok=True)
             gitignore = os.path.join(os.path.dirname(self.path), ".gitignore")
             if os.path.basename(os.path.dirname(self.path)) == ".harness" and not os.path.exists(gitignore):   # the lab's own state folder; a folder named by $LAB_STATUS_CACHE is left as it is
-                with open(gitignore, "w") as fh:
+                with open(gitignore, "w", encoding="utf-8") as fh:
                     fh.write("*\n")
-            with open(tmp, "w") as fh:
+            with open(tmp, "w", encoding="utf-8") as fh:
                 json.dump({"v": CACHE_VERSION, "files": self.seen}, fh)
             os.replace(tmp, self.path)
         except OSError:
@@ -1574,20 +1574,20 @@ def selftest():
         older = os.path.join(os.path.dirname(cache_file), "lab_status_cache.json")   # the file of a script of version 1: left alone
         _write(older, '{"v": 1, "files": {}}')
         spend()
-        assert open(older).read() == '{"v": 1, "files": {}}' and os.path.exists(cache_file), "a cache file of another version is neither read nor rewritten"
+        assert open(older, encoding="utf-8").read() == '{"v": 1, "files": {}}' and os.path.exists(cache_file), "a cache file of another version is neither read nor rewritten"
         os.unlink(older)
         if os.path.exists(cache_file):
             os.unlink(cache_file)
         assert spend() == plain, "cold: the cache changes nothing"
-        stored = json.load(open(cache_file))
+        stored = json.load(open(cache_file, encoding="utf-8"))
         assert stored["v"] == CACHE_VERSION and len(stored["files"]) >= 6, sorted(stored)
         assert spend() == plain, "warm: the cache changes nothing"
-        assert len(json.load(open(cache_file))["files"]) == len(stored["files"]), "a warm run keeps the entries it used"
-        assert open(os.path.join(root, "__statera__", ".harness", ".gitignore")).read() == "*\n"
+        assert len(json.load(open(cache_file, encoding="utf-8"))["files"]) == len(stored["files"]), "a warm run keeps the entries it used"
+        assert open(os.path.join(root, "__statera__", ".harness", ".gitignore"), encoding="utf-8").read() == "*\n"
         assert [f for f in os.listdir(os.path.dirname(cache_file)) if f.endswith(".tmp")] == [], "the temporary file is renamed away"
         bbb = os.path.join(sub, "agent-bbb.jsonl")
-        before = open(bbb).read()
-        open(bbb, "a").write(record("b2", sonnet, 4, 40))
+        before = open(bbb, encoding="utf-8").read()
+        open(bbb, "a", encoding="utf-8").write(record("b2", sonnet, 4, 40))
         grown = spend()
         assert grown != plain, "a longer file is read again"
         os.environ["LAB_STATUS_CACHE"] = "off"
@@ -1595,25 +1595,25 @@ def selftest():
         del os.environ["LAB_STATUS_CACHE"]
         # a size or a time that differs, the other the same: read again (a mutant that compares only one of them must fail here)
         st_ = os.stat(bbb)
-        open(bbb, "a").write(record("b3", sonnet, 4, 40))
+        open(bbb, "a", encoding="utf-8").write(record("b3", sonnet, 4, 40))
         os.utime(bbb, ns=(st_.st_atime_ns, st_.st_mtime_ns))   # longer, with the time it had
         assert spend() != grown, "another size, the same time: read again"
         spend()
-        cur = open(bbb).read()
+        cur = open(bbb, encoding="utf-8").read()
         st_ = os.stat(bbb)
-        open(bbb, "w").write(cur.replace('"output_tokens": 40', '"output_tokens": 41', 1))
+        open(bbb, "w", encoding="utf-8").write(cur.replace('"output_tokens": 40', '"output_tokens": 41', 1))
         os.utime(bbb, ns=(st_.st_atime_ns, st_.st_mtime_ns + 5_000_000_000))   # the same size, another time
         os.environ["LAB_STATUS_CACHE"] = "off"
         fresh = spend()
         del os.environ["LAB_STATUS_CACHE"]
         assert spend() == fresh, "the same size, another time: read again"
-        good = json.load(open(cache_file))
+        good = json.load(open(cache_file, encoding="utf-8"))
         for junk in ("{not json", '{"v": 0, "files": {}}', '{"v": %d, "files": 5}' % CACHE_VERSION, "[]",
                      json.dumps(dict(good, v=CACHE_VERSION + 1, files={p: e[:2] + [[], None, None] for p, e in good["files"].items()})),
                      ) + tuple(json.dumps(dict(good, files={p: e[:2] + [bad, e[3], e[4]] for p, e in good["files"].items()})) for bad in (5, [[1]], [["k", "not a dict"]], [["k", {"usage": None}]], [["k", {"model": "m"}]])):   # the last: another version, with emptied entries of the right stamps; then entries that are valid JSON of the right stamps but not what was written (the report reads everything again)
-            open(cache_file, "w").write(junk)
+            open(cache_file, "w", encoding="utf-8").write(junk)
             assert spend() == fresh, "a cache file that is unusable is ignored: " + junk[:40]
-            assert json.load(open(cache_file))["v"] == CACHE_VERSION, "and replaced"
+            assert json.load(open(cache_file, encoding="utf-8"))["v"] == CACHE_VERSION, "and replaced"
         # a message copied into a second file: merging the copy must not change what the cache holds for the first (a cache that shares the usage dict fails here)
         cp1, cp2 = os.path.join(folder, "s7.jsonl"), os.path.join(folder, "s8.jsonl")
         _write(cp1, head("s7", real) + record("cm1", sonnet, 1, 10, sid="s7"))
@@ -1625,16 +1625,16 @@ def selftest():
             assert spend() == ref and spend() == ref, "a copy in two files, " + step
             if step == "both files":
                 os.unlink(cp2)
-        assert cp2 not in json.load(open(cache_file))["files"], "an entry of a file that is gone is dropped at the write"
+        assert cp2 not in json.load(open(cache_file, encoding="utf-8"))["files"], "an entry of a file that is gone is dropped at the write"
         # the write: a complete temporary file named with the process id exists when the rename happens and the old file is still whole then; a failed rename leaves the old file and no temporary
         real_replace, seen_rename = os.replace, []
 
         def spy(src, dst):
-            seen_rename.append((os.path.basename(src), json.load(open(src))["v"], json.load(open(dst))["v"]))
+            seen_rename.append((os.path.basename(src), json.load(open(src, encoding="utf-8"))["v"], json.load(open(dst, encoding="utf-8"))["v"]))
             real_replace(src, dst)
         os.replace = spy
         try:
-            open(cp1, "a").write(record("cm2", sonnet, 1, 7, sid="s7"))
+            open(cp1, "a", encoding="utf-8").write(record("cm2", sonnet, 1, 7, sid="s7"))
             spend()
         finally:
             os.replace = real_replace
@@ -1642,14 +1642,14 @@ def selftest():
 
         def failing(src, dst):
             raise OSError("no rename")
-        before_bytes = open(cache_file).read()
+        before_bytes = open(cache_file, encoding="utf-8").read()
         os.replace = failing
         try:
-            open(cp1, "a").write(record("cm3", sonnet, 1, 7, sid="s7"))
+            open(cp1, "a", encoding="utf-8").write(record("cm3", sonnet, 1, 7, sid="s7"))
             spend()
         finally:
             os.replace = real_replace
-        assert open(cache_file).read() == before_bytes and not [x for x in os.listdir(os.path.dirname(cache_file)) if x.endswith(".tmp")], "a failed rename: the old file stays, no temporary is left"
+        assert open(cache_file, encoding="utf-8").read() == before_bytes and not [x for x in os.listdir(os.path.dirname(cache_file)) if x.endswith(".tmp")], "a failed rename: the old file stays, no temporary is left"
         spend()
         stat_a = os.stat(cache_file)
         spend()
@@ -1661,9 +1661,9 @@ def selftest():
         def racing(path, warnings):
             out = real_parse(path, warnings)
             if path == cp1:
-                open(cp1, "a").write(record("cm4", sonnet, 1, 9, sid="s7"))
+                open(cp1, "a", encoding="utf-8").write(record("cm4", sonnet, 1, 9, sid="s7"))
             return out
-        open(cp1, "a").write(record("cm5", sonnet, 1, 1, sid="s7"))
+        open(cp1, "a", encoding="utf-8").write(record("cm5", sonnet, 1, 1, sid="s7"))
         globals()["parse_transcript"] = racing
         try:
             spend()
@@ -1700,7 +1700,17 @@ def selftest():
     print("PASS lab_status")
 
 
+def _utf8_stdio():
+    """Hook JSON and reports are UTF-8 on every OS, whatever the locale: `python -I` ignores PYTHONUTF8 and PYTHONIOENCODING, and a Windows pipe is otherwise read and written in the ANSI code page."""
+    for stream, extra in ((sys.stdin, {}), (sys.stdout, {"newline": "\n"}), (sys.stderr, {"newline": "\n"})):
+        try:
+            stream.reconfigure(encoding="utf-8", **extra)
+        except (AttributeError, ValueError, OSError):
+            pass
+
+
 def main(argv):
+    _utf8_stdio()
     if "--selftest" in argv:
         selftest()
         return 0

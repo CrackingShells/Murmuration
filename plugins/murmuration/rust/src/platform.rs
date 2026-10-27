@@ -38,6 +38,16 @@ pub(crate) fn python_for(os: Os) -> &'static str {
     }
 }
 
+/// The family this binary was compiled for, as the guard's default flavour of paths and program names.
+pub(crate) const fn host() -> Os {
+    OS
+}
+
+/// The home directory the environment names, read as `os` reads it (no passwd or shell-folder fallback): what the guard's Windows reading of `~` uses on any host.
+pub(crate) fn home_for(os: Os) -> Option<String> {
+    home_from(std::env::var_os("HOME"), std::env::var_os("USERPROFILE"), os)
+}
+
 /// The home directory of the current user, or `None` when there is none to expand `~` to.
 pub(crate) fn home_dir() -> Option<String> {
     let found = home_from(std::env::var_os("HOME"), std::env::var_os("USERPROFILE"), OS);
