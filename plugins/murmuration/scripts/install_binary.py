@@ -248,7 +248,134 @@ def install(root, data, target):
     return "launcher", reason
 
 
+def selftest():
+    """Each way a binary can be wrong is caught by doubt() or the self-tests, and install() then ends in the launcher.
+
+    Works on temporary copies of this plugin's scripts and Rust sources, for a fixed Linux target whatever the host is. The "binary" is a shell script that runs the Python scripts, so it behaves
+    exactly like them; a mutation then makes it, or what it is checked against, wrong. A positive control (the unmutated copy installs the binary) comes first, so a mutation cannot pass by failing
+    for an unrelated reason. Every mutation must give its own reason."""
+    import shutil
+    import tempfile
+    here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    target = "x86_64-unknown-linux-gnu"
+    other = "aarch64-unknown-linux-gnu"
+    assert ("Windows", "AMD64") not in TARGETS and not any(k[0] == "Windows" for k in TARGETS)
+    assert TARGETS[("Linux", "x86_64")] == target and TARGETS[("Linux", "aarch64")] == other
+    assert sorted(TARGETS.values()) == sorted(t for t in load_manifest_tool(here).ALL_TARGETS if "windows" not in t)
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = os.path.realpath(tmp)
+        base = os.path.join(tmp, "base")
+        shutil.copytree(os.path.join(here, "scripts"), os.path.join(base, "scripts"), ignore=shutil.ignore_patterns("__pycache__", "git-hooks", "fixtures"))
+        for rel in ["rust/Cargo.toml", "rust/Cargo.lock", "rust/gen_tables.py"] + ["rust/src/" + n for n in sorted(os.listdir(os.path.join(here, "rust", "src"))) if n.endswith(".rs")]:
+            os.makedirs(os.path.dirname(os.path.join(base, rel)), exist_ok=True)
+            shutil.copy(os.path.join(here, rel), os.path.join(base, rel))
+        guard_rs = os.path.join("rust", "src", "guard.rs")
+        assert b"\n" in open(os.path.join(base, guard_rs), "rb").read()
+
+        def write(path, data, mode=0o755):
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(path, "wb") as fh:
+                fh.write(data)
+            os.chmod(path, mode)
+
+        def manifest(root):
+            tool = load_manifest_tool(root)
+            code, _, err = tool.write_manifest(root)
+            assert code == 0, err
+
+        def good(root, tgt=target):
+            write(os.path.join(root, "bin", tgt, "murmuration"), launcher_body(root) + b"# stands in for the binary\n")   # not the launcher's bytes: an install that replaces it by the launcher shows
+
+        def fresh(name, setup=None):
+            """A copy of base with the good binary and its manifest; `setup` mutates it before or after the manifest is written."""
+            root = os.path.join(tmp, name)
+            shutil.copytree(base, root)
+            good(root)
+            manifest(root)
+            return root
+
+        # positive control: nothing doubts it, and install() puts the binary in place
+        root = fresh("control")
+        assert doubt(root, target) is None, doubt(root, target)
+        state, reason = install(root, os.path.join(tmp, "control-data"), target)
+        assert (state, reason) == ("binary", None), (state, reason)
+        assert open(os.path.join(tmp, "control-data", "bin", "murmuration"), "rb").read() == launcher_body(root) + b"# stands in for the binary\n"
+        assert doubt(root, None).startswith("no binary is built for this platform")
+
+        def flip(path):
+            data = bytearray(open(path, "rb").read())
+            data[len(data) // 2] ^= 0x01
+            write(path, bytes(data))
+
+        def m_sources(root):
+            flip(os.path.join(root, guard_rs))
+
+        def m_binary(root):
+            flip(os.path.join(root, "bin", target, "murmuration"))
+
+        def m_entry(root):
+            path = os.path.join(root, "bin", "manifest.json")
+            m = json.load(open(path))
+            del m["binaries"][target]
+            write(path, json.dumps(m).encode(), 0o644)
+
+        def m_crlf(root):
+            path = os.path.join(root, guard_rs)
+            write(path, open(path, "rb").read().replace(b"\n", b"\r\n"))
+
+        def m_extra(root):   # a binary under a target the manifest does not list
+            good(root, other)
+
+        def m_missing(root):
+            os.remove(os.path.join(root, "bin", target, "murmuration"))
+
+        def m_guard(root):
+            path = os.path.join(root, "scripts", "permission_guard.py")
+            write(path, open(path, "rb").read() + b"\n# edited\n")
+
+        def m_stale_old_manifest(root):   # a binary rebuilt from other sources, the manifest still describing the old ones
+            write(os.path.join(root, "bin", target, "murmuration"), b"#!/bin/sh\nexit 0\n")
+
+        def m_stale_new_manifest(root):   # manifest regenerated over the new sources, binary not rebuilt: every hash agrees, only the self-test can tell
+            write(os.path.join(root, "bin", target, "murmuration"), b"#!/bin/sh\nexit 0\n")
+            manifest(root)
+
+        def m_stale_hooks(root):   # decides like permission_guard.py, but not like the budget and hand-back scripts
+            write(os.path.join(root, "bin", target, "murmuration"), launcher_body(root).replace(b"budget|handback) exec", b"budget|handback) exit 0 ; exec"))
+            manifest(root)
+
+        cases = [("sources", m_sources, "Rust sources changed since the binaries were built (rust/src/guard.rs)"),
+                 ("binary", m_binary, "does not match its hash"),
+                 ("entry", m_entry, "lists no binary for " + target),
+                 ("crlf", m_crlf, "only in their line endings (CRLF: rust/src/guard.rs)"),
+                 ("extra", m_extra, "bin/ holds a binary for %s that bin/manifest.json does not list" % other),
+                 ("missing", m_missing, "is missing"),
+                 ("guard", m_guard, "scripts/permission_guard.py changed since the binaries were built"),
+                 ("stale_old", m_stale_old_manifest, "does not match its hash"),
+                 ("stale_new", m_stale_new_manifest, "the binary's decision differs from the Python script on the self-test payload"),
+                 ("stale_hooks", m_stale_hooks, "the binary's `budget/handback` differs from the Python script on the self-test")]
+        reasons = {}
+        for name, mutate, want in cases:
+            root = fresh(name)
+            data = os.path.join(tmp, name + "-data")
+            if name in ("sources", "stale_new"):   # a good install first: the mutation must replace it (each install runs both self-tests, so not for every case)
+                assert install(root, data, target) == ("binary", None), name
+            mutate(root)
+            state, reason = install(root, data, target)
+            assert state == "launcher" and reason is not None and want in reason, (name, state, reason)
+            assert open(os.path.join(data, "bin", "murmuration"), "rb").read() == launcher_body(root) and not os.path.exists(os.path.join(data, "bin", ".verified")), name
+            if name.startswith("stale"):
+                d = doubt(root, target)
+                assert (d is None) == (name in ("stale_new", "stale_hooks")), (name, d)   # the old manifest is caught by a hash; the regenerated one only by the self-tests
+            reasons[name] = reason
+        assert len(set(reasons[n] for n in ("sources", "binary", "entry", "crlf", "extra", "missing", "guard", "stale_new", "stale_hooks"))) == 9, reasons   # each its own reason
+    print("selftest install_binary: ok (%d mutations)" % len(cases))
+    return 0
+
+
 def main():
+    if "--selftest" in sys.argv[1:]:
+        return selftest()
     root, data = os.environ.get("CLAUDE_PLUGIN_ROOT"), os.environ.get("CLAUDE_PLUGIN_DATA")
     if not root or not data:
         sys.stderr.write("murmuration install: CLAUDE_PLUGIN_ROOT or CLAUDE_PLUGIN_DATA is not set; the permission guard binary is not installed and Bash calls will be blocked\n")
