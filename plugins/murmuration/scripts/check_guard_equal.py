@@ -45,20 +45,20 @@ def make_arena(root, exists_py):
     shutil.rmtree(T, ignore_errors=True)
     for d in ("h6", "scripts", "out", "decoy/.claude"):
         os.makedirs(os.path.join(T, d))
-    sh = lambda rev, p: subprocess.run(["git", "-C", REPO, "show", rev + ":" + p], capture_output=True, text=True, check=True).stdout
+    sh = lambda rev, p: subprocess.run(["git", "-C", REPO, "show", rev + ":" + p], capture_output=True, text=True, check=True, encoding="utf-8").stdout
     src, incident = sh("071fc53", "scripts/handback.py"), sh("c4aaebb", "__instrumenta__/w06c3_run_all.py")
-    open(T + "/h6/handback.py", "w").write(src)
-    open(T + "/h6/permission_guard.py", "w").write(sh("071fc53", "scripts/permission_guard.py"))
-    open(T + "/scripts/hello.py", "w").write("print('hello')\n")
-    open(T + "/scripts/exists.py", "w").write(exists_py)
-    open(T + "/scripts/exists.sh", "w").write("echo ok\n")
+    open(T + "/h6/handback.py", "w", encoding="utf-8").write(src)
+    open(T + "/h6/permission_guard.py", "w", encoding="utf-8").write(sh("071fc53", "scripts/permission_guard.py"))
+    open(T + "/scripts/hello.py", "w", encoding="utf-8").write("print('hello')\n")
+    open(T + "/scripts/exists.py", "w", encoding="utf-8").write(exists_py)
+    open(T + "/scripts/exists.sh", "w", encoding="utf-8").write("echo ok\n")
     return T, src, incident
 
 
 def registered_events(T, src, incident):
     out = []
     for name in ("e3_attacks", "e3_ordinary", "e3_mention", "e3_evasions", "e3v1_cases", "e3v2_cases", "e3v3_cases", "windows_paths"):
-        for c in json.loads(open("%s/%s.json" % (LISTS, name)).read().replace("{T}", T)):
+        for c in json.loads(open("%s/%s.json" % (LISTS, name), encoding="utf-8").read().replace("{T}", T)):
             inp = c.get("input")
             if inp:
                 inp = {k: (incident if v == "{INCIDENT}" else src if v == "{HANDBACK}" else v) for k, v in inp.items()}
@@ -70,7 +70,7 @@ def recorded_events(folders, sample):
     rec, seen = [], set()
     for folder in folders:
         for f in sorted(glob.glob(folder + "/**/*.jsonl", recursive=True)):
-            for line in open(f, errors="replace"):
+            for line in open(f, errors="replace", encoding="utf-8"):
                 if '"tool_use"' not in line:
                     continue
                 try:
@@ -283,7 +283,17 @@ def run_one(args):
     return idx, name, res
 
 
+def _utf8_stdio():
+    """Hook JSON and reports are UTF-8 on every OS, whatever the locale: `python -I` ignores PYTHONUTF8 and PYTHONIOENCODING, and a Windows pipe is otherwise read and written in the ANSI code page."""
+    for stream, extra in ((sys.stdin, {}), (sys.stdout, {"newline": "\n"}), (sys.stderr, {"newline": "\n"})):
+        try:
+            stream.reconfigure(encoding="utf-8", **extra)
+        except (AttributeError, ValueError, OSError):
+            pass
+
+
 def main():
+    _utf8_stdio()
     ap = argparse.ArgumentParser()
     ap.add_argument("--rust", default=default_rust(), help="the murmuration binary to replay (default: the committed one for this host)")
     ap.add_argument("--python-guard", default=os.path.join(REPO, "scripts", "permission_guard.py"))
@@ -304,7 +314,7 @@ def main():
         a.fuzz, a.fuzz_write, a.recorded_sample = 300, 60, a.recorded_sample or 200
     work = a.out or tempfile.mkdtemp(prefix="guard_equal_")
     os.makedirs(work, exist_ok=True)
-    vocab = json.load(open(os.path.join(REPO, "rust", "tests", "fuzz_vocab.json")))
+    vocab = json.load(open(os.path.join(REPO, "rust", "tests", "fuzz_vocab.json"), encoding="utf-8"))
     T, src, incident = make_arena(work, vocab["arena_exists_py"])
     sets = {}
     sets["registered"] = registered_events(T, src, incident)
@@ -359,7 +369,7 @@ def main():
             bad += len(diffs[s])
     for x in slow:
         print("  STRESS %-28s python %6.2f s (rc %s)   rust %6.2f s (rc %s)" % (x[0], x[1], x[3], x[2], x[4]))
-    json.dump(diffs, open(os.path.join(work, "differences.json"), "w"), indent=1, default=str)
+    json.dump(diffs, open(os.path.join(work, "differences.json"), "w", encoding="utf-8"), indent=1, default=str)
     for s, d in diffs.items():
         for name, py, rs in d[:12]:
             print("  DIFF", s, name, "\n     py", repr(py)[:300], "\n     rs", repr(rs)[:300])

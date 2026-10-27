@@ -692,7 +692,7 @@ def g4_script(inp, cwd="", fl=HOST):
     elif "content" in inp:
         new, old = _hits(str(inp.get("content") or "")), []
         try:
-            with open(_nt_join(cwd or "", _nt_expanduser(p)) if fl == "nt" else posixpath.join(cwd or "", posixpath.expanduser(p)), errors="replace") as fh:
+            with open(_nt_join(cwd or "", _nt_expanduser(p)) if fl == "nt" else posixpath.join(cwd or "", posixpath.expanduser(p)), errors="replace", encoding="utf-8") as fh:
                 old = _hits(fh.read())
         except OSError:
             old = []
@@ -734,7 +734,7 @@ def run(raw, log=None):
         hit, tool = ("G?", "the guard could not read the event (%s)" % type(exc).__name__), None
     if log:
         try:
-            with open(log, "a") as fh:
+            with open(log, "a", encoding="utf-8", newline="\n") as fh:
                 fh.write(json.dumps(dict(tool=tool, what=what, decision="deny" if hit else "allow", group=hit[0] if hit else None)) + "\n")
         except OSError:
             pass
@@ -757,7 +757,7 @@ def selftest():
     def load(n):
         p = os.path.join(FIXTURES, "e3_%s.json" % n)
         try:
-            cases = json.loads(open(p).read().replace("{T}", T))
+            cases = json.loads(open(p, encoding="utf-8").read().replace("{T}", T))
         except (OSError, ValueError):
             missing.append(n)
             return []
@@ -779,11 +779,11 @@ def selftest():
         check("attack " + c["id"], decide(ev(c)))
     for c in load("ordinary"):
         check("ordinary " + c["id"], not decide(ev(c)))
-    holes = json.load(open(os.path.join(HERE, "guard_selftest_holes.json")))        # w08-c10: the forms that hid a flag after a substitution or behind an option of a wrapper, and controls
+    holes = json.load(open(os.path.join(HERE, "guard_selftest_holes.json"), encoding="utf-8"))        # w08-c10: the forms that hid a flag after a substitution or behind an option of a wrapper, and controls
     for c in holes:
         check("hole-form %s (%s)" % (c["id"], "deny" if c["deny"] else "allow"), bool(decide(dict(tool_name="Bash", tool_input={"command": c["command"]}, cwd=T))) == c["deny"])
     try:
-        windows = json.loads(open(os.path.join(FIXTURES, "windows_paths.json")).read())
+        windows = json.loads(open(os.path.join(FIXTURES, "windows_paths.json"), encoding="utf-8").read())
     except (OSError, ValueError):
         windows = []
     if len(windows) != WINDOWS_COUNT:
@@ -846,7 +846,17 @@ def selftest():
     return 0 if ok else 1
 
 
+def _utf8_stdio():
+    """Hook JSON and reports are UTF-8 on every OS, whatever the locale: `python -I` ignores PYTHONUTF8 and PYTHONIOENCODING, and a Windows pipe is otherwise read and written in the ANSI code page."""
+    for stream, extra in ((sys.stdin, {}), (sys.stdout, {"newline": "\n"}), (sys.stderr, {"newline": "\n"})):
+        try:
+            stream.reconfigure(encoding="utf-8", **extra)
+        except (AttributeError, ValueError, OSError):
+            pass
+
+
 def main():
+    _utf8_stdio()
     if "--selftest" in sys.argv:
         sys.exit(selftest())
     ans = run(sys.stdin.read(), os.environ.get("MURMURATION_GUARD_LOG"))

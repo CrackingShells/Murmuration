@@ -216,7 +216,7 @@ def build_index(root):
                 "of each file")
     try:
         out = subprocess.run([exe, "init", "-y", "--color", "never", os.path.abspath(root)], capture_output=True,
-                             text=True, errors="replace", timeout=INDEX_TIMEOUT)
+                             text=True, errors="replace", timeout=INDEX_TIMEOUT, encoding="utf-8")
     except (OSError, subprocess.SubprocessError) as err:
         return "colgrep index not built (%s); a first search builds it" % type(err).__name__
     if out.returncode != 0:
@@ -353,9 +353,9 @@ def selftest():
         # Shared settings are never written; pre-existing personal settings are merged, not replaced.
         os.makedirs(os.path.join(proj, ".claude"))
         shared_text = json.dumps({"model": "opus", "permissions": {"allow": ["Read"]}})
-        with open(os.path.join(proj, SHARED_SETTINGS), "w") as fh:
+        with open(os.path.join(proj, SHARED_SETTINGS), "w", encoding="utf-8") as fh:
             fh.write(shared_text)
-        with open(os.path.join(proj, LOCAL_SETTINGS), "w") as fh:
+        with open(os.path.join(proj, LOCAL_SETTINGS), "w", encoding="utf-8") as fh:
             json.dump({"env": {"A": "1"}, "permissions": {"allow": ["Edit"], "deny": ["Bash(pkill:*)"]}}, fh)
         mode, done = run(proj, question)
         assert mode == "init", mode
@@ -396,12 +396,12 @@ def selftest():
             case_parent = os.path.join(tmp, "indexed-parent")
             case_lab = os.path.join(case_parent, "lab")
             os.makedirs(case_lab)
-            with open(os.path.join(case_parent, "a.py"), "w") as fh:
+            with open(os.path.join(case_parent, "a.py"), "w", encoding="utf-8") as fh:
                 fh.write("def f(): pass\n")
             fresh_line = build_index(case_parent)  # a folder with no index: one is built
             print("SELFTEST fresh index:      " + fresh_line)
             assert fresh_line.startswith("built the colgrep index of the lab"), fresh_line
-            with open(os.path.join(case_lab, "b.py"), "w") as fh:
+            with open(os.path.join(case_lab, "b.py"), "w", encoding="utf-8") as fh:
                 fh.write("def g(): pass\n")
             joined_line = build_index(case_lab)  # a lab inside the indexed folder: its index is used
             print("SELFTEST lab in a parent:  " + joined_line)
@@ -417,10 +417,10 @@ def selftest():
                               ("data/derived/walk_table.py", '"""Walks log files and tallies lines per file."""\ndef walk3(): pass\n'),
                               ("notes/walk_notes.md", "# notes\nWalks log files and tallies lines per file.\n")):
                 os.makedirs(os.path.dirname(os.path.join(proj, rel)), exist_ok=True)
-                with open(os.path.join(proj, rel), "w") as fh:
+                with open(os.path.join(proj, rel), "w", encoding="utf-8") as fh:
                     fh.write(text)
             hit = subprocess.run(["colgrep", "search", "walks log files and tallies lines per file", "-k", "50", "-l", "--color", "never", proj],
-                                 capture_output=True, text=True).stdout
+                                 capture_output=True, text=True, encoding="utf-8").stdout
             listed = {os.path.relpath(x.strip(), os.path.realpath(proj)) for x in hit.splitlines() if x.strip()}
             assert {"__instrumenta__/walk_logs.py", "notes/walk_notes.md", "data/derived/walk_table.py", "notes/check.txt"} <= listed, hit
             assert not any(x.startswith(("__statera__/handbacks", "data/raw")) for x in listed), hit
@@ -431,7 +431,7 @@ def selftest():
         # colgrep output that is not UTF-8 must not stop the init (a ValueError would read as bad settings)
         fake_bin = os.path.join(tmp, "fake-bin")
         os.makedirs(fake_bin)
-        with open(os.path.join(fake_bin, "colgrep"), "w") as fh:
+        with open(os.path.join(fake_bin, "colgrep"), "w", encoding="utf-8") as fh:
             fh.write("#!/bin/sh\nprintf '\\377\\376 odd' >&2\n")
         os.chmod(os.path.join(fake_bin, "colgrep"), 0o755)
         save_path = os.environ["PATH"]
@@ -468,7 +468,7 @@ def selftest():
         _, done = run(proj, "restore the instruments")
         assert os.path.isdir(os.path.join(proj, "__instrumenta__")) and load(os.path.join(proj, IGNORE_FILE)) == IGNORE_BLOCK
         assert "created __instrumenta__/" in done and any(d.startswith("wrote .ignore") for d in done), done
-        with open(os.path.join(proj, IGNORE_FILE), "w") as fh:
+        with open(os.path.join(proj, IGNORE_FILE), "w", encoding="utf-8") as fh:
             fh.write("mine/")
         ensure_ignore(proj)
         ensure_ignore(proj)
@@ -486,14 +486,14 @@ def selftest():
         _, done = run(proj, "and another one")
         assert load(os.path.join(proj, LOCAL_SETTINGS)) == before_text and not any("settings" in d for d in done), done
         # A different agent is kept and reported on append too; invalid settings stop before the append.
-        with open(os.path.join(proj, LOCAL_SETTINGS), "w") as fh:
+        with open(os.path.join(proj, LOCAL_SETTINGS), "w", encoding="utf-8") as fh:
             json.dump({"agent": "mine"}, fh)
         _, done = run(proj, "with another agent")
         assert json.loads(load(os.path.join(proj, LOCAL_SETTINGS)))["agent"] == "mine"
         assert any("kept the existing" in d for d in done), done
         assert json.loads(load(os.path.join(proj, LOCAL_SETTINGS)))["permissions"]["deny"] == DENY
         words_before = load(os.path.join(proj, "__statera__", "user_words.md"))
-        with open(os.path.join(proj, LOCAL_SETTINGS), "w") as fh:
+        with open(os.path.join(proj, LOCAL_SETTINGS), "w", encoding="utf-8") as fh:
             fh.write("{broken")
         try:
             run(proj, "never recorded")
@@ -501,19 +501,19 @@ def selftest():
         except ValueError:
             pass
         assert load(os.path.join(proj, "__statera__", "user_words.md")) == words_before
-        with open(os.path.join(proj, LOCAL_SETTINGS), "w") as fh:
+        with open(os.path.join(proj, LOCAL_SETTINGS), "w", encoding="utf-8") as fh:
             json.dump({"agent": AGENT, "permissions": {"deny": list(DENY)}}, fh)
         # A different `agent`, in either settings file, is kept and reported.
         other = os.path.join(tmp, "other")
         os.makedirs(os.path.join(other, ".claude"))
-        with open(os.path.join(other, LOCAL_SETTINGS), "w") as fh:
+        with open(os.path.join(other, LOCAL_SETTINGS), "w", encoding="utf-8") as fh:
             json.dump({"agent": "mine"}, fh)
         _, done = run(other, "q")
         assert json.loads(load(os.path.join(other, LOCAL_SETTINGS)))["agent"] == "mine"
         assert any("kept the existing" in d for d in done), done
         team = os.path.join(tmp, "team")
         os.makedirs(os.path.join(team, ".claude"))
-        with open(os.path.join(team, SHARED_SETTINGS), "w") as fh:
+        with open(os.path.join(team, SHARED_SETTINGS), "w", encoding="utf-8") as fh:
             json.dump({"agent": "team-lead"}, fh)
         _, done = run(team, "q")
         assert "agent" not in json.loads(load(os.path.join(team, LOCAL_SETTINGS)))
@@ -521,7 +521,7 @@ def selftest():
         # Invalid personal settings stop the init before anything is written.
         bad = os.path.join(tmp, "bad")
         os.makedirs(os.path.join(bad, ".claude"))
-        with open(os.path.join(bad, LOCAL_SETTINGS), "w") as fh:
+        with open(os.path.join(bad, LOCAL_SETTINGS), "w", encoding="utf-8") as fh:
             fh.write("{not json")
         try:
             run(bad, "q")
@@ -532,7 +532,7 @@ def selftest():
         # From scratch: no .claude folder at all, and a framing file the project already has is kept.
         fresh = os.path.join(tmp, "fresh")
         os.makedirs(os.path.join(fresh, "__design__"))
-        with open(os.path.join(fresh, "__design__", "framing.md"), "w") as fh:
+        with open(os.path.join(fresh, "__design__", "framing.md"), "w", encoding="utf-8") as fh:
             fh.write("my own framing\n")
         _, done = run(fresh, "q")
         assert json.loads(load(os.path.join(fresh, LOCAL_SETTINGS)))["agent"] == AGENT
@@ -556,7 +556,7 @@ def selftest():
         env = {k: v for k, v in os.environ.items() if k != "CLAUDE_PROJECT_DIR"}
         env["CLAUDE_CONFIG_DIR"] = os.path.join(tmp, "cfg0")  # so the plugin does not count as installed
         run_cli = lambda text: subprocess.run([sys.executable, os.path.abspath(__file__), "--project", cli],
-                                              input=text, capture_output=True, text=True, env=env)
+                                              input=text, capture_output=True, text=True, env=env, encoding="utf-8")
         out = run_cli("")
         assert out.returncode == 2 and not os.path.exists(os.path.join(cli, "__statera__"))
         out = run_cli("the question")
@@ -583,14 +583,24 @@ def selftest():
             else:
                 os.environ["CLAUDE_CONFIG_DIR"] = save
         nest = subprocess.run([sys.executable, os.path.abspath(__file__), "--project", deep], input="q",
-                              capture_output=True, text=True, env=env)
+                              capture_output=True, text=True, env=env, encoding="utf-8")
         assert nest.returncode == 4 and "a lab already exists in" in nest.stderr and nest.stdout == "", nest
         out = run_cli("another")
         assert out.returncode == 0 and "Question added" in out.stdout and "start a new" not in out.stdout, out
     print("PASS lab_init")
 
 
+def _utf8_stdio():
+    """Hook JSON and reports are UTF-8 on every OS, whatever the locale: `python -I` ignores PYTHONUTF8 and PYTHONIOENCODING, and a Windows pipe is otherwise read and written in the ANSI code page."""
+    for stream, extra in ((sys.stdin, {}), (sys.stdout, {"newline": "\n"}), (sys.stderr, {"newline": "\n"})):
+        try:
+            stream.reconfigure(encoding="utf-8", **extra)
+        except (AttributeError, ValueError, OSError):
+            pass
+
+
 def main(argv):
+    _utf8_stdio()
     if "--selftest" in argv:
         selftest()
         return 0
