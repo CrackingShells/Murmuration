@@ -1034,10 +1034,7 @@ fn read_old(cwd: &Cwd, p: &[u32]) -> Res<Option<Text>> {
     if bytes.contains(&0) {
         return Err(Fault::Value);
     }
-    let path = {
-        use std::os::unix::ffi::OsStringExt;
-        std::path::PathBuf::from(std::ffi::OsString::from_vec(bytes))
-    };
+    let path = crate::platform::path_from_bytes(bytes);
     Ok(std::fs::read(path).ok().map(|raw| text(&String::from_utf8_lossy(&raw))))
 }
 

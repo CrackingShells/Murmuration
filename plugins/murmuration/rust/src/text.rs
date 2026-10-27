@@ -274,12 +274,8 @@ pub(crate) fn expanduser(p: &[u32]) -> Text {
     if i != 1 {
         return p.to_vec();
     }
-    let home = match std::env::var_os("HOME") {
-        Some(h) => h.to_string_lossy().to_string(),
-        None => match std::env::home_dir() {
-            Some(h) => h.to_string_lossy().to_string(),
-            None => return p.to_vec(),
-        },
+    let Some(home) = crate::platform::home_dir() else {
+        return p.to_vec();
     };
     let mut home = text(&home);
     while at(&home, home.len().wrapping_sub(1)) == Some(cp('/')) {
