@@ -16,10 +16,10 @@ Portable crate, one target contract, a CI that owns `bin/`, and public-facing do
 ## Status
 ```mermaid
 graph TD
-    rust_portability[Rust portability by conditional compilation]:::planned
-    targets_contract[One binary naming and target contract]:::planned
-    ci_workflow[CI builds and commits the binaries]:::planned
-    readme_and_nest_prep[READMEs and the Nest entry]:::planned
+    rust_portability[Rust portability by conditional compilation]:::inprogress
+    targets_contract[One binary naming and target contract]:::inprogress
+    ci_workflow[CI builds and commits the binaries]:::inprogress
+    readme_and_nest_prep[READMEs and the Nest entry]:::inprogress
     next[Integration]:::planned
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
@@ -31,10 +31,10 @@ graph TD
 ## Nodes
 | Node | Type | Status |
 |:-----|:-----|:-------|
-| `rust_portability.md` | 📄 Leaf Task | ⬜ Planned |
-| `targets_contract.md` | 📄 Leaf Task | ⬜ Planned |
-| `ci_workflow.md` | 📄 Leaf Task | ⬜ Planned |
-| `readme_and_nest_prep.md` | 📄 Leaf Task | ⬜ Planned |
+| `rust_portability.md` | 📄 Leaf Task | 🔄 In Progress |
+| `targets_contract.md` | 📄 Leaf Task | 🔄 In Progress |
+| `ci_workflow.md` | 📄 Leaf Task | 🔄 In Progress |
+| `readme_and_nest_prep.md` | 📄 Leaf Task | 🔄 In Progress |
 | `next/` | 📁 Directory | ⬜ Planned |
 
 ## Amendment Log

@@ -32,8 +32,8 @@ First public release of Murmuration as a Claude Code plugin, a pure-dev cycle (n
 ## Status
 ```mermaid
 graph TD
-    relocate_plugin[Relocate the plugin into plugins/murmuration]:::inprogress
-    next[Portability, contracts, CI, docs]:::planned
+    relocate_plugin[Relocate the plugin into plugins/murmuration]:::done
+    next[Portability, contracts, CI, docs]:::inprogress
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
     classDef planned    fill:#374151,color:#e5e7eb
@@ -44,8 +44,8 @@ graph TD
 ## Nodes
 | Node | Type | Status |
 |:-----|:-----|:-------|
-| `relocate_plugin.md` | 📄 Leaf Task | 🔄 In Progress |
-| `next/` | 📁 Directory | ⬜ Planned |
+| `relocate_plugin.md` | 📄 Leaf Task | ✅ Done |
+| `next/` | 📁 Directory | 🔄 In Progress |
 
 ## Amendment Log
 | ID | Date | Source | Nodes Added | Rationale |
