@@ -15,7 +15,7 @@ Last step, by the coordinator with the user's go-aheads: switch the local sessio
 ## Status
 ```mermaid
 graph TD
-    publish[Switchover, push, CI binaries, Nest]:::planned
+    publish[Switchover, push, CI binaries, Nest]:::inprogress
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
     classDef planned    fill:#374151,color:#e5e7eb
@@ -26,7 +26,7 @@ graph TD
 ## Nodes
 | Node | Type | Status |
 |:-----|:-----|:-------|
-| `publish.md` | 📄 Leaf Task | ⬜ Planned |
+| `publish.md` | 📄 Leaf Task | 🔄 In Progress |
 
 ## Amendment Log
 | ID | Date | Source | Nodes Added | Rationale |
@@ -35,3 +35,4 @@ graph TD
 ## Progress
 | Node | Branch | Commits | Notes |
 |:-----|:-------|:--------|:------|
+| `publish.md` | `main` (coordinator) | b7f455d, 485d339 | Step 1 done 2026-10-28 on the user's "Start switchover": gitignored local marketplace source set to `./plugins/murmuration` (backup in the session scratchpad), `release/claude-code` merged into local `main` (485d339, not pushed), `claude plugin marketplace update murmuration-local` passed, `claude plugin list` reads the new path; stale ignored root `scripts/__pycache__` removed. Next: restart, then go-ahead #2 asked in the fresh session |

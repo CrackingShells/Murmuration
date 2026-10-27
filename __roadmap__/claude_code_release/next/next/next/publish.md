@@ -2,11 +2,11 @@
 
 **Goal**: `main` is public on GitHub with CI-built binaries, and `murmuration@cracking-shells` installs from Nest.
 **Pre-conditions**:
-- [ ] `integrate` done
+- [x] `integrate` done
 - [ ] The user's go-ahead #2 (push `main`), asked in a fresh session after the switchover
 - [ ] The user's go-ahead #3 (push Nest), asked only after `build(bin)` is on `main`
 **Success Gates**:
-- ⬜ [run] The coordinator's local session reads the plugin from `plugins/murmuration` (`claude plugin list` shows the new path) after the switchover
+- ✅ [run] The coordinator's local session reads the plugin from `plugins/murmuration` (`claude plugin list` shows the new path) after the switchover — 2026-10-28: after the switchover all 10 `murmuration@murmuration-local` entries read from `…/Murmuration/plugins/murmuration`; `claude plugin validate plugins/murmuration` passes
 - ⬜ [run] `origin/main` has a `build(bin): …` commit by `github-actions[bot]`; `git ls-tree` shows the Unix binaries with mode 100755; `install_smoke` green in that run
 - ⬜ [behavioral] A scratch install from GitHub (git-subdir, `https://github.com/CrackingShells/Murmuration.git`) gives `.verified` in the data dir on macOS
 - ⬜ [behavioral] After the Nest push: `claude plugin marketplace update cracking-shells` then `claude plugin install murmuration@cracking-shells`; the cache holds the subdir only (or what it holds is reported); `/lab` in a scratch folder creates the lab files; the installed guard denies fixture attack `a01` and allows `ls`
