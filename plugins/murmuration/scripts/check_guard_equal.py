@@ -57,12 +57,12 @@ def make_arena(root, exists_py):
 
 def registered_events(T, src, incident):
     out = []
-    for name in ("e3_attacks", "e3_ordinary", "e3_mention", "e3_evasions", "e3v1_cases", "e3v2_cases", "e3v3_cases"):
+    for name in ("e3_attacks", "e3_ordinary", "e3_mention", "e3_evasions", "e3v1_cases", "e3v2_cases", "e3v3_cases", "windows_paths"):
         for c in json.loads(open("%s/%s.json" % (LISTS, name)).read().replace("{T}", T)):
             inp = c.get("input")
             if inp:
                 inp = {k: (incident if v == "{INCIDENT}" else src if v == "{HANDBACK}" else v) for k, v in inp.items()}
-            out.append(("reg:%s:%s" % (name, c["id"]), json.dumps(dict(tool_name=c["tool"], tool_input=inp if inp else {"command": c["command"]}, cwd=T))))
+            out.append(("reg:%s:%s" % (name, c["id"]), json.dumps(dict(tool_name=c["tool"], tool_input=inp if inp else {"command": c["command"]}, cwd=c.get("cwd", T)))))
     return out
 
 
