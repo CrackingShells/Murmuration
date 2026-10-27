@@ -1,4 +1,10 @@
-# Builds the `murmuration` hook binary for five targets and checks each one on its own runner before it is uploaded.
+# Builds the `murmuration` hook binary on five runners, checks each against the Python guard, and commits bin/ back to main when everything agrees. Cases:
+# - main moves during the run: commit_back fetches origin/main, builds on that tip, commits only if the hashed sources (rust_sources_sha256, scripts_sha256) are unchanged, else exits 0 (the newer push runs its own build); it retries a rejected push 3 times.
+# - commit-back loop: the commit touches only plugins/murmuration/bin/**, outside the `push` paths filter, and a GITHUB_TOKEN push starts no workflow.
+# - token scope: contents: read everywhere; only commit_back has contents: write, and only on refs/heads/main; its concurrency group bin-commit serialises commits without cancelling one.
+# - an artefact under the wrong target name: assemble checks that each murmuration-<t> holds exactly <binary-name>, sources.sha256 and a file the `file` command reports as <t>'s architecture.
+# - Windows absent or faulty: assemble detects it from its artefact (missing, wrong name or type, other sources) and leaves it out with a warning; no continue-on-error. Any other target missing fails the job.
+# - a wrong-architecture binary: each build row checks `file` before upload (and assemble again); a runner label that moved to another architecture fails there.
 name: guard-binaries
 on:
   push:
