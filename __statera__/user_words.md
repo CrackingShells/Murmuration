@@ -512,3 +512,25 @@ Switching to plan mode to fix the blockers. My decisions:
 
 
 About the hooks binaries for Linux and Windows, we had mentioned several times to let github actions to it.
+
+## 2026-10-27 18:22
+
+Yes: create a private scratch repo for the CI dry run, push release/claude-code there, run the workflow by manual dispatch with commit_back=false, and delete the repo afterwards.
+
+## 2026-10-27 18:24
+
+> CI will build and commit murmuration.exe, but its path handling only understands /. A Windows build would therefore allow a write to C:\Users\u\.claude\settings.json that the Python guard denies.
+
+Dispatch a dedicated implementer in its worktree for reparing this hole.
+
+## 2026-10-27 18:55
+
+I deleted the repo myself just now
+
+## 2026-10-27 23:04
+
+Yes: add a leaf for the posix redirect gap (quoted paths with spaces, >|), with an implementer and a verifier, and land it before publish.
+
+## 2026-10-28 08:12
+
+Start switchover
