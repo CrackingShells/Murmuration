@@ -27,6 +27,8 @@ env:
 
 jobs:
   build:
+    # cargo test, an LTO release build and the ~75 s guard comparison take well under 15 min even on the slow runners; 30 leaves room without letting a hung row hold commit_back for GitHub's 6 h default
+    timeout-minutes: 30
     permissions:
       contents: read
     strategy:
@@ -35,11 +37,11 @@ jobs:
       matrix:
         include:
           # macos-14 is deprecated (unsupported from 2026-11-02, brownouts in October), so the arm64 Mac row is macos-15
-          - { os: macos-15, target: aarch64-apple-darwin, py: python3, filepat: 'Mach-O 64-bit.*arm64' }
-          - { os: macos-15-intel, target: x86_64-apple-darwin, py: python3, filepat: 'Mach-O 64-bit.*x86_64' }
-          - { os: ubuntu-22.04, target: x86_64-unknown-linux-gnu, py: python3, filepat: 'ELF 64-bit.*x86-64' }
-          - { os: ubuntu-22.04-arm, target: aarch64-unknown-linux-gnu, py: python3, filepat: 'ELF 64-bit.*ARM aarch64' }
-          - { os: windows-latest, target: x86_64-pc-windows-msvc, py: python, filepat: 'PE32\+ executable.*x86-64' }
+          - { os: macos-15, target: aarch64-apple-darwin, py: python3, filepat: '^Mach-O 64-bit.*arm64' }
+          - { os: macos-15-intel, target: x86_64-apple-darwin, py: python3, filepat: '^Mach-O 64-bit.*x86_64' }
+          - { os: ubuntu-22.04, target: x86_64-unknown-linux-gnu, py: python3, filepat: '^ELF 64-bit.*x86-64' }
+          - { os: ubuntu-22.04-arm, target: aarch64-unknown-linux-gnu, py: python3, filepat: '^ELF 64-bit.*ARM aarch64' }
+          - { os: windows-latest, target: x86_64-pc-windows-msvc, py: python, filepat: '^PE32\+ executable.*x86-64' }
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -91,6 +93,7 @@ jobs:
     needs: build
     if: ${{ !cancelled() }}
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
     permissions:
       contents: read
     defaults:
@@ -102,18 +105,31 @@ jobs:
         with:
           pattern: murmuration-*
           path: artifacts
+      # the target list is written in the matrix, in ALL_TARGETS and in the patterns below; this ties ALL_TARGETS (and the pattern table) to the contract's
+      - name: ALL_TARGETS equals build_manifest.ALL_TARGETS
+        run: |
+          python3 -I -c '
+          import os, sys
+          sys.path.insert(0, os.path.join(os.environ["PLUGIN"], "scripts"))
+          from build_manifest import ALL_TARGETS
+          mine = os.environ["ALL_TARGETS"].split()
+          if sorted(mine) != sorted(ALL_TARGETS) or len(mine) != len(set(mine)):
+              print("::error::workflow ALL_TARGETS %s differs from build_manifest.ALL_TARGETS %s" % (mine, ALL_TARGETS))
+              sys.exit(1)
+          '
       - name: Assemble bin/ from the artefacts and write the manifest
         run: |
           set -euo pipefail
           want_hash=$(python3 -I "$PLUGIN/scripts/build_manifest.py" sources-hash)
-          # what `file` must say for each triple; keep in step with the matrix of `build`
+          # what `file` must say for each triple; a universal Mach-O starts with "Mach-O universal" and so fails these; keep in step with the matrix of `build`
           pattern() {
             case "$1" in
-              aarch64-apple-darwin) echo 'Mach-O 64-bit.*arm64' ;;
-              x86_64-apple-darwin) echo 'Mach-O 64-bit.*x86_64' ;;
-              x86_64-unknown-linux-gnu) echo 'ELF 64-bit.*x86-64' ;;
-              aarch64-unknown-linux-gnu) echo 'ELF 64-bit.*ARM aarch64' ;;
-              x86_64-pc-windows-msvc) echo 'PE32\+ executable.*x86-64' ;;
+              aarch64-apple-darwin) echo '^Mach-O 64-bit.*arm64' ;;
+              x86_64-apple-darwin) echo '^Mach-O 64-bit.*x86_64' ;;
+              x86_64-unknown-linux-gnu) echo '^ELF 64-bit.*x86-64' ;;
+              aarch64-unknown-linux-gnu) echo '^ELF 64-bit.*ARM aarch64' ;;
+              x86_64-pc-windows-msvc) echo '^PE32\+ executable.*x86-64' ;;
+              *) echo "::error::no file pattern for $1" >&2; echo 'NO PATTERN' ;;
             esac
           }
           failed=0
@@ -161,6 +177,7 @@ jobs:
 
   install_smoke:
     needs: assemble
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
@@ -203,6 +220,7 @@ jobs:
 
   commit_back:
     needs: install_smoke
+    timeout-minutes: 10
     # a push to main, or a dispatch on main that asked for it; never from another branch
     if: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.commit_back)) }}
     runs-on: ubuntu-24.04
@@ -246,6 +264,7 @@ jobs:
             fi
             git checkout -q -f -B main "$tip"
             rm -rf "${PLUGIN:?}"/bin/*/
+            mkdir -p "$PLUGIN/bin"
             for d in "$ASSEMBLED"/*/; do cp -R "${d%/}" "$PLUGIN/bin/"; done
             find "$PLUGIN/bin" -mindepth 2 -type f ! -name '*.exe' -exec chmod +x {} +
             python3 -I "$PLUGIN/scripts/build_manifest.py" --expect-targets "$want"
