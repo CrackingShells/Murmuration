@@ -31,6 +31,17 @@ Redirections (leaf posix_redirects): the targets of a command's redirections are
 reads a `>` inside quotes, which only makes the guard stricter, and it stays. The new one is `redirect_targets`: it finds each output operator outside quotes (`>`, `>>`, `>|`, `&>`, `&>>`, `N>`, `N>>`, `N>|`, `>&` followed by a word that is not a number or `-`, `<>`) and takes the next
 shell word with its quotes removed as bash removes them (`'..'`, `".."`, `$'..'` with its escapes, `$".."`, a backslash), so that a quoted target with a space, a backslash-escaped space, a target in pieces and an ANSI-C name are seen. A word that still holds a `$` or a backtick
 is an unknown target and goes to `protected` as written, as before. The splitter cuts at the `|` of `>|` as it always did; when a segment ends in `>` the command is also split with `>|` whole (`expand(clobber=True)`) and that reading is checked for G3 as well.
+Gaps after the redirections (leaf posix_gaps), each reading added after the older ones, so a command denied before is denied for the same reason: a second pass over the commands that also reads each word with ANSI-C quoting removed (`bash -c $'..'`, `eval $'..'`: shlex does not
+know `$'..'`) and descends into shell strings to depth 8 (a deeper one in a command that names a settings file is denied: it cannot be read); a shell that reads its script from its input (`.. | sh`, `bash -s`, a here-doc, here-string or `<` to a shell with no `-c` and no script file) in a command that names a settings file
+is denied (the script cannot be read in general); a redirect target or writer argument that the guard cannot expand (it holds `$` or a backtick, read as the whole word with nested quotes and substitutions: `"${F:-"a b"}"`, `$(echo ..)`) is denied when its text names a settings file, or when the command assigns a value naming
+one with its folder (`F=.claude/settings.json`; also `export`, `declare`, `local`, `readonly`, `for F in ..`; a name alone, `B=settings.json`, is a piece); a target that holds `*`, `?` or `[` is denied when, read as a glob, it could match a settings file (`.claude/settings.j*`, `.cl*/settings.json`, `*.json` in a `.claude` folder; a glob that starts with `*` counts only when the rest could begin at `managed-settings`, `-settings` or `settings`, so `*.log` and `build/*.o` are allowed). A name built from pieces, base64 or a file's contents stays accepted.
+Round 2 of the same leaf: the gap readings also take the commands with `>|` whole (`>|`, `N>|`, `&>|`, `<>` are output operators); a double-quoted -c string is read with `\$(` and `\`` unescaped as bash does; the shell that reads a script not in the command text is
+widened (`ash mksh yash posh rbash fish csh tcsh`, `busybox` as a wrapper, `| $SHELL` and `| $0` and the other variables that name a shell, `sh /dev/stdin`, `/dev/fd/0`, `/proc/self/fd/0`, `sh -`, `sh<<<..`, a process substitution given to a shell or to `source` / `.`, an unknown -c string or `eval` of one);
+an unknown target that names `settings.json` is denied only when `.claude` is in its text or is assigned (`D=~/.claude; echo x > $D/settings.json`), so `$HOME/.vscode/settings.json` and `$OUT/appsettings.json` stay allowed; a NUL in the path of a Write/Edit/MultiEdit/NotebookEdit is denied (G?).
+Round 3 of the same leaf: an unknown target that names `settings.json` is also denied when the working directory (the event's, or one a `cd` / `pushd` reached) is a `.claude` folder, when a `cd` goes to `$CLAUDE_CONFIG_DIR`, and when the target holds `$CLAUDE_CONFIG_DIR` (the variable that moves the folder); and a Write/Edit/MultiEdit/NotebookEdit input has its own, higher cap (WRITE_MAX_CHARS).
+Round 4 of the same leaf: `cd` and `pushd` are followed past their options (`-L -P -e -@`, `--`) and through `builtin` (`command` was already skipped); an unknown `cd` target whose last name is `.claude` (`$HOME/.claude`) puts the commands after it in a `.claude` folder; and a command with substitutions, which `expand` lists as written and then with the substitutions masked, is read a second time with the masked listing starting in the directory where the first started (a relative `cd` was applied by both).
+The work is bounded by named caps, the same in both guards and well above the real maximum: WORK (one budget for all the readings of a command: text scanned while masking substitutions, a text read costs TEXT_COST more; the second pass adds SUBST_COST for each character of a substitution's inside it keeps, STR_COST for each character of a shell string it descends into and SEG_COST for each simple command, once in every reading), CWD_MAX (a `cd` chain's directory) and CWD_WORK (commands times the length of their directory); over a cap the command is denied "too complex to be checked".
+A command that holds a NUL (a shell cannot receive one) is denied, and so is a Bash command longer than MAX_CHARS characters, or a Write/Edit/MultiEdit/NotebookEdit input longer than WRITE_MAX_CHARS ("too long to be checked", like TooComplex): the guard is a process that Claude Code stops after a timeout, and what a timeout does depends on its version. The two caps differ because the two readings do: a command is parsed, a file's text is only searched for the bypass words.
 Flavours: every path and program-name decision takes a flavour, "posix" or "nt", chosen by the OS this runs on (os.name) and passed explicitly by the selftest, which runs both on any host
 (fixtures/guard_lists/windows_paths.json holds the expected decision of each case under each; the Rust port reads the same file). posix is the reading of before: `/` separates, a backslash is a filename
 character, names are case-sensitive. nt reads a path as Windows resolves it, written out in `_nt_*` (not ntpath): `/` and `\` both separate; the prefixes `\\?\`, `\\.\`, `\??\` and `UNC\` are cut off; `C:x` is drive-relative (the
@@ -44,6 +55,7 @@ Only a managed setting (`disableBypassPermissionsMode`) holds against those; a p
 
 Optional: with MURMURATION_GUARD_LOG set to a file, each run appends one JSON line (the test of w06-c7 counts spawns with it).
 """
+import functools
 import json
 import os
 import posixpath
@@ -58,9 +70,9 @@ MSG = ("permission_guard (%s): %s. Skipping or loosening Claude Code's permissio
 BYPASS = re.compile(r"(?i)bypassPermissions|(?:--permission-mode|defaultMode)\W+bypass|dangerously-skip|--(?:allow-)?dangerously|skipDangerousModePermissionPrompt")
 INERT = {"grep", "egrep", "fgrep", "rg", "jq", "wc", "head", "tail", "cat", "ls", "diff", "sort", "uniq", "cut", "tr", "nl", "less"}
 GIT_INERT = {"log", "grep", "show", "diff", "status", "blame", "shortlog"}
-WRAP = {"env", "command", "nohup", "exec", "time", "sudo", "nice", "ionice", "stdbuf", "xargs", "timeout", "gtimeout", "setsid", "caffeinate"}
+WRAP = {"env", "command", "nohup", "exec", "time", "sudo", "nice", "ionice", "stdbuf", "xargs", "timeout", "gtimeout", "setsid", "caffeinate", "busybox"}
 KEYWORDS = {"if", "then", "else", "elif", "do", "while", "until", "!", "{", "}", "fi", "done"}
-SHELLS = {"sh", "bash", "zsh", "dash", "ksh"}
+SHELLS = {"sh", "bash", "zsh", "dash", "ksh", "ash", "mksh", "yash", "posh", "rbash", "fish", "csh", "tcsh"}
 INTERP = re.compile(r"\b(?:python[\d.]*|node|ruby|perl|php|osascript|deno|bun)\b")
 INTERP_NT = re.compile(r"(?i)\b(?:python[\d.]*|node|ruby|perl|php|osascript|deno|bun)\b")
 NAMES_POSIX = re.compile(r"[^\s'\"=,()]*(?:managed-settings[^\s'\"),]*|settings(?:\.local)?\.json)")
@@ -135,7 +147,21 @@ def _nt_resolve(cwd, p, keep=False):
     if not isinstance(cwd, str):
         raise TypeError("cwd")
     cd, crooted, crest, _ = _nt_root(cwd)
-    return cd, crooted, _nt_walk(_nt_walk([], crooted, crest, keep), crooted, rest, keep)
+    return cd, crooted, _nt_walk(_nt_cwd(crooted, crest, keep), crooted, rest, keep)
+
+
+_NT_CWD = {}
+
+
+def _nt_cwd(crooted, crest, keep):
+    """The components of a working directory, as `_nt_walk([], ...)` folds them. A chain of commands reads the same directory again for every command, so the last few are kept (a speed-up only: the result is the same list)."""
+    k = (crooted, crest, keep)
+    v = _NT_CWD.get(k)
+    if v is None:
+        if len(_NT_CWD) >= 64:
+            _NT_CWD.clear()
+        v = _NT_CWD[k] = tuple(_nt_walk([], crooted, crest, keep))
+    return list(v)
 
 
 def _nt_str(drive, rooted, comps):
@@ -172,6 +198,7 @@ def expanduser(p, fl=HOST):
     return _nt_expanduser(p) if fl == "nt" else posixpath.expanduser(p)
 
 
+@functools.lru_cache(maxsize=8192)   # a speed-up only: a chain of commands names the same few programs again and again
 def prog_name(t, fl=HOST, exts=NT_EXE):
     """The name of the program word t: its basename. On nt the last component after `\\` or `/` (no drive, no `:stream`, no trailing dots or spaces), case-folded, without one of `exts` (default `.exe .cmd .bat .com .ps1`)."""
     if fl != "nt":
@@ -241,11 +268,17 @@ def split_segments(cmd, clobber=False):
     return segs
 
 
-def words(seg):
+@functools.lru_cache(maxsize=32)
+def _words(seg):
     try:
-        return shlex.split(seg, posix=True)
+        return tuple(shlex.split(seg, posix=True))
     except ValueError:
-        return seg.split()
+        return tuple(seg.split())
+
+
+def words(seg):
+    """The words of seg as shlex reads them (a plain split when a quote is left open). Cached: the readings of nt and of the second pass split the same text again, and shlex costs most of a long command's time."""
+    return list(_words(seg))
 
 
 # the options of each wrapper that take a value (short letters; long names, which getopt accepts as unique prefixes): the value is not the program
@@ -340,7 +373,11 @@ class TooComplex(Exception):
     """More characters scanned while masking command substitutions than WORK allows (a text scanned once costs its length; each nesting level scans its inside again): the command is denied rather than half checked."""
 
 
-WORK = 10000000
+WORK = 2000000      # 3.1x the work of the busiest command in the record (635512, one budget shared by both passes); 1e7 took 3 s to refuse a text of 9000 characters nested 3000 deep
+SUBST_COST = 3     # what each character of a substitution's inside costs besides the scan, in the second pass (the inside is kept in the masked text of every level that holds it, and split again by each: a text of 190000 characters nested 9 deep took 5 s)
+STR_COST = 5       # what each character of a shell string costs when `expand` descends into it (the string is split again, once for every pass and level: 190000 characters under `sh -c` nested 4 deep took 2 s)
+SEG_COST = 15      # what each simple command costs, once in every `expand` (every reading of G1 to G3 walks them: 47000 commands under one `$( )`, each with `>|`, took 3.7 s); the record's busiest command is 3471
+TEXT_COST = 400     # what each text that `_mask` reads costs besides its length (a command of 190000 characters can hold 47000 substitutions, each read and split by itself: 4 s); the record's most is 222 in one command, 5000 are read here
 
 
 def _heredoc(s, i):
@@ -432,9 +469,14 @@ def _spans(s, quotes, work):
     return spans, any(f[0] in "SD" for f in stack)
 
 
-def _mask(s, work, fl=HOST):
+_SQUASH = re.compile(r"[\s;&|<>()'\"`\\$*?\[]")
+
+
+def _mask(s, work, fl=HOST, keep=False):
     """(s with every outermost matched substitution replaced by one word, the insides that were replaced). The word is `claude` when the inside names claude (`$(which claude) --flag`), else `SUBST`. Single quotes and backslashes are respected
-    (as the plain splitter does, a quote left open makes the pass run again with quotes as ordinary characters); an unclosed substitution stays as it is."""
+    (as the plain splitter does, a quote left open makes the pass run again with quotes as ordinary characters); an unclosed substitution stays as it is. keep=True (the second pass, leaf posix_gaps): the word else is `SUBST_` and the inside with blanks, operators, quotes and glob
+    characters turned to `,`, so that a target `$(echo .claude/settings.json)` still shows the name; `claude` only when the inside does not name a settings file as well."""
+    work[0] += TEXT_COST
     spans, open_quote = _spans(s, True, work)
     if open_quote:
         spans, _ = _spans(s, False, work)
@@ -445,20 +487,26 @@ def _mask(s, work, fl=HOST):
             continue
         inner = s[a:b]
         out.append(s[prev:st])
-        out.append("claude" if _names_claude(fl).search(inner) else "SUBST")
+        if keep:
+            work[0] += SUBST_COST * len(inner)
+            if work[0] > WORK:
+                raise TooComplex()
+            out.append("claude" if _names_claude(fl).search(inner) and not _names_span(inner, fl) else "SUBST_" + _SQUASH.sub(",", inner))
+        else:
+            out.append("claude" if _names_claude(fl).search(inner) else "SUBST")
         inners.append(inner)
         prev = en
     out.append(s[prev:])
     return "".join(out), inners
 
 
-def substitution_texts(cmd, work, fl=HOST):
+def substitution_texts(cmd, work, fl=HOST, keep=False):
     """The texts to split in addition to cmd itself: cmd and the inside of each of its substitutions (nested ones too), each with its own substitutions replaced by one word. Empty when cmd has none."""
     if "$(" not in cmd and "`" not in cmd and "<(" not in cmd and ">(" not in cmd:
         return []
     texts, queue = [], [cmd]
     while queue:
-        m, inners = _mask(queue.pop(0), work, fl)
+        m, inners = _mask(queue.pop(0), work, fl, keep)
         texts.append(m)
         queue += inners
     return texts if len(texts) > 1 or texts[0] != cmd else []
@@ -487,34 +535,70 @@ def _shell_script(toks, i):
     return None
 
 
-def expand(cmd, depth=0, work=None, fl=HOST, clobber=False):
+_VAR_WORD = re.compile(r"\$(?:\w+|\{\w+\})")
+_SHELL_VAR = re.compile(r"\$(?:(?:0|SHELL|BASH|ZSH|SH|DASH|KSH)|\{(?:0|SHELL|BASH|ZSH|SH|DASH|KSH)\})")   # the variables that name a shell: `| $SHELL`, `| $0`
+
+
+def _dq_unescape(st):
+    """st with the backslash removed in front of a `$` or a backtick: bash does so in a double-quoted word, and shlex leaves it, so `sh -c "echo x > \\$(echo f)"` hands the shell a real substitution that the word shlex returns does not show."""
+    return re.sub(r"\\([$`])", r"\1", st)
+
+
+COPY_OPEN, COPY_NEXT, COPY_CLOSE = ("\0open", []), ("\0copy", []), ("\0close", [])     # marks in the list `expand` returns (a NUL is never in a command that is read): a command with substitutions is listed as written, then with its substitutions masked, so the second listing starts again where the first started
+COPY_MARKS = frozenset((COPY_OPEN[0], COPY_NEXT[0], COPY_CLOSE[0]))
+
+
+def expand(cmd, depth=0, work=None, fl=HOST, clobber=False, ansi=False, limit=3, deep=None):
     """Every simple command (list of words) of cmd, descending into `sh -c '...'`, `eval '...'` and `env -S '...'` strings (depth 3). The simple commands of the plain splitter come first, in order; then those of
     the command and of each substitution inside it with the substitutions replaced by one word (so that `claude -p "$(cat f)" --flag` is also seen as `claude -p "SUBST" --flag`). clobber=True is the reading in which `>|` is
-    one operator (see split_segments); decide makes it in addition to the plain one, never instead of it. Raises TooComplex."""
+    one operator (see split_segments); decide makes it in addition to the plain one, never instead of it. ansi=True also reads a command whose text holds `$'` or `$"` with its words as bash removes the quotes (`_ansi_words`: the string of `bash -c $'..'`),
+    and `limit` is the depth the strings are followed to; when a string lies deeper, one item is added to the list `deep`. Raises TooComplex."""
     work = [0] if work is None else work
     out = []
     segs = split_segments(cmd, clobber)
-    for text in substitution_texts(cmd, work, fl):
+    first, texts = len(segs), substitution_texts(cmd, work, fl, ansi)
+    for text in texts:
         segs += split_segments(text, clobber)
-    for seg in segs:
+    work[0] += SEG_COST * len(segs)
+    if work[0] > WORK:
+        raise TooComplex()
+    if texts:
+        out.append(COPY_OPEN)
+    for si, seg in enumerate(segs):
+        if texts and si == first:
+            out.append(COPY_NEXT)               # the masked copy of the whole command starts here
         toks = words(seg)
-        out.append((seg, toks))
-        k, _, strings, _ = _scan(toks, fl)
-        if depth < 3:
-            for st in strings:
-                out += expand(" ".join([st] + toks[k:]), depth + 1, work, fl, clobber)
-        if depth < 3 and k < len(toks):
-            prog = prog_name(toks[k], fl)
-            if prog in SHELLS:
-                js = [toks.index("-c", k + 1) + 1] if "-c" in toks[k + 1:] else []      # the word after the first `-c`, as before
-                j = _shell_script(toks, k + 1)                                          # and the string of `-c` as the shell reads its options (`-lc`, `-c -x`, ...)
-                if j is not None and j not in js:
-                    js.append(j)
-                for j in js:
-                    if j < len(toks):
-                        out += expand(toks[j], depth + 1, work, fl, clobber)
-            elif prog == "eval":
-                out += expand(" ".join(toks[k + 1:]), depth + 1, work, fl, clobber)
+        variants = [toks]
+        if ansi and ("$'" in seg or '$"' in seg):
+            more = _ansi_words(seg)
+            if more != toks:
+                variants.append(more)
+        for toks in variants:
+            out.append((seg, toks))
+            k, _, strings, _ = _scan(toks, fl)
+            subs = [" ".join([st] + toks[k:]) for st in strings]
+            if k < len(toks):
+                prog = prog_name(toks[k], fl)
+                if prog in SHELLS or (ansi and _VAR_WORD.fullmatch(toks[k])):              # second pass: a program that is a variable (`$SHELL -c '..'`) may be a shell
+                    js = [toks.index("-c", k + 1) + 1] if "-c" in toks[k + 1:] else []      # the word after the first `-c`, as before
+                    j = _shell_script(toks, k + 1)                                          # and the string of `-c` as the shell reads its options (`-lc`, `-c -x`, ...)
+                    if j is not None and j not in js:
+                        js.append(j)
+                    subs += [toks[j] for j in js if j < len(toks)]
+                elif prog == "eval":
+                    subs.append(" ".join(toks[k + 1:]))
+                if ansi:                    # second pass: the string as the shell gets it from a double-quoted word, where `\$` and a backslash before a backtick are only escapes of the word
+                    subs += [u for u in (_dq_unescape(st) for st in subs) if u not in subs]
+            if depth < limit:
+                for st in subs:
+                    work[0] += STR_COST * len(st)
+                    if work[0] > WORK:
+                        raise TooComplex()
+                    out += expand(st, depth + 1, work, fl, clobber, ansi, limit, deep)
+            elif subs and deep is not None:
+                deep.append(depth)
+    if texts:
+        out.append(COPY_CLOSE)
     return out
 
 
@@ -624,7 +708,7 @@ def g2(cmd, segs, fl=HOST):
 
 def slashed(segs):
     """The simple commands read with every backslash a slash. A Windows path typed without quotes loses its backslashes when the shell reads the word (`C:\\a\\claude.exe` is `C:aclaude.exe`); on nt the commands are read a second time like this, so that the program or target is also seen as the path it was meant to be."""
-    return [(t, words(t)) for t in (sg.replace("\\", "/") for sg, _ in segs)]
+    return [(t, [] if t in COPY_MARKS else words(t)) for t in (sg.replace("\\", "/") for sg, _ in segs)]
 
 
 _ANSI_ESC = {"a": "\a", "b": "\b", "e": "\x1b", "E": "\x1b", "f": "\f", "n": "\n", "r": "\r", "t": "\t", "v": "\v", "\\": "\\", "'": "'", '"': '"', "?": "?"}
@@ -672,13 +756,13 @@ def _ansi_c(s, i):
     return "".join(out), n, False
 
 
-def _redirect_word(s, i):
+def _redirect_word(s, i, stop=" \t\n;&|<>()"):
     """(word, index after it, whether every quote in it was closed): the shell word at s[i:] with its quotes removed as bash removes them (`'...'`, `"..."` with a backslash before `$`, a backtick, `"` or a backslash only, `$'...'`, `$"..."`,
-    a backslash before any other character). The word ends at an unquoted blank, newline or one of `;&|<>()`. A `$` that remains makes the word one the guard cannot expand; it is passed on as written, as every other unknown target is."""
+    a backslash before any other character). The word ends at an unquoted character of `stop` (default: a blank, newline or one of `;&|<>()`). A `$` that remains makes the word one the guard cannot expand; it is passed on as written, as every other unknown target is."""
     out, n, closed = [], len(s), True
     while i < n:
         c = s[i]
-        if c in " \t\n;&|<>()":
+        if c in stop:
             break
         if c == "\\":
             if i + 1 < n and s[i + 1] != "\n":
@@ -783,28 +867,474 @@ def redirect_targets(seg):
     return out
 
 
-def g3_bash(cmd, segs, cwd, fl=HOST, script=True, redirects=False):
-    """redirects=False is the reading of before the leaf posix_redirects, unchanged; redirects=True tests only the targets of `redirect_targets` (and no script), so that a command denied before is denied for the same reason."""
-    hit = _g3_bash(cmd, segs, cwd, fl, script, False, redirects)
+def _word_end(s, i):
+    """The index after the shell word at s[i:], taken whole: a `$( )`, `${ }`, backtick pair or quote is skipped with whatever blanks and operators it holds (`"${F:-"a b"}"` is one word). One pass with a stack of what is open; an unclosed one runs to the end."""
+    n, stack = len(s), []
+    while i < n:
+        c, top = s[i], (stack[-1] if stack else "")
+        if c == "\\":
+            i += 2
+            continue
+        if top == '"':
+            if c == '"':
+                stack.pop()
+            elif c == "`":
+                stack.append("`")
+            elif s.startswith("$(", i) or s.startswith("${", i):
+                stack.append(")" if s[i + 1] == "(" else "}")
+                i += 1
+        elif top == "`":
+            if c == "`":
+                stack.pop()
+        elif c == "'":
+            j = s.find("'", i + 1)
+            if j < 0:
+                return n
+            i = j
+        elif c in '"`':
+            stack.append(c)
+        elif s.startswith("$'", i):
+            j = _quote_end(s, i)
+            if j < 0:
+                return n
+            i = j - 1
+        elif s.startswith("$(", i) or s.startswith("${", i):
+            stack.append(")" if s[i + 1] == "(" else "}")
+            i += 1
+        elif top == ")" and c == "(":
+            stack.append(")")
+        elif top and c == top:
+            stack.pop()
+        elif not top and c in " \t\n;&|<>()":
+            return i
+        i += 1
+    return n
+
+
+def _scan_spans(seg, quotes):
+    """(spans, a quote was left open): the text of the whole word (`_word_end`) after each output redirection operator that `_scan_redirects` finds, quotes and substitutions as written; the scan goes on after the word, so a text is read once."""
+    out, i, n, opn = [], 0, len(seg), False
+    while i < n:
+        m = _REDIR_SKIP.search(seg, i)
+        if not m:
+            break
+        i, c = m.start(), m.group(0)
+        if c == "\\":
+            i += 2
+        elif c in "'\"" or (c == "$" and seg.startswith("$'", i)):
+            if not quotes:
+                i += 1
+                continue
+            j = _quote_end(seg, i)
+            if j < 0:
+                opn = True
+                break
+            i = j
+        elif c == "<" and seg[i + 1:i + 2] != ">":
+            i += 1
+        elif c == "$":
+            i += 1
+        else:
+            j, dup = i + (2 if c == "<" else 1), False
+            nxt = seg[j:j + 1] if c == ">" else ""
+            if nxt in (">", "|"):
+                j += 1
+            elif nxt == "&":
+                j, dup = j + 1, True
+            while j < n and seg[j] in " \t\n":
+                j += 1
+            e = _word_end(seg, j)
+            w = seg[j:e]
+            k = 0
+            while k < len(w) and w[k] in _DIG:
+                k += 1
+            if w and not (dup and (w == "-" or (k > 0 and w[k:] in ("", "-")))):
+                out.append(w)
+            i = e
+    return out, opn
+
+
+def redirect_spans(seg):
+    """The words after the output redirection operators of seg, as written (see `_scan_spans`); a quote left open makes the scan run again with quotes as ordinary characters."""
+    out, opn = _scan_spans(seg, True)
+    if opn:
+        out += _scan_spans(seg, False)[0]
+    return out
+
+
+def _ansi_words(seg):
+    """The words of seg as bash reads them, quotes removed (`$'..'` and `$".."` too; blanks separate words): shlex does not know the ANSI-C form, so `bash -c $'..'` hands it a word that is not the string the shell runs."""
+    out, i, n = [], 0, len(seg)
+    while i < n:
+        if seg[i] in " \t\n":
+            i += 1
+            continue
+        w, i, _ = _redirect_word(seg, i, " \t\n")
+        out.append(w)
+    return out
+
+
+_GLOB = re.compile(r"[*?\[]")
+_SPAN_NAMES = re.compile(r"managed-settings|settings(?:\.local)?\.json(?![A-Za-z0-9_.\-])")
+_NAMES_ANY = re.compile(r"managed-settings|settings(?:\.local)?\.json")
+_SPAN_PATHS = re.compile(r"managed-settings|\.claude[/\\]+settings(?:\.local)?\.json(?![A-Za-z0-9_.\-])")
+
+
+def _names_span(t, fl):
+    """True when the text t names a settings file: `managed-settings`, or `settings.json` / `settings.local.json` not followed by a name character (so `settings.json}` and `settings.json"` count, `settings.json.bak` does not)."""
+    return bool(_SPAN_NAMES.search(nt_fold(t) if fl == "nt" else t))
+
+
+def _names_path(t, fl):
+    """True when the text t names a settings file with its folder (`.claude/settings.json`, `.claude/settings.local.json`) or is `managed-settings..`: the value of an assignment that makes a later `$F` target a settings file. `settings.json` alone is a piece (a name built from pieces stays accepted)."""
+    return bool(_SPAN_PATHS.search(nt_fold(t) if fl == "nt" else t))
+
+
+def _unquoted(t):
+    """t without its quote characters and backslashes (the text of a word that holds a substitution, read as it would be without the quoting)."""
+    return t.replace("'", "").replace('"', "").replace("\\", "")
+
+
+def _glob_tokens(p):
+    """The pattern p as shell filename patterns read it: `*` (runs collapse), `?`, a bracket expression `[..]` (with `!` or `^`, ranges; a class name `[:..:]` is any one character, an over-reading; an unclosed `[` is itself), any other character itself."""
+    out, i, n = [], 0, len(p)
+    last = p.rfind("]")         # the last closing bracket: a `[` after it is unclosed without a scan (a run of them would cost its length squared)
+    while i < n:
+        c = p[i]
+        if c == "*":
+            if not out or out[-1][0] != "*":
+                out.append(("*", None))
+        elif c == "?":
+            out.append(("?", None))
+        elif c == "[":
+            j = i + 1
+            neg = j < n and p[j] in "!^"
+            j += neg
+            k = j + 1 if j < n and p[j] == "]" else j
+            k = p.find("]", k) if k <= last else n
+            if k >= n:
+                out.append(("l", "["))
+            else:
+                body = p[j:k]
+                if "[:" in body or "[." in body or "[=" in body:
+                    out.append(("?", None))
+                else:
+                    rng, x = [], 0
+                    while x < len(body):
+                        if x + 2 < len(body) and body[x + 1] == "-":
+                            rng.append((body[x], body[x + 2]))
+                            x += 3
+                        else:
+                            rng.append((body[x], body[x]))
+                            x += 1
+                    out.append(("[", (neg, rng)))
+                i = k
+        else:
+            out.append(("l", c))
+        i += 1
+    return out
+
+
+def _glob_match(toks, s, prefix=False):
+    """True when the pattern toks matches the whole of s; with prefix=True, when it matches some text that starts with s (what follows s is free)."""
+    n = len(toks)
+
+    def close(states):
+        out = set(states)
+        for t in sorted(states):
+            while t < n and toks[t][0] == "*":
+                t += 1
+                out.add(t)
+        return out
+    cur = close({0})
+    for ch in s:
+        nxt = set()
+        for t in cur:
+            if t >= n:
+                continue
+            kind, v = toks[t]
+            if kind == "*":
+                nxt.add(t)
+            elif kind == "?" or (kind == "l" and v == ch):
+                nxt.add(t + 1)
+            elif kind == "[" and any(lo <= ch <= hi for lo, hi in v[1]) != v[0]:
+                nxt.add(t + 1)
+        cur = close(nxt)
+        if not cur:
+            return False
+    return bool(cur) if prefix else n in cur
+
+
+def _glob_managed(lt):
+    """True when the pattern lt could match a name that starts with `managed-settings`. A pattern that starts with `*` counts only when what follows it could start at `managed-settings`, `-settings` or `settings` (so `*.log` and `*.o` do not, `*settings*` does)."""
+    i = 0
+    while i < len(lt) and lt[i][0] == "*":
+        i += 1
+    if i == 0:
+        return _glob_match(lt, "managed-settings", True)
+    return i < len(lt) and any(_glob_match(lt[i:], s, True) for s in ("managed-settings", "-settings", "settings"))
+
+
+def _glob_protected(w, cwd, unknown_dir, fl=HOST, keep=False):
+    """True when the word w, read as a shell filename pattern, could match a settings file: its last component could be `managed-settings...`, or its folder component `managed-settings.d`, or its last component `settings.json` / `settings.local.json` in a folder `.claude`. Only the last two components
+    count, as in `protected`. The folder is the working directory's when w has no `/`, and any folder when it is unknown (`cd $X` was seen) or holds `$`, a backtick, `)` or `}`; a folder that is `.`, `..` or empty after a pattern is read as any. A folder pattern counts as `managed-settings.d` by the rule of `_glob_managed` (`*/x` does not), and where the folder is unknown a last component that starts with `*` does not count."""
+    nt = fl == "nt"
+    w = expanduser(w, fl)
+    if nt:
+        w = nt_fold(w.replace("\\", "/"))
+    if w.strip("/") == "":
+        return False
+    w = w.rstrip("/")
+    has_sep = "/" in w
+    dirpart, _, last = w.rpartition("/")
+    lt = _glob_tokens(last)
+    if _glob_managed(lt):
+        return True
+    named = any(_glob_match(lt, name) for name in SETTINGS_NAMES)
+    guess = named and lt[0][0] != "*"        # where the folder is not known, a name that starts with `*` is no sign (`cd $X; rm *`, `$O/*.json` are everyday commands)
+    dl = dirpart.rstrip("/").rpartition("/")[2]
+    if has_sep and (any(ch in dl for ch in "$`)}") or (_GLOB.search(dirpart) and dl in ("", ".", ".."))):
+        return guess        # the folder is not known: only the last component decides
+    if has_sep and _GLOB.search(dirpart):
+        dt = _glob_tokens(dl)
+        return _glob_managed(dt) or (named and _glob_match(dt, ".claude"))
+    if not has_sep and unknown_dir:
+        return guess
+    rel = dirpart + "/x" if has_sep else "x"
+    if nt:
+        comps = _nt_resolve(cwd or "", rel.replace("/", "\\"), keep)[2]
+        parent = nt_fold(comps[-2]) if len(comps) > 1 else ""
+    else:
+        parent = posixpath.basename(posixpath.dirname(posixpath.normpath(posixpath.join(cwd or "", rel))))
+    return parent == "managed-settings.d" or (named and parent == ".claude")
+
+
+_DIR_NAMED = re.compile(r"(?:^|[/\\])\.claude(?![A-Za-z0-9_.\-])")
+_CONFIG_DIR_VAR = "CLAUDE_CONFIG_DIR"      # the variable that relocates the `.claude` folder: a text that holds it names that folder
+
+
+def _names_config_dir(t, fl):
+    """True when the text t holds `$CLAUDE_CONFIG_DIR` in any form (`${CLAUDE_CONFIG_DIR:-..}`; on nt the name is read in any case)."""
+    return (_CONFIG_DIR_VAR.lower() in nt_fold(t)) if fl == "nt" else _CONFIG_DIR_VAR in t
+
+
+def _claude_dir(d, fl, keep=False):
+    """True when the directory d (the working directory of the event, or one `cd` reached) is a `.claude` folder: its last name is `.claude` (posix exactly, nt in any case and with trailing dots and spaces dropped)."""
+    if not isinstance(d, str) or not d:
+        return False
+    if fl == "nt":
+        comps = _nt_resolve("", d, keep)[2]
+        return bool(comps) and nt_fold(comps[-1]) == ".claude"
+    return posixpath.basename(posixpath.normpath(d)) == ".claude"
+
+
+def _assigns(segs, fl):
+    """(file, folder): a simple command assigns a value that names a settings file (`F=..`, in front of a command or after `export`, `declare`, `local`, `readonly`, or `for F in ..`), and one that assigns a value that names a `.claude` folder (`D=~/.claude`)."""
+    file = folder = False
+    for _, toks in segs:
+        vals = [t.split("=", 1)[1] for t in toks if ASSIGN.match(t)]
+        if toks[:1] == ["for"] and "in" in toks:
+            vals += toks[toks.index("in") + 1:]
+        for v in vals:
+            file = file or _names_path(v, fl)
+            folder = folder or bool(_DIR_NAMED.search(nt_fold(v) if fl == "nt" else v)) or _names_config_dir(v, fl)
+        if file and folder:
+            break
+    return file, folder
+
+
+_REDIR_TOK = re.compile(r"\d*(?:<<<|<<-?|<>|<&|<|>>|>&|>\||>|&>>|&>)")
+
+
+_STDIN_FILES = ("/dev/stdin", "/dev/fd/0", "/proc/self/fd/0")
+_GLUED_REDIR = re.compile(r"<<<|<<-?|<>|<|>")
+_UNKNOWN_STRING = re.compile(r"SUBST_|\$[\w{(]|`")
+
+
+def _reads_stdin(args):
+    """True when a shell started with these arguments reads its script from its input: `-s` or `-` was given, or no argument is a script file (redirection words and option values do not count), or the script file is the input (`/dev/stdin`, `/dev/fd/0`, `/proc/self/fd/0`)."""
+    s_opt, files, i = False, False, 0
+    while i < len(args):
+        t = args[i]
+        m = _REDIR_TOK.match(t)
+        if m:
+            i += 1 if m.end() < len(t) else 2
+            continue
+        if t == "-" or t in _STDIN_FILES:
+            return True
+        if t == "--":
+            if args[i + 1:i + 2] and args[i + 1] in _STDIN_FILES:
+                return True
+            files = files or any(not _REDIR_TOK.match(x) for x in args[i + 1:i + 2])
+            break
+        if len(t) > 1 and t[0] in "-+":
+            if t[1] != "-":
+                s_opt = s_opt or (t[0] == "-" and "s" in t)
+                i += t.count("o") + t.count("O") if t[1:].isalpha() and t[1:].isascii() else 0
+            elif t in ("--rcfile", "--init-file"):
+                i += 1
+        else:
+            files = True
+        i += 1
+    return s_opt or not files
+
+
+def _stdin_shell(cmd, segs, fl):
+    """True when some simple command is a shell (or a variable, `$SHELL`) that runs a script that is not in the command text: with no `-c` string it reads its script from its input (`.. | sh`, `bash -s`, `sh <<EOF`, `sh <<< ..`, `sh<<<..`, `sh < file`, `sh /dev/stdin`) or from a process
+    substitution (`bash <(..)`); with a `-c` string, one that is itself unknown (`sh -c "$(..)"`, `sh -c "$X"`); and `eval` of such a string, `source` and `.` of the input or of a process substitution."""
+    procsub = "<(" in cmd                        # a masked substitution is a script only when the command has a process substitution; `. `word`` in a line of prose is not one
+    for _, toks in segs:
+        k, _ = program(toks, fl)
+        if k >= len(toks):
+            continue
+        w, args = toks[k], toks[k + 1:]
+        m = _GLUED_REDIR.search(w, 1)           # the operator glued to the program: `sh<<<'..'`
+        if m:
+            w, args = w[:m.start()], [toks[k][m.start():]] + args
+        name = prog_name(w, fl)
+        if name in SHELLS or _SHELL_VAR.fullmatch(w):
+            if "-c" in args or _shell_script(args, 0) is not None:
+                js = ([args.index("-c") + 1] if "-c" in args else []) + [j for j in [_shell_script(args, 0)] if j is not None]
+                if any(j < len(args) and _UNKNOWN_STRING.match(args[j]) for j in js):
+                    return True
+            elif _reads_stdin(args) or procsub and any(a.startswith("SUBST_") for a in args):
+                return True
+        elif name == "eval":
+            if args and _UNKNOWN_STRING.match(args[0]):
+                return True
+        elif name in ("source", "."):
+            if args and (args[0] in _STDIN_FILES or procsub and args[0].startswith("SUBST_")):
+                return True
+    return False
+
+
+def _writer_targets(prog, args):
+    """The words that the program writes or removes, for the writers that G3 knows (`tee`, in-place editors, `cp`, `mv`, ..., `dd of=`)."""
+    targets = []
+    if prog == "tee":
+        targets += [t for t in args if not t.startswith("-")]
+    elif prog in ("sed", "perl", "awk", "gawk", "ruby") and any(t.startswith(("-i", "--in-place", "-pi", "-ni")) or t == "inplace" for t in args):
+        targets += [t for t in args if not t.startswith("-")]
+    elif prog == "cp":                # only the destination is written: the last argument, or the value of -t / --target-directory
+        plain = [t for t in args if not t.startswith("-")]
+        tdir = [args[j + 1] for j, t in enumerate(args[:-1]) if t in ("-t", "--target-directory")] + [t.split("=", 1)[1] for t in args if t.startswith("--target-directory=")]
+        targets += tdir if tdir else plain[-1:]
+    elif prog in ("mv", "install", "ln", "rsync", "rm", "truncate", "unlink", "shred", "chmod", "chown", "touch"):    # mv removes its source: every argument is a target
+        targets += [t for t in args if not t.startswith("-")]
+    elif prog == "dd":
+        targets += [t[3:] for t in args if t.startswith("of=")]
+    return targets
+
+
+def _gap_hit(seg, toks, k, prog, cur, unknown_dir, assign, fl, keep):
+    """The gap readings of one simple command (leaf posix_gaps): each redirect target (as written, whole) and each writer argument that the guard cannot expand is denied when its text names a settings file with its `.claude` folder or is `managed-settings..`, when the command assigns a
+    value that names a settings file, or when the text names `settings.json` and the folder `.claude` is named by an assignment or by the target itself (`$D/settings.json` after `D=~/.claude`, `$(echo .claude)/settings.json`); `$HOME/.vscode/settings.json` is not. Each target that holds a glob character,
+    when it could match a settings file. `assign` is the pair of `_assigns`."""
+    cands = [(t, True) for t in redirect_spans(seg)] + [(t, False) for t in _writer_targets(prog, toks[k + 1:] if k < len(toks) else [])]
+    for t, raw in cands:
+        if "$" in t or "`" in t or "SUBST_" in t:
+            u = _unquoted(t)
+            if _names_path(t, fl) or _names_path(u, fl):
+                return "G3", "the command writes `%s`, a target the guard cannot expand that names a Claude Code settings file" % t
+            if assign[0]:
+                return "G3", "the command writes `%s`, a target the guard cannot expand, and assigns a value that names a Claude Code settings file" % t
+            if (_names_span(t, fl) or _names_span(u, fl)) and (assign[1] or ".claude" in (nt_fold(u) if fl == "nt" else u) or _names_config_dir(u, fl)):
+                return "G3", "the command writes `%s`, a target the guard cannot expand that names a settings file in a `.claude` folder" % t
+            w = u
+        else:
+            w = _redirect_word(t, 0)[0] if raw else t
+        if _GLOB.search(w) and _glob_protected(w, cur, unknown_dir, fl, keep):
+            return "G3", "the command writes `%s`, which can match a Claude Code settings file" % t
+    return None
+
+
+def g3_bash(cmd, segs, cwd, fl=HOST, script=True, redirects=False, gaps=False):
+    """redirects=False is the reading of before the leaf posix_redirects, unchanged; redirects=True tests only the targets of `redirect_targets` (and no script), so that a command denied before is denied for the same reason; gaps=True tests only what the leaf posix_gaps adds (`_gap_hit`)."""
+    hit = _g3_bash(cmd, segs, cwd, fl, script, False, redirects, gaps)
     if hit or fl != "nt":
         return hit
     # nt: the text read as written with the other reading of a dots-and-spaces name, then with each backslash a slash under both readings
-    return _g3_bash(cmd, segs, cwd, fl, script, True, redirects) or _g3_bash(cmd, slashed(segs), cwd, fl, False, False, redirects) or _g3_bash(cmd, slashed(segs), cwd, fl, False, True, redirects)
+    return _g3_bash(cmd, segs, cwd, fl, script, True, redirects, gaps) or _g3_bash(cmd, slashed(segs), cwd, fl, False, False, redirects, gaps) or _g3_bash(cmd, slashed(segs), cwd, fl, False, True, redirects, gaps)
 
 
-def _g3_bash(cmd, segs, cwd, fl, script, keep=False, redirects=False):
-    unknown, cur = False, cwd
+def _cd_target(toks, k, prog, fl):
+    """(program, index of the target) of a `cd` or `pushd` at toks[k] (`builtin cd`, `command cd` are the same; its options `-L -P -e -@` and `--` come first), or None when it is not one or has no target."""
+    while prog == "builtin" and k + 1 < len(toks):
+        k += 1
+        prog = prog_name(toks[k], fl)
+    if prog not in ("cd", "pushd"):
+        return None
+    i = k + 1
+    while i < len(toks):
+        t = toks[i]
+        if t == "--":
+            i += 1
+            break
+        if len(t) > 1 and t[0] == "-" and not (t[1:].isascii() and t[1:].isdigit()):          # `pushd -1` rotates the stack: a number stays a target, as before
+            i += 1
+            continue
+        break
+    return (prog, i) if i < len(toks) else None
+
+
+def _last_is_claude(t, fl):
+    """True when the last name of the path text t (a word that `cd` gets, with a variable in it) is `.claude`: posix exactly, nt in any case."""
+    t = t.rstrip("/\\") if fl == "nt" else t.rstrip("/")
+    last = re.split(r"[/\\]", t)[-1] if fl == "nt" else t.rsplit("/", 1)[-1]
+    return (nt_fold(last) if fl == "nt" else last) == ".claude"
+
+
+def _g3_bash(cmd, segs, cwd, fl, script, keep=False, redirects=False, gaps=False):
+    """`_g3_walk` over the commands in order; then, when a command with substitutions was listed twice (see COPY_NEXT) and holds a `cd`, again with each listing starting from where the first started: the directory the first listing reached is not the one the second starts in (`cd ..` twice goes up twice), and a second reading never allows what the first denied."""
+    cds = []
+    hit = _g3_walk(cmd, segs, cwd, fl, script, keep, redirects, gaps, False, cds)
+    if hit or not cds or COPY_NEXT not in segs:
+        return hit
+    return _g3_walk(cmd, segs, cwd, fl, script, keep, redirects, gaps, True, cds)
+
+
+def _g3_walk(cmd, segs, cwd, fl, script, keep, redirects, gaps, reset, cds):
+    unknown, cur, saved = False, cwd, []
+    assign = _assigns(segs, fl) if gaps else (False, False)
+    base_folder = gaps and _claude_dir(cwd, fl, keep)       # the event's directory is a `.claude` folder, then an unknown name `settings.json` is the settings file
+    folder, cfg_cd = base_folder, False
+    spent = 0
     for seg, toks in segs:
+        if not toks and seg in COPY_MARKS:
+            if reset:
+                if seg == COPY_OPEN[0]:
+                    saved.append((cur, unknown, folder, cfg_cd))
+                elif seg == COPY_NEXT[0] and saved:
+                    cur, unknown, folder, cfg_cd = saved[-1]
+                elif seg == COPY_CLOSE[0] and saved:
+                    saved.pop()
+            continue
+        if isinstance(cur, str):
+            spent += len(cur)               # every command reads the working directory again
+            if spent > CWD_WORK:
+                return TOO_LONG_CWD
         k, _ = program(toks, fl)
         prog = prog_name(toks[k], fl) if k < len(toks) else ""
-        if prog in ("cd", "pushd") and k + 1 < len(toks):
-            t = expanduser(toks[k + 1], fl)
+        cd = _cd_target(toks, k, prog, fl)
+        if cd:
+            cds[:] = [True]
+            t = expanduser(toks[cd[1]], fl)
             if "$" in t or "`" in t or t == "-":
                 unknown = True
+                cfg_cd = cfg_cd or gaps and (_names_config_dir(t, fl) or _last_is_claude(t, fl))
             elif fl == "nt":
                 cur = _nt_str(*_nt_resolve(cur or "", t, keep))
             else:
                 cur = posixpath.normpath(t if posixpath.isabs(t) else posixpath.join(cur or "", t))
+            if isinstance(cur, str) and len(cur) > CWD_MAX:
+                return TOO_LONG_CWD
+            if gaps:
+                folder = base_folder or cfg_cd or _claude_dir(cur, fl, keep)
+            continue
+        if gaps:
+            hit = _gap_hit(seg, toks, k, prog, cur, unknown, (assign[0], assign[1] or folder), fl, keep)
+            if hit:
+                return hit
             continue
         if redirects:
             for t in redirect_targets(seg):
@@ -814,23 +1344,11 @@ def _g3_bash(cmd, segs, cwd, fl, script, keep=False, redirects=False):
         targets = []
         for m in re.finditer(r"""(?:>>?|>\|)\s*(['"]?)([^\s;&|<>'"]+)\1""", seg):
             targets.append(m.group(2))
-        args = toks[k + 1:] if k < len(toks) else []
-        if prog == "tee":
-            targets += [t for t in args if not t.startswith("-")]
-        elif prog in ("sed", "perl", "awk", "gawk", "ruby") and any(t.startswith(("-i", "--in-place", "-pi", "-ni")) or t == "inplace" for t in args):
-            targets += [t for t in args if not t.startswith("-")]
-        elif prog == "cp":                # only the destination is written: the last argument, or the value of -t / --target-directory
-            plain = [t for t in args if not t.startswith("-")]
-            tdir = [args[j + 1] for j, t in enumerate(args[:-1]) if t in ("-t", "--target-directory")] + [t.split("=", 1)[1] for t in args if t.startswith("--target-directory=")]
-            targets += tdir if tdir else plain[-1:]
-        elif prog in ("mv", "install", "ln", "rsync", "rm", "truncate", "unlink", "shred", "chmod", "chown", "touch"):    # mv removes its source: every argument is a target
-            targets += [t for t in args if not t.startswith("-")]
-        elif prog == "dd":
-            targets += [t[3:] for t in args if t.startswith("of=")]
+        targets += _writer_targets(prog, toks[k + 1:] if k < len(toks) else [])
         for t in targets:
             if protected(t, cur, unknown, fl, keep):
                 return "G3", "the command writes `%s`, a Claude Code settings file" % t
-    if not script or redirects:
+    if not script or redirects or gaps:
         return None
     nt = fl == "nt"
     if (INTERP_NT if nt else INTERP).search(cmd) or any(prog_name(t, fl) in (("python", "python3", "py", "pythonw") if nt else ("python", "python3")) for _, ts in segs for t in ts[:1]):
@@ -887,25 +1405,78 @@ def g4_script(inp, cwd="", fl=HOST):
     return None
 
 
+TOO_COMPLEX = "G?", "the command has too many command substitutions to be checked"
+CWD_MAX = 1024      # the longest directory the commands are followed into by `cd` and `pushd` (the limit of a path on macOS; a chain of `cd a;` grows the path by two characters a command, and every command after it reads the path again)
+CWD_WORK = 4000000  # the commands of a chain times the length of their directory, at most: 15x the busiest command in the record (3471 commands in a 78-character directory); a chain of 31000 commands in a 1000-character directory took 3 s to read on the nt side
+TOO_LONG_CWD = "G?", "the directory of the commands is too long, for as many commands, to be checked"
+MAX_CHARS = 200000   # the longest Bash command that is read: 1.8x the longest real Bash command seen (113042) and 2x the longest Write input (99452); of 141 hostile forms at 190000 characters the slowest read in 1.3 s (Python, posix) and 0.4 s (Rust; 0.5 s in the nt reading), and 3.1 s in the pure-Python nt reading (a pre-existing class of many redirections, 385 s before the leaf); the hook's own limit is 20 s
+WRITE_MAX_CHARS = 10000000   # the longest Write/Edit/MultiEdit/NotebookEdit input (path, content and strings together) that is read: 100x the longest real Write input (99452); that reading is linear and cheap (G3 on the path, G4 on the strings): at 5M and 20M characters the slowest of 15 forms read in 0.43 s and 1.5 s (Python) and 0.47 s and 1.8 s (Rust), so 10M reads in about 1 s in either; the hook's own limit is 20 s
+NEST = 8              # the depth to which shell strings are followed in the second pass (the first pass follows 3)
+
+
+def _bash_pass(cmd, cwd, fl, second, work=None):
+    """(hit, the commands, the strings found deeper than the pass follows, the commands with `>|` whole or None): the readings of G1 to G3 over the commands of `expand`. second=True is the pass of the leaf posix_gaps (ANSI-C words, strings to depth NEST); the first pass is that of before."""
+    kw, deep = (dict(ansi=True, limit=NEST), []) if second else ({}, None)
+    try:
+        segs = expand(cmd, fl=fl, deep=deep, work=work, **kw)
+    except TooComplex:
+        return TOO_COMPLEX, [], [], None
+    hit = g1(cmd, segs, fl) or g2(cmd, segs, fl) or (fl == "nt" and g2(cmd, slashed(segs), fl)) or g3_bash(cmd, segs, cwd, fl)
+    hit = hit or g3_bash(cmd, segs, cwd, fl, False, True)           # the quote-aware reading of the redirections comes after every older reading, so a denial keeps its reason
+    if hit or not any(sg.endswith(">") for sg, _ in segs):      # a segment that ends in `>` is where the splitter cut a `>|`
+        return hit, segs, deep, None
+    try:
+        alt = expand(cmd, fl=fl, clobber=True, work=work, **kw)
+    except TooComplex:
+        return TOO_COMPLEX, segs, deep, None
+    return g3_bash(cmd, alt, cwd, fl, False, True), segs, deep, alt      # and the reading with `>|` whole
+
+
+def g3_gaps(cmd, segs, deep, alt, cwd, fl=HOST):
+    """The readings of the leaf posix_gaps that are not a pass over the same commands: targets that cannot be expanded or that are globs (`_gap_hit`, over the commands with `>|` cut and, when there are some, with it whole: `alt`), and, when the command names a settings file anywhere, a shell string nested deeper than the pass follows or a shell that reads its
+    script from its input (the script is not in the command text)."""
+    hit = g3_bash(cmd, segs, cwd, fl, False, False, True) or (alt and g3_bash(cmd, alt, cwd, fl, False, False, True))
+    if hit or not _NAMES_ANY.search(nt_fold(cmd) if fl == "nt" else cmd):       # not NAMES_*: its `[^\s..]*` in front is quadratic on a long word
+        return hit
+    if deep:
+        return "G3", "a shell string is nested too deep to be read, and the command names a Claude Code settings file"
+    if _stdin_shell(cmd, segs, fl):
+        return "G3", "a shell reads a script that is not in the command, and the command names a Claude Code settings file"
+    return None
+
+
+def _input_chars(inp):
+    """The characters of the strings of a Write, Edit, MultiEdit or NotebookEdit input that the guard reads: the path, the content, and each old and new string."""
+    edits = inp.get("edits")
+    parts = [inp.get(k) for k in ("file_path", "path", "notebook_path", "content", "new_source", "old_string", "new_string")]
+    for e in edits if isinstance(edits, list) else []:
+        if isinstance(e, dict):
+            parts += [e.get("old_string"), e.get("new_string")]
+    return sum(len(p) for p in parts if isinstance(p, str))
+
+
 def decide(event, fl=HOST):
     """(group, why) when the event is to be denied, else None. fl is the flavour of the paths and program names: "posix" or "nt" (the OS this runs on, by default)."""
     tool, inp, cwd = event.get("tool_name"), event.get("tool_input") or {}, event.get("cwd") or ""
     if tool == "Bash":
         cmd = inp.get("command") or ""
-        try:
-            segs = expand(cmd, fl=fl)
-        except TooComplex:
-            return "G?", "the command has too many command substitutions to be checked"
-        hit = g1(cmd, segs, fl) or g2(cmd, segs, fl) or (fl == "nt" and g2(cmd, slashed(segs), fl)) or g3_bash(cmd, segs, cwd, fl)
-        hit = hit or g3_bash(cmd, segs, cwd, fl, False, True)           # the quote-aware reading of the redirections comes after every older reading, so a denial keeps its reason
-        if hit or not any(sg.endswith(">") for sg, _ in segs):      # a segment that ends in `>` is where the splitter cut a `>|`
+        if isinstance(cmd, str) and "\0" in cmd:
+            return "G?", "the command holds a NUL character, which a shell cannot receive"
+        if isinstance(cmd, str) and len(cmd) > MAX_CHARS:
+            return "G?", "the command is too long to be checked (more than %d characters)" % MAX_CHARS
+        work = [0]                      # one budget for all the readings of the command: the passes add up
+        hit = _bash_pass(cmd, cwd, fl, False, work)[0]
+        if hit:
             return hit
-        try:
-            return g3_bash(cmd, expand(cmd, fl=fl, clobber=True), cwd, fl, False, True)      # and the reading with `>|` whole
-        except TooComplex:
-            return "G?", "the command has too many command substitutions to be checked"
+        hit, segs, deep, alt = _bash_pass(cmd, cwd, fl, True, work)           # the readings of the leaf posix_gaps come after every older reading, so a denial keeps its reason
+        return hit or g3_gaps(cmd, segs, deep, alt, cwd, fl)
     if tool in ("Write", "Edit", "MultiEdit", "NotebookEdit"):
-        return g3_edit(inp, cwd, fl) or g4_script(inp, cwd, fl)
+        if any(isinstance(inp.get(k), str) and "\0" in inp[k] for k in ("file_path", "path", "notebook_path")):
+            return "G?", "the path holds a NUL character, which a file name cannot hold"
+        hit = g3_edit(inp, cwd, fl)
+        if not hit and _input_chars(inp) > WRITE_MAX_CHARS:
+            hit = "G?", "the input is too long to be checked (more than %d characters)" % WRITE_MAX_CHARS
+        return hit or g4_script(inp, cwd, fl)
     return None
 
 
@@ -934,6 +1505,7 @@ def run(raw, log=None):
 FIXTURES = os.path.join(HERE, "fixtures", "guard_lists")   # copied from __reports__/wave-06/author-w06-5 (the research record keeps the originals)
 FIXTURE_COUNTS = {"attacks": 50, "ordinary": 28, "mention": 6, "evasions": 13}   # a missing file or a different count fails the selftest: it must never pass on empty lists
 WINDOWS_COUNT = 106   # windows_paths.json: each case carries the cwd and the expected decision under both flavours ("allow" or the group); the same file is read by the Rust tests and by check_guard_equal.py
+POSIX_GAPS_COUNT = 297   # posix_gaps.json: the same layout; the shell strings, targets, NULs and sizes that leaf posix_gaps closed or denies, and the ordinary forms next to them that stay allowed
 REDIRECTS_COUNT = 110   # redirects.json: the same layout; the forms of a Bash redirection onto a settings file that are denied, and the ones that must stay allowed
 
 
@@ -946,7 +1518,7 @@ def selftest():
     def load(n):
         p = os.path.join(FIXTURES, "e3_%s.json" % n)
         try:
-            cases = json.loads(open(p, encoding="utf-8").read().replace("{T}", T))
+            cases = json.loads(open(p, encoding="utf-8").read().replace("{T}", json.dumps(T)[1:-1]))      # {T} is replaced in JSON text: a Windows T (D:\\a\\..) pasted raw makes invalid escapes
         except (OSError, ValueError):
             missing.append(n)
             return []
@@ -987,6 +1559,13 @@ def selftest():
         return cases
     windows = both_flavours("windows_paths", WINDOWS_COUNT)
     redirects = both_flavours("redirects", REDIRECTS_COUNT)
+    posix_gaps = both_flavours("posix_gaps", POSIX_GAPS_COUNT)
+    for tool, key, body in (("Bash", "command", "echo a"), ("Write", "content", "a"), ("Edit", "new_string", "a"), ("NotebookEdit", "new_source", "a")):       # the cap: one character over is denied G?, the cap itself is read (the lists keep to small commands)
+        cap = MAX_CHARS if tool == "Bash" else WRITE_MAX_CHARS
+        for n, want in ((cap, False), (cap + 1, True)):
+            pad = body * (n // len(body))
+            h = decide(dict(tool_name=tool, tool_input={key: pad + "a" * (n - len(pad))}, cwd=T))
+            check("size %s %d (want %s)" % (tool, n, "G?" if want else "allow"), bool(h) == want and (not h or h[0] == "G?"))
     ev_pass = [c["id"] for c in load("evasions") if decide(ev(c))]
     mention_denied = [c["id"] for c in load("mention") if decide(ev(c))]
     small = [
@@ -1035,8 +1614,8 @@ def selftest():
     check("empty event is a deny (fail closed)", run("not json") is not None)
     for n in sorted(set(missing)):
         check("fixture %s present with its pinned count" % n, False)
-    print("selftest %s: attacks %d denied, ordinary %d allowed, windows_paths %d and redirects %d x 2 flavours; not-gated: evasions caught %s, mention-only denied %s" % (
-        "ok" if ok else "FAILED", len(load("attacks")), len(load("ordinary")), len(windows), len(redirects), ev_pass, mention_denied))
+    print("selftest %s: attacks %d denied, ordinary %d allowed, windows_paths %d, redirects %d and posix_gaps %d x 2 flavours; not-gated: evasions caught %s, mention-only denied %s" % (
+        "ok" if ok else "FAILED", len(load("attacks")), len(load("ordinary")), len(windows), len(redirects), len(posix_gaps), ev_pass, mention_denied))
     return 0 if ok else 1
 
 

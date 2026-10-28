@@ -224,7 +224,7 @@ pub(crate) fn normpath(p: &[u32]) -> Text {
     if initial == 1 && at(p, 1) == Some(slash) && at(p, 2) != Some(slash) {
         initial = 2;
     }
-    let mut out: Vec<Text> = Vec::new();
+    let mut out: Vec<&[u32]> = Vec::new(); // slices of `p`: a path of a thousand components is read once for each command that follows a `cd`
     for comp in p.split(|&c| c == slash) {
         if comp.is_empty() || eq(comp, ".") {
             continue;
@@ -232,12 +232,18 @@ pub(crate) fn normpath(p: &[u32]) -> Text {
         let dotdot = eq(comp, "..");
         let last_dotdot = out.last().is_some_and(|l| eq(l, ".."));
         if !dotdot || (initial == 0 && out.is_empty()) || last_dotdot {
-            out.push(comp.to_vec());
+            out.push(comp);
         } else if !out.is_empty() {
             out.pop();
         }
     }
-    let mut path = join_with(&out, '/');
+    let mut path = Text::with_capacity(p.len());
+    for (i, c) in out.iter().enumerate() {
+        if i > 0 {
+            path.push(slash);
+        }
+        path.extend_from_slice(c);
+    }
     if initial > 0 {
         let mut head = vec![slash; initial];
         head.extend(path);

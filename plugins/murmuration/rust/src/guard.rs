@@ -13,9 +13,9 @@ use crate::text::{
 
 const INERT: &[&str] = &["grep", "egrep", "fgrep", "rg", "jq", "wc", "head", "tail", "cat", "ls", "diff", "sort", "uniq", "cut", "tr", "nl", "less"];
 const GIT_INERT: &[&str] = &["log", "grep", "show", "diff", "status", "blame", "shortlog"];
-const WRAP: &[&str] = &["env", "command", "nohup", "exec", "time", "sudo", "nice", "ionice", "stdbuf", "xargs", "timeout", "gtimeout", "setsid", "caffeinate"];
+const WRAP: &[&str] = &["env", "command", "nohup", "exec", "time", "sudo", "nice", "ionice", "stdbuf", "xargs", "timeout", "gtimeout", "setsid", "caffeinate", "busybox"];
 const KEYWORDS: &[&str] = &["if", "then", "else", "elif", "do", "while", "until", "!", "{", "}", "fi", "done"];
-const SHELLS: &[&str] = &["sh", "bash", "zsh", "dash", "ksh"];
+const SHELLS: &[&str] = &["sh", "bash", "zsh", "dash", "ksh", "ash", "mksh", "yash", "posh", "rbash", "fish", "csh", "tcsh"];
 const SCRIPT_EXT: &[&str] = &[".py", ".sh", ".bash", ".zsh", ".js", ".ts", ".mjs", ".ipynb"];
 
 type Res<T> = Result<T, Fault>;
@@ -273,7 +273,15 @@ fn flag_value(toks: &[Text], flag: &str) -> Vec<Text> {
 /// `TooComplex`: more characters scanned while masking substitutions than `WORK` allows (a text scanned once costs its length; each nesting level scans its inside again).
 struct TooComplex;
 
-const WORK: usize = 10_000_000;
+const WORK: usize = 2_000_000;
+/// `TEXT_COST`: what each text that `mask` reads costs besides its length.
+const TEXT_COST: usize = 400;
+/// `SUBST_COST`: what each character of a substitution's inside costs besides the scan, in the second pass (the inside is kept in the masked text of every level that holds it, and split again by each).
+const SUBST_COST: usize = 3;
+/// `STR_COST`: what each character of a shell string costs when `expand` descends into it (the string is split again, once for every pass and level).
+const STR_COST: usize = 5;
+/// `SEG_COST`: what each simple command costs, once in every `expand` (every reading of G1 to G3 walks them); the record's busiest command is 3471.
+const SEG_COST: usize = 15;
 
 /// A span of a matched substitution: start, end, inside start, inside end.
 type Span = (usize, usize, usize, usize);
@@ -393,8 +401,15 @@ fn spans(s: &[u32], quotes: bool, work: &mut usize) -> Result<(Vec<Span>, bool),
     Ok((out, stack.iter().any(|f| f.0 == b'S' || f.0 == b'D')))
 }
 
-/// `_mask`: the text with every outermost matched substitution replaced by one word, and the insides that were replaced.
-fn mask(s: &[u32], work: &mut usize, os: Os) -> Result<(Text, Vec<Text>), TooComplex> {
+/// `_SQUASH`: the characters of the inside of a substitution that `mask` turns to `,` when it keeps the inside (`\s;&|<>()'"` + backtick + `\$*?[`).
+fn squash_char(c: u32) -> bool {
+    is_space(c) || ";&|<>()'\"`\\$*?[".chars().any(|x| cp(x) == c)
+}
+
+/// `_mask`: the text with every outermost matched substitution replaced by one word, and the insides that were replaced. `keep` (the second pass, leaf posix_gaps): the word is else `SUBST_` and the inside with blanks, operators, quotes and glob characters turned to `,`,
+/// so that a target `$(echo .claude/settings.json)` still shows the name; `claude` only when the inside does not name a settings file as well.
+fn mask(s: &[u32], work: &mut usize, os: Os, keep: bool) -> Result<(Text, Vec<Text>), TooComplex> {
+    *work += TEXT_COST;
     let (mut sp, open_quote) = spans(s, true, work)?;
     if open_quote {
         sp = spans(s, false, work)?.0;
@@ -409,7 +424,20 @@ fn mask(s: &[u32], work: &mut usize, os: Os) -> Result<(Text, Vec<Text>), TooCom
         }
         let inner = slice(s, a, b).to_vec();
         out.extend_from_slice(slice(s, prev, st));
-        out.extend(text(if names_claude(&inner, os) { "claude" } else { "SUBST" }));
+        if keep {
+            *work += SUBST_COST * inner.len();
+            if *work > WORK {
+                return Err(TooComplex);
+            }
+            if names_claude(&inner, os) && !names_span(&inner, os) {
+                out.extend(text("claude"));
+            } else {
+                out.extend(text("SUBST_"));
+                out.extend(inner.iter().map(|&c| if squash_char(c) { cp(',') } else { c }));
+            }
+        } else {
+            out.extend(text(if names_claude(&inner, os) { "claude" } else { "SUBST" }));
+        }
         inners.push(inner);
         prev = en;
     }
@@ -418,7 +446,7 @@ fn mask(s: &[u32], work: &mut usize, os: Os) -> Result<(Text, Vec<Text>), TooCom
 }
 
 /// `substitution_texts`: the texts to split in addition to `cmd`; empty when `cmd` has no substitution.
-fn substitution_texts(cmd: &[u32], work: &mut usize, os: Os) -> Result<Vec<Text>, TooComplex> {
+fn substitution_texts(cmd: &[u32], work: &mut usize, os: Os, keep: bool) -> Result<Vec<Text>, TooComplex> {
     if !contains(cmd, "$(") && !has_char(cmd, '`') && !contains(cmd, "<(") && !contains(cmd, ">(") {
         return Ok(Vec::new());
     }
@@ -426,7 +454,7 @@ fn substitution_texts(cmd: &[u32], work: &mut usize, os: Os) -> Result<Vec<Text>
     let mut queue: std::collections::VecDeque<Text> = std::collections::VecDeque::new();
     queue.push_back(cmd.to_vec());
     while let Some(t) = queue.pop_front() {
-        let (m, inners) = mask(&t, work, os)?;
+        let (m, inners) = mask(&t, work, os, keep)?;
         texts.push(m);
         queue.extend(inners);
     }
@@ -458,51 +486,155 @@ fn shell_script(toks: &[Text]) -> Option<usize> {
     None
 }
 
+/// The options of `expand` that the second pass of leaf posix_gaps changes: `clobber` (`>|` is one operator, see `split_pass`), `ansi` (also read the words of a command whose text holds `$'` or `$"` as bash removes the quotes, and keep the text of a substitution in
+/// its word) and `limit` (the depth to which shell strings are followed).
+#[derive(Clone, Copy)]
+struct Mode {
+    clobber: bool,
+    ansi: bool,
+    limit: usize,
+}
+
+/// The first pass: the reading of before the leaf posix_gaps.
+const FIRST: Mode = Mode { clobber: false, ansi: false, limit: 3 };
+
+/// The marks in the list `expand` returns (a NUL is never in a command that is read): a command with substitutions is listed as written, then with its substitutions masked, so the second listing starts again where the first started.
+const COPY_OPEN: &str = "\0open";
+const COPY_NEXT: &str = "\0copy";
+const COPY_CLOSE: &str = "\0close";
+
+fn copy_mark(t: &[u32]) -> bool {
+    eq(t, COPY_OPEN) || eq(t, COPY_NEXT) || eq(t, COPY_CLOSE)
+}
+
 /// `expand`: every simple command of `cmd`: those of the plain splitter first, in order, then those of the command and of each substitution inside it with the substitutions replaced by one word;
-/// descends into `sh -c '...'`, `eval '...'` and `env -S '...'` strings to depth 3. `clobber` is the reading in which `>|` is one operator (see `split_pass`); `decide` makes it in addition to the plain one, never instead of it.
-fn expand(cmd: &[u32], depth: usize, work: &mut usize, os: Os, clobber: bool) -> Result<Vec<Seg>, TooComplex> {
+/// descends into `sh -c '...'`, `eval '...'` and `env -S '...'` strings to depth `mode.limit` (3 in the first pass); when a string lies deeper, `deep` is set. `decide` makes the `>|` reading in addition to the plain one, never instead of it.
+fn expand(cmd: &[u32], depth: usize, work: &mut usize, os: Os, mode: Mode, deep: &mut bool) -> Result<Vec<Seg>, TooComplex> {
     let mut out: Vec<Seg> = Vec::new();
-    let mut segs = split_segments(cmd, clobber);
-    for t in substitution_texts(cmd, work, os)? {
-        segs.extend(split_segments(&t, clobber));
+    let mut segs = split_segments(cmd, mode.clobber);
+    let first = segs.len();
+    let texts = substitution_texts(cmd, work, os, mode.ansi)?;
+    let marked = !texts.is_empty();
+    for t in texts {
+        segs.extend(split_segments(&t, mode.clobber));
     }
-    for seg in segs {
-        let toks = words(&seg);
-        out.push((seg, toks.clone()));
-        let sc = scan(&toks, os);
-        let k = sc.k;
-        if depth < 3 {
+    *work += SEG_COST * segs.len();
+    if *work > WORK {
+        return Err(TooComplex);
+    }
+    if marked {
+        out.push((text(COPY_OPEN), Vec::new()));
+    }
+    for (si, seg) in segs.into_iter().enumerate() {
+        if marked && si == first {
+            out.push((text(COPY_NEXT), Vec::new())); // the masked copy of the whole command starts here
+        }
+        let toks0 = words(&seg);
+        let mut variants: Vec<Vec<Text>> = vec![toks0.clone()];
+        if mode.ansi && (contains(&seg, "$'") || contains(&seg, "$\"")) {
+            let more = ansi_words(&seg);
+            if more != toks0 {
+                variants.push(more);
+            }
+        }
+        for toks in variants {
+            out.push((seg.clone(), toks.clone()));
+            let sc = scan(&toks, os);
+            let k = sc.k;
+            let mut subs: Vec<Text> = Vec::new();
             for st in &sc.strings {
                 let mut parts: Vec<Text> = vec![st.clone()];
                 parts.extend_from_slice(slice_toks(&toks, k));
-                out.extend(expand(&join_with(&parts, ' '), depth + 1, work, os, clobber)?);
+                subs.push(join_with(&parts, ' '));
             }
-        }
-        if depth < 3 && k < toks.len() {
-            let prog_text = prog_name(&toks[k], os); // INDEX: k < toks.len() checked on the line above
-            let prog = prog_text.as_slice();
-            let rest = slice_toks(&toks, k + 1);
-            if in_set(prog, SHELLS) {
-                let mut js: Vec<usize> = Vec::new();
-                if let Some(j) = rest.iter().position(|t| eq(t, "-c")) {
-                    js.push(j + 1); // the word after the first `-c`, as before
-                }
-                if let Some(j) = shell_script(rest) {
-                    if !js.contains(&j) {
-                        js.push(j); // the string of `-c` as the shell reads its options (`-lc`, `-c -x`, ...)
+            if k < toks.len() {
+                let prog_text = prog_name(toks.get(k).map_or(&[][..], |x| x), os);
+                let prog = prog_text.as_slice();
+                let rest = slice_toks(&toks, k + 1);
+                if in_set(prog, SHELLS) || (mode.ansi && var_word(toks.get(k).map_or(&[][..], |x| x))) {
+                    let mut js: Vec<usize> = Vec::new();
+                    if let Some(j) = rest.iter().position(|t| eq(t, "-c")) {
+                        js.push(j + 1); // the word after the first `-c`, as before
                     }
-                }
-                for j in js {
-                    if let Some(arg) = rest.get(j) {
-                        out.extend(expand(arg, depth + 1, work, os, clobber)?);
+                    if let Some(j) = shell_script(rest) {
+                        if !js.contains(&j) {
+                            js.push(j); // the string of `-c` as the shell reads its options (`-lc`, `-c -x`, ...)
+                        }
                     }
+                    for j in js {
+                        if let Some(arg) = rest.get(j) {
+                            subs.push(arg.clone());
+                        }
+                    }
+                } else if eq(prog, "eval") {
+                    subs.push(join_with(rest, ' '));
                 }
-            } else if eq(prog, "eval") {
-                out.extend(expand(&join_with(rest, ' '), depth + 1, work, os, clobber)?);
+                if mode.ansi {
+                    // second pass: the string as the shell gets it from a double-quoted word, where `\$` and a backslash before a backtick are only escapes of the word
+                    let more: Vec<Text> = subs.iter().map(|st| dq_unescape(st)).filter(|u| !subs.contains(u)).collect();
+                    subs.extend(more);
+                }
+            }
+            if depth < mode.limit {
+                for st in subs {
+                    *work += STR_COST * st.len();
+                    if *work > WORK {
+                        return Err(TooComplex);
+                    }
+                    out.extend(expand(&st, depth + 1, work, os, mode, deep)?);
+                }
+            } else if !subs.is_empty() {
+                *deep = true;
             }
         }
     }
+    if marked {
+        out.push((text(COPY_CLOSE), Vec::new()));
+    }
     Ok(out)
+}
+
+/// `_VAR_WORD.fullmatch(t)`: `t` is one variable, `$NAME` or `${NAME}`.
+fn var_word(t: &[u32]) -> bool {
+    if at(t, 0) != Some(cp('$')) {
+        return false;
+    }
+    let body = slice(t, 1, t.len());
+    let word = |b: &[u32]| !b.is_empty() && b.iter().all(|&c| is_word(c));
+    if at(body, 0) == Some(cp('{')) && at(body, body.len().wrapping_sub(1)) == Some(cp('}')) && body.len() >= 2 {
+        return word(slice(body, 1, body.len() - 1));
+    }
+    word(body)
+}
+
+/// `_SHELL_VAR.fullmatch(t)`: the word is a variable that names a shell (`$SHELL`, `${SHELL}`, `$0`, `$BASH`, ...).
+fn shell_var(t: &[u32]) -> bool {
+    if at(t, 0) != Some(cp('$')) {
+        return false;
+    }
+    let body = slice(t, 1, t.len());
+    let named = |b: &[u32]| ["0", "SHELL", "BASH", "ZSH", "SH", "DASH", "KSH"].iter().any(|n| eq(b, n));
+    if at(body, 0) == Some(cp('{')) && body.len() >= 2 && at(body, body.len() - 1) == Some(cp('}')) {
+        return named(slice(body, 1, body.len() - 1));
+    }
+    named(body)
+}
+
+/// `_dq_unescape`: the text with the backslash removed in front of a `$` or a backtick (what bash does in a double-quoted word, and shlex does not).
+fn dq_unescape(st: &[u32]) -> Text {
+    let mut out: Text = Text::with_capacity(st.len());
+    let mut i = 0;
+    while i < st.len() {
+        let c = at(st, i).unwrap_or(0);
+        if c == cp('\\') && at(st, i + 1).is_some_and(|x| x == cp('$') || x == cp('`')) {
+            out.push(at(st, i + 1).unwrap_or(0));
+            i += 2;
+        } else {
+            out.push(c);
+            i += 1;
+        }
+    }
+    out
 }
 
 /// `inert`: a read-only search that may carry the words without being an attack.
@@ -931,14 +1063,17 @@ fn ansi_c(s: &[u32], start: usize) -> (Text, usize, bool) {
     (out, n, false)
 }
 
+/// The characters that end a redirect target word: a blank, a newline, or one of `;&|<>()`.
+const REDIRECT_STOP: &str = " \t\n;&|<>()";
+
 /// `_redirect_word`: the shell word at `s[start..]` with its quotes removed as bash removes them (`'...'`, `"..."` with a backslash before `$`, a backtick, `"` or a backslash only, `$'...'`, `$"..."`, a backslash before any other
-/// character); the word, the index after it and whether every quote in it was closed. The word ends at an unquoted blank, newline or one of `;&|<>()`. A `$` that remains makes it a word the guard cannot expand; it is passed on as written.
-fn redirect_word(s: &[u32], start: usize) -> (Text, usize, bool) {
+/// character); the word, the index after it and whether every quote in it was closed. The word ends at an unquoted character of `stop`. A `$` that remains makes it a word the guard cannot expand; it is passed on as written.
+fn redirect_word(s: &[u32], start: usize, stop: &str) -> (Text, usize, bool) {
     let (sq, dq, bs) = (cp('\''), cp('"'), cp('\\'));
     let n = s.len();
     let (mut out, mut i, mut closed) = (Text::new(), start, true);
     while let Some(c) = at(s, i) {
-        if " \t\n;&|<>()".chars().any(|b| cp(b) == c) {
+        if stop.chars().any(|b| cp(b) == c) {
             break;
         }
         if c == bs {
@@ -1048,7 +1183,7 @@ fn scan_redirects(seg: &[u32], quotes: bool) -> (Vec<Text>, bool) {
             while at(seg, j).is_some_and(|x| x == cp(' ') || x == cp('\t') || x == cp('\n')) {
                 j += 1;
             }
-            let (w, end, closed) = redirect_word(seg, j);
+            let (w, end, closed) = redirect_word(seg, j, REDIRECT_STOP);
             open = open || !closed;
             let k = w.iter().take_while(|&&x| char::from_u32(x).is_some_and(|ch| ch.is_ascii_digit())).count();
             let rest = slice(&w, k, w.len());
@@ -1194,48 +1329,755 @@ fn slashed(segs: &[Seg]) -> Vec<Seg> {
     segs.iter()
         .map(|(sg, _)| {
             let t: Text = sg.iter().map(|&c| if c == cp('\\') { cp('/') } else { c }).collect();
-            let toks = words(&t);
+            let toks = if copy_mark(&t) { Vec::new() } else { words(&t) };
             (t, toks)
         })
         .collect()
 }
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------
+// the gaps after the redirections (leaf posix_gaps): `ansi_words`, `word_end`, `redirect_spans`, the glob reading, the assignments, the shells that read their input
+
+/// `MAX_CHARS`: the longest Bash command that is read; a longer one is denied as too long to be checked (a timeout of the guard is a block only on Claude Code 2.1.295 and later).
+const MAX_CHARS: usize = 200_000;
+/// `WRITE_MAX_CHARS`: the longest Write/Edit/MultiEdit/NotebookEdit input (path, content and strings together) that is read; a longer one is denied as too long to be checked (that reading is linear and cheap).
+const WRITE_MAX_CHARS: usize = 10_000_000;
+/// `NEST`: the depth to which shell strings are followed in the second pass (the first pass follows 3).
+const NEST: usize = 8;
+const SETTINGS_NAMES: [&str; 2] = ["settings.json", "settings.local.json"];
+
+/// `_ansi_words`: the words of `seg` as bash reads them, quotes removed (`$'..'` and `$".."` too; blanks separate words).
+fn ansi_words(seg: &[u32]) -> Vec<Text> {
+    let mut out: Vec<Text> = Vec::new();
+    let mut i = 0;
+    while i < seg.len() {
+        if at(seg, i).is_some_and(|c| c == cp(' ') || c == cp('\t') || c == cp('\n')) {
+            i += 1;
+            continue;
+        }
+        let (w, next, _) = redirect_word(seg, i, " \t\n");
+        out.push(w);
+        i = next;
+    }
+    out
+}
+
+/// `_word_end`: the index after the shell word at `s[start..]`, taken whole: a `$( )`, `${ }`, backtick pair or quote is skipped with whatever blanks and operators it holds. One pass with a stack of what is open; an unclosed one runs to the end.
+fn word_end(s: &[u32], start: usize) -> usize {
+    let (bs, dq, sq, bt, rp, rb) = (cp('\\'), cp('"'), cp('\''), cp('`'), cp(')'), cp('}'));
+    let n = s.len();
+    let mut i = start;
+    let mut stack: Vec<u32> = Vec::new();
+    while i < n {
+        let c = at(s, i).unwrap_or(0);
+        let top = stack.last().copied();
+        if c == bs {
+            i += 2;
+            continue;
+        }
+        let opens = starts_at(s, i, "$(") || starts_at(s, i, "${");
+        let closer = if at(s, i + 1) == Some(cp('(')) { rp } else { rb };
+        if top == Some(dq) {
+            if c == dq {
+                stack.pop();
+            } else if c == bt {
+                stack.push(bt);
+            } else if opens {
+                stack.push(closer);
+                i += 1;
+            }
+        } else if top == Some(bt) {
+            if c == bt {
+                stack.pop();
+            }
+        } else if c == sq {
+            match (i + 1..n).find(|&j| at(s, j) == Some(sq)) {
+                Some(j) => i = j,
+                None => return n,
+            }
+        } else if c == dq || c == bt {
+            stack.push(c);
+        } else if starts_at(s, i, "$'") {
+            match quote_end(s, i) {
+                Some(j) => i = j.saturating_sub(1),
+                None => return n,
+            }
+        } else if opens {
+            stack.push(closer);
+            i += 1;
+        } else if top == Some(rp) && c == cp('(') {
+            stack.push(rp);
+        } else if top == Some(c) {
+            stack.pop();
+        } else if top.is_none() && REDIRECT_STOP.chars().any(|b| cp(b) == c) {
+            return i;
+        }
+        i += 1;
+    }
+    n
+}
+
+/// `_scan_spans`: the text of the whole word (`word_end`) after each output redirection operator that `scan_redirects` finds, quotes and substitutions as written; the scan goes on after the word, so a text is read once.
+fn scan_spans(seg: &[u32], quotes: bool) -> (Vec<Text>, bool) {
+    let (bs, gt, lt, dollar) = (cp('\\'), cp('>'), cp('<'), cp('$'));
+    let special = [bs, cp('\''), cp('"'), dollar, lt, gt];
+    let n = seg.len();
+    let (mut out, mut i, mut open) = (Vec::new(), 0, false);
+    while let Some(k) = (i..n).find(|&k| at(seg, k).is_some_and(|x| special.contains(&x))) {
+        i = k;
+        let c = at(seg, i).unwrap_or(0);
+        if c == bs {
+            i += 2;
+        } else if quote_chars(c) || (c == dollar && starts_at(seg, i, "$'")) {
+            if !quotes {
+                i += 1;
+                continue;
+            }
+            match quote_end(seg, i) {
+                Some(j) => i = j,
+                None => {
+                    open = true;
+                    break;
+                }
+            }
+        } else if (c == lt && at(seg, i + 1) != Some(gt)) || c == dollar {
+            i += 1;
+        } else {
+            let mut j = i + if c == lt { 2 } else { 1 };
+            let mut dup = false;
+            let nxt = if c == gt { at(seg, j) } else { None };
+            if nxt == Some(gt) || nxt == Some(cp('|')) {
+                j += 1;
+            } else if nxt == Some(cp('&')) {
+                j += 1;
+                dup = true;
+            }
+            while at(seg, j).is_some_and(|x| x == cp(' ') || x == cp('\t') || x == cp('\n')) {
+                j += 1;
+            }
+            let e = word_end(seg, j);
+            let w = slice(seg, j, e);
+            let k = w.iter().take_while(|&&x| char::from_u32(x).is_some_and(|ch| ch.is_ascii_digit())).count();
+            let rest = slice(w, k, w.len());
+            let is_fd = dup && (eq(w, "-") || (k > 0 && (rest.is_empty() || eq(rest, "-"))));
+            if !w.is_empty() && !is_fd {
+                out.push(w.to_vec());
+            }
+            i = e;
+        }
+    }
+    (out, open)
+}
+
+/// `redirect_spans`: the words after the output redirection operators of `seg`, as written; a quote left open makes the scan run again with quotes as ordinary characters.
+fn redirect_spans(seg: &[u32]) -> Vec<Text> {
+    let (mut out, open) = scan_spans(seg, true);
+    if open {
+        out.extend(scan_spans(seg, false).0);
+    }
+    out
+}
+
+/// `[A-Za-z0-9_.\-]`: the characters that continue the name of a settings file.
+fn name_char(c: u32) -> bool {
+    char::from_u32(c).is_some_and(|ch| ch.is_ascii_alphanumeric() || ch == '_' || ch == '.' || ch == '-')
+}
+
+/// `settings(?:\.local)?\.json(?![A-Za-z0-9_.\-])` at `p`.
+fn settings_file_at(t: &[u32], p: usize) -> bool {
+    SETTINGS_NAMES.iter().any(|lit| starts_at(t, p, lit) && !at(t, p + lit.chars().count()).is_some_and(name_char))
+}
+
+/// `_names_span` on folded text: `managed-settings`, or `settings.json` / `settings.local.json` not followed by a name character.
+fn names_span_text(t: &[u32]) -> bool {
+    (0..t.len()).any(|p| starts_at(t, p, "managed-settings") || settings_file_at(t, p))
+}
+
+/// `_names_span`: true when the text names a settings file (`settings.json}` and `settings.json"` count, `settings.json.bak` does not); Windows folds first.
+fn names_span(t: &[u32], os: Os) -> bool {
+    if os == Os::Windows {
+        names_span_text(&nt_fold(t))
+    } else {
+        names_span_text(t)
+    }
+}
+
+/// `_names_path`: true when the text names a settings file with its folder (`.claude/settings.json`) or is `managed-settings..`: the value of an assignment that makes a later `$F` target a settings file; `settings.json` alone is a piece.
+fn names_path(t: &[u32], os: Os) -> bool {
+    let folded;
+    let t = if os == Os::Windows {
+        folded = nt_fold(t);
+        folded.as_slice()
+    } else {
+        t
+    };
+    let sep = |c: u32| c == cp('/') || c == cp('\\');
+    let dot_claude = ".claude".chars().count();
+    (0..t.len()).any(|p| {
+        if starts_at(t, p, "managed-settings") {
+            return true;
+        }
+        if !starts_at(t, p, ".claude") || !at(t, p + dot_claude).is_some_and(sep) {
+            return false;
+        }
+        let mut q = p + dot_claude;
+        while at(t, q).is_some_and(sep) {
+            q += 1;
+        }
+        settings_file_at(t, q)
+    })
+}
+
+/// `_NAMES_ANY`: the command names a settings file anywhere (`managed-settings`, `settings.json`, `settings.local.json`); Windows folds first.
+fn names_any(t: &[u32], os: Os) -> bool {
+    let folded;
+    let t = if os == Os::Windows {
+        folded = nt_fold(t);
+        folded.as_slice()
+    } else {
+        t
+    };
+    contains(t, "managed-settings") || contains(t, "settings.json") || contains(t, "settings.local.json")
+}
+
+/// `_unquoted`: the text without its quote characters and backslashes.
+fn unquoted(t: &[u32]) -> Text {
+    t.iter().copied().filter(|&c| c != cp('\'') && c != cp('"') && c != cp('\\')).collect()
+}
+
+/// `[*?\[]`: a character that makes a word a shell filename pattern.
+fn glob_char(c: u32) -> bool {
+    c == cp('*') || c == cp('?') || c == cp('[')
+}
+
+/// One token of a filename pattern: `*`, `?`, a literal, or a bracket expression (negated, ranges).
+enum Gt {
+    Star,
+    Any,
+    Lit(u32),
+    Class(bool, Vec<(u32, u32)>),
+}
+
+/// `_glob_tokens`: the pattern as shell filename patterns read it: `*` (runs collapse), `?`, a bracket expression `[..]` (with `!` or `^`, ranges; a class name `[:..:]` is any one character, an over-reading; an unclosed `[` is itself), any other character itself.
+fn glob_tokens(p: &[u32]) -> Vec<Gt> {
+    let n = p.len();
+    let mut out: Vec<Gt> = Vec::new();
+    let mut i = 0;
+    let last = p.iter().rposition(|&x| x == cp(']')); // the last closing bracket: a `[` after it is unclosed without a scan (a run of them would cost its length squared)
+    while i < n {
+        let c = at(p, i).unwrap_or(0);
+        if c == cp('*') {
+            if !matches!(out.last(), Some(Gt::Star)) {
+                out.push(Gt::Star);
+            }
+        } else if c == cp('?') {
+            out.push(Gt::Any);
+        } else if c == cp('[') {
+            let mut j = i + 1;
+            let neg = at(p, j).is_some_and(|x| x == cp('!') || x == cp('^'));
+            if neg {
+                j += 1;
+            }
+            let mut k = if at(p, j) == Some(cp(']')) { j + 1 } else { j };
+            k = match last {
+                Some(l) if k <= l => k + p.iter().skip(k).position(|&x| x == cp(']')).unwrap_or(n),
+                _ => n,
+            };
+            if k >= n {
+                out.push(Gt::Lit(cp('[')));
+            } else {
+                let body = slice(p, j, k);
+                if contains(body, "[:") || contains(body, "[.") || contains(body, "[=") {
+                    out.push(Gt::Any);
+                } else {
+                    let mut rng: Vec<(u32, u32)> = Vec::new();
+                    let mut x = 0;
+                    while x < body.len() {
+                        let lo = at(body, x).unwrap_or(0);
+                        if x + 2 < body.len() && at(body, x + 1) == Some(cp('-')) {
+                            rng.push((lo, at(body, x + 2).unwrap_or(0)));
+                            x += 3;
+                        } else {
+                            rng.push((lo, lo));
+                            x += 1;
+                        }
+                    }
+                    out.push(Gt::Class(neg, rng));
+                }
+                i = k;
+            }
+        } else {
+            out.push(Gt::Lit(c));
+        }
+        i += 1;
+    }
+    out
+}
+
+/// `_glob_match`: true when the pattern matches the whole of `s`; with `prefix`, when it matches some text that starts with `s` (what follows `s` is free).
+fn glob_match(toks: &[Gt], s: &[u32], prefix: bool) -> bool {
+    let n = toks.len();
+    let close = |states: &std::collections::BTreeSet<usize>| -> std::collections::BTreeSet<usize> {
+        let mut out = states.clone();
+        for &t0 in states {
+            let mut t = t0;
+            while matches!(toks.get(t), Some(Gt::Star)) {
+                t += 1;
+                out.insert(t);
+            }
+        }
+        out
+    };
+    let mut cur = close(&std::collections::BTreeSet::from([0usize]));
+    for &ch in s {
+        let mut nxt: std::collections::BTreeSet<usize> = std::collections::BTreeSet::new();
+        for &t in &cur {
+            let Some(tok) = toks.get(t) else {
+                continue;
+            };
+            match tok {
+                Gt::Star => {
+                    nxt.insert(t);
+                }
+                Gt::Any => {
+                    nxt.insert(t + 1);
+                }
+                Gt::Lit(v) => {
+                    if *v == ch {
+                        nxt.insert(t + 1);
+                    }
+                }
+                Gt::Class(neg, rng) => {
+                    if rng.iter().any(|&(lo, hi)| lo <= ch && ch <= hi) != *neg {
+                        nxt.insert(t + 1);
+                    }
+                }
+            }
+        }
+        cur = close(&nxt);
+        if cur.is_empty() {
+            return false;
+        }
+    }
+    if prefix {
+        !cur.is_empty()
+    } else {
+        cur.contains(&n)
+    }
+}
+
+/// `_glob_managed`: true when the pattern could match a name that starts with `managed-settings`. A pattern that starts with `*` counts only when what follows it could start at `managed-settings`, `-settings` or `settings` (so `*.log` and `*.o` do not, `*settings*` does).
+fn glob_managed(lt: &[Gt]) -> bool {
+    let i = lt.iter().take_while(|t| matches!(t, Gt::Star)).count();
+    if i == 0 {
+        return glob_match(lt, &text("managed-settings"), true);
+    }
+    let rest = lt.get(i..).unwrap_or(&[]);
+    !rest.is_empty() && ["managed-settings", "-settings", "settings"].iter().any(|s| glob_match(rest, &text(s), true))
+}
+
+/// `str.rstrip("/")`.
+fn rstrip_slash(t: &[u32]) -> &[u32] {
+    let end = t.iter().rposition(|&c| c != cp('/')).map_or(0, |k| k + 1);
+    slice(t, 0, end)
+}
+
+/// `_glob_protected`: true when the word `w`, read as a shell filename pattern, could match a settings file: its last component could be `managed-settings...`, or its folder component `managed-settings.d`, or its last component `settings.json` / `settings.local.json` in a folder
+/// `.claude`. Only the last two components count, as in `protected`. The folder is the working directory's when `w` has no `/`, and any folder when it is unknown (`cd $X` was seen) or holds `$`, a backtick, `)` or `}`; a folder that is `.`, `..` or empty after a pattern is read as any. A folder pattern counts as `managed-settings.d` by the rule of `glob_managed` (`*/x` does not), and where the folder is unknown a last component that starts with `*` does not count.
+fn glob_protected(w: &[u32], cwd: &Cwd, unknown_dir: bool, os: Os, keep: bool) -> Res<bool> {
+    let nt = os == Os::Windows;
+    let mut w = expanduser_for(w, os);
+    if nt {
+        let sl: Text = w.iter().map(|&c| if c == cp('\\') { cp('/') } else { c }).collect();
+        w = nt_fold(&sl);
+    }
+    if w.iter().all(|&c| c == cp('/')) {
+        return Ok(false);
+    }
+    let w = rstrip_slash(&w);
+    let has_sep = has_char(w, '/');
+    let (dirpart, last): (&[u32], &[u32]) = match w.iter().rposition(|&c| c == cp('/')) {
+        Some(k) => (slice(w, 0, k), slice(w, k + 1, w.len())),
+        None => (&[], w),
+    };
+    let lt = glob_tokens(last);
+    if glob_managed(&lt) {
+        return Ok(true);
+    }
+    let named = SETTINGS_NAMES.iter().any(|n| glob_match(&lt, &text(n), false));
+    let guess = named && !matches!(lt.first(), Some(Gt::Star)); // where the folder is not known, a name that starts with `*` is no sign
+    let dp = rstrip_slash(dirpart);
+    let dl = dp.iter().rposition(|&c| c == cp('/')).map_or(dp, |k| slice(dp, k + 1, dp.len()));
+    let glob_dir = dirpart.iter().any(|&c| glob_char(c));
+    if has_sep && (dl.iter().any(|&c| "$`)}".chars().any(|x| cp(x) == c)) || (glob_dir && (dl.is_empty() || eq(dl, ".") || eq(dl, "..")))) {
+        return Ok(guess); // the folder is not known: only the last component decides
+    }
+    if has_sep && glob_dir {
+        let dt = glob_tokens(dl);
+        return Ok(glob_managed(&dt) || (named && glob_match(&dt, &text(".claude"), false)));
+    }
+    if !has_sep && unknown_dir {
+        return Ok(guess);
+    }
+    let rel: Text = if has_sep { cat(&[dirpart, &text("/x")]) } else { text("x") };
+    let parent: Text = if nt {
+        let relb: Text = rel.iter().map(|&c| if c == cp('/') { cp('\\') } else { c }).collect();
+        let (_, _, comps) = nt_resolve(cwd, &relb, keep)?;
+        comps.len().checked_sub(2).and_then(|k| comps.get(k)).map_or_else(Text::new, |c| nt_fold(c))
+    } else {
+        basename(dirname(&normpath(&join(cwd, &rel)?))).to_vec()
+    };
+    Ok(eq(&parent, "managed-settings.d") || (named && eq(&parent, ".claude")))
+}
+
+/// `_DIR_NAMED.search(t)`: the text names a `.claude` folder (at the start or after a separator, and not followed by a name character).
+fn dir_named(t: &[u32]) -> bool {
+    let name_char = |c: u32| char::from_u32(c).is_some_and(|ch| ch.is_ascii_alphanumeric() || ch == '_' || ch == '.' || ch == '-');
+    let dot_claude = ".claude".chars().count();
+    (0..t.len()).any(|p| starts_at(t, p, ".claude") && (p == 0 || at(t, p - 1).is_some_and(|c| c == cp('/') || c == cp('\\'))) && !at(t, p + dot_claude).is_some_and(name_char))
+}
+
+/// `_CONFIG_DIR_VAR`: the variable that relocates the `.claude` folder: a text that holds it names that folder.
+const CONFIG_DIR_VAR: &str = "CLAUDE_CONFIG_DIR";
+
+/// `_names_config_dir`: the text holds `$CLAUDE_CONFIG_DIR` in any form (`${CLAUDE_CONFIG_DIR:-..}`; on Windows the name is read in any case).
+fn names_config_dir(t: &[u32], os: Os) -> bool {
+    if os == Os::Windows {
+        contains(&nt_fold(t), &CONFIG_DIR_VAR.to_ascii_lowercase())
+    } else {
+        contains(t, CONFIG_DIR_VAR)
+    }
+}
+
+/// `_claude_dir`: the directory `d` (the working directory of the event, or one `cd` reached) is a `.claude` folder: its last name is `.claude` (posix exactly, Windows in any case and with trailing dots and spaces dropped).
+fn claude_dir(d: &Cwd, os: Os, keep: bool) -> Res<bool> {
+    let Cwd::Str(t) = d else { return Ok(false) };
+    if t.is_empty() {
+        return Ok(false);
+    }
+    if os == Os::Windows {
+        let (_, _, comps) = nt_resolve(&Cwd::Str(Text::new()), t, keep)?;
+        return Ok(comps.last().is_some_and(|c| eq(&nt_fold(c), ".claude")));
+    }
+    Ok(eq(basename(&normpath(t)), ".claude"))
+}
+
+/// `_assigns`: (file, folder): a simple command assigns a value that names a settings file (`F=..`, in front of a command or after `export`, `declare`, `local`, `readonly`, or `for F in ..`), and one that assigns a value that names a `.claude` folder (`D=~/.claude`).
+fn assigns(segs: &[Seg], os: Os) -> (bool, bool) {
+    let (mut file, mut folder) = (false, false);
+    for (_, toks) in segs {
+        let mut vals: Vec<&[u32]> = toks.iter().filter(|t| is_assign(t)).filter_map(|t| t.iter().position(|&c| c == cp('=')).map(|e| slice(t, e + 1, t.len()))).collect();
+        if toks.first().is_some_and(|t| eq(t, "for")) {
+            if let Some(p) = toks.iter().position(|t| eq(t, "in")) {
+                vals.extend(toks.iter().skip(p + 1).map(|t| t.as_slice()));
+            }
+        }
+        for v in vals {
+            file = file || names_path(v, os);
+            folder = folder || if os == Os::Windows { dir_named(&nt_fold(v)) } else { dir_named(v) } || names_config_dir(v, os);
+        }
+        if file && folder {
+            break;
+        }
+    }
+    (file, folder)
+}
+
+/// `_REDIR_TOK.match(t)`: the end of the redirection operator (with its file descriptor) at the start of `t`.
+fn redir_tok(t: &[u32]) -> Option<usize> {
+    let d = t.iter().take_while(|&&c| is_digit(c)).count();
+    ["<<<", "<<-", "<<", "<>", "<&", "<", ">>", ">&", ">|", ">", "&>>", "&>"].iter().find(|op| starts_at(t, d, op)).map(|op| d + op.chars().count())
+}
+
+/// `_STDIN_FILES`: the script files that are the input.
+const STDIN_FILES: &[&str] = &["/dev/stdin", "/dev/fd/0", "/proc/self/fd/0"];
+
+/// `_reads_stdin`: true when a shell started with these arguments reads its script from its input: `-s` or `-` was given, or no argument is a script file (redirection words and option values do not count), or the script file is the input (`/dev/stdin`, `/dev/fd/0`, `/proc/self/fd/0`).
+fn reads_stdin(args: &[Text]) -> bool {
+    let (mut s_opt, mut files, mut i) = (false, false, 0usize);
+    while let Some(t) = args.get(i) {
+        if let Some(e) = redir_tok(t) {
+            i += if e < t.len() { 1 } else { 2 };
+            continue;
+        }
+        if eq(t, "-") || STDIN_FILES.iter().any(|f| eq(t, f)) {
+            return true;
+        }
+        if eq(t, "--") {
+            if args.get(i + 1).is_some_and(|x| STDIN_FILES.iter().any(|f| eq(x, f))) {
+                return true;
+            }
+            files = files || args.get(i + 1).is_some_and(|x| redir_tok(x).is_none());
+            break;
+        }
+        if t.len() > 1 && (starts(t, "-") || starts(t, "+")) {
+            if at(t, 1) != Some(cp('-')) {
+                s_opt = s_opt || (starts(t, "-") && has_char(t, 's'));
+                if t.iter().skip(1).all(|&c| char::from_u32(c).is_some_and(|ch| ch.is_ascii_alphabetic())) {
+                    i += t.iter().filter(|&&c| c == cp('o') || c == cp('O')).count();
+                }
+            } else if eq(t, "--rcfile") || eq(t, "--init-file") {
+                i += 1;
+            }
+        } else {
+            files = true;
+        }
+        i += 1;
+    }
+    s_opt || !files
+}
+
+/// `_UNKNOWN_STRING.match(t)`: the word starts with a substitution or a variable (`SUBST_`, `$name`, `${`, `$(`, a backtick).
+fn unknown_string(t: &[u32]) -> bool {
+    starts(t, "SUBST_") || at(t, 0) == Some(cp('`')) || (at(t, 0) == Some(cp('$')) && at(t, 1).is_some_and(|c| is_word(c) || c == cp('{') || c == cp('(')))
+}
+
+/// `_stdin_shell`: true when some simple command is a shell (or a variable, `$SHELL`) that runs a script that is not in the command text: with no `-c` string it reads its script from its input (`.. | sh`, `bash -s`, `sh <<EOF`, `sh <<< ..`, `sh<<<..`, `sh < file`, `sh /dev/stdin`) or from a process
+/// substitution (`bash <(..)`); with a `-c` string, one that is itself unknown (`sh -c "$(..)"`, `sh -c "$X"`); and `eval` of such a string, `source` and `.` of the input or of a process substitution.
+fn stdin_shell(cmd: &[u32], segs: &[Seg], os: Os) -> bool {
+    let procsub = contains(cmd, "<("); // a masked substitution is a script only when the command has a process substitution
+    segs.iter().any(|(_, toks)| {
+        let (k, _) = program(toks, os);
+        let Some(t) = toks.get(k) else {
+            return false;
+        };
+        let mut w: &[u32] = t;
+        let mut args: Vec<Text> = slice_toks(toks, k + 1).to_vec();
+        if let Some(m) = t.iter().skip(1).position(|&c| c == cp('<') || c == cp('>')) {
+            // the operator glued to the program: `sh<<<'..'`
+            w = slice(t, 0, m + 1);
+            args.insert(0, slice(t, m + 1, t.len()).to_vec());
+        }
+        let name = prog_name(w, os);
+        if in_set(&name, SHELLS) || shell_var(w) {
+            let dash_c = args.iter().position(|x| eq(x, "-c"));
+            let script = shell_script(&args);
+            if dash_c.is_some() || script.is_some() {
+                let mut js: Vec<usize> = dash_c.map(|j| j + 1).into_iter().collect();
+                js.extend(script);
+                return js.iter().any(|&j| args.get(j).is_some_and(|a| unknown_string(a)));
+            }
+            return reads_stdin(&args) || (procsub && args.iter().any(|a| starts(a, "SUBST_")));
+        }
+        if eq(&name, "eval") {
+            return args.first().is_some_and(|a| unknown_string(a));
+        }
+        if eq(&name, ".") || eq(&name, "source") {
+            return args.first().is_some_and(|a| STDIN_FILES.iter().any(|f| eq(a, f)) || (procsub && starts(a, "SUBST_")));
+        }
+        false
+    })
+}
+
+/// `_writer_targets`: the words that the program writes or removes, for the writers that G3 knows (`tee`, in-place editors, `cp`, `mv`, ..., `dd of=`).
+fn writer_targets(prog: &[u32], args: &[Text]) -> Vec<Text> {
+    let mut targets: Vec<Text> = Vec::new();
+    let sed_in_place = (eq(prog, "sed") || eq(prog, "perl") || eq(prog, "awk") || eq(prog, "gawk") || eq(prog, "ruby"))
+        && args.iter().any(|t| starts_any(t, &["-i", "--in-place", "-pi", "-ni"]) || eq(t, "inplace"));
+    if eq(prog, "tee") || sed_in_place {
+        targets.extend(non_flags(args));
+    } else if eq(prog, "cp") {
+        // only the destination is written: the last plain argument, or the value of -t / --target-directory
+        let plain = non_flags(args);
+        let mut tdir: Vec<Text> = Vec::new();
+        for (j, t) in args.iter().enumerate().take(args.len().saturating_sub(1)) {
+            if eq(t, "-t") || eq(t, "--target-directory") {
+                tdir.extend(args.get(j + 1).cloned());
+            }
+        }
+        for t in args {
+            if starts(t, "--target-directory=") {
+                tdir.push(slice(t, "--target-directory=".chars().count(), t.len()).to_vec());
+            }
+        }
+        if tdir.is_empty() {
+            targets.extend(plain.last().cloned());
+        } else {
+            targets.extend(tdir);
+        }
+    } else if ["mv", "install", "ln", "rsync", "rm", "truncate", "unlink", "shred", "chmod", "chown", "touch"].iter().any(|p| eq(prog, p)) {
+        targets.extend(non_flags(args));
+    } else if eq(prog, "dd") {
+        targets.extend(args.iter().filter(|t| starts(t, "of=")).map(|t| slice(t, 3, t.len()).to_vec()));
+    }
+    targets
+}
+
+/// What `gap_hit` needs of the walk over the commands: the working directory, whether `cd $X` was seen, whether the command assigns a settings file and a `.claude` folder (`assigns`), the flavour and the dots-and-spaces reading.
+#[derive(Clone, Copy)]
+struct GapState<'a> {
+    cur: &'a Cwd,
+    unknown: bool,
+    assign: (bool, bool),
+    os: Os,
+    keep: bool,
+}
+
+/// `_gap_hit`: the gap readings of one simple command: each redirect target (as written, whole) and each writer argument that the guard cannot expand is denied when its text names a settings file with its `.claude` folder or is `managed-settings..`, when the command assigns a value that
+/// names a settings file, or when the text names `settings.json` and the folder `.claude` is named by an assignment or by the target itself (`$D/settings.json` after `D=~/.claude`, `$(echo .claude)/settings.json`); `$HOME/.vscode/settings.json` is not. Each target that holds a glob character, when it could match a settings file.
+fn gap_hit(seg: &[u32], toks: &[Text], k: usize, prog: &[u32], st: &GapState) -> Res<Option<Hit>> {
+    let GapState { cur, unknown, assign, os, keep } = *st;
+    let args: &[Text] = if k < toks.len() { slice_toks(toks, k + 1) } else { &[] };
+    let mut cands: Vec<(Text, bool)> = redirect_spans(seg).into_iter().map(|t| (t, true)).collect();
+    cands.extend(writer_targets(prog, args).into_iter().map(|t| (t, false)));
+    for (t, raw) in cands {
+        let w: Text = if has_char(&t, '$') || has_char(&t, '`') || contains(&t, "SUBST_") {
+            let u = unquoted(&t);
+            if names_path(&t, os) || names_path(&u, os) {
+                return Ok(hit("G3", cat(&[&text("the command writes `"), &t, &text("`, a target the guard cannot expand that names a Claude Code settings file")])));
+            }
+            if assign.0 {
+                return Ok(hit("G3", cat(&[&text("the command writes `"), &t, &text("`, a target the guard cannot expand, and assigns a value that names a Claude Code settings file")])));
+            }
+            let in_dir = if os == Os::Windows { contains(&nt_fold(&u), ".claude") } else { contains(&u, ".claude") };
+            if (names_span(&t, os) || names_span(&u, os)) && (assign.1 || in_dir || names_config_dir(&u, os)) {
+                return Ok(hit("G3", cat(&[&text("the command writes `"), &t, &text("`, a target the guard cannot expand that names a settings file in a `.claude` folder")])));
+            }
+            u
+        } else if raw {
+            redirect_word(&t, 0, REDIRECT_STOP).0
+        } else {
+            t.clone()
+        };
+        if w.iter().any(|&c| glob_char(c)) && glob_protected(&w, cur, unknown, os, keep)? {
+            return Ok(hit("G3", cat(&[&text("the command writes `"), &t, &text("`, which can match a Claude Code settings file")])));
+        }
+    }
+    Ok(None)
+}
+
 /// `g3_bash`: a Bash command that writes a Claude Code settings file. On Windows the commands are read twice: as written, then with every backslash a slash. `redirects` false is the reading of before the leaf posix_redirects; `redirects` true
-/// tests only the targets of `quoted_redirect_targets` (and runs no script check), so that a command denied before is denied for the same reason.
-fn g3_bash(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, script: bool, redirects: bool) -> Res<Option<Hit>> {
-    let first = g3_bash_once(cmd, segs, cwd, os, script, false, redirects)?;
+/// tests only the targets of `quoted_redirect_targets` (and runs no script check), so that a command denied before is denied for the same reason; `gaps` tests only what the leaf posix_gaps adds (`gap_hit`).
+fn g3_bash(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, script: bool, redirects: bool, gaps: bool) -> Res<Option<Hit>> {
+    let rd = Reading { script, keep: false, redirects, gaps };
+    let first = g3_bash_once(cmd, segs, cwd, os, rd)?;
     if first.is_some() || os != Os::Windows {
         return Ok(first);
     }
     // Windows: the text as written with the other reading of a dots-and-spaces name, then with every backslash a slash under both readings
-    if let Some(h) = g3_bash_once(cmd, segs, cwd, os, script, true, redirects)? {
+    if let Some(h) = g3_bash_once(cmd, segs, cwd, os, Reading { keep: true, ..rd })? {
         return Ok(Some(h));
     }
     let sl = slashed(segs);
-    if let Some(h) = g3_bash_once(cmd, &sl, cwd, os, false, false, redirects)? {
+    if let Some(h) = g3_bash_once(cmd, &sl, cwd, os, Reading { script: false, ..rd })? {
         return Ok(Some(h));
     }
-    g3_bash_once(cmd, &sl, cwd, os, false, true, redirects)
+    g3_bash_once(cmd, &sl, cwd, os, Reading { script: false, keep: true, ..rd })
 }
 
-/// `_g3_bash`: one reading; the script check (`script`) is made on the first only.
-fn g3_bash_once(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, script: bool, keep: bool, redirects: bool) -> Res<Option<Hit>> {
+/// The switches of one reading of `g3_bash_once`: the script check, the dots-and-spaces reading of a Windows name, and which targets are tested (the older ones, `quoted_redirect_targets`, or `gap_hit`).
+#[derive(Clone, Copy)]
+struct Reading {
+    script: bool,
+    keep: bool,
+    redirects: bool,
+    gaps: bool,
+}
+
+/// `_cd_target`: the index of the target of a `cd` or `pushd` at `toks[k]` (`builtin cd`, `command cd` are the same; its options `-L -P -e -@` and `--` come first), or None when it is not one or has no target.
+fn cd_target(toks: &[Text], k: usize, prog: &[u32], os: Os) -> Option<usize> {
+    let mut k = k;
+    let mut prog: Text = prog.to_vec();
+    while eq(&prog, "builtin") && k + 1 < toks.len() {
+        k += 1;
+        prog = prog_name(toks.get(k).map_or(&[][..], |x| x), os);
+    }
+    if !(eq(&prog, "cd") || eq(&prog, "pushd")) {
+        return None;
+    }
+    let mut i = k + 1;
+    while let Some(t) = toks.get(i) {
+        if eq(t, "--") {
+            i += 1;
+            break;
+        }
+        // `pushd -1` rotates the stack: a number stays a target, as before
+        if t.len() > 1 && at(t, 0) == Some(cp('-')) && !t.iter().skip(1).all(|&c| (cp('0')..=cp('9')).contains(&c)) {
+            i += 1;
+            continue;
+        }
+        break;
+    }
+    (i < toks.len()).then_some(i)
+}
+
+/// `_last_is_claude`: the last name of the path text `t` (a word that `cd` gets, with a variable in it) is `.claude`: posix exactly, Windows in any case.
+fn last_is_claude(t: &[u32], os: Os) -> bool {
+    let nt = os == Os::Windows;
+    let sep = |c: u32| c == cp('/') || (nt && c == cp('\\'));
+    let end = t.iter().rposition(|&c| !sep(c)).map_or(0, |k| k + 1);
+    let t = slice(t, 0, end);
+    let start = t.iter().rposition(|&c| sep(c)).map_or(0, |k| k + 1);
+    let last = slice(t, start, t.len());
+    if nt { eq(&nt_fold(last), ".claude") } else { eq(last, ".claude") }
+}
+
+/// `_g3_bash`: `g3_walk` over the commands in order; then, when a command with substitutions was listed twice (see `COPY_NEXT`) and holds a `cd`, again with each listing starting from where the first started: the directory the first listing reached is not the one the second starts in (`cd ..` twice goes up twice), and a second reading never allows what the first denied.
+fn g3_bash_once(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, rd: Reading) -> Res<Option<Hit>> {
+    let mut cds = false;
+    let first = g3_walk(cmd, segs, cwd, os, rd, false, &mut cds)?;
+    if first.is_some() || !cds || !segs.iter().any(|(sg, toks)| toks.is_empty() && eq(sg, COPY_NEXT)) {
+        return Ok(first);
+    }
+    g3_walk(cmd, segs, cwd, os, rd, true, &mut cds)
+}
+
+/// `_g3_walk`: one reading; the script check (`script`) is made on the first only.
+fn g3_walk(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, rd: Reading, reset: bool, cds: &mut bool) -> Res<Option<Hit>> {
+    let Reading { script, keep, redirects, gaps } = rd;
+    let assign = if gaps { assigns(segs, os) } else { (false, false) };
+    let base_folder = gaps && claude_dir(cwd, os, keep)?; // the event's directory is a `.claude` folder, then an unknown name `settings.json` is the settings file
+    let (mut folder, mut cfg_cd) = (base_folder, false);
     let mut unknown = false;
     let mut cur = cwd.clone();
+    let mut saved: Vec<(Cwd, bool, bool, bool)> = Vec::new();
+    let mut spent = 0_usize;
     for (seg, toks) in segs {
+        if toks.is_empty() && copy_mark(seg) {
+            if reset {
+                if eq(seg, COPY_OPEN) {
+                    saved.push((cur.clone(), unknown, folder, cfg_cd));
+                } else if eq(seg, COPY_NEXT) {
+                    if let Some(s) = saved.last() {
+                        (cur, unknown, folder, cfg_cd) = s.clone();
+                    }
+                } else {
+                    saved.pop();
+                }
+            }
+            continue;
+        }
+        spent = spent.saturating_add(cwd_len(&cur)); // every command reads the working directory again
+        if spent > CWD_WORK {
+            return Ok(too_long_cwd());
+        }
         let (k, _) = program(toks, os);
         let prog: Text = toks.get(k).map_or_else(Text::new, |t| prog_name(t, os));
         let prog = prog.as_slice();
-        if (eq(prog, "cd") || eq(prog, "pushd")) && k + 1 < toks.len() {
-            let t = expanduser_for(toks.get(k + 1).map_or(&[][..], |x| x), os);
+        if let Some(ci) = cd_target(toks, k, prog, os) {
+            *cds = true;
+            let t = expanduser_for(toks.get(ci).map_or(&[][..], |x| x), os);
             if has_char(&t, '$') || has_char(&t, '`') || eq(&t, "-") {
                 unknown = true;
+                cfg_cd = cfg_cd || gaps && (names_config_dir(&t, os) || last_is_claude(&t, os));
             } else if os == Os::Windows {
                 let (d, r, c) = nt_resolve(&cur, &t, keep)?;
                 cur = Cwd::Str(nt_str(&d, r, &c));
             } else {
                 let base = if isabs(&t) { t } else { join(&cur, &t)? };
                 cur = Cwd::Str(normpath(&base));
+            }
+            if cwd_len(&cur) > CWD_MAX {
+                return Ok(too_long_cwd());
+            }
+            if gaps {
+                folder = base_folder || cfg_cd || claude_dir(&cur, os, keep)?;
+            }
+            continue;
+        }
+        if gaps {
+            if let Some(h) = gap_hit(seg, toks, k, prog, &GapState { cur: &cur, unknown, assign: (assign.0, assign.1 || folder), os, keep })? {
+                return Ok(Some(h));
             }
             continue;
         }
@@ -1248,42 +2090,14 @@ fn g3_bash_once(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, script: bool, keep
             continue;
         }
         let mut targets = redirect_targets(seg);
-        let args: &[Text] = if k < toks.len() { slice_toks(toks, k + 1) } else { &[] };
-        let sed_in_place = (eq(prog, "sed") || eq(prog, "perl") || eq(prog, "awk") || eq(prog, "gawk") || eq(prog, "ruby"))
-            && args.iter().any(|t| starts_any(t, &["-i", "--in-place", "-pi", "-ni"]) || eq(t, "inplace"));
-        if eq(prog, "tee") || sed_in_place {
-            targets.extend(non_flags(args));
-        } else if eq(prog, "cp") {
-            // only the destination is written: the last plain argument, or the value of -t / --target-directory
-            let plain = non_flags(args);
-            let mut tdir: Vec<Text> = Vec::new();
-            for (j, t) in args.iter().enumerate().take(args.len().saturating_sub(1)) {
-                if eq(t, "-t") || eq(t, "--target-directory") {
-                    tdir.extend(args.get(j + 1).cloned());
-                }
-            }
-            for t in args {
-                if starts(t, "--target-directory=") {
-                    tdir.push(slice(t, "--target-directory=".chars().count(), t.len()).to_vec());
-                }
-            }
-            if tdir.is_empty() {
-                targets.extend(plain.last().cloned());
-            } else {
-                targets.extend(tdir);
-            }
-        } else if ["mv", "install", "ln", "rsync", "rm", "truncate", "unlink", "shred", "chmod", "chown", "touch"].iter().any(|p| eq(prog, p)) {
-            targets.extend(non_flags(args));
-        } else if eq(prog, "dd") {
-            targets.extend(args.iter().filter(|t| starts(t, "of=")).map(|t| slice(t, 3, t.len()).to_vec()));
-        }
+        targets.extend(writer_targets(prog, if k < toks.len() { slice_toks(toks, k + 1) } else { &[] }));
         for t in targets {
             if protected(&t, &cur, unknown, os, keep)? {
                 return Ok(hit("G3", cat(&[&text("the command writes `"), &t, &text("`, a Claude Code settings file")])));
             }
         }
     }
-    if !script || redirects {
+    if !script || redirects || gaps {
         return Ok(None);
     }
     let nt = os == Os::Windows;
@@ -1473,6 +2287,106 @@ fn command_text(inp: &Value) -> Res<Text> {
     }
 }
 
+/// `_input_chars`: the characters of the strings of a Write, Edit, MultiEdit or NotebookEdit input that the guard reads: the path, the content, and each old and new string.
+fn input_chars(inp: &Value) -> usize {
+    let mut total = 0;
+    for key in ["file_path", "path", "notebook_path", "content", "new_source", "old_string", "new_string"] {
+        if let Some(Value::Str(t)) = inp.get(key) {
+            total += t.len();
+        }
+    }
+    if let Some(Value::Arr(edits)) = inp.get("edits") {
+        for e in edits {
+            for key in ["old_string", "new_string"] {
+                if let Some(Value::Str(t)) = e.get(key) {
+                    total += t.len();
+                }
+            }
+        }
+    }
+    total
+}
+
+/// `TOO_COMPLEX`: the denial when the splitter has too much to scan.
+fn too_complex() -> Option<Hit> {
+    hit("G?", text("the command has too many command substitutions to be checked"))
+}
+
+/// The length of a directory that is a string, else 0.
+fn cwd_len(c: &Cwd) -> usize {
+    match c {
+        Cwd::Str(t) => t.len(),
+        _ => 0,
+    }
+}
+
+/// `CWD_MAX`: the longest directory the commands are followed into by `cd` and `pushd`.
+const CWD_MAX: usize = 1024;
+
+/// `CWD_WORK`: the commands of a chain times the length of their directory, at most.
+const CWD_WORK: usize = 4_000_000;
+
+/// `TOO_LONG_CWD`: the denial when a `cd` leads to a path longer than `CWD_MAX`, or the commands times the directory exceed `CWD_WORK`.
+fn too_long_cwd() -> Option<Hit> {
+    hit("G?", text("the directory of the commands is too long, for as many commands, to be checked"))
+}
+
+/// What one pass over a Bash command found: the denial, the simple commands, whether a shell string lay deeper than the pass follows, and the commands with `>|` whole (when a segment ended in `>`).
+struct Pass {
+    hit: Option<Hit>,
+    segs: Vec<Seg>,
+    deep: bool,
+    alt: Option<Vec<Seg>>,
+}
+
+/// `_bash_pass`: the readings of G1 to G3 over the commands of `expand`. `second` is the pass of the leaf posix_gaps (ANSI-C words, strings to depth `NEST`); the first pass is that of before.
+fn bash_pass(cmd: &[u32], cwd: &Cwd, os: Os, second: bool, work: &mut usize) -> Res<Pass> {
+    let mode = if second { Mode { clobber: false, ansi: true, limit: NEST } } else { FIRST };
+    let mut deep = false;
+    let Ok(segs) = expand(cmd, 0, work, os, mode, &mut deep) else {
+        return Ok(Pass { hit: too_complex(), segs: Vec::new(), deep: false, alt: None });
+    };
+    let mut found = g1(cmd, &segs, os).or_else(|| g2(&segs, os)).or_else(|| if os == Os::Windows { g2(&slashed(&segs), os) } else { None });
+    if found.is_none() {
+        found = g3_bash(cmd, &segs, cwd, os, true, false, false)?;
+    }
+    if found.is_none() {
+        // the quote-aware reading of the redirections comes after every older reading, so a denial keeps its reason
+        found = g3_bash(cmd, &segs, cwd, os, false, true, false)?;
+    }
+    if found.is_some() || !segs.iter().any(|(sg, _)| sg.last() == Some(&cp('>'))) {
+        return Ok(Pass { hit: found, segs, deep, alt: None }); // a segment that ends in `>` is where the splitter cut a `>|`
+    }
+    let Ok(alt) = expand(cmd, 0, work, os, Mode { clobber: true, ..mode }, &mut false) else {
+        return Ok(Pass { hit: too_complex(), segs, deep, alt: None });
+    };
+    let found = g3_bash(cmd, &alt, cwd, os, false, true, false)?; // and the reading with `>|` whole
+    Ok(Pass { hit: found, segs, deep, alt: Some(alt) })
+}
+
+/// `g3_gaps`: the readings of the leaf posix_gaps that are not a pass over the same commands: targets that cannot be expanded or that are globs (`gap_hit`, over the commands with `>|` cut and, when there are some, with it whole), and, when the command names a settings file anywhere, a shell string nested deeper than the pass follows or a shell
+/// that reads its script from its input (the script is not in the command text).
+fn g3_gaps(cmd: &[u32], pass: &Pass, cwd: &Cwd, os: Os) -> Res<Option<Hit>> {
+    if let Some(h) = g3_bash(cmd, &pass.segs, cwd, os, false, false, true)? {
+        return Ok(Some(h));
+    }
+    if let Some(alt) = &pass.alt {
+        if let Some(h) = g3_bash(cmd, alt, cwd, os, false, false, true)? {
+            return Ok(Some(h));
+        }
+    }
+    if !names_any(cmd, os) {
+        return Ok(None);
+    }
+    if pass.deep {
+        return Ok(hit("G3", text("a shell string is nested too deep to be read, and the command names a Claude Code settings file")));
+    }
+    if stdin_shell(cmd, &pass.segs, os) {
+        return Ok(hit("G3", text("a shell reads a script that is not in the command, and the command names a Claude Code settings file")));
+    }
+    Ok(None)
+}
+
 /// `decide`: the denial for an event, or `None`.
 fn decide(event: &Value, os: Os) -> Res<Option<Hit>> {
     if !matches!(event, Value::Obj(_)) {
@@ -1489,37 +2403,37 @@ fn decide(event: &Value, os: Os) -> Res<Option<Hit>> {
             return Err(Fault::Attribute);
         }
         let cmd = command_text(&inp)?;
-        let mut work = 0;
-        let too_complex = || hit("G?", text("the command has too many command substitutions to be checked"));
-        let Ok(segs) = expand(&cmd, 0, &mut work, os, false) else {
-            return Ok(too_complex());
-        };
-        if let Some(h) = g1(&cmd, &segs, os).or_else(|| g2(&segs, os)).or_else(|| if os == Os::Windows { g2(&slashed(&segs), os) } else { None }) {
-            return Ok(Some(h));
+        if cmd.contains(&0) {
+            return Ok(hit("G?", text("the command holds a NUL character, which a shell cannot receive")));
         }
-        // the quote-aware reading of the redirections comes after every older reading, so a denial keeps its reason
-        if let Some(h) = g3_bash(&cmd, &segs, &cwd, os, true, false)? {
-            return Ok(Some(h));
+        if cmd.len() > MAX_CHARS {
+            return Ok(hit("G?", text(&format!("the command is too long to be checked (more than {MAX_CHARS} characters)"))));
         }
-        if let Some(h) = g3_bash(&cmd, &segs, &cwd, os, false, true)? {
-            return Ok(Some(h));
+        let mut work = 0; // one budget for all the readings of the command: the passes add up
+        let first = bash_pass(&cmd, &cwd, os, false, &mut work)?;
+        if first.hit.is_some() {
+            return Ok(first.hit);
         }
-        if !segs.iter().any(|(sg, _)| sg.last() == Some(&cp('>'))) {
-            return Ok(None); // a segment that ends in `>` is where the splitter cut a `>|`
+        // the readings of the leaf posix_gaps come after every older reading, so a denial keeps its reason
+        let second = bash_pass(&cmd, &cwd, os, true, &mut work)?;
+        if second.hit.is_some() {
+            return Ok(second.hit);
         }
-        let mut work = 0;
-        let Ok(alt) = expand(&cmd, 0, &mut work, os, true) else {
-            return Ok(too_complex());
-        };
-        return g3_bash(&cmd, &alt, &cwd, os, false, true); // and the reading with `>|` whole
+        return g3_gaps(&cmd, &second, &cwd, os);
     }
     if ["Write", "Edit", "MultiEdit", "NotebookEdit"].contains(&tool.as_str()) {
         // BORROW: explicit .as_str() for the slice-contains lookup
         if !matches!(inp, Value::Obj(_)) {
             return Err(Fault::Attribute);
         }
+        if ["file_path", "path", "notebook_path"].iter().any(|k| matches!(inp.get(k), Some(Value::Str(t)) if t.contains(&0))) {
+            return Ok(hit("G?", text("the path holds a NUL character, which a file name cannot hold")));
+        }
         if let Some(h) = g3_edit(&inp, &cwd, os)? {
             return Ok(Some(h));
+        }
+        if input_chars(&inp) > WRITE_MAX_CHARS {
+            return Ok(hit("G?", text(&format!("the input is too long to be checked (more than {WRITE_MAX_CHARS} characters)"))));
         }
         return g4_script(&inp, &cwd, os);
     }
@@ -1606,9 +2520,10 @@ pub(crate) fn run_os(raw: &str, os: Os) -> Answer {
 mod tests {
     use super::*;
 
-    /// The pinned counts of the two lists that carry the expected decision under both flavours (`WINDOWS_COUNT` and `REDIRECTS_COUNT` of the Python file).
+    /// The pinned counts of the lists that carry the expected decision under both flavours (`WINDOWS_COUNT`, `REDIRECTS_COUNT` and `POSIX_GAPS_COUNT` of the Python file).
     const WINDOWS_COUNT: usize = 106;
     const REDIRECTS_COUNT: usize = 110;
+    const POSIX_GAPS_COUNT: usize = 297;
 
     /// The cases of the list `name` (`windows_paths`, `redirects`); the file is read here, at test time, from the manifest directory, and is never embedded in the binary.
     fn list_cases(name: &str) -> Vec<Value> {
@@ -1678,6 +2593,34 @@ mod tests {
     }
 
     #[test]
+    fn posix_gaps_list_under_the_nt_flavour() {
+        check_all("posix_gaps", POSIX_GAPS_COUNT, Os::Windows, "nt");
+    }
+
+    #[test]
+    fn posix_gaps_list_under_the_posix_flavour() {
+        check_all("posix_gaps", POSIX_GAPS_COUNT, Os::Unix, "posix");
+    }
+
+    #[test]
+    fn the_cap_is_the_last_length_that_is_read() {
+        // one character over the cap is denied G?, the cap itself is read; Bash (`MAX_CHARS`) by its command, the other tools (`WRITE_MAX_CHARS`) by their text input
+        for (tool, key) in [("Bash", "command"), ("Write", "content"), ("Edit", "new_string"), ("NotebookEdit", "new_source")] {
+            let cap = if tool == "Bash" { MAX_CHARS } else { WRITE_MAX_CHARS };
+            for (n, want) in [(cap, "allow"), (cap + 1, "G?")] {
+                let input = Value::Obj(vec![(text(key), Value::Str(text(&"a".repeat(n))))]);
+                let e = Value::Obj(vec![(text("tool_name"), Value::Str(text(tool))), (text("tool_input"), input), (text("cwd"), Value::Str(text("/h/proj")))]);
+                let got = match decide(&e, Os::Unix) {
+                    Ok(Some(h)) => h.group.to_string(),
+                    Ok(None) => "allow".to_string(),
+                    Err(f) => format!("fault {}", f.name()),
+                };
+                assert_eq!(got, want, "{tool} of {n} characters");
+            }
+        }
+    }
+
+    #[test]
     fn a_quoted_target_is_read_as_the_shell_reads_it() {
         let t = |s: &str| quoted_redirect_targets(&text(s)).iter().map(|w| string(w)).collect::<Vec<_>>();
         assert_eq!(t("echo x > \"a b/c\""), ["a b/c"]);
@@ -1693,8 +2636,8 @@ mod tests {
     fn the_split_keeps_clobber_whole_only_when_asked() {
         let cmd = text("echo x >| f");
         let (mut w, mut w2) = (0, 0);
-        let plain: Vec<String> = expand(&cmd, 0, &mut w, Os::Unix, false).unwrap_or_default().iter().map(|(sg, _)| string(sg)).collect();
-        let whole: Vec<String> = expand(&cmd, 0, &mut w2, Os::Unix, true).unwrap_or_default().iter().map(|(sg, _)| string(sg)).collect();
+        let plain: Vec<String> = expand(&cmd, 0, &mut w, Os::Unix, FIRST, &mut false).unwrap_or_default().iter().map(|(sg, _)| string(sg)).collect();
+        let whole: Vec<String> = expand(&cmd, 0, &mut w2, Os::Unix, Mode { clobber: true, ..FIRST }, &mut false).unwrap_or_default().iter().map(|(sg, _)| string(sg)).collect();
         assert_eq!(plain, ["echo x >", "f"]);
         assert_eq!(whole, ["echo x >| f"]);
     }

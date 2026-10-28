@@ -62,7 +62,7 @@ def json_fragment(s):
 
 def registered_events(T, src, incident):
     out = []
-    for name in ("e3_attacks", "e3_ordinary", "e3_mention", "e3_evasions", "e3v1_cases", "e3v2_cases", "e3v3_cases", "windows_paths", "redirects"):
+    for name in ("e3_attacks", "e3_ordinary", "e3_mention", "e3_evasions", "e3v1_cases", "e3v2_cases", "e3v3_cases", "windows_paths", "redirects", "posix_gaps"):
         for c in json.loads(open("%s/%s.json" % (LISTS, name), encoding="utf-8").read().replace("{T}", json_fragment(T))):
             inp = c.get("input")
             if inp:
@@ -99,7 +99,7 @@ class Fuzz:
         self.r = random.Random(seed)
         self.v = vocab
         self.seeds = seeds
-        self.all_tokens = [t for k in ("bypass", "claude", "flags", "assigns", "paths", "writers", "inerts", "ops", "wrappers", "shells", "quotes", "spaces", "unicode", "words") for t in vocab[k]]
+        self.all_tokens = [t for k in ("bypass", "claude", "flags", "assigns", "paths", "writers", "inerts", "ops", "wrappers", "shells", "pipeshells", "procsubs", "quotes", "spaces", "unicode", "words") for t in vocab[k]]
 
     def pick(self, k):
         return self.r.choice(self.v[k])
@@ -138,6 +138,8 @@ class Fuzz:
             return self.pick("inerts") + self.pick("bypass") + (" " + self.pick("claude") if r.random() < 0.5 else "")
         if k < 0.80 and depth < 3:
             inner = self.gen_cmd(depth + 1)
+            if r.random() < 0.3:
+                return self.shell_fed(inner)
             return self.pick("shells") + self.sep() + self.quote(inner)
         if k < 0.86:
             body = self.gen_cmd(depth + 1) if depth < 3 else "echo x"
@@ -145,6 +147,18 @@ class Fuzz:
         if k < 0.93:
             return " ".join(self.pick("words") for _ in range(r.randint(1, 5)))
         return self.pick("wrappers") + self.pick("inerts") + self.pick("paths")
+
+    def shell_fed(self, inner):
+        """A script that reaches a shell by its input: a pipe, a here-string, or a process substitution."""
+        r = self.r
+        m = r.random()
+        if m < 0.4:
+            return "echo " + self.quote(inner) + " | " + self.pick("pipeshells")
+        if m < 0.6:
+            return self.pick("pipeshells") + r.choice(["<<<", " <<< ", " <<<"]) + self.quote(inner)
+        if m < 0.85:
+            return self.pick("procsubs") + "<(echo " + self.quote(inner) + ")"
+        return self.pick("shells") + '"$(echo ' + self.quote(inner) + ')"'
 
     def gen_cmd(self, depth=0):
         n = self.r.choice([1, 1, 2, 2, 3, 4])

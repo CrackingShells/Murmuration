@@ -958,9 +958,9 @@
   "tool": "Bash",
   "command": "echo x > $'/h/ok.txt\\x00.claude/settings.json'",
   "cwd": "/h/proj",
-  "posix": "allow",
-  "nt": "allow",
-  "note": "a NUL ends the name before the settings part"
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a NUL ends the name before the settings part; allowed until leaf posix_gaps, which denies a target holding $ that names a settings file as written (the over-deny of a contrived form)"
  },
  {
   "id": "ok_unclosed_ordinary",
