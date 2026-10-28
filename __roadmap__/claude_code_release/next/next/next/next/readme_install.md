@@ -12,6 +12,6 @@
 **Goal**: A stranger on macOS can go from nothing to a lab.
 **Implementation Logic**:
 Add "Install on macOS": `claude plugin marketplace add CrackingShells/Nest`, then `claude plugin install murmuration@cracking-shells --scope project` from the project folder; the one-line `/plugin install murmuration --marketplace CrackingShells/Nest` the validator asks for; and why not user scope (the guard would deny settings edits and some `claude` flags in every project). Rewrite "Use": `/lab` creates `__statera__/`, `__pondus__/`, `__scrupuli__/`, `__design__/`, `__instrumenta__/`, a `.ignore` block, the deny rules in `.claude/settings.local.json`, and no `agent` key; then open as the PI with `claude --agent murmuration:research-pi` or the settings line. Add "Update": marketplace update, then plugin update with `--scope project`, then restart. Requirements stay.
-**Deliverables**: `plugins/murmuration/README.md`
+**Deliverables**: `plugins/murmuration/README.md` (sections Install on macOS, Use, Update); root `README.md` (Install with `--scope project` and the update path, Use without the `agent` key, Maintainers: dev copy beside the published one). The root README was added on 2026-10-28 because it too promised the key and installed without a scope
 **Consistency Checks**: `! claude plugin validate plugins/murmuration 2>&1 | grep -q 'has no line that installs'` (expected: PASS)
 **Commit**: `docs(readme): install from Nest at project scope, what /lab creates, updates`

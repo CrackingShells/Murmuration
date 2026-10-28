@@ -37,8 +37,15 @@ marketplace:
 
 ```bash
 claude plugin marketplace add CrackingShells/Nest
-claude plugin install murmuration@cracking-shells
+claude plugin install murmuration@cracking-shells --scope project
 ```
+
+Run the install from each research project's folder, at project scope. Its permission guard would
+otherwise run in every session on the machine. The guard denies edits to Claude Code settings files
+and `claude` flags that skip your settings or hooks. To update:
+`claude plugin marketplace update cracking-shells`, then
+`claude plugin update murmuration@cracking-shells --scope project`, then start a new session. The
+[plugin README](plugins/murmuration/README.md) has the details.
 
 The plugin lives in [`plugins/murmuration/`](plugins/murmuration/); the marketplace installs that
 folder only. To work on it from a clone, load it directly:
@@ -51,9 +58,11 @@ claude --plugin-dir Murmuration/plugins/murmuration
 ## Use
 
 1. In the folder of your research project, run `/lab <your question>`. It creates the lab files
-   and writes `.claude/settings.local.json`, which makes the next session open as the principal
-   investigator and denies process kills by name pattern.
-2. Start a new Claude Code session in that folder and ask it to begin.
+   and writes `.claude/settings.local.json`, which denies process kills by name pattern. It does
+   not choose the session's main agent.
+2. Start a new Claude Code session in that folder as the principal investigator, with
+   `claude --agent murmuration:research-pi`. Or add `"agent": "murmuration:research-pi"` to
+   `.claude/settings.local.json` so every new session there opens as the PI. Then ask it to begin.
 3. Run `/lab-status` at any time to see open puzzles, the current label of every claim, and spend
    in USD per agent (a lower bound while a session is open).
 
@@ -159,6 +168,12 @@ the repository root until this release).
   `plugins/murmuration/.claude-plugin/plugin.json` only once CI's `build(bin)` commit for the same
   sources is on `main`. Installed copies refresh only when the version changes, and a bump ahead of
   the binaries ships the Python fallback.
+- **Dev copy beside the published one.** In this repository and its worktrees, load the working
+  tree through a local, untracked marketplace (for example `murmuration-local`, a root
+  `.claude-plugin/marketplace.json` whose source is `./plugins/murmuration`), installed at local
+  scope. Never enable `murmuration@cracking-shells` here. Both copies are named `murmuration`, so
+  with both enabled every hook runs twice and the agent names collide. Other projects use only
+  `murmuration@cracking-shells`, at project scope. Nothing is installed at user scope.
 - **Pre-commit hook (optional):**
   `ln -s ../../plugins/murmuration/scripts/git-hooks/pre-commit .git/hooks/pre-commit`. It rebuilds
   the host binary under `rust/target/` and replays the guard corpus against the Python guard; it
