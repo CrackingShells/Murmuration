@@ -4,9 +4,9 @@
 **Pre-conditions**:
 - [x] Eliott's decision, 2026-10-28, answering the plan questions: "Never set it"
 **Success Gates**:
-- ⬜ [run] `python3 -I plugins/murmuration/scripts/lab_init.py --selftest` passes, with asserts that no init, append or restore writes `agent`, that an existing `agent` (any value) is left byte-for-byte, and that the deny rules are still written and restored
-- ⬜ [run] On a fresh scratch folder, `lab_init.py` writes `settings.local.json` holding only `permissions.deny` (plus any keys already there), and its "Next:" text names `"agent": "murmuration:research-pi"` and `claude --agent murmuration:research-pi`
-- ⬜ [behavioral] The adversarial verifier `verify-lab-pi-choice` closes with no open finding
+- ✅ [run] `python3 -I plugins/murmuration/scripts/lab_init.py --selftest` passes, with asserts that no init, append or restore writes `agent`, that an existing `agent` (any value) is left byte-for-byte, and that the deny rules are still written and restored
+- ✅ [run] On a fresh scratch folder, `lab_init.py` writes `settings.local.json` holding only `permissions.deny` (plus any keys already there), and its "Next:" text names `"agent": "murmuration:research-pi"` and `claude --agent murmuration:research-pi`
+- ✅ [behavioral] The adversarial verifier `verify-lab-pi-choice` closes with no open finding
 **References**: `plugins/murmuration/scripts/lab_init.py` (`merge_settings`, `restore_settings`, `next_steps`, `initialize`, `run`, `selftest`); `plugins/murmuration/skills/lab/SKILL.md` sections 2 and 3
 
 ## Step 1: Drop the agent key from lab_init and the lab skill

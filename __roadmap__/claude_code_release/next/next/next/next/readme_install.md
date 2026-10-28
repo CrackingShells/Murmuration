@@ -4,8 +4,8 @@
 **Pre-conditions**:
 - [x] Decisions 1, 3 and 4 of the plan (project scope, no `agent` key, update path)
 **Success Gates**:
-- ⬜ [run] `claude plugin validate plugins/murmuration` passes with no README warning
-- ⬜ [run] The README names `murmuration@cracking-shells`, `--scope project`, `claude plugin marketplace update cracking-shells` and `claude plugin update murmuration@cracking-shells`
+- ✅ [run] `claude plugin validate plugins/murmuration` passes with no README warning
+- ✅ [run] The README names `murmuration@cracking-shells`, `--scope project`, `claude plugin marketplace update cracking-shells` and `claude plugin update murmuration@cracking-shells`
 **References**: `plugins/murmuration/README.md`; `plugins/murmuration/skills/lab/SKILL.md` (what `/lab` creates)
 
 ## Step 1: Install, lab and update sections

@@ -2,8 +2,8 @@
 
 **Goal**: 0.1.1 is on `main` with `doubt()` None, and an install of 0.1.0 from `cracking-shells` updates to it with the user's two commands.
 **Pre-conditions**:
-- [ ] `lab_pi_choice` and `readme_install` merged into `main`
-- [ ] A scratch install of `murmuration@cracking-shells` 0.1.0 exists (publish step 3)
+- [x] `lab_pi_choice` and `readme_install` merged into `main`
+- [x] A scratch install of `murmuration@cracking-shells` 0.1.0 exists (publish step 3)
 - [ ] Eliott's go-ahead #4 (push `main`), quoted here
 **Success Gates**:
 - ⬜ [run] `plugin.json` says `0.1.1` on `origin/main`, and `doubt()` returns None on that commit

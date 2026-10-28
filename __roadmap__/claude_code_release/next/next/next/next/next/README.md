@@ -7,7 +7,7 @@ Amendment A1, level 5: ships the level-4 changes as 0.1.1 and checks once the up
 An install of 0.1.0 from `cracking-shells` updates to 0.1.1 with the marketplace update and the plugin update.
 
 ## Pre-conditions
-- [ ] Level 4 merged into `main`
+- [x] Level 4 merged into `main` (244fc76, 28eae54)
 
 ## Success Gates
 - ✅ `ship_update.md` gates pass
@@ -15,7 +15,7 @@ An install of 0.1.0 from `cracking-shells` updates to 0.1.1 with the marketplace
 ## Status
 ```mermaid
 graph TD
-    ship_update[Ship 0.1.1 and check the update path]:::planned
+    ship_update[Ship 0.1.1 and check the update path]:::inprogress
     next[First real project]:::planned
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
@@ -27,7 +27,7 @@ graph TD
 ## Nodes
 | Node | Type | Status |
 |:-----|:-----|:-------|
-| `ship_update.md` | 📄 Leaf Task | ⬜ Planned |
+| `ship_update.md` | 📄 Leaf Task | 🔄 In Progress |
 | `next/` | 📁 Directory | ⬜ Planned |
 
 ## Amendment Log
