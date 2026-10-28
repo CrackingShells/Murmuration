@@ -20,7 +20,7 @@ The Windows cycle of Murmuration, after 0.1.1 shipped the 4 Unix binaries. CI al
 ## Status
 ```mermaid
 graph TD
-    ci_green[Windows CI row green]:::inprogress
+    ci_green[Windows CI row green]:::done
     if_probe[Probe hook if filters on Windows]:::planned
     next[Decision and shell gaps]:::planned
     classDef done       fill:#166534,color:#bbf7d0
@@ -33,7 +33,7 @@ graph TD
 ## Nodes
 | Node | Type | Status |
 |:-----|:-----|:-------|
-| `ci_green.md` | 📄 Leaf Task | 🔄 In Progress |
+| `ci_green.md` | 📄 Leaf Task | ✅ Done |
 | `if_probe.md` | 📄 Leaf Task | ⬜ Planned |
 | `next/` | 📁 Directory | ⬜ Planned |
 

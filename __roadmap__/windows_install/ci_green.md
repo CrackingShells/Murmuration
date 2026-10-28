@@ -4,9 +4,9 @@
 **Pre-conditions**:
 - [x] 0.1.1 on `origin/main` (72a61d0) with the 4 Unix binaries committed by CI
 **Success Gates**:
-- ⬜ [run] A `workflow_dispatch` of `guard-binaries` on this leaf's branch (`commit_back=false`) has the Windows row green
-- ⬜ [run] `assemble` in that run accepts the Windows artefact: its `targets:` line lists `x86_64-pc-windows-msvc`, and no "left out of bin/" warning appears
-- ⬜ [observation] The Windows row's "The Rust guard equals the Python guard" table is recorded here, with any difference between the two guards under nt named as a finding (not hidden)
+- ✅ [run] A `workflow_dispatch` of `guard-binaries` on this leaf's branch (`commit_back=false`) has the Windows row green — 2026-10-28: run 40701398458 (dispatch, `commit_back=false`) and run 40701354155 (the branch push) both have the Windows row `success`, all 5 build rows green
+- ✅ [run] `assemble` in that run accepts the Windows artefact: its `targets:` line lists `x86_64-pc-windows-msvc`, and no "left out of bin/" warning appears — 2026-10-28: `targets: aarch64-apple-darwin,x86_64-apple-darwin,x86_64-unknown-linux-gnu,aarch64-unknown-linux-gnu,x86_64-pc-windows-msvc`; artefact `murmuration-x86_64-pc-windows-msvc` (309,114 bytes, expires 2026-11-11)
+- ✅ [observation] The Windows row's "The Rust guard equals the Python guard" table is recorded here, with any difference between the two guards under nt named as a finding (not hidden) — 2026-10-28: gated sets equal; no decision difference under nt (Step 2 results)
 **References**: reminder `murmuration-win-ci-green`; runs 40633506781 and 40659559118 (Windows row red); `../claude_code_release/next/next/next/publish.md` step 2 results
 
 ## Step 1: Escape the temp dir where the harness pastes it into JSON text
@@ -29,3 +29,9 @@
 **Deliverables**: run id and results in this leaf
 **Consistency Checks**: `env -u GH_TOKEN -u GITHUB_TOKEN gh run view <id> --json jobs` shows the Windows row `success` (expected: PASS)
 **Commit**: `docs(roadmap): record the first green Windows row`
+**Results (2026-10-28)**:
+- Local, macOS arm64, committed binary: `--quick` and the full run both "gated sets equal". Full run: registered 337, malformed 4, recorded 12,813, fuzz_bash 10,000, fuzz_write 2,000, 0 differences; typeconf 10 differences (Python allows a list, dict or float where Rust denies `UnsupportedType`), stress 1 (`tc:long_word`, Python timeout). Before/after the fix the POSIX events are byte-identical (registered set and 4,000 fuzz payloads compared).
+- Branch `win-ci-green` pushed on Eliott's "Yes, push and dispatch". The push started run 40701354155 (all jobs green, `commit_back` skipped: not `main`); the dispatch is run 40701398458.
+- Windows row, "The Rust guard equals the Python guard" (`--quick --no-recorded`, 56 s): registered 337 (225 denied), malformed 4, fuzz_bash 300, fuzz_write 60, 0 differences; "gated sets equal". typeconf 14 differences: the 10 seen on macOS plus 4 deep-nesting events (`tc:deep_ok`, `tc:depth_9996`, …), where both guards deny but name a different error (Python `RecursionError`, Rust `AttributeError`): the Windows Python hits its recursion limit at depth 5,000, which on macOS it does not. A difference in the reason text, not in a decision; ungated as typeconf is. stress 1 (`tc:long_word`, Python timeout, as on macOS).
+- Run 40701398458 concluded `failure` only because `install_smoke (macos-15)` was cancelled: "The job was not acquired by Runner of type hosted even after multiple attempts" (macOS arm64 capacity notice). The same job passed in run 40701354155 on the same commit.
+- `bin/` on `main` still holds the 4 Unix binaries: the Windows binary exists only as this run's artefact until the branch lands on `main` and that push's `commit_back` commits all 5 targets. `check_guard_equal.py` is not hashed, so the manifest's source hashes stay valid and no version bump follows.
