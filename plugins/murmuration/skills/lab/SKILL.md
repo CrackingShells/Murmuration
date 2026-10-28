@@ -70,8 +70,9 @@ Report the script's output in a few lines, then:
   to open a session as the research PI, in one of two ways. Either start
   `claude --agent murmuration:research-pi`, or add the line `"agent": "murmuration:research-pi"`
   to `.claude/settings.local.json` and start `claude`. When the plugin is loaded from a folder and
-  not installed, the script puts `--plugin-dir <path>` after `claude` in both; when it is
-  installed, plain `claude` (the script prints the right one). The lab sets none of this itself,
+  not installed, the script adds `--plugin-dir <path>` to both commands (after `--agent …` in the
+  first, after `claude` in the second); when it is installed, plain `claude` (the script prints
+  the right one). The lab sets none of this itself,
   and settings are read when a session starts, so only a new session opens as the PI; this
   session does not become the PI. In the new session, the user asks it to begin, for example:
   `Frame my question and plan the first wave.` If the script reported that it kept an `agent`

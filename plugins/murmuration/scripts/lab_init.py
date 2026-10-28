@@ -30,8 +30,8 @@ opens as the research PI. An `agent` that is already in `.claude/settings.local.
 `.claude/settings.json`, whatever it names, is left exactly as it is (and mentioned in the notes).
 After an init the script prints the two ways to open as the PI: the line
 `"agent": "murmuration:research-pi"` to add to `.claude/settings.local.json`, or starting
-`claude --agent murmuration:research-pi` (with `--plugin-dir <plugin root>` when the plugin is loaded
-from a folder and not installed). Shared settings are never written.
+`claude --agent murmuration:research-pi` (with `--plugin-dir <plugin root>` after it when the plugin is
+loaded from a folder and not installed). Shared settings are never written.
 
 Exit status: 0 done, 2 no question given, 3 `.claude/settings.local.json` exists but is not a JSON object,
 4 a folder above the project already holds a lab (nothing is created).
@@ -85,16 +85,17 @@ def next_steps(plugin_root=PLUGIN_ROOT):
     The lab does not choose the main-thread agent for the user: it names the two ways to do so.
     """
     if plugin_is_installed(plugin_root):
-        start = "claude"
+        flag = ""
         how = ""
     else:
-        start = "claude --plugin-dir %s" % shlex.quote(os.path.abspath(plugin_root))
+        flag = " --plugin-dir %s" % shlex.quote(os.path.abspath(plugin_root))
         how = (" The plugin is loaded from a folder in this session, so the new session needs the same "
                "--plugin-dir flag; once it is installed, plain `claude` is enough.")
+    start = "claude" + flag
     return [
         "Next: to open a new Claude Code session in this folder as the research PI, choose one of two ways "
         "(this session does not become the PI, and the lab sets nothing for you).%s" % how,
-        "  1. Start it with `%s --agent %s`." % (start, AGENT),
+        "  1. Start it with `claude --agent %s%s`." % (AGENT, flag),
         '  2. Or add the line `"agent": "%s"` to the top-level object of .claude/settings.local.json, '
         "then start `%s`." % (AGENT, start),
         "Then ask it to begin, for example: %s" % FIRST_PROMPT,
@@ -579,7 +580,8 @@ def selftest():
         out = run_cli("the question")
         assert out.returncode == 0 and "Lab initialized" in out.stdout, out
         assert "Next: to open a new Claude Code session in this folder as the research PI" in out.stdout, out.stdout
-        assert "`claude --plugin-dir %s --agent %s`" % (shlex.quote(PLUGIN_ROOT), AGENT) in out.stdout, out.stdout
+        assert "`claude --agent %s --plugin-dir %s`" % (AGENT, shlex.quote(PLUGIN_ROOT)) in out.stdout, out.stdout
+        assert "claude --agent %s" % AGENT in out.stdout, out.stdout
         assert '"agent": "%s"' % AGENT in out.stdout and FIRST_PROMPT in out.stdout, out.stdout
         cli_local = json.loads(load(os.path.join(cli, LOCAL_SETTINGS)))
         assert cli_local == {"permissions": {"deny": DENY}}, cli_local
@@ -602,7 +604,8 @@ def selftest():
             spaced = os.path.join(tmp, "my plugins", "Murmuration")
             os.makedirs(spaced)
             folder = " ".join(next_steps(spaced))
-            assert "`claude --plugin-dir '%s' --agent %s`" % (spaced, AGENT) in folder, folder
+            assert "`claude --agent %s --plugin-dir '%s'`" % (AGENT, spaced) in folder, folder
+            assert "claude --agent %s" % AGENT in folder, folder
             assert '"agent": "%s"' % AGENT in folder and "then start `claude --plugin-dir '%s'`" % spaced in folder, folder
             assert not plugin_is_installed(os.path.join(tmp, "cfg", "plugins-other"))
         finally:
