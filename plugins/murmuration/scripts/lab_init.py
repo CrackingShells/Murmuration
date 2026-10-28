@@ -5,7 +5,7 @@ The question is read from stdin (so any text is safe to pass).
 
     lab_init.py [--project DIR]   initialize the lab if `__statera__/` is missing, otherwise
                                   append the question to `__statera__/user_words.md` and restore
-                                  any missing settings in `.claude/settings.local.json`
+                                  any missing deny rules in `.claude/settings.local.json`
     lab_init.py --selftest        check the script on a temporary project
 
 The project directory is --project, else CLAUDE_PROJECT_DIR, else the current directory.
@@ -23,11 +23,15 @@ and builds the colgrep index of the lab once (the `colgrep` command; skipped, wi
 the line says from colgrep's own report whether an index was built, was already up to date, or the lab joined the
 index of a folder above it),
 and merges into `.claude/settings.local.json` (personal settings; not for version control):
-    "agent": "murmuration:research-pi"      new sessions in the folder open as the research PI
     permissions.deny: Bash(pkill:*), Bash(killall:*)
 If a folder above the project already holds `__statera__/`, no nested lab is created.
-An `agent` setting that names something else, in that file or in `.claude/settings.json`, is left
-alone and reported. Shared settings are never written.
+The lab never sets the main-thread `"agent"`, on init or on append: the user chooses how a session
+opens as the research PI. An `agent` that is already in `.claude/settings.local.json` or in
+`.claude/settings.json`, whatever it names, is left exactly as it is (and mentioned in the notes).
+After an init the script prints the two ways to open as the PI: the line
+`"agent": "murmuration:research-pi"` to add to `.claude/settings.local.json`, or starting
+`claude --agent murmuration:research-pi` (with `--plugin-dir <plugin root>` after it when the plugin is
+loaded from a folder and not installed). Shared settings are never written.
 
 Exit status: 0 done, 2 no question given, 3 `.claude/settings.local.json` exists but is not a JSON object,
 4 a folder above the project already holds a lab (nothing is created).
@@ -76,17 +80,24 @@ def plugin_is_installed(plugin_root=PLUGIN_ROOT):
 
 
 def next_steps(plugin_root=PLUGIN_ROOT):
-    """The lines telling the user how to start the research PI, with the plugin loaded as it is now."""
+    """The lines telling the user how to open a session as the research PI, with the plugin loaded as it is now.
+
+    The lab does not choose the main-thread agent for the user: it names the two ways to do so.
+    """
     if plugin_is_installed(plugin_root):
-        command = "claude"
+        flag = ""
         how = ""
     else:
-        command = "claude --plugin-dir %s" % shlex.quote(os.path.abspath(plugin_root))
-        how = (" The plugin is loaded from that folder in this session, so the new session needs the same "
-               "flag; once it is installed, plain `claude` is enough.")
+        flag = " --plugin-dir %s" % shlex.quote(os.path.abspath(plugin_root))
+        how = (" The plugin is loaded from a folder in this session, so the new session needs the same "
+               "--plugin-dir flag; once it is installed, plain `claude` is enough.")
+    start = "claude" + flag
     return [
-        "Next: start a new Claude Code session in this folder with `%s`. It opens as the research PI.%s"
-        % (command, how),
+        "Next: to open a new Claude Code session in this folder as the research PI, choose one of two ways "
+        "(this session does not become the PI, and the lab sets nothing for you).%s" % how,
+        "  1. Start it with `claude --agent %s%s`." % (AGENT, flag),
+        '  2. Or add the line `"agent": "%s"` to the top-level object of .claude/settings.local.json, '
+        "then start `%s`." % (AGENT, start),
         "Then ask it to begin, for example: %s" % FIRST_PROMPT,
     ]
 
@@ -131,21 +142,18 @@ def read_settings(path):
 def merge_settings(data, shared=None):
     """Merge the lab's settings into `data` in place. Returns a list of notes about what happened.
 
-    `shared` is the project's shared settings (read only): an `agent` named there that is not the
-    PI is reported and left to win, since writing ours would silently override the team's choice.
+    The `agent` key is never touched. `shared` is the project's shared settings (read only); an
+    `agent` that is already in either file, and is not the PI, is only mentioned.
     """
     notes = []
     current = data.get("agent")
     other = (shared or {}).get("agent")
-    if current in (None, "") and other not in (None, "", AGENT):
-        notes.append('kept the shared "agent": "%s" from .claude/settings.json (the lab expects "%s"; set it in '
-                     '.claude/settings.local.json to open as the PI)' % (other, AGENT))
-    elif current in (None, ""):
-        data["agent"] = AGENT
-        notes.append('set "agent": "%s"' % AGENT)
-    elif current != AGENT:
-        notes.append('kept the existing "agent": "%s" (the lab expects "%s"; change it to open as the PI)'
-                     % (current, AGENT))
+    if current not in (None, "") and current != AGENT:
+        notes.append('kept the existing "agent": "%s" as it is (the lab does not set it; to open as the PI, '
+                     'start `claude --agent %s`)' % (current, AGENT))
+    elif current in (None, "") and other not in (None, "", AGENT):
+        notes.append('kept the shared "agent": "%s" from .claude/settings.json as it is (the lab does not set '
+                     'it; to open as the PI, start `claude --agent %s`)' % (other, AGENT))
     perms = data.get("permissions")
     if not isinstance(perms, dict):
         perms = data["permissions"] = {}
@@ -291,7 +299,7 @@ def enclosing_lab(root):
 
 
 def restore_settings(root):
-    """Merge the lab's settings into `.claude/settings.local.json` if anything is missing.
+    """Merge the lab's deny rules into `.claude/settings.local.json` if any is missing (never `agent`).
 
     Returns notes about what changed or was kept; empty when the file already has everything.
     Raises ValueError when the file is not a JSON object.
@@ -372,7 +380,7 @@ def selftest():
         assert re.search(r"^opened: \d{4}-\d{2}-\d{2}$", wave, re.M)
         assert load(os.path.join(proj, SHARED_SETTINGS)) == shared_text, "shared settings must not change"
         local = json.loads(load(os.path.join(proj, LOCAL_SETTINGS)))
-        assert local["agent"] == AGENT and local["env"] == {"A": "1"}
+        assert "agent" not in local and local["env"] == {"A": "1"}, local
         assert local["permissions"]["allow"] == ["Edit"]
         assert local["permissions"]["deny"] == ["Bash(pkill:*)", "Bash(killall:*)"], local
         assert any("settings.local.json holds personal settings" in d for d in done), done
@@ -480,8 +488,8 @@ def selftest():
         os.remove(os.path.join(proj, LOCAL_SETTINGS))
         _, done = run(proj, "a question after the clone")
         restored = json.loads(load(os.path.join(proj, LOCAL_SETTINGS)))
-        assert restored["agent"] == AGENT and restored["permissions"]["deny"] == DENY, restored
-        assert any('set "agent"' in d for d in done) and any("added permissions.deny" in d for d in done), done
+        assert "agent" not in restored and restored["permissions"]["deny"] == DENY, restored
+        assert not any("agent" in d for d in done) and any("added permissions.deny" in d for d in done), done
         before_text = load(os.path.join(proj, LOCAL_SETTINGS))
         _, done = run(proj, "and another one")
         assert load(os.path.join(proj, LOCAL_SETTINGS)) == before_text and not any("settings" in d for d in done), done
@@ -511,12 +519,20 @@ def selftest():
         _, done = run(other, "q")
         assert json.loads(load(os.path.join(other, LOCAL_SETTINGS)))["agent"] == "mine"
         assert any("kept the existing" in d for d in done), done
+        # An `agent` already there, whatever it names, leaves the file byte for byte when nothing else is missing.
+        for name in ("mine", AGENT):
+            odd_text = '{ "agent":"%s",\n\t"permissions": {"deny": ["Bash(pkill:*)", "Bash(killall:*)"]} }' % name
+            with open(os.path.join(other, LOCAL_SETTINGS), "w", encoding="utf-8") as fh:
+                fh.write(odd_text)
+            run(other, "again " + name)
+            assert load(os.path.join(other, LOCAL_SETTINGS)) == odd_text, name
         team = os.path.join(tmp, "team")
         os.makedirs(os.path.join(team, ".claude"))
         with open(os.path.join(team, SHARED_SETTINGS), "w", encoding="utf-8") as fh:
             json.dump({"agent": "team-lead"}, fh)
         _, done = run(team, "q")
         assert "agent" not in json.loads(load(os.path.join(team, LOCAL_SETTINGS)))
+        assert json.loads(load(os.path.join(team, SHARED_SETTINGS))) == {"agent": "team-lead"}
         assert any("kept the shared" in d for d in done), done
         # Invalid personal settings stop the init before anything is written.
         bad = os.path.join(tmp, "bad")
@@ -535,7 +551,9 @@ def selftest():
         with open(os.path.join(fresh, "__design__", "framing.md"), "w", encoding="utf-8") as fh:
             fh.write("my own framing\n")
         _, done = run(fresh, "q")
-        assert json.loads(load(os.path.join(fresh, LOCAL_SETTINGS)))["agent"] == AGENT
+        fresh_local = json.loads(load(os.path.join(fresh, LOCAL_SETTINGS)))
+        assert "agent" not in fresh_local and fresh_local == {"permissions": {"deny": DENY}}, fresh_local
+        assert not any("agent" in d for d in done), done
         assert not os.path.exists(os.path.join(fresh, SHARED_SETTINGS))
         assert load(os.path.join(fresh, "__design__", "framing.md")) == "my own framing\n"
         assert any("kept the existing __design__/framing.md" in d for d in done), done
@@ -561,8 +579,12 @@ def selftest():
         assert out.returncode == 2 and not os.path.exists(os.path.join(cli, "__statera__"))
         out = run_cli("the question")
         assert out.returncode == 0 and "Lab initialized" in out.stdout, out
-        assert "start a new Claude Code session in this folder with `claude --plugin-dir " in out.stdout, out.stdout
-        assert shlex.quote(PLUGIN_ROOT) in out.stdout and FIRST_PROMPT in out.stdout, out.stdout
+        assert "Next: to open a new Claude Code session in this folder as the research PI" in out.stdout, out.stdout
+        assert "`claude --agent %s --plugin-dir %s`" % (AGENT, shlex.quote(PLUGIN_ROOT)) in out.stdout, out.stdout
+        assert "claude --agent %s" % AGENT in out.stdout, out.stdout
+        assert '"agent": "%s"' % AGENT in out.stdout and FIRST_PROMPT in out.stdout, out.stdout
+        cli_local = json.loads(load(os.path.join(cli, LOCAL_SETTINGS)))
+        assert cli_local == {"permissions": {"deny": DENY}}, cli_local
         # Loaded from a folder: the same flag is needed. Installed (under the config's plugins/): plain claude.
         save = os.environ.get("CLAUDE_CONFIG_DIR")
         os.environ["CLAUDE_CONFIG_DIR"] = os.path.join(tmp, "cfg")
@@ -571,11 +593,20 @@ def selftest():
             cached = os.path.join(tmp, "cfg", "plugins", "cache", "market", "murmuration", "0.1.0")
             os.makedirs(cached)
             assert plugin_is_installed(cached)
-            installed = next_steps(cached)
-            assert "with `claude`." in installed[0] and "--plugin-dir" not in " ".join(installed), installed
+            # a project-scope install from the marketplace `cracking-shells` sits in the same store
+            shells = os.path.join(tmp, "cfg", "plugins", "cache", "cracking-shells", "murmuration", "0.1.0")
+            os.makedirs(shells)
+            assert plugin_is_installed(shells)
+            for where in (cached, shells):
+                installed = " ".join(next_steps(where))
+                assert "`claude --agent %s`" % AGENT in installed and "--plugin-dir" not in installed, installed
+                assert '"agent": "%s"' % AGENT in installed and "then start `claude`" in installed, installed
             spaced = os.path.join(tmp, "my plugins", "Murmuration")
             os.makedirs(spaced)
-            assert "claude --plugin-dir '%s'" % spaced in next_steps(spaced)[0]
+            folder = " ".join(next_steps(spaced))
+            assert "`claude --agent %s --plugin-dir '%s'`" % (AGENT, spaced) in folder, folder
+            assert "claude --agent %s" % AGENT in folder, folder
+            assert '"agent": "%s"' % AGENT in folder and "then start `claude --plugin-dir '%s'`" % spaced in folder, folder
             assert not plugin_is_installed(os.path.join(tmp, "cfg", "plugins-other"))
         finally:
             if save is None:
@@ -586,7 +617,7 @@ def selftest():
                               capture_output=True, text=True, env=env, encoding="utf-8")
         assert nest.returncode == 4 and "a lab already exists in" in nest.stderr and nest.stdout == "", nest
         out = run_cli("another")
-        assert out.returncode == 0 and "Question added" in out.stdout and "start a new" not in out.stdout, out
+        assert out.returncode == 0 and "Question added" in out.stdout and "Next:" not in out.stdout, out
     print("PASS lab_init")
 
 
