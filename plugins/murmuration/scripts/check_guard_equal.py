@@ -55,10 +55,15 @@ def make_arena(root, exists_py):
     return T, src, incident
 
 
+def json_fragment(s):
+    """s as it reads inside a JSON string literal: {T} is replaced in JSON text, and a Windows T (D:\\a\\...) pasted raw makes invalid escapes. On POSIX it is s itself, so the events are byte for byte what they were."""
+    return json.dumps(s)[1:-1]
+
+
 def registered_events(T, src, incident):
     out = []
     for name in ("e3_attacks", "e3_ordinary", "e3_mention", "e3_evasions", "e3v1_cases", "e3v2_cases", "e3v3_cases", "windows_paths", "redirects"):
-        for c in json.loads(open("%s/%s.json" % (LISTS, name), encoding="utf-8").read().replace("{T}", T)):
+        for c in json.loads(open("%s/%s.json" % (LISTS, name), encoding="utf-8").read().replace("{T}", json_fragment(T))):
             inp = c.get("input")
             if inp:
                 inp = {k: (incident if v == "{INCIDENT}" else src if v == "{HANDBACK}" else v) for k, v in inp.items()}
@@ -266,7 +271,7 @@ MALFORMED = [("mal:empty", ""), ("mal:not_json", "not json"), ("mal:list", "[]")
 def run_one(args):
     idx, name, payload, py_cmd, rust_cmd, wdir, T = args
     if isinstance(payload, str):
-        payload = payload.replace("{T}", T).encode("utf-8", "surrogatepass")
+        payload = payload.replace("{T}", json_fragment(T)).encode("utf-8", "surrogatepass")
     res = []
     for tag, cmd in (("py", py_cmd), ("rs", rust_cmd)):
         log = os.path.join(wdir, "%s_%d.log" % (tag, threading.get_ident() % 100000))
