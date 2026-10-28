@@ -2362,5 +2362,347 @@
   "posix": "allow",
   "nt": "allow",
   "note": "half of it is read"
+ },
+ {
+  "id": "pg_cdopt_P_literal",
+  "tool": "Bash",
+  "command": "cd -P .claude; echo x > settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: cd -P is not followed: the literal name is written in the folder (open on base for the literal name too)"
+ },
+ {
+  "id": "pg_cdopt_P",
+  "tool": "Bash",
+  "command": "cd -P .claude && echo x > \"${V:-settings.json}\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: cd -P into the folder, a default name"
+ },
+ {
+  "id": "pg_cdopt_L",
+  "tool": "Bash",
+  "command": "cd -L .claude; echo x > $(echo settings.json)",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: cd -L, a substitution name"
+ },
+ {
+  "id": "pg_cdopt_dd",
+  "tool": "Bash",
+  "command": "cd -- .claude; echo x | tee \"$X/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: cd -- into the folder"
+ },
+ {
+  "id": "pg_cdopt_e",
+  "tool": "Bash",
+  "command": "cd -e .claude; cp /tmp/x \"${V:-settings.json}\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: cd -e"
+ },
+ {
+  "id": "pg_cdopt_at",
+  "tool": "Bash",
+  "command": "cd -@ .claude; sed -i s/a/b/ $(echo settings.local.json)",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: cd -@"
+ },
+ {
+  "id": "pg_cdopt_LP",
+  "tool": "Bash",
+  "command": "cd -LP .claude; dd if=/tmp/x of=\"${V:-settings.json}\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: options glued: -LP"
+ },
+ {
+  "id": "pg_cdopt_P_dd",
+  "tool": "Bash",
+  "command": "cd -P -- .claude; truncate -s0 \"${V:-settings.json}\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: an option, then --"
+ },
+ {
+  "id": "pg_pushd_dd",
+  "tool": "Bash",
+  "command": "pushd -- .claude && echo x > \"${V:-settings.json}\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: pushd -- into the folder"
+ },
+ {
+  "id": "pg_builtin_cd",
+  "tool": "Bash",
+  "command": "builtin cd .claude && echo x > \"${V:-settings.json}\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: builtin cd is a cd"
+ },
+ {
+  "id": "pg_builtin_cd_P",
+  "tool": "Bash",
+  "command": "builtin cd -P .claude; echo x > settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: builtin cd with an option, the literal name"
+ },
+ {
+  "id": "pg_command_builtin_cd",
+  "tool": "Bash",
+  "command": "command builtin cd .claude; echo x > \"${V:-settings.json}\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: command and builtin in front of cd"
+ },
+ {
+  "id": "pg_cdopt_subshell",
+  "tool": "Bash",
+  "command": "(cd -P .claude && echo x > \"$X/settings.json\")",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: cd -P in a subshell"
+ },
+ {
+  "id": "pg_cdopt_brace",
+  "tool": "Bash",
+  "command": "{ cd -P .claude; echo x > $(echo settings.json); }",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: cd -P in a brace group"
+ },
+ {
+  "id": "pg_cdopt_if",
+  "tool": "Bash",
+  "command": "if cd -P .claude; then echo x > \"${V:-settings.json}\"; fi",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: cd -P in an if"
+ },
+ {
+  "id": "pg_cdopt_shc",
+  "tool": "Bash",
+  "command": "sh -c 'cd -P .claude && echo x > \"${V:-settings.json}\"'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: cd -P in a -c string"
+ },
+ {
+  "id": "pg_cdopt_eval",
+  "tool": "Bash",
+  "command": "eval 'cd -P .claude; echo x > \"${V:-settings.json}\"'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: cd -P in an eval string"
+ },
+ {
+  "id": "pg_ok_cdopt_away",
+  "tool": "Bash",
+  "command": "cd -P /tmp; echo x > \"${V:-settings.json}\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "cd -P away from any .claude folder"
+ },
+ {
+  "id": "pg_ok_cdopt_other",
+  "tool": "Bash",
+  "command": "cd -P .config; echo x > \"${V:-settings.json}\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "cd -P into another folder"
+ },
+ {
+  "id": "pg_ok_builtin_other",
+  "tool": "Bash",
+  "command": "builtin cd src; echo x > $(echo settings.json)",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "builtin cd into another folder"
+ },
+ {
+  "id": "pg_cdvar_home",
+  "tool": "Bash",
+  "command": "cd $HOME/.claude; echo x > \"${V:-settings.json}\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: the cd target is a variable path that ends in .claude"
+ },
+ {
+  "id": "pg_cdvar_brace",
+  "tool": "Bash",
+  "command": "cd \"${HOME}/.claude\" && echo x > $(echo settings.json)",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: a braced variable and a quoted path"
+ },
+ {
+  "id": "pg_cdvar_pwd",
+  "tool": "Bash",
+  "command": "cd $PWD/.claude; echo x > \"$X/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: $PWD/.claude"
+ },
+ {
+  "id": "pg_cdvar_slash",
+  "tool": "Bash",
+  "command": "cd $HOME/.claude/; cp /tmp/x \"${V:-settings.local.json}\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: a trailing slash"
+ },
+ {
+  "id": "pg_cdvar_subst",
+  "tool": "Bash",
+  "command": "cd $(pwd)/.claude; echo x > \"${V:-settings.json}\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: a substitution path that ends in .claude"
+ },
+ {
+  "id": "pg_cdvar_shc",
+  "tool": "Bash",
+  "command": "sh -c 'cd $HOME/.claude; echo x > \"${V:-settings.json}\"'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: in a -c string"
+ },
+ {
+  "id": "pg_cdvar_opt",
+  "tool": "Bash",
+  "command": "cd -P $HOME/.claude; echo x > \"${V:-settings.json}\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: with an option"
+ },
+ {
+  "id": "pg_cdvar_upper",
+  "tool": "Bash",
+  "command": "cd $HOME/.CLAUDE; echo x > \"${V:-settings.json}\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "G3",
+  "note": "another case of the folder name: a folder on Windows, another name on posix"
+ },
+ {
+  "id": "pg_ok_cdvar_other",
+  "tool": "Bash",
+  "command": "cd $HOME/.config; echo x > \"${V:-settings.json}\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a variable path to another folder"
+ },
+ {
+  "id": "pg_ok_cdvar_claudex",
+  "tool": "Bash",
+  "command": "cd $HOME/.claudex; echo x > \"${V:-settings.json}\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a variable path that ends in .claudex"
+ },
+ {
+  "id": "pg_ok_cdvar_sub",
+  "tool": "Bash",
+  "command": "cd $HOME/.claude/sub; echo x > \"${V:-settings.json}\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a folder inside .claude is not .claude"
+ },
+ {
+  "id": "pg_twice_subst",
+  "tool": "Bash",
+  "command": "cd ..; echo x > $(echo settings.json)",
+  "cwd": "/h/proj/.claude/sub",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: cd .. from .claude/sub: the masked listing went up twice"
+ },
+ {
+  "id": "pg_twice_default",
+  "tool": "Bash",
+  "command": "cd ..; echo x > \"${V:-settings.json}\"",
+  "cwd": "/h/proj/.claude/sub",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: the same with a default name"
+ },
+ {
+  "id": "pg_twice_tee",
+  "tool": "Bash",
+  "command": "cd ..; echo x | tee $(echo settings.local.json)",
+  "cwd": "/h/proj/.claude/sub",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: tee"
+ },
+ {
+  "id": "pg_twice_shc",
+  "tool": "Bash",
+  "command": "sh -c 'cd ..; echo x > $(echo settings.json)'",
+  "cwd": "/h/proj/.claude/sub",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: in a -c string"
+ },
+ {
+  "id": "pg_twice_backtick",
+  "tool": "Bash",
+  "command": "cd ..; echo x > `echo settings.json`",
+  "cwd": "/h/proj/.claude/sub",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "allowed on base; closed by posix_gaps: a backtick substitution"
+ },
+ {
+  "id": "pg_ok_twice_up2",
+  "tool": "Bash",
+  "command": "cd ../..; echo x > $(echo settings.json)",
+  "cwd": "/h/proj/.claude/sub",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "two levels up from .claude/sub is the project"
+ },
+ {
+  "id": "pg_ok_twice_other",
+  "tool": "Bash",
+  "command": "cd ..; echo x > $(echo settings.json)",
+  "cwd": "/h/proj/src",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "one level up from src is the project"
  }
 ]

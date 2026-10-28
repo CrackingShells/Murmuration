@@ -498,19 +498,37 @@ struct Mode {
 /// The first pass: the reading of before the leaf posix_gaps.
 const FIRST: Mode = Mode { clobber: false, ansi: false, limit: 3 };
 
+/// The marks in the list `expand` returns (a NUL is never in a command that is read): a command with substitutions is listed as written, then with its substitutions masked, so the second listing starts again where the first started.
+const COPY_OPEN: &str = "\0open";
+const COPY_NEXT: &str = "\0copy";
+const COPY_CLOSE: &str = "\0close";
+
+fn copy_mark(t: &[u32]) -> bool {
+    eq(t, COPY_OPEN) || eq(t, COPY_NEXT) || eq(t, COPY_CLOSE)
+}
+
 /// `expand`: every simple command of `cmd`: those of the plain splitter first, in order, then those of the command and of each substitution inside it with the substitutions replaced by one word;
 /// descends into `sh -c '...'`, `eval '...'` and `env -S '...'` strings to depth `mode.limit` (3 in the first pass); when a string lies deeper, `deep` is set. `decide` makes the `>|` reading in addition to the plain one, never instead of it.
 fn expand(cmd: &[u32], depth: usize, work: &mut usize, os: Os, mode: Mode, deep: &mut bool) -> Result<Vec<Seg>, TooComplex> {
     let mut out: Vec<Seg> = Vec::new();
     let mut segs = split_segments(cmd, mode.clobber);
-    for t in substitution_texts(cmd, work, os, mode.ansi)? {
+    let first = segs.len();
+    let texts = substitution_texts(cmd, work, os, mode.ansi)?;
+    let marked = !texts.is_empty();
+    for t in texts {
         segs.extend(split_segments(&t, mode.clobber));
     }
     *work += SEG_COST * segs.len();
     if *work > WORK {
         return Err(TooComplex);
     }
-    for seg in segs {
+    if marked {
+        out.push((text(COPY_OPEN), Vec::new()));
+    }
+    for (si, seg) in segs.into_iter().enumerate() {
+        if marked && si == first {
+            out.push((text(COPY_NEXT), Vec::new())); // the masked copy of the whole command starts here
+        }
         let toks0 = words(&seg);
         let mut variants: Vec<Vec<Text>> = vec![toks0.clone()];
         if mode.ansi && (contains(&seg, "$'") || contains(&seg, "$\"")) {
@@ -569,6 +587,9 @@ fn expand(cmd: &[u32], depth: usize, work: &mut usize, os: Os, mode: Mode, deep:
                 *deep = true;
             }
         }
+    }
+    if marked {
+        out.push((text(COPY_CLOSE), Vec::new()));
     }
     Ok(out)
 }
@@ -1308,7 +1329,7 @@ fn slashed(segs: &[Seg]) -> Vec<Seg> {
     segs.iter()
         .map(|(sg, _)| {
             let t: Text = sg.iter().map(|&c| if c == cp('\\') { cp('/') } else { c }).collect();
-            let toks = words(&t);
+            let toks = if copy_mark(&t) { Vec::new() } else { words(&t) };
             (t, toks)
         })
         .collect()
@@ -1953,16 +1974,79 @@ struct Reading {
     gaps: bool,
 }
 
-/// `_g3_bash`: one reading; the script check (`script`) is made on the first only.
+/// `_cd_target`: the index of the target of a `cd` or `pushd` at `toks[k]` (`builtin cd`, `command cd` are the same; its options `-L -P -e -@` and `--` come first), or None when it is not one or has no target.
+fn cd_target(toks: &[Text], k: usize, prog: &[u32], os: Os) -> Option<usize> {
+    let mut k = k;
+    let mut prog: Text = prog.to_vec();
+    while eq(&prog, "builtin") && k + 1 < toks.len() {
+        k += 1;
+        prog = prog_name(toks.get(k).map_or(&[][..], |x| x), os);
+    }
+    if !(eq(&prog, "cd") || eq(&prog, "pushd")) {
+        return None;
+    }
+    let mut i = k + 1;
+    while let Some(t) = toks.get(i) {
+        if eq(t, "--") {
+            i += 1;
+            break;
+        }
+        // `pushd -1` rotates the stack: a number stays a target, as before
+        if t.len() > 1 && at(t, 0) == Some(cp('-')) && !t.iter().skip(1).all(|&c| (cp('0')..=cp('9')).contains(&c)) {
+            i += 1;
+            continue;
+        }
+        break;
+    }
+    (i < toks.len()).then_some(i)
+}
+
+/// `_last_is_claude`: the last name of the path text `t` (a word that `cd` gets, with a variable in it) is `.claude`: posix exactly, Windows in any case.
+fn last_is_claude(t: &[u32], os: Os) -> bool {
+    let nt = os == Os::Windows;
+    let sep = |c: u32| c == cp('/') || (nt && c == cp('\\'));
+    let end = t.iter().rposition(|&c| !sep(c)).map_or(0, |k| k + 1);
+    let t = slice(t, 0, end);
+    let start = t.iter().rposition(|&c| sep(c)).map_or(0, |k| k + 1);
+    let last = slice(t, start, t.len());
+    if nt { eq(&nt_fold(last), ".claude") } else { eq(last, ".claude") }
+}
+
+/// `_g3_bash`: `g3_walk` over the commands in order; then, when a command with substitutions was listed twice (see `COPY_NEXT`) and holds a `cd`, again with each listing starting from where the first started: the directory the first listing reached is not the one the second starts in (`cd ..` twice goes up twice), and a second reading never allows what the first denied.
 fn g3_bash_once(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, rd: Reading) -> Res<Option<Hit>> {
+    let mut cds = false;
+    let first = g3_walk(cmd, segs, cwd, os, rd, false, &mut cds)?;
+    if first.is_some() || !cds || !segs.iter().any(|(sg, toks)| toks.is_empty() && eq(sg, COPY_NEXT)) {
+        return Ok(first);
+    }
+    g3_walk(cmd, segs, cwd, os, rd, true, &mut cds)
+}
+
+/// `_g3_walk`: one reading; the script check (`script`) is made on the first only.
+fn g3_walk(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, rd: Reading, reset: bool, cds: &mut bool) -> Res<Option<Hit>> {
     let Reading { script, keep, redirects, gaps } = rd;
     let assign = if gaps { assigns(segs, os) } else { (false, false) };
     let base_folder = gaps && claude_dir(cwd, os, keep)?; // the event's directory is a `.claude` folder, then an unknown name `settings.json` is the settings file
     let (mut folder, mut cfg_cd) = (base_folder, false);
     let mut unknown = false;
     let mut cur = cwd.clone();
+    let mut saved: Vec<(Cwd, bool, bool, bool)> = Vec::new();
     let mut spent = 0_usize;
     for (seg, toks) in segs {
+        if toks.is_empty() && copy_mark(seg) {
+            if reset {
+                if eq(seg, COPY_OPEN) {
+                    saved.push((cur.clone(), unknown, folder, cfg_cd));
+                } else if eq(seg, COPY_NEXT) {
+                    if let Some(s) = saved.last() {
+                        (cur, unknown, folder, cfg_cd) = s.clone();
+                    }
+                } else {
+                    saved.pop();
+                }
+            }
+            continue;
+        }
         spent = spent.saturating_add(cwd_len(&cur)); // every command reads the working directory again
         if spent > CWD_WORK {
             return Ok(too_long_cwd());
@@ -1970,11 +2054,12 @@ fn g3_bash_once(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, rd: Reading) -> Re
         let (k, _) = program(toks, os);
         let prog: Text = toks.get(k).map_or_else(Text::new, |t| prog_name(t, os));
         let prog = prog.as_slice();
-        if (eq(prog, "cd") || eq(prog, "pushd")) && k + 1 < toks.len() {
-            let t = expanduser_for(toks.get(k + 1).map_or(&[][..], |x| x), os);
+        if let Some(ci) = cd_target(toks, k, prog, os) {
+            *cds = true;
+            let t = expanduser_for(toks.get(ci).map_or(&[][..], |x| x), os);
             if has_char(&t, '$') || has_char(&t, '`') || eq(&t, "-") {
                 unknown = true;
-                cfg_cd = cfg_cd || gaps && names_config_dir(&t, os);
+                cfg_cd = cfg_cd || gaps && (names_config_dir(&t, os) || last_is_claude(&t, os));
             } else if os == Os::Windows {
                 let (d, r, c) = nt_resolve(&cur, &t, keep)?;
                 cur = Cwd::Str(nt_str(&d, r, &c));
@@ -2438,7 +2523,7 @@ mod tests {
     /// The pinned counts of the lists that carry the expected decision under both flavours (`WINDOWS_COUNT`, `REDIRECTS_COUNT` and `POSIX_GAPS_COUNT` of the Python file).
     const WINDOWS_COUNT: usize = 106;
     const REDIRECTS_COUNT: usize = 110;
-    const POSIX_GAPS_COUNT: usize = 259;
+    const POSIX_GAPS_COUNT: usize = 297;
 
     /// The cases of the list `name` (`windows_paths`, `redirects`); the file is read here, at test time, from the manifest directory, and is never embedded in the binary.
     fn list_cases(name: &str) -> Vec<Value> {

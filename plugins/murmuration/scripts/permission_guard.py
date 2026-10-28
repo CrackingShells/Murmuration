@@ -39,6 +39,7 @@ Round 2 of the same leaf: the gap readings also take the commands with `>|` whol
 widened (`ash mksh yash posh rbash fish csh tcsh`, `busybox` as a wrapper, `| $SHELL` and `| $0` and the other variables that name a shell, `sh /dev/stdin`, `/dev/fd/0`, `/proc/self/fd/0`, `sh -`, `sh<<<..`, a process substitution given to a shell or to `source` / `.`, an unknown -c string or `eval` of one);
 an unknown target that names `settings.json` is denied only when `.claude` is in its text or is assigned (`D=~/.claude; echo x > $D/settings.json`), so `$HOME/.vscode/settings.json` and `$OUT/appsettings.json` stay allowed; a NUL in the path of a Write/Edit/MultiEdit/NotebookEdit is denied (G?).
 Round 3 of the same leaf: an unknown target that names `settings.json` is also denied when the working directory (the event's, or one a `cd` / `pushd` reached) is a `.claude` folder, when a `cd` goes to `$CLAUDE_CONFIG_DIR`, and when the target holds `$CLAUDE_CONFIG_DIR` (the variable that moves the folder); and a Write/Edit/MultiEdit/NotebookEdit input has its own, higher cap (WRITE_MAX_CHARS).
+Round 4 of the same leaf: `cd` and `pushd` are followed past their options (`-L -P -e -@`, `--`) and through `builtin` (`command` was already skipped); an unknown `cd` target whose last name is `.claude` (`$HOME/.claude`) puts the commands after it in a `.claude` folder; and a command with substitutions, which `expand` lists as written and then with the substitutions masked, is read a second time with the masked listing starting in the directory where the first started (a relative `cd` was applied by both).
 The work is bounded by named caps, the same in both guards and well above the real maximum: WORK (one budget for all the readings of a command: text scanned while masking substitutions, a text read costs TEXT_COST more; the second pass adds SUBST_COST for each character of a substitution's inside it keeps, STR_COST for each character of a shell string it descends into and SEG_COST for each simple command, once in every reading), CWD_MAX (a `cd` chain's directory) and CWD_WORK (commands times the length of their directory); over a cap the command is denied "too complex to be checked".
 A command that holds a NUL (a shell cannot receive one) is denied, and so is a Bash command longer than MAX_CHARS characters, or a Write/Edit/MultiEdit/NotebookEdit input longer than WRITE_MAX_CHARS ("too long to be checked", like TooComplex): the guard is a process that Claude Code stops after a timeout, and what a timeout does depends on its version. The two caps differ because the two readings do: a command is parsed, a file's text is only searched for the bypass words.
 Flavours: every path and program-name decision takes a flavour, "posix" or "nt", chosen by the OS this runs on (os.name) and passed explicitly by the selftest, which runs both on any host
@@ -543,6 +544,10 @@ def _dq_unescape(st):
     return re.sub(r"\\([$`])", r"\1", st)
 
 
+COPY_OPEN, COPY_NEXT, COPY_CLOSE = ("\0open", []), ("\0copy", []), ("\0close", [])     # marks in the list `expand` returns (a NUL is never in a command that is read): a command with substitutions is listed as written, then with its substitutions masked, so the second listing starts again where the first started
+COPY_MARKS = frozenset((COPY_OPEN[0], COPY_NEXT[0], COPY_CLOSE[0]))
+
+
 def expand(cmd, depth=0, work=None, fl=HOST, clobber=False, ansi=False, limit=3, deep=None):
     """Every simple command (list of words) of cmd, descending into `sh -c '...'`, `eval '...'` and `env -S '...'` strings (depth 3). The simple commands of the plain splitter come first, in order; then those of
     the command and of each substitution inside it with the substitutions replaced by one word (so that `claude -p "$(cat f)" --flag` is also seen as `claude -p "SUBST" --flag`). clobber=True is the reading in which `>|` is
@@ -551,12 +556,17 @@ def expand(cmd, depth=0, work=None, fl=HOST, clobber=False, ansi=False, limit=3,
     work = [0] if work is None else work
     out = []
     segs = split_segments(cmd, clobber)
-    for text in substitution_texts(cmd, work, fl, ansi):
+    first, texts = len(segs), substitution_texts(cmd, work, fl, ansi)
+    for text in texts:
         segs += split_segments(text, clobber)
     work[0] += SEG_COST * len(segs)
     if work[0] > WORK:
         raise TooComplex()
-    for seg in segs:
+    if texts:
+        out.append(COPY_OPEN)
+    for si, seg in enumerate(segs):
+        if texts and si == first:
+            out.append(COPY_NEXT)               # the masked copy of the whole command starts here
         toks = words(seg)
         variants = [toks]
         if ansi and ("$'" in seg or '$"' in seg):
@@ -587,6 +597,8 @@ def expand(cmd, depth=0, work=None, fl=HOST, clobber=False, ansi=False, limit=3,
                     out += expand(st, depth + 1, work, fl, clobber, ansi, limit, deep)
             elif subs and deep is not None:
                 deep.append(depth)
+    if texts:
+        out.append(COPY_CLOSE)
     return out
 
 
@@ -696,7 +708,7 @@ def g2(cmd, segs, fl=HOST):
 
 def slashed(segs):
     """The simple commands read with every backslash a slash. A Windows path typed without quotes loses its backslashes when the shell reads the word (`C:\\a\\claude.exe` is `C:aclaude.exe`); on nt the commands are read a second time like this, so that the program or target is also seen as the path it was meant to be."""
-    return [(t, words(t)) for t in (sg.replace("\\", "/") for sg, _ in segs)]
+    return [(t, [] if t in COPY_MARKS else words(t)) for t in (sg.replace("\\", "/") for sg, _ in segs)]
 
 
 _ANSI_ESC = {"a": "\a", "b": "\b", "e": "\x1b", "E": "\x1b", "f": "\f", "n": "\n", "r": "\r", "t": "\t", "v": "\v", "\\": "\\", "'": "'", '"': '"', "?": "?"}
@@ -1245,24 +1257,71 @@ def g3_bash(cmd, segs, cwd, fl=HOST, script=True, redirects=False, gaps=False):
     return _g3_bash(cmd, segs, cwd, fl, script, True, redirects, gaps) or _g3_bash(cmd, slashed(segs), cwd, fl, False, False, redirects, gaps) or _g3_bash(cmd, slashed(segs), cwd, fl, False, True, redirects, gaps)
 
 
+def _cd_target(toks, k, prog, fl):
+    """(program, index of the target) of a `cd` or `pushd` at toks[k] (`builtin cd`, `command cd` are the same; its options `-L -P -e -@` and `--` come first), or None when it is not one or has no target."""
+    while prog == "builtin" and k + 1 < len(toks):
+        k += 1
+        prog = prog_name(toks[k], fl)
+    if prog not in ("cd", "pushd"):
+        return None
+    i = k + 1
+    while i < len(toks):
+        t = toks[i]
+        if t == "--":
+            i += 1
+            break
+        if len(t) > 1 and t[0] == "-" and not (t[1:].isascii() and t[1:].isdigit()):          # `pushd -1` rotates the stack: a number stays a target, as before
+            i += 1
+            continue
+        break
+    return (prog, i) if i < len(toks) else None
+
+
+def _last_is_claude(t, fl):
+    """True when the last name of the path text t (a word that `cd` gets, with a variable in it) is `.claude`: posix exactly, nt in any case."""
+    t = t.rstrip("/\\") if fl == "nt" else t.rstrip("/")
+    last = re.split(r"[/\\]", t)[-1] if fl == "nt" else t.rsplit("/", 1)[-1]
+    return (nt_fold(last) if fl == "nt" else last) == ".claude"
+
+
 def _g3_bash(cmd, segs, cwd, fl, script, keep=False, redirects=False, gaps=False):
-    unknown, cur = False, cwd
+    """`_g3_walk` over the commands in order; then, when a command with substitutions was listed twice (see COPY_NEXT) and holds a `cd`, again with each listing starting from where the first started: the directory the first listing reached is not the one the second starts in (`cd ..` twice goes up twice), and a second reading never allows what the first denied."""
+    cds = []
+    hit = _g3_walk(cmd, segs, cwd, fl, script, keep, redirects, gaps, False, cds)
+    if hit or not cds or COPY_NEXT not in segs:
+        return hit
+    return _g3_walk(cmd, segs, cwd, fl, script, keep, redirects, gaps, True, cds)
+
+
+def _g3_walk(cmd, segs, cwd, fl, script, keep, redirects, gaps, reset, cds):
+    unknown, cur, saved = False, cwd, []
     assign = _assigns(segs, fl) if gaps else (False, False)
     base_folder = gaps and _claude_dir(cwd, fl, keep)       # the event's directory is a `.claude` folder, then an unknown name `settings.json` is the settings file
     folder, cfg_cd = base_folder, False
     spent = 0
     for seg, toks in segs:
+        if not toks and seg in COPY_MARKS:
+            if reset:
+                if seg == COPY_OPEN[0]:
+                    saved.append((cur, unknown, folder, cfg_cd))
+                elif seg == COPY_NEXT[0] and saved:
+                    cur, unknown, folder, cfg_cd = saved[-1]
+                elif seg == COPY_CLOSE[0] and saved:
+                    saved.pop()
+            continue
         if isinstance(cur, str):
             spent += len(cur)               # every command reads the working directory again
             if spent > CWD_WORK:
                 return TOO_LONG_CWD
         k, _ = program(toks, fl)
         prog = prog_name(toks[k], fl) if k < len(toks) else ""
-        if prog in ("cd", "pushd") and k + 1 < len(toks):
-            t = expanduser(toks[k + 1], fl)
+        cd = _cd_target(toks, k, prog, fl)
+        if cd:
+            cds[:] = [True]
+            t = expanduser(toks[cd[1]], fl)
             if "$" in t or "`" in t or t == "-":
                 unknown = True
-                cfg_cd = cfg_cd or gaps and _names_config_dir(t, fl)
+                cfg_cd = cfg_cd or gaps and (_names_config_dir(t, fl) or _last_is_claude(t, fl))
             elif fl == "nt":
                 cur = _nt_str(*_nt_resolve(cur or "", t, keep))
             else:
@@ -1446,7 +1505,7 @@ def run(raw, log=None):
 FIXTURES = os.path.join(HERE, "fixtures", "guard_lists")   # copied from __reports__/wave-06/author-w06-5 (the research record keeps the originals)
 FIXTURE_COUNTS = {"attacks": 50, "ordinary": 28, "mention": 6, "evasions": 13}   # a missing file or a different count fails the selftest: it must never pass on empty lists
 WINDOWS_COUNT = 106   # windows_paths.json: each case carries the cwd and the expected decision under both flavours ("allow" or the group); the same file is read by the Rust tests and by check_guard_equal.py
-POSIX_GAPS_COUNT = 259   # posix_gaps.json: the same layout; the shell strings, targets, NULs and sizes that leaf posix_gaps closed or denies, and the ordinary forms next to them that stay allowed
+POSIX_GAPS_COUNT = 297   # posix_gaps.json: the same layout; the shell strings, targets, NULs and sizes that leaf posix_gaps closed or denies, and the ordinary forms next to them that stay allowed
 REDIRECTS_COUNT = 110   # redirects.json: the same layout; the forms of a Bash redirection onto a settings file that are denied, and the ones that must stay allowed
 
 
