@@ -16,6 +16,8 @@ Last step, by the coordinator with the user's go-aheads: switch the local sessio
 ```mermaid
 graph TD
     publish[Switchover, push, CI binaries, Nest]:::inprogress
+    local_cleanup[Local installs and worktrees cleanup]:::planned
+    next[PI choice and README]:::planned
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
     classDef planned    fill:#374151,color:#e5e7eb
@@ -27,10 +29,13 @@ graph TD
 | Node | Type | Status |
 |:-----|:-----|:-------|
 | `publish.md` | 📄 Leaf Task | 🔄 In Progress |
+| `local_cleanup.md` | 📄 Leaf Task | ⬜ Planned |
+| `next/` | 📁 Directory | ⬜ Planned |
 
 ## Amendment Log
 | ID | Date | Source | Nodes Added | Rationale |
 |:---|:-----|:-------|:------------|:----------|
+| A1 | 2026-10-28 | side-session-notes/local_e5401f72-36a6-4b56-a47d-fcd5561cc982/plan-murmuration-publish-step3.md | ["local_cleanup.md", "next/lab_pi_choice.md", "next/readme_install.md", "next/next/ship_update.md", "next/next/next/first_project.md"] | Installable on macOS for many projects: project scope (no user scope), /lab stops setting agent, README install, 0.1.1 as the update-path check, cleanup of the local installs, a first real project; Eliott approved the plan 2026-10-28 |
 
 ## Progress
 | Node | Branch | Commits | Notes |

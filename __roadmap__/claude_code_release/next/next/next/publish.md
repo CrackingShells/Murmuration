@@ -46,3 +46,6 @@
 **Deliverables**: Nest `main` listing `murmuration`; Progress table notes
 **Consistency Checks**: `claude plugin list 2>&1 | grep -q 'murmuration@cracking-shells'` (expected: PASS)
 **Commit**: `docs(roadmap): record the Nest listing and the first install from it`
+**Results (2026-10-28, session murmuration-publish-step3)**:
+- Data-dir check before anything else: `~/.claude/plugins/data/murmuration-murmuration-local/bin/` holds `murmuration` (Mach-O 64-bit arm64, 636512 B) and `.verified`, both dated 14:59 (`ls -la`, `file`).
+- Plan approved by Eliott with three answers: scope "Project (Recommended)", PI agent "Never set it", update check "Ship 0.1.1 as the check (Recommended)". Amendment A1 adds `local_cleanup`, `lab_pi_choice`, `readme_install`, `ship_update`, `first_project`.
