@@ -94,7 +94,7 @@ def next_steps(plugin_root=PLUGIN_ROOT):
     start = "claude" + flag
     return [
         "Next: to open a new Claude Code session in this folder as the research PI, choose one of two ways "
-        "(this session does not become the PI, and the lab sets nothing for you).%s" % how,
+        "(this session does not become the PI, and the lab does not choose the agent for you).%s" % how,
         "  1. Start it with `claude --agent %s%s`." % (AGENT, flag),
         '  2. Or add the line `"agent": "%s"` to the top-level object of .claude/settings.local.json, '
         "then start `%s`." % (AGENT, start),
