@@ -14,7 +14,7 @@ The Windows cycle of Murmuration, after 0.1.1 shipped the 4 Unix binaries. CI al
 
 ## Gotchas
 - **Hashed inputs.** `permission_guard.py`, `budget.py`, `handback.py`, `run_hook.py` and the Rust sources are hashed into `bin/manifest.json` (`build_manifest.SCRIPTS`, `RUST_FILES`). A change to any of them needs CI's `build(bin)` commit on `main` before a version bump. `check_guard_equal.py` and the fixtures are not hashed.
-- **`permission_guard.py --selftest` on Windows.** Its loader pastes the temp dir into the fixture JSON text (`.replace("{T}", T)`), like the harness did before `ci_green`. On Windows the backslashes are invalid escapes; the `except ValueError` reports the e3 lists as missing, so the selftest fails instead of crashing. CI never runs `--selftest`, so `ci_green` left it alone (a fix changes a hashed file). Fix it with the next leaf that edits `permission_guard.py` (`shell_gaps`), with `json.dumps(T)[1:-1]`.
+- **`permission_guard.py --selftest` on Windows.** Its loader pasted the temp dir into the fixture JSON text (`.replace("{T}", T)`), so on Windows the backslashes were invalid escapes and the e3 lists read as missing. Fixed by `posix_gaps` (claude_code_release, merge 2d554c1) with `json.dumps(T)[1:-1]`, as `check_guard_equal.json_fragment` does; `shell_gaps` no longer needs to. Not yet run on Windows.
 - **Version numbers.** 0.1.1 is taken; the next guard change (reminder `murmuration-posix-gaps`) ships as 0.1.2, the Windows release as 0.2.0.
 
 ## Status

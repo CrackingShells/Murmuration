@@ -6,11 +6,11 @@
 - [x] Reminder `murmuration-posix-gaps` (Murmuration list, id 7E22E7F2-CB95-495A-9AA6-F344FD2998A9) is the spec, corrected by the coordinator: the bump is 0.1.2, not 0.1.1
 - [x] Work branch `posix-gaps` from `origin/main`, so a push does not carry the 5 docs commits on local `main` that are not approved for push
 **Success Gates**:
-- ⬜ [run] For each of the five gaps below, the hand-back names the decision (close, deny by default, accept) and its reason; each closed or denied form has deny cases, and each nearby ordinary form an allow case, in a new list `scripts/fixtures/guard_lists/posix_gaps.json` (pinned count, fails if missing, run under both flavours by the selftest, the Rust tests and `check_guard_equal.py`)
-- ⬜ [run] No deny becomes an allow: old (origin/main) vs new Python, and old vs new binary, over every existing list, `guard_selftest_payloads.json`, `guard_selftest_holes.json`, under both flavours, give identical exit code and stdout except cases listed one by one, each an allow becoming a deny with a reason
-- ⬜ [run] `python3 -I plugins/murmuration/scripts/permission_guard.py --selftest` exits 0; `cargo test --manifest-path plugins/murmuration/rust/Cargo.toml` passes; `cargo check --release` is clean on the 5 targets
-- ⬜ [run] `check_guard_equal.py` prints "gated sets equal", quick and full, with Python vs Rust 0 differences on the new list and on fuzz over the new forms
-- ⬜ [review] An independent adversarial verifier attacks each gap and signs off
+- ✅ [run] For each of the five gaps below, the hand-back names the decision (close, deny by default, accept) and its reason; each closed or denied form has deny cases, and each nearby ordinary form an allow case, in a new list `scripts/fixtures/guard_lists/posix_gaps.json` (pinned count, fails if missing, run under both flavours by the selftest, the Rust tests and `check_guard_equal.py`)
+- ✅ [run] No deny becomes an allow: old (origin/main) vs new Python, and old vs new binary, over every existing list, `guard_selftest_payloads.json`, `guard_selftest_holes.json`, under both flavours, give identical exit code and stdout except cases listed one by one, each an allow becoming a deny with a reason
+- ✅ [run] `python3 -I plugins/murmuration/scripts/permission_guard.py --selftest` exits 0; `cargo test --manifest-path plugins/murmuration/rust/Cargo.toml` passes; `cargo check --release` is clean on the 5 targets
+- ✅ [run] `check_guard_equal.py` prints "gated sets equal", quick and full, with Python vs Rust 0 differences on the new list and on fuzz over the new forms
+- ✅ [review] An independent adversarial verifier attacks each gap and signs off
 - ⬜ [run] After CI's `build(bin)` for the merged sources is on `main` (5 targets), `plugin.json` is 0.1.2; `murmuration@cracking-shells` installed from Nest denies fixture attack `a01` and allows `ls`
 **References**: campaign README Gotchas ("Guard gaps found by verify-windows-paths", posix residuals after fd6088d); `posix_redirects.md` (the method); `__roadmap__/windows_install/README.md` Gotchas (`--selftest` loader on Windows); `plugins/murmuration/scripts/permission_guard.py` (`expand`, `_shell_script`, `redirect_targets`, `_g3_bash`, `protected`, `decide`, `selftest`); `plugins/murmuration/rust/src/guard.rs`; `plugins/murmuration/scripts/check_guard_equal.py` (`json_fragment`)
 
