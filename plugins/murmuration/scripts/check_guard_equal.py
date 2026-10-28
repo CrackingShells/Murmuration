@@ -62,7 +62,7 @@ def json_fragment(s):
 
 def registered_events(T, src, incident):
     out = []
-    for name in ("e3_attacks", "e3_ordinary", "e3_mention", "e3_evasions", "e3v1_cases", "e3v2_cases", "e3v3_cases", "windows_paths", "redirects"):
+    for name in ("e3_attacks", "e3_ordinary", "e3_mention", "e3_evasions", "e3v1_cases", "e3v2_cases", "e3v3_cases", "windows_paths", "redirects", "posix_gaps"):
         for c in json.loads(open("%s/%s.json" % (LISTS, name), encoding="utf-8").read().replace("{T}", json_fragment(T))):
             inp = c.get("input")
             if inp:
