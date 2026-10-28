@@ -4,11 +4,11 @@
 **Pre-conditions**:
 - [x] `lab_pi_choice` and `readme_install` merged into `main`
 - [x] A scratch install of `murmuration@cracking-shells` 0.1.0 exists (publish step 3)
-- [ ] Eliott's go-ahead #4 (push `main`), quoted here
+- [x] Eliott's go-ahead #4 (push `main`), quoted here: "Yes, push main" (2026-10-28); `main` pushed 7509378..72a61d0, run 40659559118 started
 **Success Gates**:
-- ⬜ [run] `plugin.json` says `0.1.1` on `origin/main`, and `doubt()` returns None on that commit
-- ⬜ [run] After `claude plugin marketplace update cracking-shells` and `claude plugin update murmuration@cracking-shells --scope project` in the scratch folder, `cache/cracking-shells/murmuration/0.1.1/` exists, and after one session start `data/murmuration-cracking-shells/bin/.verified` is present with a Mach-O binary
-- ⬜ [run] `lab_init.py` from the 0.1.1 cache writes no `agent` key in a fresh scratch folder
+- ✅ [run] `plugin.json` says `0.1.1` on `origin/main`, and `doubt()` returns None on that commit
+- ✅ [run] After `claude plugin marketplace update cracking-shells` and `claude plugin update murmuration@cracking-shells --scope project` in the scratch folder, `cache/cracking-shells/murmuration/0.1.1/` exists, and after one session start `data/murmuration-cracking-shells/bin/.verified` is present with a Mach-O binary
+- ✅ [run] `lab_init.py` from the 0.1.1 cache writes no `agent` key in a fresh scratch folder
 **References**: campaign README Gotchas (version bump rule); `plugins/murmuration/scripts/install_binary.py` (`doubt`)
 
 ## Step 1: Bump, push, update
