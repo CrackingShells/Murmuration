@@ -991,5 +991,1016 @@
   "posix": "allow",
   "nt": "allow",
   "note": "an ordinary Write"
+ },
+ {
+  "id": "pg_clob_glob",
+  "tool": "Bash",
+  "command": "echo x >| .claude/settings.j*",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a glob after `>|`: the splitter cuts a `>|` at its `|`, and the new readings read the commands with it whole too"
+ },
+ {
+  "id": "pg_clob_fd1_glob",
+  "tool": "Bash",
+  "command": "echo x 1>| .claude/settings.j*",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "`1>|` with a glob"
+ },
+ {
+  "id": "pg_clob_fd2_glob",
+  "tool": "Bash",
+  "command": "echo x 2>| $HOME/.claude/settings.j*",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "`2>|` with a glob after $HOME"
+ },
+ {
+  "id": "pg_clob_default",
+  "tool": "Bash",
+  "command": "echo x >| \"${F:-\".claude/settings.json\"}\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a default value with nested quotes after `>|`"
+ },
+ {
+  "id": "pg_clob_subst",
+  "tool": "Bash",
+  "command": "echo x >| $(echo .claude/settings.json)",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a substitution that names the file after `>|`"
+ },
+ {
+  "id": "pg_clob_assign",
+  "tool": "Bash",
+  "command": "F=.claude/settings.json; echo x >| $F",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a variable set to the file, used after `>|`"
+ },
+ {
+  "id": "pg_clob_sh_c",
+  "tool": "Bash",
+  "command": "sh -c 'echo x >| .claude/settings.j*'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "`>|` with a glob inside a -c string"
+ },
+ {
+  "id": "pg_clob_anydir",
+  "tool": "Bash",
+  "command": "echo x >| */settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a glob folder after `>|`"
+ },
+ {
+  "id": "pg_clob_rw",
+  "tool": "Bash",
+  "command": "echo x <> .claude/settings.j*",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "`<>` opens the file for writing too"
+ },
+ {
+  "id": "pg_clob_amp",
+  "tool": "Bash",
+  "command": "echo x &>| .claude/settings.j*",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "`&>|`"
+ },
+ {
+  "id": "pg_clob_append_mix",
+  "tool": "Bash",
+  "command": "echo a > /tmp/a; echo x >| .claude/settings.j*",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "after another redirection"
+ },
+ {
+  "id": "pg_ok_clob_log",
+  "tool": "Bash",
+  "command": "echo x >| *.log",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "`>|` with a glob that cannot match a settings file"
+ },
+ {
+  "id": "pg_ok_clob_err",
+  "tool": "Bash",
+  "command": "echo x 2>| /tmp/err.log",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "`2>|` to a log"
+ },
+ {
+  "id": "pg_ok_clob_var",
+  "tool": "Bash",
+  "command": "echo x >| $OUT",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "`>|` to a variable that names no settings file"
+ },
+ {
+  "id": "pg_ok_clob_read",
+  "tool": "Bash",
+  "command": "cat .claude/settings.j* >| /tmp/out.txt",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "reading by glob into a file with `>|`"
+ },
+ {
+  "id": "pg_dq_escape_subst",
+  "tool": "Bash",
+  "command": "sh -c \"echo x > \\$(echo .claude/settings.json)\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "`\\$(..)` in a double-quoted -c string is a substitution for the shell that runs it"
+ },
+ {
+  "id": "pg_dq_escape_bt",
+  "tool": "Bash",
+  "command": "sh -c \"echo x > \\`echo .claude/settings.json\\`\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "the backtick form"
+ },
+ {
+  "id": "pg_dq_escape_var",
+  "tool": "Bash",
+  "command": "sh -c \"F=.claude/settings.json; echo x > \\$F\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "an escaped variable that the string assigns"
+ },
+ {
+  "id": "pg_dq_escape_eval",
+  "tool": "Bash",
+  "command": "eval \"echo x > \\$(echo .claude/settings.json)\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "eval of the same string"
+ },
+ {
+  "id": "pg_dq_escape_nested",
+  "tool": "Bash",
+  "command": "bash -c \"bash -c \\\"echo x > \\\\\\$(echo .claude/settings.json)\\\"\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "one level deeper"
+ },
+ {
+  "id": "pg_ok_dq_escape",
+  "tool": "Bash",
+  "command": "sh -c \"echo \\$HOME > /tmp/out\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "an escaped variable in a string that names no settings file"
+ },
+ {
+  "id": "pg_ok_dq_escape_bt",
+  "tool": "Bash",
+  "command": "sh -c \"echo \\`date\\` > /tmp/out\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "an escaped backtick, no settings file"
+ },
+ {
+  "id": "pg_pipe_ash",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | ash",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a piped script to ash"
+ },
+ {
+  "id": "pg_dashc_ash",
+  "tool": "Bash",
+  "command": "ash -c 'echo x > .claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "the -c string of ash"
+ },
+ {
+  "id": "pg_pipe_mksh",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | mksh",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a piped script to mksh"
+ },
+ {
+  "id": "pg_dashc_mksh",
+  "tool": "Bash",
+  "command": "mksh -c 'echo x > .claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "the -c string of mksh"
+ },
+ {
+  "id": "pg_pipe_yash",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | yash",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a piped script to yash"
+ },
+ {
+  "id": "pg_dashc_yash",
+  "tool": "Bash",
+  "command": "yash -c 'echo x > .claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "the -c string of yash"
+ },
+ {
+  "id": "pg_pipe_posh",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | posh",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a piped script to posh"
+ },
+ {
+  "id": "pg_dashc_posh",
+  "tool": "Bash",
+  "command": "posh -c 'echo x > .claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "the -c string of posh"
+ },
+ {
+  "id": "pg_pipe_rbash",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | rbash",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a piped script to rbash"
+ },
+ {
+  "id": "pg_dashc_rbash",
+  "tool": "Bash",
+  "command": "rbash -c 'echo x > .claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "the -c string of rbash"
+ },
+ {
+  "id": "pg_pipe_fish",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | fish",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a piped script to fish"
+ },
+ {
+  "id": "pg_dashc_fish",
+  "tool": "Bash",
+  "command": "fish -c 'echo x > .claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "the -c string of fish"
+ },
+ {
+  "id": "pg_pipe_csh",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | csh",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a piped script to csh"
+ },
+ {
+  "id": "pg_dashc_csh",
+  "tool": "Bash",
+  "command": "csh -c 'echo x > .claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "the -c string of csh"
+ },
+ {
+  "id": "pg_pipe_tcsh",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | tcsh",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a piped script to tcsh"
+ },
+ {
+  "id": "pg_dashc_tcsh",
+  "tool": "Bash",
+  "command": "tcsh -c 'echo x > .claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "the -c string of tcsh"
+ },
+ {
+  "id": "pg_busybox_sh_c",
+  "tool": "Bash",
+  "command": "busybox sh -c 'echo x > .claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "busybox as a wrapper of sh"
+ },
+ {
+  "id": "pg_busybox_ash_pipe",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | busybox ash",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a piped script to busybox ash"
+ },
+ {
+  "id": "pg_busybox_sh_here",
+  "tool": "Bash",
+  "command": "busybox sh<<<'echo x > .claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "busybox sh and a glued here-string"
+ },
+ {
+  "id": "pg_busybox_tee",
+  "tool": "Bash",
+  "command": "echo x | busybox tee .claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "busybox as a wrapper of tee"
+ },
+ {
+  "id": "pg_pipe_var_shell",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | $SHELL",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "the program is a variable"
+ },
+ {
+  "id": "pg_pipe_var_zero",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | $0",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "$0"
+ },
+ {
+  "id": "pg_pipe_var_dq",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | \"$SHELL\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a quoted variable"
+ },
+ {
+  "id": "pg_pipe_var_brace",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | ${SHELL}",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a braced variable"
+ },
+ {
+  "id": "pg_var_shell_c",
+  "tool": "Bash",
+  "command": "$SHELL -c 'echo x > .claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "the -c string of a variable program"
+ },
+ {
+  "id": "pg_pipe_sh_devstdin",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | sh /dev/stdin",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "the script file is the input"
+ },
+ {
+  "id": "pg_pipe_sh_devfd",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | sh /dev/fd/0",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "/dev/fd/0"
+ },
+ {
+  "id": "pg_pipe_bash_procfd",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | bash /proc/self/fd/0",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "/proc/self/fd/0"
+ },
+ {
+  "id": "pg_pipe_sh_dashdash",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | sh -- /dev/stdin",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "after --"
+ },
+ {
+  "id": "pg_here_nospace",
+  "tool": "Bash",
+  "command": "sh<<<'cp /tmp/x .claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a here-string with no space"
+ },
+ {
+  "id": "pg_here_nospace_bash",
+  "tool": "Bash",
+  "command": "bash<<<\"echo x > .claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "bash and a here-string with no space"
+ },
+ {
+  "id": "pg_here_nospace_file",
+  "tool": "Bash",
+  "command": "sh<run.sh; echo .claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "an input redirection glued to the shell"
+ },
+ {
+  "id": "pg_source_procsub",
+  "tool": "Bash",
+  "command": "source <(echo 'echo x > .claude/settings.json')",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "source of a process substitution"
+ },
+ {
+  "id": "pg_dot_procsub",
+  "tool": "Bash",
+  "command": ". <(echo 'echo x > .claude/settings.json')",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "`.` of a process substitution"
+ },
+ {
+  "id": "pg_bash_procsub",
+  "tool": "Bash",
+  "command": "bash <(echo 'echo x > .claude/settings.json')",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a shell with a process substitution as its script"
+ },
+ {
+  "id": "pg_sh_procsub",
+  "tool": "Bash",
+  "command": "sh <(echo 'cp /tmp/x .claude/settings.json')",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "sh with a process substitution as its script"
+ },
+ {
+  "id": "pg_source_stdin",
+  "tool": "Bash",
+  "command": "echo 'echo x > .claude/settings.json' | source /dev/stdin",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "source of the input"
+ },
+ {
+  "id": "pg_dot_stdin_here",
+  "tool": "Bash",
+  "command": ". /dev/stdin <<< 'echo x > .claude/settings.json'",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "`.` of the input with a here-string"
+ },
+ {
+  "id": "pg_dashc_subst",
+  "tool": "Bash",
+  "command": "sh -c \"$(echo 'echo x > .claude/settings.json')\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a -c string that is a substitution"
+ },
+ {
+  "id": "pg_dashc_var",
+  "tool": "Bash",
+  "command": "X='echo x > .claude/settings.json'; sh -c \"$X\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a -c string that is a variable"
+ },
+ {
+  "id": "pg_dashc_var_late",
+  "tool": "Bash",
+  "command": "sh -c \"$X\"; cat .claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "over-deny: an unknown -c string in a command that names a settings file"
+ },
+ {
+  "id": "pg_eval_subst",
+  "tool": "Bash",
+  "command": "eval \"$(echo 'echo x > .claude/settings.json')\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "eval of a substitution"
+ },
+ {
+  "id": "pg_eval_var",
+  "tool": "Bash",
+  "command": "X='echo x > .claude/settings.json'; eval \"$X\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "eval of a variable"
+ },
+ {
+  "id": "pg_ok_pipe_var_shell",
+  "tool": "Bash",
+  "command": "echo 'echo hi' | $SHELL",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a variable program, no settings file named"
+ },
+ {
+  "id": "pg_ok_dashc_var",
+  "tool": "Bash",
+  "command": "sh -c \"$X\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "an unknown -c string, no settings file named"
+ },
+ {
+  "id": "pg_ok_eval_var",
+  "tool": "Bash",
+  "command": "eval \"$(ssh-agent)\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "the everyday eval, no settings file named"
+ },
+ {
+  "id": "pg_ok_source_file",
+  "tool": "Bash",
+  "command": "source ./env.sh; cat .claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "source of a file is no unknown script"
+ },
+ {
+  "id": "pg_ok_dot_file",
+  "tool": "Bash",
+  "command": ". ./env.sh; cat .claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "`.` of a file"
+ },
+ {
+  "id": "pg_ok_sh_devnull",
+  "tool": "Bash",
+  "command": "sh /dev/null; echo .claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a script file that is not the input"
+ },
+ {
+  "id": "pg_ok_diff_procsub",
+  "tool": "Bash",
+  "command": "diff <(sort a) <(sort b); cat .claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a process substitution given to diff"
+ },
+ {
+  "id": "pg_ok_dollar_zero_arg",
+  "tool": "Bash",
+  "command": "echo $0 | cat; cat .claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "$0 as an argument, not a program"
+ },
+ {
+  "id": "pg_ok_var_program",
+  "tool": "Bash",
+  "command": "$CC -o out main.c; cat .claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a variable program with a script file argument and no shell option"
+ },
+ {
+  "id": "pg_ok_fish_script",
+  "tool": "Bash",
+  "command": "fish run.fish; cat .claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a script file for fish"
+ },
+ {
+  "id": "pg_ok_busybox_ls",
+  "tool": "Bash",
+  "command": "busybox ls; cat .claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "busybox with an applet that is no shell"
+ },
+ {
+  "id": "pg_nul_write_ok",
+  "tool": "Write",
+  "input": {
+   "file_path": "~\u0000/ok.txt",
+   "content": "{}"
+  },
+  "cwd": "/h/proj",
+  "posix": "G?",
+  "nt": "G?",
+  "note": "a NUL in the path of a Write to an ordinary file"
+ },
+ {
+  "id": "pg_nul_write_settings",
+  "tool": "Write",
+  "input": {
+   "file_path": "~\u0000/.claude/settings.json",
+   "content": "{}"
+  },
+  "cwd": "/h/proj",
+  "posix": "G?",
+  "nt": "G?",
+  "note": "a NUL in the path of a Write to the settings file: one reason on both guards"
+ },
+ {
+  "id": "pg_nul_edit_path",
+  "tool": "Edit",
+  "input": {
+   "path": "/h/proj/a\u0000b.txt",
+   "old_string": "a",
+   "new_string": "b"
+  },
+  "cwd": "/h/proj",
+  "posix": "G?",
+  "nt": "G?",
+  "note": "the `path` key"
+ },
+ {
+  "id": "pg_nul_multiedit",
+  "tool": "MultiEdit",
+  "input": {
+   "file_path": "/h/proj/\u0000.txt",
+   "edits": [
+    {
+     "old_string": "a",
+     "new_string": "b"
+    }
+   ]
+  },
+  "cwd": "/h/proj",
+  "posix": "G?",
+  "nt": "G?",
+  "note": "MultiEdit"
+ },
+ {
+  "id": "pg_nul_notebook",
+  "tool": "NotebookEdit",
+  "input": {
+   "notebook_path": "/h/proj/n\u0000.ipynb",
+   "new_source": "x = 1"
+  },
+  "cwd": "/h/proj",
+  "posix": "G?",
+  "nt": "G?",
+  "note": "NotebookEdit"
+ },
+ {
+  "id": "pg_nul_script",
+  "tool": "Write",
+  "input": {
+   "file_path": "/h/proj/run\u0000.sh",
+   "content": "echo hi"
+  },
+  "cwd": "/h/proj",
+  "posix": "G?",
+  "nt": "G?",
+  "note": "a script path with a NUL"
+ },
+ {
+  "id": "pg_ok_write_path",
+  "tool": "Write",
+  "input": {
+   "file_path": "/h/proj/b.txt",
+   "content": "{}"
+  },
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "an ordinary Write"
+ },
+ {
+  "id": "pg_ok_nul_in_content",
+  "tool": "Write",
+  "input": {
+   "file_path": "/h/proj/c.bin",
+   "content": "a\u0000b"
+  },
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a NUL in the content is not a path"
+ },
+ {
+  "id": "pg_ok_vscode_settings",
+  "tool": "Bash",
+  "command": "echo '{}' > \"$HOME/.vscode/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "another program's settings.json under a variable folder"
+ },
+ {
+  "id": "pg_ok_app_settings",
+  "tool": "Bash",
+  "command": "cp /tmp/x \"$OUT/appsettings.json\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "appsettings.json is not settings.json"
+ },
+ {
+  "id": "pg_ok_zed_settings",
+  "tool": "Bash",
+  "command": "cp x \"$HOME/.config/zed/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "an editor's settings under a variable folder"
+ },
+ {
+  "id": "pg_ok_pwd_vscode",
+  "tool": "Bash",
+  "command": "echo x > $(pwd)/.vscode/settings.json",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a substitution folder, another program's settings"
+ },
+ {
+  "id": "pg_ok_var_settings_plain",
+  "tool": "Bash",
+  "command": "cp x $OUT/settings.json",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a settings.json in an unknown folder is not a Claude Code settings file by its name alone"
+ },
+ {
+  "id": "pg_ok_var_settings_local_vscode",
+  "tool": "Bash",
+  "command": "echo x > ${D}/.vscode/settings.local.json",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "settings.local.json in a .vscode folder"
+ },
+ {
+  "id": "pg_dir_var_settings",
+  "tool": "Bash",
+  "command": "D=~/.claude; echo x > $D/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a variable set to the .claude folder, and settings.json in it"
+ },
+ {
+  "id": "pg_dir_var_settings_cp",
+  "tool": "Bash",
+  "command": "D=/h/.claude; cp /tmp/x \"${D}/settings.local.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "the same with cp and settings.local.json"
+ },
+ {
+  "id": "pg_dir_var_for",
+  "tool": "Bash",
+  "command": "for D in .claude; do echo x > $D/settings.json; done",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a loop variable over the folder"
+ },
+ {
+  "id": "pg_dir_subst_settings",
+  "tool": "Bash",
+  "command": "echo x > $(echo .claude)/settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "a substitution that prints the folder"
+ },
+ {
+  "id": "pg_dir_home_settings",
+  "tool": "Bash",
+  "command": "echo x > \"$HOME/.claude/settings.json\"",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "the folder as written after $HOME"
+ },
+ {
+  "id": "pg_dir_var_managed",
+  "tool": "Bash",
+  "command": "echo x > $X/managed-settings.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "managed-settings after an unknown folder"
+ },
+ {
+  "id": "pg_dir_var_local",
+  "tool": "Bash",
+  "command": "echo x > $X/.claude/settings.local.json",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "settings.local.json in a .claude folder as written"
+ },
+ {
+  "id": "pg_ok_dir_var_other",
+  "tool": "Bash",
+  "command": "D=~/.claude; echo x > $OUT/notes.txt",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a .claude folder variable and a target that does not name a settings file"
+ },
+ {
+  "id": "pg_cwd_work_over",
+  "tool": "Bash",
+  "command": "cd /aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; ",
+  "cwd": "/h/proj",
+  "posix": "G?",
+  "nt": "G?",
+  "note": "a directory of 1000 characters and 4010 commands in it read the directory 4 million times"
+ },
+ {
+  "id": "pg_ok_cwd_work_under",
+  "tool": "Bash",
+  "command": "cd /aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; a; ",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "the same directory with 3990 commands is read"
+ },
+ {
+  "id": "pg_cwd_max_over",
+  "tool": "Bash",
+  "command": "cd /aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa; echo x",
+  "cwd": "/h/proj",
+  "posix": "G?",
+  "nt": "G?",
+  "note": "a `cd` into a path of more than 1024 characters"
+ },
+ {
+  "id": "pg_ok_prose_dot_backtick",
+  "tool": "Bash",
+  "command": "cat > r.md <<'EOF'\nsee .claude/settings.json for the layout and the\n. `reference_coding/` has 14 files\nEOF",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a line of prose that starts with a period and a backticked word is no `.` of a substitution"
+ },
+ {
+  "id": "pg_ok_prose_dot_dash",
+  "tool": "Bash",
+  "command": "cat > r.md <<'EOF'\nsee .claude/settings.json\n. - Guard in a live session\nEOF",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a line of prose that starts with `. -` is no `.` of the input"
+ },
+ {
+  "id": "pg_ok_prose_source_word",
+  "tool": "Bash",
+  "command": "cat > r.md <<'EOF'\nsee .claude/settings.json\nsource `main` catches it\nEOF",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a line of prose that starts with `source` and a backticked word"
+ },
+ {
+  "id": "pg_ok_var_program_arg",
+  "tool": "Bash",
+  "command": "B=$CLAUDE_CODE_EXECPATH; \"$B\" --version; cat .claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a variable program with an option is not a shell that reads its input"
+ },
+ {
+  "id": "pg_ok_plugin_root",
+  "tool": "Bash",
+  "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/run.py\" x; cat .claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "the plugin folder variable in front of a script"
+ },
+ {
+  "id": "pg_ok_plugin_root_bare",
+  "tool": "Bash",
+  "command": "echo see ${CLAUDE_PLUGIN_ROOT}; cat .claude/settings.json",
+  "cwd": "/h/proj",
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a variable word that is not a program"
+ },
+ {
+  "id": "pg_procsub_dot",
+  "tool": "Bash",
+  "command": ". <(echo 'echo x > .claude/settings.json')",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "`.` of a process substitution (the command holds `<(`)"
+ },
+ {
+  "id": "pg_shellvar_brace_bash",
+  "tool": "Bash",
+  "command": "echo 'cp /tmp/x .claude/settings.json' | ${BASH}",
+  "cwd": "/h/proj",
+  "posix": "G3",
+  "nt": "G3",
+  "note": "`${BASH}`"
  }
 ]

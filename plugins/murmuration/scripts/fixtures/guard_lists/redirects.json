@@ -454,9 +454,9 @@
   "tool": "Bash",
   "command": "echo x > \"`pick`/settings.json\"",
   "cwd": "/h/proj",
-  "posix": "G3",
-  "nt": "G3",
-  "note": "a backtick makes the word unknown, as before; allowed until leaf posix_gaps, which denies an unknown target that names a settings file as written (`pick` may print .claude)"
+  "posix": "allow",
+  "nt": "allow",
+  "note": "a backtick makes the word unknown, as before; the command cuts the substitution out"
  },
  {
   "id": "q_ansi_hex",
