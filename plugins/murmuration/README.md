@@ -60,7 +60,9 @@ data folder (`~/.claude/plugins/data/murmuration-cracking-shells/bin/`) after ch
 2. Open a new session in that folder as the principal investigator, in either of two ways:
    - start `claude --agent murmuration:research-pi`;
    - or add `"agent": "murmuration:research-pi"` to `.claude/settings.local.json`, so every new
-     session there opens as the principal investigator.
+     session there opens as the principal investigator. In the Claude desktop app this is the
+     way: its `@` agent menu offers only agents kept as files in `~/.claude/agents/` or
+     `.claude/agents/`, so it does not list plugin agents.
 
    Then ask it to begin, for example: `Frame my question and plan the first wave.`
 3. Run `/lab-status` to see open puzzles, the state of every claim, and spend per agent.

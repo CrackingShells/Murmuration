@@ -62,7 +62,9 @@ claude --plugin-dir Murmuration/plugins/murmuration
    not choose the session's main agent.
 2. Start a new Claude Code session in that folder as the principal investigator, with
    `claude --agent murmuration:research-pi`. Or add `"agent": "murmuration:research-pi"` to
-   `.claude/settings.local.json` so every new session there opens as the PI. Then ask it to begin.
+   `.claude/settings.local.json` so every new session there opens as the PI. In the Claude
+   desktop app, use the settings line: its `@` agent menu offers only agents kept as files in
+   `~/.claude/agents/` or `.claude/agents/`, so it does not list plugin agents. Then ask it to begin.
 3. Run `/lab-status` at any time to see open puzzles, the current label of every claim, and spend
    in USD per agent (a lower bound while a session is open).
 
