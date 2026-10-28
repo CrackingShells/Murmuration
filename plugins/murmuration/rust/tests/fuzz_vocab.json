@@ -174,6 +174,11 @@
     "settings.{json,bak}",
     "node_modules/managed-*",
     ".claude/settings.jso[n]",
+    "$CLAUDE_CONFIG_DIR/settings.json",
+    "${CLAUDE_CONFIG_DIR}/settings.local.json",
+    "\"${V:-settings.json}\"",
+    "$X/settings.json",
+    "$(echo settings.local.json)",
     ".claude/settings.js?n"
   ],
   "writers": [
@@ -278,7 +283,7 @@
   "spaces": [" ", "  ", "\t", "\n", "\r", "\r\n", " ", " ", "　", "\u0085", " ", " ", "\u001c", "\u001f", "​", "﻿", "᠎"],
   "unicode": ["é", "١", "²", "Ⅰ", "́", "K", "İ", "ı", "ſ", "Ａ", "😀", "中", "\u0000", "\ud800", "\udc80", "ÿ", "ჿfe", "ก", "_", "‘", "“"],
   "words": ["echo", "ls", "cat", "pwd", "cd", "pushd", "popd", "true", "git status", "make", "npm test", "pytest -x", "cargo build", "foo", "bar", "baz", "/tmp", "-", "--", "-n", "-f", "--flag=value", "x=y", "a b", "hello world", "\"hello world\"", "'it''s'", "$HOME", "~", "$(date +%s)", "`date`", "${X:-y}", "*.py", "x*", "[a]", "{a,b}", "#c", "# comment", "!", "-i", "of=x", "-t", "--target-directory", "inplace", "--in-place", "-pi", "-ni", "--pre", "--exec", "-c", "-e", "-C /tmp"],
-  "cds": ["cd ", "cd /h/.claude; ", "cd .claude; ", "cd $HOME; ", "cd -; ", "cd /; ", "cd ..; ", "cd ~; ", "pushd .claude; ", "cd '.claude'; ", "cd \"/h/proj/.claude\"; ", "cd `pwd`; ", "env cd x; "],
+  "cds": ["cd ", "cd /h/.claude; ", "cd .claude; ", "cd $HOME; ", "cd -; ", "cd /; ", "cd ..; ", "cd ~; ", "pushd .claude; ", "cd '.claude'; ", "cd \"/h/proj/.claude\"; ", "cd `pwd`; ", "env cd x; ", "cd ~/.claude; ", "pushd ~/.claude; ", "cd $CLAUDE_CONFIG_DIR; ", "(cd .claude; ", "cd .claude && "],
   "write_paths": ["/h/proj/.claude/settings.json", "/h/proj/.claude/settings.local.json", "/h/proj/.claude/agents/x.md", "/h/proj/settings.json", "/Library/Application Support/ClaudeCode/managed-settings.json", "/etc/claude-code/managed-settings.d/10.json", "/h/proj/x.py", "/h/proj/x.PY", "/h/proj/x.sh", "/h/proj/x.bash", "/h/proj/x.zsh", "/h/proj/x.js", "/h/proj/x.ts", "/h/proj/x.mjs", "/h/proj/x.ipynb", "/h/proj/x.md", "/h/proj/x.txt", "/h/proj/x.py", "/h/proj/x.KJS", "/h/proj/İ.py", "x.py", "scripts/hello.py", "scripts/exists.py", "scripts/exists.sh", "h6/handback.py", "~/x.py", "~/.claude/settings.json", ".claude/settings.json", "../.claude/settings.json", "/h/proj/.claude/", "/h/proj/.claude", "/h/proj/x.py\u0000", "/h/proj/\ud800.py", "/h/proj/\udc80.py", "/h/proj/a.py/", "/h/proj/.py", "~\u0000/.claude/settings.json", "~\u0000/ok.txt", "/h/proj/a\u0000b.txt", "/h/proj/\u0000", "\u0000", "/h/proj/.claude/settings.js*", "/h/proj/x.py\u0000.txt"],
   "write_bodies": ["print(1)\n", "x = 1", "# nothing\n", "subprocess.run(['claude','-p','x','--dangerously-skip-permissions'])", "mode = 'bypassPermissions'", "args = ['--setting-sources', 'project']", "args = [\"--setting-sources\", \"user,project\"]", "--setting-sources=local", "--setting-sources=", "--setting-sources project --setting-sources local", "claude --dangerously-skip-permissions --permission-mode bypassPermissions", "bypassPermissions\nbypassPermissions\nbypassPermissions", "skipDangerousModePermissionPrompt", "BYPASSPERMISSIONS", "", "x\r\ny\rz\n", "é😀"],
   "pipeshells": ["sh", "bash", "zsh", "dash", "ash", "mksh", "yash", "posh", "rbash", "fish", "csh", "tcsh", "busybox sh", "busybox ash", "$SHELL", "${SHELL}", "\"$SHELL\"", "$0", "sh /dev/stdin", "sh /dev/fd/0", "bash /proc/self/fd/0", "sh -", "sh -s", "bash -s --", "sh -- /dev/stdin", "sh -n", "sh /dev/null", "sh run.sh", "source /dev/stdin", ". /dev/stdin", "cat", "tee", "xargs sh -c"],
