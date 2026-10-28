@@ -534,3 +534,15 @@ Yes: add a leaf for the posix redirect gap (quoted paths with spaces, >|), with 
 ## 2026-10-28 08:12
 
 Start switchover
+
+## 2026-10-28 09:02
+
+Draft the corresponding task card that can be used to start the next session based on these instructions
+
+## 2026-10-28 09:58
+
+Yes, push main
+
+## 2026-10-28 13:38
+
+Yes, dispatch it
