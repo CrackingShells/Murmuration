@@ -6,7 +6,7 @@
 - [ ] The project chosen with Eliott, quoted here
 **Success Gates**:
 - ⬜ [run] In the project, `.claude/settings.json` enables `murmuration@cracking-shells`, and `claude plugin list` there shows it at project scope
-- ⬜ [run] `claude plugin list` in a non-lab folder shows no `murmuration` entry
+- ⬜ [run] `claude plugin list` in a non-lab folder shows no `murmuration` entry enabled (entries from other projects appear as `✘ disabled`; corrected 2026-10-28 from "shows no entry", which cannot pass)
 - ⬜ [behavioral] `/lab <question>` creates the lab files; a new session opened with `claude --agent murmuration:research-pi` is the PI; a plain new session is not
 - ⬜ [behavioral] A Desktop worktree of the project loads the plugin without a new install (or what it asks is recorded)
 - ⬜ [behavioral] A plain new session in the Murmuration repo, not a side session, is or is not the PI; the result is recorded against the plan's puzzle

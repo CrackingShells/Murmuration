@@ -15,7 +15,7 @@ Last step, by the coordinator with the user's go-aheads: switch the local sessio
 ## Status
 ```mermaid
 graph TD
-    publish[Switchover, push, CI binaries, Nest]:::inprogress
+    publish[Switchover, push, CI binaries, Nest]:::done
     local_cleanup[Local installs and worktrees cleanup]:::planned
     next[PI choice and README]:::planned
     classDef done       fill:#166534,color:#bbf7d0
@@ -28,7 +28,7 @@ graph TD
 ## Nodes
 | Node | Type | Status |
 |:-----|:-----|:-------|
-| `publish.md` | 📄 Leaf Task | 🔄 In Progress |
+| `publish.md` | 📄 Leaf Task | ✅ Done |
 | `local_cleanup.md` | 📄 Leaf Task | ⬜ Planned |
 | `next/` | 📁 Directory | ⬜ Planned |
 
@@ -40,4 +40,4 @@ graph TD
 ## Progress
 | Node | Branch | Commits | Notes |
 |:-----|:-------|:--------|:------|
-| `publish.md` | `main` (coordinator) | b7f455d, 485d339, 7509378 | Step 1 done 2026-10-28 on the user's "Start switchover": gitignored local marketplace source set to `./plugins/murmuration` (backup in the session scratchpad), `release/claude-code` merged into local `main` (485d339, not pushed), `claude plugin marketplace update murmuration-local` passed, `claude plugin list` reads the new path; stale ignored root `scripts/__pycache__` removed; the fresh session confirmed the new path, the Python launcher (sources changed), a01 denied, `ls` allowed, and user_words written. Step 2 done 2026-10-28 on the user's "Yes, push main": `origin` added, `main` pushed (8e80df5); the push started no run (the `paths` filter did not fire on the first push to an empty repository), so on "Yes, dispatch it" run 40633506781 ran by hand with `commit_back=true`; CI committed 7509378 `build(bin)` (4 Unix binaries at 100755 plus the manifest), `install_smoke` green on macOS and Linux, Windows row red (`check_guard_equal.py` puts a backslash temp path into the fixture JSON; harness bug, not cp1252); local `main` fast-forwarded. Next: step 3 (scratch install from GitHub, then go-ahead #3 for Nest) waits for the user |
+| `publish.md` | `main` (coordinator); Nest `main` | b7f455d, 485d339, 7509378, Nest 807bc81 | Step 1 done 2026-10-28 on the user's "Start switchover": gitignored local marketplace source set to `./plugins/murmuration` (backup in the session scratchpad), `release/claude-code` merged into local `main` (485d339, not pushed), `claude plugin marketplace update murmuration-local` passed, `claude plugin list` reads the new path; stale ignored root `scripts/__pycache__` removed; the fresh session confirmed the new path, the Python launcher (sources changed), a01 denied, `ls` allowed, and user_words written. Step 2 done 2026-10-28 on the user's "Yes, push main": `origin` added, `main` pushed (8e80df5); the push started no run (the `paths` filter did not fire on the first push to an empty repository), so on "Yes, dispatch it" run 40633506781 ran by hand with `commit_back=true`; CI committed 7509378 `build(bin)` (4 Unix binaries at 100755 plus the manifest), `install_smoke` green on macOS and Linux, Windows row red (`check_guard_equal.py` puts a backslash temp path into the fixture JSON; harness bug, not cp1252); local `main` fast-forwarded. Step 3 done 2026-10-28: GitHub git-subdir scratch install gave `.verified` + Mach-O; on Eliott's "Yes, push Nest" Nest `main` got 807bc81 (`--no-ff`); `murmuration@cracking-shells` 0.1.0 installed at project scope in a scratch folder, `.verified` + Mach-O, a01 denied, `ls` allowed, `/lab` created the lab files; cache holds the subtree only (3.6 MB) |
