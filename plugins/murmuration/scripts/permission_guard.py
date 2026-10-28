@@ -38,8 +38,9 @@ one with its folder (`F=.claude/settings.json`; also `export`, `declare`, `local
 Round 2 of the same leaf: the gap readings also take the commands with `>|` whole (`>|`, `N>|`, `&>|`, `<>` are output operators); a double-quoted -c string is read with `\$(` and `\`` unescaped as bash does; the shell that reads a script not in the command text is
 widened (`ash mksh yash posh rbash fish csh tcsh`, `busybox` as a wrapper, `| $SHELL` and `| $0` and the other variables that name a shell, `sh /dev/stdin`, `/dev/fd/0`, `/proc/self/fd/0`, `sh -`, `sh<<<..`, a process substitution given to a shell or to `source` / `.`, an unknown -c string or `eval` of one);
 an unknown target that names `settings.json` is denied only when `.claude` is in its text or is assigned (`D=~/.claude; echo x > $D/settings.json`), so `$HOME/.vscode/settings.json` and `$OUT/appsettings.json` stay allowed; a NUL in the path of a Write/Edit/MultiEdit/NotebookEdit is denied (G?).
-The work is bounded by named caps, the same in both guards and well above the real maximum: WORK (text scanned while masking substitutions, a text read costs TEXT_COST more), CWD_MAX (a `cd` chain's directory) and CWD_WORK (commands times the length of their directory); over a cap the command is denied "too complex to be checked".
-A command that holds a NUL (a shell cannot receive one) is denied, and so is a Bash command, or a Write/Edit/MultiEdit/NotebookEdit input, longer than MAX_CHARS characters ("too long to be checked", like TooComplex): the guard is a process that Claude Code stops after a timeout, and what a timeout does depends on its version.
+Round 3 of the same leaf: an unknown target that names `settings.json` is also denied when the working directory (the event's, or one a `cd` / `pushd` reached) is a `.claude` folder, when a `cd` goes to `$CLAUDE_CONFIG_DIR`, and when the target holds `$CLAUDE_CONFIG_DIR` (the variable that moves the folder); and a Write/Edit/MultiEdit/NotebookEdit input has its own, higher cap (WRITE_MAX_CHARS).
+The work is bounded by named caps, the same in both guards and well above the real maximum: WORK (one budget for all the readings of a command: text scanned while masking substitutions, a text read costs TEXT_COST more; the second pass adds SUBST_COST for each character of a substitution's inside it keeps, STR_COST for each character of a shell string it descends into and SEG_COST for each simple command, once in every reading), CWD_MAX (a `cd` chain's directory) and CWD_WORK (commands times the length of their directory); over a cap the command is denied "too complex to be checked".
+A command that holds a NUL (a shell cannot receive one) is denied, and so is a Bash command longer than MAX_CHARS characters, or a Write/Edit/MultiEdit/NotebookEdit input longer than WRITE_MAX_CHARS ("too long to be checked", like TooComplex): the guard is a process that Claude Code stops after a timeout, and what a timeout does depends on its version. The two caps differ because the two readings do: a command is parsed, a file's text is only searched for the bypass words.
 Flavours: every path and program-name decision takes a flavour, "posix" or "nt", chosen by the OS this runs on (os.name) and passed explicitly by the selftest, which runs both on any host
 (fixtures/guard_lists/windows_paths.json holds the expected decision of each case under each; the Rust port reads the same file). posix is the reading of before: `/` separates, a backslash is a filename
 character, names are case-sensitive. nt reads a path as Windows resolves it, written out in `_nt_*` (not ntpath): `/` and `\` both separate; the prefixes `\\?\`, `\\.\`, `\??\` and `UNC\` are cut off; `C:x` is drive-relative (the
@@ -371,7 +372,10 @@ class TooComplex(Exception):
     """More characters scanned while masking command substitutions than WORK allows (a text scanned once costs its length; each nesting level scans its inside again): the command is denied rather than half checked."""
 
 
-WORK = 2000000      # 3.6x the work of the busiest command in the record (2.8 a character) at MAX_CHARS; 1e7 took 3 s to refuse a text of 9000 characters nested 3000 deep
+WORK = 2000000      # 3.1x the work of the busiest command in the record (635512, one budget shared by both passes); 1e7 took 3 s to refuse a text of 9000 characters nested 3000 deep
+SUBST_COST = 3     # what each character of a substitution's inside costs besides the scan, in the second pass (the inside is kept in the masked text of every level that holds it, and split again by each: a text of 190000 characters nested 9 deep took 5 s)
+STR_COST = 5       # what each character of a shell string costs when `expand` descends into it (the string is split again, once for every pass and level: 190000 characters under `sh -c` nested 4 deep took 2 s)
+SEG_COST = 15      # what each simple command costs, once in every `expand` (every reading of G1 to G3 walks them: 47000 commands under one `$( )`, each with `>|`, took 3.7 s); the record's busiest command is 3471
 TEXT_COST = 400     # what each text that `_mask` reads costs besides its length (a command of 190000 characters can hold 47000 substitutions, each read and split by itself: 4 s); the record's most is 222 in one command, 5000 are read here
 
 
@@ -483,6 +487,9 @@ def _mask(s, work, fl=HOST, keep=False):
         inner = s[a:b]
         out.append(s[prev:st])
         if keep:
+            work[0] += SUBST_COST * len(inner)
+            if work[0] > WORK:
+                raise TooComplex()
             out.append("claude" if _names_claude(fl).search(inner) and not _names_span(inner, fl) else "SUBST_" + _SQUASH.sub(",", inner))
         else:
             out.append("claude" if _names_claude(fl).search(inner) else "SUBST")
@@ -546,6 +553,9 @@ def expand(cmd, depth=0, work=None, fl=HOST, clobber=False, ansi=False, limit=3,
     segs = split_segments(cmd, clobber)
     for text in substitution_texts(cmd, work, fl, ansi):
         segs += split_segments(text, clobber)
+    work[0] += SEG_COST * len(segs)
+    if work[0] > WORK:
+        raise TooComplex()
     for seg in segs:
         toks = words(seg)
         variants = [toks]
@@ -571,6 +581,9 @@ def expand(cmd, depth=0, work=None, fl=HOST, clobber=False, ansi=False, limit=3,
                     subs += [u for u in (_dq_unescape(st) for st in subs) if u not in subs]
             if depth < limit:
                 for st in subs:
+                    work[0] += STR_COST * len(st)
+                    if work[0] > WORK:
+                        raise TooComplex()
                     out += expand(st, depth + 1, work, fl, clobber, ansi, limit, deep)
             elif subs and deep is not None:
                 deep.append(depth)
@@ -1085,6 +1098,22 @@ def _glob_protected(w, cwd, unknown_dir, fl=HOST, keep=False):
 
 
 _DIR_NAMED = re.compile(r"(?:^|[/\\])\.claude(?![A-Za-z0-9_.\-])")
+_CONFIG_DIR_VAR = "CLAUDE_CONFIG_DIR"      # the variable that relocates the `.claude` folder: a text that holds it names that folder
+
+
+def _names_config_dir(t, fl):
+    """True when the text t holds `$CLAUDE_CONFIG_DIR` in any form (`${CLAUDE_CONFIG_DIR:-..}`; on nt the name is read in any case)."""
+    return (_CONFIG_DIR_VAR.lower() in nt_fold(t)) if fl == "nt" else _CONFIG_DIR_VAR in t
+
+
+def _claude_dir(d, fl, keep=False):
+    """True when the directory d (the working directory of the event, or one `cd` reached) is a `.claude` folder: its last name is `.claude` (posix exactly, nt in any case and with trailing dots and spaces dropped)."""
+    if not isinstance(d, str) or not d:
+        return False
+    if fl == "nt":
+        comps = _nt_resolve("", d, keep)[2]
+        return bool(comps) and nt_fold(comps[-1]) == ".claude"
+    return posixpath.basename(posixpath.normpath(d)) == ".claude"
 
 
 def _assigns(segs, fl):
@@ -1096,7 +1125,7 @@ def _assigns(segs, fl):
             vals += toks[toks.index("in") + 1:]
         for v in vals:
             file = file or _names_path(v, fl)
-            folder = folder or bool(_DIR_NAMED.search(nt_fold(v) if fl == "nt" else v))
+            folder = folder or bool(_DIR_NAMED.search(nt_fold(v) if fl == "nt" else v)) or _names_config_dir(v, fl)
         if file and folder:
             break
     return file, folder
@@ -1197,7 +1226,7 @@ def _gap_hit(seg, toks, k, prog, cur, unknown_dir, assign, fl, keep):
                 return "G3", "the command writes `%s`, a target the guard cannot expand that names a Claude Code settings file" % t
             if assign[0]:
                 return "G3", "the command writes `%s`, a target the guard cannot expand, and assigns a value that names a Claude Code settings file" % t
-            if (_names_span(t, fl) or _names_span(u, fl)) and (assign[1] or ".claude" in (nt_fold(u) if fl == "nt" else u)):
+            if (_names_span(t, fl) or _names_span(u, fl)) and (assign[1] or ".claude" in (nt_fold(u) if fl == "nt" else u) or _names_config_dir(u, fl)):
                 return "G3", "the command writes `%s`, a target the guard cannot expand that names a settings file in a `.claude` folder" % t
             w = u
         else:
@@ -1219,6 +1248,8 @@ def g3_bash(cmd, segs, cwd, fl=HOST, script=True, redirects=False, gaps=False):
 def _g3_bash(cmd, segs, cwd, fl, script, keep=False, redirects=False, gaps=False):
     unknown, cur = False, cwd
     assign = _assigns(segs, fl) if gaps else (False, False)
+    base_folder = gaps and _claude_dir(cwd, fl, keep)       # the event's directory is a `.claude` folder, then an unknown name `settings.json` is the settings file
+    folder, cfg_cd = base_folder, False
     spent = 0
     for seg, toks in segs:
         if isinstance(cur, str):
@@ -1231,15 +1262,18 @@ def _g3_bash(cmd, segs, cwd, fl, script, keep=False, redirects=False, gaps=False
             t = expanduser(toks[k + 1], fl)
             if "$" in t or "`" in t or t == "-":
                 unknown = True
+                cfg_cd = cfg_cd or gaps and _names_config_dir(t, fl)
             elif fl == "nt":
                 cur = _nt_str(*_nt_resolve(cur or "", t, keep))
             else:
                 cur = posixpath.normpath(t if posixpath.isabs(t) else posixpath.join(cur or "", t))
             if isinstance(cur, str) and len(cur) > CWD_MAX:
                 return TOO_LONG_CWD
+            if gaps:
+                folder = base_folder or cfg_cd or _claude_dir(cur, fl, keep)
             continue
         if gaps:
-            hit = _gap_hit(seg, toks, k, prog, cur, unknown, assign, fl, keep)
+            hit = _gap_hit(seg, toks, k, prog, cur, unknown, (assign[0], assign[1] or folder), fl, keep)
             if hit:
                 return hit
             continue
@@ -1316,15 +1350,16 @@ TOO_COMPLEX = "G?", "the command has too many command substitutions to be checke
 CWD_MAX = 1024      # the longest directory the commands are followed into by `cd` and `pushd` (the limit of a path on macOS; a chain of `cd a;` grows the path by two characters a command, and every command after it reads the path again)
 CWD_WORK = 4000000  # the commands of a chain times the length of their directory, at most: 15x the busiest command in the record (3471 commands in a 78-character directory); a chain of 31000 commands in a 1000-character directory took 3 s to read on the nt side
 TOO_LONG_CWD = "G?", "the directory of the commands is too long, for as many commands, to be checked"
-MAX_CHARS = 200000   # the longest Bash command, or Write/Edit input, that is read: 1.8x the longest real Bash command seen (113042) and 2x the longest Write input (99452); of 112 hostile forms at 190000 characters the slowest read in 1.3 s (Python, posix) and 0.5 s (Rust), and 3.3 s in the pure-Python nt reading (Rust nt: 0.7 s); the hook's own limit is 20 s
+MAX_CHARS = 200000   # the longest Bash command that is read: 1.8x the longest real Bash command seen (113042) and 2x the longest Write input (99452); of 141 hostile forms at 190000 characters the slowest read in 1.3 s (Python, posix) and 0.4 s (Rust; 0.5 s in the nt reading), and 3.1 s in the pure-Python nt reading (a pre-existing class of many redirections, 385 s before the leaf); the hook's own limit is 20 s
+WRITE_MAX_CHARS = 10000000   # the longest Write/Edit/MultiEdit/NotebookEdit input (path, content and strings together) that is read: 100x the longest real Write input (99452); that reading is linear and cheap (G3 on the path, G4 on the strings): at 5M and 20M characters the slowest of 15 forms read in 0.43 s and 1.5 s (Python) and 0.47 s and 1.8 s (Rust), so 10M reads in about 1 s in either; the hook's own limit is 20 s
 NEST = 8              # the depth to which shell strings are followed in the second pass (the first pass follows 3)
 
 
-def _bash_pass(cmd, cwd, fl, second):
+def _bash_pass(cmd, cwd, fl, second, work=None):
     """(hit, the commands, the strings found deeper than the pass follows, the commands with `>|` whole or None): the readings of G1 to G3 over the commands of `expand`. second=True is the pass of the leaf posix_gaps (ANSI-C words, strings to depth NEST); the first pass is that of before."""
     kw, deep = (dict(ansi=True, limit=NEST), []) if second else ({}, None)
     try:
-        segs = expand(cmd, fl=fl, deep=deep, **kw)
+        segs = expand(cmd, fl=fl, deep=deep, work=work, **kw)
     except TooComplex:
         return TOO_COMPLEX, [], [], None
     hit = g1(cmd, segs, fl) or g2(cmd, segs, fl) or (fl == "nt" and g2(cmd, slashed(segs), fl)) or g3_bash(cmd, segs, cwd, fl)
@@ -1332,7 +1367,7 @@ def _bash_pass(cmd, cwd, fl, second):
     if hit or not any(sg.endswith(">") for sg, _ in segs):      # a segment that ends in `>` is where the splitter cut a `>|`
         return hit, segs, deep, None
     try:
-        alt = expand(cmd, fl=fl, clobber=True, **kw)
+        alt = expand(cmd, fl=fl, clobber=True, work=work, **kw)
     except TooComplex:
         return TOO_COMPLEX, segs, deep, None
     return g3_bash(cmd, alt, cwd, fl, False, True), segs, deep, alt      # and the reading with `>|` whole
@@ -1370,17 +1405,18 @@ def decide(event, fl=HOST):
             return "G?", "the command holds a NUL character, which a shell cannot receive"
         if isinstance(cmd, str) and len(cmd) > MAX_CHARS:
             return "G?", "the command is too long to be checked (more than %d characters)" % MAX_CHARS
-        hit = _bash_pass(cmd, cwd, fl, False)[0]
+        work = [0]                      # one budget for all the readings of the command: the passes add up
+        hit = _bash_pass(cmd, cwd, fl, False, work)[0]
         if hit:
             return hit
-        hit, segs, deep, alt = _bash_pass(cmd, cwd, fl, True)           # the readings of the leaf posix_gaps come after every older reading, so a denial keeps its reason
+        hit, segs, deep, alt = _bash_pass(cmd, cwd, fl, True, work)           # the readings of the leaf posix_gaps come after every older reading, so a denial keeps its reason
         return hit or g3_gaps(cmd, segs, deep, alt, cwd, fl)
     if tool in ("Write", "Edit", "MultiEdit", "NotebookEdit"):
         if any(isinstance(inp.get(k), str) and "\0" in inp[k] for k in ("file_path", "path", "notebook_path")):
             return "G?", "the path holds a NUL character, which a file name cannot hold"
         hit = g3_edit(inp, cwd, fl)
-        if not hit and _input_chars(inp) > MAX_CHARS:
-            hit = "G?", "the input is too long to be checked (more than %d characters)" % MAX_CHARS
+        if not hit and _input_chars(inp) > WRITE_MAX_CHARS:
+            hit = "G?", "the input is too long to be checked (more than %d characters)" % WRITE_MAX_CHARS
         return hit or g4_script(inp, cwd, fl)
     return None
 
@@ -1410,7 +1446,7 @@ def run(raw, log=None):
 FIXTURES = os.path.join(HERE, "fixtures", "guard_lists")   # copied from __reports__/wave-06/author-w06-5 (the research record keeps the originals)
 FIXTURE_COUNTS = {"attacks": 50, "ordinary": 28, "mention": 6, "evasions": 13}   # a missing file or a different count fails the selftest: it must never pass on empty lists
 WINDOWS_COUNT = 106   # windows_paths.json: each case carries the cwd and the expected decision under both flavours ("allow" or the group); the same file is read by the Rust tests and by check_guard_equal.py
-POSIX_GAPS_COUNT = 219   # posix_gaps.json: the same layout; the shell strings, targets, NULs and sizes that leaf posix_gaps closed or denies, and the ordinary forms next to them that stay allowed
+POSIX_GAPS_COUNT = 259   # posix_gaps.json: the same layout; the shell strings, targets, NULs and sizes that leaf posix_gaps closed or denies, and the ordinary forms next to them that stay allowed
 REDIRECTS_COUNT = 110   # redirects.json: the same layout; the forms of a Bash redirection onto a settings file that are denied, and the ones that must stay allowed
 
 
@@ -1466,7 +1502,8 @@ def selftest():
     redirects = both_flavours("redirects", REDIRECTS_COUNT)
     posix_gaps = both_flavours("posix_gaps", POSIX_GAPS_COUNT)
     for tool, key, body in (("Bash", "command", "echo a"), ("Write", "content", "a"), ("Edit", "new_string", "a"), ("NotebookEdit", "new_source", "a")):       # the cap: one character over is denied G?, the cap itself is read (the lists keep to small commands)
-        for n, want in ((MAX_CHARS, False), (MAX_CHARS + 1, True)):
+        cap = MAX_CHARS if tool == "Bash" else WRITE_MAX_CHARS
+        for n, want in ((cap, False), (cap + 1, True)):
             pad = body * (n // len(body))
             h = decide(dict(tool_name=tool, tool_input={key: pad + "a" * (n - len(pad))}, cwd=T))
             check("size %s %d (want %s)" % (tool, n, "G?" if want else "allow"), bool(h) == want and (not h or h[0] == "G?"))

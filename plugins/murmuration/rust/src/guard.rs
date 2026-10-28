@@ -276,6 +276,12 @@ struct TooComplex;
 const WORK: usize = 2_000_000;
 /// `TEXT_COST`: what each text that `mask` reads costs besides its length.
 const TEXT_COST: usize = 400;
+/// `SUBST_COST`: what each character of a substitution's inside costs besides the scan, in the second pass (the inside is kept in the masked text of every level that holds it, and split again by each).
+const SUBST_COST: usize = 3;
+/// `STR_COST`: what each character of a shell string costs when `expand` descends into it (the string is split again, once for every pass and level).
+const STR_COST: usize = 5;
+/// `SEG_COST`: what each simple command costs, once in every `expand` (every reading of G1 to G3 walks them); the record's busiest command is 3471.
+const SEG_COST: usize = 15;
 
 /// A span of a matched substitution: start, end, inside start, inside end.
 type Span = (usize, usize, usize, usize);
@@ -419,6 +425,10 @@ fn mask(s: &[u32], work: &mut usize, os: Os, keep: bool) -> Result<(Text, Vec<Te
         let inner = slice(s, a, b).to_vec();
         out.extend_from_slice(slice(s, prev, st));
         if keep {
+            *work += SUBST_COST * inner.len();
+            if *work > WORK {
+                return Err(TooComplex);
+            }
             if names_claude(&inner, os) && !names_span(&inner, os) {
                 out.extend(text("claude"));
             } else {
@@ -496,6 +506,10 @@ fn expand(cmd: &[u32], depth: usize, work: &mut usize, os: Os, mode: Mode, deep:
     for t in substitution_texts(cmd, work, os, mode.ansi)? {
         segs.extend(split_segments(&t, mode.clobber));
     }
+    *work += SEG_COST * segs.len();
+    if *work > WORK {
+        return Err(TooComplex);
+    }
     for seg in segs {
         let toks0 = words(&seg);
         let mut variants: Vec<Vec<Text>> = vec![toks0.clone()];
@@ -545,6 +559,10 @@ fn expand(cmd: &[u32], depth: usize, work: &mut usize, os: Os, mode: Mode, deep:
             }
             if depth < mode.limit {
                 for st in subs {
+                    *work += STR_COST * st.len();
+                    if *work > WORK {
+                        return Err(TooComplex);
+                    }
                     out.extend(expand(&st, depth + 1, work, os, mode, deep)?);
                 }
             } else if !subs.is_empty() {
@@ -1299,8 +1317,10 @@ fn slashed(segs: &[Seg]) -> Vec<Seg> {
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------
 // the gaps after the redirections (leaf posix_gaps): `ansi_words`, `word_end`, `redirect_spans`, the glob reading, the assignments, the shells that read their input
 
-/// `MAX_CHARS`: the longest Bash command, or Write/Edit input, that is read; a longer one is denied as too long to be checked (a timeout of the guard is a block only on Claude Code 2.1.295 and later).
+/// `MAX_CHARS`: the longest Bash command that is read; a longer one is denied as too long to be checked (a timeout of the guard is a block only on Claude Code 2.1.295 and later).
 const MAX_CHARS: usize = 200_000;
+/// `WRITE_MAX_CHARS`: the longest Write/Edit/MultiEdit/NotebookEdit input (path, content and strings together) that is read; a longer one is denied as too long to be checked (that reading is linear and cheap).
+const WRITE_MAX_CHARS: usize = 10_000_000;
 /// `NEST`: the depth to which shell strings are followed in the second pass (the first pass follows 3).
 const NEST: usize = 8;
 const SETTINGS_NAMES: [&str; 2] = ["settings.json", "settings.local.json"];
@@ -1696,6 +1716,31 @@ fn dir_named(t: &[u32]) -> bool {
     (0..t.len()).any(|p| starts_at(t, p, ".claude") && (p == 0 || at(t, p - 1).is_some_and(|c| c == cp('/') || c == cp('\\'))) && !at(t, p + dot_claude).is_some_and(name_char))
 }
 
+/// `_CONFIG_DIR_VAR`: the variable that relocates the `.claude` folder: a text that holds it names that folder.
+const CONFIG_DIR_VAR: &str = "CLAUDE_CONFIG_DIR";
+
+/// `_names_config_dir`: the text holds `$CLAUDE_CONFIG_DIR` in any form (`${CLAUDE_CONFIG_DIR:-..}`; on Windows the name is read in any case).
+fn names_config_dir(t: &[u32], os: Os) -> bool {
+    if os == Os::Windows {
+        contains(&nt_fold(t), &CONFIG_DIR_VAR.to_ascii_lowercase())
+    } else {
+        contains(t, CONFIG_DIR_VAR)
+    }
+}
+
+/// `_claude_dir`: the directory `d` (the working directory of the event, or one `cd` reached) is a `.claude` folder: its last name is `.claude` (posix exactly, Windows in any case and with trailing dots and spaces dropped).
+fn claude_dir(d: &Cwd, os: Os, keep: bool) -> Res<bool> {
+    let Cwd::Str(t) = d else { return Ok(false) };
+    if t.is_empty() {
+        return Ok(false);
+    }
+    if os == Os::Windows {
+        let (_, _, comps) = nt_resolve(&Cwd::Str(Text::new()), t, keep)?;
+        return Ok(comps.last().is_some_and(|c| eq(&nt_fold(c), ".claude")));
+    }
+    Ok(eq(basename(&normpath(t)), ".claude"))
+}
+
 /// `_assigns`: (file, folder): a simple command assigns a value that names a settings file (`F=..`, in front of a command or after `export`, `declare`, `local`, `readonly`, or `for F in ..`), and one that assigns a value that names a `.claude` folder (`D=~/.claude`).
 fn assigns(segs: &[Seg], os: Os) -> (bool, bool) {
     let (mut file, mut folder) = (false, false);
@@ -1708,7 +1753,7 @@ fn assigns(segs: &[Seg], os: Os) -> (bool, bool) {
         }
         for v in vals {
             file = file || names_path(v, os);
-            folder = folder || if os == Os::Windows { dir_named(&nt_fold(v)) } else { dir_named(v) };
+            folder = folder || if os == Os::Windows { dir_named(&nt_fold(v)) } else { dir_named(v) } || names_config_dir(v, os);
         }
         if file && folder {
             break;
@@ -1864,7 +1909,7 @@ fn gap_hit(seg: &[u32], toks: &[Text], k: usize, prog: &[u32], st: &GapState) ->
                 return Ok(hit("G3", cat(&[&text("the command writes `"), &t, &text("`, a target the guard cannot expand, and assigns a value that names a Claude Code settings file")])));
             }
             let in_dir = if os == Os::Windows { contains(&nt_fold(&u), ".claude") } else { contains(&u, ".claude") };
-            if (names_span(&t, os) || names_span(&u, os)) && (assign.1 || in_dir) {
+            if (names_span(&t, os) || names_span(&u, os)) && (assign.1 || in_dir || names_config_dir(&u, os)) {
                 return Ok(hit("G3", cat(&[&text("the command writes `"), &t, &text("`, a target the guard cannot expand that names a settings file in a `.claude` folder")])));
             }
             u
@@ -1912,6 +1957,8 @@ struct Reading {
 fn g3_bash_once(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, rd: Reading) -> Res<Option<Hit>> {
     let Reading { script, keep, redirects, gaps } = rd;
     let assign = if gaps { assigns(segs, os) } else { (false, false) };
+    let base_folder = gaps && claude_dir(cwd, os, keep)?; // the event's directory is a `.claude` folder, then an unknown name `settings.json` is the settings file
+    let (mut folder, mut cfg_cd) = (base_folder, false);
     let mut unknown = false;
     let mut cur = cwd.clone();
     let mut spent = 0_usize;
@@ -1927,6 +1974,7 @@ fn g3_bash_once(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, rd: Reading) -> Re
             let t = expanduser_for(toks.get(k + 1).map_or(&[][..], |x| x), os);
             if has_char(&t, '$') || has_char(&t, '`') || eq(&t, "-") {
                 unknown = true;
+                cfg_cd = cfg_cd || gaps && names_config_dir(&t, os);
             } else if os == Os::Windows {
                 let (d, r, c) = nt_resolve(&cur, &t, keep)?;
                 cur = Cwd::Str(nt_str(&d, r, &c));
@@ -1937,10 +1985,13 @@ fn g3_bash_once(cmd: &[u32], segs: &[Seg], cwd: &Cwd, os: Os, rd: Reading) -> Re
             if cwd_len(&cur) > CWD_MAX {
                 return Ok(too_long_cwd());
             }
+            if gaps {
+                folder = base_folder || cfg_cd || claude_dir(&cur, os, keep)?;
+            }
             continue;
         }
         if gaps {
-            if let Some(h) = gap_hit(seg, toks, k, prog, &GapState { cur: &cur, unknown, assign, os, keep })? {
+            if let Some(h) = gap_hit(seg, toks, k, prog, &GapState { cur: &cur, unknown, assign: (assign.0, assign.1 || folder), os, keep })? {
                 return Ok(Some(h));
             }
             continue;
@@ -2204,11 +2255,10 @@ struct Pass {
 }
 
 /// `_bash_pass`: the readings of G1 to G3 over the commands of `expand`. `second` is the pass of the leaf posix_gaps (ANSI-C words, strings to depth `NEST`); the first pass is that of before.
-fn bash_pass(cmd: &[u32], cwd: &Cwd, os: Os, second: bool) -> Res<Pass> {
+fn bash_pass(cmd: &[u32], cwd: &Cwd, os: Os, second: bool, work: &mut usize) -> Res<Pass> {
     let mode = if second { Mode { clobber: false, ansi: true, limit: NEST } } else { FIRST };
     let mut deep = false;
-    let mut work = 0;
-    let Ok(segs) = expand(cmd, 0, &mut work, os, mode, &mut deep) else {
+    let Ok(segs) = expand(cmd, 0, work, os, mode, &mut deep) else {
         return Ok(Pass { hit: too_complex(), segs: Vec::new(), deep: false, alt: None });
     };
     let mut found = g1(cmd, &segs, os).or_else(|| g2(&segs, os)).or_else(|| if os == Os::Windows { g2(&slashed(&segs), os) } else { None });
@@ -2222,8 +2272,7 @@ fn bash_pass(cmd: &[u32], cwd: &Cwd, os: Os, second: bool) -> Res<Pass> {
     if found.is_some() || !segs.iter().any(|(sg, _)| sg.last() == Some(&cp('>'))) {
         return Ok(Pass { hit: found, segs, deep, alt: None }); // a segment that ends in `>` is where the splitter cut a `>|`
     }
-    let mut work = 0;
-    let Ok(alt) = expand(cmd, 0, &mut work, os, Mode { clobber: true, ..mode }, &mut false) else {
+    let Ok(alt) = expand(cmd, 0, work, os, Mode { clobber: true, ..mode }, &mut false) else {
         return Ok(Pass { hit: too_complex(), segs, deep, alt: None });
     };
     let found = g3_bash(cmd, &alt, cwd, os, false, true, false)?; // and the reading with `>|` whole
@@ -2275,12 +2324,13 @@ fn decide(event: &Value, os: Os) -> Res<Option<Hit>> {
         if cmd.len() > MAX_CHARS {
             return Ok(hit("G?", text(&format!("the command is too long to be checked (more than {MAX_CHARS} characters)"))));
         }
-        let first = bash_pass(&cmd, &cwd, os, false)?;
+        let mut work = 0; // one budget for all the readings of the command: the passes add up
+        let first = bash_pass(&cmd, &cwd, os, false, &mut work)?;
         if first.hit.is_some() {
             return Ok(first.hit);
         }
         // the readings of the leaf posix_gaps come after every older reading, so a denial keeps its reason
-        let second = bash_pass(&cmd, &cwd, os, true)?;
+        let second = bash_pass(&cmd, &cwd, os, true, &mut work)?;
         if second.hit.is_some() {
             return Ok(second.hit);
         }
@@ -2297,8 +2347,8 @@ fn decide(event: &Value, os: Os) -> Res<Option<Hit>> {
         if let Some(h) = g3_edit(&inp, &cwd, os)? {
             return Ok(Some(h));
         }
-        if input_chars(&inp) > MAX_CHARS {
-            return Ok(hit("G?", text(&format!("the input is too long to be checked (more than {MAX_CHARS} characters)"))));
+        if input_chars(&inp) > WRITE_MAX_CHARS {
+            return Ok(hit("G?", text(&format!("the input is too long to be checked (more than {WRITE_MAX_CHARS} characters)"))));
         }
         return g4_script(&inp, &cwd, os);
     }
@@ -2388,7 +2438,7 @@ mod tests {
     /// The pinned counts of the lists that carry the expected decision under both flavours (`WINDOWS_COUNT`, `REDIRECTS_COUNT` and `POSIX_GAPS_COUNT` of the Python file).
     const WINDOWS_COUNT: usize = 106;
     const REDIRECTS_COUNT: usize = 110;
-    const POSIX_GAPS_COUNT: usize = 219;
+    const POSIX_GAPS_COUNT: usize = 259;
 
     /// The cases of the list `name` (`windows_paths`, `redirects`); the file is read here, at test time, from the manifest directory, and is never embedded in the binary.
     fn list_cases(name: &str) -> Vec<Value> {
@@ -2469,9 +2519,10 @@ mod tests {
 
     #[test]
     fn the_cap_is_the_last_length_that_is_read() {
-        // one character over `MAX_CHARS` is denied G?, `MAX_CHARS` itself is read; Bash by its command, the other tools by their text input
+        // one character over the cap is denied G?, the cap itself is read; Bash (`MAX_CHARS`) by its command, the other tools (`WRITE_MAX_CHARS`) by their text input
         for (tool, key) in [("Bash", "command"), ("Write", "content"), ("Edit", "new_string"), ("NotebookEdit", "new_source")] {
-            for (n, want) in [(MAX_CHARS, "allow"), (MAX_CHARS + 1, "G?")] {
+            let cap = if tool == "Bash" { MAX_CHARS } else { WRITE_MAX_CHARS };
+            for (n, want) in [(cap, "allow"), (cap + 1, "G?")] {
                 let input = Value::Obj(vec![(text(key), Value::Str(text(&"a".repeat(n))))]);
                 let e = Value::Obj(vec![(text("tool_name"), Value::Str(text(tool))), (text("tool_input"), input), (text("cwd"), Value::Str(text("/h/proj")))]);
                 let got = match decide(&e, Os::Unix) {
