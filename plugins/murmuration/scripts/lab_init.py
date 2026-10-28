@@ -617,7 +617,7 @@ def selftest():
                               capture_output=True, text=True, env=env, encoding="utf-8")
         assert nest.returncode == 4 and "a lab already exists in" in nest.stderr and nest.stdout == "", nest
         out = run_cli("another")
-        assert out.returncode == 0 and "Question added" in out.stdout and "start a new" not in out.stdout, out
+        assert out.returncode == 0 and "Question added" in out.stdout and "Next:" not in out.stdout, out
     print("PASS lab_init")
 
 
