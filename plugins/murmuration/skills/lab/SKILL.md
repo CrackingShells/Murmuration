@@ -45,14 +45,15 @@ The script decides by itself:
   writes `__design__/framing.md` (a stub from the
   `research-loop` template), `__statera__/user_words.md` (the question, dated) and
   `__statera__/wave-01.md` (the first wave note); and merges into `.claude/settings.local.json`
-  (personal settings, not shared with the team) `"agent": "murmuration:research-pi"` and the deny
-  rules `Bash(pkill:*)` and `Bash(killall:*)`. It never overwrites an existing file and never
-  writes `.claude/settings.json`. It keeps an `agent` setting that names something else, in either
-  file, and says so.
+  (personal settings, not shared with the team) the deny rules `Bash(pkill:*)` and
+  `Bash(killall:*)`. It never sets the main-thread `agent`: how a session opens as the research PI
+  is the user's choice. It never overwrites an existing file and never writes
+  `.claude/settings.json`. An `agent` setting that is already in either file, whatever it names, is
+  left exactly as it is, and the script says so.
 - **`__statera__/` exists: it appends the question** to `__statera__/user_words.md` under a
-  dated heading (unless it is already the newest entry). It also restores anything missing from
-  `.claude/settings.local.json` (`agent` and the deny rules), which a fresh clone of the project
-  does not have, and says what it restored; a different `agent` is kept and reported. It also creates
+  dated heading (unless it is already the newest entry). It also restores the deny rules missing
+  from `.claude/settings.local.json`, which a fresh clone of the project does not have, and says
+  what it restored; it does not set `agent`, and an existing one is left alone. It also creates
   `__instrumenta__/` and the `.ignore` block when they are missing. Nothing else changes.
 
 - **A folder above this one already holds a lab: it creates nothing** and says where that lab is.
@@ -65,17 +66,19 @@ by hand, and never edit `__statera__/user_words.md` yourself.
 
 Report the script's output in a few lines, then:
 
-- **After an initialization,** tell the user exactly what the script printed under "Next:". In
-  short: start a new Claude Code session in this folder, with the plugin loaded the way it is
-  now (`claude --plugin-dir <path>` when the plugin is loaded from a folder, plain `claude` when it
-  is installed; the script prints the right one). Settings are read when a session starts, so
-  only the new session opens as the research PI; this session does not become the PI. In the new
-  session, the user asks it to begin, for example: `Frame my question and plan the first wave.`
-  If the script reported that it kept a different `agent` setting, say so and show the line that
-  would open the lab as the PI. Mention that `.claude/settings.local.json` holds personal
+- **After an initialization,** tell the user exactly what the script printed under "Next:": how
+  to open a session as the research PI, in one of two ways. Either start
+  `claude --agent murmuration:research-pi`, or add the line `"agent": "murmuration:research-pi"`
+  to `.claude/settings.local.json` and start `claude`. When the plugin is loaded from a folder and
+  not installed, the script puts `--plugin-dir <path>` after `claude` in both; when it is
+  installed, plain `claude` (the script prints the right one). The lab sets none of this itself,
+  and settings are read when a session starts, so only a new session opens as the PI; this
+  session does not become the PI. In the new session, the user asks it to begin, for example:
+  `Frame my question and plan the first wave.` If the script reported that it kept an `agent`
+  setting of the user's, say so. Mention that `.claude/settings.local.json` holds personal
   settings and belongs out of version control.
 - **After an append,** say the question is recorded, and what settings the script restored, if
-  any (a restored `agent` takes effect in a new session). If you are the research PI (your
+  any (the deny rules; it never sets or restores `agent`). If you are the research PI (your
   instructions say you lead a Murmuration research team), read the new entry in
   `__statera__/user_words.md` and decide whether it changes the current wave. Otherwise a new
   session in this folder will pick it up.
