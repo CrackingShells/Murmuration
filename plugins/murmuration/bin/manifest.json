@@ -1,9 +1,10 @@
 {
   "binaries": {
     "aarch64-apple-darwin": "9c013758d797eefa4f11f544ba1cda2ab332a51a08a29af9c4407d5d897a01e4",
-    "aarch64-unknown-linux-gnu": "6f8814b738d5907eef730ac150a56f7fbbd19baebc8382d08520d5c2e8bc3814",
+    "aarch64-unknown-linux-gnu": "b95210104ad1f4af4e547f6b66644d3be87d8c2418ea71230b4ebfe688195659",
     "x86_64-apple-darwin": "8edf3c2ecbca81cdec53f6df8e2b777ffe7eccfcf24c661bd2f340c95d67efc7",
-    "x86_64-unknown-linux-gnu": "894ca026acc54c9550aff991f127614073af753279269360d6e564ff6c7b643b"
+    "x86_64-pc-windows-msvc": "3da7b2fedad59018548d4ab141b6de1cb8f77bfd78b1719123714b2ebca63c67",
+    "x86_64-unknown-linux-gnu": "4f10fe1255e81312158bd904d6d4ac0377d2af7092edade04e294b8435812fa5"
   },
   "format": 2,
   "permission_guard_py_sha256": "b52231911403033e07baa69115f9e5a0326452e6cb2a5d33ce332b83ea8dd376",
