@@ -16,7 +16,7 @@ An install of 0.1.0 from `cracking-shells` updates to 0.1.1 with the marketplace
 ```mermaid
 graph TD
     ship_update[Ship 0.1.1 and check the update path]:::done
-    next[First real project]:::planned
+    next[First real project]:::inprogress
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
     classDef planned    fill:#374151,color:#e5e7eb
@@ -28,7 +28,7 @@ graph TD
 | Node | Type | Status |
 |:-----|:-----|:-------|
 | `ship_update.md` | 📄 Leaf Task | ✅ Done |
-| `next/` | 📁 Directory | ⬜ Planned |
+| `next/` | 📁 Directory | 🔄 In Progress |
 
 ## Amendment Log
 | ID | Date | Source | Nodes Added | Rationale |
