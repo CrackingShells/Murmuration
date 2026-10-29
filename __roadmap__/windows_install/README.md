@@ -16,7 +16,7 @@ The Windows cycle of Murmuration, after 0.1.1 shipped the 4 Unix binaries. CI al
 - **Hashed inputs.** `permission_guard.py`, `budget.py`, `handback.py`, `run_hook.py` and the Rust sources are hashed into `bin/manifest.json` (`build_manifest.SCRIPTS`, `RUST_FILES`). A change to any of them needs CI's `build(bin)` commit on `main` before a version bump. `check_guard_equal.py` and the fixtures are not hashed.
 - **`permission_guard.py --selftest` on Windows.** Its loader pasted the temp dir into the fixture JSON text (`.replace("{T}", T)`), so on Windows the backslashes were invalid escapes and the e3 lists read as missing. Fixed by `posix_gaps` (claude_code_release, merge 2d554c1) with `json.dumps(T)[1:-1]`, as `check_guard_equal.json_fragment` does; `shell_gaps` no longer needs to. Not yet run on Windows.
 - **Version numbers.** 0.1.1 is taken; the next guard change (reminder `murmuration-posix-gaps`) ships as 0.1.2, the Windows release as 0.2.0.
-- **The Python guard is to be retired.** Eliott, 2026-10-29: Python and Rust have been shown to decide alike in practice, so once the Windows version is judged sound, `permission_guard.py` is deprecated and no longer used. The hooks already run only `murmuration guard`; Python is the second implementation that `--selftest` and `check_guard_equal.py` compare against, and every guard change is written twice for it. Retiring it means: the fixture lists are checked by `cargo test` alone, `check_guard_equal.py` goes, and `build_manifest.SCRIPTS` drops the file (a hashed input, so a `build(bin)` commit follows). Until then, every guard change keeps both versions equal.
+- **The guard is retired (A1).** Eliott, 2026-10-29: first "deprecate Python" once Windows is judged sound, then, after the `shell_gaps` round-3 verdict and the threat-model review, "Yes, retire it": the whole guard goes, not only its Python half (`retire_guard.md`). `if_probe`, `next/if_decision`, `next/shell_gaps` and `next/next/path_gaps` change or probe the guard, so they close as blocked when `retire_guard` is done. Whether `budget.py` and `handback.py`, the Python twins of the other two subcommands, retire too is still open.
 
 ## Status
 ```mermaid
@@ -24,6 +24,7 @@ graph TD
     ci_green[Windows CI row green]:::done
     if_probe[Probe hook if filters on Windows]:::planned
     next[Decision and shell gaps]:::inprogress
+    retire_guard[Retire the permission guard]:::amendment
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
     classDef planned    fill:#374151,color:#e5e7eb
@@ -37,10 +38,12 @@ graph TD
 | `ci_green.md` | 📄 Leaf Task | ✅ Done |
 | `if_probe.md` | 📄 Leaf Task | ⬜ Planned |
 | `next/` | 📁 Directory | 🔄 In Progress |
+| `retire_guard.md` | 📄 Leaf Task | 🔵 Amendment |
 
 ## Amendment Log
 | ID | Date | Source | Nodes Added | Rationale |
 |:---|:-----|:-------|:------------|:----------|
+| A1 | 2026-10-29 | `__reports__/windows_install/A1_retire_guard.md` | ["retire_guard.md"] | The guard's Windows reading cannot converge; Claude Code's own settings cover the risk |
 
 ## Progress
 | Node | Branch | Commits | Notes |
