@@ -16,7 +16,7 @@ One real project runs as a lab from `murmuration@cracking-shells` at project sco
 ```mermaid
 graph TD
     first_project[First real project as a lab]:::inprogress
-    posix_gaps[Close the remaining posix guard gaps]:::inprogress
+    posix_gaps[Close the remaining posix guard gaps]:::done
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
     classDef planned    fill:#374151,color:#e5e7eb
@@ -28,7 +28,7 @@ graph TD
 | Node | Type | Status |
 |:-----|:-----|:-------|
 | `first_project.md` | 📄 Leaf Task | 🔄 In Progress |
-| `posix_gaps.md` | 📄 Leaf Task | 🔄 In Progress |
+| `posix_gaps.md` | 📄 Leaf Task | ✅ Done |
 
 ## Amendment Log
 | ID | Date | Source | Nodes Added | Rationale |
@@ -38,4 +38,4 @@ graph TD
 ## Progress
 | Node | Branch | Commits | Notes |
 |:-----|:-------|:--------|:------|
-| `posix_gaps.md` | `task/posix-gaps` | 7 (d12238f..f69cfd1; merge 2d554c1 on `posix-gaps`) | impl-posix-gaps (Sonnet); verify-posix-gaps (Sonnet), four rounds: FAIL (length cap did not bound `[` runs or `cd a;` chains; `>|` skipped the new rules), then PASS WITH FINDINGS three times, signed off on f69cfd1. Per gap: `bash -c $'..'` and escaped substitutions closed; a shell fed by a pipe, here-string, `<`, `/dev/stdin` or process substitution denied when the command names a settings file; unknown, glob, variable and substitution targets denied when they name a settings file with its `.claude` folder (also from the cwd, `cd`/`pushd` state or `CLAUDE_CONFIG_DIR`); NUL in a command or path denied; Bash over MAX_CHARS 200000, Write/Edit over WRITE_MAX_CHARS 10,000,000, and work over WORK/CWD_MAX/CWD_WORK denied as too long or too complex. Worst time at the caps over 264 hostile forms: Python 1.37 s, Rust 0.47 s (posix). Verifier: 0 deny->allow against origin/main and against each round over about 100,000 forms; Python = Rust on all. Coordinator rerun on 2d554c1: selftest (posix_gaps 297 x 2), cargo test 22/22, gated sets equal, check_text_io clean. `--selftest` loader fixed for Windows. Residuals in campaign Gotchas. Release (step 3) waits for Eliott's yes |
+| `posix_gaps.md` | `task/posix-gaps` | 7 (d12238f..f69cfd1; merge 2d554c1 on `posix-gaps`) | impl-posix-gaps (Sonnet); verify-posix-gaps (Sonnet), four rounds: FAIL (length cap did not bound `[` runs or `cd a;` chains; `>|` skipped the new rules), then PASS WITH FINDINGS three times, signed off on f69cfd1. Per gap: `bash -c $'..'` and escaped substitutions closed; a shell fed by a pipe, here-string, `<`, `/dev/stdin` or process substitution denied when the command names a settings file; unknown, glob, variable and substitution targets denied when they name a settings file with its `.claude` folder (also from the cwd, `cd`/`pushd` state or `CLAUDE_CONFIG_DIR`); NUL in a command or path denied; Bash over MAX_CHARS 200000, Write/Edit over WRITE_MAX_CHARS 10,000,000, and work over WORK/CWD_MAX/CWD_WORK denied as too long or too complex. Worst time at the caps over 264 hostile forms: Python 1.37 s, Rust 0.47 s (posix). Verifier: 0 deny->allow against origin/main and against each round over about 100,000 forms; Python = Rust on all. Coordinator rerun on 2d554c1: selftest (posix_gaps 297 x 2), cargo test 22/22, gated sets equal, check_text_io clean. `--selftest` loader fixed for Windows. Residuals in campaign Gotchas. Release: Eliott's yes "Push with all 5" (2026-10-29): rebased onto local `main` with its 5 docs commits (one table conflict in this README, resolved), merge now 2cbfa31, `main` pushed c2fdb56..2d4d409; run 40823009508 green, `build(bin)` cec3a12 for the 5 targets, `doubt()` None on each; "Push 0.1.2": b511983 pushed. Nest entry names no version, unchanged. Installed from Nest in a scratch project: cache 0.1.2, data binary = CI's aarch64-apple-darwin binary, denies `a01`, allows `ls`, and decides all 288 Bash cases of `posix_gaps.json` as listed |

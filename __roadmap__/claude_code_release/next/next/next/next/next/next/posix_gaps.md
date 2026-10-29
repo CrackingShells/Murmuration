@@ -11,7 +11,7 @@
 - ✅ [run] `python3 -I plugins/murmuration/scripts/permission_guard.py --selftest` exits 0; `cargo test --manifest-path plugins/murmuration/rust/Cargo.toml` passes; `cargo check --release` is clean on the 5 targets
 - ✅ [run] `check_guard_equal.py` prints "gated sets equal", quick and full, with Python vs Rust 0 differences on the new list and on fuzz over the new forms
 - ✅ [review] An independent adversarial verifier attacks each gap and signs off
-- ⬜ [run] After CI's `build(bin)` for the merged sources is on `main` (5 targets), `plugin.json` is 0.1.2; `murmuration@cracking-shells` installed from Nest denies fixture attack `a01` and allows `ls`
+- ✅ [run] After CI's `build(bin)` for the merged sources is on `main` (5 targets), `plugin.json` is 0.1.2; `murmuration@cracking-shells` installed from Nest denies fixture attack `a01` and allows `ls`
 **References**: campaign README Gotchas ("Guard gaps found by verify-windows-paths", posix residuals after fd6088d); `posix_redirects.md` (the method); `__roadmap__/windows_install/README.md` Gotchas (`--selftest` loader on Windows); `plugins/murmuration/scripts/permission_guard.py` (`expand`, `_shell_script`, `redirect_targets`, `_g3_bash`, `protected`, `decide`, `selftest`); `plugins/murmuration/rust/src/guard.rs`; `plugins/murmuration/scripts/check_guard_equal.py` (`json_fragment`)
 
 ## Step 1: Decide and implement each gap in both guards
