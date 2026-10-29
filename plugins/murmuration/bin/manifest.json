@@ -1,19 +1,19 @@
 {
   "binaries": {
-    "aarch64-apple-darwin": "9c013758d797eefa4f11f544ba1cda2ab332a51a08a29af9c4407d5d897a01e4",
-    "aarch64-unknown-linux-gnu": "b95210104ad1f4af4e547f6b66644d3be87d8c2418ea71230b4ebfe688195659",
-    "x86_64-apple-darwin": "8edf3c2ecbca81cdec53f6df8e2b777ffe7eccfcf24c661bd2f340c95d67efc7",
-    "x86_64-pc-windows-msvc": "3da7b2fedad59018548d4ab141b6de1cb8f77bfd78b1719123714b2ebca63c67",
-    "x86_64-unknown-linux-gnu": "4f10fe1255e81312158bd904d6d4ac0377d2af7092edade04e294b8435812fa5"
+    "aarch64-apple-darwin": "1b29ad1c2c42e8ea0afb268fe43e63ec6b84fc992d3537091c11737e19387e28",
+    "aarch64-unknown-linux-gnu": "333711711e910401ca2d663ab28f57d8d15102206f1fd17f95117e5a90faed8b",
+    "x86_64-apple-darwin": "4ab4f8f6cf74eefdd6637b635cdfeb6059800751b301cbb4fda46bc05bc5df9f",
+    "x86_64-pc-windows-msvc": "7f5c94dbe645f018a3135b9166446ffe5673e2b2813b9fcd1017fc5be109b9fb",
+    "x86_64-unknown-linux-gnu": "f027cb3590cc785f5e3cf096f3a0e139b19f5ef3f0879530ead2cbea8f64d4a2"
   },
   "format": 2,
-  "permission_guard_py_sha256": "b52231911403033e07baa69115f9e5a0326452e6cb2a5d33ce332b83ea8dd376",
+  "permission_guard_py_sha256": "97366e579562f3ddbc1ab2cdb22fed233a37735495363d52396fed04a5b51b8b",
   "rust_sources": {
     "rust/Cargo.lock": "42f6f460e9a1b42775fdb7f05edf0bde26af0563fad7c3899b5e15753b457369",
     "rust/Cargo.toml": "54cc0dd782f704be648729b79c0df419b18da84dc688b9105e1f2b53c74e3c75",
     "rust/gen_tables.py": "5938ab5cb1a0109698fe815789659f1fb5e1b1958df429f21fb6f88c73d937a9",
     "rust/src/budget.rs": "a6c1643627aef4dc6c30067eb1bde12a1c40fb0eb6c309e2b2a945c412f06fec",
-    "rust/src/guard.rs": "c3ff31bc340519d47dbdabce6af7c43f3d7179749011d20f6a32a57c08c341f5",
+    "rust/src/guard.rs": "36221b579bff032287cae70b1a0b4d0b3d2d449f1f2be2949fe8cfe37dec9f80",
     "rust/src/handback.rs": "1e946341d83351f96f8bb9a4b69d56b29f59cbdc78258a06d7ae1297b915dbba",
     "rust/src/hook.rs": "c87dc52ddfea5255ac9d06fa5d7195b55302640cd1858cf2ab7950f4eadfbdeb",
     "rust/src/json.rs": "0cc5d7d89fbd9c5fc6829b368d99cc80d240f6474c05b8e3df9d0e06ad1075e7",
@@ -21,13 +21,13 @@
     "rust/src/platform.rs": "c68eec4dfbbd013ff357a4b8e970da993251c044789255f9c443b337cb82938d",
     "rust/src/shlex.rs": "51f4ac04a5219b0bb5dc06d5c23eeb159ad73065a8a508448f95627481d2ed96",
     "rust/src/tables.rs": "8ebac8fb74f97550a0e1c1ce7fdce8556521b8305d9f58cc06c3f87146a7634a",
-    "rust/src/text.rs": "817563aee587e71cb9370c8b3b05a23dbcb606fd7c0a3b310bc08af7d65c9458"
+    "rust/src/text.rs": "bbec2596972b4e3a3509572bd2fc3d1a992e7a96e95589a479c53f5f69d1bc18"
   },
-  "rust_sources_sha256": "e92eeec78d3efdc02fd60867e6e7b6314e708df0fb568fa9352b61e80733e7ac",
+  "rust_sources_sha256": "0ecd4ac0496c6f1337f94b6fa09d413d43fab7aa8a942cbcde4415276055e115",
   "scripts_sha256": {
     "budget.py": "7e7e76c9a13fbecc1cf606750bb2431f8239c1b676567e9fb4b59bd4f78fbf59",
     "handback.py": "0a265af7ccde4dd68bb6fe76a521f736a8548241d640bafeff892a2f3a86fd21",
-    "permission_guard.py": "b52231911403033e07baa69115f9e5a0326452e6cb2a5d33ce332b83ea8dd376",
+    "permission_guard.py": "97366e579562f3ddbc1ab2cdb22fed233a37735495363d52396fed04a5b51b8b",
     "run_hook.py": "61dee9dc2058151d6d071fe224cef3e2f8798df4250cf14a414f14c26107d66e"
   }
 }
