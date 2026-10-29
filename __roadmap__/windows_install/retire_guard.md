@@ -3,12 +3,12 @@
 **Goal**: Murmuration ships without its permission guard (G1–G4); the README tells users how to turn on `permissions.disableBypassPermissionsMode`, with what each scope covers measured rather than assumed.
 **Pre-conditions**:
 - [x] Eliott's decision, 2026-10-29: "Yes, retire it" (after the `shell_gaps` round-3 verdict and the threat-model review in `__reports__/windows_install/A1_retire_guard.md`)
-- [ ] A macOS machine where Eliott can install a `managed-settings.json` (admin rights) for Step 1, chosen by Eliott
+- [x] Eliott set `disableBypassPermissionsMode: "disable"` in his user settings, 2026-10-30, and dropped the managed side: "There won't be any managed side."
 **Success Gates**:
-- ⬜ [behavioral] A table under `__reports__/windows_install/` of escape forms × scope (managed, user, none) × refused or ran, observed with Claude Code: a child started with `--permission-mode bypassPermissions` and with the `--dangerously-skip-permissions` flag, each plain, with `--setting-sources project`, with `CLAUDE_CONFIG_DIR=<empty dir>`, with `--bare`, and with `--settings` carrying the key set back; plus a `cp` with a trailing `2>&1` onto `.claude/settings.json` in default mode
+- ✅ [behavioral] `__reports__/windows_install/retire_guard_scopes.md`: escape forms with no effective setting, and `cp` onto `.claude/settings.json` denied in default mode with or without `2>&1`; the user-scope column was not run (Eliott closed the measurement)
 - ⬜ No file under `plugins/` or `.github/` refers to `permission_guard`, `murmuration guard`, `check_guard_equal` or `guard_lists`; `hooks.json` has no guard row
 - ⬜ `cargo test`, `install_binary.py --selftest`, `build_manifest.py --selftest` and `check_text_io.py --selftest` pass; `murmuration budget` and `murmuration handback` decide as before on `hook_selftest`'s events
-- ⬜ The README's hardening section names the setting, the managed-settings path on macOS and Linux, the user-scope fallback and its caveat from the Step 1 table, and what Claude Code already does for `.claude` (protected paths)
+- ⬜ The README's hardening section names the setting at user scope and what Claude Code already does for `.claude` (protected paths)
 - ⬜ [run] CI `guard-binaries` green on all five targets; installed from Nest in a scratch project, a Bash call and a Write start no guard process
 **References**: `__reports__/windows_install/A1_retire_guard.md` (evidence and impact); code.claude.com/docs/en/permissions, /permission-modes, /settings; the parked `shell_gaps` work, commit 31096ce (branch deleted 2026-10-29)
 
@@ -40,8 +40,7 @@ Leave `__pondus__/`, `__scrupuli__/`, `__statera__/`, `__reports__/` and `__inst
 **Goal**: A user who wants the protection back knows the one setting to set and what it does not cover.
 **Implementation Logic**:
 In `plugins/murmuration/README.md` and the root `README.md`, add a short "Hardening" section:
-- `permissions.disableBypassPermissionsMode: "disable"` in managed settings, with the system path on macOS and Linux (taken from the managed-settings docs page and checked on the probe machine);
-- the user-scope fallback in `~/.claude/settings.json`, with the escapes the Step 1 table shows;
+- `permissions.disableBypassPermissionsMode: "disable"` in `~/.claude/settings.json`;
 - one sentence that Claude Code never auto-approves writes under `.claude` outside bypass mode.
 
 Rewrite the "Do not install it at user scope" paragraph: its reason was the guard. Keep project scope as the advice if the other hooks (`budget`, `handback`, `user_words`) still make it right, and say so.

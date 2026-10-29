@@ -1,0 +1,97 @@
+{
+  "key": "disableBypassPermissionsMode",
+  "bypass_mode": "bypassPermissions",
+  "entries": {
+    "default (control)": [
+      "--permission-mode",
+      "default"
+    ],
+    "mode": [
+      "--permission-mode",
+      "bypassPermissions"
+    ],
+    "skip": [
+      "--dangerously-skip-permissions"
+    ]
+  },
+  "wrappers": [
+    {
+      "id": "plain",
+      "args": []
+    },
+    {
+      "id": "setting-sources project",
+      "args": [
+        "--setting-sources",
+        "project"
+      ]
+    },
+    {
+      "id": "CLAUDE_CONFIG_DIR empty",
+      "args": [],
+      "config_dir": "empty"
+    },
+    {
+      "id": "bare",
+      "args": [
+        "--bare"
+      ]
+    },
+    {
+      "id": "--settings key null",
+      "args": [],
+      "flag_settings": {
+        "permissions": {
+          "disableBypassPermissionsMode": null
+        }
+      }
+    },
+    {
+      "id": "--settings key false",
+      "args": [],
+      "flag_settings": {
+        "permissions": {
+          "disableBypassPermissionsMode": false
+        }
+      }
+    },
+    {
+      "id": "--settings key allow",
+      "args": [],
+      "flag_settings": {
+        "permissions": {
+          "disableBypassPermissionsMode": "allow"
+        }
+      }
+    },
+    {
+      "id": "settings.local.json key null",
+      "args": [],
+      "local_settings": {
+        "permissions": {
+          "disableBypassPermissionsMode": null
+        }
+      }
+    }
+  ],
+  "writes": [
+    {
+      "id": "cp to a plain file (control)",
+      "command": "cp src.json out.json",
+      "target": "out.json"
+    },
+    {
+      "id": "cp to .claude/settings.json",
+      "command": "cp src.json .claude/settings.json",
+      "target": ".claude/settings.json"
+    },
+    {
+      "id": "cp to .claude/settings.json, trailing 2>&1",
+      "command": "cp src.json .claude/settings.json 2>&1",
+      "target": ".claude/settings.json"
+    }
+  ],
+  "write_allow": [
+    "Bash(cp *)"
+  ]
+}
