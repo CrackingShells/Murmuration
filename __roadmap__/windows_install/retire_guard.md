@@ -9,7 +9,7 @@
 - ✅ No file under `plugins/` or `.github/` refers to `permission_guard`, `murmuration guard`, `check_guard_equal` or `guard_lists`; `hooks.json` has no guard row
 - ✅ `cargo test`, `install_binary.py --selftest`, `build_manifest.py --selftest` and `check_text_io.py --selftest` pass; `murmuration budget` and `murmuration handback` decide as before on `hook_selftest`'s events
 - ✅ The README's hardening section names the setting at user scope and what Claude Code already does for `.claude` (protected paths)
-- ⬜ [run] CI `guard-binaries` green on all five targets; installed from Nest in a scratch project, a Bash call and a Write start no guard process
+- ✅ [run] CI `guard-binaries` green on all five targets; installed from Nest in a scratch project, a Bash call and a Write start no guard process
 **References**: `__reports__/windows_install/A1_retire_guard.md` (evidence and impact); code.claude.com/docs/en/permissions, /permission-modes, /settings; the parked `shell_gaps` work, commit 31096ce (branch deleted 2026-10-29)
 
 ## Step 1: Measure what the setting covers at each scope
