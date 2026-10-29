@@ -1,4 +1,4 @@
-# Builds the `murmuration` hook binary on five runners, checks each against the Python guard, and commits bin/ back to main when everything agrees. Cases:
+# Builds the `murmuration` hook binary on five runners, checks each against the Python hooks, and commits bin/ back to main when everything agrees. Cases:
 # - main moves during the run: commit_back fetches origin/main, builds on that tip, commits only if the hashed sources (rust_sources_sha256, scripts_sha256) are unchanged, else exits 0 (the newer push runs its own build); it retries a rejected push 3 times.
 # - commit-back loop: the commit touches only plugins/murmuration/bin/**, outside the `push` paths filter, and a GITHUB_TOKEN push starts no workflow.
 # - token scope: contents: read everywhere; only commit_back has contents: write, and only on refs/heads/main; its concurrency group bin-commit serialises commits without cancelling one.
@@ -27,7 +27,7 @@ env:
 
 jobs:
   build:
-    # cargo test, an LTO release build and the ~75 s guard comparison take well under 15 min even on the slow runners; 30 leaves room without letting a hung row hold commit_back for GitHub's 6 h default
+    # cargo test, an LTO release build and the hook self-test take well under 15 min even on the slow runners; 30 leaves room without letting a hung row hold commit_back for GitHub's 6 h default
     timeout-minutes: 30
     permissions:
       contents: read
@@ -54,8 +54,6 @@ jobs:
       # without this the Windows runner checks sources out with CRLF and its sources hash differs from the other rows'
       - run: git config --global core.autocrlf false
       - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0   # check_guard_equal.py runs `git show` on two old commits
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
@@ -68,8 +66,6 @@ jobs:
           mkdir -p "$PLUGIN/bin/$TARGET"
           cp "$PLUGIN/rust/target/$TARGET/release/$name" "$PLUGIN/bin/$TARGET/$name"
           echo "BIN=$PLUGIN/bin/$TARGET/$name" >> "$GITHUB_ENV"
-      - name: The Rust guard equals the Python guard
-        run: '"$PY" -I "$PLUGIN/scripts/check_guard_equal.py" --quick --no-recorded --rust "$GITHUB_WORKSPACE/$BIN"'
       - name: The binary has the architecture of the triple
         run: |
           desc=$(file -b "$BIN")
@@ -274,7 +270,7 @@ jobs:
             if ! python3 -I -c '
           import json, sys
           a, b = (json.load(open(f)) for f in sys.argv[1:3])
-          keys = ("rust_sources_sha256", "scripts_sha256", "permission_guard_py_sha256")
+          keys = ("rust_sources_sha256", "scripts_sha256")
           sys.exit(0 if all(a.get(k) == b.get(k) for k in keys) else 1)
           ' "$ASSEMBLED/manifest.json" "$PLUGIN/bin/manifest.json"; then
               echo "::notice::the hashed sources changed between $GITHUB_SHA and $tip; nothing committed, the newer push runs its own build"
@@ -285,7 +281,7 @@ jobs:
               echo "::notice::bin/ on main already holds these binaries; nothing to commit"
               exit 0
             fi
-            git commit -q -m "build(bin): guard binaries for ${GITHUB_SHA::7}"
+            git commit -q -m "build(bin): hook binaries for ${GITHUB_SHA::7}"
             if git push origin HEAD:main; then exit 0; fi
             echo "::warning::push rejected (main moved again); attempt $attempt of 3"
             sleep 5

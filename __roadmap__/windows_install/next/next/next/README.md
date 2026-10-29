@@ -1,7 +1,7 @@
 # Install
 
 ## Context
-After `if_decision` and `path_gaps`: the install implements the decision and ships a guard that reads every Windows form.
+After `retire_guard` (A1), which replaced `if_decision` and `path_gaps`: the install ships the `budget` and `handback` hooks on Windows.
 
 ## Goal
 A Windows session observed end to end.

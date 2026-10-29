@@ -13,7 +13,7 @@
 ## Step 1: Merge, binaries, bump, Nest
 **Goal**: Each public step behind its own yes.
 **Implementation Logic**:
-Push `main`, wait for `guard-binaries` with a background `gh run watch`, check the `build(bin)` commit, bump to 0.2.0, update the README banner, update and push Nest, install on both OSes and repeat the guard check.
+Push `main`, wait for `guard-binaries` with a background `gh run watch`, check the `build(bin)` commit, bump to 0.3.0, update the README banner, update and push Nest, install on both OSes and repeat the hook check.
 **Deliverables**: `plugins/murmuration/.claude-plugin/plugin.json`, `README.md`, Nest entry; knowledge-transfer note
 **Consistency Checks**: `git ls-tree origin/main plugins/murmuration/bin` lists 5 targets (expected: PASS)
 **Commit**: `chore(release): 0.2.0`

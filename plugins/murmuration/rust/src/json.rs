@@ -1,4 +1,4 @@
-//! A JSON reader and writer with the behaviour of Python's `json.loads` and `json.dumps` (default arguments) where the guard can see it.
+//! A JSON reader and writer with the behaviour of Python's `json.loads` and `json.dumps` (default arguments) where the hooks can see it.
 //!
 //! Differences from strict JSON that Python has and this reader copies: `NaN`, `Infinity` and `-Infinity` are numbers, a lone surrogate escape is kept,
 //! a duplicate key keeps its last value, an integer of more than 4300 digits raises `ValueError`, and nesting of 9998 containers raises `RecursionError`.
