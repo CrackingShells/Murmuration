@@ -2,6 +2,7 @@
 
 **Goal**: Know which Windows path forms start the guard's Write/Edit/NotebookEdit rows, whose `if` globs (e.g. `Write(**/.claude/settings*.json)`) gate them.
 **Pre-conditions**:
+- [ ] Blocked by amendment A1, 2026-10-30: the permission guard this leaf changes or probes is retired (`retire_guard.md`)
 - [ ] A real Windows machine with Claude Code, chosen by Eliott (a GitHub runner would need an API key secret)
 **Success Gates**:
 - ⬜ [behavioral] A findings report under `__reports__/` with a table of path forms × fired / not fired: backslash, forward slash, mixed case, trailing dot or space, ADS (`settings.json::$DATA`), UNC (`\\?\C:\…`, `\\localhost\c$\…`), 8.3 short name (`SETTIN~1.JSO`)

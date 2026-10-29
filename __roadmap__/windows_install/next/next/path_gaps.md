@@ -2,6 +2,7 @@
 
 **Goal**: Each Windows path form the guard does not read yet is denied, resolved, or accepted and recorded, by Win32's real behaviour.
 **Pre-conditions**:
+- [ ] Blocked by amendment A1, 2026-10-30: the permission guard this leaf changes or probes is retired (`../../retire_guard.md`)
 - [ ] `shell_gaps` done (same files)
 **Success Gates**:
 - ⬜ 8.3 short names (`SETTIN~1.JSO`, `CLAUDE~1`) decided

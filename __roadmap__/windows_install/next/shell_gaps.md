@@ -2,6 +2,7 @@
 
 **Goal**: The guard reads the Windows shell forms it misses today, Python and Rust together, still equal on every CI row.
 **Pre-conditions**:
+- [ ] Blocked by amendment A1, 2026-10-30: the permission guard this leaf changes or probes is retired (`../retire_guard.md`)
 - [x] `ci_green` done (the Windows row compares the two guards; merge 680001f)
 - [x] reminder `murmuration-posix-gaps` done (it edits the same files; merge 2cbfa31, released as 0.1.2 in b511983)
 **Success Gates**:

@@ -15,8 +15,8 @@ The `if` decision is recorded and the Windows shell bypasses are closed.
 ## Status
 ```mermaid
 graph TD
-    if_decision[Keep, widen or drop if]:::planned
-    shell_gaps[cmd, PowerShell and script bypasses]:::inprogress
+    if_decision[Keep, widen or drop if]:::blocked
+    shell_gaps[cmd, PowerShell and script bypasses]:::blocked
     next[Path gaps]:::planned
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
@@ -28,8 +28,8 @@ graph TD
 ## Nodes
 | Node | Type | Status |
 |:-----|:-----|:-------|
-| `if_decision.md` | 📄 Leaf Task | ⬜ Planned |
-| `shell_gaps.md` | 📄 Leaf Task | 🔄 In Progress |
+| `if_decision.md` | 📄 Leaf Task | 🚫 Blocked |
+| `shell_gaps.md` | 📄 Leaf Task | 🚫 Blocked |
 | `next/` | 📁 Directory | ⬜ Planned |
 
 ## Amendment Log

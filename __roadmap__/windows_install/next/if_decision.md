@@ -2,6 +2,7 @@
 
 **Goal**: Eliott's decision on the `if` globs of the guard rows, written here with his words quoted.
 **Pre-conditions**:
+- [ ] Blocked by amendment A1, 2026-10-30: the permission guard this leaf changes or probes is retired (`../retire_guard.md`)
 - [ ] `if_probe` done: its report under `__reports__/`
 **Success Gates**:
 - ⬜ The decision (keep the `if` globs, widen them, or drop `if` so the guard sees every Write/Edit/NotebookEdit, with its measured latency) recorded in this leaf with Eliott's words quoted
