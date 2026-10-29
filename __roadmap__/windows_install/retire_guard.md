@@ -10,7 +10,7 @@
 - ⬜ `cargo test`, `install_binary.py --selftest`, `build_manifest.py --selftest` and `check_text_io.py --selftest` pass; `murmuration budget` and `murmuration handback` decide as before on `hook_selftest`'s events
 - ⬜ The README's hardening section names the setting, the managed-settings path on macOS and Linux, the user-scope fallback and its caveat from the Step 1 table, and what Claude Code already does for `.claude` (protected paths)
 - ⬜ [run] CI `guard-binaries` green on all five targets; installed from Nest in a scratch project, a Bash call and a Write start no guard process
-**References**: `__reports__/windows_install/A1_retire_guard.md` (evidence and impact); code.claude.com/docs/en/permissions, /permission-modes, /settings; branch `task/win-shell-gaps` (tip 31096ce, parked, not merged)
+**References**: `__reports__/windows_install/A1_retire_guard.md` (evidence and impact); code.claude.com/docs/en/permissions, /permission-modes, /settings; the parked `shell_gaps` work, commit 31096ce (branch deleted 2026-10-29)
 
 ## Step 1: Measure what the setting covers at each scope
 **Goal**: The README states coverage that was observed, not read off the docs.
@@ -55,14 +55,14 @@ Rewrite the "Do not install it at user scope" paragraph: its reason was the guar
 1. Rebase and merge with `--no-ff -F` into `main`.
 2. Push, after Eliott's yes.
 3. Wait for CI `build(bin)` on the five targets.
-4. Bump `plugin.json` and push, after Eliott's yes. Use 0.2.0 if Eliott agrees: the release removes a feature, and the Windows release then moves to 0.3.0. Otherwise 0.1.3.
+4. Bump `plugin.json` to 0.2.0 (Eliott, 2026-10-29: the release removes a feature; the Windows release moves to 0.3.0) and push, after Eliott's yes.
 5. Install from Nest in a scratch project and check the success gate.
 
 Then:
 - mark `if_probe`, `next/if_decision`, `next/shell_gaps` and `next/next/path_gaps` blocked with `dirtree-rdm`, each with a line naming A1;
 - update the windows_install Goal ("installs and guards" → "installs") and the version Gotcha;
 - complete reminders `murmuration-win-shell-gaps`, `murmuration-win-if-probe` and `murmuration-win-if-decision`, and the path-gaps reminder, with a log line (scheduling-work skill);
-- delete the `impl-`, `base-` and `verify-win-shell-gaps` worktrees only after Eliott says the parked branch can go.
+- the `impl-`, `base-` and `verify-win-shell-gaps` worktrees and the branch `task/win-shell-gaps` were deleted on Eliott's yes, 2026-10-29.
 **Deliverables**: `plugins/murmuration/.claude-plugin/plugin.json` (`version`); `__roadmap__/windows_install/README.md`; the four superseded leaves (status only)
 **Consistency Checks**: `bash ~/.claude/plugins/cache/cracking-shells/managing-roadmaps/1.2.0/skills/managing-roadmaps/scripts/dirtree-rdm.sh validate __roadmap__/windows_install/` (expected: PASS)
 **Commit**: `chore(release): murmuration 0.2.0`
