@@ -2,7 +2,7 @@
 """Static check: every script here reads and writes text as UTF-8 on every OS.
 
     python3 -I scripts/check_text_io.py [DIR]        exit 0 when clean, 1 with one line per finding
-    python3 -I scripts/check_text_io.py --selftest   the check catches each kind of finding, and the guard reads a UTF-8 payload under a non-UTF-8 locale
+    python3 -I scripts/check_text_io.py --selftest   the check catches each kind of finding
 
 Python opens a text file, and reads a text-mode subprocess pipe, in the locale's code page unless told otherwise (cp1252 on a Windows runner), so a UTF-8 file with one non-ASCII
 byte fails there and passes on macOS and Linux. Findings, for each *.py in DIR (default: this folder):
@@ -14,9 +14,7 @@ A mode that is not a literal string, or a call that passes **kwargs, cannot be c
 import ast
 import glob
 import os
-import subprocess
 import sys
-import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SUBPROCESS_CALLS = ("run", "Popen", "check_output", "check_call", "call")
@@ -120,18 +118,6 @@ def selftest():
         if check_source(s, "<control>"):
             ok = False
             print("FAIL: flagged without cause: %r -> %s" % (s, check_source(s, "<control>")))
-    # the guard, started as the hook starts it but under the C locale with no UTF-8 mode, reads a UTF-8 payload as UTF-8: the log shows the code points, not their bytes
-    payload = '{"tool_name": "Bash", "tool_input": {"command": "echo é日"}, "cwd": "/tmp"}'.encode("utf-8")
-    with tempfile.TemporaryDirectory() as tmp:
-        log = os.path.join(tmp, "g.log")
-        env = {k: v for k, v in os.environ.items() if not k.startswith("PYTHON")}
-        env.update(LC_ALL="C", LANG="C", PYTHONCOERCECLOCALE="0", PYTHONUTF8="0", MURMURATION_GUARD_LOG=log)
-        p = subprocess.run([sys.executable, "-X", "utf8=0", os.path.join(HERE, "permission_guard.py")], input=payload, capture_output=True, env=env)
-        with open(log, "rb") as fh:
-            line = fh.read().decode("ascii")
-        if p.returncode != 0 or "echo \\u00e9\\u65e5" not in line:
-            ok = False
-            print("FAIL: the guard under the C locale: exit %s, log %r, stderr %r" % (p.returncode, line, p.stderr[-200:]))
     print("selftest check_text_io: %s" % ("ok" if ok else "FAILED"))
     return 0 if ok else 1
 

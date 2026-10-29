@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The target and binary-name contract, and the writer of bin/manifest.json: what the committed guard binaries were built from.
+"""The target and binary-name contract, and the writer of bin/manifest.json: what the committed hook binaries were built from.
 
 Python standard library only. CI builds one binary per target in ALL_TARGETS, copies it to bin/<target>/<binary_name(target)> and writes the manifest; nothing else writes bin/.
 
@@ -12,9 +12,9 @@ With --expect-targets the manifest is written only when the set of targets that 
 exits 1 with a message on stderr and leaves the manifest as it was). Without it the manifest is written for whatever bin/ holds. Either way it refuses (exit 1, manifest untouched) a bin/ that holds anything CI
 does not put there: a folder that is not in ALL_TARGETS, a file in bin/<t>/ that is not binary_name(t) (`murmuration` in the Windows folder, `.exe` in a Unix one), a binary that is a symlink.
 
-The manifest holds the sha256 of each bin/<target>/<binary_name(target)>, the sha256 of scripts/permission_guard.py, budget.py, handback.py and run_hook.py (`scripts_sha256`), the sha256 of each Rust
+The manifest holds the sha256 of each bin/<target>/<binary_name(target)>, the sha256 of scripts/budget.py, handback.py and run_hook.py (`scripts_sha256`), the sha256 of each Rust
 source file (the allowlist in RUST_FILES, rust/.cargo/** and rust/src/**/*.rs) and one hash over those (`rust_sources_sha256`). scripts/install_binary.py installs a binary only when all of them still match the
-tree it runs in. `sources_hash()`, `binary_name()` and `host_target()` are what the installer and scripts/check_guard_equal.py import, so every side uses one definition.
+tree it runs in. `sources_hash()`, `binary_name()` and `host_target()` are what the installer imports, so every side uses one definition.
 """
 import argparse
 import hashlib
@@ -27,7 +27,7 @@ import sys
 # The crate has no include_str!/include_bytes!; add the file here if it gains one. Keys are paths relative to the plugin root with "/" on every OS, so the hash is the same on the Windows runner.
 RUST_FILES = ["rust/Cargo.toml", "rust/Cargo.lock", "rust/gen_tables.py", "rust/build.rs", "rust/rust-toolchain", "rust/rust-toolchain.toml"]
 # the Python scripts the binary stands in for, and the fall-back that runs when it does not: an edit to any of them after the build makes the installer put the launcher in place
-SCRIPTS = ["permission_guard.py", "budget.py", "handback.py", "run_hook.py"]
+SCRIPTS = ["budget.py", "handback.py", "run_hook.py"]
 # the triples CI builds. Not all of them are installable: install_binary.TARGETS lists the hosts whose installs are supported (Windows is a later cycle).
 ALL_TARGETS = ["aarch64-apple-darwin", "x86_64-apple-darwin", "x86_64-unknown-linux-gnu", "aarch64-unknown-linux-gnu", "x86_64-pc-windows-msvc"]
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -105,7 +105,7 @@ def bin_problems(root):
 def build(root):
     binaries = present_binaries(root)
     per, combined = sources_hash(root)
-    return {"format": 2, "binaries": binaries, "permission_guard_py_sha256": sha256_file(os.path.join(root, "scripts", "permission_guard.py")),
+    return {"format": 2, "binaries": binaries,
             "scripts_sha256": {n: sha256_file(os.path.join(root, "scripts", n)) for n in SCRIPTS},
             "rust_sources": per, "rust_sources_sha256": combined}
 
@@ -213,7 +213,7 @@ def selftest():
                 fh.write(data)
         for n in SCRIPTS:
             put("scripts/" + n, n.encode())
-        for p in RUST_FILES[:3] + ["rust/src/main.rs", "rust/src/guard.rs"]:
+        for p in RUST_FILES[:3] + ["rust/src/main.rs", "rust/src/budget.rs"]:
             put(p, p.encode())
         put("rust/src/notes.txt", b"not hashed")
         put("bin/aarch64-apple-darwin/murmuration", b"mac")
@@ -245,7 +245,7 @@ def selftest():
         assert code == 0 and err == "" and os.path.isfile(manifest), (code, err)
         m = json.load(open(manifest, encoding="utf-8"))
         assert sorted(m["binaries"]) == ["aarch64-apple-darwin", "x86_64-pc-windows-msvc"] and m["binaries"]["x86_64-pc-windows-msvc"] == hashlib.sha256(b"win").hexdigest()
-        assert sorted(m["rust_sources"]) == sorted(RUST_FILES[:3] + ["rust/src/main.rs", "rust/src/guard.rs"]) and sorted(m["scripts_sha256"]) == sorted(SCRIPTS)
+        assert sorted(m["rust_sources"]) == sorted(RUST_FILES[:3] + ["rust/src/main.rs", "rust/src/budget.rs"]) and sorted(m["scripts_sha256"]) == sorted(SCRIPTS)
         before = open(manifest, "rb").read()
         put("bin/x86_64-apple-darwin/murmuration", b"intel")
         code, out, err = cli("--root", root, "--expect-targets", "aarch64-apple-darwin,x86_64-pc-windows-msvc")
