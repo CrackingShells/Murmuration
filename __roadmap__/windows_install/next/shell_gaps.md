@@ -2,8 +2,8 @@
 
 **Goal**: The guard reads the Windows shell forms it misses today, Python and Rust together, still equal on every CI row.
 **Pre-conditions**:
-- [ ] `ci_green` done (the Windows row compares the two guards)
-- [ ] reminder `murmuration-posix-gaps` done (it edits the same files)
+- [x] `ci_green` done (the Windows row compares the two guards; merge 680001f)
+- [x] reminder `murmuration-posix-gaps` done (it edits the same files; merge 2cbfa31, released as 0.1.2 in b511983)
 **Success Gates**:
 - ⬜ G2 sees through `cmd /c`, `powershell -c`, and `set` / `$env:` assignments
 - ⬜ Windows builtins (`copy`, `move`, `Set-Content`, `Out-File` and the like) are read as writes to settings files
