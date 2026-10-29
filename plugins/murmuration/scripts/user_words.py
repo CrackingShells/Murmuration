@@ -12,8 +12,9 @@ a message from another session, a task notification, or an agent message. Those 
 so are the lab's own slash commands (which record the question themselves) and bare slash
 commands such as `/clear` or `/compact`, which carry no words. Platform blocks the app puts in
 front of the typed text (`<system-reminder>`, `<artifact-view-context>`, `<side-sessions-event>`)
-are cut first, and the app's `<pasted_content>` wrapper is removed around pasted text; what is
-left is stored.
+are cut first, and so is the `<system-reminder>` holding `<session-mentions>` that it appends after
+the typed text when a prompt @-mentions a session; the app's `<pasted_content>` wrapper is removed
+around pasted text; what is left is stored.
 
 The platform also marks who sent a prompt, in the transcript record of that prompt (not in the hook
 payload): `origin.kind` is `human` for typed prompts and `!` commands, `peer` for another session's
@@ -49,6 +50,12 @@ LEADING_BLOCKS = (
     re.compile(r"\A\s*<artifact-view-context\b[^>]*>.*?</artifact-view-context>(?:[ \t]*\n)*", re.S),
     re.compile(r"\A\s*<side-sessions-event>.*?</side-sessions-event>(?:[ \t]*\n)*", re.S),
 )
+# The one block the platform puts after the typed text: the note on a prompt that @-mentions
+# sessions. Cut only when it ends the prompt, starts a line, and opens with the mention list in the
+# exact form seen (`[["local_…","…"],…]`); the prose after it may vary but holds no reminder tag.
+TRAILING_MENTIONS = re.compile(
+    r'(?<![^\n])<system-reminder>\n<session-mentions>\[\["[^"\n]*","[^"\n]*"\](?:,\["[^"\n]*","[^"\n]*"\])*\]'
+    r"</session-mentions>\n(?:(?!</?system-reminder>).)*?\n</system-reminder>\s*\Z", re.S)
 PASTED = re.compile(r'<pasted_content id="([^"]*)">\n?(.*?)\n?</pasted_content id="\1">', re.S)
 STORE = "__statera__"
 FILE_NAME = "user_words.md"
@@ -90,6 +97,14 @@ def strip_leading(prompt):
             prompt, n = block.subn("", prompt, count=1)
             changed = changed or bool(n)
     return prompt
+
+
+def strip_trailing(prompt):
+    """The prompt without the session-mentions block the platform appends after the typed text, nor the
+    newlines before it. The pattern has no leading `\\s*`: retried at every position, that is quadratic in a
+    long whitespace run."""
+    m = TRAILING_MENTIONS.search(prompt)
+    return prompt[:m.start()].rstrip("\n") if m else prompt
 
 
 def unwrap_pasted(text):
@@ -291,7 +306,7 @@ def handle(event):
     prompt = event.get("prompt")
     if not isinstance(prompt, str):
         return None
-    prompt = strip_leading(prompt)  # the command tests below see the paste wrapper, so pasted `/lab ...` is kept
+    prompt = strip_trailing(strip_leading(prompt))  # the command tests below see the paste wrapper, so pasted `/lab ...` is kept
     if not is_genuine(prompt) or not prompt.strip() or is_lab_command(prompt) or is_bare_command(prompt):
         return None
     words = unwrap_pasted(prompt)
@@ -537,6 +552,9 @@ def selftest():
     assert is_bare_command("/clear") and is_bare_command("/compact ") and is_bare_command("/foo:bar")
     assert not is_bare_command("/compact keep the proofs") and not is_bare_command("/home/me/data.csv looks odd")
     assert not is_bare_command("hello /clear")
+    t0 = time.monotonic()  # the trailing cut stays linear on long whitespace runs (it took 18 s on 50k spaces)
+    assert strip_trailing(" " * 200000 + "x") == " " * 200000 + "x" and strip_trailing(("w" + "\n" * 10000) * 50)[-1] == "\n"
+    assert time.monotonic() - t0 < 1
 
     def fire(project, prompt, cwd=None):
         env = dict(os.environ)
@@ -578,6 +596,14 @@ def selftest():
     rem = "<system-reminder>\nLinked sessions now (status): a = local_1 (idle).\n</system-reminder>\n\n"
     view = '<artifact-view-context artifact="x">\n{"context":{}}\n(not typed)\n</artifact-view-context>\n\n'
     side = "<side-sessions-event>\nsession a finished a turn\n</side-sessions-event>\n\n"
+    men = ('<system-reminder>\n<session-mentions>[["local_1","a1b2c3"]]</session-mentions>\n'
+           "The user's bracketed @-mentions refer to other Claude Code sessions on this machine: #1 → session_id local_1. "
+           "To read or message a mentioned session use the mcp__ccd_session_mgmt__* tools (get_session / list_events to read).\n"
+           "</system-reminder>")
+    men2 = men.replace('[["local_1","a1b2c3"]]', '[["local_1","a1b2c3"],["local_2","d4e5f6"]]')
+    reword = ("To read or message a mentioned session use the mcp__ccd_session_mgmt__* tools (get_session / list_events to read).",
+              "To read a mentioned session use the mcp__ccd_session_mgmt__* tools (get_session / list_events); to message one, "
+              "SendMessage with `to` set to its session_id — only when the user asks you to.")
 
     def paste(i, body):
         return '<pasted_content id="%s">\n%s\n</pasted_content id="%s">' % (i, body, i)
@@ -618,6 +644,26 @@ def selftest():
         # a typed block in the exact reminder form is cut like the platform's
         ("<system-reminder>\nremember\n</system-reminder>\n\nmy question", "my question"),
         ("<system-reminder>\nremember\n</system-reminder>", None),
+        # the session-mentions note the app appends after the typed text, in the forms seen
+        ("Report to @[a]\n\n" + men, "Report to @[a]"),
+        ("ask @[a] and @[b]\n\n" + men2, "ask @[a] and @[b]"),
+        ("Notify @[a]\n\n" + men.replace(*reword), "Notify @[a]"),
+        ("trailing space @[a]\n\n" + men + "\n \n", "trailing space @[a]"),
+        (rem + "both ends @[a]\n\n" + men, "both ends @[a]"),
+        ("see this:\n" + paste("a", "pasted") + "\n\n" + men, "see this:\npasted"),
+        (men, None),
+        (rem + men, None),
+        ("/lab why @[a]\n\n" + men, None),
+        # kept: the note in the middle of typed text, inside a paste, mid-line, not the exact form
+        ("see " + men + " above", "see " + men + " above"),
+        ("before\n\n" + men + "\n\nafter", "before\n\n" + men + "\n\nafter"),
+        ("a\n\n" + men + "\n\nb\n\n" + men, "a\n\n" + men + "\n\nb"),
+        ("look:\n" + paste("a", "typed\n\n" + men), "look:\ntyped\n\n" + men),
+        ("typed " + men, "typed " + men),
+        ("typed\n\n" + men.replace('[["local_1","a1b2c3"]]', "@[a]"), "typed\n\n" + men.replace('[["local_1","a1b2c3"]]', "@[a]")),
+        ("typed\n\n" + men.replace("\n", "\r\n"), "typed\n\n" + men.replace("\n", "\r\n")),
+        ("typed\n\n" + men.replace("\n</system-reminder>", "\n<system-reminder>\n</system-reminder>"),
+         "typed\n\n" + men.replace("\n</system-reminder>", "\n<system-reminder>\n</system-reminder>")),
     ]
     for prompt, want in cases:
         with tempfile.TemporaryDirectory() as tmp:
