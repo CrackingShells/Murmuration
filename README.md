@@ -40,9 +40,8 @@ claude plugin marketplace add CrackingShells/Nest
 claude plugin install murmuration@cracking-shells --scope project
 ```
 
-Run the install from each research project's folder, at project scope. Its permission guard would
-otherwise run in every session on the machine. The guard denies edits to Claude Code settings files
-and `claude` flags that skip your settings or hooks. To update:
+Run the install from each research project's folder, at project scope. Its hooks act only in a lab
+folder, so at user scope every other session would start them for nothing. To update:
 `claude plugin marketplace update cracking-shells`, then
 `claude plugin update murmuration@cracking-shells --scope project`, then start a new session. The
 [plugin README](plugins/murmuration/README.md) has the details.
@@ -54,6 +53,18 @@ folder only. To work on it from a clone, load it directly:
 git clone https://github.com/CrackingShells/Murmuration.git
 claude --plugin-dir Murmuration/plugins/murmuration
 ```
+
+## Hardening
+
+Murmuration no longer ships a permission guard. To stop Claude from switching to bypass mode, where
+every tool runs without asking, set this in `~/.claude/settings.json`:
+
+```json
+{ "permissions": { "disableBypassPermissionsMode": "disable" } }
+```
+
+Outside bypass mode, Claude Code never auto-approves a write under `.claude`, so edits to your
+settings files still wait for your approval.
 
 ## Use
 
@@ -96,7 +107,7 @@ delete: start Claude Code in it with `COLGREP_DATA_DIR=<folder>/.colgrep`.
 
 ## Requirements
 
-- Claude Code 2.1.295 or later (the permission guard fails closed through `onFailure: "block"`, added in 2.1.295; exec-form hooks need 2.1.139).
+- Claude Code 2.1.295 or later.
 - macOS or Linux (x86_64 or arm64).
 - Python 3 (standard library only) for the hooks and the status script.
 
@@ -164,7 +175,7 @@ the repository root until this release).
 
 - **CI owns `plugins/murmuration/bin/`.** A push to `main` that touches `plugins/murmuration/rust/`
   or `plugins/murmuration/scripts/` builds the binary for five targets, checks each one against the
-  Python guard, smoke-installs it, and commits the result as `build(bin): …`. Do not commit binaries
+  Python hooks, smoke-installs it, and commits the result as `build(bin): …`. Do not commit binaries
   by hand.
 - **Bump the version only after the binaries.** Raise `version` in
   `plugins/murmuration/.claude-plugin/plugin.json` only once CI's `build(bin)` commit for the same
@@ -176,10 +187,6 @@ the repository root until this release).
   scope. Never enable `murmuration@cracking-shells` here. Both copies are named `murmuration`, so
   with both enabled every hook runs twice and the agent names collide. Other projects use only
   `murmuration@cracking-shells`, at project scope. Nothing is installed at user scope.
-- **Pre-commit hook (optional):**
-  `ln -s ../../plugins/murmuration/scripts/git-hooks/pre-commit .git/hooks/pre-commit`. It rebuilds
-  the host binary under `rust/target/` and replays the guard corpus against the Python guard; it
-  never writes `bin/`.
 - **Selftests:** each script under `plugins/murmuration/scripts/` has a `--selftest` mode
   (`python3 -I <script> --selftest`).
 

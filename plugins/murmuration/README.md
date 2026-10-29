@@ -36,14 +36,25 @@ Project scope writes `"murmuration@cracking-shells": true` under `enabledPlugins
 too. To let them find the marketplace on a machine that does not know it yet, add it with
 `--scope project` as well.
 
-Do not install it at user scope. Its permission guard would then run in every session on the
-machine. It denies Claude's edits to `.claude/settings*.json` and `claude` flags that skip your
-settings or hooks (`--bare`, `--setting-sources` without `user`, `CLAUDE_CONFIG_DIR=`). That is
-right in a lab, but it gets in the way in your other projects.
+Do not install it at user scope. Its hooks run on every prompt and tool call, and act only in a
+folder that holds `__statera__/`, so at user scope every session on the machine would start them for
+nothing.
 
-The first session after the install copies the compiled guard for your machine into the plugin's
-data folder (`~/.claude/plugins/data/murmuration-cracking-shells/bin/`) after checking it against
-`bin/manifest.json`. If no binary fits, it falls back to the Python guard.
+The first session after the install copies the compiled hook binary for your machine into the
+plugin's data folder (`~/.claude/plugins/data/murmuration-cracking-shells/bin/`) after checking it
+against `bin/manifest.json`. If no binary fits, the Python hooks run instead.
+
+## Hardening
+
+Murmuration no longer ships a permission guard. To stop Claude from switching to bypass mode, where
+every tool runs without asking, set this in `~/.claude/settings.json`:
+
+```json
+{ "permissions": { "disableBypassPermissionsMode": "disable" } }
+```
+
+Outside bypass mode, Claude Code never auto-approves a write under `.claude`, so edits to your
+settings files still wait for your approval.
 
 ## Use
 
