@@ -1,7 +1,7 @@
 {
   "name": "murmuration",
   "displayName": "Murmuration",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A research team for Claude Code: a principal investigator who follows what does not add up, and colleagues who explore, author claims and verify them independently. Claude Code only; macOS and Linux.",
   "author": {
     "name": "Eliott Jacopin",
