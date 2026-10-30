@@ -1,8 +1,8 @@
 # Murmuration (plugin)
 
 > [!WARNING]
-> **Claude Code only, macOS and Linux.** Needs Claude Code 2.1.295 or later. Other harnesses and
-> Windows installs are not supported yet.
+> **Claude Code only; macOS and Linux. Windows tested in CI only, no live session yet.** Needs
+> Claude Code 2.1.295 or later. Other harnesses are not supported yet.
 
 A research team for Claude Code: a principal investigator that follows what does not add up, and
 colleagues who explore, prove, measure and check each other's work.
@@ -90,7 +90,14 @@ Then start a new session. An update arrives only when the plugin's version numbe
 ## Requirements
 
 - Claude Code 2.1.295 or later.
-- macOS or Linux (x86_64 or arm64), with Python 3 (standard library only).
+- macOS or Linux (x86_64 or arm64), or Windows (x86_64; tested in CI only, no live session yet), with
+  Python 3 (standard library only). On Windows it must be reachable as `python3` on PATH: Microsoft
+  Store Python provides that name, but a python.org-only install has only `python` and `py`, so add a
+  `python3` alias. Stock Windows ships a Store `python3.exe` App Execution Alias that prints "Python
+  was not found" and exits 9009; that stub counts as no `python3`. A real `python3` must come before
+  `WindowsApps` on PATH, or turn the alias off (Settings, Apps, Advanced app settings, App execution
+  aliases). Without a real one, the install, resume-brief and user-words hooks fail without
+  blocking, and the budget and hand-back hooks error.
 
 Source, documentation and the research record of how the plugin was designed:
 <https://github.com/CrackingShells/Murmuration>. Licence: AGPL-3.0-only (`LICENSE`).
