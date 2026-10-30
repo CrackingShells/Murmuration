@@ -148,7 +148,9 @@ CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0 claude -p --agent murmuration:research-pi
 | Path | Holds |
 |:--|:--|
 | `plugins/murmuration/` | The plugin: agents, skills, hooks, the hook scripts, the Rust source of the hook binary, and the binaries CI built (`bin/`) |
-| `.github/workflows/guard-binaries.yml` | Builds, checks and commits the hook binaries |
+| `.github/workflows/guard-binaries.yml` | Builds, checks and commits the hook binaries, checks every commit, and cuts the release after a merge to `main` (its helpers are in `.github/scripts/`) |
+| `.github/workflows/pr-title.yml` | Checks that a pull request's title is a valid commit subject, since it becomes the merge commit's |
+| `CONTRIBUTING.md` | The commit vocabulary, the integration lanes, how versions are cut, and branch rules |
 | everything else | The research record (below) |
 
 ## Research record
