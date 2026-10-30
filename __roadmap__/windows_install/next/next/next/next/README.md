@@ -16,7 +16,7 @@ Behind Eliott's go-aheads: PR-B merges, CI commits the binaries for 5 targets an
 ```mermaid
 graph TD
     release[0.2.0 release with Windows support]:::planned
-    next[Live Windows session]:::amendment
+    next[Live Windows session]:::planned
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
     classDef planned    fill:#374151,color:#e5e7eb
@@ -28,7 +28,7 @@ graph TD
 | Node | Type | Status |
 |:-----|:-----|:-------|
 | `release.md` | 📄 Leaf Task | ⬜ Planned |
-| `next/` | 📁 Directory | 🔵 Amendment |
+| `next/` | 📁 Directory | ⬜ Planned |
 
 ## Amendment Log
 | ID | Date | Source | Nodes Added | Rationale |

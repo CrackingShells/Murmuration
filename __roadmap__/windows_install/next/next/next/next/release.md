@@ -6,7 +6,7 @@
 - [ ] `release_lifecycle` done (PR-A merged, first push run released nothing)
 **Success Gates**:
 - ⬜ [run] PR-B merged as a merge commit (Eliott's yes, given when PR-B is green ×3 OS and its `preview` printed 0.3.0)
-- ⬜ [run] The push run: `build(bin)` by `github-actions[bot]` carries all 5 targets; `install_smoke` green ×3 OS; `release` committed `chore(release): 0.3.0 [skip ci]`, pushed tag `v0.3.0` and created the GitHub Release
+- ⬜ [run] The push run: `build(bin)` by `github-actions[bot]` carries all 5 targets; `install_smoke` green ×3 OS; `release` committed `chore(release): murmuration 0.3.0 [skip ci]`, pushed tag `v0.3.0` and created the GitHub Release
 - ⬜ Manifest hashes on `v0.3.0` equal its sources (`build_manifest.py sources-hash`); `plugin.json` version 0.3.0 only on that commit
 - ⬜ Nest unchanged (its entry names no version)
 - ⬜ [behavioral] Installed from Nest in a scratch project on macOS: cache holds 0.3.0; data dir `murmuration.exe` equals CI's aarch64-apple-darwin binary and `murmuration.exe.verified` exists; no launcher note; one Agent call in a scratch lab appends `harness.jsonl` lines; 0.2.0's `bin/murmuration` untouched
@@ -27,4 +27,4 @@ Coordinator, behind Eliott's conditional yes: after PR-A merges, PR-B retargets 
 In a scratchpad project, at project scope: `claude plugin marketplace update`, `claude plugin install murmuration@cracking-shells --scope project`, one headless session that runs `/lab` and one Agent call; read the data dir and the cache. Write the KT note (writing-reports, knowledge-transfer). `live_session` stays open on reminder `murmuration-win-live`.
 **Deliverables**: `__reports__/windows_install/kt_windows_install.md`; Progress rows in this campaign's READMEs
 **Consistency Checks**: `test -f __reports__/windows_install/kt_windows_install.md` (expected: PASS)
-**Commit**: `docs(roadmap): record the 0.3.0 release and the install from Nest`
+**Commit**: `rdm(windows_install): record the 0.3.0 release and the install from Nest`

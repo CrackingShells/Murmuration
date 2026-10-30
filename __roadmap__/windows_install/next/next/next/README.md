@@ -17,7 +17,7 @@ The install proven in CI on macOS, Linux and Windows, and releases cut by CI.
 graph TD
     install[Install path and first Windows session]:::planned
     next[Release]:::planned
-    release_lifecycle[Adopt the writing-release lifecycle]:::amendment
+    release_lifecycle[Adopt the writing-release lifecycle]:::planned
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
     classDef planned    fill:#374151,color:#e5e7eb
@@ -30,7 +30,7 @@ graph TD
 |:-----|:-----|:-------|
 | `install.md` | 📄 Leaf Task | ⬜ Planned |
 | `next/` | 📁 Directory | ⬜ Planned |
-| `release_lifecycle.md` | 📄 Leaf Task | 🔵 Amendment |
+| `release_lifecycle.md` | 📄 Leaf Task | ⬜ Planned |
 
 ## Amendment Log
 | ID | Date | Source | Nodes Added | Rationale |

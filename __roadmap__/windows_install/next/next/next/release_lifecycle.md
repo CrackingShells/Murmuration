@@ -3,10 +3,11 @@
 **Goal**: Releases of `plugins/murmuration` are cut only by CI after a merge to `main`. The commit checker, the release job, CONTRIBUTING and the repository settings follow writing-release v2.0.0, so 0.3.0 is the first release nobody cuts by hand.
 **Pre-conditions**:
 - [x] `retire_guard` done (A1)
-- [ ] Commit vocabulary decided by Eliott (`__reports__/release_lifecycle/commit_vocabulary_v0.md`, sitting 1)
-- [ ] Tag `v0.2.0` at 1f164ae pushed, and repository settings applied and read back (Eliott's yes, sitting 1)
+- [x] Commit vocabulary decided by Eliott (sitting 1, 2026-10-30): `__reports__/release_lifecycle/commit_vocabulary_v0.md` D1–D7 as recommended, D4 as a CI check, `bump_message` keeps `[skip ci]`
+- [x] Tag `v0.2.0` at 1f164ae pushed, and repository settings applied and read back (Eliott's yes, sitting 1): PR merges are merge commits only, titled by the PR title with the PR body, branch deleted on merge; no branch protection, so the Direct lane still pushes
 **Success Gates**:
-- ⬜ `cz check --rev-range` accepts every origin/main subject of the last 60 days that the decided vocabulary keeps, and rejects the forms it retires
+- ⬜ `cz check` accepts the subjects the report's draft regex accepts (302 of 850 on 3afb2da, 103 of the 105 since 2026-10-27) and rejects its reject samples; the report's unit checks pass under the pinned cz
+- ⬜ The `commits` job fails a range in which a trace type (`claim`, `verdict`, `wave`, `synthesis`, `user_words`, `reports`, `rdm`) touches `plugins/murmuration/**` (D4)
 - ⬜ The `bump_map` releases only on feat (minor), fix and perf (patch), and `BREAKING CHANGE` (minor while 0.x). `refactor`, `docs`, `merge`, `rdm`, `reports` and the research types never bump, checked by `cz bump --dry-run` in a scratch clone
 - ⬜ The `release` job fails closed. It does not run after a red matrix (it tolerates `skipped` only when `changes` found no gated path). It exits 1 when no `v*` tag exists. It checks the manifest hashes against the new tip of origin/main, uses `git push --atomic`, and grants `contents: write` to itself alone
 - ⬜ [run] PR-A's `pull_request` run green, including `commits`, `pr-title` and `preview`
@@ -18,9 +19,9 @@
 **Goal**: One config holds the vocabulary, the version file and what releases.
 **Implementation Logic**:
 - `.cz.toml` at the repository root, with `cz_customize`:
-  - `schema_pattern` from the decided vocabulary, which also accepts Git's `Merge …` subjects;
+  - `schema_pattern`: the report's draft regex (§ schema_pattern), which also accepts Git's `Merge …` subjects; scope required on code types (D6), no length cap (D7);
   - `bump_pattern` and `bump_map` per the gates. Confirm on the pinned cz that `refactor` no longer bumps;
-  - `tag_format = "v$version"`, `major_version_zero = true`, `version_files` pointing at the `"version"` line of `plugins/murmuration/.claude-plugin/plugin.json`, `bump_message = "chore(release): $new_version [skip ci]"`, `update_changelog_on_bump = false`.
+  - `tag_format = "v$version"`, `major_version_zero = true`, `version_files` pointing at the `"version"` line of `plugins/murmuration/.claude-plugin/plugin.json`, `bump_message = "chore(release): murmuration $new_version [skip ci]"` (D5), `update_changelog_on_bump = false`.
 - Pin commitizen to 4.19.2 (released 2026-10-07) in the workflow and in every check.
 - Never create or push a tag; `v0.2.0` comes from sitting 1 (`git fetch --tags`).
 **Deliverables**: `.cz.toml`
@@ -36,7 +37,7 @@ Edit `.github/workflows/guard-binaries.yml` and keep its name.
 - `concurrency`: `group: ${{ github.workflow }}-${{ github.ref }}`, `cancel-in-progress: ${{ github.event_name == 'pull_request' }}`.
 - Jobs:
   - `changes` outputs `gated`: true when `plugins/murmuration/{rust,scripts,hooks}/**` or the workflow changed. `build` needs it and runs only when it is true.
-  - `commits` runs `cz check --rev-range` over the PR's base..head, or the push's before..after.
+  - `commits` runs `cz check --rev-range` over the PR's base..head, or the push's before..after. A second step fails when a commit in that range whose type is a trace type touches `plugins/murmuration/**` (D4; cz sees no paths). Keep it a short inline script or one under `.github/`, not in the plugin tree.
   - `preview` (PR only) runs `cz bump --dry-run --yes` and prints the version a merge would cut, or "nothing to release".
   - `commit_back` keeps its body. Its `if` stays main-only.
   - `release` needs `[changes, commits, install_smoke, commit_back]` and runs on push to main only. Its order:
