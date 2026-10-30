@@ -7,7 +7,7 @@ After `shell_gaps`, because both edit `permission_guard.py` and `rust/`.
 The remaining Windows path forms are decided.
 
 ## Pre-conditions
-- [ ] `shell_gaps` done
+- [x] `shell_gaps` closed as blocked (A1)
 
 ## Success Gates
 - ⬜ `path_gaps.md` gates pass
