@@ -7,7 +7,7 @@ Runs after `ci_green` and `if_probe`: the decision needs the probe's report, the
 The `if` decision is recorded and the Windows shell bypasses are closed.
 
 ## Pre-conditions
-- [ ] `ci_green` and `if_probe` done
+- [x] `ci_green` done; `if_probe` closed as blocked (A1)
 
 ## Success Gates
 - ⬜ `if_decision.md` and `shell_gaps.md` gates pass

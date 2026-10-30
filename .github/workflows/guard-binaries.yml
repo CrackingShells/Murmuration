@@ -1,15 +1,16 @@
 # Builds the `murmuration` hook binary on five runners, checks each against the Python hooks, and commits bin/ back to main when everything agrees. Cases:
 # - main moves during the run: commit_back fetches origin/main, builds on that tip, commits only if the hashed sources (rust_sources_sha256, scripts_sha256) are unchanged, else exits 0 (the newer push runs its own build); it retries a rejected push 3 times.
-# - commit-back loop: the commit touches only plugins/murmuration/bin/**, outside the `push` paths filter, and a GITHUB_TOKEN push starts no workflow.
-# - token scope: contents: read everywhere; only commit_back has contents: write, and only on refs/heads/main; its concurrency group bin-commit serialises commits without cancelling one.
+# - commit-back loop: a GITHUB_TOKEN push starts no workflow, and the bump commit carries [skip ci].
+# - token scope: contents: read everywhere; only commit_back and release have contents: write, and only on refs/heads/main; commit_back's concurrency group bin-commit serialises commits without cancelling one.
 # - an artefact under the wrong target name: assemble checks that each murmuration-<t> holds exactly <binary-name>, sources.sha256 and a file the `file` command reports as <t>'s architecture.
 # - Windows absent or faulty: assemble detects it from its artefact (missing, wrong name or type, other sources) and leaves it out with a warning; no continue-on-error. Any other target missing fails the job.
 # - a wrong-architecture binary: each build row checks `file` before upload (and assemble again); a runner label that moved to another architecture fails there.
 name: guard-binaries
+# No path filter on a trigger: the commit check must run on every push to main, and a workflow skipped by `paths` leaves its checks pending. `changes` filters per job instead.
 on:
+  pull_request:
   push:
-    # every file the manifest hashes lives under these two folders; plugins/murmuration/bin/** is left out so that a commit of binaries cannot start another run
-    paths: ["plugins/murmuration/rust/**", "plugins/murmuration/scripts/**"]
+    branches: [main]
   workflow_dispatch:
     inputs:
       commit_back:
@@ -20,13 +21,57 @@ on:
 permissions:
   contents: read
 
+# A superseded PR run is cancelled; a run on main never is (a cancelled release can leave a tag without its Release).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 env:
   PLUGIN: plugins/murmuration
   # the contract's ALL_TARGETS, in the order the matrix lists them
   ALL_TARGETS: "aarch64-apple-darwin x86_64-apple-darwin x86_64-unknown-linux-gnu aarch64-unknown-linux-gnu x86_64-pc-windows-msvc"
 
 jobs:
+  # Does this event touch what the binaries are built from? A job skipped by `if` reports success, so the build matrix does not block a docs-only PR.
+  changes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      gated: ${{ steps.diff.outputs.gated }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - id: diff
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          gated=true
+          why="no base to compare with (a manual run, a new branch or a rewritten history): everything is gated"
+          if [ -n "${BASE//0/}" ] && git cat-file -e "$BASE^{commit}" 2>/dev/null && files=$(git diff --name-only "$BASE...$HEAD" 2>/dev/null); then
+            if grep -Eq '^(plugins/murmuration/(rust|scripts|hooks)/|\.github/workflows/guard-binaries\.yml$)' <<< "$files"; then
+              why="plugins/murmuration/{rust,scripts,hooks}/** or this workflow changed"
+            elif [ "$GITHUB_EVENT_NAME" != pull_request ] && ! python3 -I .github/scripts/manifest_matches.py; then
+              # the build run of an earlier push was replaced or lost, so bin/ is behind its sources: build now, or every later release would fail closed
+              why="bin/manifest.json does not match the sources at this commit"
+            else
+              gated=false
+              why="nothing under plugins/murmuration/{rust,scripts,hooks}/** or this workflow changed"
+            fi
+          fi
+          echo "gated=$gated ($why)"
+          echo "gated=$gated" >> "$GITHUB_OUTPUT"
+
   build:
+    needs: changes
+    if: ${{ needs.changes.outputs.gated == 'true' }}
     # cargo test, an LTO release build and the hook self-test take well under 15 min even on the slow runners; 30 leaves room without letting a hung row hold commit_back for GitHub's 6 h default
     timeout-minutes: 30
     permissions:
@@ -86,8 +131,9 @@ jobs:
 
   assemble:
     # `!cancelled()` and not `success()`: a red Windows row must not skip this job. It decides itself which rows it can do without (Windows only).
-    needs: build
-    if: ${{ !cancelled() }}
+    # `changes` is named so that the job is skipped, not failed, when `build` was skipped
+    needs: [changes, build]
+    if: ${{ !cancelled() && needs.changes.outputs.gated == 'true' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
@@ -288,3 +334,207 @@ jobs:
           done
           echo "::error::main kept moving; bin/ not committed"
           exit 1
+
+  # Every commit in the range is a valid message of the vocabulary (.cz.toml), and no trace type touches the shipped plugin (D4). Runs on every event, whatever changed.
+  commits:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - run: python3 -m pip install --disable-pip-version-check commitizen==4.19.2
+      # cz check needs an identity as soon as it creates anything under .git
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - id: range
+        env:
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          # a PR: its commits; a push: the commits it brought; a manual run, or a push whose predecessor is gone (new branch, rewritten history): everything since the last release
+          if [ "$GITHUB_EVENT_NAME" = pull_request ]; then
+            range="$PR_BASE..$PR_HEAD"
+          elif [ "$GITHUB_EVENT_NAME" = push ] && [ -n "${BEFORE//0/}" ] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            range="$BEFORE..$GITHUB_SHA"
+          else
+            last=$(git -c versionsort.suffix=- tag --list 'v*' --sort=-version:refname | head -1)
+            range="${last:+$last..}$GITHUB_SHA"
+          fi
+          echo "range=$range"
+          echo "range=$range" >> "$GITHUB_OUTPUT"
+          echo "count=$(git rev-list --count "$range")" >> "$GITHUB_OUTPUT"
+      - name: cz check over the range
+        if: steps.range.outputs.count != '0'
+        env:
+          RANGE: ${{ steps.range.outputs.range }}
+        run: cz check --rev-range "$RANGE"
+      - name: No trace type touches plugins/murmuration/** (D4)
+        if: steps.range.outputs.count != '0'
+        env:
+          RANGE: ${{ steps.range.outputs.range }}
+        run: python3 -I .github/scripts/check_trace_paths.py "$RANGE"
+
+  # What would merging this PR cut? Informs the reviewer; changes nothing.
+  preview:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - run: python3 -m pip install --disable-pip-version-check commitizen==4.19.2
+      - name: The version a merge would cut
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          set -euo pipefail
+          # the checkout is the merge of the PR into main; GitHub will give the merge commit this title and body, and cz reads every line of both
+          git -c user.name=preview -c user.email=preview@invalid commit --allow-empty -q -m "$PR_TITLE" -m "$PR_BODY"
+          rc=0
+          out=$(cz bump --dry-run --yes 2>&1) || rc=$?
+          echo "$out"
+          # cz's own codes: 21 no commit warrants a bump, 3 no commit since the tag
+          case "$rc" in
+            0) msg="a merge would release $(sed -n 's/^tag to create: //p' <<< "$out")" ;;
+            3|21) msg="nothing to release" ;;
+            *) echo "::error::cz bump --dry-run exited $rc"; exit "$rc" ;;
+          esac
+          echo "::notice title=release preview::$msg"
+          echo "release preview: $msg" >> "$GITHUB_STEP_SUMMARY"
+
+  # Cuts the release after a merge: bump commit, tag, GitHub Release. The only job besides commit_back that may write, and it runs on main alone.
+  release:
+    # build is named so that a red matrix (Windows included) stops the release; install_smoke and commit_back are named so that none of them was skipped, unless `changes` found nothing to build
+    needs: [changes, commits, build, install_smoke, commit_back]
+    # `!cancelled()` so that this job runs when a gate was skipped, and every requirement re-stated because a status function also runs the job after a failure. A manual run releases only when it also commits bin/.
+    if: >-
+      ${{ !cancelled()
+      && github.ref == 'refs/heads/main'
+      && github.event_name != 'pull_request'
+      && needs.changes.result == 'success'
+      && needs.commits.result == 'success'
+      && ((needs.changes.outputs.gated == 'true'
+          && needs.build.result == 'success'
+          && needs.install_smoke.result == 'success'
+          && needs.commit_back.result == 'success')
+        || (needs.changes.outputs.gated != 'true'
+          && needs.build.result == 'skipped'
+          && needs.install_smoke.result == 'skipped'
+          && needs.commit_back.result == 'skipped')) }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - run: python3 -m pip install --disable-pip-version-check commitizen==4.19.2
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: 1. No v* tag means no baseline; fail closed
+        run: |
+          set -euo pipefail
+          git fetch --tags origin
+          last=$(git -c versionsort.suffix=- tag --list 'v*' --sort=-version:refname | head -1)
+          if [ -z "$last" ]; then
+            echo "::error::no v* tag in this repository: cz would count every commit as unreleased. Seed the baseline tag by hand (writing-release recovery.md, first release); nothing was released."
+            exit 1
+          fi
+          echo "last release: $last"
+      - name: 2. Check out the current tip of origin/main
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin main
+          # the commit_back job may have pushed bin/ after this run started, and so may anyone else
+          git checkout -q -f -B main origin/main
+          last=$(git -c versionsort.suffix=- tag --list 'v*' --sort=-version:refname | head -1)
+          if ! git merge-base --is-ancestor "$last" HEAD; then
+            echo "::error::the last tag $last is not an ancestor of origin/main ($(git rev-parse --short HEAD)); cz would bump from the wrong baseline. Nothing was released."
+            exit 1
+          fi
+          git log --oneline "$last..HEAD" | head -20
+      - name: 3. The binaries in bin/ were built from this tip's sources
+        run: |
+          if ! python3 -I .github/scripts/manifest_matches.py; then
+            echo "::error::bin/manifest.json is not from the sources at origin/main $(git rev-parse --short HEAD). A push landed during the run, or a build was lost; the run for that push releases, or dispatch this workflow on main with commit_back. Nothing was released."
+            exit 1
+          fi
+      - name: 4. Bump
+        id: bump
+        run: |
+          set -euo pipefail
+          before=$(git rev-parse HEAD)
+          # exit codes of cz 4.19.2: 21 NO_INCREMENT (no commit warrants a bump), 3 NO_COMMITS_FOUND (HEAD is the last tag)
+          cz --no-raise 3,21 bump --yes
+          # 5. HEAD has not moved: nothing to release
+          if [ "$(git rev-parse HEAD)" = "$before" ]; then
+            echo "::notice title=release::nothing to release since $(git describe --tags --abbrev=0)"
+            exit 0
+          fi
+          tag=$(git describe --tags --exact-match HEAD)
+          files=$(git diff --name-only HEAD~1 HEAD)
+          if [ "$files" != "plugins/murmuration/.claude-plugin/plugin.json" ]; then
+            echo "::error::the bump commit changed more than the plugin manifest: $files"
+            exit 1
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          git log -1 --format='bump commit %h: %s'
+      # one atomic push: the branch and the tag land together, or neither does (main moved since step 2)
+      - name: 6. Push the bump commit and the tag
+        if: steps.bump.outputs.tag != ''
+        env:
+          TAG: ${{ steps.bump.outputs.tag }}
+        run: git push --atomic origin HEAD:main "refs/tags/$TAG"
+      # runs after a bump and also when there is nothing to bump, so that a tag whose Release failed to be created (step 7 after the push of step 6) is repaired by the next run or dispatch
+      - name: 7. GitHub Release
+        env:
+          TAG: ${{ steps.bump.outputs.tag }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          create=1
+          if [ -z "$TAG" ]; then
+            TAG=$(git -c versionsort.suffix=- tag --list 'v*' --sort=-version:refname | head -1)
+            if gh release view "$TAG" > /dev/null 2>&1; then
+              echo "::notice title=release::$TAG already has its GitHub Release"
+              create=0
+            else
+              echo "::warning title=release::$TAG has no GitHub Release (an earlier run failed after its push); creating it"
+            fi
+          fi
+          if [ "$create" = 1 ]; then
+            cz changelog --dry-run "${TAG#v}" > "$RUNNER_TEMP/notes.md"
+            if [ ! -s "$RUNNER_TEMP/notes.md" ]; then printf 'Release %s\n' "$TAG" > "$RUNNER_TEMP/notes.md"; fi
+            cat "$RUNNER_TEMP/notes.md"
+            gh release create "$TAG" --verify-tag --title "$TAG" --notes-file "$RUNNER_TEMP/notes.md"
+          fi

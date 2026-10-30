@@ -1,0 +1,28 @@
+# The PR title becomes the merge commit's subject, so it must be a message of the vocabulary in .cz.toml; CONTRIBUTING.md asks for `merge(<scope>)`, a type that releases nothing of its own.
+# A separate workflow: `edited` also fires on body edits, and in guard-binaries.yml it would cancel the gates of the same commit.
+name: pr-title
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  title:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - run: python3 -m pip install --disable-pip-version-check commitizen==4.19.2
+      - name: The title is a message of the vocabulary
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: cz check --message "$PR_TITLE"

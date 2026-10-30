@@ -1,0 +1,57 @@
+# Commitizen config for the commit check (cz check) and the CI bump (cz bump).
+# Pinned in CI and in every local check: uvx --from commitizen==4.19.2 cz ...
+# The vocabulary is __reports__/release_lifecycle/commit_vocabulary_v0.md (D1-D7); how to write a message is in CONTRIBUTING.md.
+# Nobody runs `cz bump` by hand: the `release` job of .github/workflows/guard-binaries.yml does, after a merge to main.
+[tool.commitizen]
+name = "cz_customize"
+
+# the version is the latest `v*` tag; the only file the bump rewrites is the plugin manifest below
+version_provider = "scm"
+version_scheme = "semver"
+tag_format = "v$version"
+annotated_tag = true
+major_version_zero = true
+update_changelog_on_bump = false
+version_files = ['plugins/murmuration/.claude-plugin/plugin.json:"version"']
+bump_message = "chore(release): murmuration $new_version [skip ci]"
+
+# the schema_pattern below is the only authority: no `Merge`, `Revert`, `fixup!` or `squash!` shortcut (git's own `Merge ...` subjects are in the pattern)
+allowed_prefixes = []
+
+[tool.commitizen.customize]
+example = "fix(hooks): stop a verdict hook from reading a closed pipe"
+schema = "<type>(<scope>): <subject>, or <trace type>(<id>): <subject>; see CONTRIBUTING.md"
+# feat fix perf docs test build ci chore refactor revert: scope required (D6), `!` allowed
+# claim verdict: (wNN-cN)    wave: (wNN)    synthesis user_words: optional (wNN)    reports rdm merge: scope required    git's own `Merge ...`
+# no length cap (D7)
+schema_pattern = '(?s)(?:(?:feat|fix|perf|docs|test|build|ci|chore|refactor|revert)\([a-z0-9][a-z0-9_-]*\)!?|(?:claim|verdict)\(w\d{2}-c\d+\)|wave\(w\d{2}\)|(?:synthesis|user_words)(?:\(w\d{2}\))?|(?:reports|rdm|merge)\([a-z0-9][a-z0-9_-]*\)):( [^\n\r]+)((\n\n.*)|(\s*))?$|Merge .*'
+
+# only these release: feat (minor), fix and perf (patch), a breaking `!` on those, and a BREAKING CHANGE footer (minor while major_version_zero).
+# Every other type fails the pattern, so refactor, docs, test, build, ci, chore, revert, merge, rdm, reports and the research types never bump.
+# cz searches each line of a message, so a footer line `BREAKING CHANGE: ...` counts.
+bump_pattern = '^((BREAKING[\-\ ]CHANGE|feat|fix|perf)(\(.+\))?!?):'
+
+# release notes (cz changelog --dry-run): the three release types and breaking changes only
+changelog_pattern = '^((BREAKING[\-\ ]CHANGE|feat|fix|perf)(\(.+\))?!?):'
+commit_parser = '^((?P<change_type>feat|fix|perf|BREAKING CHANGE)(?:\((?P<scope>[^()\r\n]*)\)|\()?(?P<breaking>!)?):\s(?P<message>.*)?'
+change_type_order = ["BREAKING CHANGE", "Feat", "Fix", "Perf"]
+
+[tool.commitizen.customize.change_type_map]
+feat = "Feat"
+fix = "Fix"
+perf = "Perf"
+
+[tool.commitizen.customize.bump_map]
+'^BREAKING[\-\ ]CHANGE' = "MAJOR"
+'^(feat|fix|perf)(\(.+\))?!$' = "MAJOR"
+'^feat' = "MINOR"
+'^fix' = "PATCH"
+'^perf' = "PATCH"
+
+# major_version_zero: a MAJOR is cut as a MINOR
+[tool.commitizen.customize.bump_map_major_version_zero]
+'^BREAKING[\-\ ]CHANGE' = "MINOR"
+'^(feat|fix|perf)(\(.+\))?!$' = "MINOR"
+'^feat' = "MINOR"
+'^fix' = "PATCH"
+'^perf' = "PATCH"
