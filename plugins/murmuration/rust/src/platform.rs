@@ -14,10 +14,12 @@ pub(crate) enum Os {
 pub(crate) const OS: Os = if cfg!(windows) { Os::Windows } else { Os::Unix };
 
 /// The interpreter the Python fallback is spawned with.
+///
+/// `python3` on Windows too: the Python rows of `hooks.json` (SessionStart's install among them) start `python3`, so a
+/// machine the plugin runs on has one, while `python` may be missing or only the Microsoft Store stub.
 pub(crate) fn python_for(os: Os) -> &'static str {
     match os {
-        Os::Unix => "python3",
-        Os::Windows => "python",
+        Os::Unix | Os::Windows => "python3",
     }
 }
 
@@ -101,7 +103,7 @@ mod tests {
     #[test]
     fn python_names() {
         assert_eq!(python_for(Os::Unix), "python3");
-        assert_eq!(python_for(Os::Windows), "python");
+        assert_eq!(python_for(Os::Windows), "python3");
     }
 
     #[test]
