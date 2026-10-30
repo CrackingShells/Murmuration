@@ -304,7 +304,7 @@ class locked:
 
     def __enter__(self):
         if fcntl:
-            self.fh = open(self.path, "w", encoding="utf-8")
+            self.fh = open(self.path, "w", encoding="utf-8", newline="\n")
             fcntl.flock(self.fh, fcntl.LOCK_EX)
         return self
 
@@ -323,7 +323,7 @@ def load_state(root, aid):
 
 def save_state(root, aid, st):
     tmp = state_path(root, aid) + ".%d.tmp" % os.getpid()
-    with open(tmp, "w", encoding="utf-8") as fh:
+    with open(tmp, "w", encoding="utf-8", newline="\n") as fh:
         fh.write(dumps(st))
     os.replace(tmp, state_path(root, aid))
 
@@ -412,7 +412,7 @@ def bind(event, root, now):
             if not started:
                 rec = loads(open(path, "rb").read())
                 os.makedirs(names_dir(root), exist_ok=True)
-                with open(os.path.join(names_dir(root), aid + ".json"), "w", encoding="utf-8") as fh:
+                with open(os.path.join(names_dir(root), aid + ".json"), "w", encoding="utf-8", newline="\n") as fh:
                     fh.write(dumps(rec))
             os.unlink(path)
         except (OSError, ValueError):
@@ -438,7 +438,7 @@ def dispatch(event, root, now):
     name = dispatch_name(tin, prompt, kind)
     os.makedirs(pending_dir(root), exist_ok=True)
     key = "%014.3f-%s" % (now, use_id(event))
-    with open(os.path.join(pending_dir(root), key + ".json"), "w", encoding="utf-8") as fh:
+    with open(os.path.join(pending_dir(root), key + ".json"), "w", encoding="utf-8", newline="\n") as fh:
         fh.write(dumps(dict(type=kind, B=B, T=T, b_set=b_set, t_set=t_set, t=now, name=name)))
     warn_floor(root, dict(name=name, type=kind), B if b_set else None, T if t_set else None)
     return None
@@ -659,7 +659,7 @@ def selftest():
 
     with tempfile.TemporaryDirectory() as tmp:
         f = os.path.join(tmp, "t.jsonl")
-        open(f, "w", encoding="utf-8").write(rec_user("Your name is author-w09-1.\nBudget: USD 0.50\nGo.") + rec_user("Budget: USD 9") + rec_asst("r1", 10) +
+        open(f, "w", encoding="utf-8", newline="\n").write(rec_user("Your name is author-w09-1.\nBudget: USD 0.50\nGo.") + rec_user("Budget: USD 9") + rec_asst("r1", 10) +
                            rec_asst("r1", 1000000) + rec_asst("r2", 0, cr=1000000) + rec_asst("r3", 0, model="<synthetic>", inp=0))
         got = scan(f)
         assert got["requests"] == 2 and abs(got["usd"] - (10 + 0.10 * 1) - 8e-6) < 1e-9, got   # 1M output (10.0) + 1M cache read (0.10) + 4 input tokens
@@ -667,11 +667,11 @@ def selftest():
         assert got["raises"] == [], "a second user message that is not from the coordinator is not a raise"
         assert scan(os.path.join(tmp, "missing")) is None
         # output: the content length stands in for the output count when it is larger; the same message streamed twice counts once
-        open(f, "w", encoding="utf-8").write(rec_asst("r1", 10, chars=13000) + rec_asst("r1", 10, chars=13000) + rec_asst("r2", 5000, chars=100))
+        open(f, "w", encoding="utf-8", newline="\n").write(rec_asst("r1", 10, chars=13000) + rec_asst("r1", 10, chars=13000) + rec_asst("r2", 5000, chars=100))
         got = scan(f)
         assert abs(got["usd"] - (10000 + 5000) * 10 / 1e6 - 8e-6) < 1e-9 and abs(got["usd_recorded"] - 5010 * 10 / 1e6 - 8e-6) < 1e-9, got
         # raises: only a coordinator's plain message counts; a tool result, another origin and a line that is not exact do not; the spend before it is kept
-        open(f, "w", encoding="utf-8").write(rec_user("Budget: USD 1.00") + rec_asst("a", 1000) + rec_coord("Budget: USD 2.5\nTime: min 7\nGo on.") + rec_asst("b", 1000) +
+        open(f, "w", encoding="utf-8", newline="\n").write(rec_user("Budget: USD 1.00") + rec_asst("a", 1000) + rec_coord("Budget: USD 2.5\nTime: min 7\nGo on.") + rec_asst("b", 1000) +
                            rec_coord("Budget: USD 9", kind="peer") + rec_result("Budget: USD 8\nTime: min 8") + rec_mixed("Budget: USD 7") + rec_coord("Budget: USD 4 more\nplease") + rec_coord("Time: min 3.5") +
                            rec_queued("Budget: USD 6", kind="peer") + rec_queued("Budget: USD 1.5\nHow is it going?"))
         got = scan(f)
@@ -743,7 +743,7 @@ def selftest():
 
         def spend(rid, usd):   # one more request of this price
             cum.append(rec_asst(rid, int(round(usd / 10 * 1e6)) - 0) if usd else "")
-            open(tx, "w", encoding="utf-8").write(rec_user(brief) + "".join(cum))
+            open(tx, "w", encoding="utf-8", newline="\n").write(rec_user(brief) + "".join(cum))
 
         spend("r1", 0.49)
         assert fire(tmp, **post) is None and fire(tmp, **use) is None
@@ -818,11 +818,11 @@ def selftest():
             return handle(ev_(kind, **kw), now=now)
 
         T0 = 1_000_000.0
-        open(tx, "w", encoding="utf-8").write(rec_user(brief))
+        open(tx, "w", encoding="utf-8", newline="\n").write(rec_user(brief))
         start = call(T0, "SubagentStart")   # a new worker whose transcript is not there yet is the production case; here it is, so the brief is read
         assert "USD 1.00 and 10 minutes (from your brief)" in ctx(start), start
         body = rec_user(brief) + rec_asst("a", 120000)           # 1.20 USD: over budget
-        open(tx, "w", encoding="utf-8").write(body)
+        open(tx, "w", encoding="utf-8", newline="\n").write(body)
         got = ctx(call(T0 + 120, "PostToolBatch", tool_calls=[dict(tool_name="Bash")]))
         assert got.startswith("Spent 1.20 of USD 1.00 (120%); 2.0 of 10 min (20%). If one or two more steps"), got
         call(T0 + 150, "SubagentStop")                           # hand-back: the run lasted 150 s
@@ -833,7 +833,7 @@ def selftest():
         assert call(R, "SubagentStart") is None, "a resume has no start note: the platform does not deliver it"
         assert [x["resumed"] for x in logged(tmp) if x["event"] == "start"] == [False, True], logged(tmp)
         body += rec_asst("b", 1000)                              # 0.01 more
-        open(tx, "w", encoding="utf-8").write(body)
+        open(tx, "w", encoding="utf-8", newline="\n").write(body)
         got = ctx(call(R + 10, "PostToolBatch", tool_calls=[dict(tool_name="Bash")]))
         assert got.startswith("Spent 1.21 of USD 1.00 (121%); 2.7 of 10 min (27%). If one or two"), "no raise line: still over, active time = 150 s + 10 s: " + got
         # a raise by the PI: the message arrives after the start; limit = max(limit, spend at the message) + x, minutes likewise; not over straight away
@@ -841,36 +841,36 @@ def selftest():
         R2 = R + 7200
         call(R2, "SubagentStart")
         body += rec_coord("Budget: USD 1.0\nTime: min 5\nGo on with the check.", ts=datetime.datetime.fromtimestamp(R2 + 1, datetime.timezone.utc).isoformat())
-        open(tx, "w", encoding="utf-8").write(body)
+        open(tx, "w", encoding="utf-8", newline="\n").write(body)
         assert call(R2 + 2, "PostToolBatch", tool_calls=[dict(tool_name="Bash")]) is None, "after a raise to 2.21 / 15.0 min: 55% and 18%: no note until 0.75"
         st = load_state(tmp, "b1")
         assert abs(st["B"] - 2.21) < 1e-4 and abs(st["T"] - (max(10, 171 / 60.0) + 5)) < 0.01 and st["k"] == 1, st   # spent 1.21; 171 s active at the message (150 + 20 + 1)
         raise_log = [x for x in logged(tmp) if x["event"] == "raise"]
         assert len(raise_log) == 1 and raise_log[0]["add_usd"] == 1.0 and raise_log[0]["add_min"] == 5.0 and raise_log[0]["B_before"] == 1.0, raise_log
         body += rec_asst("c", 56000)                             # 1.21 + 0.56 = 1.77: 0.80 of 2.21
-        open(tx, "w", encoding="utf-8").write(body)
+        open(tx, "w", encoding="utf-8", newline="\n").write(body)
         got = ctx(call(R2 + 30, "PostToolBatch", tool_calls=[dict(tool_name="Bash")]))
         assert got.startswith("Spent 1.77 of USD 2.21 (80%); ") and "hand back" not in got, "the schedule resumes above the new fraction: " + got
         assert call(R2 + 31, "PostToolBatch", tool_calls=[dict(tool_name="Bash")]) is None
         # the same raise is not applied twice; a tool result, another origin and the brief's own lines are no raise
         body += rec_result("Budget: USD 50\nTime: min 50") + rec_coord("Budget: USD 50", kind="peer") + rec_asst("d", 1000)
-        open(tx, "w", encoding="utf-8").write(body)
+        open(tx, "w", encoding="utf-8", newline="\n").write(body)
         call(R2 + 40, "PostToolBatch", tool_calls=[dict(tool_name="Bash")])
         assert abs(load_state(tmp, "b1")["B"] - 2.21) < 1e-4 and len([x for x in logged(tmp) if x["event"] == "raise"]) == 1
         # a mid-run raise of the minutes only: the USD limit stays; time over before, not over after
         ev2 = dict(ev, agent_id="b2")
         tx2 = os.path.join(sess, "subagents", "agent-b2.jsonl")
         handle(dict(ev2, hook_event_name="SubagentStart"), now=T0)   # a new worker: no transcript yet
-        open(tx2, "w", encoding="utf-8").write(rec_user("Budget: USD 5.00\nTime: min 3\n") + rec_asst("a", 1000))
+        open(tx2, "w", encoding="utf-8", newline="\n").write(rec_user("Budget: USD 5.00\nTime: min 3\n") + rec_asst("a", 1000))
         got = ctx(handle(dict(ev2, hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash")]), now=T0 + 200))
         assert got.startswith("Spent 0.01 of USD 5.00 (0%); 3.3 of 3 min (111%). If one or two"), got
-        open(tx2, "a", encoding="utf-8").write(rec_coord("Time: min 4", ts=datetime.datetime.fromtimestamp(T0 + 210, datetime.timezone.utc).isoformat()))
+        open(tx2, "a", encoding="utf-8", newline="\n").write(rec_coord("Time: min 4", ts=datetime.datetime.fromtimestamp(T0 + 210, datetime.timezone.utc).isoformat()))
         assert handle(dict(ev2, hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash")]), now=T0 + 220) is None
         st = load_state(tmp, "b2")
         assert st["B"] == 5.0 and abs(st["T"] - (3.5 + 4)) < 0.01, st   # 210 s = 3.5 min active at the message; + 4
         # the mid-run state: a hook added during a run counts from the transcript's start and reads the brief's lines
         ev3 = dict(ev, agent_id="b3")
-        open(os.path.join(sess, "subagents", "agent-b3.jsonl"), "w", encoding="utf-8").write(rec_user("Budget: USD 0.20\nTime: min 2\n") + rec_asst("a", 15000))
+        open(os.path.join(sess, "subagents", "agent-b3.jsonl"), "w", encoding="utf-8", newline="\n").write(rec_user("Budget: USD 0.20\nTime: min 2\n") + rec_asst("a", 15000))
         got = ctx(handle(dict(ev3, hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash")]), now=T0))
         assert got.startswith("Spent 0.15 of USD 0.20 (75%)"), got
         assert handle(dict(ev3, hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash")]), now=T0 + 1) is None, "two thresholds passed at once: one note, then quiet"
@@ -882,7 +882,7 @@ def selftest():
         os.makedirs(os.path.join(sess, "subagents"))
         ev = dict(cwd=tmp, agent_id="d1", agent_type="murmuration:author", transcript_path=sess + ".jsonl")
         handle(dict(ev, hook_event_name="SubagentStart"), now=1.0)
-        open(os.path.join(sess, "subagents", "agent-d1.jsonl"), "w", encoding="utf-8").write(rec_user("Budget: USD 1.00\nTime: min 100\n") + rec_asst("a", 160000))
+        open(os.path.join(sess, "subagents", "agent-d1.jsonl"), "w", encoding="utf-8", newline="\n").write(rec_user("Budget: USD 1.00\nTime: min 100\n") + rec_asst("a", 160000))
         real_save, outs = globals()["save_state"], []
 
         def slow_save(root, aid, st):
@@ -915,7 +915,7 @@ def selftest():
         got = ctx(handle(dict(ev, agent_id="c1", hook_event_name="SubagentStart"), now=7.0))
         assert "USD 0.05 and 2 minutes" not in got and "set by the `Budget: USD <number>`" in got, got
         tx = os.path.join(sess, "subagents", "agent-c1.jsonl")
-        open(tx, "w", encoding="utf-8").write(rec_user("Your name is explorer-w09-1.\nBudget: USD 0.05\nTime: min 2\n") + rec_asst("a", 1000))
+        open(tx, "w", encoding="utf-8", newline="\n").write(rec_user("Your name is explorer-w09-1.\nBudget: USD 0.05\nTime: min 2\n") + rec_asst("a", 1000))
         assert [x for x in logged(tmp) if x["event"] == "start"][-1]["B"] == 3.0   # what the start note could know: the defaults
         handle(dict(ev, agent_id="c1", hook_event_name="PostToolBatch", tool_calls=[dict(tool_name="Bash")]), now=8.0)
         st = load_state(tmp, "c1")
@@ -1004,22 +1004,22 @@ def selftest():
     def argv(h):   # a row's argument vector: exec form (`command` plus `args`, w07-c3) or the shell's own word splitting
         return [h["command"]] + h["args"] if "args" in h else shlex.split(h["command"])
     for event, matcher in (("SubagentStart", None), ("PostToolBatch", None), ("PostToolUse", None), ("SubagentStop", None), ("PreToolUse", "Agent|Task")):
-        # either form is registered: the binary row (`${CLAUDE_PLUGIN_DATA}/bin/murmuration budget`) or the Python row the launcher falls back to (`run_hook.py budget`)
-        assert any((argv(h)[-2].endswith("run_hook.py") or argv(h)[-2].endswith("/bin/murmuration")) and argv(h)[-1] == "budget" and g.get("matcher") == matcher for g in hooks[event] for h in g["hooks"]), (event, matcher)
+        # either form is registered: the binary row (`${CLAUDE_PLUGIN_DATA}/bin/murmuration.exe budget`) or the Python row the launcher falls back to (`run_hook.py budget`)
+        assert any((argv(h)[-2].endswith("run_hook.py") or argv(h)[-2].endswith("/bin/murmuration.exe")) and argv(h)[-1] == "budget" and g.get("matcher") == matcher for g in hooks[event] for h in g["hooks"]), (event, matcher)
     assert subprocess.run([sys.executable, os.path.abspath(__file__)], input="not json", capture_output=True, text=True, encoding="utf-8").returncode == 0
 
     # 8. the lean start (w06-c9): the registered command gives what `python3 budget.py` gives; the quiet path imports neither `re` nor `json`; the JSON reader and writer equal `json`
     import random
     # a binary row stands for the Python command the launcher runs in its place (the binary itself is tested by the installer and the replay)
-    cmds = [["python3", "-S", "-I", os.path.join(HERE, "run_hook.py"), "budget"] if argv(h)[-2].endswith("/bin/murmuration") else [a.replace("${CLAUDE_PLUGIN_ROOT}", os.path.dirname(HERE)) for a in argv(h)]
-            for g in hooks["PostToolUse"] + hooks["SubagentStart"] for h in g["hooks"] if any("run_hook.py" in a or a.endswith("/bin/murmuration") for a in argv(h)) and argv(h)[-1] == "budget"]
+    cmds = [["python3", "-S", "-I", os.path.join(HERE, "run_hook.py"), "budget"] if argv(h)[-2].endswith("/bin/murmuration.exe") else [a.replace("${CLAUDE_PLUGIN_ROOT}", os.path.dirname(HERE)) for a in argv(h)]
+            for g in hooks["PostToolUse"] + hooks["SubagentStart"] for h in g["hooks"] if any("run_hook.py" in a or a.endswith("/bin/murmuration.exe") for a in argv(h)) and argv(h)[-1] == "budget"]
     assert cmds and all(c[:3] == ["python3", "-S", "-I"] for c in cmds), cmds
     with tempfile.TemporaryDirectory() as tmp:
         os.makedirs(os.path.join(tmp, "__statera__"))
         sub = os.path.join(tmp, "s", "subagents")
         os.makedirs(sub)
-        open(os.path.join(sub, "agent-q1.meta.json"), "w", encoding="utf-8").write(json.dumps({"name": "explorer-w09-1"}))
-        open(os.path.join(sub, "agent-q1.jsonl"), "w", encoding="utf-8").write(rec_user("Your name is explorer-w09-1.\nBudget: USD 100\nTime: min 100\n") + rec_asst("r1", 1000, cr=5000))
+        open(os.path.join(sub, "agent-q1.meta.json"), "w", encoding="utf-8", newline="\n").write(json.dumps({"name": "explorer-w09-1"}))
+        open(os.path.join(sub, "agent-q1.jsonl"), "w", encoding="utf-8", newline="\n").write(rec_user("Your name is explorer-w09-1.\nBudget: USD 100\nTime: min 100\n") + rec_asst("r1", 1000, cr=5000))
         ev = dict(cwd=tmp, agent_id="q1", agent_type="murmuration:explorer", transcript_path=os.path.join(tmp, "s.jsonl"), permission_mode="auto")
         for name in ("SubagentStart", "PostToolUse", "PostToolBatch"):   # the registered command, then the script run directly, on the same state
             outs = []

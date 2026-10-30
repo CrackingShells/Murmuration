@@ -334,16 +334,93 @@ fn py_abspath(p: &str) -> R<String> {
     Ok(text::string(&t))
 }
 
+/// `ntpath.splitdrive`: the drive (`C:`, `\\server\share`, `\\?\C:`) and the rest. Separators and `:` are ASCII, so the byte offsets are character boundaries.
+fn nt_splitdrive(p: &str) -> (&str, &str) {
+    let norm: Vec<u8> = p.bytes().map(|b| if b == b'/' { b'\\' } else { b }).collect();
+    if norm.starts_with(b"\\\\") {
+        let start = if norm.len() >= 8 && norm[..8].eq_ignore_ascii_case(b"\\\\?\\UNC\\") { 8 } else { 2 };
+        let find = |from: usize| norm.get(from..).and_then(|t| t.iter().position(|&b| b == b'\\')).map(|i| i + from);
+        return match find(start).and_then(|i| find(i + 1)) {
+            Some(i2) => p.split_at(i2),
+            None => (p, ""),
+        };
+    }
+    if norm.get(1) == Some(&b':') {
+        return p.split_at(2);
+    }
+    ("", p)
+}
+
+/// `ntpath.normpath`, as it is on Windows: `/` becomes `\`, `.` and empty components go, `..` takes the component before it.
+fn nt_normpath(p: &str) -> String {
+    let p = p.replace('/', "\\");
+    let (drive, rest) = nt_splitdrive(&p);
+    let mut prefix = drive.to_string();
+    let body = if rest.starts_with('\\') {
+        prefix.push('\\');
+        rest.trim_start_matches('\\')
+    } else {
+        rest
+    };
+    let mut comps: Vec<&str> = Vec::new();
+    for c in body.split('\\') {
+        if c.is_empty() || c == "." {
+            continue;
+        }
+        if c == ".." {
+            if comps.last().is_some_and(|l| *l != "..") {
+                comps.pop();
+                continue;
+            }
+            if comps.is_empty() && prefix.ends_with('\\') {
+                continue;
+            }
+        }
+        comps.push(c);
+    }
+    if prefix.is_empty() && comps.is_empty() {
+        comps.push(".");
+    }
+    format!("{prefix}{}", comps.join("\\"))
+}
+
+/// `ntpath.dirname` (Python 3.12.4 and later: the drive and one root separator are kept, the separators before the last component go).
+fn nt_dirname(p: &str) -> String {
+    let (drive, rest) = nt_splitdrive(p);
+    let sep = |c: char| c == '\\' || c == '/';
+    let (root, body) = rest.split_at(usize::from(rest.starts_with(sep)));
+    format!("{drive}{root}{}", body.trim_end_matches(|c: char| !sep(c)).trim_end_matches(sep))
+}
+
+/// `os.path.abspath` on Windows for a path given as the hook event gives it; `cwd` is the process's working folder, used only for a path that is not absolute.
+fn nt_abspath(p: &str, cwd: &str) -> String {
+    let (drive, rest) = nt_splitdrive(p);
+    let rooted = !drive.is_empty() && (rest.starts_with('\\') || rest.starts_with('/') || drive.starts_with("\\") || drive.starts_with("//"));
+    if rooted {
+        nt_normpath(p)
+    } else {
+        nt_normpath(&format!("{}\\{p}", cwd.trim_end_matches(['\\', '/'])))
+    }
+}
+
 /// The nearest folder, from the event's cwd upward and then `CLAUDE_PROJECT_DIR`, that holds a `__statera__/` (`handback.lab_root`).
+///
+/// The paths are Python's `os.path` of the host: on Windows, `ntpath` (backslashes, drives), so that the root, which the start note names, is the string the Python script has.
 pub(crate) fn lab_root(cwd: Option<&Text>) -> R<Option<String>> {
     let given = match cwd {
         Some(t) if !t.is_empty() => path_text(t)?,
         _ => String::new(),
     };
-    let mut p = py_abspath(&given)?;
+    let windows = crate::platform::OS == crate::platform::Os::Windows;
+    let mut p = if windows {
+        let here = std::env::current_dir().map_err(|_| Stop::Silent)?;
+        nt_abspath(&given, &here.to_string_lossy())
+    } else {
+        py_abspath(&given)?
+    };
     let mut chain = vec![p.clone()];
     for _ in 0..5 {
-        p = py_dirname(&p);
+        p = if windows { nt_dirname(&p) } else { py_dirname(&p) };
         chain.push(p.clone());
     }
     chain.push(std::env::var("CLAUDE_PROJECT_DIR").unwrap_or_default());
@@ -526,6 +603,46 @@ pub(crate) fn agent_name(agent_id: Option<&Text>, agent_type: Option<&Text>, tra
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn windows_paths_are_ntpaths() {
+    // expected values: Python's ntpath (3.12) on each input
+    const NT: &[(&str, &str, &str)] = &[
+        ("C:\\Users\\runneradmin\\AppData\\Local\\Temp\\tmpab12", "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\tmpab12", "C:\\Users\\runneradmin\\AppData\\Local\\Temp"),
+        ("C:/Users/x/Temp/tmp1", "C:\\Users\\x\\Temp\\tmp1", "C:/Users/x/Temp"),
+        ("C:\\a\\.\\b\\..\\c\\\\d", "C:\\a\\c\\d", "C:\\a\\.\\b\\..\\c"),
+        ("D:\\a\\_temp/plugin lab", "D:\\a\\_temp\\plugin lab", "D:\\a\\_temp"),
+        ("C:\\\\", "C:\\", "C:\\"),
+        ("C:\\", "C:\\", "C:\\"),
+        ("\\\\server\\share\\x\\y", "\\\\server\\share\\x\\y", "\\\\server\\share\\x"),
+        ("\\\\server\\share", "\\\\server\\share", "\\\\server\\share"),
+        ("C:\\a\\..\\..\\b", "C:\\b", "C:\\a\\..\\.."),
+        ("C:\\a\\b\\\\", "C:\\a\\b", "C:\\a\\b"),
+        ("C:/", "C:\\", "C:/"),
+        ("C:\\Users\\José\\tmpX", "C:\\Users\\José\\tmpX", "C:\\Users\\José"),
+        ("c:\\x\\y", "c:\\x\\y", "c:\\x"),
+        ("\\\\?\\C:\\x\\..\\y", "\\\\?\\C:\\y", "\\\\?\\C:\\x\\.."),
+        ("C:\\..\\a", "C:\\a", "C:\\.."),
+        ("\\\\?\\UNC\\srv\\sh\\a\\b", "\\\\?\\UNC\\srv\\sh\\a\\b", "\\\\?\\UNC\\srv\\sh\\a"),
+        ("\\\\srv\\sh\\..\\a", "\\\\srv\\sh\\a", "\\\\srv\\sh\\.."),
+    ];
+        for &(given, norm, dir) in NT {
+            assert_eq!(nt_normpath(given), norm, "normpath {given}");
+            assert_eq!(nt_dirname(given), dir, "dirname {given}");
+            assert_eq!(nt_abspath(given, r"C:\cwd"), norm, "abspath {given}");
+        }
+        assert_eq!(nt_abspath(r"x\y/..\z", r"C:\cwd\"), r"C:\cwd\x\z");
+        assert_eq!(nt_abspath("", r"C:\cwd"), r"C:\cwd");
+        // the chain the lab is looked for in: five parents of a Windows temp folder
+        let mut p = nt_abspath(r"C:\Users\runneradmin\AppData\Local\Temp\tmpab12", "");
+        let mut chain = vec![p.clone()];
+        for _ in 0..5 {
+            p = nt_dirname(&p);
+            chain.push(p.clone());
+        }
+        assert_eq!(chain.last().map(String::as_str), Some(r"C:\Users"));
+        assert_eq!(nt_dirname(&nt_dirname(r"C:\a")), r"C:\");
+    }
 
     #[test]
     fn g_format() {

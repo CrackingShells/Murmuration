@@ -9,6 +9,8 @@ byte fails there and passes on macOS and Linux. Findings, for each *.py in DIR (
   open: a text-mode open(), io.open(), read_text() or write_text() without encoding=
   subprocess: a subprocess call with text=True or universal_newlines=True and no encoding=
   stdio: a def main( that does not start with _utf8_stdio(), or a _utf8_stdio that does not reconfigure the streams to UTF-8
+  newline: in the scripts the binary is built from (HASHED), a text-mode open() for writing without newline=, or an os.open() for writing without os.O_BINARY. A Windows text file
+           and a C-runtime fd translate "\\n" to "\\r\\n" unless told not to, and the binary writes LF, so the two would write different bytes
 A mode that is not a literal string, or a call that passes **kwargs, cannot be checked and is a finding. Binary opens (a "b" in the mode) are exempt.
 """
 import ast
@@ -18,6 +20,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SUBPROCESS_CALLS = ("run", "Popen", "check_output", "check_call", "call")
+HASHED = ("budget.py", "handback.py", "run_hook.py")   # as SCRIPTS in install_binary.py: the files whose output the binary must reproduce byte for byte
 
 
 def _call_name(fn):
@@ -57,6 +60,22 @@ def _findings_for_call(n):
     return []
 
 
+def _newline_findings(n):
+    """The `newline` findings for one call, in a HASHED script."""
+    name, owner = _call_name(n.func)
+    kws = {k.arg: k.value for k in n.keywords}
+    if name == "open" and owner in (None, "io"):
+        mode = n.args[1] if len(n.args) > 1 else kws.get("mode")
+        if isinstance(mode, ast.Constant) and isinstance(mode.value, str) and "b" not in mode.value and any(c in mode.value for c in "wax+") and "newline" not in kws:
+            return [("newline", n.lineno, "open() for writing in text mode without newline=")]
+    elif name == "open" and owner == "os":
+        flags = n.args[1] if len(n.args) > 1 else kws.get("flags")
+        names = {a.attr for a in ast.walk(flags) if isinstance(a, ast.Attribute)} | {a.value for a in ast.walk(flags) if isinstance(a, ast.Constant)} if flags is not None else set()   # getattr(os, "O_BINARY", 0) counts
+        if names & {"O_WRONLY", "O_RDWR", "O_APPEND", "O_CREAT", "O_TRUNC"} and "O_BINARY" not in names and not any(isinstance(a, ast.Name) and a.id == "BINARY" for a in ast.walk(flags)):
+            return [("newline", n.lineno, "os.open() for writing without O_BINARY")]
+    return []
+
+
 def _calls(node, name):
     return [c for c in ast.walk(node) if isinstance(c, ast.Call) and _call_name(c.func)[0] == name]
 
@@ -68,6 +87,8 @@ def check_source(src, label):
     for n in ast.walk(tree):
         if isinstance(n, ast.Call):
             found += _findings_for_call(n)
+            if os.path.basename(label) in HASHED:
+                found += _newline_findings(n)
     mains = [n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == "main"]
     helper = [n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == "_utf8_stdio"]
     for m in mains:
@@ -104,6 +125,9 @@ def selftest():
                   "def _utf8_stdio():\n    sys.stdin.reconfigure(encoding='ascii')\ndef main():\n    _utf8_stdio()\n",
                   "def _utf8_stdio():\n    sys.stdin.reconfigure(encoding='utf-8')\ndef main():\n    x = 1\n    _utf8_stdio()\n"),
     }
+    bad_hashed = ("open('x', 'w', encoding='utf-8')\n", "open('x', mode='a', encoding='utf-8')\n", "open('x', 'r+', encoding='utf-8')\n", "import os\nos.open('x', os.O_WRONLY | os.O_APPEND)\n", "import os\nos.open('x', os.O_CREAT | os.O_EXCL)\n")
+    good_hashed = ("open('x', 'w', encoding='utf-8', newline='\\n')\n", "open('x', encoding='utf-8')\n", "open('x', 'wb')\n", "import os\nos.open('x', os.O_WRONLY | getattr(os, 'O_BINARY', 0))\n",
+                   "import os\nos.open('x', os.O_WRONLY | BINARY)\n", "import os\nos.open('x', os.O_RDONLY)\n")
     good = ("open('x', 'rb')\n", "open('x', 'wb')\n", "open('x', encoding='utf-8')\n", "open('x', 'w', encoding='utf-8', errors='replace')\n", "p.read_text(encoding='utf-8')\n", "p.read_text('utf-8')\n",
             "import subprocess\nsubprocess.run(['x'], capture_output=True)\n", "import subprocess\nsubprocess.run(['x'], text=True, encoding='utf-8')\n", "os.open('x', 0)\n",
             "def _utf8_stdio():\n    sys.stdin.reconfigure(encoding='utf-8')\ndef main():\n    '''doc'''\n    _utf8_stdio()\n")
@@ -114,6 +138,14 @@ def selftest():
             if kind not in kinds:
                 ok = False
                 print("FAIL: not caught as %s: %r (caught %s)" % (kind, s, sorted(kinds)))
+    for s in bad_hashed:
+        if "newline" not in {f[0] for f in check_source(s, "budget.py")} or "newline" in {f[0] for f in check_source(s, "lab_init.py")}:
+            ok = False
+            print("FAIL: newline rule wrong for %r" % s)
+    for s in good_hashed:
+        if check_source(s, "handback.py"):
+            ok = False
+            print("FAIL: flagged without cause in a hashed script: %r -> %s" % (s, check_source(s, "handback.py")))
     for s in good:
         if check_source(s, "<control>"):
             ok = False

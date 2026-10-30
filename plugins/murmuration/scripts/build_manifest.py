@@ -28,7 +28,7 @@ import sys
 RUST_FILES = ["rust/Cargo.toml", "rust/Cargo.lock", "rust/gen_tables.py", "rust/build.rs", "rust/rust-toolchain", "rust/rust-toolchain.toml"]
 # the Python scripts the binary stands in for, and the fall-back that runs when it does not: an edit to any of them after the build makes the installer put the launcher in place
 SCRIPTS = ["budget.py", "handback.py", "run_hook.py"]
-# the triples CI builds. Not all of them are installable: install_binary.TARGETS lists the hosts whose installs are supported (Windows is a later cycle).
+# the triples CI builds. Not all of them are installable: install_binary.TARGETS lists the hosts whose installs are supported.
 ALL_TARGETS = ["aarch64-apple-darwin", "x86_64-apple-darwin", "x86_64-unknown-linux-gnu", "aarch64-unknown-linux-gnu", "x86_64-pc-windows-msvc"]
 HERE = os.path.dirname(os.path.abspath(__file__))
 PLUGIN_ROOT = os.path.abspath(os.path.join(HERE, ".."))
