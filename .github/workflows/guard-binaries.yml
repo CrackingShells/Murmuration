@@ -3,7 +3,7 @@
 # - commit-back loop: a GITHUB_TOKEN push starts no workflow, and the bump commit carries [skip ci].
 # - token scope: contents: read everywhere; only commit_back and release have contents: write, and only on refs/heads/main; commit_back's concurrency group bin-commit serialises commits without cancelling one.
 # - an artefact under the wrong target name: assemble checks that each murmuration-<t> holds exactly <binary-name>, sources.sha256 and a file the `file` command reports as <t>'s architecture.
-# - Windows absent or faulty: assemble detects it from its artefact (missing, wrong name or type, other sources) and leaves it out with a warning; no continue-on-error. Any other target missing fails the job.
+# - an artefact missing or faulty (wrong name or type, other sources): assemble fails the job, Windows included; every target is required and no row has continue-on-error.
 # - a wrong-architecture binary: each build row checks `file` before upload (and assemble again); a runner label that moved to another architecture fails there.
 name: guard-binaries
 # No path filter on a trigger: the commit check must run on every push to main, and a workflow skipped by `paths` leaves its checks pending. `changes` filters per job instead.
@@ -98,11 +98,15 @@ jobs:
     steps:
       # without this the Windows runner checks sources out with CRLF and its sources hash differs from the other rows'
       - run: git config --global core.autocrlf false
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: "3.12"
       - run: cargo --version && rustc --version
+      # the scripts must read and write UTF-8 under a Windows code page; no other row can show it (the install_binary self-test is POSIX-only: its stand-in binary is a shell script)
+      - name: The scripts do text I/O as UTF-8
+        if: ${{ matrix.target == 'x86_64-pc-windows-msvc' }}
+        run: '"$PY" -I "$PLUGIN/scripts/check_text_io.py"'
       - run: cargo test --manifest-path "$PLUGIN/rust/Cargo.toml" --target "$TARGET"
       - run: cargo build --release --manifest-path "$PLUGIN/rust/Cargo.toml" --target "$TARGET"
       - name: Copy the binary to bin/<target>/
@@ -120,7 +124,7 @@ jobs:
         run: |
           h=$("$PY" -I "$PLUGIN/scripts/build_manifest.py" sources-hash | tr -d '\r')
           printf '%s\n' "$h" > "$PLUGIN/bin/$TARGET/sources.sha256"
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: murmuration-${{ matrix.target }}
           path: |
@@ -130,7 +134,7 @@ jobs:
           retention-days: 14
 
   assemble:
-    # `!cancelled()` and not `success()`: a red Windows row must not skip this job. It decides itself which rows it can do without (Windows only).
+    # `!cancelled()` and not `success()`: a red row must not skip this job, which then reports the missing artefact itself. Every target is required, Windows included.
     # `changes` is named so that the job is skipped, not failed, when `build` was skipped
     needs: [changes, build]
     if: ${{ !cancelled() && needs.changes.outputs.gated == 'true' }}
@@ -142,8 +146,8 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/download-artifact@v8
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           pattern: murmuration-*
           path: artifacts
@@ -175,14 +179,10 @@ jobs:
             esac
           }
           failed=0
-          # a fault in the Windows artefact only drops Windows (Windows installs are deferred); a fault in any other fails the job
+          # every target is required, Windows included: a missing or faulty artefact fails the job
           reject() {
-            if [ "$1" = x86_64-pc-windows-msvc ]; then
-              echo "::warning::$1 left out of bin/: $2"
-            else
-              echo "::error::$1: $2"
-              failed=1
-            fi
+            echo "::error::$1: $2"
+            failed=1
           }
           rm -rf "${PLUGIN:?}"/bin/*/
           expected=()
@@ -210,7 +210,7 @@ jobs:
           list=$(IFS=,; echo "${expected[*]}")
           echo "targets: $list"
           python3 -I "$PLUGIN/scripts/build_manifest.py" --expect-targets "$list"
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: bin-and-manifest
           path: ${{ env.PLUGIN }}/bin
@@ -225,42 +225,117 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-15, ubuntu-22.04]
+        include:
+          - { os: macos-15, target: aarch64-apple-darwin }
+          - { os: ubuntu-22.04, target: x86_64-unknown-linux-gnu }
+          - { os: windows-latest, target: x86_64-pc-windows-msvc }
     runs-on: ${{ matrix.os }}
     permissions:
       contents: read
     defaults:
       run:
         shell: bash
+    env:
+      TARGET: ${{ matrix.target }}
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: "3.12"
-      - uses: actions/download-artifact@v8
+      # the documented Windows requirement: a real `python3` on PATH (Microsoft Store Python has one, a python.org install has `python` and `py`). The runner's toolcache Python may already ship a python3.exe; when it does not, a copy of python.exe goes beside it, where its DLLs and standard library are found. The log shows which python3 the replay uses.
+      - name: Put a python3.exe on PATH (Windows)
+        if: ${{ runner.os == 'Windows' }}
+        run: |
+          python -I -c 'import os, shutil, sys; dst = os.path.join(os.path.dirname(sys.executable), "python3.exe"); print("python3.exe already there" if os.path.exists(dst) else "copying python.exe to python3.exe"); os.path.exists(dst) or shutil.copyfile(sys.executable, dst)'
+          command -v python3
+          python3 -I -c 'import sys; print(sys.executable, sys.version)'
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: bin-and-manifest
           path: assembled
-      - name: install_binary.py puts the verified binary in place
+      - name: The install and a budget hook run as Claude Code spawns them
         run: |
           set -euo pipefail
           # the checkout holds the previously committed bin/: replace it with what this run assembled (artefacts lose the executable bit)
           rm -rf "${PLUGIN:?}/bin"
           cp -R assembled "$PLUGIN/bin"
           find "$PLUGIN/bin" -mindepth 2 -type f ! -name '*.exe' -exec chmod +x {} +
-          root="$RUNNER_TEMP/plugin-root"
-          data="$RUNNER_TEMP/plugin-data"
-          rm -rf "$root" "$data"
+          # paths with a space, as a user's profile folder can have
+          root="$RUNNER_TEMP/plugin root"
+          data="$RUNNER_TEMP/plugin data"
+          lab="$RUNNER_TEMP/plugin lab"
+          rm -rf "$root" "$data" "$lab"
           cp -R "$PLUGIN" "$root"
-          mkdir -p "$data"
-          rc=0
-          out=$(CLAUDE_PLUGIN_ROOT="$root" CLAUDE_PLUGIN_DATA="$data" python3 -S -I "$root/scripts/install_binary.py" < /dev/null) || rc=$?
-          echo "exit code $rc; stdout: [$out]"
-          if [ "$rc" -ne 0 ]; then echo "::error::install_binary.py exited $rc"; exit 1; fi
-          # the launcher path writes a JSON note to stdout; the binary path writes nothing
-          if [ -n "$out" ]; then echo "::error::the launcher was installed, not the binary"; exit 1; fi
-          if [ ! -f "$data/bin/.verified" ]; then echo "::error::no $data/bin/.verified stamp"; exit 1; fi
-          ls -l "$data/bin"
+          mkdir -p "$data" "$lab"
+          name=$(python3 -I "$PLUGIN/scripts/build_manifest.py" binary-name "$TARGET" | tr -d '\r')
+          export ROOT="$root" DATA="$data" LAB="$lab" ARTEFACT="assembled/$TARGET/$name"
+          # the replay reads hooks.json and spawns the rows in exec form: argv from `command` and `args`, ${CLAUDE_PLUGIN_ROOT} and ${CLAUDE_PLUGIN_DATA} replaced (native paths, backslashes on Windows), no shell
+          python3 -I - <<'PY'
+          import glob, json, os, shutil, subprocess, sys, time
+          root, data, lab, artefact = (os.path.normpath(os.environ[k]) for k in ("ROOT", "DATA", "LAB", "ARTEFACT"))
+          hooks = json.load(open(os.path.join(root, "hooks", "hooks.json"), encoding="utf-8"))["hooks"]
+          errors = []
+          sub = lambda s: s.replace("${CLAUDE_PLUGIN_ROOT}", root).replace("${CLAUDE_PLUGIN_DATA}", data)
+
+          def row(event, pick):
+              rows = [h for g in hooks[event] for h in g["hooks"] if pick(g, h)]
+              assert len(rows) == 1, "%s: %d matching rows" % (event, len(rows))
+              return rows[0]
+
+          def spawn(label, h, event):
+              assert "args" in h and "command" in h, "%s is not in exec form: %r" % (label, h)
+              argv = [sub(h["command"])] + [sub(a) for a in h["args"]]
+              env = dict(os.environ, CLAUDE_PLUGIN_ROOT=root, CLAUDE_PLUGIN_DATA=data)
+              timeout = h["timeout"]   # the row's own limit: Claude Code kills the hook at that time
+              print("== %s (timeout %ss)\n   argv: %r" % (label, timeout, argv), flush=True)
+              start = time.monotonic()
+              try:
+                  p = subprocess.run(argv, input=json.dumps(dict(event, cwd=lab)).encode(), capture_output=True, timeout=timeout, env=env, cwd=lab)
+              except (OSError, subprocess.SubprocessError) as exc:
+                  print("   spawn failed after %.2fs: %s: %s" % (time.monotonic() - start, type(exc).__name__, exc), flush=True)
+                  errors.append("%s did not start or ran out of time (%s: %s)" % (label, type(exc).__name__, exc))
+                  return None
+              print("   exit %d after %.2fs\n   stdout: %r\n   stderr: %r" % (p.returncode, time.monotonic() - start, p.stdout, p.stderr), flush=True)
+              return p
+
+          print("python3 on PATH:", shutil.which("python3"), flush=True)
+          install = spawn("SessionStart install row", row("SessionStart", lambda g, h: any(a.endswith("install_binary.py") for a in h.get("args", []))), dict(hook_event_name="SessionStart", source="startup"))
+          bindir = os.path.join(data, "bin")
+          print("bin/ holds:", sorted(os.listdir(bindir)) if os.path.isdir(bindir) else None, flush=True)
+          if install is not None:
+              # the launcher path writes a JSON note to stdout, the binary path nothing
+              if install.returncode != 0:
+                  errors.append("install_binary.py exited %d" % install.returncode)
+              if install.stdout:
+                  errors.append("the launcher was installed, not the binary (stdout is not empty)")
+          if not os.path.isfile(os.path.join(bindir, "murmuration.exe.verified")):
+              errors.append("no bin/murmuration.exe.verified stamp")
+          dest = os.path.join(bindir, "murmuration.exe")
+          if not os.path.isfile(dest):
+              errors.append("no bin/murmuration.exe")
+          elif open(dest, "rb").read() != open(artefact, "rb").read():
+              errors.append("bin/murmuration.exe is not the CI artefact %s" % artefact)
+          # every row that execs the installed binary finds a file there
+          for event, groups in hooks.items():
+              for g in groups:
+                  for h in g["hooks"]:
+                      if h["command"].startswith("${CLAUDE_PLUGIN_DATA}") and not os.path.isfile(sub(h["command"])):
+                          errors.append("%s row: %s is not a file" % (event, sub(h["command"])))
+          os.makedirs(os.path.join(lab, "__statera__"), exist_ok=True)
+          brief = "Your name is reproducer-w09-1.\nBudget: USD 1.00\nTime: min 100\nGo.\n"
+          call = dict(hook_event_name="PreToolUse", tool_name="Agent", tool_use_id="tu1", tool_input=dict(subagent_type="murmuration:reproducer", prompt=brief, name="reproducer-w09-1"), transcript_path=os.path.join(lab, "s.jsonl"))
+          budget = spawn("PreToolUse Agent budget row", row("PreToolUse", lambda g, h: g.get("matcher") == "Agent|Task" and h.get("args") == ["budget"]), call)
+          if budget is not None and budget.returncode != 0:
+              errors.append("the budget row exited %d" % budget.returncode)
+          # the budget hook recorded the dispatch: the ceiling of the brief (USD 1.00) is in its pending record
+          pending = glob.glob(os.path.join(lab, "__statera__", ".harness", "pending", "*-tu1.json"))
+          print("pending records:", pending, flush=True)
+          if len(pending) != 1 or json.load(open(pending[0], encoding="utf-8")).get("B") != 1.0:
+              errors.append("the budget row left no pending record with B 1.0 for tu1")
+          for e in errors:
+              print("::error::" + e)
+          sys.exit(1 if errors else 0)
+          PY
 
   commit_back:
     needs: install_smoke
@@ -279,10 +354,10 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-      - uses: actions/download-artifact@v8
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: bin-and-manifest
           path: ${{ runner.temp }}/assembled

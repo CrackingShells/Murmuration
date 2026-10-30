@@ -3,11 +3,11 @@
 [![License](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
 
 > [!WARNING]
-> **Claude Code only, macOS and Linux.** Murmuration is a Claude Code plugin (Claude Code 2.1.295 or
+> **Claude Code only; macOS and Linux. Windows tested in CI only, no live session yet.** Murmuration is a Claude Code plugin (Claude Code 2.1.295 or
 > later). Its hooks use Claude Code events and options that other harnesses do not have, so it does
 > not install in Codex, VS Code, Cursor or other Agent Plugins clients; support for them is planned.
-> Windows installs are not supported yet: the hook binary is built for Windows, but the hooks that
-> install it run `python3`, which Windows does not provide under that name.
+> On Windows, CI builds the hook binary, runs the install hook and a budget hook the way Claude Code
+> spawns them, but nobody has run a live session there. It needs a real `python3` on PATH (see Requirements).
 
 A research team for Claude Code: a principal investigator that follows what does not add up, and
 colleagues who explore, prove, measure and check each other's work.
@@ -108,13 +108,21 @@ delete: start Claude Code in it with `COLGREP_DATA_DIR=<folder>/.colgrep`.
 ## Requirements
 
 - Claude Code 2.1.295 or later.
-- macOS or Linux (x86_64 or arm64).
-- Python 3 (standard library only) for the hooks and the status script.
+- macOS or Linux (x86_64 or arm64), or Windows (x86_64; tested in CI only, no live session yet).
+- Python 3 (standard library only) for the hooks and the status script. On Windows it must be
+  reachable as `python3` on PATH: Microsoft Store Python provides that name, but a python.org-only
+  install has only `python` and `py`, so add a `python3` alias. Stock Windows ships a Store
+  `python3.exe` App Execution Alias that prints "Python was not found" and exits 9009; that stub
+  counts as no `python3`. A real `python3` must come before `WindowsApps` on PATH, or turn the alias
+  off (Settings, Apps, Advanced app settings, App execution aliases). Without a real one, the
+  install, resume-brief and user-words hooks fail without blocking, and the budget and hand-back
+  hooks error.
 
 The hooks run a small Rust program, `murmuration`, built by CI for each platform and installed at
 session start into the plugin's data folder. It is installed only when its hash, the hashes of the
 sources it was built from, and a self-test against the Python hooks all agree; otherwise the Python
-hooks run instead, which is correct and slower, and the session is told why.
+hooks run instead, which is correct and slower, and the session is told why. On Windows there is no
+such fallback: the budget and hand-back hooks stay off until a binary installs.
 
 ## Tools by role
 

@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""SessionStart hook: put the plugin's hook program where the hook rows exec it, `${CLAUDE_PLUGIN_DATA}/bin/murmuration` (subcommands `budget`, `handback`), once per session; the Rust binary only when nothing doubts it.
+"""SessionStart hook: put the plugin's hook program where the hook rows exec it, `${CLAUDE_PLUGIN_DATA}/bin/murmuration.exe` on every OS (subcommands `budget`, `handback`), once per session; the Rust binary only when nothing doubts it.
 
 Python standard library only; hooks.json starts it in exec form (`python3 -S -I install_binary.py`, no shell).
-The binary for this platform (`bin/<target>/<binary name>`: macOS or Linux, arm64/aarch64 or x86_64; the name and the target list come from scripts/build_manifest.py; Windows installs are a later cycle) is installed only when all of these hold:
+The binary for this platform (`bin/<target>/<binary name>`: macOS or Linux, arm64/aarch64 or x86_64, or Windows x86_64; the name and the target list come from scripts/build_manifest.py) is installed only when all of these hold:
   (a) its sha256 equals the one in `bin/manifest.json`, and the manifest lists every binary that bin/ holds;
   (b) the sha256 of `scripts/budget.py`, `handback.py`, `run_hook.py` and of the Rust sources (computed with scripts/build_manifest.py's rule) equal the manifest's, which binds the binary to the scripts and to the listed Rust sources that are on disk (the hashes do not show how the binary was built: CI building the binary and the manifest from one checkout does);
   (c) a copy of it, run on six budget and hand-back events in a temporary lab (`hook_selftest`), gives the Python scripts' stdout, exit code, log kinds and hand-back file.
 On any doubt (and where no binary fits the platform) it installs a launcher that runs `scripts/run_hook.py` instead, and tells the session why: a SessionStart
-`additionalContext` line the model sees, and a line on stderr. A previous install is replaced by the launcher in that case. Copies are atomic (temporary file, then rename), so concurrent
+`additionalContext` line the model sees, and a line on stderr. A previous install is replaced by the launcher in that case. On Windows there is no launcher (it is a POSIX shell script): a previous install is removed, and the budget and hand-back hooks fail without blocking until a binary installs.
+The names are `bin/murmuration.exe` and its stamp `bin/murmuration.exe.verified`, whatever the OS: version 0.2.0 owns `bin/murmuration` and `bin/.verified` in the same data folder, and the two versions must not overwrite each other's files. Copies are atomic (temporary file, then rename), so concurrent
 sessions installing into one data folder never expose a partial file. A stamp file next to the binary records what was verified; while binary, sources and stamp agree, the self-test is not repeated.
 Errors that stop the install itself (a data folder that cannot be written, the plugin variables missing) exit 1 with a message on stderr; the budget and hand-back rows then fail without blocking anything.
 """
@@ -21,9 +22,11 @@ import subprocess
 import sys
 
 SCRIPTS = ["budget.py", "handback.py", "run_hook.py"]   # as in build_manifest.py
-# hosts whose installs are supported; the triples are build_manifest.ALL_TARGETS (Windows stays out until its install path exists: the SessionStart rows exec `python3` and the data path is bin/murmuration)
+# hosts whose installs are supported; the triples are build_manifest.ALL_TARGETS (platform.machine() says AMD64 on Windows)
 TARGETS = {("Darwin", "arm64"): "aarch64-apple-darwin", ("Darwin", "x86_64"): "x86_64-apple-darwin",
-           ("Linux", "x86_64"): "x86_64-unknown-linux-gnu", ("Linux", "aarch64"): "aarch64-unknown-linux-gnu"}
+           ("Linux", "x86_64"): "x86_64-unknown-linux-gnu", ("Linux", "aarch64"): "aarch64-unknown-linux-gnu",
+           ("Windows", "AMD64"): "x86_64-pc-windows-msvc"}
+WINDOWS = os.name == "nt"   # a name so that the self-test can take the Windows doubt branch on any host
 
 
 def digest(path):
@@ -115,6 +118,22 @@ def doubt(root, target):
         return "the Rust sources cannot be hashed (%s)" % type(exc).__name__
 
 
+def mask_lab(data, leaf):
+    """`data` (bytes) with the lab's random leaf name (`tmpab12cd`, os.path.basename of its path) replaced by `<LAB>`. The two labs come from one temporary folder, so their parents agree; the leaf is the one part of the path that no JSON escaping (doubled backslashes, `\\uXXXX` for a non-ASCII user name) changes."""
+    return data.replace(leaf.encode(), b"<LAB>")
+
+
+def show_step(step, limit=160):
+    """One step's (exit code, stdout, stderr), each stream cut to `limit` characters, for the reason a difference is reported with (the labs are already masked)."""
+    code, out, err = step
+    return "exit %s, stdout %s, stderr %s" % (code, repr(out)[:limit], repr(err)[:limit])
+
+
+def show_records(records, limit=240):
+    """The (harness.jsonl event kinds, hand-back files) of one program, cut to `limit` characters."""
+    return repr(records)[:limit]
+
+
 def hook_selftest(root, binary):
     """The name of the first budget or handback step on which the binary and the Python scripts (run by this interpreter) differ, or None.
 
@@ -131,7 +150,7 @@ def hook_selftest(root, binary):
         env = dict(os.environ, CLAUDE_PLUGIN_ROOT=root, LC_ALL="en_US.UTF-8")
         env.pop("CLAUDE_PROJECT_DIR", None)
         p = subprocess.run(cmd, input=json.dumps(dict(event, cwd=lab, transcript_path=lab + "/s.jsonl")).encode(), capture_output=True, timeout=10, env=env)
-        return p.returncode, p.stdout.replace(lab.encode(), b"<LAB>"), p.stderr.replace(lab.encode(), b"<LAB>")   # the start note names the lab's absolute path, and each program runs in its own temporary lab
+        return p.returncode, mask_lab(p.stdout, os.path.basename(lab)), mask_lab(p.stderr, os.path.basename(lab))   # the start note names the lab's absolute path, and each program runs in its own temporary lab
 
     results = []
     for who in ("python", "binary"):
@@ -165,9 +184,9 @@ def hook_selftest(root, binary):
             results.append((out, log, shake))
     for n, (a, b) in enumerate(zip(*[r[0] for r in results])):
         if a != b:
-            return "step %d" % (n + 1)
+            return "step %d: python %s; binary %s" % (n + 1, show_step(a), show_step(b))
     if results[0][1] != results[1][1] or results[0][2] != results[1][2]:
-        return "the records written"
+        return "the records written: python %s; binary %s" % (show_records(results[0][1:]), show_records(results[1][1:]))
     return None
 
 
@@ -188,7 +207,7 @@ def install(root, data, target):
     """Install and return (state, reason): state is 'binary' or 'launcher'; reason says why the launcher."""
     dest_dir = os.path.join(data, "bin")
     os.makedirs(dest_dir, exist_ok=True)
-    dest, stamp = os.path.join(dest_dir, "murmuration"), os.path.join(dest_dir, ".verified")
+    dest, stamp = os.path.join(dest_dir, "murmuration.exe"), os.path.join(dest_dir, "murmuration.exe.verified")
     reason = doubt(root, target)
     if reason is None:
         src = os.path.join(root, "bin", target, load_manifest_tool(root).binary_name(target))
@@ -206,16 +225,29 @@ def install(root, data, target):
         os.chmod(tmp, 0o755)
         bad = hook_selftest(root, tmp)
         if bad is None:
-            os.replace(tmp, dest)
-            atomic_write(stamp, want_stamp.encode(), 0o644)
+            try:
+                os.replace(tmp, dest)
+                atomic_write(stamp, want_stamp.encode(), 0o644)
+            except OSError:   # an exe held open by another session (Windows): do not leave the copy behind on every retry
+                try:
+                    os.remove(tmp)
+                except OSError:
+                    pass
+                raise
             return "binary", None
         os.remove(tmp)
         reason = "the binary's `budget/handback` differs from the Python script on the self-test (%s)" % bad
-    body = launcher_body(root)
     try:
         os.remove(stamp)
     except OSError:
         pass
+    if WINDOWS:   # the launcher is a POSIX shell script, which no Windows exec runs: leave no file, so that a stale binary does not keep running either
+        try:
+            os.remove(dest)
+        except FileNotFoundError:
+            pass
+        return "launcher", reason
+    body = launcher_body(root)
     try:
         if open(dest, "rb").read() == body:
             return "launcher", reason
@@ -239,9 +271,9 @@ def selftest():
     here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     target = "x86_64-unknown-linux-gnu"
     other = "aarch64-unknown-linux-gnu"
-    assert ("Windows", "AMD64") not in TARGETS and not any(k[0] == "Windows" for k in TARGETS)
+    assert TARGETS[("Windows", "AMD64")] == "x86_64-pc-windows-msvc"
     assert TARGETS[("Linux", "x86_64")] == target and TARGETS[("Linux", "aarch64")] == other
-    assert sorted(TARGETS.values()) == sorted(t for t in load_manifest_tool(here).ALL_TARGETS if "windows" not in t)
+    assert sorted(TARGETS.values()) == sorted(load_manifest_tool(here).ALL_TARGETS)
     with tempfile.TemporaryDirectory() as tmp:
         tmp = os.path.realpath(tmp)
         base = os.path.join(tmp, "base")
@@ -277,9 +309,14 @@ def selftest():
         # positive control: nothing doubts it, and install() puts the binary in place
         root = fresh("control")
         assert doubt(root, target) is None, doubt(root, target)
+        old = {"murmuration": b"0.2.0 binary", ".verified": b"0.2.0 stamp"}   # version 0.2.0's files in the shared data folder: installing the binary must not touch them (the Windows doubt branch below is checked against a copy of them too)
+        for n, data in old.items():
+            write(os.path.join(tmp, "control-data", "bin", n), data, 0o644)
         state, reason = install(root, os.path.join(tmp, "control-data"), target)
         assert (state, reason) == ("binary", None), (state, reason)
-        assert open(os.path.join(tmp, "control-data", "bin", "murmuration"), "rb").read() == launcher_body(root) + b"# stands in for the binary\n"
+        assert open(os.path.join(tmp, "control-data", "bin", "murmuration.exe"), "rb").read() == launcher_body(root) + b"# stands in for the binary\n"
+        assert os.path.isfile(os.path.join(tmp, "control-data", "bin", "murmuration.exe.verified")) and sorted(os.listdir(os.path.join(tmp, "control-data", "bin"))) == [".verified", "murmuration", "murmuration.exe", "murmuration.exe.verified"]
+        assert all(open(os.path.join(tmp, "control-data", "bin", n), "rb").read() == data for n, data in old.items())
         assert doubt(root, None).startswith("no binary is built for this platform")
 
         def flip(path):
@@ -351,7 +388,7 @@ def selftest():
             mutate(root)
             state, reason = install(root, data, target)
             assert state == "launcher" and reason is not None and want in reason, (name, state, reason)
-            assert open(os.path.join(data, "bin", "murmuration"), "rb").read() == launcher_body(root) and not os.path.exists(os.path.join(data, "bin", ".verified")), name
+            assert open(os.path.join(data, "bin", "murmuration.exe"), "rb").read() == launcher_body(root) and not os.path.exists(os.path.join(data, "bin", "murmuration.exe.verified")), name
             if name.startswith("stale"):
                 d = doubt(root, target)
                 assert (d is None) == (name == "stale_new"), (name, d)   # the old manifest is caught by a hash; the regenerated one only by the self-tests
@@ -361,6 +398,40 @@ def selftest():
         for rel in ("rust/.DS_Store", "rust/src/.DS_Store", "rust/target/release/x.rs", "rust/src/notes.txt"):
             write(os.path.join(os.path.join(tmp, "control"), rel), b"stray", 0o644)
         assert doubt(os.path.join(tmp, "control"), target) is None
+        # the lab's leaf is masked whatever escaping the rest of the path went through: a Windows path (backslashes doubled, doubled again inside a quoted string), a non-ASCII user name (raw in the note, \\u00e9 in the envelope)
+        for user in ("RUNNER~1", "Jos\u00e9"):
+            outs = []
+            for leaf in ("tmpab12", "tmpcd34"):
+                wlab = "C:\\Users\\%s\\%s" % (user, leaf)
+                note = "the lab %s and %s" % (json.dumps(wlab, ensure_ascii=False), json.dumps(wlab))
+                outs.append(mask_lab(json.dumps({"c": note}).encode() + b"\n" + wlab.encode("utf-8"), leaf))
+                assert leaf.encode() not in outs[-1] and b"<LAB>" in outs[-1], (user, outs[-1])
+            assert outs[0] == outs[1], (user, outs)
+        # a replace that fails (an exe held open, taken here as a directory in the way) leaves no copy behind
+        root = fresh("held")
+        os.makedirs(os.path.join(tmp, "held-data", "bin", "murmuration.exe", "x"))
+        try:
+            install(root, os.path.join(tmp, "held-data"), target)
+            raise AssertionError("the install did not fail")
+        except OSError:
+            pass
+        assert sorted(os.listdir(os.path.join(tmp, "held-data", "bin"))) == ["murmuration.exe"], os.listdir(os.path.join(tmp, "held-data", "bin"))
+        # Windows has no launcher: the doubt branch removes the binary and its stamp (taken on this host by setting WINDOWS), and leaves 0.2.0's files alone
+        global WINDOWS
+        was, WINDOWS = WINDOWS, True
+        try:
+            root = fresh("windows")
+            data = os.path.join(tmp, "windows-data")
+            assert install(root, data, target) == ("binary", None)
+            write(os.path.join(data, "bin", "murmuration"), b"0.2.0 binary", 0o644)
+            mutate = m_sources
+            mutate(root)
+            state, reason = install(root, data, target)
+            assert state == "launcher" and "Rust sources changed" in reason, (state, reason)
+            assert sorted(os.listdir(os.path.join(data, "bin"))) == ["murmuration"], os.listdir(os.path.join(data, "bin"))
+            assert install(root, data, target) == ("launcher", reason)   # nothing to remove the second time
+        finally:
+            WINDOWS = was
     print("selftest install_binary: ok (%d mutations)" % len(cases))
     return 0
 
@@ -388,7 +459,10 @@ def main():
         sys.stderr.write("murmuration install: cannot install the hook binary into %s (%s: %s); the budget and hand-back hooks will fail until this is fixed\n" % (data, type(exc).__name__, exc))
         return 1
     if state == "launcher":
-        note = "murmuration: the plugin's budget and hand-back hooks run as the Python scripts, not the Rust binary, because %s. Decisions are the Python scripts'. The binary comes from CI (the `build(bin)` commit of the plugin's repository); until a release carries one that matches these files, the Python scripts decide, which is correct and slower." % reason
+        if WINDOWS:
+            note = "murmuration: the plugin's budget and hand-back hooks are off on Windows, because %s. There is no launcher there; the hooks fail without blocking until a binary installs. The binary comes from CI (the `build(bin)` commit of the plugin's repository)." % reason
+        else:
+            note = "murmuration: the plugin's budget and hand-back hooks run as the Python scripts, not the Rust binary, because %s. Decisions are the Python scripts'. The binary comes from CI (the `build(bin)` commit of the plugin's repository); until a release carries one that matches these files, the Python scripts decide, which is correct and slower." % reason
         sys.stderr.write(note + "\n")
         sys.stdout.write(json.dumps({"hookSpecificOutput": {"hookEventName": "SessionStart", "additionalContext": note}}))
     return 0

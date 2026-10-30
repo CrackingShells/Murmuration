@@ -11,7 +11,7 @@ pub(crate) enum Os {
 }
 
 /// The family this binary was compiled for.
-const OS: Os = if cfg!(windows) { Os::Windows } else { Os::Unix };
+pub(crate) const OS: Os = if cfg!(windows) { Os::Windows } else { Os::Unix };
 
 /// The interpreter the Python fallback is spawned with.
 pub(crate) fn python_for(os: Os) -> &'static str {
