@@ -6,13 +6,13 @@
 - [x] Commit vocabulary decided by Eliott (sitting 1, 2026-10-30): `__reports__/release_lifecycle/commit_vocabulary_v0.md` D1–D7 as recommended, D4 as a CI check, `bump_message` keeps `[skip ci]`
 - [x] Tag `v0.2.0` at 1f164ae pushed, and repository settings applied and read back (Eliott's yes, sitting 1): PR merges are merge commits only, titled by the PR title with the PR body, branch deleted on merge; no branch protection, so the Direct lane still pushes
 **Success Gates**:
-- ⬜ `cz check` accepts the subjects the report's draft regex accepts (302 of 850 on 3afb2da, 103 of the 105 since 2026-10-27) and rejects its reject samples; the report's unit checks pass under the pinned cz
-- ⬜ The `commits` job fails a range in which a trace type (`claim`, `verdict`, `wave`, `synthesis`, `user_words`, `reports`, `rdm`) touches `plugins/murmuration/**` (D4)
-- ⬜ The `bump_map` releases only on feat (minor), fix and perf (patch), and `BREAKING CHANGE` (minor while 0.x). `refactor`, `docs`, `merge`, `rdm`, `reports` and the research types never bump, checked by `cz bump --dry-run` in a scratch clone
-- ⬜ The `release` job fails closed. It does not run after a red matrix (it tolerates `skipped` only when `changes` found no gated path). It exits 1 when no `v*` tag exists. It checks the manifest hashes against the new tip of origin/main, uses `git push --atomic`, and grants `contents: write` to itself alone
-- ⬜ [run] PR-A's `pull_request` run green, including `commits`, `pr-title` and `preview`
-- ⬜ [run] PR-A merged as a merge commit (Eliott's yes). Its push run's `release` job reports nothing to release, and no tag beyond `v0.2.0` exists
-- ⬜ CONTRIBUTING.md has the sections Commit messages, Integration lanes, Versioning and Branches, and the root README names it
+- ✅ `cz check` accepts the subjects the report's draft regex accepts (302 of 850 on 3afb2da, 103 of the 105 since 2026-10-27) and rejects its reject samples; the report's unit checks pass under the pinned cz
+- ✅ The `commits` job fails a range in which a trace type (`claim`, `verdict`, `wave`, `synthesis`, `user_words`, `reports`, `rdm`) touches `plugins/murmuration/**` (D4)
+- ✅ The `bump_map` releases only on feat (minor), fix and perf (patch), and `BREAKING CHANGE` (minor while 0.x). `refactor`, `docs`, `merge`, `rdm`, `reports` and the research types never bump, checked by `cz bump --dry-run` in a scratch clone
+- ✅ The `release` job fails closed. It does not run after a red matrix (it tolerates `skipped` only when `changes` found no gated path). It exits 1 when no `v*` tag exists. It checks the manifest hashes against the new tip of origin/main, uses `git push --atomic`, and grants `contents: write` to itself alone
+- ✅ [run] PR-A's `pull_request` run green, including `commits`, `pr-title` and `preview`
+- ✅ [run] PR-A merged as a merge commit (Eliott's yes). Its push run's `release` job reports nothing to release, and no tag beyond `v0.2.0` exists. Its idempotent Release step also created the missing v0.2.0 GitHub Release (Eliott: "Let CI create it")
+- ✅ CONTRIBUTING.md has the sections Commit messages, Integration lanes, Versioning and Branches, and the root README names it
 **References**: plan `~/.claude/plans/system-reminder-linked-sessions-now-groovy-waffle.md` § PR-A; writing-release v2.0.0 `references/setting-up.md`, `ci-release-job.md`, `lifecycle.md`, `recovery.md` (first run); `__reports__/windows_install/A2_lifecycle_and_live_split.md`
 
 ## Step 1: Commitizen config from the decided vocabulary

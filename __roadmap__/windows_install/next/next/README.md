@@ -16,7 +16,7 @@ The remaining Windows path forms are decided.
 ```mermaid
 graph TD
     path_gaps[8.3 short names and odd path forms]:::blocked
-    next[Install]:::planned
+    next[Install]:::inprogress
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
     classDef planned    fill:#374151,color:#e5e7eb
@@ -28,7 +28,7 @@ graph TD
 | Node | Type | Status |
 |:-----|:-----|:-------|
 | `path_gaps.md` | 📄 Leaf Task | 🚫 Blocked |
-| `next/` | 📁 Directory | ⬜ Planned |
+| `next/` | 📁 Directory | 🔄 In Progress |
 
 ## Amendment Log
 | ID | Date | Source | Nodes Added | Rationale |

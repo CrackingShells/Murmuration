@@ -4,18 +4,18 @@
 **Pre-conditions**:
 - [x] `retire_guard` done (A1; it replaces `if_decision` and `path_gaps`)
 **Success Gates**:
-- ⬜ The 9 binary rows in `hooks.json` exec `${CLAUDE_PLUGIN_DATA}/bin/murmuration.exe`; the 3 Python rows are byte-identical to origin/main 3afb2da
-- ⬜ `("Windows", "AMD64")` in `install_binary.TARGETS`; every `--selftest` in `plugins/murmuration/scripts/` passes on macOS
-- ⬜ `scripts/check_text_io.py` clean
-- ⬜ `claude plugin validate plugins/murmuration` passes
-- ⬜ [run] PR-B's `pull_request` run (stacked on PR-A): 5 build rows and `install_smoke` green on macos-15, ubuntu-22.04 and windows-latest; `assemble` fails if the Windows binary is missing
-- ⬜ Plugin description and both README banners read "macOS and Linux; Windows tested in CI only, no live session yet"; README Requirements state the Windows `python3` requirement
+- ✅ The 8 binary rows in `hooks.json` exec `${CLAUDE_PLUGIN_DATA}/bin/murmuration.exe`; the 3 Python rows are byte-identical to origin/main 3afb2da
+- ✅ `("Windows", "AMD64")` in `install_binary.TARGETS`; every `--selftest` in `plugins/murmuration/scripts/` passes on macOS
+- ✅ `scripts/check_text_io.py` clean
+- ✅ `claude plugin validate plugins/murmuration` passes
+- ✅ [run] PR-B's `pull_request` run (stacked on PR-A): 5 build rows and `install_smoke` green on macos-15, ubuntu-22.04 and windows-latest; `assemble` fails if the Windows binary is missing
+- ✅ Plugin description and both README banners read "macOS and Linux; Windows tested in CI only, no live session yet"; README Requirements state the Windows `python3` requirement
 **References**: plan `~/.claude/plans/system-reminder-linked-sessions-now-groovy-waffle.md` § PR-B; `__reports__/windows_install/A2_lifecycle_and_live_split.md`; Claude Code hooks reference, exec form (code.claude.com/docs/en/hooks); reminder `murmuration-win-ci-release`
 
 ## Step 1: The binary as `murmuration.exe` on every OS
 **Goal**: Hooks exec a documented Windows form and never touch 0.2.0's files in the shared data folder.
 **Implementation Logic**:
-- `hooks/hooks.json`: append `.exe` to the `command` of the 9 binary rows. The Python rows (`install_binary.py`, `resume_brief.py`, `user_words.py`) stay exactly as they are. Shell-form or shim launches were rejected because they add about 70 ms per start.
+- `hooks/hooks.json`: append `.exe` to the `command` of the 8 binary rows. The Python rows (`install_binary.py`, `resume_brief.py`, `user_words.py`) stay exactly as they are. Shell-form or shim launches were rejected because they add about 70 ms per start.
 - `scripts/install_binary.py`, the minimum:
   - add `("Windows", "AMD64"): "x86_64-pc-windows-msvc"` to `TARGETS` and fix its comment and the module docstring, which names `bin/murmuration`;
   - `install()`: `dest` becomes `bin/murmuration.exe` and the stamp becomes `bin/murmuration.exe.verified`. 0.2.0 owns `bin/murmuration` and `bin/.verified`; sharing the stamp would make the two versions re-copy and re-self-test at each other's SessionStart;

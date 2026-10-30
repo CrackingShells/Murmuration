@@ -17,7 +17,7 @@ The `if` decision is recorded and the Windows shell bypasses are closed.
 graph TD
     if_decision[Keep, widen or drop if]:::blocked
     shell_gaps[cmd, PowerShell and script bypasses]:::blocked
-    next[Path gaps]:::planned
+    next[Path gaps]:::inprogress
     classDef done       fill:#166534,color:#bbf7d0
     classDef inprogress fill:#854d0e,color:#fef08a
     classDef planned    fill:#374151,color:#e5e7eb
@@ -30,7 +30,7 @@ graph TD
 |:-----|:-----|:-------|
 | `if_decision.md` | 📄 Leaf Task | 🚫 Blocked |
 | `shell_gaps.md` | 📄 Leaf Task | 🚫 Blocked |
-| `next/` | 📁 Directory | ⬜ Planned |
+| `next/` | 📁 Directory | 🔄 In Progress |
 
 ## Amendment Log
 | ID | Date | Source | Nodes Added | Rationale |
