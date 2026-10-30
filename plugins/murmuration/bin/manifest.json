@@ -1,9 +1,9 @@
 {
   "binaries": {
-    "aarch64-apple-darwin": "8c5fc22ac6bf22c71462de44e6dacb3d636628df61f3c589a5e8b9294d7343f9",
+    "aarch64-apple-darwin": "1534aaa60957a8c5ed710b70e1e86b12e772e8ea0b0846e5437475c2a25bf420",
     "aarch64-unknown-linux-gnu": "d9284f7d0c31c56c7aa810745d7d17df8f45106babed114efd3b233f18575bbf",
     "x86_64-apple-darwin": "53cc5bcca1b7ec1b3a0bfed820c9f02f56bab8c408d08c8f7662ed91db69daf4",
-    "x86_64-pc-windows-msvc": "0ede405b31ce52026170124aaaef3e526dcbb082a1ddc42f1d4135cb5b9560d3",
+    "x86_64-pc-windows-msvc": "9cd2fbe82b800345e963df9f9ab78141108116285fcabb18b5827af4d5c44cf4",
     "x86_64-unknown-linux-gnu": "ba15f45ae3492d1c41aa396ade6cf3cdc4c5caa9d7d4f2c92dcc7d6c9f72026c"
   },
   "format": 2,
