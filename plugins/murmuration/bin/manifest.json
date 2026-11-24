@@ -1,10 +1,10 @@
 {
   "binaries": {
-    "aarch64-apple-darwin": "a35735d1458fee595e7153493da8336d69eb6c7bbf96ff9c173fb05926a5362a",
-    "aarch64-unknown-linux-gnu": "f1cf9c2bb0883ccf31488723ecd284ecf8ab691b461518d5b83d6d62606ed04c",
+    "aarch64-apple-darwin": "dc656f2227d083063cafa6d5ec1f4320fc82fd18854c180630764a6cac2b70ef",
+    "aarch64-unknown-linux-gnu": "dd03fe6bb2a4f0ac6d2d15f29884e1ee7d47566c3d17933d71d9a2fe59b696c9",
     "x86_64-apple-darwin": "b978b0969c21aeb5071d250660ede866d4f3e17ba72c72f8dbd00a8164cb6612",
-    "x86_64-pc-windows-msvc": "ef5c875a9b45a3b89f21d616da8a5401ebc78df10bceb31dd9e852a52d569efb",
-    "x86_64-unknown-linux-gnu": "f8dc620ca918f84d77462d996892fa158baae41ac7e9443aa0a4b53f5fccf759"
+    "x86_64-pc-windows-msvc": "26b421d6dbf15a8d92092d5f3ded910496f1c9b1e5c24b79c983eea122d8447d",
+    "x86_64-unknown-linux-gnu": "d9e0ae4711405b9f25d9d543875047ec1421a9e33c2ed1008c8eec961e78241e"
   },
   "format": 2,
   "rust_sources": {
